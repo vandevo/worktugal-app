@@ -27,7 +27,7 @@ export const Select: React.FC<SelectProps> = ({
       <div className="relative">
         <select
           className={cn(
-            'w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 appearance-none cursor-pointer',
+            'w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 appearance-none cursor-pointer hover:bg-gray-750 hover:border-gray-600 active:scale-[0.99] shadow-sm',
             error && 'border-red-500 focus:ring-red-500',
             className
           )}
@@ -40,7 +40,7 @@ export const Select: React.FC<SelectProps> = ({
             </option>
           ))}
         </select>
-        <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+        <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none transition-transform duration-200" />
       </div>
       {hint && !error && (
         <p className="text-xs text-gray-500">{hint}</p>

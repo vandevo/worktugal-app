@@ -6,6 +6,11 @@ export default {
       screens: {
         'xs': '475px',
       },
+      colors: {
+        gray: {
+          750: '#374151',
+        },
+      },
     },
   },
   plugins: [],
