@@ -114,16 +114,23 @@ export const PerksDirectory: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-3">
-            <input
-              type="checkbox"
-              id="portuguese-only"
-              className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
-              checked={showPortugueseOnly}
-              onChange={(e) => setShowPortugueseOnly(e.target.checked)}
-            />
-            <label htmlFor="portuguese-only" className="text-sm text-gray-300">
-              Show only Portuguese-owned businesses
-            </label>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => setShowPortugueseOnly(!showPortugueseOnly)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
+                  showPortugueseOnly ? 'bg-blue-600' : 'bg-gray-600'
+                }`}
+              >
+                <span
+                  className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform ${
+                    showPortugueseOnly ? 'translate-x-6' : 'translate-x-1'
+                  }`}
+                />
+              </button>
+              <label className="text-sm text-gray-300">
+                Show only Portuguese-owned businesses
+              </label>
+            </div>
           </div>
         </div>
 
