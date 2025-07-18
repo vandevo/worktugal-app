@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, ArrowRight, Home, Gift } from 'lucide-react';
+import { CheckCircle, ArrowRight, Home, Gift, Calendar, Users, TrendingUp } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 import { useSubscription } from '../hooks/useSubscription';
 
 export const SuccessPage: React.FC = () => {
-  const { subscription, activeProductName } = useSubscription();
+  const { hasActivePayment, activeProductName } = useSubscription();
   const [showConfetti, setShowConfetti] = useState(true);
 
   useEffect(() => {
@@ -75,34 +75,56 @@ export const SuccessPage: React.FC = () => {
           >
             <h1 className="text-4xl font-bold mb-4">Welcome to Early Access!</h1>
             <p className="text-xl text-gray-300 mb-6">
-              You've secured your spot in Lisbon's #1 perk marketplace
+              You've successfully secured your spot in Lisbon's #1 perk marketplace
             </p>
-            {activeProductName && (
-              <div className="inline-flex items-center space-x-2 bg-green-600/20 text-green-300 px-4 py-2 rounded-full">
-                <Gift className="h-4 w-4" />
-                <span className="text-sm font-medium">Early Access Member</span>
-              </div>
-            )}
+            <div className="inline-flex items-center space-x-2 bg-green-600/20 text-green-300 px-4 py-2 rounded-full">
+              <Gift className="h-4 w-4" />
+              <span className="text-sm font-medium">Early Access Member</span>
+            </div>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+          >
+            <Card className="p-6 text-center">
+              <Users className="h-8 w-8 text-blue-400 mx-auto mb-2" />
+              <div className="text-2xl font-bold">1,000+</div>
+              <div className="text-sm text-gray-400">Remote Workers</div>
+            </Card>
+            <Card className="p-6 text-center">
+              <TrendingUp className="h-8 w-8 text-green-400 mx-auto mb-2" />
+              <div className="text-2xl font-bold">€49</div>
+              <div className="text-sm text-gray-400">One-time Payment</div>
+            </Card>
+            <Card className="p-6 text-center">
+              <Calendar className="h-8 w-8 text-purple-400 mx-auto mb-2" />
+              <div className="text-2xl font-bold">Lifetime</div>
+              <div className="text-sm text-gray-400">Access</div>
+            </Card>
           </motion.div>
 
           {/* Next Steps */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.5 }}
             className="mb-8"
           >
-            <Card className="p-8 max-w-2xl mx-auto">
-              <h2 className="text-2xl font-bold mb-6">What happens next?</h2>
-              <div className="space-y-4 text-left">
+            <Card className="p-8 max-w-2xl mx-auto text-left">
+              <h2 className="text-2xl font-bold mb-6 text-center">What happens next?</h2>
+              <div className="space-y-4">
                 <div className="flex items-start space-x-4">
                   <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                     1
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Submit Your Business Details</h3>
+                    <h3 className="font-semibold mb-1">Complete Business Submission</h3>
                     <p className="text-gray-400 text-sm">
-                      Complete the partner form with your business information and perk details
+                      Fill out your business details and perk information through our partner form
                     </p>
                   </div>
                 </div>
@@ -111,9 +133,9 @@ export const SuccessPage: React.FC = () => {
                     2
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Review & Approval</h3>
+                    <h3 className="font-semibold mb-1">Fast-Track Review</h3>
                     <p className="text-gray-400 text-sm">
-                      Our team will review your submission within 24 hours for early access members
+                      Early access members get priority review within 24 hours
                     </p>
                   </div>
                 </div>
@@ -122,9 +144,9 @@ export const SuccessPage: React.FC = () => {
                     3
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Go Live!</h3>
+                    <h3 className="font-semibold mb-1">Go Live with Priority Placement</h3>
                     <p className="text-gray-400 text-sm">
-                      Your business will appear in our partner directory with priority placement
+                      Your business appears in our directory with early access badge and priority positioning
                     </p>
                   </div>
                 </div>
@@ -136,12 +158,12 @@ export const SuccessPage: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            transition={{ delay: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
           >
             <Button
               size="lg"
-              onClick={() => window.location.href = '/'}
+              onClick={() => window.location.href = '/#pricing'}
               className="px-8"
             >
               Submit Business Details
@@ -162,18 +184,35 @@ export const SuccessPage: React.FC = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="mt-12 p-6 bg-gray-800 rounded-xl max-w-md mx-auto"
+            transition={{ delay: 0.7 }}
+            className="bg-gray-800 rounded-xl p-6 max-w-md mx-auto"
           >
-            <p className="text-sm text-gray-400">
-              Questions about your purchase?{' '}
-              <a 
-                href="mailto:partners@worktugal.com" 
-                className="text-blue-400 hover:text-blue-300 transition-colors"
-              >
-                Contact our support team
-              </a>
+            <h3 className="font-semibold mb-2">Need Help?</h3>
+            <p className="text-sm text-gray-400 mb-3">
+              Our team is here to help you get started. Reach out with any questions about your membership.
             </p>
+            <div className="space-y-2 text-sm">
+              <p>
+                <span className="text-gray-400">Email:</span>{' '}
+                <a 
+                  href="mailto:partners@worktugal.com" 
+                  className="text-blue-400 hover:text-blue-300 transition-colors"
+                >
+                  partners@worktugal.com
+                </a>
+              </p>
+              <p>
+                <span className="text-gray-400">WhatsApp:</span>{' '}
+                <a 
+                  href="https://wa.me/351912345678" 
+                  className="text-blue-400 hover:text-blue-300 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  +351 912 345 678
+                </a>
+              </p>
+            </div>
           </motion.div>
         </motion.div>
       </div>

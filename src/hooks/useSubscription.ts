@@ -15,59 +15,100 @@ export interface SubscriptionData {
   payment_method_last4: string | null;
 }
 
+export interface OrderData {
+  customer_id: string;
+  order_id: number;
+  checkout_session_id: string;
+  payment_intent_id: string;
+  amount_subtotal: number;
+  amount_total: number;
+  currency: string;
+  payment_status: string;
+  order_status: string;
+  order_date: string;
+}
+
 export const useSubscription = () => {
   const { user, loading: authLoading } = useAuth();
   const [subscription, setSubscription] = useState<SubscriptionData | null>(null);
+  const [orders, setOrders] = useState<OrderData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchSubscription = async () => {
+    const fetchPaymentData = async () => {
       if (!user) {
         setSubscription(null);
+        setOrders([]);
         setLoading(false);
         return;
       }
 
       try {
-        const { data, error } = await supabase
+        // Fetch subscription data
+        const { data: subData, error: subError } = await supabase
           .from('stripe_user_subscriptions')
           .select('*')
           .maybeSingle();
 
-        if (error) {
-          console.error('Error fetching subscription:', error);
-          setError(error.message);
+        if (subError) {
+          console.error('Error fetching subscription:', subError);
         } else {
-          setSubscription(data);
+          setSubscription(subData);
         }
+
+        // Fetch order data
+        const { data: orderData, error: orderError } = await supabase
+          .from('stripe_user_orders')
+          .select('*')
+          .eq('order_status', 'completed')
+          .order('order_date', { ascending: false });
+
+        if (orderError) {
+          console.error('Error fetching orders:', orderError);
+        } else {
+          setOrders(orderData || []);
+        }
+
+        setError(null);
       } catch (err) {
-        console.error('Error fetching subscription:', err);
-        setError('Failed to fetch subscription data');
+        console.error('Error fetching payment data:', err);
+        setError('Failed to fetch payment data');
       } finally {
         setLoading(false);
       }
     };
 
     if (!authLoading) {
-      fetchSubscription();
+      fetchPaymentData();
     }
   }, [user, authLoading]);
 
   const getActiveProductName = () => {
-    if (!subscription?.price_id) {
-      // Check if user has made any orders (one-time payments)
-      return 'Partner Listing';
+    // Check for active subscription first
+    if (subscription?.price_id) {
+      const product = getProductByPriceId(subscription.price_id);
+      return product?.name || null;
     }
     
-    const product = getProductByPriceId(subscription.price_id);
-    return product?.name || null;
+    // Check for completed orders (one-time payments)
+    if (orders.length > 0) {
+      return 'Partner Listing Early Access (Lifetime)';
+    }
+    
+    return null;
+  };
+
+  const hasActivePayment = () => {
+    return (subscription?.subscription_status === 'active') || orders.length > 0;
   };
 
   return {
     subscription,
+    orders,
     loading: loading || authLoading,
     error,
     activeProductName: getActiveProductName(),
+    hasActivePayment: hasActivePayment(),
   };
 };
