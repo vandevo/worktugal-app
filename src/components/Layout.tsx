@@ -34,10 +34,13 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               className="flex items-center space-x-2"
               whileHover={{ scale: 1.05 }}
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">W</span>
-              </div>
-              <span className="text-xl font-bold">Worktugal Pass</span>
+              <img 
+                src="/worktugal-logo-bg-light-radius-1000-1000.png" 
+                alt="Worktugal Pass" 
+                className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg object-contain"
+              />
+              <span className="text-lg sm:text-xl font-bold hidden xs:inline">Worktugal Pass</span>
+              <span className="text-lg sm:text-xl font-bold xs:hidden">Worktugal</span>
             </motion.div>
             
             <div className="flex items-center space-x-4">

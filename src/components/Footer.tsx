@@ -10,9 +10,11 @@ export const Footer: React.FC = () => {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">W</span>
-              </div>
+              <img 
+                src="/worktugal-logo-bg-light-radius-1000-1000.png" 
+                alt="Worktugal Pass" 
+                className="w-8 h-8 rounded-lg object-contain"
+              />
               <span className="text-xl font-bold">Worktugal Pass</span>
             </div>
             <p className="text-gray-400 text-sm">
