@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Layout } from './components/Layout';
 import { Hero } from './components/Hero';
 import { FormWizard } from './components/FormWizard';
 import { PerksDirectory } from './components/PerksDirectory';
+import { PricingSection } from './components/PricingSection';
+import { SuccessPage } from './components/SuccessPage';
 import { Footer } from './components/Footer';
+import { useAuth } from './hooks/useAuth';
 
-function App() {
+const HomePage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
 
   const handleGetStarted = () => {
@@ -18,7 +22,6 @@ function App() {
   };
 
   return (
-    <Layout>
       <AnimatePresence mode="wait">
         {showForm ? (
           <motion.div
@@ -55,11 +58,33 @@ function App() {
           >
             <Hero onGetStarted={handleGetStarted} />
             <PerksDirectory />
+            <PricingSection />
             <Footer />
           </motion.div>
         )}
       </AnimatePresence>
-    </Layout>
+};
+
+function App() {
+  const { loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  return (
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/success" element={<SuccessPage />} />
+        </Routes>
+      </Layout>
+    </Router>
   );
 }
 
