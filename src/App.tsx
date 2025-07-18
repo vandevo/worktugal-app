@@ -63,6 +63,7 @@ const HomePage: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
+  );
 };
 
 function App() {
