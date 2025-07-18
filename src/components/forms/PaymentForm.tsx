@@ -3,7 +3,12 @@ import { motion } from 'framer-motion';
 import { CreditCard, Shield, Check, Euro } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
+import { Alert } from '../ui/Alert';
 import { LISTING_PRICE } from '../../utils/constants';
+import { STRIPE_PRODUCTS } from '../../stripe-config';
+import { createCheckoutSession } from '../../lib/stripe';
+import { useAuth } from '../../hooks/useAuth';
+import { AuthModal } from '../auth/AuthModal';
 
 interface PaymentFormProps {
   onSubmit: () => void;
@@ -11,14 +16,36 @@ interface PaymentFormProps {
 }
 
 export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack }) => {
+  const { user } = useAuth();
   const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const handlePayment = async () => {
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+
     setProcessing(true);
-    // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setProcessing(false);
-    onSubmit();
+    setError(null);
+
+    try {
+      const product = STRIPE_PRODUCTS[0]; // Get the first (and only) product
+      
+      const { url } = await createCheckoutSession({
+        priceId: product.priceId,
+        successUrl: `${window.location.origin}/success`,
+        cancelUrl: window.location.href,
+        mode: product.mode,
+      });
+
+      // Redirect to Stripe Checkout
+      window.location.href = url;
+    } catch (err: any) {
+      setError(err.message || 'Failed to create checkout session');
+      setProcessing(false);
+    }
   };
 
   return (
@@ -33,6 +60,12 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack }) =>
         <h2 className="text-2xl font-bold mb-2">Complete your listing</h2>
         <p className="text-gray-400">One-time payment to join our partner network</p>
       </div>
+
+      {error && (
+        <Alert variant="error" className="mb-6" onClose={() => setError(null)}>
+          {error}
+        </Alert>
+      )}
 
       <Card className="p-6">
         <div className="space-y-4">
@@ -101,6 +134,12 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack }) =>
           </Button>
         </div>
       </div>
+
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        initialMode="signup"
+      />
     </motion.div>
   );
 };
