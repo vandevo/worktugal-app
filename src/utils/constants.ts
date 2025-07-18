@@ -20,7 +20,7 @@ export const REDEMPTION_METHODS = [
   { value: 'other', label: 'Other method' }
 ];
 
-export const LISTING_PRICE = 59; // €59 listing fee
+export const LISTING_PRICE = 49; // €49 listing fee
 
 // Location constants
 export const LISBON_NEIGHBORHOODS = [

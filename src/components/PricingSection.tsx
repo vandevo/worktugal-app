@@ -63,13 +63,21 @@ export const PricingSection: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
+              className="relative"
             >
               <Card className="p-8 text-center" hover>
+                {/* Limited availability badge */}
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                  <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                    Limited: 25 spots only
+                  </div>
+                </div>
+                
                 <div className="mb-6">
                   <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
                   <div className="flex items-center justify-center mb-4">
                     <span className="text-4xl font-bold text-blue-400">€{product.price}</span>
-                    <span className="text-gray-400 ml-2">one-time</span>
+                    <span className="text-gray-400 ml-2">lifetime</span>
                   </div>
                   <p className="text-gray-300">{product.description}</p>
                 </div>
@@ -77,7 +85,7 @@ export const PricingSection: React.FC = () => {
                 <div className="space-y-3 mb-8">
                   <div className="flex items-center space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">Permanent listing in partner directory</span>
+                    <span className="text-left">Lifetime listing in partner directory</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
@@ -93,7 +101,11 @@ export const PricingSection: React.FC = () => {
                   </div>
                   <div className="flex items-center space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">No renewals or hidden fees</span>
+                    <span className="text-left">Early access pricing - limited time</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
+                    <span className="text-left">No renewals, no hidden fees</span>
                   </div>
                 </div>
 
@@ -111,7 +123,7 @@ export const PricingSection: React.FC = () => {
                   ) : (
                     <>
                       <CreditCard className="mr-2 h-5 w-5" />
-                      Get Listed Now
+                      Secure Your Spot - €{product.price}
                     </>
                   )}
                 </Button>

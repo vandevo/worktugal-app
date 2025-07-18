@@ -37,14 +37,14 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack }) =>
       <Card className="p-6">
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-lg font-medium">Partner Listing Fee</span>
+            <span className="text-lg font-medium">Early Access Listing</span>
             <span className="text-2xl font-bold text-blue-400">€{LISTING_PRICE}</span>
           </div>
           
           <div className="space-y-2 text-sm text-gray-400">
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
-              <span>Permanent listing in our partner directory</span>
+              <span>Lifetime listing in our partner directory</span>
             </div>
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
@@ -52,23 +52,27 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack }) =>
             </div>
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
-              <span>Promotion through our events and community</span>
+              <span>Priority placement and early access benefits</span>
             </div>
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
               <span>Analytics and performance tracking</span>
             </div>
+            <div className="flex items-center space-x-2">
+              <Check className="h-4 w-4 text-green-400" />
+              <span>Limited to 25 businesses only</span>
+            </div>
           </div>
         </div>
       </Card>
 
-      <div className="bg-blue-600/10 border border-blue-600/20 rounded-xl p-4">
+      <div className="bg-orange-600/10 border border-orange-600/20 rounded-xl p-4">
         <div className="flex items-center space-x-2 mb-2">
           <Shield className="h-5 w-5 text-blue-400" />
-          <span className="font-medium text-blue-400">Secure Payment</span>
+          <span className="font-medium text-orange-400">Early Access - Limited Time</span>
         </div>
         <p className="text-sm text-gray-300">
-          Your payment is processed securely through Stripe. We never store your card details.
+          Only 25 spots available at this early access price. Regular pricing will be €99 after launch.
         </p>
       </div>
 

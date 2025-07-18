@@ -74,16 +74,16 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
             <div className="text-center">
               <div className="flex items-center justify-center mb-2">
                 <TrendingUp className="h-6 w-6 text-green-400 mr-2" />
-                <span className="text-3xl font-bold">€2.5k+</span>
+                <span className="text-3xl font-bold">€49</span>
               </div>
-              <p className="text-gray-400">Average monthly spending</p>
+              <p className="text-gray-400">Early access pricing</p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center mb-2">
                 <MapPin className="h-6 w-6 text-purple-400 mr-2" />
-                <span className="text-3xl font-bold">50+</span>
+                <span className="text-3xl font-bold">25</span>
               </div>
-              <p className="text-gray-400">Partner businesses</p>
+              <p className="text-gray-400">Spots available</p>
             </div>
           </motion.div>
         </div>

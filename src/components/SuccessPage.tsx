@@ -73,14 +73,14 @@ export const SuccessPage: React.FC = () => {
             transition={{ delay: 0.3 }}
             className="mb-8"
           >
-            <h1 className="text-4xl font-bold mb-4">Payment Successful!</h1>
+            <h1 className="text-4xl font-bold mb-4">Welcome to Early Access!</h1>
             <p className="text-xl text-gray-300 mb-6">
-              Welcome to the Worktugal Pass partner network
+              You've secured your spot in Lisbon's #1 perk marketplace
             </p>
             {activeProductName && (
               <div className="inline-flex items-center space-x-2 bg-green-600/20 text-green-300 px-4 py-2 rounded-full">
                 <Gift className="h-4 w-4" />
-                <span className="text-sm font-medium">{activeProductName}</span>
+                <span className="text-sm font-medium">Early Access Member</span>
               </div>
             )}
           </motion.div>
@@ -113,7 +113,7 @@ export const SuccessPage: React.FC = () => {
                   <div>
                     <h3 className="font-semibold mb-1">Review & Approval</h3>
                     <p className="text-gray-400 text-sm">
-                      Our team will review your submission within 24-48 hours
+                      Our team will review your submission within 24 hours for early access members
                     </p>
                   </div>
                 </div>
@@ -124,7 +124,7 @@ export const SuccessPage: React.FC = () => {
                   <div>
                     <h3 className="font-semibold mb-1">Go Live!</h3>
                     <p className="text-gray-400 text-sm">
-                      Your business will appear in our partner directory and start attracting customers
+                      Your business will appear in our partner directory with priority placement
                     </p>
                   </div>
                 </div>

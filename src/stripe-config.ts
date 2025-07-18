@@ -9,12 +9,12 @@ export interface StripeProduct {
 
 export const STRIPE_PRODUCTS: StripeProduct[] = [
   {
-    id: 'prod_RtcuZS0sNnJcqn',
-    priceId: 'price_1QzpeWBm1NepJXMzJzSMUrYf',
-    name: 'Perk Marketplace Partner Listing (Early Bird)',
-    description: 'Join Lisbon\'s top perk marketplace & attract high-spending remote workers, expats, and digital nomads. After payment, you\'ll submit your business details and get listed with full visibility. No renewals, no hidden fees—just instant exposure.',
+    id: 'prod_Shiq1q1rI5sZkR',
+    priceId: 'price_1RmJOZBm1NepJXMzN8v22wZ6',
+    name: 'Partner Listing Early Access (Lifetime)',
+    description: 'Join Lisbon\'s #1 Perk Marketplace. Get lifetime visibility to remote workers, expats, and digital nomads. This early access offer is limited to 25 local businesses only. No renewals, no hidden fees.',
     mode: 'payment',
-    price: 99.00
+    price: 49.00
   }
 ];
 
