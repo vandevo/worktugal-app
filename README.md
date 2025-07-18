@@ -1,6 +1,8 @@
-# Worktugal Pass - Partner Portal
+# Worktugal Pass - Partner Portal 🚀
 
 A production-ready, mobile-first B2B web application for Worktugal Pass — Lisbon's trusted perk marketplace for remote professionals and expats.
+
+**🌐 Live Site:** [https://pass.worktugal.com](https://pass.worktugal.com)
 
 ## 🎯 Purpose
 
@@ -330,32 +332,30 @@ supabase/
 ### Netlify Deployment
 
 1. **Connect Repository**
-   ```bash
-   # Connect your Git repository to Netlify
-   ```
+The application is deployed on Netlify with automatic deployments from the main branch.
 
-2. **Build Settings**
-   ```bash
-   Build command: npm run build
-   Publish directory: dist
-   ```
+**Production URL:** https://pass.worktugal.com
 
-3. **Environment Variables**
-   ```bash
-   # Add in Netlify dashboard
-   VITE_SUPABASE_URL=your-production-url
-   VITE_SUPABASE_ANON_KEY=your-production-key
-   VITE_STRIPE_PUBLISHABLE_KEY=your-production-stripe-key
-   ```
+**Build Settings:**
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Node version: 18.x
+
+**Environment Variables** (configured in Netlify dashboard):
+- `VITE_SUPABASE_URL`: Production Supabase URL
+- `VITE_SUPABASE_ANON_KEY`: Production Supabase anonymous key  
+- `VITE_STRIPE_PUBLISHABLE_KEY`: Production Stripe publishable key
 
 ### Production Checklist
 
-- [ ] Environment variables configured
-- [ ] Database migrations applied
-- [ ] Stripe products created
-- [ ] Webhook endpoints configured
-- [ ] DNS records configured
-- [ ] SSL certificate active
+- [x] Environment variables configured
+- [x] Database migrations applied
+- [x] Stripe products created
+- [x] Webhook endpoints configured
+- [x] DNS records configured
+- [x] SSL certificate active
+- [x] Client-side routing configured (_redirects file)
+- [x] Payment flow tested and working
 - [ ] Error monitoring enabled
 - [ ] Analytics tracking enabled
 
@@ -582,13 +582,17 @@ Built by the Worktugal team for the Lisbon remote work community.
 ## 🎯 Project Status
 
 - **Version**: 1.0.0
-- **Status**: Production Ready
+- **Status**: ✅ Live in Production
+- **Deployment**: ✅ Netlify (Auto-deploy enabled)
 - **Last Updated**: January 2025
-- **Next Release**: Q2 2025
+- **Live URL**: https://pass.worktugal.com
 
 ### Recent Updates
-- ✅ Stripe integration completed
-- ✅ Payment flow optimized
+- ✅ Application deployed to production
+- ✅ Stripe integration completed and tested
+- ✅ Payment flow verified with test transactions
+- ✅ Client-side routing configured for Netlify
+- ✅ Success page functionality working
 - ✅ Mobile responsiveness enhanced
 - ✅ Security audit completed
 - ✅ Performance optimizations applied
@@ -598,5 +602,15 @@ Built by the Worktugal team for the Lisbon remote work community.
 - 🔄 Advanced analytics
 - 🔄 Multi-language support
 - 🔄 API for third-party integrations
+
+### Testing
+
+The application has been thoroughly tested with:
+- ✅ User authentication flows
+- ✅ Form validation and submission
+- ✅ Stripe payment processing (test mode)
+- ✅ Success page redirects
+- ✅ Responsive design across devices
+- ✅ Cross-browser compatibility
 
 *This is a production-ready application serving real customers in Lisbon's remote work ecosystem.*
