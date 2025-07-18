@@ -2,9 +2,7 @@ import { z } from 'zod';
 
 export const businessSchema = z.object({
   name: z.string().min(2, 'Business name must be at least 2 characters'),
-  website: z.string().optional().refine((val) => !val || val === '' || z.string().url().safeParse(val).success, {
-    message: 'Please enter a valid website URL'
-  }),
+  website: z.string().url('Please enter a valid website URL').optional().or(z.literal('')),
   instagram: z.string().optional(),
   contact_name: z.string().min(2, 'Contact name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),

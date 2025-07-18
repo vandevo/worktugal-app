@@ -9,14 +9,14 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   options: { value: string; label: string }[];
 }
 
-export const Select: React.FC<SelectProps> = ({
+export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
   label,
   error,
   hint,
   options,
   className,
   ...props
-}) => {
+}, ref) => {
   return (
     <div className="space-y-2">
       {label && (
@@ -26,6 +26,7 @@ export const Select: React.FC<SelectProps> = ({
       )}
       <div className="relative">
         <select
+          ref={ref}
           className={cn(
             'w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 appearance-none cursor-pointer hover:bg-gray-750 hover:border-gray-600 active:scale-[0.99] shadow-sm',
             error && 'border-red-500 focus:ring-red-500',
@@ -50,4 +51,6 @@ export const Select: React.FC<SelectProps> = ({
       )}
     </div>
   );
-};
+});
+
+Select.displayName = 'Select';
