@@ -13,9 +13,10 @@ import { AuthModal } from '../auth/AuthModal';
 interface PaymentFormProps {
   onSubmit: () => void;
   onBack: () => void;
+  submissionId?: number;
 }
 
-export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack }) => {
+export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, submissionId }) => {
   const { user } = useAuth();
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,6 +39,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack }) =>
         successUrl: `${window.location.origin}/success`,
         cancelUrl: window.location.href,
         mode: product.mode,
+        submissionId,
       });
 
       // Redirect to Stripe Checkout

@@ -5,6 +5,7 @@ export interface CheckoutSessionRequest {
   successUrl: string;
   cancelUrl: string;
   mode: 'payment' | 'subscription';
+  submissionId?: number;
 }
 
 export interface CheckoutSessionResponse {
@@ -34,6 +35,7 @@ export const createCheckoutSession = async (
         success_url: request.successUrl,
         cancel_url: request.cancelUrl,
         mode: request.mode,
+        submission_id: request.submissionId,
       }),
     }
   );

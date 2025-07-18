@@ -43,15 +43,16 @@ Deno.serve(async (req) => {
       return corsResponse({ error: 'Method not allowed' }, 405);
     }
 
-    const { price_id, success_url, cancel_url, mode } = await req.json();
+    const { price_id, success_url, cancel_url, mode, submission_id } = await req.json();
 
     const error = validateParameters(
-      { price_id, success_url, cancel_url, mode },
+      { price_id, success_url, cancel_url, mode, submission_id },
       {
         cancel_url: 'string',
         price_id: 'string',
         success_url: 'string',
         mode: { values: ['payment', 'subscription'] },
+        submission_id: 'number',
       },
     );
 
@@ -178,7 +179,7 @@ Deno.serve(async (req) => {
     }
 
     // create Checkout Session
-    const session = await stripe.checkout.sessions.create({
+    const sessionConfig: any = {
       customer: customerId,
       payment_method_types: ['card'],
       line_items: [
@@ -190,7 +191,16 @@ Deno.serve(async (req) => {
       mode,
       success_url,
       cancel_url,
-    });
+    };
+
+    // Add submission_id to metadata if provided
+    if (submission_id) {
+      sessionConfig.metadata = {
+        submission_id: submission_id.toString(),
+      };
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionConfig);
 
     console.log(`Created checkout session ${session.id} for customer ${customerId}`);
 
@@ -202,6 +212,7 @@ Deno.serve(async (req) => {
 });
 
 type ExpectedType = 'string' | { values: string[] };
+type ExpectedType = 'string' | 'number' | { values: string[] };
 type Expectations<T> = { [K in keyof T]: ExpectedType };
 
 function validateParameters<T extends Record<string, any>>(values: T, expected: Expectations<T>): string | undefined {
@@ -215,6 +226,10 @@ function validateParameters<T extends Record<string, any>>(values: T, expected: 
       }
       if (typeof value !== 'string') {
         return `Expected parameter ${parameter} to be a string got ${JSON.stringify(value)}`;
+      }
+    } else if (expectation === 'number') {
+      if (value != null && typeof value !== 'number') {
+        return `Expected parameter ${parameter} to be a number got ${JSON.stringify(value)}`;
       }
     } else {
       if (!expectation.values.includes(value)) {

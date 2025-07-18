@@ -7,6 +7,9 @@ import { PaymentForm } from './forms/PaymentForm';
 import { SuccessScreen } from './forms/SuccessScreen';
 import { ProgressBar } from './ui/ProgressBar';
 import { BusinessFormData, PerkFormData } from '../lib/validations';
+import { createPartnerSubmission } from '../lib/submissions';
+import { useAuth } from '../hooks/useAuth';
+import { Alert } from './ui/Alert';
 
 interface FormWizardProps {
   onComplete: () => void;
@@ -14,14 +17,42 @@ interface FormWizardProps {
 
 export const FormWizard: React.FC<FormWizardProps> = ({ onComplete }) => {
   const { formData, currentStep, updateFormData, setCurrentStep, resetForm } = useFormData();
+  const { user } = useAuth();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleBusinessSubmit = (data: BusinessFormData) => {
     updateFormData('business', data);
     setCurrentStep('perk');
   };
 
-  const handlePerkSubmit = (data: PerkFormData) => {
+  const handlePerkSubmit = async (data: PerkFormData) => {
+    if (!user) {
+      setError('You must be logged in to submit a form');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Save the submission to Supabase
+      const submissionId = await createPartnerSubmission({
+        business: formData.business,
+        perk: data,
+        userId: user.id,
+      });
+
+      // Update form data with submission ID
+      updateFormData('submissionId', submissionId);
+    } catch (err: any) {
+      setError(err.message || 'Failed to save submission');
+      setLoading(false);
+      return;
+    }
+
     updateFormData('perk', data);
+    setLoading(false);
     setCurrentStep('payment');
   };
 
@@ -68,6 +99,12 @@ export const FormWizard: React.FC<FormWizardProps> = ({ onComplete }) => {
         </div>
       )}
 
+      {error && (
+        <Alert variant="error" className="mb-6" onClose={() => setError(null)}>
+          {error}
+        </Alert>
+      )}
+
       <AnimatePresence mode="wait">
         <motion.div
           key={currentStep}
@@ -87,12 +124,14 @@ export const FormWizard: React.FC<FormWizardProps> = ({ onComplete }) => {
               onSubmit={handlePerkSubmit}
               onBack={() => setCurrentStep('business')}
               initialData={formData.perk}
+              loading={loading}
             />
           )}
           {currentStep === 'payment' && (
             <PaymentForm
               onSubmit={handlePaymentSubmit}
               onBack={() => setCurrentStep('perk')}
+              submissionId={formData.submissionId}
             />
           )}
           {currentStep === 'success' && (

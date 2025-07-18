@@ -22,6 +22,7 @@ const initialFormData: FormData = {
     is_portuguese_owned: false,
     needs_nif: false,
   },
+  submissionId: undefined,
 };
 
 export const useFormData = () => {
@@ -29,10 +30,17 @@ export const useFormData = () => {
   const [currentStep, setCurrentStep] = useState<FormStep>('business');
 
   const updateFormData = (section: keyof FormData, data: Partial<FormData[keyof FormData]>) => {
-    setFormData(prev => ({
-      ...prev,
-      [section]: { ...prev[section], ...data },
-    }));
+    if (section === 'submissionId') {
+      setFormData(prev => ({
+        ...prev,
+        submissionId: data as number,
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [section]: { ...prev[section], ...data },
+      }));
+    }
   };
 
   const resetForm = () => {
