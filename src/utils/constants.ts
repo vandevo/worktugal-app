@@ -1,14 +1,16 @@
 export const BUSINESS_CATEGORIES = [
-  'Restaurant & Food',
-  'Fitness & Wellness',
-  'Retail & Shopping',
-  'Services & Professional',
-  'Entertainment',
-  'Education & Learning',
-  'Beauty & Personal Care',
-  'Transportation',
-  'Technology',
-  'Other'
+  'Cafés & Bakeries',
+  'Coworking Spaces',
+  'Gyms & Fitness',
+  'Hotels & Colivings',
+  'Restaurants & Bars',
+  'Salons & Spas',
+  'Cultural Experiences',
+  'Wellness & Health',
+  'Tour & Travel Agencies',
+  'Remote Work & AI Tools',
+  'Events & Networking Spaces',
+  'Experts & Services'
 ];
 
 export const REDEMPTION_METHODS = [
