@@ -21,3 +21,40 @@ export const REDEMPTION_METHODS = [
 ];
 
 export const LISTING_PRICE = 59; // €59 listing fee
+
+// Location constants
+export const LISBON_NEIGHBORHOODS = [
+  'Príncipe Real',
+  'Chiado',
+  'Bairro Alto',
+  'Cais do Sodré',
+  'Santos',
+  'Alcântara',
+  'Campo de Ourique',
+  'Avenidas Novas',
+  'Marquês de Pombal',
+  'Saldanha',
+  'Picoas',
+  'Arroios',
+  'Intendente',
+  'Graça',
+  'Alfama',
+  'Mouraria',
+  'Anjos',
+  'Marvila',
+  'Beato',
+  'Parque das Nações',
+  'Lumiar',
+  'Benfica',
+  'Belém',
+  'Ajuda',
+  'Estrela',
+  'Lapa',
+  'Madragoa',
+  'Campolide',
+  'Amoreiras'
+];
+
+// Future-ready city structure
+export const CURRENT_CITY = 'Lisbon';
+export const CURRENT_COUNTRY = 'Portugal';

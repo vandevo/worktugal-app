@@ -8,6 +8,7 @@ export const businessSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
   phone: z.string().min(9, 'Please enter a valid phone number'),
   category: z.string().min(1, 'Please select a category'),
+  neighborhood: z.string().min(1, 'Please select a neighborhood'),
 });
 
 export const perkSchema = z.object({

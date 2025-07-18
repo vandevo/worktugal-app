@@ -19,7 +19,8 @@ const mockPerks = [
     redemption_details: 'Just mention "Worktugal Pass"',
     is_portuguese_owned: true,
     logo: 'https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg?auto=compress&cs=tinysrgb&w=400',
-    location: 'Príncipe Real'
+    city: 'Lisbon',
+    neighborhood: 'Príncipe Real'
   },
   {
     id: '2',
@@ -31,7 +32,8 @@ const mockPerks = [
     redemption_details: 'Show QR code at reception',
     is_portuguese_owned: false,
     logo: 'https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=400',
-    location: 'Avenidas Novas'
+    city: 'Lisbon',
+    neighborhood: 'Avenidas Novas'
   },
   {
     id: '3',
@@ -43,7 +45,8 @@ const mockPerks = [
     redemption_details: 'Use code: WORKTUGAL10',
     is_portuguese_owned: true,
     logo: 'https://images.pexels.com/photos/3993456/pexels-photo-3993456.jpeg?auto=compress&cs=tinysrgb&w=400',
-    location: 'Chiado'
+    city: 'Lisbon',
+    neighborhood: 'Chiado'
   }
 ];
 
@@ -154,7 +157,7 @@ export const PerksDirectory: React.FC = () => {
                     <h3 className="font-semibold text-lg mb-1">{perk.business_name}</h3>
                     <div className="flex items-center space-x-2 text-sm text-gray-400">
                       <MapPin className="h-3 w-3" />
-                      <span>{perk.location}</span>
+                      <span>{perk.neighborhood}</span>
                     </div>
                   </div>
                   {perk.is_portuguese_owned && (

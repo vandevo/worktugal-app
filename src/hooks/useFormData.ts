@@ -10,6 +10,7 @@ const initialFormData: FormData = {
     email: '',
     phone: '',
     category: '',
+    neighborhood: '',
   },
   perk: {
     title: '',

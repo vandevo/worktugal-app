@@ -7,6 +7,8 @@ export interface Business {
   email: string;
   phone: string;
   category: string;
+  city: string;
+  neighborhood?: string;
   created_at: string;
   status: 'pending' | 'approved' | 'rejected';
 }

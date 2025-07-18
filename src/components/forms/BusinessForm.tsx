@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import { Building, Globe, Instagram, User, Mail, Phone, Tag } from 'lucide-react';
 import { businessSchema, BusinessFormData } from '../../lib/validations';
-import { BUSINESS_CATEGORIES } from '../../utils/constants';
+import { BUSINESS_CATEGORIES, LISBON_NEIGHBORHOODS } from '../../utils/constants';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 import { Button } from '../ui/Button';
@@ -27,6 +27,11 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
   const categoryOptions = BUSINESS_CATEGORIES.map(category => ({
     value: category,
     label: category,
+  }));
+
+  const neighborhoodOptions = LISBON_NEIGHBORHOODS.map(neighborhood => ({
+    value: neighborhood,
+    label: neighborhood,
   }));
 
   return (
@@ -94,6 +99,13 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
           options={categoryOptions}
           {...register('category')}
           error={errors.category?.message}
+        />
+
+        <Select
+          label="Neighborhood in Lisbon"
+          options={neighborhoodOptions}
+          {...register('neighborhood')}
+          error={errors.neighborhood?.message}
         />
 
         <Button
