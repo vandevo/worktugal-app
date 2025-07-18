@@ -32,7 +32,14 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="flex items-center justify-between h-16">
             <motion.div 
               className="flex items-center space-x-2"
-              whileHover={{ scale: 1.05 }}
+             whileHover={{ scale: 1.02 }}
+             whileTap={{ scale: 0.98 }}
+             transition={{ 
+               type: "spring", 
+               stiffness: 400, 
+               damping: 17,
+               duration: 0.2 
+             }}
             >
               <img 
                 src="/worktugal-logo-bg-light-radius-1000-1000.png" 
