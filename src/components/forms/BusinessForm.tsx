@@ -18,10 +18,21 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<BusinessFormData>({
     resolver: zodResolver(businessSchema),
-    defaultValues: initialData,
+    defaultValues: {
+      name: '',
+      website: '',
+      instagram: '',
+      contact_name: '',
+      email: '',
+      phone: '',
+      category: '',
+      neighborhood: '',
+      ...initialData,
+    },
   });
 
   const categoryOptions = BUSINESS_CATEGORIES.map(category => ({
