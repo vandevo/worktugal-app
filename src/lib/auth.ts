@@ -11,7 +11,10 @@ export const signUp = async (email: string, password: string) => {
     email,
     password,
     options: {
-      emailRedirectTo: undefined, // Disable email confirmation
+      emailRedirectTo: window.location.origin, // Set proper redirect
+      data: {
+        email_confirm: false, // Explicitly disable email confirmation
+      },
     },
   });
   
