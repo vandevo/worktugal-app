@@ -2,11 +2,14 @@ import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '../../utils/cn';
 
+type SelectOption = { value: string; label: string };
+type SelectGroup = { label: string; options: SelectOption[] };
+
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   error?: string;
   hint?: string;
-  options: { value: string; label: string }[];
+  options: SelectOption[] | SelectGroup[];
 }
 
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
@@ -17,6 +20,9 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
   className,
   ...props
 }, ref) => {
+  // Check if options are grouped
+  const isGrouped = options.length > 0 && 'options' in options[0];
+
   return (
     <div className="space-y-2">
       {label && (
@@ -35,11 +41,22 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
           {...props}
         >
           <option value="">Select an option</option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
+          {isGrouped 
+            ? (options as SelectGroup[]).map((group) => (
+                <optgroup key={group.label} label={group.label}>
+                  {group.options.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </optgroup>
+              ))
+            : (options as SelectOption[]).map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))
+          }
         </select>
         <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none transition-transform duration-200" />
       </div>
