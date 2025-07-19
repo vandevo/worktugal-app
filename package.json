@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:sitemap": "echo 'Sitemap already in public/ - no generation needed'",
     "lint": "eslint .",
     "preview": "vite preview"
   },
