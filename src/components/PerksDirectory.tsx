@@ -182,7 +182,9 @@ export const PerksDirectory: React.FC = () => {
                   <p className="text-sm text-gray-300 mb-3">{perk.description}</p>
                   
                   <div className="flex items-center space-x-3 text-sm bg-gray-700/50 rounded-lg p-3 mb-4">
-                    <span className="text-lg">🏷️</span>
+                    <div className="flex-shrink-0">
+                      {getRedemptionIcon(perk.redemption_method)}
+                    </div>
                     <span className="font-medium text-gray-300">
                       {perk.redemption_details}
                     </span>
