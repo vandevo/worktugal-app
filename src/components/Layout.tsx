@@ -1,10 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
+import { useUserProfile } from '../hooks/useUserProfile';
 import { UserSubscriptionStatus } from './UserSubscriptionStatus';
 import { AuthModal } from './auth/AuthModal';
+import { ProfileModal } from './ProfileModal';
 import { useState } from 'react';
-import { User, LogOut } from 'lucide-react';
+import { User, LogOut, Settings } from 'lucide-react';
 import { signOut } from '../lib/auth';
 
 interface LayoutProps {
@@ -13,7 +15,9 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user } = useAuth();
+  const { getDisplayName, getInitials } = useUserProfile();
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   const handleSignOut = async () => {
@@ -59,10 +63,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                      className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors group"
                     >
                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-medium group-hover:scale-105 transition-transform">
-                       {user.email?.charAt(0).toUpperCase() || 'U'}
+                       {getInitials()}
                      </div>
                      <span className="hidden sm:inline text-sm">
-                       {user.email?.split('@')[0] || 'Account'}
+                       {getDisplayName()}
                      </span>
                     </button>
                     
@@ -72,6 +76,16 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                         animate={{ opacity: 1, y: 0 }}
                         className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg border border-gray-700 shadow-lg py-2"
                       >
+                        <button
+                          onClick={() => {
+                            setShowProfileModal(true);
+                            setShowUserMenu(false);
+                          }}
+                          className="w-full px-4 py-2 text-left text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center space-x-2"
+                        >
+                          <Settings className="h-4 w-4" />
+                          <span>Edit Profile</span>
+                        </button>
                         <button
                           onClick={handleSignOut}
                           className="w-full px-4 py-2 text-left text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center space-x-2"
@@ -101,6 +115,11 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         initialMode="login"
+      />
+      
+      <ProfileModal
+        isOpen={showProfileModal}
+        onClose={() => setShowProfileModal(false)}
       />
     </div>
   );
