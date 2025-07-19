@@ -33,7 +33,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="min-h-screen bg-gray-900 text-white">
       <nav className="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             <div className="flex items-center space-x-2">
               <img 
                 src="/worktugal-logo-bg-light-radius-1000-1000.png" 
@@ -44,8 +44,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               <span className="text-lg sm:text-xl font-bold xs:hidden">Worktugal</span>
             </div>
             
-            <div className="flex items-center space-x-4">
-              <div className="hidden md:flex items-center space-x-4">
+            <div className="flex items-center space-x-6">
+              <div className="hidden lg:flex items-center space-x-6">
                 <a href="#directory" className="text-gray-300 hover:text-white transition-colors">
                   Browse Perks
                 </a>
@@ -55,7 +55,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               </div>
               
               {user ? (
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-4">
                   <UserSubscriptionStatus />
                   <div className="relative">
                     <button
