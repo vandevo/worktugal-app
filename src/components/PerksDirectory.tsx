@@ -121,14 +121,12 @@ export const PerksDirectory: React.FC = () => {
             
             <div className="md:w-64">
               <Select
-                label="Category"
                 options={[
                   { value: '', label: 'All Categories' },
                   ...categoryOptions
                 ]}
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                hint="Filter by business type"
               />
             </div>
           </div>

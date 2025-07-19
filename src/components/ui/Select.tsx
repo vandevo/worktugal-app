@@ -40,7 +40,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
           )}
           {...props}
         >
-          <option value="">Select an option</option>
+          <option value="">{!label ? 'All Categories' : 'Select an option'}</option>
           {isGrouped 
             ? (options as SelectGroup[]).map((group) => (
                 <optgroup key={group.label} label={group.label}>
