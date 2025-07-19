@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight, Home, Gift, Calendar, Users, TrendingUp } from 'lucide-react';
+import { Seo } from './Seo';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 import { useSubscription } from '../hooks/useSubscription';
@@ -17,6 +18,12 @@ export const SuccessPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 py-20">
+      <Seo
+        title="Welcome to Early Access - Payment Successful"
+        description="Congratulations! You've successfully joined Worktugal Pass as an early access partner. Your business will be featured to 1,000+ remote professionals in Lisbon."
+        ogTitle="Successfully Joined Worktugal Pass Early Access"
+        ogDescription="Now part of Lisbon's trusted perk marketplace for remote professionals"
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}

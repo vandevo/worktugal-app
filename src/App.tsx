@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useSearchParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Seo } from './components/Seo';
 import { Layout } from './components/Layout';
 import { Hero } from './components/Hero';
 import { FormWizard } from './components/FormWizard';
@@ -34,6 +35,35 @@ const HomePage: React.FC = () => {
   };
 
   return (
+    <>
+      <Seo
+        title="Partner Portal - Lisbon's Trusted Perk Marketplace for Remote Professionals"
+        description="Join 1,000+ verified remote workers in Lisbon. Get exclusive perks from local businesses or become a partner. €49 early access for businesses."
+        ogType="website"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Worktugal Pass",
+          "description": "Lisbon's trusted perk marketplace for remote professionals and expats",
+          "url": "https://pass.worktugal.com",
+          "telephone": "+351912345678",
+          "email": "hello@worktugal.com",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Lisbon",
+            "addressCountry": "PT"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 38.7223,
+            "longitude": -9.1393
+          },
+          "sameAs": [
+            "https://www.instagram.com/worktugal/",
+            "https://t.me/worktugal"
+          ]
+        }}
+      />
       <AnimatePresence mode="wait">
         {showForm ? (
           <motion.div
@@ -78,6 +108,7 @@ const HomePage: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
+    </>
   );
 };
 
