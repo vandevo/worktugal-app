@@ -23,9 +23,11 @@ export const getUserProfile = async (userId: string): Promise<UserProfile | null
 };
 
 export const updateUserProfile = async (userId: string, updates: Partial<UserProfile>): Promise<void> => {
+  // Use upsert to create the profile if it doesn't exist
   const { error } = await supabase
     .from('user_profiles')
-    .update({
+    .upsert({
+      id: userId,
       ...updates,
       updated_at: new Date().toISOString(),
     })

@@ -42,8 +42,9 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
       setTimeout(() => {
         onClose();
         setSuccess(false);
-      }, 1000);
+      }, 1500);
     } catch (err: any) {
+      console.error('Profile update error:', err);
       setError(err.message || 'Failed to update profile');
     } finally {
       setSaving(false);
