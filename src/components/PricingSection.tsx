@@ -140,7 +140,6 @@ export const PricingSection: React.FC = () => {
                   size="lg"
                   className="w-full"
                   onClick={() => handlePurchase(product.priceId)}
-                  loading={loading === product.priceId}
                   disabled={hasActivePayment}
                 >
                   {hasActivePayment ? (
