@@ -88,8 +88,8 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
     >
       <div className="text-center mb-8">
         <CreditCard className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold mb-2">Complete your listing</h2>
-        <p className="text-gray-400">One-time payment to join our partner network</p>
+        <h2 className="text-2xl font-bold mb-2">Join Lisbon's Most Trusted Perk Marketplace</h2>
+        <p className="text-gray-400">Secure your spot in the partner network that remote professionals actually use</p>
       </div>
 
       {error && (
@@ -101,30 +101,34 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
       <Card className="p-6">
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-lg font-medium">Early Access Listing</span>
+            <span className="text-lg font-medium">Partner Listing Early Access (Lifetime)</span>
             <span className="text-2xl font-bold text-blue-400">€{LISTING_PRICE}</span>
           </div>
           
           <div className="space-y-2 text-sm text-gray-400">
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
-              <span>Lifetime listing in our partner directory</span>
+              <span>Lifetime visibility in Lisbon's trusted perk marketplace</span>
             </div>
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
-              <span>Access to 1,000+ verified remote workers</span>
+              <span>Exposure to 1,000+ verified remote professionals</span>
             </div>
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
-              <span>Priority placement and early access benefits</span>
+              <span>Featured in events & community channels</span>
             </div>
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
-              <span>Analytics and performance tracking</span>
+              <span>Performance tracking & customer insights</span>
             </div>
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
-              <span>Limited to 25 businesses only</span>
+              <span>No renewal fees • No commissions</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Check className="h-4 w-4 text-green-400" />
+              <span>Portugal-based team & support</span>
             </div>
           </div>
         </div>
@@ -133,16 +137,16 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
       <div className="bg-orange-600/10 border border-orange-600/20 rounded-xl p-4">
         <div className="flex items-center space-x-2 mb-2">
           <Shield className="h-5 w-5 text-blue-400" />
-          <span className="font-medium text-orange-400">Early Access - Limited Time</span>
+          <span className="font-medium text-orange-400">Early Access - 21 Spots Remaining</span>
         </div>
-        <p className="text-sm text-gray-300">
-          Only 25 spots available at this early access price. Regular pricing will be €99 after launch.
+        <p className="text-sm text-gray-300 leading-relaxed">
+          Join the first 25 partners in the marketplace that remote workers trust. Quality customers who stay, spend, and share their experiences.
         </p>
       </div>
 
       <div className="space-y-4">
         <div className="text-center text-sm text-gray-400">
-          <p>By proceeding, you agree to our Terms of Service and Privacy Policy</p>
+          <p>Payments securely processed with Stripe • By proceeding, you agree to our Terms of Service</p>
         </div>
 
         <div className="flex space-x-4">
@@ -161,7 +165,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
             onClick={handlePayment}
             loading={processing}
           >
-            {processing ? 'Processing...' : `Pay €${LISTING_PRICE}`}
+            {processing ? 'Processing...' : `Secure Your Spot — €${LISTING_PRICE}`}
           </Button>
         </div>
       </div>
