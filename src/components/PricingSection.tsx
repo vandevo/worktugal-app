@@ -79,10 +79,7 @@ export const PricingSection: React.FC = () => {
 
         {hasActivePayment && (
           <Alert variant="success" className="mb-8 max-w-2xl mx-auto">
-            <div className="flex items-center space-x-2">
-              <Check className="h-5 w-5" />
-              <span>You're already a member of our partner network!</span>
-            </div>
+            You're already a member of our partner network!
           </Alert>
         )}
 
