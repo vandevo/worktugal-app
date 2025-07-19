@@ -9,14 +9,14 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
+            <a href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
               <img 
                 src="/worktugal-logo-bg-light-radius-1000-1000.png" 
                 alt="Worktugal Pass" 
                 className="w-8 h-8 rounded-lg object-contain"
               />
               <span className="text-xl font-bold">Worktugal Pass</span>
-            </div>
+            </a>
             <p className="text-gray-400 text-sm">
               Lisbon's trusted perk marketplace for remote professionals and expats.
             </p>
