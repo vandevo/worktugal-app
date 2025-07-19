@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
@@ -15,10 +15,13 @@ interface BusinessFormProps {
 }
 
 export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialData }) => {
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<BusinessFormData>({
     resolver: zodResolver(businessSchema),
@@ -28,12 +31,34 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
       instagram: '',
       contact_name: '',
       email: '',
-      phone: '',
+      phone: '+351 ',
       category: '',
       neighborhood: '',
       ...initialData,
     },
   });
+
+  const phoneValue = watch('phone');
+
+  // Handle cursor positioning for phone field
+  useEffect(() => {
+    const handlePhoneFocus = () => {
+      if (phoneInputRef.current && phoneValue === '+351 ') {
+        // Set cursor position after +351 
+        setTimeout(() => {
+          if (phoneInputRef.current) {
+            phoneInputRef.current.setSelectionRange(5, 5);
+          }
+        }, 0);
+      }
+    };
+
+    const phoneInput = phoneInputRef.current;
+    if (phoneInput) {
+      phoneInput.addEventListener('focus', handlePhoneFocus);
+      return () => phoneInput.removeEventListener('focus', handlePhoneFocus);
+    }
+  }, [phoneValue]);
 
   const categoryOptions = BUSINESS_CATEGORIES.map(category => ({
     value: category,
@@ -92,11 +117,13 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
             error={errors.email?.message}
           />
           <Input
+            ref={phoneInputRef}
             label="Phone/WhatsApp"
             type="tel"
-            placeholder="+351 912 345 678"
+            placeholder="912 345 678"
             {...register('phone')}
             error={errors.phone?.message}
+            hint="Use your WhatsApp or store number. Starts with +351 by default."
           />
         </div>
 
