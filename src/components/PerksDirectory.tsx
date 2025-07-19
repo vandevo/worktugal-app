@@ -86,9 +86,12 @@ export const PerksDirectory: React.FC = () => {
     <section id="directory" className="py-20 bg-gray-800/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Browse Partner Perks</h2>
-          <p className="text-xl text-gray-300">
-            Discover exclusive offers from local businesses
+          <h2 className="text-3xl font-bold mb-4">Verified Perks from Local Partners</h2>
+          <p className="text-xl text-gray-300 mb-2">
+            Exclusive offers curated for remote professionals in Lisbon
+          </p>
+          <p className="text-lg text-gray-400">
+            Loved by our community of freelancers, expats, and digital nomads
           </p>
         </div>
 
@@ -138,7 +141,7 @@ export const PerksDirectory: React.FC = () => {
         </div>
 
         {/* Results */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPerks.map((perk, index) => (
             <motion.div
               key={perk.id}
@@ -147,6 +150,13 @@ export const PerksDirectory: React.FC = () => {
               transition={{ delay: index * 0.1 }}
             >
               <Card className="p-6 h-full" hover>
+                {/* Verified Partner Badge */}
+                <div className="mb-4">
+                  <div className="inline-flex items-center bg-green-600/20 text-green-400 px-3 py-1 rounded-full text-xs font-medium">
+                    Verified Partner
+                  </div>
+                </div>
+                
                 <div className="flex items-start space-x-4 mb-4">
                   <img
                     src={perk.logo}
@@ -171,11 +181,13 @@ export const PerksDirectory: React.FC = () => {
                   <h4 className="font-medium text-blue-400 mb-2">{perk.title}</h4>
                   <p className="text-sm text-gray-300 mb-3">{perk.description}</p>
                   
-                  <div className="flex items-center space-x-2 text-sm text-gray-400">
+                  <div className="flex items-center space-x-2 text-sm text-gray-400 bg-gray-700/50 rounded-lg p-3 mb-4">
+                    <span className="text-base">🏷️</span>
+                    <span className="font-medium text-gray-300">
                     {getRedemptionIcon(perk.redemption_method)}
-                    <span>{perk.redemption_details}</span>
+                      {perk.redemption_details}
+                    </span>
                   </div>
-                </div>
 
                 <Button
                   variant="outline"
@@ -185,8 +197,9 @@ export const PerksDirectory: React.FC = () => {
                     console.log('Redeeming perk:', perk.id);
                   }}
                 >
-                  Get This Perk
+                  Use This Now
                 </Button>
+                </div>
               </Card>
             </motion.div>
           ))}
