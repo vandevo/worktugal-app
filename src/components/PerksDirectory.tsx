@@ -206,42 +206,6 @@ export const PerksDirectory: React.FC = () => {
                     Use This Now
                   </Button>
                 </div>
-                          Portuguese
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex items-center space-x-1.5 text-sm text-gray-400">
-                      <MapPin className="h-3.5 w-3.5" />
-                      <span>{perk.neighborhood}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mb-6">
-                  <h4 className="font-semibold text-blue-400 text-lg mb-3">{perk.title}</h4>
-                  <p className="text-sm text-gray-300 leading-relaxed mb-4">{perk.description}</p>
-                  
-                  <div className="flex items-center space-x-3 text-sm bg-gray-700/30 rounded-xl p-4 mb-6 border border-gray-600/20">
-                    <div className="flex-shrink-0">
-                      {getRedemptionIcon(perk.redemption_method)}
-                    </div>
-                    <span className="font-medium text-gray-200">
-                      {perk.redemption_details}
-                    </span>
-                  </div>
-
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl border-0 shadow-sm"
-                    onClick={() => {
-                      // Handle perk redemption
-                      console.log('Redeeming perk:', perk.id);
-                    }}
-                  >
-                    Use This Now
-                  </Button>
-                </div>
               </Card>
             </motion.div>
           ))}
