@@ -37,8 +37,8 @@ const HomePage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Partner Portal - Lisbon's Trusted Perk Marketplace for Remote Professionals"
-        description="Join 1,000+ verified remote workers in Lisbon. Get exclusive perks from local businesses or become a partner. €49 early access for businesses."
+        title="Lisbon Perks for Remote Workers | Worktugal Pass"
+        description="Join 1,000+ verified remote workers in Lisbon's trusted perk marketplace. Get exclusive discounts at cafés, gyms, coworking spaces, and more. Lifetime access."
         ogType="website"
         structuredData={{
           "@context": "https://schema.org",
