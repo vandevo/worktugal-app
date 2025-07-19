@@ -2,11 +2,43 @@ import { useState, useEffect } from 'react';
 import { getUserProfile, UserProfile } from '../lib/profile';
 import { useAuth } from './useAuth';
 
+// Global event emitter for profile updates
+const profileUpdateListeners = new Set<() => void>();
+
+export const notifyProfileUpdate = () => {
+  profileUpdateListeners.forEach(listener => listener());
+};
+
 export const useUserProfile = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const refetch = async () => {
+    if (!user) return;
+    
+    try {
+      setLoading(true);
+      const userProfile = await getUserProfile(user.id);
+      setProfile(userProfile);
+      setError(null);
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch profile');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // Add this hook to the global listeners
+    profileUpdateListeners.add(refetch);
+    
+    // Remove from listeners on cleanup
+    return () => {
+      profileUpdateListeners.delete(refetch);
+    };
+  }, [user]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -54,20 +86,6 @@ export const useUserProfile = () => {
     return displayName.charAt(0).toUpperCase();
   };
 
-  const refetch = async () => {
-    if (!user) return;
-    
-    try {
-      setLoading(true);
-      const userProfile = await getUserProfile(user.id);
-      setProfile(userProfile);
-      setError(null);
-    } catch (err: any) {
-      setError(err.message || 'Failed to fetch profile');
-    } finally {
-      setLoading(false);
-    }
-  };
   return {
     profile,
     loading,

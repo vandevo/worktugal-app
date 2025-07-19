@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, User, Save } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
-import { useUserProfile } from '../hooks/useUserProfile';
+import { useUserProfile, notifyProfileUpdate } from '../hooks/useUserProfile';
 import { updateUserProfile } from '../lib/profile';
 import { Input } from './ui/Input';
 import { Button } from './ui/Button';
@@ -33,8 +33,8 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
         display_name: displayName.trim() || null,
       });
       
-      // Refetch the profile data immediately
-      await refetch();
+      // Notify all useUserProfile hooks to refresh
+      notifyProfileUpdate();
       
       setSuccess(true);
       
