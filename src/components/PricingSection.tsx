@@ -173,19 +173,15 @@ export const PricingSection: React.FC = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <div className="text-gray-400 space-y-1">
-            <AlertCircle className="h-4 w-4" />
+          <div className="text-gray-400 space-y-2">
             <div className="flex items-center justify-center space-x-2 mb-2">
               <AlertCircle className="h-4 w-4" />
               <span className="text-sm font-medium">Secure Payment</span>
             </div>
-            <div className="text-sm max-w-md mx-auto leading-relaxed">
-              <p className="mb-1">Payments are securely processed with Stripe</p>
-              <p>Your information is encrypted and protected</p>
-            </div>
-              <p>Your information is encrypted and protected</p>
-            </div>
+            <p className="text-sm">Payments are securely processed with Stripe</p>
+            <p className="text-sm">Your information is encrypted and protected</p>
           </div>
+        </div>
         </div>
       </section>
 
