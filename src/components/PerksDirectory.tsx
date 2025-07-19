@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag, Shield } from 'lucide-react';
-import { Seo } from './Seo';
 import { Input } from './ui/Input';
 import { Select } from './ui/Select';
 import { Card } from './ui/Card';
@@ -86,12 +85,6 @@ export const PerksDirectory: React.FC = () => {
 
   return (
     <section id="directory" className="py-20 bg-gray-800/50">
-      <Seo
-        title="Browse Verified Perks - Exclusive Offers for Remote Professionals"
-        description="Discover exclusive perks from local Lisbon businesses curated for remote workers, freelancers, and digital nomads. From cafés to fitness, find your next favorite spot."
-        ogTitle="Verified Local Perks in Lisbon"
-        ogDescription="Exclusive offers from Portuguese businesses for the remote work community"
-      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Verified Perks from Local Partners</h2>
