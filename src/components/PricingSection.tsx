@@ -187,12 +187,12 @@ export const PricingSection: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <AuthModal
-        isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
-        initialMode="signup"
-      />
     </section>
+
+    <AuthModal
+      isOpen={showAuthModal}
+      onClose={() => setShowAuthModal(false)}
+      initialMode="signup"
+    />
   );
 };
