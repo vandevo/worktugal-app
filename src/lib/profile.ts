@@ -35,6 +35,9 @@ export const updateUserProfile = async (userId: string, updates: Partial<UserPro
     console.error('Error updating user profile:', error);
     throw error;
   }
+  
+  // Add a small delay to ensure database consistency
+  await new Promise(resolve => setTimeout(resolve, 100));
 };
 
 export const createUserProfile = async (userId: string): Promise<void> => {

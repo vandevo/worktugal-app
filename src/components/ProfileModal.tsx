@@ -33,11 +33,13 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
         display_name: displayName.trim() || null,
       });
       
+      // Refetch the profile data immediately
+      await refetch();
+      
       setSuccess(true);
       
       // Close modal after short delay
       setTimeout(() => {
-        refetch();
         onClose();
         setSuccess(false);
       }, 1000);

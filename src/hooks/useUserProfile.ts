@@ -54,20 +54,26 @@ export const useUserProfile = () => {
     return displayName.charAt(0).toUpperCase();
   };
 
+  const refetch = async () => {
+    if (!user) return;
+    
+    try {
+      setLoading(true);
+      const userProfile = await getUserProfile(user.id);
+      setProfile(userProfile);
+      setError(null);
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch profile');
+    } finally {
+      setLoading(false);
+    }
+  };
   return {
     profile,
     loading,
     error,
     getDisplayName,
     getInitials,
-    refetch: () => {
-      if (user) {
-        getUserProfile(user.id).then(userProfile => {
-          setProfile(userProfile);
-        }).catch(err => {
-          setError(err.message || 'Failed to fetch profile');
-        });
-      }
-    },
+    refetch,
   };
 };
