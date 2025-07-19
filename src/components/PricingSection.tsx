@@ -66,9 +66,11 @@ export const PricingSection: React.FC = () => {
       <section id="pricing" className="py-20 bg-gray-800/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Get Your Business in Front of Lisbon's Most Trusted Remote Professionals</h2>
-          <p className="text-lg text-gray-300 max-w-4xl mx-auto">
-            Join the only curated partner network trusted by 1,000 verified remote workers, expats, and digital professionals in Portugal
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+            Get Your Business in Front of Lisbon's Most Trusted Remote Professionals
+          </h2>
+          <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Join the curated partner network trusted by 1,000+ remote professionals in Lisbon
           </p>
         </div>
 
@@ -84,7 +86,7 @@ export const PricingSection: React.FC = () => {
           </Alert>
         )}
 
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-lg mx-auto">
           {STRIPE_PRODUCTS.map((product, index) => (
             <motion.div
               key={product.id}
@@ -95,23 +97,25 @@ export const PricingSection: React.FC = () => {
             >
               {/* FOMO Badge */}
               <div className="text-center mb-6">
-                <div className="inline-flex items-center space-x-2 bg-orange-600/20 text-orange-300 px-4 py-2 rounded-full border border-orange-600/30">
-                  <Target className="h-4 w-4" />
-                  <span className="text-sm font-medium">Only 21 Founder Partner spots remaining</span>
+                <div className="inline-flex items-center space-x-2 bg-orange-600/20 text-orange-300 px-3 py-2 rounded-full border border-orange-600/30">
+                  <Target className="h-3.5 w-3.5" />
+                  <span className="text-xs sm:text-sm font-medium">21 spots left</span>
                 </div>
               </div>
 
-              <Card className="p-8 text-center" hover>
+              <Card className="p-6 sm:p-8 text-center" hover>
                 
                 <div className="mb-6">
-                  <h3 className="text-2xl font-bold mb-4">Early Access Lifetime Listing</h3>
-                  <div className="flex items-center justify-center mb-4">
-                    <span className="text-4xl font-bold text-blue-400">€{product.price}</span>
-                    <span className="text-gray-400 ml-2">one time</span>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-4 leading-tight">
+                    Early Access Lifetime Listing
+                  </h3>
+                  <div className="flex items-baseline justify-center mb-2">
+                    <span className="text-3xl sm:text-4xl font-bold text-blue-400">€{product.price}</span>
+                    <span className="text-gray-400 ml-2 text-sm">one time</span>
                   </div>
-                  <p className="text-sm text-gray-400 mb-6">No renewals. No surprises</p>
+                  <p className="text-xs sm:text-sm text-gray-400 mb-6">No renewals • No surprises</p>
                   
-                  <div className="text-gray-300 mb-6 text-left max-w-lg mx-auto">
+                  <div className="text-gray-300 mb-6 text-left space-y-3">
                     <p className="mb-4 text-base leading-relaxed">
                       Be one of the first 25 partners featured on Worktugal Pass, a curated local perks network built for high-spending remote professionals who stay longer, spend more, and seek trusted places to go.
                     </p>
@@ -121,36 +125,36 @@ export const PricingSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="space-y-3 mb-8 text-left max-w-lg mx-auto">
-                  <div className="flex items-center space-x-3">
+                <div className="space-y-3 mb-8 text-left">
+                  <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">Lifetime listing in partner directory</span>
+                    <span className="text-sm sm:text-base">Lifetime listing in partner directory</span>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">Exposure to 1,000 verified remote professionals</span>
+                    <span className="text-sm sm:text-base">Exposure to 1,000+ verified professionals</span>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">Featured in events, email, and community channels</span>
+                    <span className="text-sm sm:text-base">Featured in events & community channels</span>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">Perk redemption tracking and performance insights</span>
+                    <span className="text-sm sm:text-base">Performance tracking & insights</span>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">No renewal fees. No commissions. Ever</span>
+                    <span className="text-sm sm:text-base">No renewal fees • No commissions</span>
                   </div>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">Local-first, human-powered, Portugal-based team</span>
+                    <span className="text-sm sm:text-base">Portugal-based team & support</span>
                   </div>
                 </div>
 
                 <Button
                   size="lg"
-                  className="w-full"
+                  className="w-full h-12 sm:h-14 text-base sm:text-lg font-semibold"
                   onClick={() => handlePurchase(product.priceId)}
                   disabled={hasActivePayment}
                 >
@@ -167,7 +171,7 @@ export const PricingSection: React.FC = () => {
                   ) : (
                     <>
                       <CreditCard className="mr-2 h-5 w-5" />
-                      Secure Your Spot – €{product.price}
+                      Secure Your Spot — €{product.price}
                     </>
                   )}
                 </Button>
@@ -176,14 +180,14 @@ export const PricingSection: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-8 sm:mt-12 text-center">
           <div className="text-gray-400 space-y-2">
             <div className="flex items-center justify-center space-x-2 mb-2">
               <AlertCircle className="h-4 w-4" />
               <span className="text-sm font-medium">Secure Payment</span>
             </div>
             <p className="text-sm">Payments are securely processed with Stripe</p>
-            <p className="text-sm">Your information is encrypted and protected</p>
+            <p className="text-xs sm:text-sm">Your information is encrypted and protected</p>
           </div>
         </div>
         </div>
