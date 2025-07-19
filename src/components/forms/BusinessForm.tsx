@@ -120,10 +120,10 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
             ref={phoneInputRef}
             label="Phone/WhatsApp"
             type="tel"
-            placeholder="912 345 678 (or your country code)"
+            placeholder="912 345 678 or +44 7700 900123"
             {...register('phone')}
             error={errors.phone?.message}
-            hint="Use your WhatsApp or store number. Defaults to +351 (Portugal), but you can change to any country code."
+            hint="Defaults to +351 (Portugal), but you can change it to any country code."
           />
         </div>
 
