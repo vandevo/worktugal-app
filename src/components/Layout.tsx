@@ -36,9 +36,11 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="flex items-center justify-between h-20">
             <a href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
               <img 
-                src="/worktugal-logo-bg-light-radius-1000-1000.png" 
+                src="/worktugal-logo-32x32.png" 
                 alt="" 
                 className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg object-contain"
+                width="32"
+                height="32"
               />
               <span className="text-lg sm:text-xl font-bold hidden xs:inline">Worktugal Pass</span>
               <span className="text-lg sm:text-xl font-bold xs:hidden">Worktugal</span>

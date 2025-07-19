@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useSearchParams } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useSearchParams, Suspense } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Seo } from './components/Seo';
 import { Layout } from './components/Layout';
 import { Hero } from './components/Hero';
-import { FormWizard } from './components/FormWizard';
-import { PerksDirectory } from './components/PerksDirectory';
-import { PricingSection } from './components/PricingSection';
-import { SuccessPage } from './components/SuccessPage';
 import { Footer } from './components/Footer';
 import { useAuth } from './hooks/useAuth';
+
+// Lazy load components for better performance
+const FormWizard = React.lazy(() => import('./components/FormWizard').then(module => ({ default: module.FormWizard })));
+const PerksDirectory = React.lazy(() => import('./components/PerksDirectory').then(module => ({ default: module.PerksDirectory })));
+const PricingSection = React.lazy(() => import('./components/PricingSection').then(module => ({ default: module.PricingSection })));
+const SuccessPage = React.lazy(() => import('./components/SuccessPage').then(module => ({ default: module.SuccessPage })));
+
+const LoadingSpinner = () => (
+  <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+  </div>
+);
 
 const HomePage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
@@ -87,10 +95,12 @@ const HomePage: React.FC = () => {
                 <p className="text-gray-400">Get your business in front of 1,000+ remote workers</p>
               </div>
               
-              <FormWizard 
-                onComplete={handleFormComplete} 
-                submissionId={submissionId}
-              />
+              <Suspense fallback={<LoadingSpinner />}>
+                <FormWizard 
+                  onComplete={handleFormComplete} 
+                  submissionId={submissionId}
+                />
+              </Suspense>
             </div>
           </motion.div>
         ) : (
@@ -102,8 +112,12 @@ const HomePage: React.FC = () => {
             transition={{ duration: 0.5 }}
           >
             <Hero onGetStarted={handleGetStarted} />
-            <PerksDirectory />
-            <PricingSection />
+            <Suspense fallback={<LoadingSpinner />}>
+              <PerksDirectory />
+            </Suspense>
+            <Suspense fallback={<LoadingSpinner />}>
+              <PricingSection />
+            </Suspense>
             <Footer />
           </motion.div>
         )}
@@ -128,7 +142,11 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/success" element={<SuccessPage />} />
+          <Route path="/success" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <SuccessPage />
+            </Suspense>
+          } />
         </Routes>
       </Layout>
     </Router>

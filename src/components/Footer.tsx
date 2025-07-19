@@ -11,9 +11,11 @@ export const Footer: React.FC = () => {
           <div className="space-y-4">
             <a href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
               <img 
-                src="/worktugal-logo-bg-light-radius-1000-1000.png" 
+                src="/worktugal-logo-32x32.png" 
                 alt="" 
                 className="w-8 h-8 rounded-lg object-contain"
+                width="32"
+                height="32"
               />
               <span className="text-xl font-bold">Worktugal Pass</span>
             </a>

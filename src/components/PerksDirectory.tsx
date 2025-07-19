@@ -120,6 +120,7 @@ export const PerksDirectory: React.FC = () => {
             </div>
             
             <Select
+              label="Filter by Category"
               options={categoryOptions}
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
