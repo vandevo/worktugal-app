@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useSearchParams, Suspense } from 'react-router-dom';
+import React, { useState, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route, useSearchParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Seo } from './components/Seo';
 import { Layout } from './components/Layout';
