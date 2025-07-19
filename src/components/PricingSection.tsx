@@ -62,7 +62,8 @@ export const PricingSection: React.FC = () => {
   }
 
   return (
-    <section id="pricing" className="py-20 bg-gray-800/30">
+    <>
+      <section id="pricing" className="py-20 bg-gray-800/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get Your Business in Front of Lisbon's Most Trusted Remote Professionals</h2>
@@ -186,12 +187,13 @@ export const PricingSection: React.FC = () => {
             </div>
           </div>
         </div>
-    </section>
+      </section>
 
-    <AuthModal
-      isOpen={showAuthModal}
-      onClose={() => setShowAuthModal(false)}
-      initialMode="signup"
-    />
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        initialMode="signup"
+      />
+    </>
   );
 };
