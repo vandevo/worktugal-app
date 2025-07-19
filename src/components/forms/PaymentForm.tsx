@@ -106,7 +106,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
 
       {isPreviewMode && (
         <Alert variant="info" className="mb-6">
-          <strong>🔧 Preview Mode</strong><br />
+          <strong>Preview Mode</strong><br />
           This is a development preview with dummy data. Payment processing is disabled.
         </Alert>
       )}
