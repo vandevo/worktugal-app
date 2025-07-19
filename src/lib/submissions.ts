@@ -33,7 +33,6 @@ export const createPartnerSubmission = async ({
     perk_is_portuguese_owned: perk.is_portuguese_owned,
     perk_needs_nif: perk.needs_nif,
     status: 'pending_payment' as const,
-    stripe_order_id: 0, // Initialize with 0 to avoid null/undefined issues with Make.com
   };
 
   const { data, error } = await supabase
