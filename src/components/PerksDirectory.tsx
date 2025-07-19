@@ -119,13 +119,18 @@ export const PerksDirectory: React.FC = () => {
               </div>
             </div>
             
-            <Select
-              label="Filter by Category"
-              options={categoryOptions}
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="md:w-64"
-            />
+            <div className="md:w-64">
+              <Select
+                label="Category"
+                options={[
+                  { value: '', label: 'All Categories' },
+                  ...categoryOptions
+                ]}
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                hint="Filter by business type"
+              />
+            </div>
           </div>
 
           <div className="flex items-center space-x-3">
