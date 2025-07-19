@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 import { UserSubscriptionStatus } from './UserSubscriptionStatus';
 import { AuthModal } from './auth/AuthModal';
 import { useState } from 'react';
-import { User, LogOut } from 'lucide-react';
+import { User, LogOut, Settings } from 'lucide-react';
 import { signOut } from '../lib/auth';
 
 interface LayoutProps {
@@ -25,6 +25,11 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     }
   };
 
+  const handleAccountSettings = () => {
+    setShowUserMenu(false);
+    // Navigate to account settings
+    window.location.href = '/account';
+  };
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <nav className="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
@@ -58,6 +63,14 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                       onClick={() => setShowUserMenu(!showUserMenu)}
                      className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors group"
                     >
+                      <button
+                        onClick={handleAccountSettings}
+                        className="w-full px-4 py-2 text-left text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center space-x-2"
+                      >
+                        <Settings className="h-4 w-4" />
+                        <span>Account Settings</span>
+                      </button>
+                      <hr className="border-gray-700 my-1" />
                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-medium group-hover:scale-105 transition-transform">
                        {user.email?.charAt(0).toUpperCase() || 'U'}
                      </div>

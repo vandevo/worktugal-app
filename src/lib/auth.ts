@@ -48,3 +48,12 @@ export const getSession = async () => {
   if (error) throw error;
   return session;
 };
+
+export const updateEmail = async (newEmail: string) => {
+  const { data, error } = await supabase.auth.updateUser({
+    email: newEmail,
+  });
+  
+  if (error) throw error;
+  return data;
+};

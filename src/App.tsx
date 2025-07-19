@@ -9,6 +9,7 @@ import { PricingSection } from './components/PricingSection';
 import { SuccessPage } from './components/SuccessPage';
 import { Footer } from './components/Footer';
 import { useAuth } from './hooks/useAuth';
+import { AccountSettings } from './components/AccountSettings';
 
 const HomePage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
@@ -83,6 +84,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/success" element={<SuccessPage />} />
+          <Route path="/account" element={<AccountSettings />} />
         </Routes>
       </Layout>
     </Router>
