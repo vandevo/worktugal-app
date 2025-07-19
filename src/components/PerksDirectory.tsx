@@ -164,6 +164,10 @@ export const PerksDirectory: React.FC = () => {
                     src={perk.logo}
                     alt={perk.business_name}
                     className="w-14 h-14 rounded-xl object-cover shadow-sm"
+                    onError={(e) => {
+                      // Fallback to a default image or hide if image fails to load
+                      e.currentTarget.src = 'https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg?auto=compress&cs=tinysrgb&w=400';
+                    }}
                   />
                   <div className="flex-1 min-w-0">
                     <div className="mb-2">

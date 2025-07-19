@@ -3,12 +3,14 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
-import { Gift, ImageIcon } from 'lucide-react';
+import { Gift, ImageIcon, Plus, Trash2 } from 'lucide-react';
 import { perkSchema, PerkFormData } from '../../lib/validations';
 import { REDEMPTION_METHODS } from '../../utils/constants';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 import { Button } from '../ui/Button';
+import { FileUpload } from '../ui/FileUpload';
+import { Card } from '../ui/Card';
 
 interface PerkFormProps {
   onSubmit: (data: PerkFormData) => void;
@@ -35,6 +37,8 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
   const redemptionDetails = watch('redemption_details');
   const isPortugueseOwned = watch('is_portuguese_owned');
   const needsNif = watch('needs_nif');
+  const images = watch('images') || [];
+  const logo = watch('logo');
 
   // Dynamic placeholder text and pre-fill logic
   const getPlaceholderText = (method: string) => {
@@ -77,6 +81,26 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
       }
     }
   }, [redemptionMethod, redemptionDetails, setValue, standardPlaceholders]);
+
+  const addImage = () => {
+    const currentImages = getValues('images') || [];
+    if (currentImages.length < 3) {
+      setValue('images', [...currentImages, '']);
+    }
+  };
+
+  const removeImage = (index: number) => {
+    const currentImages = getValues('images') || [];
+    const newImages = currentImages.filter((_, i) => i !== index);
+    setValue('images', newImages);
+  };
+
+  const updateImage = (index: number, url: string) => {
+    const currentImages = getValues('images') || [];
+    const newImages = [...currentImages];
+    newImages[index] = url;
+    setValue('images', newImages);
+  };
 
   return (
     <motion.div
@@ -140,7 +164,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
         />
 
         {/* Optional Image/Logo Fields */}
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div className="flex items-center space-x-3">
             <button
               type="button"
@@ -162,18 +186,68 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
           </div>
 
           {showImageFields && (
-            <div className="space-y-4 p-4 border border-gray-700 rounded-xl bg-gray-800/50">
-              <Input
-                label="Business Logo URL (optional)"
-                placeholder="https://example.com/logo.jpg"
-                {...register('logo')}
-                hint="Add your business logo to make your perk more recognizable"
+            <div className="space-y-6 p-6 border border-gray-700 rounded-xl bg-gray-800/50">
+              <FileUpload
+                label="Business Logo (optional)"
+                hint="Upload your business logo to make your perk more recognizable"
+                value={logo}
+                onChange={(url) => setValue('logo', url)}
+                onClear={() => setValue('logo', '')}
+                folder="business-logos"
               />
-              <Input
-                label="Main Perk Image URL (optional)"
-                placeholder="https://example.com/perk-image.jpg"
-                hint="Add an image that showcases your perk or business"
-              />
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm font-medium text-gray-300">
+                    Perk Images (optional)
+                  </h4>
+                  {images.length < 3 && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={addImage}
+                      className="text-xs"
+                    >
+                      <Plus className="h-3 w-3 mr-1" />
+                      Add Image
+                    </Button>
+                  )}
+                </div>
+                
+                {images.length > 0 && (
+                  <div className="space-y-4">
+                    {images.map((imageUrl, index) => (
+                      <Card key={index} className="p-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-sm text-gray-400">
+                            Image {index + 1}
+                          </span>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeImage(index)}
+                            className="text-red-400 hover:text-red-300"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        <FileUpload
+                          value={imageUrl}
+                          onChange={(url) => updateImage(index, url)}
+                          onClear={() => updateImage(index, '')}
+                          folder="perk-images"
+                        />
+                      </Card>
+                    ))}
+                  </div>
+                )}
+                
+                <p className="text-xs text-gray-500">
+                  Upload up to 3 images that showcase your perk or business atmosphere
+                </p>
+            </div>
             </div>
           )}
         </div>
