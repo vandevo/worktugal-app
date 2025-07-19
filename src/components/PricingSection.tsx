@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, CreditCard, Loader2, AlertCircle } from 'lucide-react';
+import { Check, CreditCard, Loader2, AlertCircle, Target } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 import { Alert } from './ui/Alert';
@@ -65,9 +65,9 @@ export const PricingSection: React.FC = () => {
     <section id="pricing" className="py-20 bg-gray-800/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Join Our Partner Network</h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Get your business in front of 1,000+ high-spending remote workers in Lisbon
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Get Your Business in Front of Lisbon's Most Trusted Remote Professionals</h2>
+          <p className="text-lg text-gray-300 max-w-4xl mx-auto">
+            Join the only curated partner network trusted by 1,000 verified remote workers, expats, and digital professionals in Portugal
           </p>
         </div>
 
@@ -92,47 +92,55 @@ export const PricingSection: React.FC = () => {
               transition={{ delay: index * 0.1 }}
               className="relative"
             >
-              <Card className="p-8 text-center" hover>
-                {/* Limited availability badge */}
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                    Limited: 25 spots only
-                  </div>
+              {/* FOMO Badge */}
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center space-x-2 bg-orange-600/20 text-orange-300 px-4 py-2 rounded-full border border-orange-600/30">
+                  <Target className="h-4 w-4" />
+                  <span className="text-sm font-medium">🎯 Only 21 Founder Partner spots remaining</span>
                 </div>
+              </div>
+
+              <Card className="p-8 text-center" hover>
                 
                 <div className="mb-6">
-                  <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
+                  <h3 className="text-2xl font-bold mb-4">Early Access Lifetime Listing</h3>
                   <div className="flex items-center justify-center mb-4">
                     <span className="text-4xl font-bold text-blue-400">€{product.price}</span>
-                    <span className="text-gray-400 ml-2">one-time</span>
+                    <span className="text-gray-400 ml-2">one time</span>
                   </div>
-                  <p className="text-gray-300">{product.description}</p>
+                  <p className="text-sm text-gray-400 mb-6">No renewals. No surprises</p>
+                  
+                  <div className="text-gray-300 mb-6 text-left max-w-lg mx-auto">
+                    <p className="mb-3">Be one of the first 25 partners featured on Worktugal Pass</p>
+                    <p className="mb-3">A curated local perks network built for high-spending remote professionals who stay longer, spend more, and seek trusted places to go</p>
+                    <p>Your listing drives foot traffic, builds trust, and gives your business visibility inside a verified member community</p>
+                  </div>
                 </div>
 
-                <div className="space-y-3 mb-8">
+                <div className="space-y-3 mb-8 text-left max-w-lg mx-auto">
                   <div className="flex items-center space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
                     <span className="text-left">Lifetime listing in partner directory</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">Access to 1,000+ verified remote workers</span>
+                    <span className="text-left">Exposure to 1,000 verified remote professionals</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">Promotion through events and community</span>
+                    <span className="text-left">Featured in events, email, and community channels</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">Analytics and performance tracking</span>
+                    <span className="text-left">Perk redemption tracking and performance insights</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">Early access pricing - limited time</span>
+                    <span className="text-left">No renewal fees. No commissions. Ever</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-left">No renewals, no hidden fees</span>
+                    <span className="text-left">Local-first, human-powered, Portugal-based team</span>
                   </div>
                 </div>
 
@@ -155,7 +163,7 @@ export const PricingSection: React.FC = () => {
                   ) : (
                     <>
                       <CreditCard className="mr-2 h-5 w-5" />
-                      Secure Your Spot - €{product.price}
+                      Secure Your Spot – €{product.price}
                     </>
                   )}
                 </Button>
@@ -168,7 +176,8 @@ export const PricingSection: React.FC = () => {
           <div className="inline-flex items-center space-x-2 text-gray-400">
             <AlertCircle className="h-4 w-4" />
             <span className="text-sm">
-              Secure payments powered by Stripe. Your payment information is encrypted and secure.
+              Payments are securely processed with Stripe<br />
+              Your information is encrypted and protected
             </span>
           </div>
         </div>
