@@ -21,7 +21,8 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
             transition={{ duration: 0.6 }}
           >
             <div className="inline-flex items-center space-x-2 bg-blue-600/20 text-blue-300 px-4 py-2 rounded-full mb-6">
-              <span className="text-sm font-medium">🎟️ Backed by 1,000 verified signups and six Lisbon events</span>
+              <Ticket className="h-4 w-4" />
+              <span className="text-sm font-medium">Backed by 1,000 verified signups and six Lisbon events</span>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
