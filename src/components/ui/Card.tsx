@@ -19,7 +19,7 @@ export const Card: React.FC<CardProps> = ({ className, children, hover = false }
   return (
     <motion.div
       className={cn(
-        'bg-gray-800 rounded-2xl border border-gray-700 shadow-lg',
+        'bg-gray-800/90 backdrop-blur-sm rounded-2xl border border-gray-700/50 shadow-xl',
         className
       )}
       {...cardProps}

@@ -151,48 +151,51 @@ export const PerksDirectory: React.FC = () => {
             >
               <Card className="p-6 h-full" hover>
                 {/* Verified Partner Badge */}
-                <div className="mb-4">
-                  <div className="inline-flex items-center bg-green-600/20 text-green-400 px-3 py-1 rounded-full text-xs font-medium">
+                <div className="mb-6">
+                  <div className="inline-flex items-center bg-green-500/10 text-green-500 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide">
                     Verified Partner
                   </div>
                 </div>
                 
-                <div className="flex items-start space-x-4 mb-4">
+                <div className="flex items-center space-x-4 mb-6">
                   <img
                     src={perk.logo}
                     alt={perk.business_name}
-                    className="w-12 h-12 rounded-lg object-cover"
+                    className="w-14 h-14 rounded-xl object-cover shadow-sm"
                   />
                   <div className="flex-1">
-                    <h3 className="font-semibold text-lg mb-1">{perk.business_name}</h3>
-                    <div className="flex items-center space-x-2 text-sm text-gray-400">
-                      <MapPin className="h-3 w-3" />
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="font-semibold text-lg text-white">{perk.business_name}</h3>
+                      {perk.is_portuguese_owned && (
+                        <div className="bg-green-500/10 text-green-500 px-2 py-0.5 rounded-md text-xs font-medium">
+                          Portuguese
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex items-center space-x-1.5 text-sm text-gray-400">
+                      <MapPin className="h-3.5 w-3.5" />
                       <span>{perk.neighborhood}</span>
                     </div>
                   </div>
-                  {perk.is_portuguese_owned && (
-                    <div className="bg-green-600/20 text-green-400 px-2 py-1 rounded-lg text-xs">
-                      Portuguese
-                    </div>
-                  )}
                 </div>
 
-                <div className="mb-4">
-                  <h4 className="font-medium text-blue-400 mb-2">{perk.title}</h4>
-                  <p className="text-sm text-gray-300 mb-3">{perk.description}</p>
+                <div className="mb-6">
+                  <h4 className="font-semibold text-blue-400 text-lg mb-3">{perk.title}</h4>
+                  <p className="text-sm text-gray-300 leading-relaxed mb-4">{perk.description}</p>
                   
-                  <div className="flex items-center space-x-3 text-sm bg-gray-700/50 rounded-lg p-3 mb-4">
+                  <div className="flex items-center space-x-3 text-sm bg-gray-700/30 rounded-xl p-4 mb-6 border border-gray-600/20">
                     <div className="flex-shrink-0">
                       {getRedemptionIcon(perk.redemption_method)}
                     </div>
-                    <span className="font-medium text-gray-300">
+                    <span className="font-medium text-gray-200">
                       {perk.redemption_details}
                     </span>
                   </div>
 
                   <Button
-                    variant="outline"
-                    className="w-full"
+                    variant="primary"
+                    size="lg"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl border-0 shadow-sm"
                     onClick={() => {
                       // Handle perk redemption
                       console.log('Redeeming perk:', perk.id);
