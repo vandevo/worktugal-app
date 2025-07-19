@@ -6,6 +6,9 @@ import { motion } from 'framer-motion';
 import { Gift, ImageIcon, Plus, Trash2 } from 'lucide-react';
 import { perkSchema, PerkFormData } from '../../lib/validations';
 import { REDEMPTION_METHODS } from '../../utils/constants';
+import { useAuth } from '../../hooks/useAuth';
+import { AuthModal } from '../auth/AuthModal';
+import { Alert } from '../ui/Alert';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 import { Button } from '../ui/Button';
@@ -20,6 +23,8 @@ interface PerkFormProps {
 
 export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialData }) => {
   const [showImageFields, setShowImageFields] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const { user } = useAuth();
   
   const {
     register,
@@ -116,6 +121,14 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* Auth warning for image uploads */}
+        {showImageFields && !user && (
+          <Alert variant="info" className="mb-6">
+            <strong>Sign in required for image uploads</strong><br />
+            You can continue without images, or sign in to add photos to your perk listing.
+          </Alert>
+        )}
+
         {/* Core Perk Details - Top Priority */}
         <Input
           label="Perk Title"
@@ -194,6 +207,8 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
                 onChange={(url) => setValue('logo', url)}
                 onClear={() => setValue('logo', '')}
                 folder="business-logos"
+                disabled={!user}
+                onAuthRequired={() => setShowAuthModal(true)}
               />
               
               <div className="space-y-4">
@@ -238,6 +253,8 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
                           onChange={(url) => updateImage(index, url)}
                           onClear={() => updateImage(index, '')}
                           folder="perk-images"
+                          disabled={!user}
+                          onAuthRequired={() => setShowAuthModal(true)}
                         />
                       </Card>
                     ))}
@@ -313,6 +330,12 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
           </Button>
         </div>
       </form>
+
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        initialMode="signup"
+      />
     </motion.div>
   );
 };

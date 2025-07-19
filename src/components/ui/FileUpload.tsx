@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, X, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { Upload, X, Image as ImageIcon, Loader2, Lock } from 'lucide-react';
 import { cn } from '../../utils/cn';
 import { uploadFile, validateImageFile } from '../../lib/storage';
 import { Button } from './Button';
@@ -17,6 +17,8 @@ interface FileUploadProps {
   maxSize?: number;
   className?: string;
   folder?: string;
+  disabled?: boolean;
+  onAuthRequired?: () => void;
 }
 
 export const FileUpload: React.FC<FileUploadProps> = ({
@@ -29,6 +31,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   accept = 'image/*',
   className,
   folder = 'perk-images',
+  disabled = false,
+  onAuthRequired,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -36,6 +40,11 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   const [dragOver, setDragOver] = useState(false);
 
   const handleFileSelect = async (file: File) => {
+    if (disabled) {
+      onAuthRequired?.();
+      return;
+    }
+    
     setUploadError(null);
     
     // Validate file
@@ -67,6 +76,11 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setDragOver(false);
+    
+    if (disabled) {
+      onAuthRequired?.();
+      return;
+    }
     
     const file = e.dataTransfer.files[0];
     if (file) {
@@ -142,13 +156,21 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             className={cn(
               'relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 cursor-pointer hover:border-blue-500 hover:bg-gray-800/50',
               dragOver ? 'border-blue-500 bg-blue-500/10' : 'border-gray-600 bg-gray-800/30',
-              uploading && 'cursor-not-allowed',
+              (uploading || disabled) && 'cursor-not-allowed',
               error && 'border-red-500'
             )}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
-            onClick={() => !uploading && fileInputRef.current?.click()}
+            onClick={() => {
+              if (disabled) {
+                onAuthRequired?.();
+                return;
+              }
+              if (!uploading) {
+                fileInputRef.current?.click();
+              }
+            }}
           >
             <input
               ref={fileInputRef}
@@ -156,10 +178,24 @@ export const FileUpload: React.FC<FileUploadProps> = ({
               accept={accept}
               onChange={handleInputChange}
               className="hidden"
-              disabled={uploading}
+              disabled={uploading || disabled}
             />
 
-            {uploading ? (
+            {disabled ? (
+              <div className="space-y-3">
+                <div className="flex justify-center">
+                  <Lock className="h-8 w-8 text-gray-500" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-400 mb-1">
+                    Sign in to upload images
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    Click here to sign in or create an account
+                  </p>
+                </div>
+              </div>
+            ) : uploading ? (
               <div className="space-y-3">
                 <Loader2 className="h-8 w-8 text-blue-400 mx-auto animate-spin" />
                 <p className="text-sm text-gray-300">Uploading image...</p>
