@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Instagram, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, Globe, Send } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -66,11 +66,13 @@ export const Footer: React.FC = () => {
                 <Instagram className="h-5 w-5" />
               </motion.a>
               <motion.a
-                href="#"
+                href="https://t.me/worktugal"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.1 }}
                 className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
               >
-                <Globe className="h-5 w-5" />
+                <Send className="h-5 w-5" />
               </motion.a>
             </div>
           </div>
