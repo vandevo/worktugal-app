@@ -107,6 +107,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
 
         <Select
           label="Business Category"
+          hint="What type of business is this?"
           options={categoryOptions}
           {...register('category')}
           error={errors.category?.message}
