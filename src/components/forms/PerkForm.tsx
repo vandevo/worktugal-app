@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
-import { Gift, Type, FileText, QrCode, Check } from 'lucide-react';
+import { Gift } from 'lucide-react';
 import { perkSchema, PerkFormData } from '../../lib/validations';
 import { REDEMPTION_METHODS } from '../../utils/constants';
 import { Input } from '../ui/Input';
@@ -21,6 +21,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
     handleSubmit,
     watch,
     setValue,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<PerkFormData>({
     resolver: zodResolver(perkSchema),
@@ -28,8 +29,35 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
   });
 
   const redemptionMethod = watch('redemption_method');
+  const redemptionDetails = watch('redemption_details');
   const isPortugueseOwned = watch('is_portuguese_owned');
   const needsNif = watch('needs_nif');
+
+  // Dynamic placeholder text and pre-fill logic
+  const getPlaceholderText = (method: string) => {
+    switch (method) {
+      case 'verbal':
+        return 'Just mention you have Worktugal Pass at checkout.';
+      case 'show_pass':
+        return 'Show your digital Worktugal Pass when ordering.';
+      case 'promo_code':
+        return 'Use code WORKTUGAL10 during checkout.';
+      case 'qr_code':
+        return 'Scan the QR code displayed at your counter.';
+      case 'other':
+        return 'Describe how the perk will be redeemed.';
+      default:
+        return 'How do customers redeem this perk?';
+    }
+  };
+
+  // Pre-fill redemption details when method changes (only if field is empty)
+  useEffect(() => {
+    if (redemptionMethod && !redemptionDetails) {
+      const placeholderText = getPlaceholderText(redemptionMethod);
+      setValue('redemption_details', placeholderText);
+    }
+  }, [redemptionMethod, redemptionDetails, setValue]);
 
   return (
     <motion.div
@@ -70,6 +98,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
 
         <Select
           label="How will customers redeem this perk?"
+          hint="Choose the simplest way your staff can recognize a Worktugal member."
           options={REDEMPTION_METHODS}
           {...register('redemption_method')}
           error={errors.redemption_method?.message}
@@ -77,13 +106,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
 
         <Input
           label="Redemption Details"
-          placeholder={
-            redemptionMethod === 'promo_code' 
-              ? 'Enter the promo code' 
-              : redemptionMethod === 'verbal'
-              ? 'What should customers say?'
-              : 'How do customers redeem this perk?'
-          }
+          placeholder={getPlaceholderText(redemptionMethod)}
           {...register('redemption_details')}
           error={errors.redemption_details?.message}
         />

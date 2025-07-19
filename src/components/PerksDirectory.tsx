@@ -76,8 +76,9 @@ export const PerksDirectory: React.FC = () => {
 
   const getRedemptionIcon = (method: string) => {
     switch (method) {
-      case 'qr': return <QrCode className="h-4 w-4" />;
+      case 'qr_code': return <QrCode className="h-4 w-4" />;
       case 'verbal': return <MessageCircle className="h-4 w-4" />;
+      case 'show_pass': return <MessageCircle className="h-4 w-4" />;
       default: return <Tag className="h-4 w-4" />;
     }
   };

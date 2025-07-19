@@ -8,10 +8,11 @@ export const BUSINESS_CATEGORIES = [
 ];
 
 export const REDEMPTION_METHODS = [
-  { value: 'verbal', label: 'Verbal mention ("I have Worktugal Pass")' },
-  { value: 'qr', label: 'QR Code scan' },
-  { value: 'promo_code', label: 'Promo code' },
-  { value: 'other', label: 'Other method' }
+  { value: 'verbal', label: 'Verbal mention: "I have Worktugal Pass"' },
+  { value: 'show_pass', label: 'Show digital Worktugal Pass' },
+  { value: 'promo_code', label: 'Use promo code at checkout' },
+  { value: 'qr_code', label: 'Scan QR code at counter' },
+  { value: 'other', label: 'Other method (explain below)' }
 ];
 
 export const LISTING_PRICE = 49; // €49 listing fee

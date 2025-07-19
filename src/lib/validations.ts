@@ -14,8 +14,8 @@ export const businessSchema = z.object({
 export const perkSchema = z.object({
   title: z.string().min(5, 'Perk title must be at least 5 characters'),
   description: z.string().min(20, 'Description must be at least 20 characters'),
-  redemption_method: z.string().min(1, 'Please select a redemption method'),
-  redemption_details: z.string().min(10, 'Please provide redemption details'),
+  redemption_method: z.string().min(1, 'Please select how customers will redeem this perk'),
+  redemption_details: z.string().min(10, 'Please provide specific redemption details'),
   images: z.array(z.string()).optional(),
   logo: z.string().optional(),
   is_portuguese_owned: z.boolean(),
