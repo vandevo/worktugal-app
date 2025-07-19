@@ -182,8 +182,8 @@ export const PricingSection: React.FC = () => {
               <p className="mb-1">Payments are securely processed with Stripe</p>
               <p>Your information is encrypted and protected</p>
             </div>
-              Your information is encrypted and protected
-            </span>
+              <p>Your information is encrypted and protected</p>
+            </div>
           </div>
         </div>
       </div>
