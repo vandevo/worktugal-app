@@ -51,13 +51,29 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
     }
   };
 
-  // Pre-fill redemption details when method changes (only if field is empty)
+  // Get list of our standard placeholder texts to detect auto-generated content
+  const standardPlaceholders = [
+    'Just mention you have Worktugal Pass at checkout.',
+    'Show your digital Worktugal Pass when ordering.',
+    'Use code WORKTUGAL10 during checkout.',
+    'Scan the QR code displayed at your counter.',
+    'Describe how the perk will be redeemed.',
+    'How do customers redeem this perk?',
+    ''
+  ];
+
+  // Update redemption details when method changes
   useEffect(() => {
-    if (redemptionMethod && !redemptionDetails) {
+    if (redemptionMethod) {
       const placeholderText = getPlaceholderText(redemptionMethod);
-      setValue('redemption_details', placeholderText);
+      
+      // Only auto-update if current value is empty or one of our standard placeholders
+      // This preserves custom user input while updating auto-generated content
+      if (!redemptionDetails || standardPlaceholders.includes(redemptionDetails)) {
+        setValue('redemption_details', placeholderText);
+      }
     }
-  }, [redemptionMethod, redemptionDetails, setValue]);
+  }, [redemptionMethod, redemptionDetails, setValue, standardPlaceholders]);
 
   return (
     <motion.div
