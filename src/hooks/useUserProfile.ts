@@ -62,7 +62,11 @@ export const useUserProfile = () => {
     getInitials,
     refetch: () => {
       if (user) {
-        getUserProfile(user.id).then(setProfile);
+        getUserProfile(user.id).then(userProfile => {
+          setProfile(userProfile);
+        }).catch(err => {
+          setError(err.message || 'Failed to fetch profile');
+        });
       }
     },
   };
