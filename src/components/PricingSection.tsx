@@ -116,11 +116,11 @@ export const PricingSection: React.FC = () => {
                   <p className="text-xs sm:text-sm text-gray-400 mb-6">No renewals • No surprises</p>
                   
                   <div className="text-gray-300 mb-6 text-left space-y-3">
-                    <p className="mb-4 text-base leading-relaxed">
-                      Be one of the first 25 partners featured on Worktugal Pass, a curated local perks network built for high-spending remote professionals who stay longer, spend more, and seek trusted places to go.
+                    <p className="text-base leading-relaxed font-medium">
+                      Join the first 25 partners in Lisbon's most trusted perk marketplace for remote professionals.
                     </p>
-                    <p className="text-base leading-relaxed">
-                      Your listing drives foot traffic, builds trust, and gives your business visibility inside a verified member community.
+                    <p className="text-sm text-gray-400 leading-relaxed">
+                      Drive quality foot traffic from verified members who spend more and stay longer.
                     </p>
                   </div>
                 </div>
