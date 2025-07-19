@@ -96,7 +96,8 @@ export const PricingSection: React.FC = () => {
               {/* FOMO Badge */}
               <div className="text-center mb-6">
                 <div className="inline-flex items-center space-x-2 bg-orange-600/20 text-orange-300 px-4 py-2 rounded-full border border-orange-600/30">
-                  <span className="text-sm font-medium">🎯 Only 21 Founder Partner spots remaining</span>
+                  <Target className="h-4 w-4" />
+                  <span className="text-sm font-medium">Only 21 Founder Partner spots remaining</span>
                 </div>
               </div>
 
