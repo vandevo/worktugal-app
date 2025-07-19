@@ -150,24 +150,62 @@ export const PerksDirectory: React.FC = () => {
               transition={{ delay: index * 0.1 }}
             >
               <Card className="p-6 h-full" hover>
-                {/* Verified Partner Badge */}
-                <div className="mb-6">
-                  <div className="inline-flex items-center bg-green-500/10 text-green-500 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide">
+                {/* Verified Partner Badge - now blue */}
+                <div className="mb-4">
+                  <div className="inline-flex items-center bg-blue-500/10 text-blue-400 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide">
                     Verified Partner
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-4 mb-6">
+                <div className="flex items-start space-x-4 mb-6">
                   <img
                     src={perk.logo}
                     alt={perk.business_name}
                     className="w-14 h-14 rounded-xl object-cover shadow-sm"
                   />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1">
-                      <h3 className="font-semibold text-lg text-white">{perk.business_name}</h3>
-                      {perk.is_portuguese_owned && (
-                        <div className="bg-green-500/10 text-green-500 px-2 py-0.5 rounded-md text-xs font-medium">
+                  <div className="flex-1 min-w-0">
+                    <div className="mb-2">
+                      <div className="flex items-start justify-between gap-2 mb-1">
+                        <h3 className="font-semibold text-lg text-white leading-tight flex-1">{perk.business_name}</h3>
+                        {perk.is_portuguese_owned && (
+                          <div className="bg-green-500/10 text-green-400 px-2 py-0.5 rounded-md text-xs font-medium flex-shrink-0">
+                            Portuguese
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex items-center space-x-1.5 text-sm text-gray-400">
+                        <MapPin className="h-3.5 w-3.5 flex-shrink-0" />
+                        <span>{perk.neighborhood}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <h4 className="font-semibold text-blue-400 text-lg mb-3 leading-tight">{perk.title}</h4>
+                  <p className="text-sm text-gray-300 leading-relaxed mb-4">{perk.description}</p>
+                  
+                  <div className="flex items-center space-x-3 text-sm bg-gray-700/30 rounded-xl p-4 mb-6 border border-gray-600/20">
+                    <div className="flex-shrink-0 text-gray-400">
+                      {getRedemptionIcon(perk.redemption_method)}
+                    </div>
+                    <span className="font-medium text-gray-200 leading-relaxed">
+                      {perk.redemption_details}
+                    </span>
+                  </div>
+
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl border-0 shadow-sm"
+                    onClick={() => {
+                      // Handle perk redemption
+                      console.log('Redeeming perk:', perk.id);
+                    }}
+                  >
+                    Use This Now
+                  </Button>
+                </div>
                           Portuguese
                         </div>
                       )}
