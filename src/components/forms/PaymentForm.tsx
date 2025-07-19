@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CreditCard, Shield, Check, Euro } from 'lucide-react';
+import { CreditCard, Shield, Check, ShieldCheck } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { Alert } from '../ui/Alert';
@@ -94,8 +94,21 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
     >
       <div className="text-center mb-8">
         <CreditCard className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold mb-2">Join Lisbon's Most Trusted Perk Marketplace</h2>
-        <p className="text-gray-400">Secure your spot in the partner network that remote professionals actually use</p>
+        <h2 className="text-2xl font-bold mb-2">Secure Your Partnership</h2>
+        <p className="text-gray-400">Join the marketplace trusted by 1,000+ remote professionals</p>
+      </div>
+
+      {/* Confirmation Summary */}
+      <div className="text-center mb-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700">
+        <p className="text-lg font-medium text-gray-200 mb-2">
+          You're listing <span className="text-blue-400 font-semibold">{formData.business.name}</span>
+        </p>
+        <p className="text-xl font-bold text-white">
+          with the perk: "{formData.perk.title}"
+        </p>
+        <div className="mt-4 text-sm text-gray-400">
+          <p>in {formData.business.neighborhood} • {formData.business.category}</p>
+        </div>
       </div>
 
       {error && (
@@ -114,8 +127,12 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
       <Card className="p-6">
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-lg font-medium">Partner Listing Early Access (Lifetime)</span>
+            <span className="text-lg font-medium">Early Access Partnership</span>
             <span className="text-2xl font-bold text-blue-400">€{LISTING_PRICE}</span>
+          </div>
+          
+          <div className="text-sm text-gray-500 mb-4">
+            <span className="font-medium">What you get for €49:</span>
           </div>
           
           <div className="space-y-2 text-sm text-gray-400">
@@ -125,11 +142,11 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
             </div>
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
-              <span>Exposure to 1,000+ verified remote professionals</span>
+              <span>Direct access to 1,000+ verified remote professionals</span>
             </div>
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
-              <span>Featured in events & community channels</span>
+              <span>Priority featuring in events & community channels</span>
             </div>
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
@@ -137,15 +154,23 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
             </div>
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
-              <span>No renewal fees • No commissions</span>
+              <span>No renewal fees • No commissions • No hidden costs</span>
             </div>
             <div className="flex items-center space-x-2">
               <Check className="h-4 w-4 text-green-400" />
-              <span>Portugal-based team & support</span>
+              <span>Dedicated Portugal-based team & support</span>
             </div>
           </div>
         </div>
       </Card>
+
+      {/* Secure Checkout Badge */}
+      <div className="text-center">
+        <div className="inline-flex items-center space-x-2 text-green-400 bg-green-600/10 px-4 py-2 rounded-full border border-green-600/20">
+          <ShieldCheck className="h-5 w-5" />
+          <span className="font-medium">Secure Checkout</span>
+        </div>
+      </div>
 
       <div className="bg-orange-600/10 border border-orange-600/20 rounded-xl p-4">
         <div className="flex items-center space-x-2 mb-2">
@@ -153,13 +178,14 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
           <span className="font-medium text-orange-400">Early Access - 21 Spots Remaining</span>
         </div>
         <p className="text-sm text-gray-300 leading-relaxed">
-          Join the first 25 partners in the marketplace that remote workers trust. Quality customers who stay, spend, and share their experiences.
+          Join the first 25 partners in the marketplace that remote workers trust. These are quality customers who stay longer, spend more, and share their experiences.
         </p>
       </div>
 
       <div className="space-y-4">
         <div className="text-center text-sm text-gray-400">
-          <p>Payments securely processed with Stripe • By proceeding, you agree to our Terms of Service</p>
+          <p>🔒 Payments securely processed with Stripe • 30-day money-back guarantee</p>
+          <p className="text-xs mt-1">By proceeding, you agree to our Terms of Service</p>
         </div>
 
         <div className="flex space-x-4">

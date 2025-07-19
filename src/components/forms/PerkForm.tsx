@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
-import { Gift } from 'lucide-react';
+import { Gift, ImageIcon } from 'lucide-react';
 import { perkSchema, PerkFormData } from '../../lib/validations';
 import { REDEMPTION_METHODS } from '../../utils/constants';
 import { Input } from '../ui/Input';
@@ -16,6 +17,8 @@ interface PerkFormProps {
 }
 
 export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialData }) => {
+  const [showImageFields, setShowImageFields] = useState(false);
+  
   const {
     register,
     handleSubmit,
@@ -89,6 +92,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* Core Perk Details - Top Priority */}
         <Input
           label="Perk Title"
           placeholder="20% off all meals"
@@ -107,11 +111,15 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
             placeholder="Describe your perk in detail. What makes it special? Any restrictions?"
             {...register('description')}
           />
+          <p className="text-xs text-gray-500">
+            e.g., "Enjoy 20% off all food items, valid for dine-in only. Not combinable with other offers."
+          </p>
           {errors.description && (
             <p className="text-xs text-red-400">{errors.description.message}</p>
           )}
         </div>
 
+        {/* Redemption Method */}
         <Select
           label="How will customers redeem this perk?"
           hint="Choose the simplest way your staff can recognize a Worktugal member."
@@ -123,10 +131,54 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
         <Input
           label="Redemption Details"
           placeholder={getPlaceholderText(redemptionMethod)}
+          readOnly={redemptionMethod === 'verbal' || redemptionMethod === 'show_pass'}
           {...register('redemption_details')}
           error={errors.redemption_details?.message}
+          hint={redemptionMethod === 'verbal' || redemptionMethod === 'show_pass' 
+            ? "This is automatically set based on your selection above" 
+            : "Provide specific details for your redemption method"}
         />
 
+        {/* Optional Image/Logo Fields */}
+        <div className="space-y-4">
+          <div className="flex items-center space-x-3">
+            <button
+              type="button"
+              onClick={() => setShowImageFields(!showImageFields)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
+                showImageFields ? 'bg-blue-600' : 'bg-gray-600'
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform ${
+                  showImageFields ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+            <label className="text-sm text-gray-300 flex items-center space-x-2">
+              <ImageIcon className="h-4 w-4" />
+              <span>Add images or logo to your perk?</span>
+            </label>
+          </div>
+
+          {showImageFields && (
+            <div className="space-y-4 p-4 border border-gray-700 rounded-xl bg-gray-800/50">
+              <Input
+                label="Business Logo URL (optional)"
+                placeholder="https://example.com/logo.jpg"
+                {...register('logo')}
+                hint="Add your business logo to make your perk more recognizable"
+              />
+              <Input
+                label="Main Perk Image URL (optional)"
+                placeholder="https://example.com/perk-image.jpg"
+                hint="Add an image that showcases your perk or business"
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Business Characteristics */}
         <div className="space-y-4">
           <div className="flex items-center space-x-3">
             <button

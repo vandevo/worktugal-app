@@ -86,21 +86,6 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
           error={errors.name?.message}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Input
-            label="Website"
-            placeholder="https://yourbusiness.com"
-            {...register('website')}
-            error={errors.website?.message}
-          />
-          <Input
-            label="Instagram"
-            placeholder="@yourbusiness"
-            {...register('instagram')}
-            error={errors.instagram?.message}
-          />
-        </div>
-
         <Input
           label="Contact Name"
           placeholder="John Doe"
@@ -127,21 +112,40 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
           />
         </div>
 
-        <Select
-          label="Business Category"
-          hint="What type of business is this?"
-          options={categoryOptions}
-          {...register('category')}
-          error={errors.category?.message}
-        />
+        {/* Location & Business Type - Grouped */}
+        <div className="p-4 border border-gray-700 rounded-xl bg-gray-800/50 space-y-4">
+          <h3 className="text-sm font-medium text-gray-300 mb-3">Business Details</h3>
+          <Select
+            label="Business Category"
+            hint="What type of business is this?"
+            options={categoryOptions}
+            {...register('category')}
+            error={errors.category?.message}
+          />
+          <Select
+            label="Neighborhood"
+            hint="Where is your main Lisbon location?"
+            options={LISBON_NEIGHBORHOOD_GROUPS}
+            {...register('neighborhood')}
+            error={errors.neighborhood?.message}
+          />
+        </div>
 
-        <Select
-          label="Neighborhood"
-          hint="Where is your main Lisbon location?"
-          options={LISBON_NEIGHBORHOOD_GROUPS}
-          {...register('neighborhood')}
-          error={errors.neighborhood?.message}
-        />
+        {/* Optional Fields */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Input
+            label="Website (optional)"
+            placeholder="https://yourbusiness.com"
+            {...register('website')}
+            error={errors.website?.message}
+          />
+          <Input
+            label="Instagram (optional)"
+            placeholder="@yourbusiness"
+            {...register('instagram')}
+            error={errors.instagram?.message}
+          />
+        </div>
 
         <Button
           type="submit"
