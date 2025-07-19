@@ -34,7 +34,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <nav className="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <div className="flex items-center space-x-2">
+            <a href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
               <img 
                 src="/worktugal-logo-bg-light-radius-1000-1000.png" 
                 alt="Worktugal Pass" 
@@ -42,14 +42,14 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               />
               <span className="text-lg sm:text-xl font-bold hidden xs:inline">Worktugal Pass</span>
               <span className="text-lg sm:text-xl font-bold xs:hidden">Worktugal</span>
-            </div>
+            </a>
             
             <div className="flex items-center space-x-6">
               <div className="hidden lg:flex items-center space-x-6">
                 <a href="#directory" className="text-gray-300 hover:text-white transition-colors">
                   Browse Perks
                 </a>
-                <a href="#partners" className="text-gray-300 hover:text-white transition-colors">
+                <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">
                   For Partners
                 </a>
               </div>
