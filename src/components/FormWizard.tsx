@@ -15,7 +15,7 @@ interface FormWizardProps {
 }
 
 export const FormWizard: React.FC<FormWizardProps> = ({ onComplete, submissionId }) => {
-  const { formData, currentStep, loading, updateFormData, setCurrentStep, resetForm } = useFormData(submissionId);
+  const { formData, currentStep, loading, isPreviewMode, updateFormData, setCurrentStep, resetForm } = useFormData(submissionId);
   const [error, setError] = useState<string | null>(null);
 
   const handleBusinessSubmit = (data: BusinessFormData) => {
@@ -112,6 +112,7 @@ export const FormWizard: React.FC<FormWizardProps> = ({ onComplete, submissionId
               onBack={() => setCurrentStep('perk')}
               formData={formData}
               updateFormData={updateFormData}
+              isPreviewMode={isPreviewMode}
             />
           )}
           {currentStep === 'success' && (

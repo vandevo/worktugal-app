@@ -17,9 +17,10 @@ interface PaymentFormProps {
   onBack: () => void;
   formData: FormData;
   updateFormData: (section: keyof FormData, data: any) => void;
+  isPreviewMode?: boolean;
 }
 
-export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, formData, updateFormData }) => {
+export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, formData, updateFormData, isPreviewMode = false }) => {
   const { user } = useAuth();
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,6 +36,11 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
   }, [user, pendingPayment]);
 
   const handlePayment = async () => {
+    if (isPreviewMode) {
+      setError('Payment disabled in preview mode. This is for development/design testing only.');
+      return;
+    }
+    
     if (!user) {
       setShowAuthModal(true);
       setPendingPayment(true);
@@ -95,6 +101,13 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
       {error && (
         <Alert variant="error" className="mb-6" onClose={() => setError(null)}>
           {error}
+        </Alert>
+      )}
+
+      {isPreviewMode && (
+        <Alert variant="info" className="mb-6">
+          <strong>🔧 Preview Mode</strong><br />
+          This is a development preview with dummy data. Payment processing is disabled.
         </Alert>
       )}
 
@@ -164,8 +177,14 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
             className="flex-1"
             onClick={handlePayment}
             loading={processing}
+            disabled={isPreviewMode}
           >
-            {processing ? 'Processing...' : `Secure Your Spot — €${LISTING_PRICE}`}
+            {isPreviewMode 
+              ? '🔧 Preview Mode - Payment Disabled' 
+              : processing 
+                ? 'Processing...' 
+                : `Secure Your Spot — €${LISTING_PRICE}`
+            }
           </Button>
         </div>
       </div>
