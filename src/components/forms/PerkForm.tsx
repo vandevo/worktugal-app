@@ -90,24 +90,38 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
 
         <div className="space-y-4">
           <div className="flex items-center space-x-3">
-            <input
-              type="checkbox"
-              id="portuguese_owned"
-              className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
-              {...register('is_portuguese_owned')}
-            />
+            <button
+              type="button"
+              onClick={() => setValue('is_portuguese_owned', !isPortugueseOwned)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
+                isPortugueseOwned ? 'bg-blue-600' : 'bg-gray-600'
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform ${
+                  isPortugueseOwned ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
             <label htmlFor="portuguese_owned" className="text-sm text-gray-300">
               This is a Portuguese-owned business
             </label>
           </div>
 
           <div className="flex items-center space-x-3">
-            <input
-              type="checkbox"
-              id="needs_nif"
-              className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
-              {...register('needs_nif')}
-            />
+            <button
+              type="button"
+              onClick={() => setValue('needs_nif', !needsNif)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
+                needsNif ? 'bg-blue-600' : 'bg-gray-600'
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform ${
+                  needsNif ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
             <label htmlFor="needs_nif" className="text-sm text-gray-300">
               I need Fatura com NIF for transactions
             </label>
