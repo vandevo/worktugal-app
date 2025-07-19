@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CreditCard, Shield, Check, Euro } from 'lucide-react';
 import { Button } from '../ui/Button';
@@ -7,24 +7,37 @@ import { Alert } from '../ui/Alert';
 import { LISTING_PRICE } from '../../utils/constants';
 import { STRIPE_PRODUCTS } from '../../stripe-config';
 import { createCheckoutSession } from '../../lib/stripe';
+import { createPartnerSubmission } from '../../lib/submissions';
 import { useAuth } from '../../hooks/useAuth';
+import { FormData } from '../../types';
 import { AuthModal } from '../auth/AuthModal';
 
 interface PaymentFormProps {
   onSubmit: () => void;
   onBack: () => void;
-  submissionId?: number;
+  formData: FormData;
+  updateFormData: (section: keyof FormData, data: any) => void;
 }
 
-export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, submissionId }) => {
+export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, formData, updateFormData }) => {
   const { user } = useAuth();
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [pendingPayment, setPendingPayment] = useState(false);
+
+  // Handle payment after user authentication
+  useEffect(() => {
+    if (user && pendingPayment) {
+      setPendingPayment(false);
+      handlePayment();
+    }
+  }, [user, pendingPayment]);
 
   const handlePayment = async () => {
     if (!user) {
       setShowAuthModal(true);
+      setPendingPayment(true);
       return;
     }
 
@@ -32,6 +45,20 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, subm
     setError(null);
 
     try {
+      let submissionId = formData.submissionId;
+      
+      // Create submission if it doesn't exist yet
+      if (!submissionId) {
+        submissionId = await createPartnerSubmission({
+          business: formData.business,
+          perk: formData.perk,
+          userId: user.id,
+        });
+        
+        // Update form data with submission ID
+        updateFormData('submissionId', submissionId);
+      }
+      
       const product = STRIPE_PRODUCTS[0]; // Get the first (and only) product
       
       const { url } = await createCheckoutSession({
@@ -139,7 +166,10 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, subm
 
       <AuthModal
         isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
+        onClose={() => {
+          setShowAuthModal(false);
+          setPendingPayment(false);
+        }}
         initialMode="signup"
       />
     </motion.div>

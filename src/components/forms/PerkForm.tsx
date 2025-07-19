@@ -13,10 +13,9 @@ interface PerkFormProps {
   onSubmit: (data: PerkFormData) => void;
   onBack: () => void;
   initialData?: Partial<PerkFormData>;
-  loading?: boolean;
 }
 
-export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialData, loading = false }) => {
+export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialData }) => {
   const {
     register,
     handleSubmit,
@@ -143,9 +142,9 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
             type="submit"
             size="lg"
             className="flex-1"
-            loading={isSubmitting || loading}
+            loading={isSubmitting}
           >
-            {loading ? 'Saving...' : 'Continue to Payment'}
+            Continue to Payment
           </Button>
         </div>
       </form>
