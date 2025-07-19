@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag } from 'lucide-react';
+import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag, Shield } from 'lucide-react';
 import { Input } from './ui/Input';
 import { Select } from './ui/Select';
 import { Card } from './ui/Card';
@@ -152,8 +152,9 @@ export const PerksDirectory: React.FC = () => {
               <Card className="p-6 h-full" hover>
                 {/* Verified Partner Badge - now blue */}
                 <div className="mb-4">
-                  <div className="inline-flex items-center bg-blue-500/10 text-blue-400 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide">
-                    Verified Partner
+                  <div className="inline-flex items-center space-x-1.5 bg-blue-500/10 text-blue-400 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide">
+                    <Shield className="h-3 w-3" />
+                    <span>Trusted Partner</span>
                   </div>
                 </div>
                 
