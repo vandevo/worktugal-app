@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Users, TrendingUp, MapPin } from 'lucide-react';
+import { ArrowRight, Users, TrendingUp, MapPin, Ticket } from 'lucide-react';
 import { Button } from './ui/Button';
 
 interface HeroProps {
@@ -21,20 +21,21 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
             transition={{ duration: 0.6 }}
           >
             <div className="inline-flex items-center space-x-2 bg-blue-600/20 text-blue-300 px-4 py-2 rounded-full mb-6">
-              <MapPin className="h-4 w-4" />
-              <span className="text-sm font-medium">Trusted by 1,000+ remote workers in Lisbon</span>
+              <Ticket className="h-4 w-4" />
+              <span className="text-sm font-medium">🎟️ Backed by 1,000 verified signups and five Lisbon events</span>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Bring high-spending{' '}
+              Get in front of Lisbon's{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                remote workers
+                most trusted
               </span>{' '}
-              to your business
+              remote workers
             </h1>
             
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Join Lisbon's most trusted perk platform. Built by the team behind 1,000+ attendees and 5+ sold-out events.
+              We hosted the community. Now we power the perks.<br />
+              Worktugal Pass connects your business to the remote professionals who stay, spend, and share.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -43,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
                 onClick={onGetStarted}
                 className="text-lg px-8 py-4"
               >
-                List My Business
+                Join as a Partner
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
@@ -52,7 +53,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
                 className="text-lg px-8 py-4"
                 onClick={() => document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Browse Perks
+                See Sample Perks
               </Button>
             </div>
           </motion.div>
@@ -69,7 +70,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
                 <Users className="h-6 w-6 text-blue-400 mr-2" />
                 <span className="text-3xl font-bold">1,000+</span>
               </div>
-              <p className="text-gray-400">Active remote workers</p>
+              <p className="text-gray-400">Verified event signups</p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center mb-2">
@@ -81,9 +82,9 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
             <div className="text-center">
               <div className="flex items-center justify-center mb-2">
                 <MapPin className="h-6 w-6 text-purple-400 mr-2" />
-                <span className="text-3xl font-bold">25</span>
+                <span className="text-3xl font-bold">21</span>
               </div>
-              <p className="text-gray-400">Spots available</p>
+              <p className="text-gray-400">Partner slots remaining</p>
             </div>
           </motion.div>
         </div>
