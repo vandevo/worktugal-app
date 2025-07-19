@@ -11,10 +11,11 @@ import { Alert } from './ui/Alert';
 
 interface FormWizardProps {
   onComplete: () => void;
+  submissionId?: number;
 }
 
-export const FormWizard: React.FC<FormWizardProps> = ({ onComplete }) => {
-  const { formData, currentStep, updateFormData, setCurrentStep, resetForm } = useFormData();
+export const FormWizard: React.FC<FormWizardProps> = ({ onComplete, submissionId }) => {
+  const { formData, currentStep, loading, updateFormData, setCurrentStep, resetForm } = useFormData(submissionId);
   const [error, setError] = useState<string | null>(null);
 
   const handleBusinessSubmit = (data: BusinessFormData) => {
@@ -54,6 +55,13 @@ export const FormWizard: React.FC<FormWizardProps> = ({ onComplete }) => {
 
   return (
     <div className="max-w-2xl mx-auto">
+      {loading && (
+        <div className="text-center py-8">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-400">Loading your submission...</p>
+        </div>
+      )}
+
       {currentStep !== 'success' && (
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
@@ -83,6 +91,7 @@ export const FormWizard: React.FC<FormWizardProps> = ({ onComplete }) => {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3 }}
+          style={{ display: loading ? 'none' : 'block' }}
         >
           {currentStep === 'business' && (
             <BusinessForm

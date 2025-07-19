@@ -64,7 +64,9 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
       const { url } = await createCheckoutSession({
         priceId: product.priceId,
         successUrl: `${window.location.origin}/success`,
-        cancelUrl: window.location.href,
+        cancelUrl: submissionId 
+          ? `${window.location.origin}/?submission=${submissionId}`
+          : window.location.href,
         mode: product.mode,
         submissionId,
       });

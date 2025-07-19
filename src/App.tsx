@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useSearchParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Layout } from './components/Layout';
 import { Hero } from './components/Hero';
@@ -12,6 +12,18 @@ import { useAuth } from './hooks/useAuth';
 
 const HomePage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
+  const [searchParams] = useSearchParams();
+  
+  // Check for submission ID in URL parameters
+  const submissionIdParam = searchParams.get('submission');
+  const submissionId = submissionIdParam ? parseInt(submissionIdParam, 10) : undefined;
+  
+  // Auto-show form if there's a submission ID
+  React.useEffect(() => {
+    if (submissionId && !showForm) {
+      setShowForm(true);
+    }
+  }, [submissionId, showForm]);
 
   const handleGetStarted = () => {
     setShowForm(true);
@@ -45,7 +57,10 @@ const HomePage: React.FC = () => {
                 <p className="text-gray-400">Get your business in front of 1,000+ remote workers</p>
               </div>
               
-              <FormWizard onComplete={handleFormComplete} />
+              <FormWizard 
+                onComplete={handleFormComplete} 
+                submissionId={submissionId}
+              />
             </div>
           </motion.div>
         ) : (

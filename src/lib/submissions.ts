@@ -88,3 +88,18 @@ export const getPartnerSubmissions = async (userId: string): Promise<PartnerSubm
 
   return data || [];
 };
+
+export const getPartnerSubmissionById = async (submissionId: number): Promise<PartnerSubmission | null> => {
+  const { data, error } = await supabase
+    .from('partner_submissions')
+    .select('*')
+    .eq('id', submissionId)
+    .maybeSingle();
+
+  if (error) {
+    console.error('Error fetching partner submission by ID:', error);
+    throw new Error(`Failed to fetch submission: ${error.message}`);
+  }
+
+  return data;
+};
