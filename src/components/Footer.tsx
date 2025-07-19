@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
             <a href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
               <img 
                 src="/worktugal-logo-bg-light-radius-1000-1000.png" 
-                alt="Worktugal Pass" 
+                alt="" 
                 className="w-8 h-8 rounded-lg object-contain"
               />
               <span className="text-xl font-bold">Worktugal Pass</span>
@@ -58,6 +58,7 @@ export const Footer: React.FC = () => {
             <div className="flex space-x-4">
               <motion.a
                 href="https://www.instagram.com/worktugal/"
+                aria-label="Worktugal Instagram profile"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1 }}
@@ -67,6 +68,7 @@ export const Footer: React.FC = () => {
               </motion.a>
               <motion.a
                 href="https://t.me/worktugal"
+                aria-label="Worktugal Telegram channel"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1 }}

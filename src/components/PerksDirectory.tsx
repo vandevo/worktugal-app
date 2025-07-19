@@ -131,6 +131,7 @@ export const PerksDirectory: React.FC = () => {
             <div className="flex items-center space-x-3">
               <button
                 onClick={() => setShowPortugueseOnly(!showPortugueseOnly)}
+                aria-label="Toggle show only Portuguese-owned businesses"
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
                   showPortugueseOnly ? 'bg-blue-600' : 'bg-gray-600'
                 }`}
@@ -170,6 +171,8 @@ export const PerksDirectory: React.FC = () => {
                   <img
                     src={perk.logo}
                     alt={perk.business_name}
+                    width="56"
+                    height="56"
                     className="w-14 h-14 rounded-xl object-cover shadow-sm"
                     onError={(e) => {
                       // Fallback to a default image or hide if image fails to load

@@ -37,7 +37,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             <a href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
               <img 
                 src="/worktugal-logo-bg-light-radius-1000-1000.png" 
-                alt="Worktugal Pass" 
+                alt="" 
                 className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg object-contain"
               />
               <span className="text-lg sm:text-xl font-bold hidden xs:inline">Worktugal Pass</span>

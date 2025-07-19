@@ -182,6 +182,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
             <button
               type="button"
               onClick={() => setShowImageFields(!showImageFields)}
+              aria-label="Toggle image and logo upload fields"
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
                 showImageFields ? 'bg-blue-600' : 'bg-gray-600'
               }`}
@@ -275,6 +276,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
             <button
               type="button"
               onClick={() => setValue('is_portuguese_owned', !isPortugueseOwned)}
+              aria-label="Mark as Portuguese-owned business"
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
                 isPortugueseOwned ? 'bg-blue-600' : 'bg-gray-600'
               }`}
@@ -294,6 +296,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
             <button
               type="button"
               onClick={() => setValue('needs_nif', !needsNif)}
+              aria-label="Toggle requirement for NIF number"
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
                 needsNif ? 'bg-blue-600' : 'bg-gray-600'
               }`}
