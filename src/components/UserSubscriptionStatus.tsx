@@ -23,10 +23,11 @@ export const UserSubscriptionStatus: React.FC = () => {
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="hidden sm:inline-flex items-center space-x-1.5 bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-blue-300 px-2.5 py-1 rounded-full border border-blue-600/30"
+      className="inline-flex items-center space-x-1 sm:space-x-1.5 bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-blue-300 px-2 sm:px-2.5 py-1 rounded-full border border-blue-600/30"
     >
       <Crown className="h-3.5 w-3.5" />
-      <span className="text-xs font-medium">Early Access</span>
+      <span className="text-xs font-medium hidden xs:inline">Early Access</span>
+      <span className="text-xs font-medium xs:hidden">Member</span>
     </motion.div>
   );
 };
