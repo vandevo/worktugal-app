@@ -56,10 +56,14 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <div className="relative">
                     <button
                       onClick={() => setShowUserMenu(!showUserMenu)}
-                      className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+                     className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors group"
                     >
-                      <User className="h-5 w-5" />
-                      <span className="hidden sm:inline">{user.email}</span>
+                     <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-medium group-hover:scale-105 transition-transform">
+                       {user.email?.charAt(0).toUpperCase() || 'U'}
+                     </div>
+                     <span className="hidden sm:inline text-sm">
+                       {user.email?.split('@')[0] || 'Account'}
+                     </span>
                     </button>
                     
                     {showUserMenu && (
