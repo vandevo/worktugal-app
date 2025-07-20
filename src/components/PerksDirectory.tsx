@@ -120,6 +120,14 @@ export const PerksDirectory: React.FC = () => {
       return;
     }
     
+    // Handle Suzana Mendes consultation booking via WhatsApp
+    if (perk.id === '4' && perk.whatsapp_number) {
+      const message = encodeURIComponent(`Hi Suzana, I'm a Worktugal Pass member interested in booking a consultation. I'd like to use the WORKTUGAL20 discount code for Feng Shui consultations or the 10% discount for Self-Knowledge consultations.`);
+      const whatsappUrl = `https://wa.me/${perk.whatsapp_number.replace('+', '')}?text=${message}`;
+      window.open(whatsappUrl, '_blank');
+      return;
+    }
+    
     if (perk.redemption_method === 'other' && perk.redemption_details.includes('WhatsApp')) {
       const phoneNumber = extractWhatsAppNumber(perk.redemption_details);
       if (phoneNumber) {
@@ -137,6 +145,9 @@ export const PerksDirectory: React.FC = () => {
   const getActionButtonText = (perk: any) => {
     if (perk.id === '1' && perk.whatsapp_number) {
       return 'Message on WhatsApp';
+    }
+    if (perk.id === '4' && perk.whatsapp_number) {
+      return 'Contact to Book';
     }
     if (perk.redemption_method === 'other' && perk.redemption_details.includes('WhatsApp')) {
       return 'Message on WhatsApp';
