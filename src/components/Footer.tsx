@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Instagram, Globe, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, Globe, Send, Linkedin, MessageCircle } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
