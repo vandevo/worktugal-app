@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag, Shield } from 'lucide-react';
+import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag, Shield, Globe, Instagram } from 'lucide-react';
 import { Input } from './ui/Input';
 import { Select } from './ui/Select';
 import { Card } from './ui/Card';
@@ -20,7 +20,9 @@ const mockPerks = [
     is_portuguese_owned: true,
     logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/escala-25-trust-monitor.jpg',
     city: 'Lisbon',
-    neighborhood: 'Beato / Marvila'
+    neighborhood: 'Beato / Marvila',
+    business_website: 'https://escala25.com',
+    business_instagram: 'https://instagram.com/escala25_climbing'
   },
   {
     id: '2',
@@ -33,7 +35,9 @@ const mockPerks = [
     is_portuguese_owned: false,
     logo: 'https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=400',
     city: 'Lisbon',
-    neighborhood: 'Avenidas Novas'
+    neighborhood: 'Avenidas Novas',
+    business_website: 'https://fitlisboa.pt',
+    business_instagram: 'https://instagram.com/fitlisboa'
   },
   {
     id: '3',
@@ -46,7 +50,9 @@ const mockPerks = [
     is_portuguese_owned: true,
     logo: 'https://images.pexels.com/photos/3993456/pexels-photo-3993456.jpeg?auto=compress&cs=tinysrgb&w=400',
     city: 'Lisbon',
-    neighborhood: 'Chiado'
+    neighborhood: 'Chiado',
+    business_website: 'https://belezastudio.pt',
+    business_instagram: 'https://instagram.com/belezastudio'
   }
 ];
 
@@ -81,6 +87,34 @@ export const PerksDirectory: React.FC = () => {
       case 'show_pass': return <MessageCircle className="h-4 w-4" />;
       default: return <Tag className="h-4 w-4" />;
     }
+  };
+
+  const extractWhatsAppNumber = (text: string) => {
+    const phoneRegex = /\+\d+\s?\d+\s?\d+\s?\d+/g;
+    const match = text.match(phoneRegex);
+    return match ? match[0].replace(/\s/g, '') : null;
+  };
+
+  const handlePerkAction = (perk: any) => {
+    if (perk.redemption_method === 'other' && perk.redemption_details.includes('WhatsApp')) {
+      const phoneNumber = extractWhatsAppNumber(perk.redemption_details);
+      if (phoneNumber) {
+        const message = encodeURIComponent(`Hi! I have Worktugal Pass and I'm interested in: ${perk.title}`);
+        const whatsappUrl = `https://wa.me/${phoneNumber.replace('+', '')}?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+        return;
+      }
+    }
+    
+    // Default behavior for other redemption methods
+    console.log('Redeeming perk:', perk.id);
+  };
+
+  const getActionButtonText = (perk: any) => {
+    if (perk.redemption_method === 'other' && perk.redemption_details.includes('WhatsApp')) {
+      return 'Message on WhatsApp';
+    }
+    return 'Use This Now';
   };
 
   return (
@@ -190,6 +224,32 @@ export const PerksDirectory: React.FC = () => {
                         <MapPin className="h-3.5 w-3.5 flex-shrink-0" />
                         <span>{perk.neighborhood}</span>
                       </div>
+                      
+                      {/* Business Links */}
+                      <div className="flex items-center space-x-3 mt-2">
+                        {perk.business_website && (
+                          <a
+                            href={perk.business_website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
+                          >
+                            <Globe className="h-3.5 w-3.5" />
+                            <span className="text-xs">Website</span>
+                          </a>
+                        )}
+                        {perk.business_instagram && (
+                          <a
+                            href={perk.business_instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center space-x-1 text-pink-400 hover:text-pink-300 transition-colors"
+                          >
+                            <Instagram className="h-3.5 w-3.5" />
+                            <span className="text-xs">Instagram</span>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -211,12 +271,9 @@ export const PerksDirectory: React.FC = () => {
                     variant="primary"
                     size="lg"
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl border-0 shadow-sm"
-                    onClick={() => {
-                      // Handle perk redemption
-                      console.log('Redeeming perk:', perk.id);
-                    }}
+                    onClick={() => handlePerkAction(perk)}
                   >
-                    Use This Now
+                    {getActionButtonText(perk)}
                   </Button>
                 </div>
               </Card>
