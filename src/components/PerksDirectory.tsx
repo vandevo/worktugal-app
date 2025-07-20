@@ -334,9 +334,9 @@ export const PerksDirectory: React.FC = () => {
                   
                   <div className="flex items-center space-x-3 text-sm bg-gray-700/30 rounded-xl p-4 mb-6 border border-gray-600/20">
                     <div className="w-full">
-                      <div className="flex items-center space-x-2 font-medium text-green-400 text-xs uppercase tracking-wide mb-2">
+                      <div className="flex items-center space-x-3 font-medium text-green-400 text-xs uppercase tracking-wide mb-2">
                         {getRedemptionIcon(perk.redemption_method)}
-                        How to redeem
+                       <span>How to redeem</span>
                       </div>
                       <span className="text-gray-200 leading-relaxed block">
                         {perk.redemption_details}
