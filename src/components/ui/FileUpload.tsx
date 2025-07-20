@@ -142,7 +142,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                   "w-full object-cover",
                   variant === 'logo' 
                     ? "max-h-32 sm:max-h-40 object-contain bg-white/5" 
-                    : "aspect-video sm:aspect-[4/3] md:max-h-64 object-cover"
+                    : "max-h-48 sm:max-h-64 object-contain bg-gray-900/20"
                 )}
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
