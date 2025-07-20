@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag, Shield, Globe, Instagram } from 'lucide-react';
+import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag, Shield, Globe, Instagram, Linkedin } from 'lucide-react';
 import { Input } from './ui/Input';
 import { Select } from './ui/Select';
 import { Card } from './ui/Card';
@@ -54,7 +54,7 @@ const mockPerks = [
     city: 'Lisbon',
     neighborhood: 'Online Services',
     business_website: 'https://iflimmersion.com/en/home/',
-    business_instagram: 'https://www.instagram.com/ifli_immersion/',
+    business_linkedin: 'https://www.linkedin.com/company/iflimmersion/',
     whatsapp_number: '+351933292112'
   }
 ];
@@ -273,6 +273,17 @@ export const PerksDirectory: React.FC = () => {
                           >
                             <Instagram className="h-3.5 w-3.5" />
                             <span className="text-xs">Instagram</span>
+                          </a>
+                        )}
+                        {perk.business_linkedin && (
+                          <a
+                            href={perk.business_linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center space-x-1 text-blue-500 hover:text-blue-400 transition-colors"
+                          >
+                            <Linkedin className="h-3.5 w-3.5" />
+                            <span className="text-xs">LinkedIn</span>
                           </a>
                         )}
                       </div>
