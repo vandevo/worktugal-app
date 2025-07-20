@@ -46,6 +46,17 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
   const images = watch('images') || [];
   const logo = watch('logo');
 
+  // Move standardPlaceholders outside to prevent useEffect from running unnecessarily
+  const standardPlaceholders = useMemo(() => [
+    'Just mention you have Worktugal Pass at checkout.',
+    'Show your digital Worktugal Pass when ordering.',
+    'Use code WORKTUGAL10 during checkout.',
+    'Scan the QR code displayed at your counter.',
+    'Describe how the perk will be redeemed.',
+    'How do customers redeem this perk?',
+    ''
+  ], []);
+
   // Dynamic placeholder text and pre-fill logic
   const getPlaceholderText = (method: string) => {
     switch (method) {
@@ -64,29 +75,22 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
     }
   };
 
-  // Get list of our standard placeholder texts to detect auto-generated content
-  const standardPlaceholders = [
-    'Just mention you have Worktugal Pass at checkout.',
-    'Show your digital Worktugal Pass when ordering.',
-    'Use code WORKTUGAL10 during checkout.',
-    'Scan the QR code displayed at your counter.',
-    'Describe how the perk will be redeemed.',
-    'How do customers redeem this perk?',
-    ''
-  ];
-
   // Update redemption details when method changes
   useEffect(() => {
     if (redemptionMethod) {
       const placeholderText = getPlaceholderText(redemptionMethod);
       
-      // Only auto-update if current value is empty or one of our standard placeholders
-      // This preserves custom user input while updating auto-generated content
-      if (!redemptionDetails || standardPlaceholders.includes(redemptionDetails)) {
+      // For 'other' method, only set placeholder if field is completely empty
+      // For other methods, auto-update if current value is empty or standard placeholder
+      const shouldUpdate = redemptionMethod === 'other' 
+        ? !redemptionDetails || redemptionDetails === ''
+        : (!redemptionDetails || standardPlaceholders.includes(redemptionDetails));
+        
+      if (shouldUpdate) {
         setValue('redemption_details', placeholderText);
       }
     }
-  }, [redemptionMethod, redemptionDetails, setValue, standardPlaceholders]);
+  }, [redemptionMethod, setValue, standardPlaceholders]);
 
   const addImage = () => {
     const currentImages = getValues('images') || [];
