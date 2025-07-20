@@ -156,10 +156,7 @@ export const PerksDirectory: React.FC = () => {
             
             <div className="md:w-64">
               <Select
-                options={[
-                  { value: '', label: 'All Categories' },
-                  ...categoryOptions
-                ]}
+                options={categoryOptions}
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               />
