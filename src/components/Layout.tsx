@@ -5,6 +5,7 @@ import { useUserProfile } from '../hooks/useUserProfile';
 import { UserSubscriptionStatus } from './UserSubscriptionStatus';
 import { AuthModal } from './auth/AuthModal';
 import { ProfileModal } from './ProfileModal';
+import { Button } from './ui/Button';
 import { useState } from 'react';
 import { User, LogOut, Settings } from 'lucide-react';
 import { signOut } from '../lib/auth';
@@ -47,7 +48,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             </a>
             
             <div className="flex items-center space-x-6">
-              <div className="hidden lg:flex items-center space-x-6">
+              <div className="hidden md:flex items-center space-x-6">
                 <a href="#directory" className="text-gray-300 hover:text-white transition-colors">
                   Browse Perks
                 </a>
@@ -57,19 +58,19 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               </div>
               
               {user ? (
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-3 md:space-x-4">
                   <UserSubscriptionStatus />
                   <div className="relative">
                     <button
                       onClick={() => setShowUserMenu(!showUserMenu)}
-                     className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors group"
+                      className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors group"
                     >
-                     <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-medium group-hover:scale-105 transition-transform">
-                       {getInitials()}
-                     </div>
-                     <span className="hidden sm:inline text-sm">
-                       {getDisplayName()}
-                     </span>
+                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-medium group-hover:scale-105 transition-transform">
+                        {getInitials()}
+                      </div>
+                      <span className="hidden sm:inline text-sm">
+                        {getDisplayName()}
+                      </span>
                     </button>
                     
                     {showUserMenu && (
@@ -100,12 +101,14 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   </div>
                 </div>
               ) : (
-                <button
+                <Button
+                  variant="outline"
+                  size="sm"
                   onClick={() => setShowAuthModal(true)}
-                  className="text-gray-300 hover:text-white transition-colors"
+                  className="text-sm font-medium"
                 >
                   Sign In
-                </button>
+                </Button>
               )}
             </div>
           </div>
