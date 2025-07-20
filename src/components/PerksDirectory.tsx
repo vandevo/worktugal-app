@@ -56,7 +56,7 @@ const mockPerks = [
     business_website: 'https://iflimmersion.com/en/home/',
     business_instagram: 'https://www.instagram.com/ifli_immersion/',
     whatsapp_number: '+351933292112'
-  }</parameter>
+  }
 ];
 
 export const PerksDirectory: React.FC = () => {
