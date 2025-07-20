@@ -317,7 +317,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
               />
             </button>
             <label htmlFor="needs_nif" className="text-sm text-gray-300">
-              I need Fatura com NIF for transactions
+              I need customer NIF for tax invoices (Fatura)
             </label>
           </div>
 
