@@ -22,7 +22,7 @@ const mockPerks = [
     city: 'Lisbon',
     neighborhood: 'Alcântara',
     business_website: 'https://escala25.com',
-    business_instagram: 'https://instagram.com/escala25_climbing',
+    business_instagram: 'https://www.instagram.com/escala25_lisboa',
     whatsapp_number: '+351964129244' // Hidden from UI, used for WhatsApp link
   },
   {
