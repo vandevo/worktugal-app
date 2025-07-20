@@ -55,6 +55,22 @@ const mockPerks = [
     business_website: 'https://belezastudio.pt',
     business_instagram: 'https://instagram.com/belezastudio'
   }
+  },
+  {
+    id: '4',
+    title: '20% off Feng Shui + 10% off Self-Knowledge consultations',
+    description: 'We study, harmonize and make the most of the energy in the spaces where people live and work. I guide and inspire people to be the best version of themselves.',
+    business_name: 'Suzana Mendes — Feng Shui, Saúde, Bem-Estar',
+    category: 'Experts & Services',
+    redemption_method: 'promo_code',
+    redemption_details: 'Use code: WORKTUGAL20',
+    is_portuguese_owned: true,
+    logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/suzana-mendes-feng-shui-upper-body-photo.jpg',
+    city: 'Lisbon',
+    neighborhood: 'Cascais',
+    business_website: 'https://www.suzanamendes.com/',
+    business_instagram: 'https://www.instagram.com/fengshui_suzanamendes/',
+    whatsapp_number: '+351918789177'
 ];
 
 export const PerksDirectory: React.FC = () => {
