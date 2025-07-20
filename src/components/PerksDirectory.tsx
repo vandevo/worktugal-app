@@ -114,6 +114,14 @@ export const PerksDirectory: React.FC = () => {
       return;
     }
     
+    // Handle IFLI WhatsApp contact
+    if (perk.id === '3' && perk.whatsapp_number) {
+      const message = encodeURIComponent(`Hi Giselle, I'm a Worktugal Pass member interested in your IFLI language immersion programs. I'd like to learn about the €5 off monthly subscription and €2 off private sessions. Could you help me get started?`);
+      const whatsappUrl = `https://wa.me/${perk.whatsapp_number.replace('+', '')}?text=${message}`;
+      window.open(whatsappUrl, '_blank');
+      return;
+    }
+    
     if (perk.redemption_method === 'other' && perk.redemption_details.includes('WhatsApp')) {
       const phoneNumber = extractWhatsAppNumber(perk.redemption_details);
       if (phoneNumber) {
