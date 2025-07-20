@@ -39,6 +39,7 @@ const mockPerks = [
     neighborhood: 'Alvalade',
     business_website: 'https://kubecowork.com',
     business_instagram: 'https://www.instagram.com/kube.coworking/',
+    business_linkedin: 'https://pt.linkedin.com/company/kubelisbon',
     contact_email: 'daniela.goncalves@kubecowork.com'
   },
   {
