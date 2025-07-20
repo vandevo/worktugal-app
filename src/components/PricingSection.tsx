@@ -171,7 +171,7 @@ export const PricingSection: React.FC = () => {
                   ) : (
                     <>
                       <CreditCard className="mr-2 h-5 w-5" />
-                      Secure Your Spot — €{product.price}
+                      Secure Your Spot • €{product.price}
                     </>
                   )}
                 </Button>

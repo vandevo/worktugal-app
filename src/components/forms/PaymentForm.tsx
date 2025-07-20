@@ -209,7 +209,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
               ? '🔧 Preview Mode - Payment Disabled' 
               : processing 
                 ? 'Processing...' 
-                : `Secure Your Spot — €${LISTING_PRICE}`
+                  : `Secure Your Spot • €${LISTING_PRICE}`
             }
           </Button>
         </div>
