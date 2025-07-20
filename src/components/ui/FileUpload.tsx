@@ -151,7 +151,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({
               >
                 <X className="h-4 w-4" />
               </button>
-              </div>
             </div>
           </motion.div>
         ) : (
