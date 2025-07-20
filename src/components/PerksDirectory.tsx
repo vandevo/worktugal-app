@@ -11,7 +11,7 @@ import { BUSINESS_CATEGORIES } from '../utils/constants';
 const mockPerks = [
   {
     id: '1',
-    title: 'Escala25 Climbing Gym',
+    title: 'Exclusive rates on climbing packs & workshops',
     description: 'Climb Lisbon\'s most iconic bridge wall. Bouldering, belay, and guided climbs under the 25 de Abril Bridge.',
     business_name: 'Escala25',
     category: 'Gyms & Wellness',
