@@ -38,10 +38,11 @@ export const perkSchema = z.object({
   is_portuguese_owned: z.boolean(),
   needs_nif: z.boolean(),
   customer_nif: z.string().optional(),
+  customer_name: z.string().optional(),
 }).refine((data) => {
   // If needs_nif is true, customer_nif must be provided and valid
   if (data.needs_nif) {
-    if (!data.customer_nif || data.customer_nif.trim() === '') {
+    if (!data.customer_nif || data.customer_nif.trim() === '' || !data.customer_name || data.customer_name.trim() === '') {
       return false;
     }
     // Strict NIF validation: must be exactly 9 digits, numbers only
@@ -51,7 +52,7 @@ export const perkSchema = z.object({
   }
   return true;
 }, {
-  message: "NIF must be exactly 9 digits (numbers only)",
+  message: "Both customer name and NIF (9 digits) are required for tax invoices",
   path: ["customer_nif"],
 });
 

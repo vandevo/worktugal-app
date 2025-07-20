@@ -316,22 +316,42 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
                 }`}
               />
             </button>
-            <label htmlFor="needs_nif" className="text-sm text-gray-300">
-              I need customer NIF for tax invoices (Fatura)
-            </label>
+            <div className="flex-1">
+              <label htmlFor="needs_nif" className="text-sm text-gray-300 block">
+                ✅ I need a legal invoice with my full tax information (Fatura or Recibo Verde)
+              </label>
+              <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                For freelancers, companies, or anyone who needs a tax-deductible invoice in Portugal
+              </p>
+            </div>
           </div>
 
-          {/* Conditional NIF Input */}
+          {/* Conditional Tax Information Inputs */}
           {needsNif && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="mt-4"
+              className="mt-4 p-4 border border-gray-700 rounded-xl bg-gray-800/30 space-y-4"
             >
+              <div className="mb-3">
+                <h4 className="text-sm font-medium text-gray-300 mb-2">Customer Tax Information</h4>
+                <p className="text-xs text-gray-500 leading-relaxed">
+                  We'll include this info in your official Fatura or Recibo Verde, as required by law.
+                </p>
+              </div>
+              
               <Input
-                label="Your NIF Number"
+                label="Full Name or Company Name"
+                placeholder="João Silva or ACME Lda"
+                {...register('customer_name')}
+                error={errors.customer_name?.message}
+                hint="Name or company name for the tax invoice"
+              />
+              
+              <Input
+                label="NIF / VAT Number"
                 placeholder="123456789"
                 type="tel"
                 inputMode="numeric"
@@ -339,7 +359,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
                 pattern="[0-9]{9}"
                 {...register('customer_nif')}
                 error={errors.customer_nif?.message}
-                hint="Required for issuing Recibo Verde. Enter your 9-digit Portuguese tax ID."
+                hint="Enter your 9-digit Portuguese tax ID"
               />
             </motion.div>
           )}

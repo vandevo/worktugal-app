@@ -33,6 +33,7 @@ export const createPartnerSubmission = async ({
     perk_is_portuguese_owned: perk.is_portuguese_owned,
     perk_needs_nif: perk.needs_nif,
     perk_customer_nif: perk.customer_nif || null,
+    perk_customer_name: perk.customer_name || null,
     status: 'pending_payment' as const,
   };
 
