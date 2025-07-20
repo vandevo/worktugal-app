@@ -178,9 +178,14 @@ export const PerksDirectory: React.FC = () => {
                   }`}
                 />
               </button>
-              <label className="text-sm text-gray-300">
-                Show only Portuguese-owned businesses
-              </label>
+              <div>
+                <label className="text-sm text-gray-300 font-medium">
+                  Show only local Portuguese businesses
+                </label>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  Support authentic local businesses with deep community roots
+                </p>
+              </div>
             </div>
           </div>
         </div>
