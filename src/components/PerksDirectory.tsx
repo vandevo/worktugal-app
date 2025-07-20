@@ -26,6 +26,23 @@ const mockPerks = [
     whatsapp_number: '+351964129244' // Hidden from UI, used for WhatsApp link
   },
   {
+    id: '2',
+    title: 'Free coworking trial day + seasonal member perks',
+    description: 'Lisbon\'s most loved coworking space where tropical calm meets startup focus. Full amenities, vibrant community, and modern facilities. Perfect for remote workers, freelancers, and hybrid teams seeking productivity and connection.',
+    business_name: 'Kübe Coworking',
+    category: 'Coworking & Studios',
+    redemption_method: 'other',
+    redemption_details: 'Email Daniela Gonçalves at daniela.goncalves@kubecowork.com with subject: "Worktugal Pass – Free Trial Request". Ask about current seasonal perks when booking.',
+    is_portuguese_owned: true,
+    logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/kube-coworking-all-spaces.webp',
+    city: 'Lisbon',
+    neighborhood: 'Alvalade',
+    business_website: 'https://kubecowork.com',
+    business_instagram: 'https://www.instagram.com/kube.coworking/',
+    business_linkedin: 'https://pt.linkedin.com/company/kubelisbon',
+    contact_email: 'daniela.goncalves@kubecowork.com'
+  },
+  {
     id: '4',
     title: '20% off Feng Shui + 10% off Self-Knowledge consultations',
     description: 'We study, harmonize and make the most of the energy in the spaces where people live and work. I guide and inspire people to be the best version of themselves.',
@@ -122,6 +139,15 @@ export const PerksDirectory: React.FC = () => {
       return;
     }
     
+    // Handle Kübe Coworking email contact
+    if (perk.id === '2' && perk.contact_email) {
+      const subject = encodeURIComponent('Worktugal Pass – Free Trial Request');
+      const body = encodeURIComponent(`Hi Daniela,\n\nI'm a Worktugal Pass member interested in booking a free coworking trial day at Kübe.\n\nCould you please help me schedule this and let me know about any current seasonal perks available for Worktugal Pass members?\n\nThank you!\n\nBest regards`);
+      const mailtoUrl = `mailto:${perk.contact_email}?subject=${subject}&body=${body}`;
+      window.open(mailtoUrl, '_blank');
+      return;
+    }
+    
     if (perk.redemption_method === 'other' && perk.redemption_details.includes('WhatsApp')) {
       const phoneNumber = extractWhatsAppNumber(perk.redemption_details);
       if (phoneNumber) {
@@ -137,6 +163,9 @@ export const PerksDirectory: React.FC = () => {
   };
 
   const getActionButtonText = (perk: any) => {
+    if (perk.id === '2') {
+      return 'Email for Free Trial';
+    }
     if (perk.id === '1' && perk.whatsapp_number) {
       return 'Message on WhatsApp';
     }
