@@ -29,9 +29,25 @@ export const Footer: React.FC = () => {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li><a href="#directory" className="text-gray-400 hover:text-white transition-colors">Browse Perks</a></li>
-              <li><a href="#partners" className="text-gray-400 hover:text-white transition-colors">For Partners</a></li>
-              <li><a href="#about" className="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#contact" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+              <li><a href="#pricing" className="text-gray-400 hover:text-white transition-colors">For Partners</a></li>
+              <li>
+                <a 
+                  href="https://www.linkedin.com/company/worktugal/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="mailto:hello@worktugal.com" 
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Contact
+                </a>
+              </li>
             </ul>
           </div>
 
