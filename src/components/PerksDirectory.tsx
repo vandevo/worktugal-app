@@ -79,7 +79,7 @@ const mockPerks = [
     title: 'Free event creation on Tribe app + community access',
     description: 'Join Lisbon\'s largest community platform where remote workers, entrepreneurs, and creatives connect IRL. Create and discover events, access coworking spaces in Chiado & Caparica, and be part of a thriving ecosystem designed to end loneliness through meaningful connections.',
     business_name: 'Tribe Social Club',
-    category: 'Coworking & Studios',
+    category: 'Events & Social Spaces',
     redemption_method: 'other',
     redemption_details: 'Create your free event at tribeirl.com and join the community',
     is_portuguese_owned: false,
