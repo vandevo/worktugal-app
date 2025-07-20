@@ -78,6 +78,36 @@ export const Footer: React.FC = () => {
               >
                 <Send className="h-5 w-5" />
               </motion.a>
+              <motion.a
+                href="https://www.linkedin.com/company/worktugal/"
+                aria-label="Worktugal LinkedIn company page"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1 }}
+                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
+              >
+                <Linkedin className="h-5 w-5" />
+              </motion.a>
+              <motion.a
+                href="https://chat.whatsapp.com/K06kCpDW0yLL6kzQ1ujtT5"
+                aria-label="Join Worktugal WhatsApp community"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1 }}
+                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
+              >
+                <MessageCircle className="h-5 w-5" />
+              </motion.a>
+              <motion.a
+                href="https://worktugal.com/"
+                aria-label="Visit main Worktugal website"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1 }}
+                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
+              >
+                <Globe className="h-5 w-5" />
+              </motion.a>
             </div>
           </div>
         </div>
