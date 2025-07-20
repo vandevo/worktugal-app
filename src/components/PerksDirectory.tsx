@@ -221,7 +221,7 @@ export const PerksDirectory: React.FC = () => {
                         <h3 className="font-semibold text-lg text-white leading-tight flex-1">{perk.business_name}</h3>
                         {perk.is_portuguese_owned && (
                           <div className="bg-green-500/10 text-green-400 px-2 py-0.5 rounded-md text-xs font-medium flex-shrink-0">
-                            Portuguese
+                            Portuguese Owned
                           </div>
                         )}
                       </div>
