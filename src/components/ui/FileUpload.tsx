@@ -19,6 +19,7 @@ interface FileUploadProps {
   folder?: string;
   disabled?: boolean;
   onAuthRequired?: () => void;
+  variant?: 'logo' | 'image';
 }
 
 export const FileUpload: React.FC<FileUploadProps> = ({
@@ -33,6 +34,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   folder = 'perk-images',
   disabled = false,
   onAuthRequired,
+  variant = 'image',
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -136,7 +138,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
               <img
                 src={value}
                 alt="Upload preview"
-                className="w-full aspect-video object-cover"
+                className={cn(
+                  "w-full object-cover",
+                  variant === 'logo' 
+                    ? "max-h-32 sm:max-h-40 object-contain bg-white/5" 
+                    : "aspect-video sm:aspect-[4/3] md:max-h-64 object-cover"
+                )}
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
               <button

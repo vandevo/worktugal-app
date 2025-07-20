@@ -208,6 +208,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
                 onChange={(url) => setValue('logo', url)}
                 onClear={() => setValue('logo', '')}
                 folder="business-logos"
+                variant="logo"
                 disabled={!user}
                 onAuthRequired={() => setShowAuthModal(true)}
               />
@@ -257,6 +258,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
                           onChange={(url) => updateImage(index, url)}
                           onClear={() => updateImage(index, '')}
                           folder="perk-images"
+                          variant="image"
                           disabled={!user}
                           onAuthRequired={() => setShowAuthModal(true)}
                         />
