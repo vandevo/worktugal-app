@@ -239,15 +239,18 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
                           <span className="text-sm text-gray-400">
                             Image {index + 1}
                           </span>
-                          <Button
+                          <button
                             type="button"
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => removeImage(index)}
-                            className="text-red-400 hover:text-red-300"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              removeImage(index);
+                            }}
+                            className="w-8 h-8 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95"
+                            aria-label={`Remove image ${index + 1}`}
                           >
                             <Trash2 className="h-4 w-4" />
-                          </Button>
+                          </button>
                         </div>
                         <FileUpload
                           value={imageUrl}
@@ -263,7 +266,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
                 )}
                 
                 <p className="text-xs text-gray-500">
-                  Upload up to 3 images that showcase your perk or business atmosphere
+                  Upload up to 3 images that showcase your perk or business atmosphere. Drag and drop multiple files or click to browse.
                 </p>
             </div>
             </div>

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, X, Image as ImageIcon, Loader2, Lock } from 'lucide-react';
+import { Upload, X, Image as ImageIcon, Loader2, Lock, Trash2 } from 'lucide-react';
 import { cn } from '../../utils/cn';
 import { uploadFile, validateImageFile } from '../../lib/storage';
 import { Button } from './Button';
@@ -99,6 +99,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   const handleClear = () => {
+    // Prevent form submission
+    event?.preventDefault();
+    
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -129,21 +132,25 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             exit={{ opacity: 0, scale: 0.95 }}
             className="relative"
           >
-            <div className="relative rounded-xl overflow-hidden bg-gray-800 border border-gray-700">
+            <div className="relative rounded-xl overflow-hidden bg-gray-800 border border-gray-700 group">
               <img
                 src={value}
                 alt="Upload preview"
-                className="w-full h-48 object-cover"
+                className="w-full aspect-video object-cover"
               />
-              <div className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={handleClear}
-                  className="absolute top-2 right-2"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleClear();
+                }}
+                className="absolute top-2 right-2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg hover:scale-105 active:scale-95"
+                aria-label="Remove image"
+              >
+                <X className="h-4 w-4" />
+              </button>
               </div>
             </div>
           </motion.div>
