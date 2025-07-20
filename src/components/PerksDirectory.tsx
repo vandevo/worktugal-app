@@ -73,7 +73,7 @@ const mockPerks = [
     business_website: 'https://iflimmersion.com/en/home/',
     business_linkedin: 'https://www.linkedin.com/company/iflimmersion/',
     whatsapp_number: '+351933292112'
-  }
+  },
   {
     id: '5',
     title: 'Free event creation on Tribe app + community access',
