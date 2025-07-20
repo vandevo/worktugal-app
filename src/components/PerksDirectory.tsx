@@ -26,36 +26,6 @@ const mockPerks = [
     whatsapp_number: '+351964129244' // Hidden from UI, used for WhatsApp link
   },
   {
-    id: '2',
-    title: 'Free class trial + 15% off membership',
-    description: 'Try any of our fitness classes for free and get 15% off your first month membership.',
-    business_name: 'FitLisboa',
-    category: 'Fitness & Wellness',
-    redemption_method: 'qr',
-    redemption_details: 'Show QR code at reception',
-    is_portuguese_owned: false,
-    logo: 'https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=400',
-    city: 'Lisbon',
-    neighborhood: 'Avenidas Novas',
-    business_website: 'https://fitlisboa.pt',
-    business_instagram: 'https://instagram.com/fitlisboa'
-  },
-  {
-    id: '3',
-    title: '10% off all services',
-    description: 'Get 10% off all beauty treatments including haircuts, coloring, and nail services.',
-    business_name: 'Beleza Studio',
-    category: 'Beauty & Personal Care',
-    redemption_method: 'promo_code',
-    redemption_details: 'Use code: WORKTUGAL10',
-    is_portuguese_owned: true,
-    logo: 'https://images.pexels.com/photos/3993456/pexels-photo-3993456.jpeg?auto=compress&cs=tinysrgb&w=400',
-    city: 'Lisbon',
-    neighborhood: 'Chiado',
-    business_website: 'https://belezastudio.pt',
-    business_instagram: 'https://instagram.com/belezastudio'
-  },
-  {
     id: '4',
     title: '20% off Feng Shui + 10% off Self-Knowledge consultations',
     description: 'We study, harmonize and make the most of the energy in the spaces where people live and work. I guide and inspire people to be the best version of themselves.',
