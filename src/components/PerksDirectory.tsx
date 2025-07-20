@@ -11,18 +11,19 @@ import { BUSINESS_CATEGORIES } from '../utils/constants';
 const mockPerks = [
   {
     id: '1',
-    title: 'Free trial class + 25% off membership',
-    description: 'Experience our unique climbing methodology with a complimentary trial class. Perfect for beginners and experienced climbers. Get 25% off your first month\'s membership when you join.',
+    title: 'Escala25 Climbing Gym',
+    description: 'Climb Lisbon\'s most iconic bridge wall. Bouldering, belay, and guided climbs under the 25 de Abril Bridge.',
     business_name: 'Escala25',
-    category: 'Fitness & Wellness',
+    category: 'Gyms & Wellness',
     redemption_method: 'other',
-    redemption_details: 'Send a WhatsApp message to +351 967 804 565 mentioning "Worktugal Pass" to book your free trial and claim your discount.',
+    redemption_details: 'Message Patrick on WhatsApp and mention "Worktugal Pass" for exclusive rates on climbing packs or workshops.',
     is_portuguese_owned: true,
     logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/escala-25-trust-monitor.jpg',
     city: 'Lisbon',
-    neighborhood: 'Beato / Marvila',
+    neighborhood: 'Alcântara',
     business_website: 'https://escala25.com',
-    business_instagram: 'https://instagram.com/escala25_climbing'
+    business_instagram: 'https://instagram.com/escala25_climbing',
+    whatsapp_number: '+351964129244' // Hidden from UI, used for WhatsApp link
   },
   {
     id: '2',
@@ -90,12 +91,19 @@ export const PerksDirectory: React.FC = () => {
   };
 
   const extractWhatsAppNumber = (text: string) => {
-    const phoneRegex = /\+\d+\s?\d+\s?\d+\s?\d+/g;
-    const match = text.match(phoneRegex);
-    return match ? match[0].replace(/\s/g, '') : null;
+    // For Escala25, use the hidden whatsapp_number field instead of extracting from text
+    return null;
   };
 
   const handlePerkAction = (perk: any) => {
+    // Handle Escala25 WhatsApp redemption with hidden number
+    if (perk.id === '1' && perk.whatsapp_number) {
+      const message = encodeURIComponent(`Hi Patrick, I'm a Worktugal Pass user interested in your climbing offers`);
+      const whatsappUrl = `https://wa.me/${perk.whatsapp_number.replace('+', '')}?text=${message}`;
+      window.open(whatsappUrl, '_blank');
+      return;
+    }
+    
     if (perk.redemption_method === 'other' && perk.redemption_details.includes('WhatsApp')) {
       const phoneNumber = extractWhatsAppNumber(perk.redemption_details);
       if (phoneNumber) {
@@ -111,6 +119,9 @@ export const PerksDirectory: React.FC = () => {
   };
 
   const getActionButtonText = (perk: any) => {
+    if (perk.id === '1' && perk.whatsapp_number) {
+      return 'Message on WhatsApp';
+    }
     if (perk.redemption_method === 'other' && perk.redemption_details.includes('WhatsApp')) {
       return 'Message on WhatsApp';
     }
