@@ -12,7 +12,7 @@ const mockPerks = [
   {
     id: '1',
     title: 'Free trial class + 25% off membership',
-    description: 'Experience our unique climbing methodology with a complimentary trial class. Perfect for beginners and experienced climbers. Get 25% off your first month's membership when you join.',
+    description: 'Experience our unique climbing methodology with a complimentary trial class. Perfect for beginners and experienced climbers. Get 25% off your first month\'s membership when you join.',
     business_name: 'Escala25',
     category: 'Fitness & Wellness',
     redemption_method: 'other',
