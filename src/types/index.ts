@@ -80,6 +80,7 @@ export interface FormData {
     logo: string;
     is_portuguese_owned: boolean;
     needs_nif: boolean;
+    customer_nif?: string;
   };
   submissionId?: number;
 }

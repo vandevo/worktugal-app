@@ -37,6 +37,21 @@ export const perkSchema = z.object({
   logo: z.string().url('Invalid logo URL').optional().or(z.literal('')),
   is_portuguese_owned: z.boolean(),
   needs_nif: z.boolean(),
+  customer_nif: z.string().optional(),
+}).refine((data) => {
+  // If needs_nif is true, customer_nif must be provided and valid
+  if (data.needs_nif) {
+    if (!data.customer_nif || data.customer_nif.trim() === '') {
+      return false;
+    }
+    // Basic NIF validation: should be 9 digits
+    const nifPattern = /^\d{9}$/;
+    return nifPattern.test(data.customer_nif.replace(/\s/g, ''));
+  }
+  return true;
+}, {
+  message: "Please provide a valid 9-digit NIF number when Fatura com NIF is required",
+  path: ["customer_nif"],
 });
 
 export type BusinessFormData = z.infer<typeof businessSchema>;

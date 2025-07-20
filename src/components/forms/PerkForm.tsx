@@ -42,6 +42,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
   const redemptionDetails = watch('redemption_details');
   const isPortugueseOwned = watch('is_portuguese_owned');
   const needsNif = watch('needs_nif');
+  const customerNif = watch('customer_nif');
   const images = watch('images') || [];
   const logo = watch('logo');
 
@@ -316,6 +317,26 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
               I need Fatura com NIF for transactions
             </label>
           </div>
+
+          {/* Conditional NIF Input */}
+          {needsNif && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="ml-8 mt-3"
+            >
+              <Input
+                label="Your NIF Number"
+                placeholder="123456789"
+                {...register('customer_nif')}
+                error={errors.customer_nif?.message}
+                hint="Required for issuing Recibo Verde. Enter your 9-digit Portuguese tax ID."
+                maxLength={11}
+              />
+            </motion.div>
+          )}
         </div>
 
         <div className="flex space-x-4">
