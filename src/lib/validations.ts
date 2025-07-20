@@ -44,13 +44,14 @@ export const perkSchema = z.object({
     if (!data.customer_nif || data.customer_nif.trim() === '') {
       return false;
     }
-    // Basic NIF validation: should be 9 digits
+    // Strict NIF validation: must be exactly 9 digits, numbers only
     const nifPattern = /^\d{9}$/;
-    return nifPattern.test(data.customer_nif.replace(/\s/g, ''));
+    const cleanedNif = data.customer_nif.replace(/\s/g, '');
+    return nifPattern.test(cleanedNif) && cleanedNif.length === 9;
   }
   return true;
 }, {
-  message: "Please provide a valid 9-digit NIF number when Fatura com NIF is required",
+  message: "NIF must be exactly 9 digits (numbers only)",
   path: ["customer_nif"],
 });
 

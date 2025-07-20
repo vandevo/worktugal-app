@@ -333,10 +333,13 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
               <Input
                 label="Your NIF Number"
                 placeholder="123456789"
+                type="tel"
+                inputMode="numeric"
+                maxLength={9}
+                pattern="[0-9]{9}"
                 {...register('customer_nif')}
                 error={errors.customer_nif?.message}
                 hint="Required for issuing Recibo Verde. Enter your 9-digit Portuguese tax ID."
-                maxLength={11}
               />
             </motion.div>
           )}
