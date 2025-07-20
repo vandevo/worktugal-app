@@ -40,7 +40,23 @@ const mockPerks = [
     business_website: 'https://www.suzanamendes.com/',
     business_instagram: 'https://www.instagram.com/fengshui_suzanamendes/',
     whatsapp_number: '+351918789177'
-  }
+  },
+  {
+    id: '3',
+    title: '€5 off monthly language immersion + €2 off private sessions',
+    description: 'Revolutionary online language learning focused on real conversations, not grammar drills. Flexible Portuguese & English immersion programs perfect for remote professionals and expats seeking practical fluency.',
+    business_name: 'IFLI Foreign Language Immersion',
+    category: 'Experts & Services',
+    redemption_method: 'other',
+    redemption_details: 'WhatsApp Giselle mentioning "Worktugal Pass" for discount',
+    is_portuguese_owned: false,
+    logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/ifli-language-immersion-giselle-alvarez.png',
+    city: 'Lisbon',
+    neighborhood: 'Online Services',
+    business_website: 'https://iflimmersion.com/en/home/',
+    business_instagram: 'https://www.instagram.com/ifli_immersion/',
+    whatsapp_number: '+351933292112'
+  }</parameter>
 ];
 
 export const PerksDirectory: React.FC = () => {
