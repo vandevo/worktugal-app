@@ -318,7 +318,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
             </button>
             <div className="flex-1">
               <label htmlFor="needs_nif" className="text-sm text-gray-300 block">
-                ✅ I need a legal invoice with my full tax information (Fatura or Recibo Verde)
+                I need a legal invoice with my full tax information (Fatura or Recibo Verde)
               </label>
               <p className="text-xs text-gray-500 mt-1 leading-relaxed">
                 For freelancers, companies, or anyone who needs a tax-deductible invoice in Portugal
