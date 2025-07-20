@@ -59,7 +59,7 @@ const mockPerks = [
     id: '4',
     title: '20% off Feng Shui + 10% off Self-Knowledge consultations',
     description: 'We study, harmonize and make the most of the energy in the spaces where people live and work. I guide and inspire people to be the best version of themselves.',
-    business_name: 'Suzana Mendes — Feng Shui, Saúde, Bem-Estar',
+    business_name: 'Suzana Mendes',
     category: 'Experts & Services',
     redemption_method: 'promo_code',
     redemption_details: 'Use code: WORKTUGAL20',
