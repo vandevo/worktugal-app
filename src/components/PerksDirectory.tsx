@@ -267,9 +267,14 @@ export const PerksDirectory: React.FC = () => {
                     <div className="flex-shrink-0 text-gray-400">
                       {getRedemptionIcon(perk.redemption_method)}
                     </div>
-                    <span className="font-medium text-gray-200 leading-relaxed">
-                      {perk.redemption_details}
-                    </span>
+                    <div className="flex-1">
+                      <div className="font-medium text-green-400 text-xs uppercase tracking-wide mb-1">
+                        How to redeem
+                      </div>
+                      <span className="text-gray-200 leading-relaxed">
+                        {perk.redemption_details}
+                      </span>
+                    </div>
                   </div>
 
                   <Button
