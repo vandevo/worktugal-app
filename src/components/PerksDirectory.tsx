@@ -86,7 +86,7 @@ const mockPerks = [
     logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/tribe-social-perk-image.png',
     city: 'Lisbon',
     neighborhood: 'Chiado',
-    business_website: 'https://tribeirl.com/',
+    business_website: 'https://tribeirl.com/tribesocial',
     business_instagram: 'https://www.instagram.com/tribe.irl/',
     business_linkedin: 'https://www.linkedin.com/company/tribe-irl/',
     contact_email: 'emily@findyourtribe.app'
