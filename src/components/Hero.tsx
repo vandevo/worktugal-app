@@ -53,7 +53,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
                 className="text-lg px-8 py-4"
                 onClick={() => document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                See Sample Perks
+                Browse Perks
               </Button>
             </div>
           </motion.div>
