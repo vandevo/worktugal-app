@@ -11,16 +11,16 @@ import { BUSINESS_CATEGORIES } from '../utils/constants';
 const mockPerks = [
   {
     id: '1',
-    title: '20% off all meals',
-    description: 'Enjoy a 20% discount on all food items. Perfect for lunch breaks and dinner with colleagues.',
-    business_name: 'Café Central',
-    category: 'Restaurant & Food',
-    redemption_method: 'verbal',
-    redemption_details: 'Just mention "Worktugal Pass"',
+    title: 'Free trial class + 25% off membership',
+    description: 'Experience our unique climbing methodology with a complimentary trial class. Perfect for beginners and experienced climbers. Get 25% off your first month's membership when you join.',
+    business_name: 'Escala25',
+    category: 'Fitness & Wellness',
+    redemption_method: 'other',
+    redemption_details: 'Send a WhatsApp message to +351 967 804 565 mentioning "Worktugal Pass" to book your free trial and claim your discount.',
     is_portuguese_owned: true,
-    logo: 'https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg?auto=compress&cs=tinysrgb&w=400',
+    logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/escala-25-trust-monitor.jpg',
     city: 'Lisbon',
-    neighborhood: 'Príncipe Real'
+    neighborhood: 'Beato / Marvila'
   },
   {
     id: '2',
