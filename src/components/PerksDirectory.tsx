@@ -32,14 +32,13 @@ const mockPerks = [
     business_name: 'Kübe Coworking',
     category: 'Coworking & Studios',
     redemption_method: 'other',
-    redemption_details: 'Email Daniela Gonçalves at daniela.goncalves@kubecowork.com with subject: "Worktugal Pass – Free Trial Request". Ask about current seasonal perks when booking.',
+    redemption_details: 'Email for free trial day and seasonal member perks',
     is_portuguese_owned: true,
     logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/kube-coworking-all-spaces.webp',
     city: 'Lisbon',
     neighborhood: 'Alvalade',
     business_website: 'https://kubecowork.com',
     business_instagram: 'https://www.instagram.com/kube.coworking/',
-    business_linkedin: 'https://pt.linkedin.com/company/kubelisbon',
     contact_email: 'daniela.goncalves@kubecowork.com'
   },
   {
