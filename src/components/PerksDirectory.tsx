@@ -54,7 +54,6 @@ const mockPerks = [
     neighborhood: 'Chiado',
     business_website: 'https://belezastudio.pt',
     business_instagram: 'https://instagram.com/belezastudio'
-  }
   },
   {
     id: '4',
@@ -71,6 +70,7 @@ const mockPerks = [
     business_website: 'https://www.suzanamendes.com/',
     business_instagram: 'https://www.instagram.com/fengshui_suzanamendes/',
     whatsapp_number: '+351918789177'
+  }
 ];
 
 export const PerksDirectory: React.FC = () => {
