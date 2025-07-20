@@ -16,7 +16,7 @@ const mockPerks = [
     business_name: 'Escala25',
     category: 'Gyms & Wellness',
     redemption_method: 'other',
-    redemption_details: 'Message Patrick on WhatsApp and mention "Worktugal Pass" for exclusive rates on climbing packs or workshops.',
+    redemption_details: 'WhatsApp Patrick mentioning "Worktugal Pass"',
     is_portuguese_owned: true,
     logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/escala-25-trust-monitor.jpg',
     city: 'Lisbon',
