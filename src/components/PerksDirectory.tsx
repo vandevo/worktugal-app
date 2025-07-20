@@ -74,6 +74,23 @@ const mockPerks = [
     business_linkedin: 'https://www.linkedin.com/company/iflimmersion/',
     whatsapp_number: '+351933292112'
   }
+  {
+    id: '5',
+    title: 'Free event creation on Tribe app + community access',
+    description: 'Join Lisbon\'s largest community platform where remote workers, entrepreneurs, and creatives connect IRL. Create and discover events, access coworking spaces in Chiado & Caparica, and be part of a thriving ecosystem designed to end loneliness through meaningful connections.',
+    business_name: 'Tribe Social Club',
+    category: 'Coworking & Studios',
+    redemption_method: 'other',
+    redemption_details: 'Create your free event at tribeirl.com and join the community',
+    is_portuguese_owned: false,
+    logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/tribe-social-perk-image.png',
+    city: 'Lisbon',
+    neighborhood: 'Chiado',
+    business_website: 'https://tribeirl.com/',
+    business_instagram: 'https://www.instagram.com/tribe.irl/',
+    business_linkedin: 'https://www.linkedin.com/company/tribe-irl/',
+    contact_email: 'emily@findyourtribe.app'
+  }
 ];
 
 export const PerksDirectory: React.FC = () => {
@@ -148,6 +165,12 @@ export const PerksDirectory: React.FC = () => {
       return;
     }
     
+    // Handle Tribe Social Club event creation
+    if (perk.id === '5') {
+      window.open('https://tribeirl.com/', '_blank');
+      return;
+    }
+    
     if (perk.redemption_method === 'other' && perk.redemption_details.includes('WhatsApp')) {
       const phoneNumber = extractWhatsAppNumber(perk.redemption_details);
       if (phoneNumber) {
@@ -165,6 +188,9 @@ export const PerksDirectory: React.FC = () => {
   const getActionButtonText = (perk: any) => {
     if (perk.id === '2') {
       return 'Email for Free Trial';
+    }
+    if (perk.id === '5') {
+      return 'Create Free Event';
     }
     if (perk.id === '1' && perk.whatsapp_number) {
       return 'Message on WhatsApp';
