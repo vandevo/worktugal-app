@@ -87,8 +87,10 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
             <div className="text-center">
               <div className="flex items-center justify-center mb-2">
                 <MapPin className="h-6 w-6 text-purple-400 mr-2" />
-                <span className="text-3xl font-bold">21</span>
+                <span className="text-3xl font-bold">
                   {spotsLoading ? '...' : (spotsLeft !== null ? spotsLeft : 'N/A')}
+                </span>
+              </div>
               <p className="text-gray-400">Partner slots remaining</p>
             </div>
           </motion.div>
@@ -97,5 +99,3 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
     </section>
   );
 };
-  )
-}
