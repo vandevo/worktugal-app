@@ -136,6 +136,35 @@ async function handleEvent(event: Stripe.Event) {
               console.error('Error updating partner submission status:', submissionError);
             } else {
               console.info(`Successfully updated partner submission ${submissionId} to completed_payment`);
+              
+              // Update user role to 'partner' after successful payment
+              try {
+                // Get the user_id from the stripe_customers table
+                const { data: customerData, error: customerError } = await supabase
+                  .from('stripe_customers')
+                  .select('user_id')
+                  .eq('customer_id', customerId)
+                  .single();
+
+                if (customerError) {
+                  console.error('Error fetching user_id from stripe_customers:', customerError);
+                } else if (customerData?.user_id) {
+                  // Update the user's role to 'partner'
+                  const { error: roleUpdateError } = await supabase
+                    .from('user_profiles')
+                    .update({ role: 'partner' })
+                    .eq('id', customerData.user_id);
+
+                  if (roleUpdateError) {
+                    console.error('Error updating user role to partner:', roleUpdateError);
+                  } else {
+                    console.info(`Successfully updated user ${customerData.user_id} role to 'partner'`);
+                  }
+                }
+              } catch (roleError) {
+                console.error('Error in user role update process:', roleError);
+                // Don't throw here - we don't want to fail the entire webhook for this
+              }
             }
           }
         }
