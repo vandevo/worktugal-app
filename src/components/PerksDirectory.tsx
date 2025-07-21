@@ -208,12 +208,9 @@ export const PerksDirectory: React.FC = () => {
     <section id="directory" className="py-20 bg-gray-800/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Verified Perks from Local Partners</h2>
-          <p className="text-xl text-gray-300 mb-2">
-            Exclusive offers curated for remote professionals in Lisbon
-          </p>
-          <p className="text-lg text-gray-400">
-            Loved by our community of freelancers, expats, and digital nomads
+          <h2 className="text-3xl font-bold mb-4">Verified Perks Used by Remote Workers Who Stay and Spend</h2>
+          <p className="text-xl text-gray-300 mb-4 max-w-4xl mx-auto">
+            These are not coupon deals. They are trusted offers from real Lisbon partners, used by freelancers, expats, and remote professionals who live here.
           </p>
         </div>
 
