@@ -53,19 +53,23 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
     try {
       let submissionId = formData.submissionId;
       
+      const product = STRIPE_PRODUCTS[0]; // Get the first (and only) product
+      
+      // Determine access_type based on product mode
+      const accessType: 'lifetime' | 'subscription' = product.mode === 'payment' ? 'lifetime' : 'subscription';
+      
       // Create submission if it doesn't exist yet
       if (!submissionId) {
         submissionId = await createPartnerSubmission({
           business: formData.business,
           perk: formData.perk,
           userId: user.id,
+          accessType,
         });
         
         // Update form data with submission ID
         updateFormData('submissionId', submissionId);
       }
-      
-      const product = STRIPE_PRODUCTS[0]; // Get the first (and only) product
       
       const { url } = await createCheckoutSession({
         priceId: product.priceId,

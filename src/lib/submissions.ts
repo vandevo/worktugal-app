@@ -5,12 +5,14 @@ export interface CreateSubmissionData {
   business: BusinessFormData;
   perk: PerkFormData;
   userId: string;
+  accessType: 'lifetime' | 'subscription';
 }
 
 export const createPartnerSubmission = async ({
   business,
   perk,
   userId,
+  accessType,
 }: CreateSubmissionData): Promise<number> => {
   const submissionData = {
     user_id: userId,
@@ -35,6 +37,7 @@ export const createPartnerSubmission = async ({
     perk_customer_nif: perk.customer_nif || null,
     perk_customer_name: perk.customer_name || null,
     status: 'pending_payment' as const,
+    access_type: accessType,
   };
 
   const { data, error } = await supabase
