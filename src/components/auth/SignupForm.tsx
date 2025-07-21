@@ -13,7 +13,9 @@ import { Turnstile } from '../ui/Turnstile';
 
 const signupSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  password: z.string()
+    .min(6, 'Password must be at least 6 characters')
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/, 'Password must contain at least one lowercase letter, one uppercase letter, and one number'),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
@@ -105,6 +107,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
           placeholder="Create a password"
           {...register('password')}
           error={errors.password?.message}
+          hint="Must include: lowercase letter, uppercase letter, and number (minimum 6 characters)"
         />
 
         <Input
