@@ -37,7 +37,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
             </h1>
             
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Worktugal Pass connects your offer to Lisbon's remote professionals through curated perks, trusted listings, and frictionless redemption
+              Remote workers don't cold call cafés. They use trusted perks with fast redemption and real locals. You list. They come.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
