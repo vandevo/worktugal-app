@@ -152,7 +152,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
             >
               {captchaState === 'loading' && 'Loading Security Check...'}
               {captchaState === 'ready' && 'Security Verification'}
-              {captchaState === 'verified' && 'Verification Complete ✓'}
+              {captchaState === 'verified' && 'Verification Complete'}
               {captchaState === 'error' && 'Verification Failed'}
             </motion.label>
           </motion.div>
