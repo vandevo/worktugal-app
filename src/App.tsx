@@ -13,6 +13,7 @@ const FormWizard = React.lazy(() => import('./components/FormWizard').then(modul
 const PerksDirectory = React.lazy(() => import('./components/PerksDirectory').then(module => ({ default: module.PerksDirectory })));
 const PricingSection = React.lazy(() => import('./components/PricingSection').then(module => ({ default: module.PricingSection })));
 const SuccessPage = React.lazy(() => import('./components/SuccessPage').then(module => ({ default: module.SuccessPage })));
+const ProtectedSuccessRoute = React.lazy(() => import('./components/ProtectedSuccessRoute').then(module => ({ default: module.ProtectedSuccessRoute })));
 
 const TOTAL_EARLY_ACCESS_SPOTS = 50;
 
@@ -187,7 +188,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/success" element={
             <Suspense fallback={<LoadingSpinner />}>
-              <SuccessPage />
+              <ProtectedSuccessRoute>
+                <SuccessPage />
+              </ProtectedSuccessRoute>
             </Suspense>
           } />
         </Routes>
