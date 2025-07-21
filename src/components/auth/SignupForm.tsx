@@ -75,7 +75,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
       <div className="text-center mb-8">
         <UserPlus className="h-12 w-12 text-blue-400 mx-auto mb-4" />
         <h2 className="text-2xl font-bold mb-2">Create your account</h2>
-        <p className="text-gray-400">Join the Worktugal Pass community</p>
+        <p className="text-gray-400">Get access to verified perks in Lisbon</p>
       </div>
 
       {error && (
