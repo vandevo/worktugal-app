@@ -1,1011 +1,602 @@
-# Worktugal Pass - Partner Portal 🚀
-
-A production-ready, mobile-first B2B web application for Worktugal Pass — Lisbon's trusted perk marketplace for remote professionals and expats.
-
-**🌐 Live Site:** [https://pass.worktugal.com](https://pass.worktugal.com)
-
-## 🎯 Purpose
-
-This self-serve partner portal allows local businesses to:
-- Submit their business information and perk offers
-- Pay a one-time listing fee (€49 early access)
-- Appear in a live public directory
-- Reach 1,000+ verified remote workers in Lisbon
-
-## ✨ Key Features
-
-### 🔐 Authentication & Security
-- **Supabase Auth**: Email/password authentication with no email confirmation required
-- **Row Level Security (RLS)**: Database-level security policies
-- **Protected Routes**: Authentication-required sections
-- **Session Management**: Automatic session handling and token refresh
-- **Input Validation**: Zod schema validation on all forms
-- **CSRF Protection**: Built-in protection through Supabase
-
-### 💳 Payment Integration
-- **Stripe Integration**: Full payment processing with webhooks
-- **One-time Payments**: €49 early access listing fee
-- **Subscription Support**: Ready for future recurring billing
-- **Payment Status Tracking**: Real-time payment status updates
-- **Secure Checkout**: PCI-compliant payment processing
-- **Refund Support**: Backend webhook handling for refunds
-
-### 📱 User Experience
-- **Multi-step Form Wizard**: Intuitive business registration flow
-- **Real-time Validation**: Instant feedback on form inputs
-- **Loading States**: Smooth loading indicators throughout
-- **Error Handling**: Comprehensive error messages and recovery
-- **Success Flows**: Clear confirmation and next steps
-- **Mobile-First Design**: Optimized for all screen sizes
-
-### 🎨 Design System
-- **Dark Mode**: Modern dark theme with blue/purple accents
-- **Responsive Grid**: CSS Grid and Flexbox layouts
-- **Animations**: Framer Motion powered micro-interactions
-- **Typography**: Inter font family with proper hierarchy
-- **Color System**: Consistent color palette with semantic colors
-- **Spacing**: 8px grid system for consistent spacing
-
-### 🏗️ Architecture
-- **Component-Based**: Reusable React components
-- **Custom Hooks**: Shared logic in custom hooks
-- **Type Safety**: Full TypeScript coverage
-- **State Management**: React hooks for local state
-- **Form Management**: React Hook Form with Zod validation
-- **Database**: Supabase PostgreSQL with RLS
-
-## 🚀 Tech Stack
-
-### Frontend
-- **React 18** - Latest React with concurrent features
-- **TypeScript** - Full type safety
-- **Vite** - Fast build tool and dev server
-- **Tailwind CSS** - Utility-first CSS framework
-- **Framer Motion** - Animation library
-- **React Hook Form** - Form management
-- **React Router DOM** - Client-side routing
-- **Zod** - Schema validation
-
-### Backend & Database
-- **Supabase** - Backend-as-a-Service
-- **PostgreSQL** - Relational database
-- **Row Level Security** - Database-level security
-- **Real-time subscriptions** - Live data updates
-- **Edge Functions** - Serverless functions
-
-### Payment & Integration
-- **Stripe** - Payment processing
-- **Webhook handling** - Automated payment updates
-- **Customer management** - Stripe customer sync
-- **Order tracking** - Payment history
-
-### DevOps & Deployment
-- **Netlify** - Static site hosting
-- **Continuous Deployment** - Git-based deployments
-- **Environment Variables** - Secure configuration
-- **Performance Optimization** - Bundle optimization
-
-### Analytics & Monitoring
-- **Google Analytics 4** - User behavior tracking
-- **Simple Analytics** - Privacy-first analytics (100% GDPR compliant)
-
-## 🛠️ Complete Replication Guide
-
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-- Supabase account
-- Stripe account
-- Netlify account (or similar hosting)
-- Cloudflare account (for DNS management)
-- Google Analytics account
-
-### Step 1: Repository Setup
-
-```bash
-# Clone or create new repository
-git clone <repository-url>
-cd worktugal-pass-portal
-
-# Install exact dependencies
-npm install
-
-# Verify Node.js version
-node --version  # Should be 18+
-```
-
-### Step 2: Supabase Project Setup
-
-#### 2.1 Create New Supabase Project
-1. Go to [https://supabase.com](https://supabase.com)
-2. Click "New Project"
-3. Choose organization
-4. **Project Name**: `worktugal-pass-portal`
-5. **Database Password**: Generate strong password (save securely)
-6. **Region**: Choose closest to your users (we used EU West - Ireland)
-7. Wait for project creation (2-3 minutes)
-
-#### 2.2 Configure Authentication
-1. Go to Authentication → Settings
-2. **Site URL**: `https://pass.worktugal.com`
-3. **Redirect URLs**: Add these URLs:
-   ```
-   https://pass.worktugal.com
-   https://pass.worktugal.com/**
-   http://localhost:5173
-   http://localhost:5173/**
-   ```
-4. **Email Confirmation**: DISABLE (turn off)
-5. **Email Templates**: Customize if needed
-6. Save configuration
-
-#### 2.3 Database Migrations
-Run these SQL commands in Supabase SQL Editor (in exact order):
-
-```sql
--- Enable UUID extension
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
--- Create custom types
-CREATE TYPE stripe_subscription_status AS ENUM (
-  'not_started',
-  'incomplete', 
-  'incomplete_expired',
-  'trialing',
-  'active',
-  'past_due',
-  'canceled',
-  'unpaid',
-  'paused'
-);
-
-CREATE TYPE stripe_order_status AS ENUM (
-  'pending',
-  'completed', 
-  'canceled'
-);
-
-CREATE TYPE submission_status AS ENUM (
-  'pending_payment',
-  'completed_payment',
-  'abandoned',
-  'approved',
-  'rejected'
-);
-
--- Create user profiles table
-CREATE TABLE user_profiles (
-  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
-  display_name TEXT,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Enable RLS
-ALTER TABLE user_profiles ENABLE ROW LEVEL SECURITY;
-
--- Create policy for user profiles
-CREATE POLICY "Users can manage their own profile"
-  ON user_profiles
-  FOR ALL
-  TO authenticated
-  USING (auth.uid() = id)
-  WITH CHECK (auth.uid() = id);
-
--- Create stripe_customers table
-CREATE TABLE stripe_customers (
-  id BIGSERIAL PRIMARY KEY,
-  user_id UUID NOT NULL REFERENCES auth.users(id),
-  customer_id TEXT UNIQUE NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW(),
-  deleted_at TIMESTAMPTZ
-);
-
--- Enable RLS
-ALTER TABLE stripe_customers ENABLE ROW LEVEL SECURITY;
-
--- Create indexes
-CREATE INDEX idx_stripe_customers_user_id ON stripe_customers(user_id);
-CREATE INDEX idx_stripe_customers_customer_id ON stripe_customers(customer_id);
-
--- Create policy
-CREATE POLICY "Users can view their own customer data"
-  ON stripe_customers
-  FOR SELECT
-  TO authenticated
-  USING (user_id = auth.uid() AND deleted_at IS NULL);
-
--- Create stripe_subscriptions table
-CREATE TABLE stripe_subscriptions (
-  id BIGSERIAL PRIMARY KEY,
-  customer_id TEXT UNIQUE NOT NULL,
-  subscription_id TEXT,
-  price_id TEXT,
-  current_period_start BIGINT,
-  current_period_end BIGINT,
-  cancel_at_period_end BOOLEAN DEFAULT FALSE,
-  payment_method_brand TEXT,
-  payment_method_last4 TEXT,
-  status stripe_subscription_status NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW(),
-  deleted_at TIMESTAMPTZ
-);
-
--- Enable RLS
-ALTER TABLE stripe_subscriptions ENABLE ROW LEVEL SECURITY;
-
--- Create indexes
-CREATE INDEX idx_stripe_subscriptions_customer_id ON stripe_subscriptions(customer_id);
-
--- Create policy
-CREATE POLICY "Users can view their own subscription data"
-  ON stripe_subscriptions
-  FOR SELECT
-  TO authenticated
-  USING (
-    customer_id IN (
-      SELECT customer_id 
-      FROM stripe_customers 
-      WHERE user_id = auth.uid() AND deleted_at IS NULL
-    ) AND deleted_at IS NULL
-  );
-
--- Create stripe_orders table
-CREATE TABLE stripe_orders (
-  id BIGSERIAL PRIMARY KEY,
-  checkout_session_id TEXT NOT NULL,
-  payment_intent_id TEXT NOT NULL,
-  customer_id TEXT NOT NULL,
-  amount_subtotal BIGINT NOT NULL,
-  amount_total BIGINT NOT NULL,
-  currency TEXT NOT NULL,
-  payment_status TEXT NOT NULL,
-  status stripe_order_status DEFAULT 'pending' NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW(),
-  deleted_at TIMESTAMPTZ
-);
-
--- Enable RLS
-ALTER TABLE stripe_orders ENABLE ROW LEVEL SECURITY;
-
--- Create indexes
-CREATE INDEX idx_stripe_orders_customer_id ON stripe_orders(customer_id);
-
--- Create policy
-CREATE POLICY "Users can view their own order data"
-  ON stripe_orders
-  FOR SELECT
-  TO authenticated
-  USING (
-    customer_id IN (
-      SELECT customer_id 
-      FROM stripe_customers 
-      WHERE user_id = auth.uid() AND deleted_at IS NULL
-    ) AND deleted_at IS NULL
-  );
-
--- Create partner_submissions table
-CREATE TABLE partner_submissions (
-  id BIGSERIAL PRIMARY KEY,
-  user_id UUID NOT NULL REFERENCES auth.users(id),
-  business_name TEXT NOT NULL,
-  business_website TEXT,
-  business_instagram TEXT,
-  contact_name TEXT NOT NULL,
-  contact_email TEXT NOT NULL,
-  contact_phone TEXT NOT NULL,
-  business_category TEXT NOT NULL,
-  business_neighborhood TEXT NOT NULL,
-  perk_title TEXT NOT NULL,
-  perk_description TEXT NOT NULL,
-  perk_redemption_method TEXT NOT NULL,
-  perk_redemption_details TEXT NOT NULL,
-  perk_images TEXT[],
-  perk_logo TEXT,
-  perk_is_portuguese_owned BOOLEAN DEFAULT FALSE NOT NULL,
-  perk_needs_nif BOOLEAN DEFAULT FALSE NOT NULL,
-  status submission_status DEFAULT 'pending_payment' NOT NULL,
-  stripe_order_id BIGINT REFERENCES stripe_orders(id),
-  created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
-  updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
-);
-
--- Enable RLS
-ALTER TABLE partner_submissions ENABLE ROW LEVEL SECURITY;
-
--- Create indexes
-CREATE INDEX idx_partner_submissions_user_id ON partner_submissions(user_id);
-CREATE INDEX idx_partner_submissions_status ON partner_submissions(status);
-CREATE INDEX idx_partner_submissions_created_at ON partner_submissions(created_at);
-
--- Create policy
-CREATE POLICY "Users can manage their own partner submissions"
-  ON partner_submissions
-  FOR ALL
-  TO public
-  USING (auth.uid() = user_id);
-
--- Create views
-CREATE VIEW stripe_user_subscriptions AS
-SELECT 
-  sc.customer_id,
-  ss.subscription_id,
-  ss.status as subscription_status,
-  ss.price_id,
-  ss.current_period_start,
-  ss.current_period_end,
-  ss.cancel_at_period_end,
-  ss.payment_method_brand,
-  ss.payment_method_last4
-FROM stripe_customers sc
-LEFT JOIN stripe_subscriptions ss ON sc.customer_id = ss.customer_id
-WHERE sc.user_id = auth.uid() AND sc.deleted_at IS NULL AND ss.deleted_at IS NULL;
-
-CREATE VIEW stripe_user_orders AS
-SELECT 
-  sc.customer_id,
-  so.id as order_id,
-  so.checkout_session_id,
-  so.payment_intent_id,
-  so.amount_subtotal,
-  so.amount_total,
-  so.currency,
-  so.payment_status,
-  so.status as order_status,
-  so.created_at as order_date
-FROM stripe_customers sc
-LEFT JOIN stripe_orders so ON sc.customer_id = so.customer_id
-WHERE sc.user_id = auth.uid() AND sc.deleted_at IS NULL AND so.deleted_at IS NULL;
-```
-
-#### 2.4 Setup Edge Functions
-
-1. Create webhook function directory structure:
-```bash
-mkdir -p supabase/functions/stripe-webhook
-mkdir -p supabase/functions/stripe-checkout
-```
-
-2. Copy the exact edge function code from the existing files:
-   - `supabase/functions/stripe-webhook/index.ts`
-   - `supabase/functions/stripe-checkout/index.ts`
-
-#### 2.5 Configure Environment Variables in Supabase
-Go to Settings → Environment Variables and add:
-```
-STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
-STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
-```
-
-### Step 3: Stripe Configuration
-
-#### 3.1 Create Stripe Account
-1. Go to [https://stripe.com](https://stripe.com)
-2. Create account or sign in
-3. Switch to **Test Mode** during development
-
-#### 3.2 Create Products and Prices
-1. Go to Products → Add Product
-2. **Product Details**:
-   - **Name**: `Partner Listing Early Access (Lifetime)`
-   - **Description**: `Join Lisbon's #1 Perk Marketplace. Get lifetime visibility to remote workers, expats, and digital nomads. This early access offer is limited to 25 local businesses only. No renewals, no hidden fees.`
-   - **Image**: Upload business-related image
-   
-3. **Pricing**:
-   - **Pricing Model**: One time
-   - **Price**: €49.00
-   - **Currency**: EUR
-   - **Tax Behavior**: Exclusive (recommended for EU)
-
-4. **Save the Price ID** (starts with `price_`) - you'll need this for `src/stripe-config.ts`
-
-#### 3.3 Configure Webhooks
-1. Go to Developers → Webhooks
-2. Click "Add endpoint"
-3. **Endpoint URL**: `https://your-project.supabase.co/functions/v1/stripe-webhook`
-4. **Events to send**:
-   - `checkout.session.completed`
-   - `payment_intent.succeeded`
-   - `customer.subscription.created`
-   - `customer.subscription.updated`
-   - `customer.subscription.deleted`
-   - `invoice.payment_succeeded`
-   - `invoice.payment_failed`
-5. Save and copy the **Webhook Secret** (starts with `whsec_`)
-
-#### 3.4 Update Stripe Configuration
-Edit `src/stripe-config.ts` with your actual Stripe data:
-
-```typescript
-export const STRIPE_PRODUCTS: StripeProduct[] = [
-  {
-    id: 'prod_YOUR_PRODUCT_ID', // From Stripe Dashboard
-    priceId: 'price_YOUR_PRICE_ID', // From Stripe Dashboard  
-    name: 'Partner Listing Early Access (Lifetime)',
-    description: 'Join Lisbon\'s #1 Perk Marketplace. Get lifetime visibility to remote workers, expats, and digital nomads. This early access offer is limited to 25 local businesses only. No renewals, no hidden fees.',
-    mode: 'payment',
-    price: 49.00
-  }
-];
-```
-
-### Step 4: Environment Variables Setup
-
-Create `.env` file with exact configuration:
-
-```env
-# Supabase Configuration
-VITE_SUPABASE_URL=https://your-project-id.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-key-from-supabase-settings
-
-# Stripe Configuration (Test Mode)
-VITE_STRIPE_PUBLISHABLE_KEY=pk_test_your-stripe-publishable-key
-
-# For Production, use:
-# VITE_STRIPE_PUBLISHABLE_KEY=pk_live_your-stripe-publishable-key
-```
-
-**Important**: 
-- Get Supabase keys from: Project Settings → API
-- Get Stripe keys from: Developers → API Keys
-- **Never commit real keys to version control**
-
-### Step 5: Domain and DNS Configuration
-
-#### 5.1 Cloudflare DNS Setup
-1. Log into Cloudflare dashboard
-2. Go to your domain (`worktugal.com`)
-3. Click "DNS" tab
-4. Add DNS record:
-   - **Type**: CNAME
-   - **Name**: pass
-   - **Target**: your-netlify-site.netlify.app
-   - **Proxy Status**: Proxied (orange cloud)
-   - **TTL**: Auto
-
-#### 5.2 Netlify Custom Domain
-1. Go to Netlify dashboard
-2. Select your site
-3. Go to Domain Settings
-4. Add custom domain: `pass.worktugal.com`
-5. Verify DNS configuration
-6. Enable HTTPS (should be automatic with Cloudflare)
-
-### Step 6: Google Analytics Setup
-
-#### 6.1 Create GA4 Property
-1. Go to [Google Analytics](https://analytics.google.com)
-2. Create new property or use existing
-3. **Property Name**: Worktugal Pass
-4. **Reporting Time Zone**: Europe/Lisbon
-5. **Currency**: Euro (EUR)
-
-#### 6.2 Data Stream Configuration
-1. Add new web data stream
-2. **Website URL**: https://pass.worktugal.com
-3. **Stream Name**: Worktugal Pass Portal
-4. Copy the **Measurement ID** (format: G-XXXXXXXXXX)
-
-#### 6.3 Enhanced Ecommerce (Optional)
-Enable enhanced ecommerce for payment tracking:
-1. Go to Admin → Property → Data Settings → Data Streams
-2. Click your web stream
-3. Enable "Enhanced Measurement"
-4. Configure events: Page views, Scrolls, Outbound clicks, File downloads
-
-### Step 7: Netlify Deployment Configuration
-
-#### 7.1 Build Settings
-```toml
-# netlify.toml (create in root directory)
-[build]
-  publish = "dist"
-  command = "npm run build"
-
-[build.environment]
-  NODE_VERSION = "18"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = false
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-
-[[headers]]
-  for = "/static/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-```
-
-#### 7.2 Environment Variables in Netlify
-1. Go to Site Settings → Environment Variables
-2. Add all environment variables:
-   ```
-   VITE_SUPABASE_URL=https://your-project.supabase.co
-   VITE_SUPABASE_ANON_KEY=your-anon-key
-   VITE_STRIPE_PUBLISHABLE_KEY=pk_test_your-key (or pk_live_ for production)
-   ```
-
-#### 7.3 Deploy Settings
-1. **Branch to deploy**: main
-2. **Build command**: `npm run build`
-3. **Publish directory**: `dist`
-4. **Node version**: 18.x
-
-### Step 8: File Upload Configuration (Supabase Storage)
-
-#### 8.1 Create Storage Buckets
-1. Go to Supabase → Storage
-2. Create new bucket: `perk-assets`
-3. **Bucket Settings**:
-   - **Public**: Yes
-   - **File Size Limit**: 5MB
-   - **Allowed MIME Types**: image/jpeg, image/png, image/webp
-
-#### 8.2 Storage Policies
-Run in SQL Editor:
-```sql
--- Allow authenticated users to upload files
-CREATE POLICY "Allow authenticated users to upload files"
-  ON storage.objects
-  FOR INSERT
-  TO authenticated
-  WITH CHECK (bucket_id = 'perk-assets');
-
--- Allow public access to read files
-CREATE POLICY "Allow public access to read files"
-  ON storage.objects
-  FOR SELECT
-  TO public
-  USING (bucket_id = 'perk-assets');
-
--- Allow users to delete their own files
-CREATE POLICY "Allow users to delete their own files"
-  ON storage.objects
-  FOR DELETE
-  TO authenticated
-  USING (bucket_id = 'perk-assets' AND auth.uid()::text = (storage.foldername(name))[1]);
-```
-
-### Step 9: Development and Testing
-
-#### 9.1 Local Development
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# The site will be available at http://localhost:5173
-```
-
-#### 9.2 Testing Checklist
-- [ ] User registration and login
-- [ ] Form validation (all steps)
-- [ ] File uploads (images and logos)
-- [ ] Stripe checkout flow (use test cards)
-- [ ] Success page and redirects
-- [ ] Email notifications (if configured)
-- [ ] Analytics tracking
-- [ ] Mobile responsiveness
-- [ ] Error handling
-
-#### 9.3 Stripe Test Cards
-Use these for testing payments:
-- **Successful Payment**: 4242 4242 4242 4242
-- **Declined Payment**: 4000 0000 0000 0002
-- **Requires Authentication**: 4000 0025 0000 3155
-
-### Step 10: Production Deployment
-
-#### 10.1 Switch to Production Mode
-1. **Stripe**: Switch to Live Mode
-2. **Update Environment Variables**:
-   ```env
-   VITE_STRIPE_PUBLISHABLE_KEY=pk_live_your-production-key
-   ```
-3. **Update Webhook URLs** to production Supabase URLs
-4. **Test everything** with small real payments
-
-#### 10.2 Go-Live Checklist
-- [ ] All environment variables updated to production
-- [ ] Stripe webhooks configured for production
-- [ ] SSL certificate active
-- [ ] Custom domain working
-- [ ] Analytics tracking confirmed
-- [ ] Error monitoring enabled
-- [ ] Database backups configured
-- [ ] Payment flow tested with real transactions
-
-### Step 11: Monitoring and Maintenance
-
-#### 11.1 Set Up Monitoring
-1. **Supabase Dashboard**: Monitor database usage, API calls
-2. **Stripe Dashboard**: Track payments, failed transactions
-3. **Netlify Analytics**: Monitor site performance
-4. **Google Analytics**: Track user behavior
-
-#### 11.2 Regular Maintenance Tasks
-- Monitor and optimize database queries
-- Review and update security policies
-- Check for dependency updates
-- Monitor payment success/failure rates
-- Review user feedback and analytics
-- Backup database regularly
-
-## 📁 Complete Project Structure
-
-```
-src/
-├── components/              # React components
-│   ├── auth/               # Authentication components
-│   │   ├── AuthModal.tsx   # Login/signup modal
-│   │   ├── LoginForm.tsx   # Login form
-│   │   └── SignupForm.tsx  # Signup form
-│   ├── forms/              # Form components
-│   │   ├── BusinessForm.tsx # Business details form
-│   │   ├── PerkForm.tsx    # Perk details form
-│   │   ├── PaymentForm.tsx # Payment form
-│   │   └── SuccessScreen.tsx # Success confirmation
-│   ├── ui/                 # Reusable UI components
-│   │   ├── Button.tsx      # Button component
-│   │   ├── Input.tsx       # Input component
-│   │   ├── Select.tsx      # Select component
-│   │   ├── Card.tsx        # Card component
-│   │   ├── Alert.tsx       # Alert component
-│   │   ├── ProgressBar.tsx # Progress indicator
-│   │   └── FileUpload.tsx  # File upload component
-│   ├── FormWizard.tsx      # Multi-step form wizard
-│   ├── Hero.tsx            # Landing page hero
-│   ├── PerksDirectory.tsx  # Partner directory
-│   ├── PricingSection.tsx  # Pricing and payment
-│   ├── Layout.tsx          # App layout wrapper
-│   ├── Footer.tsx          # Site footer
-│   ├── SuccessPage.tsx     # Payment success page
-│   ├── Seo.tsx             # SEO component
-│   ├── ProfileModal.tsx    # User profile editing
-│   ├── ProtectedRoute.tsx  # Route protection
-│   └── UserSubscriptionStatus.tsx # Subscription status indicator
-├── hooks/                  # Custom React hooks
-│   ├── useAuth.ts          # Authentication hook
-│   ├── useFormData.ts      # Form state management
-│   ├── useSubscription.ts  # Subscription status
-│   └── useUserProfile.ts   # User profile management
-├── lib/                    # External library configs
-│   ├── supabase.ts         # Supabase client
-│   ├── auth.ts             # Authentication functions
-│   ├── stripe.ts           # Stripe integration
-│   ├── validations.ts      # Zod schemas
-│   ├── profile.ts          # User profile functions
-│   ├── storage.ts          # File upload functions
-│   └── submissions.ts      # Submission management
-├── types/                  # TypeScript definitions
-│   └── index.ts            # Type definitions
-├── utils/                  # Utility functions
-│   ├── cn.ts               # Class name utility
-│   └── constants.ts        # App constants
-├── stripe-config.ts        # Stripe product config
-├── App.tsx                 # Main app component
-├── main.tsx                # React entry point
-└── index.css               # Global styles
-
-supabase/
-├── functions/              # Edge functions
-│   ├── stripe-checkout/    # Checkout session creation
-│   │   └── index.ts
-│   └── stripe-webhook/     # Payment webhook handler
-│       └── index.ts
-└── migrations/             # Database migrations
-    ├── 20250718183925_humble_crystal.sql
-    ├── 20250718202132_gentle_temple.sql
-    ├── 20250718233740_restless_haze.sql
-    └── 20250719001210_shrill_villa.sql
-
-public/
-├── _redirects             # Netlify redirects
-├── favicon-180x180.png    # App icons
-├── favicon-192x192.png
-├── favicon-512x512.png
-├── robots.txt             # SEO robots file
-├── sitemap.xml            # SEO sitemap
-├── site.webmanifest       # PWA manifest
-└── worktugal-logo-bg-light-radius-1000-1000.png # Logo
-
-# Configuration files
-├── .env                   # Environment variables (not in repo)
-├── .env.example          # Environment variables template
-├── .gitignore            # Git ignore rules
-├── eslint.config.js      # ESLint configuration
-├── index.html            # HTML template
-├── netlify.toml          # Netlify configuration
-├── package.json          # Dependencies and scripts
-├── postcss.config.js     # PostCSS configuration
-├── tailwind.config.js    # Tailwind CSS configuration
-├── tsconfig.json         # TypeScript configuration
-├── tsconfig.app.json     # TypeScript app configuration
-├── tsconfig.node.json    # TypeScript Node configuration
-└── vite.config.ts        # Vite build configuration
-```
-
-## 🔧 Exact Configuration Files
-
-### package.json Dependencies
-```json
-{
-  "dependencies": {
-    "@hookform/resolvers": "^5.1.1",
-    "@supabase/supabase-js": "^2.52.0",
-    "clsx": "^2.1.1",
-    "framer-motion": "^12.23.6",
-    "lucide-react": "^0.344.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-helmet-async": "^2.0.5",
-    "react-hook-form": "^7.60.0",
-    "react-router-dom": "^7.7.0",
-    "tailwind-merge": "^3.3.1",
-    "zod": "^4.0.5"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.9.1",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.18",
-    "eslint": "^9.9.1",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.11",
-    "globals": "^15.9.0",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^8.3.0",
-    "vite": "^5.4.2"
-  }
-}
-```
-
-### Vite Configuration
-```typescript
-// vite.config.ts
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-
-export default defineConfig({
-  plugins: [react()],
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
-          ui: ['framer-motion', 'lucide-react'],
-          supabase: ['@supabase/supabase-js'],
-        },
-      },
-    },
-  },
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
-});
-```
-
-### Tailwind Configuration
-```javascript
-// tailwind.config.js
-export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  theme: {
-    extend: {
-      screens: {
-        'xs': '475px',
-      },
-      colors: {
-        gray: {
-          750: '#374151',
-        },
-      },
-    },
-  },
-  plugins: [],
-};
-```
-
-## 🚨 Critical Security Notes
-
-### Environment Variables
-- **NEVER** commit `.env` files to version control
-- Use different keys for development and production
-- Rotate keys regularly
-- Store production keys securely (use Netlify/Vercel env vars)
-
-### Database Security
-- RLS (Row Level Security) is enabled on all tables
-- Users can only access their own data
-- All policies are properly configured
-- Regular security audits recommended
-
-### Payment Security
-- All payment processing handled by Stripe (PCI compliant)
-- No sensitive payment data stored in our database
-- Webhook signatures verified for security
-- Production webhooks use HTTPS only
-
-## 📊 Analytics & Monitoring Setup
-
-### Google Analytics 4
-```html
-<!-- Already configured in index.html -->
-<!-- Measurement ID: G-FLJ2KM6R1Z -->
-```
-
-### Simple Analytics (Privacy-First)
-```html
-<!-- Already configured in index.html -->
-<!-- 100% GDPR compliant -->
-```
-
-### Key Metrics to Monitor
-- Conversion rate (form completion to payment)
-- User journey through form steps
+WORKTUGAL PASS - PARTNER PORTAL COMPLETE DOCUMENTATION
+
+1. GENERAL PROJECT INFO
+
+Project name: Worktugal Pass - Partner Portal
+One-sentence summary: A production-ready, mobile-first B2B web application for Worktugal Pass — Lisbon's trusted perk marketplace for remote professionals and expats.
+Target audience: Local businesses in Lisbon who want to attract remote workers, freelancers, and digital nomads
+Problem this solves: Connects local businesses with quality remote professionals through a trusted marketplace, eliminating the need for businesses to find and market to remote workers individually
+Version: v1.2.0
+Live URL: https://pass.worktugal.com
+Status: production
+Author or builder: Worktugal team
+Last updated: 2025-07-21
+
+2. CORE FUNCTIONALITY
+
+Input flows:
+- Multi-step business registration form (Business Info → Perk Details → Payment → Success)
+- User authentication (email/password signup and login)
+- File uploads for business logos and perk images
+- Business categorization and location selection
+- Perk redemption method configuration
+- Tax information collection (NIF) for Portuguese invoices
+
+Output logic:
+- Partner submissions stored in database with status tracking
+- Payment processing through Stripe with webhook confirmations
+- Email confirmations and status updates
+- Public perk directory with filtering and search
+- User profile management and subscription status display
+
+CTA logic:
+- Primary CTA: "List My Offer" button leads to form wizard
+- Secondary CTA: "Browse Verified Perks" scrolls to directory
+- Form completion leads to Stripe checkout
+- Payment success redirects to success page with next steps
+- Directory perks have action buttons for redemption (WhatsApp, email, website)
+
+Payment flows:
+- One-time payment: €49 early access lifetime listing fee
+- Stripe Checkout integration with webhook processing
+- Payment status tracking and partner submission updates
+- Support for future subscription models (infrastructure ready)
+
+Integrations used:
+- Supabase: Database, authentication, storage, edge functions
+- Stripe: Payment processing, customer management, webhooks
+- Netlify: Static site hosting and continuous deployment
+- Google Analytics 4: User behavior tracking
+- Simple Analytics: Privacy-first analytics
+- Cloudflare: DNS management and CDN
+
+3. TECH STACK + ARCHITECTURE
+
+Frontend framework and tooling:
+- React 18 with TypeScript for full type safety
+- Vite as build tool and development server
+- React Router DOM for client-side routing
+- React Hook Form with Zod validation for form management
+- Framer Motion for animations and micro-interactions
+- Tailwind CSS for utility-first styling
+- Lucide React for icons
+
+Backend/database stack:
+- Supabase as Backend-as-a-Service
+- PostgreSQL database with Row Level Security (RLS)
+- Supabase Edge Functions for serverless logic
+- Real-time subscriptions for live data updates
+
+Auth system:
+- Supabase Auth with email/password authentication
+- No email confirmation required for faster onboarding
+- Row Level Security policies for data protection
+- Session management with automatic token refresh
+- Protected routes and authentication guards
+
+Storage logic:
+- Supabase Storage for file uploads
+- Public bucket 'perk-assets' for images and logos
+- 5MB file size limit per upload
+- MIME type restrictions: image/jpeg, image/png, image/webp
+- Folder organization: business-logos/, perk-images/
+- Public read access, authenticated write access
+
+Deployment method and host:
+- Netlify static site hosting
+- Continuous deployment from Git repository
+- Custom domain with SSL/TLS termination
+- Serverless functions via Supabase Edge Functions
+
+Build toolchain:
+- Vite with React plugin
+- TypeScript compilation
+- PostCSS with Autoprefixer
+- Tailwind CSS processing
+- Bundle optimization with manual chunks
+- Tree shaking and code splitting
+
+4. INFRASTRUCTURE + CONFIG
+
+Environment variable keys and descriptions:
+- VITE_SUPABASE_URL: Supabase project URL for database and API access
+- VITE_SUPABASE_ANON_KEY: Supabase anonymous key for client-side operations
+- VITE_STRIPE_PUBLISHABLE_KEY: Stripe publishable key for payment processing (pk_test_ for development, pk_live_ for production)
+
+DNS, custom domain, and HTTPS setup:
+- Primary domain: pass.worktugal.com
+- DNS managed through Cloudflare
+- CNAME record pointing to Netlify deployment
+- Automatic SSL/TLS certificate via Netlify
+- Cloudflare proxy enabled for performance and security
+
+Edge functions or serverless logic:
+- stripe-checkout: Creates Stripe checkout sessions for payments
+- stripe-webhook: Processes Stripe webhook events for payment status updates
+- Both functions handle CORS, authentication, and error handling
+
+Database types and migration status:
+- PostgreSQL with custom enum types for status management
+- Tables: user_profiles, stripe_customers, stripe_subscriptions, stripe_orders, partner_submissions
+- Views: stripe_user_subscriptions, stripe_user_orders
+- All migrations applied and documented in supabase/migrations/
+- Row Level Security enabled on all tables
+
+External service setup steps:
+- Supabase: Project created, database configured, auth enabled, storage buckets created
+- Stripe: Account verified, products created, webhooks configured, test/live keys obtained
+- Netlify: Site deployed, custom domain configured, environment variables set
+- Cloudflare: DNS configured, proxy enabled, security settings applied
+- Google Analytics: Property created, tracking ID implemented
+
+5. UI + DESIGN SYSTEM
+
+Mobile-first layout: yes
+- Responsive design with breakpoints: xs (475px), sm (640px), md (768px), lg (1024px), xl (1280px)
+- Touch-friendly interface elements
+- Optimized form layouts for mobile devices
+
+CSS system: Tailwind CSS
+- Utility-first approach with custom configuration
+- Consistent spacing using 8px grid system
+- Custom color palette extension
+- Component-based styling patterns
+
+Typography:
+- Font family: Inter (system font stack fallback)
+- Hierarchy: h1 (4xl-6xl), h2 (2xl-3xl), h3 (xl-2xl), body (base), small (sm-xs)
+- Line heights: 150% for body text, 120% for headings
+- Maximum 3 font weights used throughout
+
+Color tokens:
+- Primary: Blue (#3B82F6 to #1D4ED8)
+- Secondary: Purple (#8B5CF6 to #7C3AED)
+- Success: Green (#10B981 to #059669)
+- Warning: Orange (#F59E0B to #D97706)
+- Error: Red (#EF4444 to #DC2626)
+- Neutral: Gray scale (#F9FAFB to #111827)
+- Background: Dark theme (#111827 primary, #1F2937 secondary)
+
+Spacing and sizing grid:
+- Base unit: 8px
+- Common spacings: 4px, 8px, 16px, 24px, 32px, 48px, 64px
+- Container max-widths: sm (640px), md (768px), lg (1024px), xl (1280px), 2xl (1536px)
+- Consistent padding and margin patterns
+
+Animation style:
+- Framer Motion powered micro-interactions
+- Subtle hover states and transitions
+- Loading states and form progression animations
+- Page transitions and modal animations
+- Performance-optimized with proper motion preferences
+
+6. SECURITY AND PRIVACY
+
+Auth protection level:
+- Row Level Security (RLS) enabled on all database tables
+- Users can only access their own data through RLS policies
+- Authentication required for form submissions and file uploads
+- Session-based authentication with secure token handling
+
+File upload restrictions:
+- MIME types: image/jpeg, image/png, image/webp only
+- File size limit: 5MB per file
+- Maximum 3 perk images per submission
+- Authenticated uploads only, public read access
+- Automatic file validation and error handling
+
+Payment security:
+- PCI compliance through Stripe integration
+- No sensitive payment data stored in application database
+- Webhook signature verification for security
+- HTTPS-only webhook endpoints in production
+- Stripe customer data synchronized securely
+
+Sensitive data handling rules:
+- Environment variables never committed to version control
+- Production keys stored securely in deployment platform
+- Database connection strings encrypted and managed by Supabase
+- User passwords hashed and managed by Supabase Auth
+- Personal data protected under RLS policies
+
+Environment key safety protocols:
+- Separate keys for development and production environments
+- Regular key rotation recommended
+- Keys stored in deployment platform environment variables
+- Local development uses .env files (gitignored)
+- No hardcoded keys in source code
+
+Backup strategy and frequency:
+- Supabase automatic database backups (daily)
+- Git repository serves as code backup
+- Environment variables documented and stored securely
+- Database schema versioned through migrations
+- Recovery procedures documented
+
+7. DEPLOYMENT + VERSIONING
+
+Build command: npm run build
+Publish directory: dist
+GitHub repo link: Private repository
+Last Git commit message: Update pricing section headline to be unique while maintaining core message
+Current deployment branch: main
+Status: production
+Clone-ready: yes
+Tag version: v1.2.0
+
+Deployment configuration:
+- Netlify continuous deployment from Git
+- Build command: npm run build
+- Node version: 18.x
+- Environment variables configured in Netlify dashboard
+- Custom domain with SSL automatically provisioned
+- Deploy previews enabled for pull requests
+
+8. TESTING + QA CHECKLIST
+
+Signup and login:
+- Email validation and error handling
+- Password strength requirements (minimum 6 characters)
+- Successful account creation and immediate login
+- Session persistence and automatic logout
+- Profile creation and display name management
+
+Payment flow (test cards):
+- Successful payment: 4242 4242 4242 4242
+- Declined payment: 4000 0000 0000 0002
+- Requires authentication: 4000 0025 0000 3155
+- Checkout session creation and redirect
+- Webhook processing and status updates
+- Success page display and confirmation
+
+Form validation (client and server):
+- Required field validation
+- Email format validation
+- Phone number formatting (automatic +351 prefix)
+- Business category and neighborhood selection
+- Perk description minimum length requirements
+- Image upload validation and error handling
+
+Mobile UX:
+- Responsive layout on all screen sizes
+- Touch-friendly form elements
+- Proper keyboard handling for inputs
+- Modal and navigation behavior on mobile
+- Image upload interface optimized for mobile
+
+Upload logic:
+- File type validation (images only)
+- File size validation (5MB limit)
+- Upload progress indication
+- Error handling for failed uploads
+- Image preview functionality
+- Multiple image support (up to 3)
+
+Redirects and CTAs:
+- Form wizard navigation between steps
+- Success page redirect after payment
+- Back button functionality
+- Directory browsing and filtering
+- External link handling (WhatsApp, email, websites)
+
+Webhook triggers:
+- Stripe checkout completion events
+- Payment success/failure processing
+- Database status updates
+- Error handling and retry logic
+
+Analytics fire:
+- Page view tracking (GA4 and Simple Analytics)
+- Form completion events
+- Payment success tracking
+- Error event logging
+
+Errors handled gracefully:
+- Network connectivity issues
+- API timeout handling
+- Form validation errors
+- Payment processing errors
+- File upload failures
+- Authentication errors
+
+9. MONITORING + ANALYTICS
+
+Platforms used:
+- Google Analytics 4 (Measurement ID: G-FLJ2KM6R1Z)
+- Simple Analytics (100% GDPR compliant, privacy-first)
+- Netlify Analytics for deployment and performance metrics
+- Supabase Dashboard for database and API monitoring
+
+Key events tracked:
+- Page views and user sessions
+- Form completion rates by step
 - Payment success/failure rates
-- Page load times and performance
-- Error rates and types
+- File upload success rates
+- User registration and login events
+- CTA click-through rates
+- Error occurrences and types
 
-## 🔍 Troubleshooting Guide
+Error monitoring tool:
+- Browser console error logging
+- Supabase function error logs
+- Stripe webhook error notifications
+- Netlify build and deployment error alerts
 
-### Common Issues and Solutions
+Metrics to monitor:
+- Conversion rate (form start to payment completion)
+- User journey through form steps (funnel analysis)
+- Payment success rate and failure reasons
+- Page load times and Core Web Vitals
+- Mobile vs desktop usage patterns
+- Geographic distribution of users
+- Bounce rate and session duration
 
-#### 1. Supabase Connection Issues
-```bash
-# Check environment variables
-echo $VITE_SUPABASE_URL
-echo $VITE_SUPABASE_ANON_KEY
+10. FUTURE ROADMAP
 
-# Verify in browser dev tools
-console.log(import.meta.env.VITE_SUPABASE_URL)
-```
-
-#### 2. Stripe Payment Issues
-- Verify webhook URL is accessible
-- Check webhook secret matches environment variable
-- Ensure test/live mode consistency
-- Verify product and price IDs
-
-#### 3. Authentication Issues
-- Check Supabase auth settings
-- Verify site URL and redirect URLs
-- Ensure email confirmation is disabled
-- Check RLS policies
-
-#### 4. Build/Deployment Issues
-```bash
-# Clear cache and rebuild
-rm -rf node_modules package-lock.json dist
-npm install
-npm run build
-
-# Check for TypeScript errors
-npm run lint
-```
-
-#### 5. File Upload Issues
-- Verify Supabase storage bucket exists and is public
-- Check storage policies allow authenticated uploads
-- Ensure file size limits are appropriate
-- Verify MIME type restrictions
-
-## 🔄 Update and Maintenance Procedures
-
-### Regular Updates
-1. **Dependencies**: Update monthly
-   ```bash
-   npm update
-   npm audit
-   ```
-
-2. **Database**: Backup before major changes
-3. **Monitoring**: Check error rates weekly
-4. **Performance**: Monitor Core Web Vitals
-
-### Backup Procedures
-1. **Database**: Supabase auto-backups enabled
-2. **Code**: Git repository backups
-3. **Environment Variables**: Securely documented
-4. **Configuration**: All configs in version control
-
-### Scaling Considerations
-- Monitor Supabase usage limits
-- Consider CDN for static assets
-- Database query optimization
-- Consider edge deployment for global users
-
-## 📈 Future Enhancements
-
-### Planned Features
-- Partner dashboard with analytics
+Planned features:
+- Partner dashboard with performance analytics
 - Multi-language support (Portuguese/English)
-- Advanced perk management
-- Customer relationship management
-- Automated partner onboarding
-- Mobile app for customers
+- Advanced perk management tools
+- Customer relationship management features
+- Automated partner onboarding workflows
+- Mobile app for end customers
+- Enhanced search and filtering
+- Partner rating and review system
 
-### Technical Debt
-- Implement comprehensive error boundary
-- Add unit and integration tests
-- Set up proper logging and monitoring
-- Implement cache strategies
-- Add offline support (PWA)
+Known technical debt:
+- Implement comprehensive error boundary components
+- Add unit and integration test coverage
+- Set up proper application logging and monitoring
+- Implement client-side caching strategies
+- Add offline support and PWA capabilities
+- Optimize bundle size and lazy loading
+- Implement proper error reporting system
 
----
+Design/UX improvements queued:
+- Enhanced mobile navigation
+- Improved image upload interface
+- Better form progress indication
+- Advanced filtering and search UI
+- Partner onboarding tutorial
+- Customer testimonial integration
+- Interactive perk preview
 
-## 📞 Support and Contacts
+Refactor or modularization goals:
+- Extract reusable form components
+- Implement design system tokens
+- Modularize business logic hooks
+- Optimize database query patterns
+- Implement proper state management
+- Add comprehensive TypeScript coverage
 
-### Technical Support
-- **Documentation**: This README
-- **Codebase**: Fully commented and typed
-- **Architecture**: Component-based, easy to extend
+AI or agent plans:
+- Automated partner verification
+- AI-powered perk optimization suggestions
+- Intelligent customer matching
+- Automated content generation
+- Chatbot for partner support
 
-### Business Support
-- **Email**: partners@worktugal.com
-- **Phone**: +351 912 345 678
+11. FULL REPLICATION CHECKLIST
 
----
+Node + dependencies installed:
+- Node.js 18+ installed
+- npm dependencies installed via package.json
+- Verify build tools (Vite, TypeScript) working
 
-## 🎯 Project Status
+Env variables configured:
+- VITE_SUPABASE_URL set with project URL
+- VITE_SUPABASE_ANON_KEY set with anonymous key
+- VITE_STRIPE_PUBLISHABLE_KEY set with appropriate key (test/live)
+- Environment variables added to deployment platform
 
-- **Version**: 1.2.0
-- **Status**: ✅ Live in Production
-- **Last Updated**: July 21, 2025
-- **Live URL**: https://pass.worktugal.com
-- **Repository**: Fully documented and replicable
+Database provisioned and migrated:
+- Supabase project created
+- PostgreSQL database initialized
+- All migration files executed in correct order
+- Custom enum types created
+- Tables created with proper structure
+- Indexes created for performance
 
-### Production Checklist ✅
-- [x] Supabase production database configured
-- [x] Stripe live payment processing active
-- [x] Custom domain with SSL active
-- [x] Analytics tracking implemented
-- [x] Error monitoring enabled
-- [x] Performance optimized
-- [x] SEO fully configured
-- [x] Security audit completed
-- [x] Backup procedures established
-- [x] Monitoring dashboards active
+Auth and RLS policies in place:
+- Supabase Auth configured
+- Email confirmation disabled
+- Site URL and redirect URLs configured
+- RLS enabled on all tables
+- User policies configured for data access
+- Authentication flow tested
 
-### Replication Checklist
-Use this checklist when replicating the project:
+Webhooks registered:
+- Stripe webhook endpoint created
+- Webhook secret obtained and configured
+- Edge function deployed for webhook handling
+- Event types configured (checkout.session.completed, etc.)
+- Webhook signature verification implemented
 
-- [ ] Prerequisites installed (Node.js 18+, accounts created)
-- [ ] Repository cloned and dependencies installed
-- [ ] Supabase project created and configured
-- [ ] Database migrations executed in correct order
-- [ ] Authentication settings configured
-- [ ] Storage buckets and policies created
-- [ ] Edge functions deployed
-- [ ] Stripe account and products configured
-- [ ] Webhooks configured and tested
-- [ ] Environment variables set correctly
-- [ ] Domain and DNS configured
-- [ ] Google Analytics configured
-- [ ] Netlify deployment configured
-- [ ] All integrations tested
-- [ ] Security review completed
-- [ ] Performance optimization verified
-- [ ] Go-live checklist completed
+Storage buckets created:
+- perk-assets bucket created in Supabase Storage
+- Public access configured for read operations
+- Upload policies configured for authenticated users
+- File size and type restrictions set
+- Folder structure organized
 
-**🚀 This documentation ensures 100% project replicability. Follow each step precisely for identical results.**
+Edge functions deployed:
+- stripe-checkout function deployed and tested
+- stripe-webhook function deployed and tested
+- CORS configuration verified
+- Authentication handling verified
+- Error handling and logging implemented
+
+Domain configured:
+- Custom domain registered and verified
+- DNS records configured (CNAME to deployment)
+- SSL/TLS certificate obtained and active
+- Domain verification completed
+- Redirect rules configured
+
+Payments tested:
+- Stripe test mode configured
+- Test payment flows verified
+- Webhook processing confirmed
+- Database updates verified
+- Success/failure scenarios tested
+
+Analytics firing:
+- Google Analytics 4 configured and tracking
+- Simple Analytics implemented and tracking
+- Page view events confirmed
+- Custom events configured and tested
+- Privacy compliance verified
+
+Production-ready deployment verified:
+- Build process successful
+- All environment variables production-ready
+- Security headers configured
+- Performance optimization confirmed
+- Error handling comprehensive
+- Monitoring and alerting active
+
+12. FILE STRUCTURE
+
+src/components/: reusable React components
+  auth/: authentication-related components (AuthModal, LoginForm, SignupForm)
+  forms/: multi-step form components (BusinessForm, PerkForm, PaymentForm, SuccessScreen)
+  ui/: reusable UI components (Button, Input, Select, Card, Alert, ProgressBar, FileUpload)
+  Hero.tsx: landing page hero section
+  PerksDirectory.tsx: public partner directory with filtering
+  PricingSection.tsx: pricing and payment section
+  Layout.tsx: main application layout wrapper
+  Footer.tsx: site footer component
+  FormWizard.tsx: multi-step form orchestration
+  SuccessPage.tsx: payment success page
+  Other utility components
+
+src/hooks/: custom React hooks
+  useAuth.ts: authentication state management
+  useFormData.ts: form state and data management
+  useSubscription.ts: payment and subscription status
+  useUserProfile.ts: user profile management
+
+src/lib/: API clients, validators, utilities
+  supabase.ts: Supabase client configuration
+  auth.ts: authentication functions
+  stripe.ts: Stripe integration functions
+  validations.ts: Zod schema validators
+  profile.ts: user profile functions
+  storage.ts: file upload functions
+  submissions.ts: partner submission management
+
+src/types/: TypeScript type definitions
+  index.ts: application-wide type definitions
+
+src/utils/: utility functions
+  cn.ts: className utility for Tailwind
+  constants.ts: application constants and configuration
+
+public/: static assets, SEO files
+  favicon files (180x180, 192x192, 512x512)
+  robots.txt: SEO robots file
+  sitemap.xml: SEO sitemap
+  site.webmanifest: PWA manifest
+  worktugal-logo-bg-light-radius-1000-1000.png: main logo
+  _redirects: Netlify redirect configuration
+
+supabase/functions/: edge logic
+  stripe-checkout/: Stripe checkout session creation
+  stripe-webhook/: Stripe webhook processing
+
+supabase/migrations/: database setup
+  Migration files in chronological order
+  Enum types, table creation, RLS policies
+  Indexes and performance optimizations
+
+config/: Vite, PostCSS, Tailwind, etc
+  vite.config.ts: Vite build configuration
+  tailwind.config.js: Tailwind CSS configuration
+  postcss.config.js: PostCSS configuration
+  tsconfig.json: TypeScript configuration
+  eslint.config.js: ESLint configuration
+  netlify.toml: Netlify deployment configuration
+
+13. TROUBLESHOOTING GUIDE
+
+Supabase not connecting:
+- Verify VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are correct
+- Check network connectivity and firewall settings
+- Ensure Supabase project is active and not paused
+- Verify API keys have not been regenerated
+- Check browser dev tools for CORS errors
+
+Stripe payment not triggering:
+- Confirm VITE_STRIPE_PUBLISHABLE_KEY matches test/live mode
+- Verify Stripe webhook endpoint is reachable
+- Check webhook secret matches environment variable
+- Ensure product and price IDs are correct
+- Test with Stripe test cards first
+- Review Stripe dashboard for failed events
+
+File upload not working:
+- Verify user is authenticated before attempting upload
+- Check Supabase storage bucket exists and is public
+- Confirm file size is under 5MB limit
+- Verify file type is supported (image/jpeg, image/png, image/webp)
+- Check storage policies allow authenticated uploads
+- Review browser network tab for upload errors
+
+Mobile bugs:
+- Test on multiple devices and browsers
+- Check viewport meta tag is present
+- Verify touch targets are adequately sized
+- Test form submission on mobile keyboards
+- Check modal and overlay behavior
+- Verify responsive breakpoints work correctly
+
+CI/CD errors:
+- Check Node.js version matches deployment platform
+- Verify all environment variables are set
+- Ensure build command and publish directory are correct
+- Check for TypeScript or ESLint errors
+- Verify all dependencies are properly installed
+- Review build logs for specific error messages
+
+Build breaking:
+- Clear node_modules and package-lock.json, reinstall
+- Check for TypeScript errors in IDE
+- Verify all imports are correct and files exist
+- Check for circular dependencies
+- Ensure all required environment variables are available during build
+- Test build locally before deploying
+
+Webhook not firing:
+- Verify webhook URL is publicly accessible
+- Check webhook secret is correctly configured
+- Ensure edge function is deployed and working
+- Test webhook endpoint with Stripe CLI
+- Review Supabase function logs for errors
+- Confirm webhook events are configured correctly
+
+14. SUPPORT + CONTACT
+
+Email: hello@worktugal.com
+WhatsApp: +351 928 090 121
+Website: https://worktugal.com
+Social: @worktugal on Instagram
+Business LinkedIn: https://www.linkedin.com/company/worktugal/
+Telegram: https://t.me/worktugal
+
+Technical Documentation: This README serves as primary technical documentation
+Code Repository: Private repository with full source code
+Deployment Platform: Netlify dashboard for deployment management
+Database Management: Supabase dashboard for database operations
+Payment Management: Stripe dashboard for payment processing
+
+Internal Support Process:
+1. Check this documentation first
+2. Review error logs in respective dashboards
+3. Test in development environment
+4. Contact technical team via email if needed
+5. Document any new issues or solutions in this README
+
+Emergency Contacts:
+For production issues affecting payments or user data, contact immediately via WhatsApp
+For general support and feature requests, use email
+For business inquiries and partnerships, use LinkedIn or main website contact form
