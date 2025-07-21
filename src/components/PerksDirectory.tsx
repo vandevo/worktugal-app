@@ -131,6 +131,15 @@ export const PerksDirectory: React.FC = () => {
   };
 
   const handleUnlockAccess = () => {
+    // Track perk unlock attempt in Google Analytics
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'unlock_perk_access_click', {
+        event_category: 'engagement',
+        event_label: 'perks_directory',
+        value: 1
+      });
+    }
+    
     setShowAuthModal(true);
   };
 
@@ -430,6 +439,7 @@ export const PerksDirectory: React.FC = () => {
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         initialMode="signup"
+        source="perks_directory_gating"
       />
     </section>
   );

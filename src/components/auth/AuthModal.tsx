@@ -8,16 +8,27 @@ interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialMode?: 'login' | 'signup';
+  source?: string;
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({
   isOpen,
   onClose,
   initialMode = 'login',
+  source,
 }) => {
   const [mode, setMode] = useState<'login' | 'signup'>(initialMode);
 
   const handleSuccess = () => {
+    // Track successful authentication from gated content
+    if (typeof gtag !== 'undefined' && source) {
+      gtag('event', 'signup_from_gated_content', {
+        event_category: 'conversion',
+        event_label: source,
+        value: 1
+      });
+    }
+    
     onClose();
   };
 
