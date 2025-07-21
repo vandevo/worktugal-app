@@ -54,6 +54,7 @@ export interface PartnerSubmission {
   perk_is_portuguese_owned: boolean;
   perk_needs_nif: boolean;
   status: 'pending_payment' | 'completed_payment' | 'abandoned' | 'approved' | 'rejected';
+  access_type: 'lifetime' | 'subscription';
   stripe_order_id?: number;
   created_at: string;
   updated_at: string;
