@@ -14,7 +14,7 @@ const PerksDirectory = React.lazy(() => import('./components/PerksDirectory').th
 const PricingSection = React.lazy(() => import('./components/PricingSection').then(module => ({ default: module.PricingSection })));
 const SuccessPage = React.lazy(() => import('./components/SuccessPage').then(module => ({ default: module.SuccessPage })));
 
-const TOTAL_EARLY_ACCESS_SPOTS = 1000;
+const TOTAL_EARLY_ACCESS_SPOTS = 50;
 
 const LoadingSpinner = () => (
   <div className="min-h-screen bg-gray-900 flex items-center justify-center">
