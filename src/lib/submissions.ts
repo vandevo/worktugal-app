@@ -108,3 +108,18 @@ export const getPartnerSubmissionById = async (submissionId: number): Promise<Pa
 
   return data;
 };
+
+// New function to get the count of approved submissions
+export const getApprovedSubmissionsCount = async (): Promise<number> => {
+  const { count, error } = await supabase
+    .from('partner_submissions')
+    .select('*', { count: 'exact', head: true }) // Use head: true for count only
+    .eq('status', 'approved'); // Count only approved submissions
+
+  if (error) {
+    console.error('Error fetching approved submissions count:', error);
+    throw new Error(`Failed to fetch approved submissions count: ${error.message}`);
+  }
+
+  return count || 0;
+};

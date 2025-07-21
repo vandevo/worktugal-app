@@ -9,6 +9,9 @@ import { createCheckoutSession } from '../lib/stripe';
 import { useAuth } from '../hooks/useAuth';
 import { useSubscription } from '../hooks/useSubscription';
 import { AuthModal } from './auth/AuthModal';
+import { getApprovedSubmissionsCount } from '../lib/submissions';
+
+const TOTAL_EARLY_ACCESS_SPOTS = 25;
 
 export const PricingSection: React.FC = () => {
   const { user } = useAuth();
@@ -16,6 +19,24 @@ export const PricingSection: React.FC = () => {
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [spotsLeft, setSpotsLeft] = useState<number | null>(null);
+  const [spotsLoading, setSpotsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSpots = async () => {
+      try {
+        setSpotsLoading(true);
+        const approvedCount = await getApprovedSubmissionsCount();
+        setSpotsLeft(TOTAL_EARLY_ACCESS_SPOTS - approvedCount);
+      } catch (err) {
+        console.error('Failed to fetch spots left:', err);
+        setSpotsLeft(null);
+      } finally {
+        setSpotsLoading(false);
+      }
+    };
+    fetchSpots();
+  }, []);
 
   const handlePurchase = async (priceId: string) => {
     if (!user) {
@@ -48,7 +69,7 @@ export const PricingSection: React.FC = () => {
     }
   };
 
-  if (subscriptionLoading) {
+  if (subscriptionLoading || spotsLoading) {
     return (
       <section className="py-20 bg-gray-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -99,7 +120,9 @@ export const PricingSection: React.FC = () => {
               <div className="text-center mb-6">
                 <div className="inline-flex items-center space-x-2 bg-orange-600/20 text-orange-300 px-3 py-2 rounded-full border border-orange-600/30">
                   <Target className="h-3.5 w-3.5" />
-                  <span className="text-xs sm:text-sm font-medium">21 spots left</span>
+                  <span className="text-xs sm:text-sm font-medium">
+                    {spotsLeft !== null ? `${spotsLeft} spots left` : 'Loading spots...'}
+                  </span>
                 </div>
               </div>
 
