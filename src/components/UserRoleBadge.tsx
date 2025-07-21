@@ -68,8 +68,7 @@ export const UserRoleBadge: React.FC = () => {
       title={config.description}
     >
       <IconComponent className="h-3.5 w-3.5 flex-shrink-0" />
-      <span className="text-xs font-medium hidden xs:inline">{config.fullText}</span>
-      <span className="text-xs font-medium xs:hidden">{config.shortText}</span>
+      <span className="text-xs font-medium">{config.fullText}</span>
     </motion.div>
   );
 };
