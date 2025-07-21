@@ -74,8 +74,8 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
     >
       <div className="text-center mb-8">
         <Building className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold mb-2">Tell us about your business</h2>
-        <p className="text-gray-400">We'll use this information to create your listing</p>
+        <h2 className="text-2xl font-bold mb-2">Add your business details</h2>
+        <p className="text-gray-400">This info creates your live listing and helps remote clients find you</p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
