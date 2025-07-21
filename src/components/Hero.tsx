@@ -5,9 +5,11 @@ import { Button } from './ui/Button';
 
 interface HeroProps {
   onGetStarted: () => void;
-}
-
-export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
+  spotsLeft: number | null;
+  spotsLoading: boolean;
+  activePerksCount: number | null;
+  activePerksLoading: boolean;
+export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoading, activePerksCount, activePerksLoading }) => {
   return (
     <section className="relative overflow-hidden">
       {/* Background gradient */}
@@ -68,9 +70,11 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
             <div className="text-center">
               <div className="flex items-center justify-center mb-2">
                 <Users className="h-6 w-6 text-blue-400 mr-2" />
-                <span className="text-3xl font-bold">1,000+</span>
+                <span className="text-3xl font-bold">
+                  {activePerksLoading ? '...' : (activePerksCount !== null ? activePerksCount : 'N/A')}
+                </span>
               </div>
-              <p className="text-gray-400">Verified event signups</p>
+              <p className="text-gray-400">Active Perks</p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center mb-2">
@@ -83,7 +87,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted }) => {
               <div className="flex items-center justify-center mb-2">
                 <MapPin className="h-6 w-6 text-purple-400 mr-2" />
                 <span className="text-3xl font-bold">21</span>
-              </div>
+                  {spotsLoading ? '...' : (spotsLeft !== null ? spotsLeft : 'N/A')}
               <p className="text-gray-400">Partner slots remaining</p>
             </div>
           </motion.div>
