@@ -54,6 +54,9 @@ export const Turnstile: React.FC<TurnstileProps> = ({
     setIsVerified(false);
     onStateChange?.('ready');
     onExpire?.();
+  };
+
+  useEffect(() => {
     // Load Turnstile script if not already loaded
     if (!document.querySelector('script[src*="challenges.cloudflare.com"]')) {
       const script = document.createElement('script');
