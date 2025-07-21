@@ -173,7 +173,7 @@ export const SuccessPage: React.FC = () => {
               onClick={() => window.location.href = '/?start=true'}
               className="px-8"
             >
-              Submit Another Business
+              Submit another business
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button
