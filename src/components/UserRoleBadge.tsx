@@ -9,8 +9,7 @@ export const UserRoleBadge: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center space-x-2 text-gray-400">
-        <Loader2 className="h-4 w-4 animate-spin" />
-        <span className="text-sm hidden xs:inline">Loading...</span>
+        <span className="text-xs font-medium">{config.fullText}</span>
       </div>
     );
   }
