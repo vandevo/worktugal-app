@@ -97,7 +97,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
             Security Verification
           </label>
           <Turnstile
-            siteKey="0x4AAAAAB18_1JITQt18Lh6"
+            siteKey="0x4AAAAAABl8_lJiTQti8Lh6"
             onVerify={setCaptchaToken}
             onError={() => {
               setError('CAPTCHA verification failed. Please try again.');
