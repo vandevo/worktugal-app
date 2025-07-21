@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
 import { useUserProfile } from '../hooks/useUserProfile';
-import { UserSubscriptionStatus } from './UserSubscriptionStatus';
+import { UserRoleBadge } from './UserRoleBadge';
 import { AuthModal } from './auth/AuthModal';
 import { ProfileModal } from './ProfileModal';
 import { Button } from './ui/Button';
@@ -59,7 +59,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               
               {user ? (
                 <div className="flex items-center space-x-3 md:space-x-4">
-                  <UserSubscriptionStatus />
+                  <UserRoleBadge />
                   <div className="relative">
                     <button
                       onClick={() => setShowUserMenu(!showUserMenu)}

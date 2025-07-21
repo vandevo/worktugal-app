@@ -3,6 +3,7 @@ import { supabase } from './supabase';
 export interface UserProfile {
   id: string;
   display_name?: string;
+  role: 'user' | 'partner' | 'admin';
   created_at: string;
   updated_at: string;
 }
