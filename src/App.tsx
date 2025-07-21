@@ -25,14 +25,15 @@ const HomePage: React.FC = () => {
   
   // Check for submission ID in URL parameters
   const submissionIdParam = searchParams.get('submission');
+  const startFormParam = searchParams.get('start');
   const submissionId = submissionIdParam ? parseInt(submissionIdParam, 10) : undefined;
   
-  // Auto-show form if there's a submission ID
+  // Auto-show form if there's a submission ID or start parameter
   React.useEffect(() => {
-    if (submissionId && !showForm) {
+    if ((submissionId || startFormParam === 'true') && !showForm) {
       setShowForm(true);
     }
-  }, [submissionId, showForm]);
+  }, [submissionId, startFormParam, showForm]);
 
   const handleGetStarted = () => {
     setShowForm(true);

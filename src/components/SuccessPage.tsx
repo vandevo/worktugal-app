@@ -170,7 +170,7 @@ export const SuccessPage: React.FC = () => {
           >
             <Button
               size="lg"
-              onClick={() => window.location.href = '/'}
+              onClick={() => window.location.href = '/?start=true'}
               className="px-8"
             >
               Submit Another Business
