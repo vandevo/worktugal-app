@@ -123,3 +123,18 @@ export const getApprovedSubmissionsCount = async (): Promise<number> => {
 
   return count || 0;
 };
+
+// New function to get the count of approved perks (same as approved submissions)
+export const getApprovedPerksCount = async (): Promise<number> => {
+  const { count, error } = await supabase
+    .from('partner_submissions')
+    .select('*', { count: 'exact', head: true }) // Use head: true for count only
+    .eq('status', 'approved'); // Count only approved submissions
+
+  if (error) {
+    console.error('Error fetching approved perks count:', error);
+    throw new Error(`Failed to fetch approved perks count: ${error.message}`);
+  }
+
+  return count || 0;
+};
