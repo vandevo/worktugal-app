@@ -8,6 +8,7 @@ import { signUp } from '../../lib/auth';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
+import { Turnstile } from '../ui/Turnstile';
 
 const signupSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -29,6 +30,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   const {
     register,
@@ -39,16 +41,23 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
   });
 
   const onSubmit = async (data: SignupFormData) => {
+    if (!captchaToken) {
+      setError('Please complete the CAPTCHA verification');
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setSuccess(null);
 
     try {
-      await signUp(data.email, data.password);
+      await signUp(data.email, data.password, captchaToken);
       setSuccess('Account created successfully! You can now sign in.');
       onSuccess?.();
     } catch (err: any) {
       setError(err.message || 'Failed to create account');
+      // Reset CAPTCHA on error
+      setCaptchaToken(null);
     } finally {
       setLoading(false);
     }
@@ -104,11 +113,31 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
           error={errors.confirmPassword?.message}
         />
 
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-300">
+            Security Verification
+          </label>
+          <Turnstile
+            siteKey="0x4AAAAAB18_1JITQt18Lh6"
+            onVerify={setCaptchaToken}
+            onError={() => {
+              setError('CAPTCHA verification failed. Please try again.');
+              setCaptchaToken(null);
+            }}
+            onExpire={() => {
+              setCaptchaToken(null);
+            }}
+            theme="dark"
+            className="flex justify-center"
+          />
+        </div>
+
         <Button
           type="submit"
           size="lg"
           className="w-full"
           loading={loading}
+          disabled={!captchaToken}
         >
           Create Account
         </Button>

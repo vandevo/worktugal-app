@@ -8,6 +8,7 @@ import { signIn } from '../../lib/auth';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
+import { Turnstile } from '../ui/Turnstile';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -24,6 +25,7 @@ interface LoginFormProps {
 export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignup }) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   const {
     register,
@@ -34,14 +36,21 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
   });
 
   const onSubmit = async (data: LoginFormData) => {
+    if (!captchaToken) {
+      setError('Please complete the CAPTCHA verification');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
     try {
-      await signIn(data.email, data.password);
+      await signIn(data.email, data.password, captchaToken);
       onSuccess?.();
     } catch (err: any) {
       setError(err.message || 'Failed to sign in');
+      // Reset CAPTCHA on error
+      setCaptchaToken(null);
     } finally {
       setLoading(false);
     }
@@ -83,11 +92,31 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
           error={errors.password?.message}
         />
 
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-300">
+            Security Verification
+          </label>
+          <Turnstile
+            siteKey="0x4AAAAAB18_1JITQt18Lh6"
+            onVerify={setCaptchaToken}
+            onError={() => {
+              setError('CAPTCHA verification failed. Please try again.');
+              setCaptchaToken(null);
+            }}
+            onExpire={() => {
+              setCaptchaToken(null);
+            }}
+            theme="dark"
+            className="flex justify-center"
+          />
+        </div>
+
         <Button
           type="submit"
           size="lg"
           className="w-full"
           loading={loading}
+          disabled={!captchaToken}
         >
           Sign In
         </Button>

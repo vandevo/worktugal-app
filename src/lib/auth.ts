@@ -6,8 +6,8 @@ export interface AuthState {
   loading: boolean;
 }
 
-export const signUp = async (email: string, password: string) => {
-  const { data, error } = await supabase.auth.signUp({
+export const signUp = async (email: string, password: string, captchaToken?: string) => {
+  const options: any = {
     email,
     password,
     options: {
@@ -16,16 +16,34 @@ export const signUp = async (email: string, password: string) => {
         email_confirm: false, // Explicitly disable email confirmation
       },
     },
+  };
+
+  // Add captcha token if provided
+  if (captchaToken) {
+    options.options.captchaToken = captchaToken;
+  }
+
+  const { data, error } = await supabase.auth.signUp({
+    ...options,
   });
   
   if (error) throw error;
   return data;
 };
 
-export const signIn = async (email: string, password: string) => {
-  const { data, error } = await supabase.auth.signInWithPassword({
+export const signIn = async (email: string, password: string, captchaToken?: string) => {
+  const options: any = {
     email,
     password,
+  };
+
+  // Add captcha token if provided
+  if (captchaToken) {
+    options.options = { captchaToken };
+  }
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    ...options,
   });
   
   if (error) throw error;
