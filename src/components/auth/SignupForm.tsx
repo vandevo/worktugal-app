@@ -43,16 +43,23 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
   });
 
   const onSubmit = async (data: SignupFormData) => {
+    if (!captchaToken) {
+      setError('Please complete the CAPTCHA verification');
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setSuccess(null);
 
     try {
-      await signUp(data.email, data.password);
+      await signUp(data.email, data.password, captchaToken);
       setSuccess('Account created successfully! You can now sign in.');
       onSuccess?.();
     } catch (err: any) {
       setError(err.message || 'Failed to create account');
+      // Reset CAPTCHA on error
+      setCaptchaToken(null);
     } finally {
       setLoading(false);
     }
@@ -108,94 +115,91 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
           error={errors.confirmPassword?.message}
         />
 
-        {/* TURNSTILE TEMPORARILY DISABLED FOR DEVELOPMENT TESTING */}
-        {import.meta.env.PROD && (
-          <div className="space-y-2">
-            <motion.div
-              className="flex items-center space-x-2"
+        <div className="space-y-2">
+          <motion.div
+            className="flex items-center space-x-2"
+            animate={{
+              color: captchaState === 'verified' ? '#10b981' : captchaState === 'error' ? '#ef4444' : '#d1d5db'
+            }}
+          >
+            <AnimatePresence mode="wait">
+              {captchaState === 'loading' && (
+                <motion.div
+                  key="loading"
+                  initial={{ opacity: 0, rotate: 0 }}
+                  animate={{ opacity: 1, rotate: 360 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ rotate: { duration: 1, repeat: Infinity, ease: "linear" } }}
+                >
+                  <Loader2 className="h-4 w-4" />
+                </motion.div>
+              )}
+              {captchaState === 'ready' && (
+                <motion.div
+                  key="ready"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                >
+                  <Shield className="h-4 w-4" />
+                </motion.div>
+              )}
+              {captchaState === 'verified' && (
+                <motion.div
+                  key="verified"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                >
+                  <CheckCircle className="h-4 w-4" />
+                </motion.div>
+              )}
+              {captchaState === 'error' && (
+                <motion.div
+                  key="error"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                >
+                  <Shield className="h-4 w-4" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <motion.label 
+              className="block text-sm font-medium"
               animate={{
-                color: captchaState === 'verified' ? '#10b981' : captchaState === 'error' ? '#ef4444' : '#d1d5db'
+                fontWeight: captchaState === 'verified' ? 600 : 500
               }}
             >
-              <AnimatePresence mode="wait">
-                {captchaState === 'loading' && (
-                  <motion.div
-                    key="loading"
-                    initial={{ opacity: 0, rotate: 0 }}
-                    animate={{ opacity: 1, rotate: 360 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ rotate: { duration: 1, repeat: Infinity, ease: "linear" } }}
-                  >
-                    <Loader2 className="h-4 w-4" />
-                  </motion.div>
-                )}
-                {captchaState === 'ready' && (
-                  <motion.div
-                    key="ready"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                  >
-                    <Shield className="h-4 w-4" />
-                  </motion.div>
-                )}
-                {captchaState === 'verified' && (
-                  <motion.div
-                    key="verified"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ type: "spring", stiffness: 500, damping: 25 }}
-                  >
-                    <CheckCircle className="h-4 w-4" />
-                  </motion.div>
-                )}
-                {captchaState === 'error' && (
-                  <motion.div
-                    key="error"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                  >
-                    <Shield className="h-4 w-4" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <motion.label 
-                className="block text-sm font-medium"
-                animate={{
-                  fontWeight: captchaState === 'verified' ? 600 : 500
-                }}
-              >
-                {captchaState === 'loading' && 'Loading Security Check...'}
-                {captchaState === 'ready' && 'Security Verification'}
-                {captchaState === 'verified' && 'Verification Complete'}
-                {captchaState === 'error' && 'Verification Failed'}
-              </motion.label>
-            </motion.div>
-            <Turnstile
-              siteKey="0x4AAAAAABl8_lJiTQti8Lh6"
-              onVerify={setCaptchaToken}
-              onStateChange={setCaptchaState}
-              onError={() => {
-                setError('CAPTCHA verification failed. Please try again.');
-                setCaptchaToken(null);
-              }}
-              onExpire={() => {
-                setCaptchaToken(null);
-              }}
-              theme="dark"
-              className="flex justify-center"
-            />
-          </div>
-        )}
+              {captchaState === 'loading' && 'Loading Security Check...'}
+              {captchaState === 'ready' && 'Security Verification'}
+              {captchaState === 'verified' && 'Verification Complete'}
+              {captchaState === 'error' && 'Verification Failed'}
+            </motion.label>
+          </motion.div>
+          <Turnstile
+            siteKey="0x4AAAAAABl8_lJiTQti8Lh6"
+            onVerify={setCaptchaToken}
+            onStateChange={setCaptchaState}
+            onError={() => {
+              setError('CAPTCHA verification failed. Please try again.');
+              setCaptchaToken(null);
+            }}
+            onExpire={() => {
+              setCaptchaToken(null);
+            }}
+            theme="dark"
+            className="flex justify-center"
+          />
+        </div>
 
         <Button
           type="submit"
           size="lg"
           className="w-full"
           loading={loading}
-          disabled={import.meta.env.PROD ? !captchaToken : loading}
+          disabled={!captchaToken}
         >
           Create Account
         </Button>
