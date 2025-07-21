@@ -129,8 +129,8 @@ const HomePage: React.FC = () => {
                 >
                   ← Back to directory
                 </motion.button>
-                <h1 className="text-3xl font-bold mb-2">Join our partner network</h1>
-                <p className="text-gray-400">Get your business in front of 1,000+ remote workers</p>
+                <h1 className="text-3xl font-bold mb-2">List your offer to verified professionals</h1>
+                <p className="text-gray-400">Connect with Lisbon's remote professionals through our trusted marketplace</p>
               </div>
               
               <Suspense fallback={<LoadingSpinner />}>
