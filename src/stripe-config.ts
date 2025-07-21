@@ -9,8 +9,8 @@ export interface StripeProduct {
 
 export const STRIPE_PRODUCTS: StripeProduct[] = [
   {
-    id: 'prod_Shj8ClbwZXY3Yu',
-    priceId: 'price_1RmJftBm1NepJXMzaOL3DG8d',
+    id: 'prod_Shiq1q1rI5sZkR',
+    priceId: 'price_1RmJOZBm1NepJXMzN8v22wZ6',
     name: 'Partner Listing Early Access (Lifetime)',
     description: 'Join Lisbon\'s #1 Perk Marketplace. Get lifetime visibility to remote workers, expats, and digital nomads. This early access offer is limited to 25 local businesses only. No renewals, no hidden fees.',
     mode: 'payment',
