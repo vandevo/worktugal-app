@@ -95,16 +95,6 @@ export const Turnstile: React.FC<TurnstileProps> = ({
   return (
     <div className={className}>
       <div ref={ref} />
-      {isVerified && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="mt-2 flex items-center justify-center space-x-2 text-green-400"
-        >
-          <CheckCircle className="h-4 w-4" />
-          <span className="text-sm font-medium">Verification successful</span>
-        </motion.div>
-      )}
     </div>
   );
 };

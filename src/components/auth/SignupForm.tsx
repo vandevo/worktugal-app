@@ -124,7 +124,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
           >
             <AnimatePresence mode="wait">
               {captchaState === 'loading' && (
-                <motion.div
+            {captchaState === 'verified' && 'Verification Complete'}
                   key="loading"
                   initial={{ opacity: 0, rotate: 0 }}
                   animate={{ opacity: 1, rotate: 360 }}
