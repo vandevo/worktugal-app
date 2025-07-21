@@ -153,7 +153,7 @@ export const SuccessPage: React.FC = () => {
                   <div>
                     <h3 className="font-semibold mb-1">Go Live with Priority Placement</h3>
                     <p className="text-gray-400 text-sm">
-                      You'll be notified when your perk goes live in our directory with early access badge and priority positioning
+                      You'll be notified when your perk goes live in our directory with trusted partner badge and priority positioning
                     </p>
                   </div>
                 </div>
