@@ -87,11 +87,16 @@ export const PricingSection: React.FC = () => {
       <section id="pricing" className="py-20 bg-gray-800/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-            Join Lisbon's Most Trusted Marketplace for Remote Professionals
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 leading-tight">
+            Reach Verified Remote Clients Without Ads or Agencies
           </h2>
+          <p className="text-lg sm:text-xl text-blue-300 font-medium mb-4">
+            €49 one time. No renewals. No stress.
+          </p>
           <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Connect with quality remote clients through curated partnerships and trusted listings
+            Forget cold outreach. Skip noisy platforms.<br />
+            List your offer where remote professionals actually look.<br />
+            You provide a perk. We give you visibility. They come to you.
           </p>
         </div>
 
@@ -139,11 +144,9 @@ export const PricingSection: React.FC = () => {
                   <p className="text-xs sm:text-sm text-gray-400 mb-6">No renewals • No surprises</p>
                   
                   <div className="text-gray-300 mb-6 text-left space-y-3">
-                    <p className="text-base leading-relaxed font-medium">
-                      Join the first 25 partners in Lisbon's most trusted perk marketplace for remote professionals.
-                    </p>
                     <p className="text-sm text-gray-400 leading-relaxed">
-                      Drive quality foot traffic from verified members who spend more and stay longer.
+                      Only 25 spots at €49. Then the price goes up.<br />
+                      Join early. Get seen first.
                     </p>
                   </div>
                 </div>
@@ -151,23 +154,23 @@ export const PricingSection: React.FC = () => {
                 <div className="space-y-3 mb-8 text-left">
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Lifetime listing in Lisbon's trusted perk marketplace</span>
+                    <span className="text-sm sm:text-base">A trusted lifetime listing in Lisbon's remote-first network</span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Direct access to 1,000+ verified remote professionals</span>
+                    <span className="text-sm sm:text-base">Access to a growing base of 1,000+ verified remote professionals</span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Priority featuring in events & community channels</span>
+                    <span className="text-sm sm:text-base">Opportunities to be featured in meetups, content, and private channels</span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">No renewal fees • No commissions • No hidden costs</span>
+                    <span className="text-sm sm:text-base">Local support. Clear setup. No guesswork</span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Dedicated Portugal-based team & support</span>
+                    <span className="text-sm sm:text-base">No commissions. No middlemen. One clear offer</span>
                   </div>
                 </div>
 
@@ -190,7 +193,7 @@ export const PricingSection: React.FC = () => {
                   ) : (
                     <>
                       <CreditCard className="mr-2 h-5 w-5" />
-                      Secure Your Spot • €{product.price}
+                      Secure Your Spot for €{product.price}
                     </>
                   )}
                 </Button>
