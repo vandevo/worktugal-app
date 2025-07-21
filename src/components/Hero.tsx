@@ -9,6 +9,7 @@ interface HeroProps {
   spotsLoading: boolean;
   activePerksCount: number | null;
   activePerksLoading: boolean;
+}
 export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoading, activePerksCount, activePerksLoading }) => {
   return (
     <section className="relative overflow-hidden">
@@ -96,3 +97,5 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
     </section>
   );
 };
+  )
+}
