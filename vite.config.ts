@@ -20,20 +20,4 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
-          ui: ['framer-motion', 'lucide-react'],
-          supabase: ['@supabase/supabase-js'],
-        },
-      },
-    },
-  },
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
 });
