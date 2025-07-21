@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Check, CreditCard, Loader2, AlertCircle, Target } from 'lucide-react';
 import { Button } from './ui/Button';
