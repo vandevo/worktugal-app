@@ -25,20 +25,19 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
           >
             <div className="inline-flex items-center space-x-2 bg-blue-600/20 text-blue-300 px-4 py-2 rounded-full mb-6">
               <Ticket className="h-4 w-4" />
-              <span className="text-sm font-medium">Trusted by 1,000+ professionals</span>
+              <span className="text-sm font-medium">Trusted by 1,000+ remote professionals</span>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Get in front of Lisbon's{' '}
+              Attract verified remote clients who{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                most trusted
+                stay longer
               </span>{' '}
-              remote workers
+              and spend more
             </h1>
             
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              We hosted the community. Now we power the perks.<br />
-              Worktugal Pass connects your business to the remote professionals who stay, spend, and share.
+              Worktugal Pass connects your offer to Lisbon's remote professionals through curated perks, trusted listings, and frictionless redemption
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -47,7 +46,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
                 onClick={onGetStarted}
                 className="text-lg px-8 py-4"
               >
-                Join as a Partner
+                List My Offer
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
@@ -56,7 +55,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
                 className="text-lg px-8 py-4"
                 onClick={() => document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Browse Perks
+                Browse Verified Perks
               </Button>
             </div>
           </motion.div>
