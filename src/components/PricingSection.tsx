@@ -88,10 +88,10 @@ export const PricingSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-            Attract Verified Remote Clients Who Stay Longer and Spend More
+            Join Lisbon's Most Trusted Marketplace for Remote Professionals
           </h2>
           <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Join Lisbon's trusted perk marketplace connecting verified remote professionals with local businesses
+            Connect with quality remote clients through curated partnerships and trusted listings
           </p>
         </div>
 
