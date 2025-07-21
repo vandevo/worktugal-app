@@ -129,9 +129,9 @@ export const SuccessPage: React.FC = () => {
                     1
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Complete Business Submission</h3>
+                    <h3 className="font-semibold mb-1">Review & Verification</h3>
                     <p className="text-gray-400 text-sm">
-                      Fill out your business details and perk information through our partner form
+                      Our team will review your submission and verify all details within 24 hours
                     </p>
                   </div>
                 </div>
@@ -140,9 +140,9 @@ export const SuccessPage: React.FC = () => {
                     2
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Fast-Track Review</h3>
+                    <h3 className="font-semibold mb-1">Contact & Clarification</h3>
                     <p className="text-gray-400 text-sm">
-                      Early access members get priority review within 24 hours
+                      We'll contact you if we need any additional information or clarification
                     </p>
                   </div>
                 </div>
@@ -153,7 +153,7 @@ export const SuccessPage: React.FC = () => {
                   <div>
                     <h3 className="font-semibold mb-1">Go Live with Priority Placement</h3>
                     <p className="text-gray-400 text-sm">
-                      Your business appears in our directory with early access badge and priority positioning
+                      You'll be notified when your perk goes live in our directory with early access badge and priority positioning
                     </p>
                   </div>
                 </div>
@@ -170,10 +170,10 @@ export const SuccessPage: React.FC = () => {
           >
             <Button
               size="lg"
-              onClick={() => window.location.href = '/#pricing'}
+              onClick={() => window.location.href = '/'}
               className="px-8"
             >
-              Submit Business Details
+              Submit Another Business
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button
@@ -202,21 +202,21 @@ export const SuccessPage: React.FC = () => {
               <p>
                 <span className="text-gray-400">Email:</span>{' '}
                 <a 
-                  href="mailto:partners@worktugal.com" 
+                  href="mailto:hello@worktugal.com" 
                   className="text-blue-400 hover:text-blue-300 transition-colors"
                 >
-                  partners@worktugal.com
+                  hello@worktugal.com
                 </a>
               </p>
               <p>
                 <span className="text-gray-400">WhatsApp:</span>{' '}
                 <a 
-                  href="https://wa.me/351912345678" 
+                  href="https://wa.me/351928090121" 
                   className="text-blue-400 hover:text-blue-300 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  +351 912 345 678
+                  +351 928 090 121
                 </a>
               </p>
             </div>
