@@ -88,10 +88,10 @@ export const PricingSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-            Get Your Business in Front of Lisbon's Most Trusted Remote Professionals
+            Attract Verified Remote Clients Who Stay Longer and Spend More
           </h2>
           <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Join the curated partner network trusted by 1,000+ remote professionals in Lisbon
+            Join Lisbon's trusted perk marketplace connecting verified remote professionals with local businesses
           </p>
         </div>
 
@@ -151,27 +151,23 @@ export const PricingSection: React.FC = () => {
                 <div className="space-y-3 mb-8 text-left">
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Lifetime listing in partner directory</span>
+                    <span className="text-sm sm:text-base">Lifetime listing in Lisbon's trusted perk marketplace</span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Exposure to 1,000+ verified professionals</span>
+                    <span className="text-sm sm:text-base">Direct access to 1,000+ verified remote professionals</span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Featured in events & community channels</span>
+                    <span className="text-sm sm:text-base">Priority featuring in events & community channels</span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Performance tracking & insights</span>
+                    <span className="text-sm sm:text-base">No renewal fees • No commissions • No hidden costs</span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">No renewal fees • No commissions</span>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Portugal-based team & support</span>
+                    <span className="text-sm sm:text-base">Dedicated Portugal-based team & support</span>
                   </div>
                 </div>
 
