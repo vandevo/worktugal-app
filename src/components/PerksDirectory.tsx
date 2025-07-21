@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag, Shield, Globe, Instagram, Linkedin } from 'lucide-react';
+import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag, Shield, Globe, Instagram, Linkedin, Lock, ArrowRight } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+import { AuthModal } from './auth/AuthModal';
 import { Input } from './ui/Input';
 import { Select } from './ui/Select';
 import { Card } from './ui/Card';
@@ -94,9 +96,11 @@ const mockPerks = [
 ];
 
 export const PerksDirectory: React.FC = () => {
+  const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [showPortugueseOnly, setShowPortugueseOnly] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const filteredPerks = useMemo(() => {
     return mockPerks.filter(perk => {
@@ -124,6 +128,10 @@ export const PerksDirectory: React.FC = () => {
       case 'show_pass': return <MessageCircle className="h-4 w-4" />;
       default: return <Tag className="h-4 w-4" />;
     }
+  };
+
+  const handleUnlockAccess = () => {
+    setShowAuthModal(true);
   };
 
   const extractWhatsAppNumber = (text: string) => {
@@ -186,6 +194,11 @@ export const PerksDirectory: React.FC = () => {
   };
 
   const getActionButtonText = (perk: any) => {
+    // If user is not authenticated, show unlock text
+    if (!user) {
+      return 'Unlock Perk Access';
+    }
+    
     if (perk.id === '2') {
       return 'Email for Free Trial';
     }
@@ -355,25 +368,46 @@ export const PerksDirectory: React.FC = () => {
                   <h4 className="font-semibold text-blue-400 text-lg mb-3 leading-tight">{perk.title}</h4>
                   <p className="text-sm text-gray-300 leading-relaxed mb-4">{perk.description}</p>
                   
-                  <div className="flex items-center space-x-3 text-sm bg-gray-700/30 rounded-xl p-4 mb-6 border border-gray-600/20">
-                    <div className="w-full">
-                      <div className="flex items-center space-x-3 font-medium text-green-400 text-xs uppercase tracking-wide mb-2">
-                        {getRedemptionIcon(perk.redemption_method)}
-                       <span>How to redeem</span>
+                  {user ? (
+                    <div className="flex items-center space-x-3 text-sm bg-gray-700/30 rounded-xl p-4 mb-6 border border-gray-600/20">
+                      <div className="w-full">
+                        <div className="flex items-center space-x-3 font-medium text-green-400 text-xs uppercase tracking-wide mb-2">
+                          {getRedemptionIcon(perk.redemption_method)}
+                         <span>How to redeem</span>
+                        </div>
+                        <span className="text-gray-200 leading-relaxed block">
+                          {perk.redemption_details}
+                        </span>
                       </div>
-                      <span className="text-gray-200 leading-relaxed block">
-                        {perk.redemption_details}
-                      </span>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="flex items-center space-x-3 text-sm bg-blue-600/10 rounded-xl p-4 mb-6 border border-blue-600/20">
+                      <div className="w-full">
+                        <div className="flex items-center space-x-3 font-medium text-blue-400 text-xs uppercase tracking-wide mb-2">
+                          <Lock className="h-4 w-4" />
+                         <span>Redemption Details</span>
+                        </div>
+                        <span className="text-blue-200 leading-relaxed block">
+                          Create your free account to see how to redeem this perk
+                        </span>
+                      </div>
+                    </div>
+                  )}
 
                   <Button
                     variant="primary"
                     size="lg"
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl border-0 shadow-sm"
-                    onClick={() => handlePerkAction(perk)}
+                    onClick={() => user ? handlePerkAction(perk) : handleUnlockAccess()}
                   >
-                    {getActionButtonText(perk)}
+                    {user ? (
+                      getActionButtonText(perk)
+                    ) : (
+                      <>
+                        <Lock className="mr-2 h-4 w-4" />
+                        Unlock Perk Access
+                      </>
+                    )}
                   </Button>
                 </div>
               </Card>
@@ -391,6 +425,12 @@ export const PerksDirectory: React.FC = () => {
           </div>
         )}
       </div>
+      
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        initialMode="signup"
+      />
     </section>
   );
 };
