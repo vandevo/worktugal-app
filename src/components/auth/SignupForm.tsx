@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { motion } from 'framer-motion';
-import { UserPlus, Mail, Lock, User, Shield, CheckCircle, Loader2 } from 'lucide-react';
+import { UserPlus, Mail, Lock, User, Shield, CheckCircle, Loader2, Eye, EyeOff } from 'lucide-react';
 import { AnimatePresence } from 'framer-motion';
 import { signUp } from '../../lib/auth';
 import { Input } from '../ui/Input';
@@ -14,8 +14,8 @@ import { Turnstile } from '../ui/Turnstile';
 const signupSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
   password: z.string()
-    .min(6, 'Password must be at least 6 characters')
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/, 'Password must contain at least one lowercase letter, one uppercase letter, and one number'),
+    .min(8, 'Password must be at least 8 characters')
+    .regex(/^(?=.*[a-z])(?=.*\d).*$/, 'Password must contain at least one letter and one number'),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
@@ -35,6 +35,8 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
   const [loading, setLoading] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaState, setCaptchaState] = useState<'loading' | 'ready' | 'verified' | 'error'>('loading');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register,
@@ -101,22 +103,58 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
           error={errors.email?.message}
         />
 
-        <Input
-          label="Password"
-          type="password"
-          placeholder="Create a password"
-          {...register('password')}
-          error={errors.password?.message}
-          hint="Must include: lowercase letter, uppercase letter, and number (minimum 6 characters)"
-        />
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-300">
+            Password
+          </label>
+          <div className="relative">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Create a password"
+              className="w-full px-4 py-3 pr-12 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              {...register('password')}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            </button>
+          </div>
+          <p className="text-xs text-gray-500">
+            Must include: letters and numbers (minimum 8 characters)
+          </p>
+          {errors.password && (
+            <p className="text-xs text-red-400">{errors.password.message}</p>
+          )}
+        </div>
 
-        <Input
-          label="Confirm Password"
-          type="password"
-          placeholder="Confirm your password"
-          {...register('confirmPassword')}
-          error={errors.confirmPassword?.message}
-        />
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-300">
+            Confirm Password
+          </label>
+          <div className="relative">
+            <input
+              type={showConfirmPassword ? 'text' : 'password'}
+              placeholder="Confirm your password"
+              className="w-full px-4 py-3 pr-12 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              {...register('confirmPassword')}
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+            >
+              {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            </button>
+          </div>
+          {errors.confirmPassword && (
+            <p className="text-xs text-red-400">{errors.confirmPassword.message}</p>
+          )}
+        </div>
 
         <div className="space-y-2">
           <motion.div

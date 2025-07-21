@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogIn, Mail, Lock, Shield, CheckCircle, Loader2 } from 'lucide-react';
+import { LogIn, Mail, Lock, Shield, CheckCircle, Loader2, Eye, EyeOff } from 'lucide-react';
 import { signIn } from '../../lib/auth';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
@@ -12,7 +12,7 @@ import { Turnstile } from '../ui/Turnstile';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -27,6 +27,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
   const [loading, setLoading] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaState, setCaptchaState] = useState<'loading' | 'ready' | 'verified' | 'error'>('loading');
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -85,13 +86,30 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
           error={errors.email?.message}
         />
 
-        <Input
-          label="Password"
-          type="password"
-          placeholder="Enter your password"
-          {...register('password')}
-          error={errors.password?.message}
-        />
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-300">
+            Password
+          </label>
+          <div className="relative">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Enter your password"
+              className="w-full px-4 py-3 pr-12 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              {...register('password')}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+            >
+              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+            </button>
+          </div>
+          {errors.password && (
+            <p className="text-xs text-red-400">{errors.password.message}</p>
+          )}
+        </div>
 
         <div className="space-y-2">
           <motion.div
