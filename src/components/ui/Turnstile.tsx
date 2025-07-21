@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Shield, CheckCircle, Loader2 } from 'lucide-react';
 
 interface TurnstileProps {
   siteKey: string;
   onVerify: (token: string) => void;
+  onStateChange?: (state: 'loading' | 'ready' | 'verified' | 'error') => void;
   onError?: () => void;
   onExpire?: () => void;
   theme?: 'light' | 'dark' | 'auto';
@@ -23,6 +26,7 @@ declare global {
 export const Turnstile: React.FC<TurnstileProps> = ({
   siteKey,
   onVerify,
+  onStateChange,
   onError,
   onExpire,
   theme = 'dark',
@@ -32,7 +36,25 @@ export const Turnstile: React.FC<TurnstileProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const [widgetId, setWidgetId] = useState<string | null>(null);
   const [scriptLoaded, setScriptLoaded] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
 
+  const handleVerify = (token: string) => {
+    setIsVerified(true);
+    onStateChange?.(verified);
+    onVerify(token);
+  };
+
+  const handleError = () => {
+    setIsVerified(false);
+    onStateChange?.('error');
+    onError?.();
+  };
+
+  const handleExpire = () => {
+    setIsVerified(false);
+    onStateChange?.('ready');
+    onExpire?.();
+  };
   useEffect(() => {
     // Load Turnstile script if not already loaded
     if (!document.querySelector('script[src*="challenges.cloudflare.com"]')) {
@@ -48,12 +70,14 @@ export const Turnstile: React.FC<TurnstileProps> = ({
   }, []);
 
   useEffect(() => {
+    onStateChange?.('loading');
     if (scriptLoaded && ref.current && window.turnstile && !widgetId) {
+      onStateChange?.('ready');
       const id = window.turnstile.render(ref.current, {
         sitekey: siteKey,
-        callback: onVerify,
-        'error-callback': onError,
-        'expired-callback': onExpire,
+        callback: handleVerify,
+        'error-callback': handleError,
+        'expired-callback': handleExpire,
         theme,
         size,
       });
@@ -65,7 +89,21 @@ export const Turnstile: React.FC<TurnstileProps> = ({
         window.turnstile.remove(widgetId);
       }
     };
-  }, [scriptLoaded, siteKey, onVerify, onError, onExpire, theme, size, widgetId]);
+  }, [scriptLoaded, siteKey, theme, size, widgetId]);
 
-  return <div ref={ref} className={className} />;
+  return (
+    <div className={className}>
+      <div ref={ref} />
+      {isVerified && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="mt-2 flex items-center justify-center space-x-2 text-green-400"
+        >
+          <CheckCircle className="h-4 w-4" />
+          <span className="text-sm font-medium">Verification successful</span>
+        </motion.div>
+      )}
+    </div>
+  );
 };
