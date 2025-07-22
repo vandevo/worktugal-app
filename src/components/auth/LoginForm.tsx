@@ -4,12 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LogIn, Mail, Lock, Shield, CheckCircle, Loader2, Eye, EyeOff } from 'lucide-react';
-import { signIn } from '../../lib/auth';
+import { signIn, resetPasswordForEmail } from '../../lib/auth';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
 import { Turnstile } from '../ui/Turnstile';
-import { supabase } from '../../lib/supabase';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -64,6 +63,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
   };
 
   const handleForgotPassword = async () => {
+    if (!captchaToken) {
+      setError('Please complete the CAPTCHA verification first');
+      return;
+    }
+
     setError(null); // Clear any existing errors first
     setResetEmailSent(false); // Clear any existing success message
     
@@ -73,15 +77,15 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
     }
 
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
-      });
-
-      if (error) throw error;
+      await resetPasswordForEmail(email, captchaToken);
 
       setResetEmailSent(true);
+      // Reset CAPTCHA after successful reset
+      setCaptchaToken(null);
     } catch (err: any) {
       setError(err.message || 'Failed to send reset email');
+      // Reset CAPTCHA on error
+      setCaptchaToken(null);
     }
   };
   return (

@@ -66,3 +66,18 @@ export const getSession = async () => {
   if (error) throw error;
   return session;
 };
+
+export const resetPasswordForEmail = async (email: string, captchaToken?: string) => {
+  const options: any = {
+    redirectTo: `${window.location.origin}/reset-password`,
+  };
+
+  // Add captcha token if provided
+  if (captchaToken) {
+    options.captchaToken = captchaToken;
+  }
+
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, options);
+  if (error) throw error;
+  return data;
+};
