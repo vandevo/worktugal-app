@@ -9,6 +9,7 @@ import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
 import { Turnstile } from '../ui/Turnstile';
+import { supabase } from '../../lib/supabase';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -25,6 +26,7 @@ interface LoginFormProps {
 export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignup }) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [resetEmailSent, setResetEmailSent] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaState, setCaptchaState] = useState<'loading' | 'ready' | 'verified' | 'error'>('loading');
   const [showPassword, setShowPassword] = useState(false);
@@ -32,10 +34,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
+
+  const email = watch('email');
 
   const onSubmit = async (data: LoginFormData) => {
     if (!captchaToken) {
@@ -58,6 +63,26 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
     }
   };
 
+  const handleForgotPassword = async () => {
+    if (!email || !email.includes('@')) {
+      setError('Please enter a valid email address first');
+      return;
+    }
+
+    setError(null);
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+
+      if (error) throw error;
+
+      setResetEmailSent(true);
+    } catch (err: any) {
+      setError(err.message || 'Failed to send reset email');
+    }
+  };
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -77,6 +102,12 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
         </Alert>
       )}
 
+      {resetEmailSent && (
+        <Alert variant="success" className="mb-6">
+          <strong>Password reset email sent!</strong><br />
+          Check your email for a link to reset your password.
+        </Alert>
+      )}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <Input
           label="Email"
@@ -109,6 +140,15 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
           {errors.password && (
             <p className="text-xs text-red-400">{errors.password.message}</p>
           )}
+          <div className="text-right">
+            <button
+              type="button"
+              onClick={handleForgotPassword}
+              className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              Forgot password?
+            </button>
+          </div>
         </div>
 
         <div className="space-y-2">
