@@ -6,11 +6,11 @@ Project name: Worktugal Pass - Partner Portal
 One-sentence summary: A production-ready, mobile-first B2B web application for Worktugal Pass — Lisbon's trusted perk marketplace for remote professionals and expats.
 Target audience: Local businesses in Lisbon who want to attract remote workers, freelancers, and digital nomads
 Problem this solves: Connects local businesses with quality remote professionals through a trusted marketplace, eliminating the need for businesses to find and market to remote workers individually
-Version: v1.2.0
+Version: v1.3.0
 Live URL: https://pass.worktugal.com
 Status: production
 Author or builder: Worktugal team
-Last updated: 2025-07-21
+Last updated: 2025-07-22
 
 2. CORE FUNCTIONALITY
 
@@ -45,6 +45,7 @@ Payment flows:
 Integrations used:
 - Supabase: Database, authentication, storage, edge functions
 - Stripe: Payment processing, customer management, webhooks
+- Make.com: Advanced automation workflows for CRM integration and customer lifecycle management
 - Netlify: Static site hosting and continuous deployment
 - Google Analytics 4: User behavior tracking
 - Simple Analytics: Privacy-first analytics
@@ -113,6 +114,7 @@ DNS, custom domain, and HTTPS setup:
 Edge functions or serverless logic:
 - stripe-checkout: Creates Stripe checkout sessions for payments
 - stripe-webhook: Processes Stripe webhook events for payment status updates
+- Enhanced webhook system: Automatically sends customer email data to Make.com for CRM automation
 - Both functions handle CORS, authentication, and error handling
 
 Database types and migration status:
@@ -120,6 +122,7 @@ Database types and migration status:
 - Tables: user_profiles, stripe_customers, stripe_subscriptions, stripe_orders, partner_submissions
 - Views: stripe_user_subscriptions, stripe_user_orders
 - All migrations applied and documented in supabase/migrations/
+- Advanced webhook triggers for order processing and CRM integration
 - Row Level Security enabled on all tables
 
 External service setup steps:
@@ -128,6 +131,7 @@ External service setup steps:
 - Netlify: Site deployed, custom domain configured, environment variables set
 - Cloudflare: DNS configured, proxy enabled, security settings applied
 - Google Analytics: Property created, tracking ID implemented
+- Make.com: Webhook scenarios configured for user signup and payment processing automation
 
 5. UI + DESIGN SYSTEM
 
@@ -222,7 +226,7 @@ Last Git commit message: Update pricing section headline to be unique while main
 Current deployment branch: main
 Status: production
 Clone-ready: yes
-Tag version: v1.2.0
+Tag version: v1.3.0
 
 Deployment configuration:
 - Netlify continuous deployment from Git
@@ -282,8 +286,10 @@ Redirects and CTAs:
 Webhook triggers:
 - Stripe checkout completion events
 - Payment success/failure processing
+- Enhanced order webhooks with customer email data for CRM automation
 - Database status updates
 - Error handling and retry logic
+- Make.com integration for automated customer lifecycle management
 
 Analytics fire:
 - Page view tracking (GA4 and Simple Analytics)
@@ -336,6 +342,7 @@ Metrics to monitor:
 Planned features:
 - Partner dashboard with performance analytics
 - Multi-language support (Portuguese/English)
+- Enhanced CRM automation workflows
 - Advanced perk management tools
 - Customer relationship management features
 - Automated partner onboarding workflows
@@ -346,6 +353,7 @@ Planned features:
 Known technical debt:
 - Implement comprehensive error boundary components
 - Add unit and integration test coverage
+- Optimize webhook delivery reliability and error handling
 - Set up proper application logging and monitoring
 - Implement client-side caching strategies
 - Add offline support and PWA capabilities
@@ -372,6 +380,7 @@ Refactor or modularization goals:
 AI or agent plans:
 - Automated partner verification
 - AI-powered perk optimization suggestions
+- Intelligent customer segmentation via CRM data
 - Intelligent customer matching
 - Automated content generation
 - Chatbot for partner support
@@ -408,9 +417,11 @@ Auth and RLS policies in place:
 Webhooks registered:
 - Stripe webhook endpoint created
 - Webhook secret obtained and configured
+- Make.com webhooks configured for user signup and payment automation
 - Edge function deployed for webhook handling
 - Event types configured (checkout.session.completed, etc.)
 - Webhook signature verification implemented
+- Enhanced email data extraction for CRM integration
 
 Storage buckets created:
 - perk-assets bucket created in Supabase Storage
@@ -436,6 +447,7 @@ Domain configured:
 Payments tested:
 - Stripe test mode configured
 - Test payment flows verified
+- CRM webhook automation tested and verified
 - Webhook processing confirmed
 - Database updates verified
 - Success/failure scenarios tested
@@ -519,6 +531,13 @@ config/: Vite, PostCSS, Tailwind, etc
 
 13. TROUBLESHOOTING GUIDE
 
+Make.com webhook not receiving data:
+- Verify webhook URL is correct in Supabase triggers
+- Check Make.com scenario is active and properly configured
+- Ensure webhook response returns proper JSON with Content-Type: application/json
+- Review Supabase logs for webhook execution details
+- Verify pg_net extension is enabled for advanced webhook functionality
+
 Supabase not connecting:
 - Verify VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are correct
 - Check network connectivity and firewall settings
@@ -569,10 +588,12 @@ Build breaking:
 Webhook not firing:
 - Verify webhook URL is publicly accessible
 - Check webhook secret is correctly configured
+- Ensure Make.com webhook returns proper JSON response
 - Ensure edge function is deployed and working
 - Test webhook endpoint with Stripe CLI
 - Review Supabase function logs for errors
 - Confirm webhook events are configured correctly
+- Check that pg_net extension is enabled for database-triggered webhooks
 
 14. SUPPORT + CONTACT
 
