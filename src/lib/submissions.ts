@@ -138,3 +138,19 @@ export const getApprovedPerksCount = async (): Promise<number> => {
 
   return count || 0;
 };
+
+// New function to get approved perks for the directory
+export const getApprovedPerks = async (): Promise<PartnerSubmission[]> => {
+  const { data, error } = await supabase
+    .from('partner_submissions')
+    .select('*')
+    .eq('status', 'approved')
+    .order('created_at', { ascending: false }); // Show newest first
+
+  if (error) {
+    console.error('Error fetching approved perks:', error);
+    throw new Error(`Failed to fetch approved perks: ${error.message}`);
+  }
+
+  return data || [];
+};
