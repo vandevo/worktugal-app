@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Check, CreditCard, Loader2, AlertCircle, Target } from 'lucide-react';
+import { Check, CreditCard, Loader2, Lock, Target } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 import { Alert } from './ui/Alert';
@@ -205,11 +205,10 @@ export const PricingSection: React.FC = () => {
         <div className="mt-8 sm:mt-12 text-center">
           <div className="text-gray-400 space-y-2">
             <div className="flex items-center justify-center space-x-2 mb-2">
-              <AlertCircle className="h-4 w-4" />
-              <span className="text-sm font-medium">Secure Payment</span>
+              <Lock className="h-4 w-4" />
+              <span className="text-sm font-medium">Secure Payment Processing</span>
             </div>
-            <p className="text-sm">Payments are securely processed with Stripe</p>
-            <p className="text-xs sm:text-sm">Your information is encrypted and protected</p>
+            <p className="text-sm">Securely processed with Stripe • Your information is encrypted and protected</p>
           </div>
         </div>
         </div>
