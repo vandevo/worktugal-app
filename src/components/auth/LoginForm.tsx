@@ -220,7 +220,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
             </motion.label>
           </motion.div>
           <Turnstile
-            siteKey="0x4AAAAAABl8_lJiTQti8Lh6"
+            siteKey={import.meta.env.DEV ? "1x0000000000000000000000000000000AA" : "0x4AAAAAABl8_lJiTQti8Lh6"}
             onVerify={setCaptchaToken}
             onStateChange={setCaptchaState}
             onError={() => {
