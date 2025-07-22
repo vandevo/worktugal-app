@@ -2,108 +2,94 @@ import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag, Shield, Globe, Instagram, Linkedin, Lock, ArrowRight } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import { supabase } from '../lib/supabase';
 import { AuthModal } from './auth/AuthModal';
 import { Input } from './ui/Input';
 import { Select } from './ui/Select';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 import { BUSINESS_CATEGORIES } from '../utils/constants';
+import { PartnerSubmission } from '../types';
 
-// Mock data for demonstration
-const mockPerks = [
-  {
-    id: '1',
-    title: 'Exclusive rates on climbing packs & workshops',
-    description: 'Climb Lisbon\'s most iconic bridge wall. Bouldering, belay, and guided climbs under the 25 de Abril Bridge.',
-    business_name: 'Escala25',
-    category: 'Gyms & Wellness',
-    redemption_method: 'other',
-    redemption_details: 'WhatsApp Patrick mentioning "Worktugal Pass"',
-    is_portuguese_owned: true,
-    logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/escala-25-trust-monitor.jpg',
-    city: 'Lisbon',
-    neighborhood: 'Alcântara',
-    business_website: 'https://escala25.com',
-    business_instagram: 'https://www.instagram.com/escala25_lisboa',
-    whatsapp_number: '+351964129244' // Hidden from UI, used for WhatsApp link
-  },
-  {
-    id: '2',
-    title: 'Free coworking trial day + seasonal member perks',
-    description: 'Lisbon\'s most loved coworking space where tropical calm meets startup focus. Full amenities, vibrant community, and modern facilities. Perfect for remote workers, freelancers, and hybrid teams seeking productivity and connection.',
-    business_name: 'Kübe Coworking',
-    category: 'Coworking & Studios',
-    redemption_method: 'other',
-    redemption_details: 'Email for free trial day and seasonal member perks',
-    is_portuguese_owned: true,
-    logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/kube-coworking-all-spaces.webp',
-    city: 'Lisbon',
-    neighborhood: 'Alvalade',
-    business_website: 'https://kubecowork.com',
-    business_instagram: 'https://www.instagram.com/kube.coworking/',
-    business_linkedin: 'https://pt.linkedin.com/company/kubelisbon',
-    contact_email: 'daniela.goncalves@kubecowork.com'
-  },
-  {
-    id: '4',
-    title: '20% off Feng Shui + 10% off Self-Knowledge consultations',
-    description: 'We study, harmonize and make the most of the energy in the spaces where people live and work. I guide and inspire people to be the best version of themselves.',
-    business_name: 'Suzana Mendes',
-    category: 'Experts & Services',
-    redemption_method: 'promo_code',
-    redemption_details: 'Use code: WORKTUGAL20',
-    is_portuguese_owned: true,
-    logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/suzana-mendes-feng-shui-upper-body-photo.jpg',
-    city: 'Lisbon',
-    neighborhood: 'Cascais',
-    business_website: 'https://www.suzanamendes.com/',
-    business_instagram: 'https://www.instagram.com/fengshui_suzanamendes/',
-    whatsapp_number: '+351918789177'
-  },
-  {
-    id: '3',
-    title: '€5 off monthly language immersion + €2 off private sessions',
-    description: 'Revolutionary online language learning focused on real conversations, not grammar drills. Flexible Portuguese & English immersion programs perfect for remote professionals and expats seeking practical fluency.',
-    business_name: 'IFLI Foreign Language Immersion',
-    category: 'Experts & Services',
-    redemption_method: 'other',
-    redemption_details: 'WhatsApp Giselle mentioning "Worktugal Pass" for discount',
-    is_portuguese_owned: false,
-    logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/ifli-language-immersion-giselle-alvarez.png',
-    city: 'Lisbon',
-    neighborhood: 'Online Services',
-    business_website: 'https://iflimmersion.com/en/home/',
-    business_linkedin: 'https://www.linkedin.com/company/iflimmersion/',
-    whatsapp_number: '+351933292112'
-  },
-  {
-    id: '5',
-    title: 'Free event creation on Tribe app + community access',
-    description: 'Join Lisbon\'s largest community platform where remote workers, entrepreneurs, and creatives connect IRL. Create and discover events, access coworking spaces in Chiado & Caparica, and be part of a thriving ecosystem designed to end loneliness through meaningful connections.',
-    business_name: 'Tribe Social Club',
-    category: 'Events & Social Spaces',
-    redemption_method: 'other',
-    redemption_details: 'Create your free event at tribeirl.com and join the community',
-    is_portuguese_owned: false,
-    logo: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/tribe-social-perk-image.png',
-    city: 'Lisbon',
-    neighborhood: 'Chiado',
-    business_website: 'https://tribeirl.com/tribesocial',
-    business_instagram: 'https://www.instagram.com/tribe.irl/',
-    business_linkedin: 'https://www.linkedin.com/company/tribe-irl/',
-    contact_email: 'emily@findyourtribe.app'
-  }
-];
+interface DisplayPerk {
+  id: string;
+  title: string;
+  description: string;
+  business_name: string;
+  category: string;
+  redemption_method: string;
+  redemption_details: string;
+  is_portuguese_owned: boolean;
+  logo: string;
+  city: string;
+  neighborhood: string;
+  business_website?: string;
+  business_instagram?: string;
+  business_linkedin?: string;
+  contact_email?: string;
+  contact_phone?: string;
+}
 
 export const PerksDirectory: React.FC = () => {
   const { user } = useAuth();
+  const [perks, setPerks] = useState<DisplayPerk[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [showPortugueseOnly, setShowPortugueseOnly] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
+  // Fetch approved partner submissions from Supabase
+  React.useEffect(() => {
+    const fetchApprovedPerks = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const { data, error: fetchError } = await supabase
+          .from('partner_submissions')
+          .select('*')
+          .eq('status', 'approved')
+          .order('created_at', { ascending: false });
+
+        if (fetchError) {
+          throw fetchError;
+        }
+
+        // Map database fields to display format
+        const mappedPerks: DisplayPerk[] = (data || []).map((submission: PartnerSubmission) => ({
+          id: submission.id.toString(),
+          title: submission.perk_title,
+          description: submission.perk_description,
+          business_name: submission.business_name,
+          category: submission.business_category,
+          redemption_method: submission.perk_redemption_method,
+          redemption_details: submission.perk_redemption_details,
+          is_portuguese_owned: submission.perk_is_portuguese_owned,
+          logo: submission.perk_logo || '',
+          city: 'Lisbon',
+          neighborhood: submission.business_neighborhood,
+          business_website: submission.business_website || undefined,
+          business_instagram: submission.business_instagram || undefined,
+          contact_email: submission.contact_email,
+          contact_phone: submission.contact_phone,
+        }));
+
+        setPerks(mappedPerks);
+      } catch (err: any) {
+        console.error('Error fetching approved perks:', err);
+        setError('Failed to load perks. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchApprovedPerks();
+  }, []);
+
   const filteredPerks = useMemo(() => {
-    return mockPerks.filter(perk => {
+    return perks.filter(perk => {
       const matchesSearch = perk.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            perk.business_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            perk.description.toLowerCase().includes(searchTerm.toLowerCase());
@@ -114,7 +100,7 @@ export const PerksDirectory: React.FC = () => {
       
       return matchesSearch && matchesCategory && matchesPortuguese;
     });
-  }, [searchTerm, selectedCategory, showPortugueseOnly]);
+  }, [perks, searchTerm, selectedCategory, showPortugueseOnly]);
 
   const categoryOptions = BUSINESS_CATEGORIES.map(category => ({
     value: category,
@@ -143,52 +129,41 @@ export const PerksDirectory: React.FC = () => {
     setShowAuthModal(true);
   };
 
-  const extractWhatsAppNumber = (text: string) => {
-    // For Escala25, use the hidden whatsapp_number field instead of extracting from text
-    return null;
+  const extractWhatsAppNumber = (text: string): string | null => {
+    // Try to extract phone number from redemption details
+    const phoneMatch = text.match(/(\+?3519\d{8}|\+?351\s?9\d{2}\s?\d{3}\s?\d{3})/);
+    return phoneMatch ? phoneMatch[1].replace(/\s/g, '') : null;
   };
 
   const handlePerkAction = (perk: any) => {
-    // Handle Escala25 WhatsApp redemption with hidden number
-    if (perk.id === '1' && perk.whatsapp_number) {
-      const message = encodeURIComponent(`Hi Patrick, I'm a Worktugal Pass user interested in your climbing offers`);
-      const whatsappUrl = `https://wa.me/${perk.whatsapp_number.replace('+', '')}?text=${message}`;
-      window.open(whatsappUrl, '_blank');
-      return;
-    }
-    
-    // Handle Suzana Mendes consultation booking via WhatsApp
-    if (perk.id === '4' && perk.whatsapp_number) {
-      const message = encodeURIComponent(`Hi Suzana, I'm a Worktugal Pass member interested in booking a consultation. I'd like to use the WORKTUGAL20 discount code for Feng Shui consultations or the 10% discount for Self-Knowledge consultations.`);
-      const whatsappUrl = `https://wa.me/${perk.whatsapp_number.replace('+', '')}?text=${message}`;
-      window.open(whatsappUrl, '_blank');
-      return;
-    }
-    
-    // Handle IFLI WhatsApp contact
-    if (perk.id === '3' && perk.whatsapp_number) {
-      const message = encodeURIComponent(`Hi Giselle, I'm a Worktugal Pass member interested in your IFLI language immersion programs. I'd like to learn about the €5 off monthly subscription and €2 off private sessions. Could you help me get started?`);
-      const whatsappUrl = `https://wa.me/${perk.whatsapp_number.replace('+', '')}?text=${message}`;
-      window.open(whatsappUrl, '_blank');
-      return;
-    }
-    
-    // Handle Kübe Coworking email contact
-    if (perk.id === '2' && perk.contact_email) {
+    // Handle email-based redemption
+    if (perk.contact_email && perk.redemption_details.toLowerCase().includes('email')) {
       const subject = encodeURIComponent('Worktugal Pass – Free Trial Request');
-      const body = encodeURIComponent(`Hi Daniela,\n\nI'm a Worktugal Pass member interested in booking a free coworking trial day at Kübe.\n\nCould you please help me schedule this and let me know about any current seasonal perks available for Worktugal Pass members?\n\nThank you!\n\nBest regards`);
+      const body = encodeURIComponent(`Hi,\n\nI'm a Worktugal Pass member interested in: ${perk.title}\n\nCould you please help me redeem this perk?\n\nThank you!\n\nBest regards`);
       const mailtoUrl = `mailto:${perk.contact_email}?subject=${subject}&body=${body}`;
       window.open(mailtoUrl, '_blank');
       return;
     }
     
-    // Handle Tribe Social Club event creation
-    if (perk.id === '5') {
-      window.open('https://tribeirl.com/', '_blank');
+    // Handle WhatsApp-based redemption
+    if (perk.contact_phone || (perk.redemption_method === 'other' && perk.redemption_details.toLowerCase().includes('whatsapp'))) {
+      const phoneNumber = perk.contact_phone || extractWhatsAppNumber(perk.redemption_details);
+      if (phoneNumber) {
+        const message = encodeURIComponent(`Hi! I'm a Worktugal Pass member interested in: ${perk.title}`);
+        const whatsappUrl = `https://wa.me/${phoneNumber.replace('+', '')}?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+        return;
+      }
+    }
+    
+    // Handle website-based redemption
+    if (perk.business_website && perk.redemption_details.toLowerCase().includes('website')) {
+      window.open(perk.business_website, '_blank');
       return;
     }
     
-    if (perk.redemption_method === 'other' && perk.redemption_details.includes('WhatsApp')) {
+    // Generic WhatsApp fallback
+    if (perk.redemption_method === 'other' && perk.redemption_details.toLowerCase().includes('whatsapp')) {
       const phoneNumber = extractWhatsAppNumber(perk.redemption_details);
       if (phoneNumber) {
         const message = encodeURIComponent(`Hi! I have Worktugal Pass and I'm interested in: ${perk.title}`);
@@ -208,21 +183,18 @@ export const PerksDirectory: React.FC = () => {
       return 'Unlock Perk Access';
     }
     
-    if (perk.id === '2') {
+    if (perk.contact_email && perk.redemption_details.toLowerCase().includes('email')) {
       return 'Email for Free Trial';
     }
-    if (perk.id === '5') {
-      return 'Create Free Event';
+    
+    if (perk.business_website && perk.redemption_details.toLowerCase().includes('website')) {
+      return 'Visit Website';
     }
-    if (perk.id === '1' && perk.whatsapp_number) {
+    
+    if (perk.contact_phone || (perk.redemption_method === 'other' && perk.redemption_details.toLowerCase().includes('whatsapp'))) {
       return 'Message on WhatsApp';
     }
-    if (perk.id === '4' && perk.whatsapp_number) {
-      return 'Contact to Book';
-    }
-    if (perk.redemption_method === 'other' && perk.redemption_details.includes('WhatsApp')) {
-      return 'Message on WhatsApp';
-    }
+    
     return 'Use This Now';
   };
 
@@ -289,6 +261,29 @@ export const PerksDirectory: React.FC = () => {
         </div>
 
         {/* Results */}
+        {loading && (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p className="text-gray-400">Loading verified perks...</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="text-center py-12">
+            <div className="text-red-400 mb-4">
+              <Filter className="h-12 w-12 mx-auto mb-4" />
+              <p className="text-lg">{error}</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="text-sm text-blue-400 hover:text-blue-300 mt-2"
+              >
+                Try again
+              </button>
+            </div>
+          </div>
+        )}
+
+        {!loading && !error && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPerks.map((perk, index) => (
             <motion.div
@@ -423,8 +418,9 @@ export const PerksDirectory: React.FC = () => {
             </motion.div>
           ))}
         </div>
+        )}
 
-        {filteredPerks.length === 0 && (
+        {!loading && !error && filteredPerks.length === 0 && (
           <div className="text-center py-12">
             <div className="text-gray-400 mb-4">
               <Filter className="h-12 w-12 mx-auto mb-4" />
