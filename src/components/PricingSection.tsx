@@ -123,12 +123,41 @@ export const PricingSection: React.FC = () => {
             >
               {/* FOMO Badge */}
               <div className="text-center mb-6">
-                <div className="inline-flex items-center space-x-2 bg-orange-600/20 text-orange-300 px-3 py-2 rounded-full border border-orange-600/30">
-                  <Target className="h-3.5 w-3.5" />
-                  <span className="text-xs sm:text-sm font-medium">
-                    {spotsLeft !== null ? `${spotsLeft} spots left` : 'Loading spots...'}
+                <motion.div
+                  animate={spotsLeft !== null && spotsLeft <= 10 ? {
+                    scale: [1, 1.05, 1],
+                    boxShadow: [
+                      "0 0 0 0 rgba(239, 68, 68, 0)",
+                      "0 0 0 8px rgba(239, 68, 68, 0.1)",
+                      "0 0 0 0 rgba(239, 68, 68, 0)"
+                    ]
+                  } : {}}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className={`inline-flex items-center space-x-2 px-4 py-2.5 rounded-full border font-semibold ${
+                    spotsLeft !== null && spotsLeft <= 5
+                      ? 'bg-red-600/20 text-red-300 border-red-600/40 shadow-red-500/20 shadow-lg'
+                      : spotsLeft !== null && spotsLeft <= 10
+                      ? 'bg-orange-600/20 text-orange-300 border-orange-600/40 shadow-orange-500/20 shadow-lg'
+                      : 'bg-blue-600/20 text-blue-300 border-blue-600/40'
+                  }`}
+                >
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  >
+                    <Target className="h-4 w-4" />
+                  </motion.div>
+                  <span className="text-sm font-bold tracking-wide">
+                    {spotsLeft !== null 
+                      ? spotsLeft <= 5
+                        ? `🔥 FINAL ${spotsLeft} SPOTS`
+                        : spotsLeft <= 10
+                        ? `⚡ Only ${spotsLeft} left`
+                        : `${spotsLeft} early access spots`
+                      : 'Loading spots...'
+                    }
                   </span>
-                </div>
+                </motion.div>
               </div>
 
               <Card className="p-6 sm:p-8 text-center" hover>
