@@ -64,12 +64,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
   };
 
   const handleForgotPassword = async () => {
+    setError(null); // Clear any existing errors first
+    setResetEmailSent(false); // Clear any existing success message
+    
     if (!email || !email.includes('@')) {
       setError('Please enter a valid email address first');
       return;
     }
-
-    setError(null);
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
