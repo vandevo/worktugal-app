@@ -91,10 +91,11 @@ export const PricingSection: React.FC = () => {
             Reach Verified Remote Clients Without Ads or Agencies
           </h2>
           <p className="text-lg sm:text-xl text-blue-300 font-medium mb-4">
-            €49 one time. No renewals. No stress.
+            €49 one time payment
           </p>
           <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Forget cold outreach. Skip noisy platforms.<br />
+            Cold outreach is noisy. Agencies are expensive.<br />
+            This is the fastest way to get discovered by remote professionals in Lisbon.<br />
             List your offer where remote professionals actually look.<br />
             You provide a perk. We give you visibility. They come to you.
           </p>
@@ -153,10 +154,10 @@ export const PricingSection: React.FC = () => {
                         ? `🔥 FINAL ${spotsLeft} SPOTS`
                         : spotsLeft <= 10
                         ? `⚡ Only ${spotsLeft} left`
-                        : `${spotsLeft} early access spots`
+                  <span className="font-medium text-orange-400">Lock your spot. Get visibility. Be first</span>
                       : 'Loading spots...'
                     }
-                  </span>
+                  Only 25 listings available at this early access price. Once filled, the next tier will open at a higher rate.
                 </motion.div>
               </div>
 
@@ -164,7 +165,7 @@ export const PricingSection: React.FC = () => {
                 
                 <div className="mb-6">
                   <h3 className="text-xl sm:text-2xl font-bold mb-4 leading-tight">
-                    Early Access Lifetime Listing
+                    🎯 Early Access Lifetime Listing
                   </h3>
                   <div className="flex items-baseline justify-center mb-2">
                     <span className="text-3xl sm:text-4xl font-bold text-blue-400">€{product.price}</span>
@@ -174,8 +175,8 @@ export const PricingSection: React.FC = () => {
                   
                   <div className="text-gray-300 mb-6 text-left space-y-3">
                     <p className="text-sm text-gray-400 leading-relaxed">
-                      Only 25 spots at €49. Then the price goes up.<br />
-                      Join early. Get seen first.
+                      Only 25 listings available at this early access price.<br />
+                      Once filled, the next tier will open at a higher rate.
                     </p>
                   </div>
                 </div>
@@ -183,23 +184,31 @@ export const PricingSection: React.FC = () => {
                 <div className="space-y-3 mb-8 text-left">
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">A trusted lifetime listing in Lisbon's remote-first network</span>
+                    <span className="text-sm sm:text-base">Listed on our public perk directory</span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Access to a growing base of 1,000+ verified remote professionals</span>
+                    <span className="text-sm sm:text-base">"Trusted Partner" badge on your listing</span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Opportunities to be featured in meetups, content, and private channels</span>
+                    <span className="text-sm sm:text-base">Verified profile access with a partner dashboard</span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Local support. Clear setup. No guesswork</span>
+                    <span className="text-sm sm:text-base">Featured in our monthly newsletter</span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">No commissions. No middlemen. One clear offer</span>
+                    <span className="text-sm sm:text-base">Shoutouts at select in-person events</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
+                    <span className="text-sm sm:text-base">Ongoing support to update or refresh your perks</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
+                    <span className="text-sm sm:text-base">Invite-only access to our Partner Insider Network as we grow</span>
                   </div>
                 </div>
 
@@ -222,7 +231,7 @@ export const PricingSection: React.FC = () => {
                   ) : (
                     <>
                       <CreditCard className="mr-2 h-5 w-5" />
-                      Secure Your Spot for €{product.price}
+                      Secure your listing for €{product.price}
                     </>
                   )}
                 </Button>
@@ -234,7 +243,7 @@ export const PricingSection: React.FC = () => {
         <div className="mt-8 sm:mt-12 text-center">
           <div className="flex items-center justify-center space-x-2 text-gray-400">
             <Lock className="h-4 w-4" />
-            <span className="text-sm">Protected by Stripe • Encrypted & secure</span>
+            <span className="text-sm">Protected by Stripe • Encrypted checkout</span>
           </div>
         </div>
         </div>
