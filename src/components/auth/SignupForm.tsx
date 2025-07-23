@@ -77,9 +77,15 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
       className="w-full max-w-md mx-auto"
     >
       <div className="text-center mb-6">
-        <UserPlus className="h-10 w-10 text-blue-400 mx-auto mb-3" />
-        <h2 className="text-xl font-bold mb-1">Create your account</h2>
-        <p className="text-gray-400">Get access to verified perks in Lisbon</p>
+        <div className="flex items-center space-x-3 mb-4">
+          <div className="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center flex-shrink-0">
+            <UserPlus className="h-5 w-5 text-blue-400" />
+          </div>
+          <div className="text-left flex-1">
+            <h2 className="text-lg font-bold leading-tight">Create your account</h2>
+            <p className="text-sm text-gray-400 leading-tight">Get access to verified perks in Lisbon</p>
+          </div>
+        </div>
       </div>
 
       {error && (
