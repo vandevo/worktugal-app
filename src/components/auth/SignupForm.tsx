@@ -235,7 +235,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
             </motion.label>
           </motion.div>
           {!import.meta.env.DEV && <Turnstile
-            siteKey={import.meta.env.DEV ? "1x0000000000000000000000000000000AA" : "0x4AAAAAABl8_lJiTQti8Lh6"}
+            siteKey={import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY || "1x0000000000000000000000000000000AA"}
             onVerify={setCaptchaToken}
             onStateChange={setCaptchaState}
             onError={() => {
