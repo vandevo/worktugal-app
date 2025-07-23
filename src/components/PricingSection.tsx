@@ -154,11 +154,16 @@ export const PricingSection: React.FC = () => {
                         ? `🔥 FINAL ${spotsLeft} SPOTS`
                         : spotsLeft <= 10
                         ? `⚡ Only ${spotsLeft} left`
-                  <span className="font-medium text-orange-400">Lock your spot. Get visibility. Be first</span>
+                        : `${spotsLeft} spots remaining`
                       : 'Loading spots...'
                     }
-                  Only 25 listings available at this early access price. Once filled, the next tier will open at a higher rate.
+                  </span>
                 </motion.div>
+                <p className="text-xs text-gray-400 mt-2">
+                  <span className="font-medium text-orange-400">Lock your spot. Get visibility. Be first</span>
+                  <br />
+                  Only 25 listings available at this early access price. Once filled, the next tier will open at a higher rate.
+                </p>
               </div>
 
               <Card className="p-6 sm:p-8 text-center" hover>
