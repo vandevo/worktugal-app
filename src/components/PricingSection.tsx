@@ -201,8 +201,8 @@ export const PricingSection: React.FC = () => {
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
                     <span className="text-sm sm:text-base leading-relaxed">
                       Verified profile access with a partner dashboard 
-                      <span className="ml-2 inline-flex items-center bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-md text-xs font-medium">
-                        Coming Soon
+                      <span className="ml-1 text-blue-400 text-xs font-medium opacity-80">
+                        (coming soon)
                       </span>
                     </span>
                   </div>
