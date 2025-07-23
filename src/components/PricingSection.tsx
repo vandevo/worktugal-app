@@ -199,14 +199,12 @@ export const PricingSection: React.FC = () => {
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-sm sm:text-base leading-relaxed">
-                        Verified profile access with a partner dashboard
-                      </span>
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20 whitespace-nowrap">
+                    <span className="text-sm sm:text-base leading-relaxed">
+                      Verified profile access with a partner dashboard{' '}
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20 ml-1 align-middle">
                         Coming Soon
                       </span>
-                    </div>
+                    </span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <Check className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
