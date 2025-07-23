@@ -46,7 +46,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               <div className="flex items-center space-x-2">
                 <span className="text-lg sm:text-xl font-bold hidden xs:inline">Worktugal Pass</span>
                 <span className="text-lg sm:text-xl font-bold xs:hidden">Worktugal</span>
-                <span className="hidden xs:inline-flex items-center bg-blue-600/20 text-blue-300 px-2 py-1 rounded-md text-xs font-medium tracking-wide">
+                <span className="hidden xs:inline-flex items-center bg-gradient-to-r from-blue-500/10 via-blue-400/15 to-cyan-400/10 text-blue-200 px-2.5 py-1 rounded-full border border-blue-400/20 shadow-sm backdrop-blur-sm text-xs font-medium tracking-wide ring-1 ring-blue-400/10">
+                  <span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-1.5 animate-pulse"></span>
                   Early Access
                 </span>
               </div>
