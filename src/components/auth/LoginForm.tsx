@@ -136,7 +136,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
             <input
               type={showPassword ? 'text' : 'password'}
               placeholder="Enter your password"
-              className="w-full px-4 py-3 pr-12 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              className="w-full px-4 py-3 pr-12 bg-gray-800/80 border border-gray-600/60 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/80 focus:border-blue-500/50 focus:bg-gray-750 hover:border-gray-500/60 transition-all duration-200 shadow-sm"
               {...register('password')}
             />
             <button
@@ -254,13 +254,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
       </form>
 
       {onSwitchToSignup && (
-        <div className="mt-6 text-center">
-          <p className="text-gray-400">
+        <div className="mt-6 text-center pt-4 border-t border-gray-700/50">
+          <p className="text-gray-400 text-sm">
             Don't have an account?{' '}
             <button
               type="button"
               onClick={onSwitchToSignup}
-              className="text-blue-400 hover:text-blue-300 font-medium"
+              className="text-blue-400 hover:text-blue-300 font-medium hover:underline transition-all duration-200"
             >
               Sign up
             </button>

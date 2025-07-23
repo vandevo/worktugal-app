@@ -56,9 +56,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-700/50 hover:bg-gray-600/50 text-gray-400 hover:text-white transition-all duration-200 flex items-center justify-center"
           >
-            <X className="h-6 w-6" />
+            <X className="h-4 w-4" />
           </button>
 
           {/* Form content */}
