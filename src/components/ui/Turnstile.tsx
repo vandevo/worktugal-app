@@ -37,7 +37,6 @@ export const Turnstile: React.FC<TurnstileProps> = ({
   const [widgetId, setWidgetId] = useState<string | null>(null);
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
-  const isDevelopment = import.meta.env.DEV;
 
   const handleVerify = (token: string) => {
     setIsVerified(true);
@@ -56,34 +55,6 @@ export const Turnstile: React.FC<TurnstileProps> = ({
     onStateChange?.('ready');
     onExpire?.();
   };
-
-  // Development bypass - immediately provide a mock token
-  useEffect(() => {
-    if (isDevelopment) {
-      onStateChange?.('loading');
-      // Simulate loading time then auto-verify
-      setTimeout(() => {
-        onStateChange?.('verified');
-        onVerify('dev-bypass-token');
-        setIsVerified(true);
-      }, 1000);
-      return;
-    }
-  }, [isDevelopment, onVerify, onStateChange]);
-
-  // Skip script loading and widget rendering in development
-  if (isDevelopment) {
-    return (
-      <div className={className}>
-        <div className="flex items-center justify-center p-2 bg-green-600/10 border border-green-600/20 rounded-lg space-x-2">
-          <CheckCircle className="h-4 w-4 text-green-400 flex-shrink-0" />
-          <span className="text-xs text-green-400 font-medium">
-            Dev Auto-Verified
-          </span>
-        </div>
-      </div>
-    );
-  }
 
   useEffect(() => {
     // Load Turnstile script if not already loaded
