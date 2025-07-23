@@ -181,16 +181,9 @@ export const PricingSection: React.FC = () => {
                   </div>
                   <p className="text-sm sm:text-base text-gray-400 mb-8">No renewals • No surprises</p>
                   
-                  <div className="text-gray-300 mb-8 text-left space-y-4 max-w-md mx-auto">
-                    <p className="text-sm sm:text-base text-gray-400 leading-relaxed">
-                      Cold outreach is noisy. Agencies are expensive.
-                    </p>
-                    <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
-                      This is the fastest way to get discovered by remote professionals in Lisbon.
-                    </p>
-                    <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
-                      List your offer where remote professionals actually look.<br />
-                      You provide a perk. We give you visibility. They come to you.
+                  <div className="text-center mb-8">
+                    <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-md mx-auto">
+                      Join the marketplace where quality remote professionals discover trusted local businesses. No spam, no cold calls - just genuine connections.
                     </p>
                   </div>
                 </div>
