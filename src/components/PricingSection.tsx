@@ -123,7 +123,7 @@ export const PricingSection: React.FC = () => {
               className="relative"
             >
               {/* FOMO Badge */}
-              <div className="text-center mb-6">
+              <div className="text-center mb-8 sm:mb-10">
                 <motion.div
                   animate={spotsLeft !== null && spotsLeft <= 10 ? {
                     scale: [1, 1.05, 1],
@@ -134,11 +134,11 @@ export const PricingSection: React.FC = () => {
                     ]
                   } : {}}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className={`inline-flex items-center space-x-2 px-4 py-2.5 rounded-full border font-semibold ${
+                  className={`inline-flex items-center space-x-2 px-4 py-3 sm:px-5 sm:py-3.5 rounded-full border font-semibold shadow-lg ${
                     spotsLeft !== null && spotsLeft <= 5
-                      ? 'bg-red-600/20 text-red-300 border-red-600/40 shadow-red-500/20 shadow-lg'
+                      ? 'bg-red-600/20 text-red-300 border-red-600/40 shadow-red-500/20'
                       : spotsLeft !== null && spotsLeft <= 10
-                      ? 'bg-orange-600/20 text-orange-300 border-orange-600/40 shadow-orange-500/20 shadow-lg'
+                      ? 'bg-orange-600/20 text-orange-300 border-orange-600/40 shadow-orange-500/20'
                       : 'bg-blue-600/20 text-blue-300 border-blue-600/40'
                   }`}
                 >
@@ -148,7 +148,7 @@ export const PricingSection: React.FC = () => {
                   >
                     <Target className="h-4 w-4" />
                   </motion.div>
-                  <span className="text-sm font-bold tracking-wide">
+                  <span className="text-sm sm:text-base font-bold tracking-wide">
                     {spotsLeft !== null 
                       ? spotsLeft <= 5
                         ? `🔥 FINAL ${spotsLeft} SPOTS`
@@ -159,67 +159,77 @@ export const PricingSection: React.FC = () => {
                     }
                   </span>
                 </motion.div>
-                <p className="text-xs text-gray-400 mt-2">
-                  <span className="font-medium text-orange-400">Lock your spot. Get visibility. Be first</span>
-                  <br />
-                  Only 25 listings available at this early access price. Once filled, the next tier will open at a higher rate.
+                <div className="mt-4 sm:mt-6 space-y-3 max-w-md mx-auto">
+                  <p className="text-sm sm:text-base font-medium text-orange-400">
+                    Lock your spot. Get visibility. Be first
+                  </p>
+                  <p className="text-xs sm:text-sm text-gray-400 leading-relaxed px-4 sm:px-0">
+                    Only 25 listings available at this early access price. Once filled, the next tier will open at a higher rate.
+                  </p>
+                </div>
                 </p>
               </div>
 
-              <Card className="p-6 sm:p-8 text-center" hover>
+              <Card className="p-6 sm:p-8 lg:p-10 text-center" hover>
                 
-                <div className="mb-6">
-                  <h3 className="text-xl sm:text-2xl font-bold mb-4 leading-tight">
+                <div className="mb-8 sm:mb-10">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-6 leading-tight">
                     🎯 Early Access Lifetime Listing
                   </h3>
-                  <div className="flex items-baseline justify-center mb-2">
-                    <span className="text-3xl sm:text-4xl font-bold text-blue-400">€{product.price}</span>
-                    <span className="text-gray-400 ml-2 text-sm">one time</span>
+                  <div className="flex items-baseline justify-center mb-4">
+                    <span className="text-4xl sm:text-5xl lg:text-6xl font-bold text-blue-400">€{product.price}</span>
+                    <span className="text-gray-400 ml-3 text-base sm:text-lg">one time</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-gray-400 mb-6">No renewals • No surprises</p>
+                  <p className="text-sm sm:text-base text-gray-400 mb-8">No renewals • No surprises</p>
                   
-                  <div className="text-gray-300 mb-6 text-left space-y-3">
-                    <p className="text-sm text-gray-400 leading-relaxed">
-                      Only 25 listings available at this early access price.<br />
-                      Once filled, the next tier will open at a higher rate.
+                  <div className="text-gray-300 mb-8 text-left space-y-4 max-w-md mx-auto">
+                    <p className="text-sm sm:text-base text-gray-400 leading-relaxed">
+                      Cold outreach is noisy. Agencies are expensive.
+                    </p>
+                    <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+                      This is the fastest way to get discovered by remote professionals in Lisbon.
+                    </p>
+                    <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+                      List your offer where remote professionals actually look.<br />
+                      You provide a perk. We give you visibility. They come to you.
                     </p>
                   </div>
                 </div>
 
-                <div className="space-y-3 mb-8 text-left">
+                <div className="space-y-4 sm:space-y-5 mb-10 text-left max-w-lg mx-auto">
                   <div className="flex items-start space-x-3">
-                    <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Listed on our public perk directory</span>
+                    <Check className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base leading-relaxed">Listed on our public perk directory</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">"Trusted Partner" badge on your listing</span>
+                    <Check className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base leading-relaxed">"Trusted Partner" badge on your listing</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Verified profile access with a partner dashboard</span>
+                    <Check className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base leading-relaxed">Verified profile access with a partner dashboard</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Featured in our monthly newsletter</span>
+                    <Check className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base leading-relaxed">Featured in our monthly newsletter</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Shoutouts at select in-person events</span>
+                    <Check className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base leading-relaxed">Shoutouts at select in-person events</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Ongoing support to update or refresh your perks</span>
+                    <Check className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base leading-relaxed">Ongoing support to update or refresh your perks</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <Check className="h-5 w-5 text-green-400 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">Invite-only access to our Partner Insider Network as we grow</span>
+                    <Check className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm sm:text-base leading-relaxed">Invite-only access to our Partner Insider Network as we grow</span>
                   </div>
                 </div>
 
                 <Button
                   size="lg"
-                  className="w-full h-12 sm:h-14 text-base sm:text-lg font-semibold"
+                  className="w-full h-14 sm:h-16 text-base sm:text-lg font-semibold shadow-xl hover:shadow-2xl"
                   onClick={() => handlePurchase(product.priceId)}
                   disabled={hasActivePayment}
                 >
@@ -245,10 +255,10 @@ export const PricingSection: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-8 sm:mt-12 text-center">
+        <div className="mt-12 sm:mt-16 text-center">
           <div className="flex items-center justify-center space-x-2 text-gray-400">
             <Lock className="h-4 w-4" />
-            <span className="text-sm">Protected by Stripe • Encrypted checkout</span>
+            <span className="text-sm sm:text-base">Protected by Stripe • Encrypted checkout</span>
           </div>
         </div>
         </div>
