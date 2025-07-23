@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -30,15 +30,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
   const [captchaState, setCaptchaState] = useState<'loading' | 'ready' | 'verified' | 'error'>('loading');
   const [showPassword, setShowPassword] = useState(false);
 
-  // Development mode bypass
-  useEffect(() => {
-    if (import.meta.env.DEV) {
-      // Auto-bypass CAPTCHA in development
-      setCaptchaToken('dev-bypass-token');
-      setCaptchaState('verified');
-    }
-  }, []);
-
   const {
     register,
     handleSubmit,
@@ -51,7 +42,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
   const email = watch('email');
 
   const onSubmit = async (data: LoginFormData) => {
-    if (!captchaToken && !import.meta.env.DEV) {
+    if (!captchaToken) {
       setError('Please complete the CAPTCHA verification');
       return;
     }
@@ -72,7 +63,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
   };
 
   const handleForgotPassword = async () => {
-    if (!captchaToken && !import.meta.env.DEV) {
+    if (!captchaToken) {
       setError('Please complete the CAPTCHA verification first');
       return;
     }
@@ -228,14 +219,14 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
                 fontWeight: captchaState === 'verified' ? 600 : 500
               }}
             >
-              {captchaState === 'loading' && (import.meta.env.DEV ? 'Dev Mode - Security Bypassed' : 'Loading Security Check...')}
+              {captchaState === 'loading' && 'Loading Security Check...'}
               {captchaState === 'ready' && 'Security Verification'}
-              {captchaState === 'verified' && (import.meta.env.DEV ? 'Dev Mode - Verification Bypassed' : 'Verification Complete')}
+              {captchaState === 'verified' && 'Verification Complete'}
               {captchaState === 'error' && 'Verification Failed'}
             </motion.label>
           </motion.div>
-          {!import.meta.env.DEV && <Turnstile
-            siteKey={import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY || "1x0000000000000000000000000000000AA"}
+          <Turnstile
+            siteKey={import.meta.env.DEV ? "1x0000000000000000000000000000000AA" : "0x4AAAAAABl8_lJiTQti8Lh6"}
             onVerify={setCaptchaToken}
             onStateChange={setCaptchaState}
             onError={() => {
@@ -248,7 +239,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
             theme="dark"
             size="normal"
             className="flex justify-center"
-          />}
+          />
         </div>
 
         <Button
@@ -256,7 +247,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
           size="lg"
           className="w-full"
           loading={loading}
-          disabled={!captchaToken && !import.meta.env.DEV}
+          disabled={!captchaToken}
         >
           Sign In
         </Button>

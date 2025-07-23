@@ -38,15 +38,6 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // Development mode bypass
-  useEffect(() => {
-    if (import.meta.env.DEV) {
-      // Auto-bypass CAPTCHA in development
-      setCaptchaToken('dev-bypass-token');
-      setCaptchaState('verified');
-    }
-  }, []);
-
   const {
     register,
     handleSubmit,
@@ -56,7 +47,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
   });
 
   const onSubmit = async (data: SignupFormData) => {
-    if (!captchaToken && !import.meta.env.DEV) {
+    if (!captchaToken) {
       setError('Please complete the CAPTCHA verification');
       return;
     }
@@ -228,14 +219,14 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
                 fontWeight: captchaState === 'verified' ? 600 : 500
               }}
             >
-              {captchaState === 'loading' && (import.meta.env.DEV ? 'Dev Mode - Security Bypassed' : 'Loading Security Check...')}
+              {captchaState === 'loading' && 'Loading Security Check...'}
               {captchaState === 'ready' && 'Security Verification'}
-              {captchaState === 'verified' && (import.meta.env.DEV ? 'Dev Mode - Verification Bypassed' : 'Verification Complete')}
+              {captchaState === 'verified' && 'Verification Complete'}
               {captchaState === 'error' && 'Verification Failed'}
             </motion.label>
           </motion.div>
-          {!import.meta.env.DEV && <Turnstile
-            siteKey={import.meta.env.VITE_CLOUDFLARE_TURNSTILE_SITE_KEY || "1x0000000000000000000000000000000AA"}
+          <Turnstile
+            siteKey={import.meta.env.DEV ? "1x0000000000000000000000000000000AA" : "0x4AAAAAABl8_lJiTQti8Lh6"}
             onVerify={setCaptchaToken}
             onStateChange={setCaptchaState}
             onError={() => {
@@ -248,7 +239,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
             theme="dark"
             size="normal"
             className="flex justify-center"
-          />}
+          />
         </div>
 
         <Button
@@ -256,7 +247,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
           size="lg"
           className="w-full"
           loading={loading}
-          disabled={!captchaToken && !import.meta.env.DEV}
+          disabled={!captchaToken}
         >
           Create Account
         </Button>
