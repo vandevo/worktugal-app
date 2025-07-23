@@ -75,9 +75,12 @@ export const Turnstile: React.FC<TurnstileProps> = ({
   if (isDevelopment) {
     return (
       <div className={className}>
-        <div className="flex items-center justify-center p-4 bg-green-600/10 border border-green-600/20 rounded-lg">
-          <CheckCircle className="h-5 w-5 text-green-400 mr-2" />
-          <span className="text-sm text-green-400 font-medium">Development Mode - Auto Verified</span>
+        <div className="flex flex-col sm:flex-row items-center justify-center p-2 sm:p-3 bg-green-600/10 border border-green-600/20 rounded-lg space-y-1 sm:space-y-0 sm:space-x-2">
+          <CheckCircle className="h-4 w-4 text-green-400 flex-shrink-0" />
+          <span className="text-xs sm:text-sm text-green-400 font-medium text-center">
+            <span className="block sm:inline">Development Mode</span>
+            <span className="block sm:inline sm:ml-1">Auto Verified</span>
+          </span>
         </div>
       </div>
     );

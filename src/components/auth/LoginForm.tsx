@@ -231,6 +231,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
               setCaptchaToken(null);
             }}
             theme="dark"
+            size="compact"
             className="flex justify-center"
           />
         </div>
