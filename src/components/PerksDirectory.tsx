@@ -323,12 +323,17 @@ export const PerksDirectory: React.FC = () => {
                           </div>
                         )}
                       </div>
+                      
+                      {/* Category badge under business name */}
+                      <div className="mb-2">
+                        <span className="text-xs text-gray-400 font-medium px-2 py-1 bg-gray-700/20 rounded-md">
+                          {perk.category}
+                        </span>
+                      </div>
+                      
                       <div className="flex items-center space-x-1.5 text-sm text-gray-400">
                         <MapPin className="h-3.5 w-3.5 flex-shrink-0" />
                         <span>{perk.neighborhood}</span>
-                        <span className="bg-gray-700/30 text-gray-400 px-2 py-0.5 rounded-full text-xs font-medium">
-                          {perk.category}
-                        </span>
                       </div>
                       
                       {/* Business Links */}
