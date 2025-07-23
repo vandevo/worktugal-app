@@ -167,7 +167,6 @@ export const PricingSection: React.FC = () => {
                     Only 25 listings available at this early access price. Once filled, the next tier will open at a higher rate.
                   </p>
                 </div>
-                </p>
               </div>
 
               <Card className="p-6 sm:p-8 lg:p-10 text-center" hover>
