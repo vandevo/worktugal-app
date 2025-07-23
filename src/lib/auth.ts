@@ -18,8 +18,8 @@ export const signUp = async (email: string, password: string, captchaToken?: str
     },
   };
 
-  // Add captcha token if provided
-  if (captchaToken) {
+  // Add captcha token if provided and in production
+  if (captchaToken && import.meta.env.PROD) {
     options.options.captchaToken = captchaToken;
   }
 
@@ -37,8 +37,8 @@ export const signIn = async (email: string, password: string, captchaToken?: str
     password,
   };
 
-  // Add captcha token if provided
-  if (captchaToken) {
+  // Add captcha token if provided and in production
+  if (captchaToken && import.meta.env.PROD) {
     options.options = { captchaToken };
   }
 
@@ -72,8 +72,8 @@ export const resetPasswordForEmail = async (email: string, captchaToken?: string
     redirectTo: `${window.location.origin}/reset-password`,
   };
 
-  // Add captcha token if provided
-  if (captchaToken) {
+  // Add captcha token if provided and in production
+  if (captchaToken && import.meta.env.PROD) {
     options.captchaToken = captchaToken;
   }
 
