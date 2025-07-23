@@ -76,25 +76,25 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
       transition={{ duration: 0.5 }}
       className="w-full max-w-md mx-auto"
     >
-      <div className="text-center mb-8">
-        <UserPlus className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold mb-2">Create your account</h2>
+      <div className="text-center mb-6">
+        <UserPlus className="h-10 w-10 text-blue-400 mx-auto mb-3" />
+        <h2 className="text-xl font-bold mb-1">Create your account</h2>
         <p className="text-gray-400">Get access to verified perks in Lisbon</p>
       </div>
 
       {error && (
-        <Alert variant="error" className="mb-6">
+        <Alert variant="error" className="mb-4">
           {error}
         </Alert>
       )}
 
       {success && (
-        <Alert variant="success" className="mb-6">
+        <Alert variant="success" className="mb-4">
           {success}
         </Alert>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <Input
           label="Email"
           type="email"
@@ -103,7 +103,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
           error={errors.email?.message}
         />
 
-        <div className="space-y-2">
+        <div className="space-y-1">
           <label className="block text-sm font-medium text-gray-300">
             Password
           </label>
@@ -131,7 +131,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1">
           <label className="block text-sm font-medium text-gray-300">
             Confirm Password
           </label>
@@ -156,7 +156,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1">
           <motion.div
             className="flex items-center space-x-2"
             animate={{
@@ -231,7 +231,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
               setCaptchaToken(null);
             }}
             theme="dark"
-            size="compact"
+            size="normal"
             className="flex justify-center"
           />
         </div>
