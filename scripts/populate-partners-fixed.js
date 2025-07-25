@@ -143,7 +143,7 @@ const partnerData = [
       "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/1753398456954-sjufw8ah4u8.jpg",
       "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/1753398510684-zs4ldzbskt.jpg"
     ],
-    perk_logo: "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/1753397814095-gws9b40dan.jpg",
+    perk_logo: "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/damian-roach-abbeygate-profile-pic.jpg",
     perk_is_portuguese_owned: false,
     perk_needs_nif: false,
     status: "approved",
