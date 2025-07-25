@@ -124,6 +124,30 @@ const partnerData = [
     perk_needs_nif: false,
     status: "approved",
     access_type: "lifetime"
+  },
+  {
+    user_id: "120a8207-007a-4393-9914-38bbd8ef64f4",
+    business_name: "Expat Insurance Agent - Damian Roach - Abbeygate",
+    business_website: "https://www.abbeygate.pt/",
+    business_instagram: "@hnw.expat.insurances.damian",
+    contact_name: "Damian Roach",
+    contact_email: "damianr@abbeygate.pt",
+    contact_phone: "+351932927074",
+    business_category: "Experts & Services",
+    business_neighborhood: "Online Services",
+    perk_title: "Exclusive insurance rates for remote workers",
+    perk_description: "For remote workers and expats living in Portugal, getting reliable insurance is often confusing and slow. Damian Roach helps you skip the stress. As an expat insurance expert with Abbeygate, he provides fast quotes and helpful advice across car, home, health, travel, and business insurance. Everything in English. No call centers. Just WhatsApp Damian and he'll guide you through the process step-by-step.",
+    perk_redemption_method: "other",
+    perk_redemption_details: "WhatsApp Damian mentioning \"Worktugal Pass\"",
+    perk_images: [
+      "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/1753398456954-sjufw8ah4u8.jpg",
+      "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/perk-images/1753398510684-zs4ldzbskt.jpg"
+    ],
+    perk_logo: "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/1753397814095-gws9b40dan.jpg",
+    perk_is_portuguese_owned: false,
+    perk_needs_nif: false,
+    status: "approved",
+    access_type: "lifetime"
   }
 ];
 
