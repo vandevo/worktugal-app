@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag, Shield, Globe, Instagram, Linkedin, Lock, ArrowRight } from 'lucide-react';
+import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag, Shield, Globe, Instagram, Linkedin, Lock, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
 import { AuthModal } from './auth/AuthModal';
@@ -10,6 +10,9 @@ import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 import { BUSINESS_CATEGORIES } from '../utils/constants';
 import { PartnerSubmission } from '../types';
+
+// Character limit for description truncation
+const MAX_DESCRIPTION_LENGTH = 180;
 
 interface DisplayPerk {
   id: string;
@@ -39,7 +42,19 @@ export const PerksDirectory: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [showPortugueseOnly, setShowPortugueseOnly] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [expandedPerks, setExpandedPerks] = useState<Set<string>>(new Set());
 
+  const togglePerkExpansion = (perkId: string) => {
+    setExpandedPerks(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(perkId)) {
+        newSet.delete(perkId);
+      } else {
+        newSet.add(perkId);
+      }
+      return newSet;
+    });
+  };
   // Fetch approved partner submissions from Supabase
   React.useEffect(() => {
     const fetchApprovedPerks = async () => {
@@ -198,6 +213,49 @@ export const PerksDirectory: React.FC = () => {
     return 'Use This Now';
   };
 
+  const renderDescription = (perk: DisplayPerk) => {
+    const isExpanded = expandedPerks.has(perk.id);
+    const needsTruncation = perk.description.length > MAX_DESCRIPTION_LENGTH;
+    
+    if (!needsTruncation) {
+      return (
+        <p className="text-sm text-gray-300 leading-relaxed mb-4">
+          {perk.description}
+        </p>
+      );
+    }
+
+    const truncatedText = perk.description.substring(0, MAX_DESCRIPTION_LENGTH);
+    const displayText = isExpanded ? perk.description : `${truncatedText}...`;
+
+    return (
+      <div className="mb-4">
+        <motion.p
+          className="text-sm text-gray-300 leading-relaxed"
+          initial={false}
+          animate={{ height: 'auto' }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
+        >
+          {displayText}
+        </motion.p>
+        <motion.button
+          type="button"
+          onClick={() => togglePerkExpansion(perk.id)}
+          className="inline-flex items-center space-x-1 text-xs text-blue-400 hover:text-blue-300 transition-colors duration-200 mt-2 font-medium"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <span>{isExpanded ? 'Show less' : 'Read more'}</span>
+          <motion.div
+            animate={{ rotate: isExpanded ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <ChevronDown className="h-3 w-3" />
+          </motion.div>
+        </motion.button>
+      </div>
+    );
+  };
   return (
     <section id="directory" className="py-20 bg-gray-800/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -383,7 +441,7 @@ export const PerksDirectory: React.FC = () => {
 
                 <div className="mb-6">
                   <h4 className="font-semibold text-blue-400 text-lg mb-3 leading-tight">{perk.title}</h4>
-                  <p className="text-sm text-gray-300 leading-relaxed mb-4">{perk.description}</p>
+                  {renderDescription(perk)}
                   
                   {user ? (
                     <div className="flex items-center space-x-3 text-sm bg-gray-700/30 rounded-xl p-4 mb-6 border border-gray-600/20">
