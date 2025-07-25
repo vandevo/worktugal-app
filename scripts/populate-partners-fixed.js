@@ -148,6 +148,27 @@ const partnerData = [
     perk_needs_nif: false,
     status: "approved",
     access_type: "lifetime"
+  },
+  {
+    user_id: "sapho-creative-user-id", // You'll need to replace with actual user_id
+    business_name: "Sapho Creative",
+    business_website: "https://saphocreative.com", // Update with actual website
+    business_instagram: "https://www.instagram.com/saphocreative", // Update with actual Instagram
+    contact_name: "Sapho Creative Team",
+    contact_email: "hello@saphocreative.com", // Update with actual email
+    contact_phone: "+351000000000", // Update with actual phone
+    business_category: "Experts & Services",
+    business_neighborhood: "Estrela / Lapa",
+    perk_title: "Save €250 on your new website, app or UX refresh with a free consultation included",
+    perk_description: "Sapho Creative Lab is a Lisbon-based studio that turns ideas into clean, modern websites, apps, and user experiences. Right now, we're offering €250 off any new website, app, or UX redesign with a free 30-minute consultation to explore your goals. We specialize in small businesses, creatives, and service providers. What sets us apart is clarity, speed, and working directly with you. No middle layers, no inflated budgets, just thoughtful, high-impact digital work that reflects your brand and works beautifully.",
+    perk_redemption_method: "other",
+    perk_redemption_details: "Email or WhatsApp mentioning \"Worktugal Pass\" for your €250 discount",
+    perk_images: [], // Add actual image URLs if available
+    perk_logo: "", // Add actual logo URL if available
+    perk_is_portuguese_owned: true, // Update based on actual ownership
+    perk_needs_nif: false,
+    status: "approved",
+    access_type: "lifetime"
   }
 ];
 
