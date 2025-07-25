@@ -169,6 +169,27 @@ const partnerData = [
     perk_needs_nif: false,
     status: "approved",
     access_type: "lifetime"
+  },
+  {
+    user_id: "secretas-legends-user-id", // You'll need to replace with actual user_id
+    business_name: "Secretas & Legends of Iberia",
+    business_website: "https://secretasandlegends.com", // Update with actual website
+    business_instagram: null, // Add Instagram if available
+    contact_name: "Lucas",
+    contact_email: "contact@secretasandlegends.com", // Update with actual email
+    contact_phone: "+351000000000", // Update with Lucas's actual WhatsApp number
+    business_category: "Travel & Experiences",
+    business_neighborhood: "Online Services",
+    perk_title: "Free ebook for your Douro journey",
+    perk_description: "Access a beautifully written nonfiction book that brings the hidden stories of the Douro Valley to life. This immersive ebook, written in French, uncovers royal secrets, ancient wine rituals, and forgotten legends of Portugal's most iconic region. Perfect for curious travelers and history lovers. If you don't speak French, we suggest using it as a visual travel companion or waiting for the English edition.",
+    perk_redemption_method: "other",
+    perk_redemption_details: "Message Lucas on WhatsApp mentioning \"Worktugal Pass\" to receive the download link",
+    perk_images: [], // Add actual image URLs if available
+    perk_logo: "", // Add actual logo URL if available
+    perk_is_portuguese_owned: true, // Update based on actual ownership
+    perk_needs_nif: false,
+    status: "approved",
+    access_type: "lifetime"
   }
 ];
 
