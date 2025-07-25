@@ -60,6 +60,7 @@ export const LISBON_NEIGHBORHOOD_GROUPS = [
   {
     label: 'Other',
     options: [
+      { value: 'Online Services', label: 'Online Services' },
       { value: 'Other / Not Listed', label: 'Other / Not Listed' },
     ]
   }
