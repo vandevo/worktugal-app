@@ -129,7 +129,7 @@ const partnerData = [
     user_id: "120a8207-007a-4393-9914-38bbd8ef64f4",
     business_name: "Expat Insurance Agent - Damian Roach - Abbeygate",
     business_website: "https://www.abbeygate.pt/",
-    business_instagram: "@hnw.expat.insurances.damian",
+    business_instagram: "https://www.instagram.com/hnw.expat.insurances.damian",
     contact_name: "Damian Roach",
     contact_email: "damianr@abbeygate.pt",
     contact_phone: "+351932927074",

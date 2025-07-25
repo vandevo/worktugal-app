@@ -344,7 +344,12 @@ export const PerksDirectory: React.FC = () => {
                         )}
                         {perk.business_instagram && (
                           <a
-                            href={perk.business_instagram}
+                            href={perk.business_instagram.startsWith('@') 
+                              ? `https://www.instagram.com/${perk.business_instagram.slice(1)}`
+                              : perk.business_instagram.startsWith('http') 
+                                ? perk.business_instagram
+                                : `https://www.instagram.com/${perk.business_instagram}`
+                            }
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center space-x-1 text-pink-400 hover:text-pink-300 transition-colors"
