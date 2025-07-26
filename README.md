@@ -12,11 +12,11 @@
 | **Summary** | A production-ready, mobile-first B2B web application for Worktugal Pass — Lisbon's trusted perk marketplace for remote professionals and expats |
 | **Target Audience** | Local businesses in Lisbon who want to attract remote workers, freelancers, and digital nomads |
 | **Problem Solved** | Connects local businesses with quality remote professionals through a trusted marketplace, eliminating the need for businesses to find and market to remote workers individually |
-| **Version** | v1.4.0 |
+| **Version** | v1.5.0 |
 | **Live URL** | https://pass.worktugal.com |
 | **Status** | ✅ Production |
 | **Author** | Worktugal team |
-| **Last Updated** | July 24, 2025 |
+| **Last Updated** | July 26, 2025 |
 
 ---
 
@@ -28,6 +28,7 @@
 - **File uploads** for business logos and perk images with drag-and-drop interface
 - **Business categorization** and location selection with grouped neighborhoods
 - **Perk redemption method** configuration with auto-fill suggestions
+- **Flexible location options** including "Online Services" for digital businesses
 - **Tax information collection** (NIF) for Portuguese invoices with validation
 - **Profile management** with display name customization
 
@@ -36,6 +37,7 @@
 - **Payment processing** through Stripe with webhook confirmations and CRM integration
 - **Email confirmations** and status updates with Make.com automation
 - **Public perk directory** with advanced filtering, search, and gated access
+- **Enhanced neighborhood filtering** with support for both physical and digital businesses
 - **User profile management** with role-based permissions and subscription status display
 - **Real-time data** synchronization and live updates
 
@@ -260,14 +262,16 @@
 - **Node version**: 18.x with dependency caching
 - **Current deployment branch**: `main` with automated CI/CD
 - **Status**: ✅ Production with 99.9% uptime
-- **Tag version**: v1.4.0 (Updated July 24, 2025)
+- **Tag version**: v1.5.0 (Updated July 26, 2025)
 
-### Recent Updates (v1.4.0 - July 24, 2025)
+### Recent Updates (v1.5.0 - July 26, 2025)
 - ✅ **Improved iOS-style "Coming Soon" indicators** with clean text approach
 - ✅ **Enhanced mobile responsiveness** for better touch interactions
 - ✅ **Refined typography hierarchy** and spacing consistency
 - ✅ **Optimized bundle performance** with improved code splitting
+- ✅ **Added "Online Services" neighborhood option** for digital/remote businesses
 - ✅ **Enhanced error handling** across all user flows
+- ✅ **Streamlined partner onboarding** with better location categorization
 
 ### Deployment Process
 - **Netlify** continuous deployment from Git with automatic builds
@@ -728,7 +732,7 @@ scripts/                 # Development and maintenance scripts
 
 ## 📈 Performance & Optimization
 
-### Current Performance Metrics (July 24, 2025)
+### Current Performance Metrics (July 26, 2025)
 - **Lighthouse Score**: 95+ across all categories
 - **First Contentful Paint**: < 1.2s
 - **Largest Contentful Paint**: < 2.5s
@@ -751,11 +755,12 @@ scripts/                 # Development and maintenance scripts
 
 ---
 
-**© 2025 Worktugal Pass. All rights reserved. Last updated: July 24, 2025**
+**© 2025 Worktugal Pass. All rights reserved. Last updated: July 26, 2025**
 
 ---
 
 **📝 Changelog:**
+- **v1.5.0** (July 26, 2025): Added "Online Services" neighborhood option, enhanced business categorization, improved partner onboarding flow
 - **v1.4.0** (July 24, 2025): Enhanced iOS-style UI patterns, improved mobile responsiveness, comprehensive documentation update
 - **v1.3.0** (July 22, 2025): Enhanced webhook automation, improved error handling, performance optimizations
 - **v1.2.0** (July 21, 2025): Advanced authentication flow, file upload improvements, comprehensive testing
