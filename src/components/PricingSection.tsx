@@ -204,20 +204,76 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
         </div>
 
         <div className="mt-8 sm:mt-12 text-center">
-          <div className="bg-gray-800/50 rounded-xl p-4 max-w-2xl mx-auto">
-            <p className="text-sm text-gray-300 mb-2">
-              <strong>How it works:</strong>
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6 text-xs text-gray-400">
-              <span>1. Fill business details</span>
-              <span className="hidden sm:inline">→</span>
-              <span>2. Setup your perk</span>
-              <span className="hidden sm:inline">→</span>
-              <span>3. Secure payment</span>
-              <span className="hidden sm:inline">→</span>
-              <span>4. Go live</span>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="bg-gradient-to-r from-gray-800/60 via-gray-800/50 to-gray-800/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto border border-gray-700/30 shadow-xl"
+          >
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-200 mb-6 sm:mb-8">
+              How it works:
+            </h3>
+            
+            {/* Mobile-first step cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {[
+                { number: "1", title: "Fill business details", icon: "📝" },
+                { number: "2", title: "Setup your perk", icon: "🎁" },
+                { number: "3", title: "Secure payment", icon: "💳" },
+                { number: "4", title: "Go live", icon: "🚀" }
+              ].map((step, index) => (
+                <motion.div
+                  key={step.number}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + index * 0.1 }}
+                  className="group relative"
+                >
+                  <div className="bg-gray-700/40 hover:bg-gray-700/60 rounded-xl p-4 text-center transition-all duration-300 border border-gray-600/20 hover:border-gray-500/40 hover:shadow-lg hover:shadow-blue-500/5">
+                    {/* Step number with iOS-style badge */}
+                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold mx-auto mb-3 shadow-lg group-hover:scale-105 transition-transform duration-200">
+                      {step.number}
+                    </div>
+                    
+                    {/* Emoji icon */}
+                    <div className="text-lg mb-2 group-hover:scale-110 transition-transform duration-200">
+                      {step.icon}
+                    </div>
+                    
+                    {/* Step title */}
+                    <p className="text-sm font-medium text-gray-300 leading-tight">
+                      {step.title}
+                    </p>
+                  </div>
+                  
+                  {/* Connection arrow for desktop only */}
+                  {index < 3 && (
+                    <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 text-gray-500">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  )}
+                </motion.div>
+              ))}
             </div>
-          </div>
+            
+            {/* Mobile connection indicators */}
+            <div className="lg:hidden flex justify-center items-center space-x-2 mt-6">
+              {[0, 1, 2].map((index) => (
+                <div key={index} className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-gray-500 rounded-full animate-pulse" style={{ animationDelay: `${index * 0.3}s` }}></div>
+                  {index < 2 && <div className="w-1 h-1 bg-gray-600 rounded-full"></div>}
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-6 pt-6 border-t border-gray-700/30">
+              <p className="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-2xl mx-auto">
+                Takes 3-5 minutes to complete • Review within 24 hours • Trusted by 1,000+ remote professionals
+              </p>
+            </div>
+          </motion.div>
         </div>
         </div>
       </section>
