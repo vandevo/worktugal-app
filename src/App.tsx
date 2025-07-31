@@ -161,7 +161,7 @@ const HomePage: React.FC = () => {
               <PerksDirectory />
             </Suspense>
             <Suspense fallback={<LoadingSpinner />}>
-              <PricingSection />
+              <PricingSection onGetStarted={handleGetStarted} />
             </Suspense>
             <Footer />
           </motion.div>
