@@ -29,20 +29,26 @@ export const CookieConsentProvider: React.FC<CookieConsentProviderProps> = ({ ch
 
   // Load consent state from localStorage on mount
   useEffect(() => {
+    console.log('🍪 CookieConsentContext: Loading consent state...');
     try {
       const stored = localStorage.getItem(CONSENT_STORAGE_KEY);
       const dismissed = localStorage.getItem(BANNER_DISMISS_KEY);
+      
+      console.log('🍪 LocalStorage values:', { stored, dismissed });
       
       if (stored) {
         const parsedConsent = JSON.parse(stored) as ConsentState;
         setConsentState(parsedConsent);
         setShowBanner(false); // Don't show banner if consent was previously given
+        console.log('🍪 Found stored consent, hiding banner');
       } else if (dismissed) {
         // Banner was dismissed but no consent choice was made
         setShowBanner(false);
+        console.log('🍪 Banner was dismissed, hiding banner');
       } else {
         // No stored consent and not dismissed - show banner
         setShowBanner(true);
+        console.log('🍪 No stored consent, showing banner');
       }
       
       setIsInitialized(true);
@@ -50,6 +56,7 @@ export const CookieConsentProvider: React.FC<CookieConsentProviderProps> = ({ ch
       console.error('Error loading cookie consent from localStorage:', error);
       setShowBanner(true);
       setIsInitialized(true);
+      console.log('🍪 Error loading consent, showing banner');
     }
   }, []);
 

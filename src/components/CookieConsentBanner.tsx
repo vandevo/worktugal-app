@@ -8,11 +8,21 @@ import { Card } from './ui/Card';
 export const CookieConsentBanner: React.FC = () => {
   const {
     showBanner,
+    consentState,
     acceptAllCookies,
     rejectAllCookies,
     dismissBannerTemporarily,
     openPreferencesModal,
   } = useCookieConsent();
+
+  // Debug: Log the state to console
+  React.useEffect(() => {
+    console.log('🍪 Cookie Banner Debug:', {
+      showBanner,
+      hasChosenConsent: consentState.hasChosenConsent,
+      preferences: consentState.preferences,
+    });
+  }, [showBanner, consentState]);
 
   if (!showBanner) return null;
 
