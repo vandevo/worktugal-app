@@ -62,7 +62,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                   <p>We only collect the data necessary to provide our services, including:</p>
                   <ul className="list-disc list-inside space-y-2 ml-4">
                     <li><strong>Partner listings:</strong> name, email, WhatsApp, business info</li>
-                    <li><strong>Payments:</strong> <a href="https://stripe.com/privacy" target=\"_blank" rel="noopener noreferrer\" className="text-blue-400 hover:text-blue-300 transition-colors underline">Stripe</a> processes payment data (we don't store card info)</li>
+                    <li><strong>Payments:</strong> <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors underline">Stripe</a> processes payment data (we don't store card info)</li>
                     <li><strong>Website visits:</strong> anonymized cookie and usage data (with consent)</li>
                     <li><strong>Contact:</strong> any info you voluntarily provide via forms or messages</li>
                   </ul>
