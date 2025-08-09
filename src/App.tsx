@@ -5,6 +5,7 @@ import { Seo } from './components/Seo';
 import { Layout } from './components/Layout';
 import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
+import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { useAuth } from './hooks/useAuth';
 import { getApprovedSubmissionsCount, getApprovedPerksCount } from './lib/submissions';
 
@@ -200,6 +201,7 @@ function App() {
             </Suspense>
           } />
         </Routes>
+        <CookieConsentBanner />
       </Layout>
     </Router>
   );
