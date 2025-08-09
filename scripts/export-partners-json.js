@@ -4,6 +4,23 @@ import dotenv from 'dotenv';
 // Load environment variables
 dotenv.config();
 
+// Check if required environment variables are available
+if (!process.env.VITE_SUPABASE_URL) {
+  console.error('❌ Error: VITE_SUPABASE_URL is missing from .env file');
+  console.error('Please create a .env file in the project root with:');
+  console.error('VITE_SUPABASE_URL=your-supabase-url');
+  console.error('VITE_SUPABASE_ANON_KEY=your-anon-key');
+  process.exit(1);
+}
+
+if (!process.env.VITE_SUPABASE_ANON_KEY) {
+  console.error('❌ Error: VITE_SUPABASE_ANON_KEY is missing from .env file');
+  console.error('Please create a .env file in the project root with:');
+  console.error('VITE_SUPABASE_URL=your-supabase-url');
+  console.error('VITE_SUPABASE_ANON_KEY=your-anon-key');
+  process.exit(1);
+}
+
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL,
   process.env.VITE_SUPABASE_ANON_KEY
