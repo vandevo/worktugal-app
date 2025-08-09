@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Instagram, Globe, Send, Linkedin, MessageCircle } from 'lucide-react';
-import { CookieManageTrigger } from './ui/CookieManageTrigger';
 
 export const Footer: React.FC = () => {
   return (
@@ -142,20 +141,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p>&copy; 2025 Worktugal Pass. All rights reserved.</p>
-            <div className="flex items-center space-x-4">
-              <CookieManageTrigger />
-              <a 
-                href="/privacy-policy" 
-                className="text-gray-400 hover:text-gray-300 transition-colors text-xs"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Privacy Policy
-              </a>
-            </div>
-          </div>
+          <p>&copy; 2025 Worktugal Pass. All rights reserved.</p>
         </div>
       </div>
     </footer>

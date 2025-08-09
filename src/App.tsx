@@ -5,9 +5,6 @@ import { Seo } from './components/Seo';
 import { Layout } from './components/Layout';
 import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
-import { CookieConsentBanner } from './components/CookieConsentBanner';
-import { CookiePreferencesModal } from './components/CookiePreferencesModal';
-import { useCookieConsent } from './contexts/CookieConsentContext';
 import { useAuth } from './hooks/useAuth';
 import { getApprovedSubmissionsCount, getApprovedPerksCount } from './lib/submissions';
 
@@ -176,7 +173,6 @@ const HomePage: React.FC = () => {
 
 function App() {
   const { loading } = useAuth();
-  const { showPreferencesModal, closePreferencesModal } = useCookieConsent();
 
   if (loading) {
     return (
@@ -205,12 +201,6 @@ function App() {
           } />
         </Routes>
       </Layout>
-      
-      {/* Cookie Consent Components */}
-      <CookieConsentBanner />
-      {showPreferencesModal && (
-        <CookiePreferencesModal onClose={closePreferencesModal} />
-      )}
     </Router>
   );
 }
