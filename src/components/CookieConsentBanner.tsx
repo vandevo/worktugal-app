@@ -110,7 +110,9 @@ export const CookieConsentBanner: React.FC = () => {
                       </button>
                     </div>
                     <p className="text-sm text-gray-400 leading-relaxed">
-                      {category.description}
+                      We use cookies to enhance your experience and analyze site traffic. You can customize your preferences. Read our{' '}
+                      <a href="/privacy" className="text-blue-400 hover:underline font-medium" onClick={dismissBannerTemporarily}>Privacy Policy</a>
+                      {' '}for more details.
                     </p>
                   </div>
                 ))}
