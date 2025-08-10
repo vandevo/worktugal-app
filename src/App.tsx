@@ -17,6 +17,7 @@ const SuccessPage = React.lazy(() => import('./components/SuccessPage').then(mod
 const ProtectedSuccessRoute = React.lazy(() => import('./components/ProtectedSuccessRoute').then(module => ({ default: module.ProtectedSuccessRoute })));
 const ResetPasswordForm = React.lazy(() => import('./components/auth/ResetPasswordForm').then(module => ({ default: module.ResetPasswordForm })));
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy').then(module => ({ default: module.PrivacyPolicy })));
+const TermsAndConditions = React.lazy(() => import('./components/TermsAndConditions').then(module => ({ default: module.TermsAndConditions })));
 
 const TOTAL_EARLY_ACCESS_SPOTS = 50;
 
@@ -204,6 +205,11 @@ function App() {
           <Route path="/privacy" element={
             <Suspense fallback={<LoadingSpinner />}>
               <PrivacyPolicy />
+            </Suspense>
+          } />
+          <Route path="/terms" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <TermsAndConditions />
             </Suspense>
           } />
         </Routes>
