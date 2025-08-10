@@ -15,7 +15,6 @@ const PerksDirectory = React.lazy(() => import('./components/PerksDirectory').th
 const PricingSection = React.lazy(() => import('./components/PricingSection').then(module => ({ default: module.PricingSection })));
 const SuccessPage = React.lazy(() => import('./components/SuccessPage').then(module => ({ default: module.SuccessPage })));
 const ProtectedSuccessRoute = React.lazy(() => import('./components/ProtectedSuccessRoute').then(module => ({ default: module.ProtectedSuccessRoute })));
-const PrivacyPolicyPage = React.lazy(() => import('./pages/PrivacyPolicyPage').then(module => ({ default: module.PrivacyPolicyPage })));
 const ResetPasswordForm = React.lazy(() => import('./components/auth/ResetPasswordForm').then(module => ({ default: module.ResetPasswordForm })));
 
 const TOTAL_EARLY_ACCESS_SPOTS = 50;
@@ -199,11 +198,6 @@ function App() {
           <Route path="/reset-password" element={
             <Suspense fallback={<LoadingSpinner />}>
               <ResetPasswordForm />
-            </Suspense>
-          } />
-          <Route path="/privacy" element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <PrivacyPolicyPage />
             </Suspense>
           } />
         </Routes>
