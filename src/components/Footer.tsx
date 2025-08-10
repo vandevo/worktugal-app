@@ -147,12 +147,21 @@ export const Footer: React.FC = () => {
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p>&copy; 2025 Worktugal Pass. All rights reserved.</p>
-            <button
-              onClick={openConsentBanner}
-              className="text-blue-400 hover:text-blue-300 transition-colors underline text-sm"
-            >
-              Manage Cookie Preferences
-            </button>
+            <div className="flex flex-col sm:flex-row items-center gap-4 text-sm">
+              <button
+                onClick={openConsentBanner}
+                className="text-blue-400 hover:text-blue-300 transition-colors underline"
+              >
+                Manage Cookie Preferences
+              </button>
+              <span className="hidden sm:inline text-gray-600">•</span>
+              <a 
+                href="/privacy" 
+                className="text-blue-400 hover:text-blue-300 transition-colors underline"
+              >
+                Privacy Policy
+              </a>
+            </div>
           </div>
         </div>
       </div>
