@@ -33,6 +33,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-sm">
               <li><a href="#directory" className="text-gray-400 hover:text-white transition-colors">Browse Perks</a></li>
               <li><a href="#pricing" className="text-gray-400 hover:text-white transition-colors">For Partners</a></li>
+              <li><a href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
               <li>
                 <a 
                   href="https://www.linkedin.com/company/worktugal/" 
