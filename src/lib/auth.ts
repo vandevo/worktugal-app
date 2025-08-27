@@ -7,7 +7,7 @@ export interface AuthState {
 }
 
 export const signUp = async (email: string, password: string, captchaToken?: string) => {
-  const options: any = {
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -16,15 +16,6 @@ export const signUp = async (email: string, password: string, captchaToken?: str
         email_confirm: false, // Explicitly disable email confirmation
       },
     },
-  };
-
-  // Add captcha token if provided
-  if (captchaToken) {
-    options.options.captchaToken = captchaToken;
-  }
-
-  const { data, error } = await supabase.auth.signUp({
-    ...options,
   });
   
   if (error) throw error;
@@ -32,18 +23,9 @@ export const signUp = async (email: string, password: string, captchaToken?: str
 };
 
 export const signIn = async (email: string, password: string, captchaToken?: string) => {
-  const options: any = {
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
-  };
-
-  // Add captcha token if provided
-  if (captchaToken) {
-    options.options = { captchaToken };
-  }
-
-  const { data, error } = await supabase.auth.signInWithPassword({
-    ...options,
   });
   
   if (error) throw error;
@@ -76,16 +58,9 @@ export const getSession = async () => {
 };
 
 export const resetPasswordForEmail = async (email: string, captchaToken?: string) => {
-  const options: any = {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${window.location.origin}/reset-password`,
-  };
-
-  // Add captcha token if provided
-  if (captchaToken) {
-    options.captchaToken = captchaToken;
-  }
-
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email, options);
+  });
   if (error) throw error;
   return data;
 };
