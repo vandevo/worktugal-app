@@ -226,7 +226,20 @@ export const PerksDirectory: React.FC = () => {
       perk.redemption_details.toLowerCase().includes('request') ||
       perk.business_name.toLowerCase().includes('second home')
     )) {
-      return 'Email for Free Trial';
+      // Determine appropriate email button text based on context
+      const details = perk.redemption_details.toLowerCase();
+      
+      if (details.includes('trial') || details.includes('free day') || perk.business_name.toLowerCase().includes('second home')) {
+        return 'Email for Free Trial';
+      } else if (details.includes('rate') || details.includes('condition') || details.includes('discount') || details.includes('exclusive')) {
+        return 'Email for Exclusive Rates';
+      } else if (details.includes('consultation') || details.includes('quote')) {
+        return 'Email for Consultation';
+      } else if (details.includes('booking') || details.includes('appointment')) {
+        return 'Email to Book';
+      } else {
+        return 'Send Email';
+      }
     }
     
     if (perk.business_website && perk.redemption_details.toLowerCase().includes('website')) {
