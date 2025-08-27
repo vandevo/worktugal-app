@@ -157,7 +157,7 @@ export const PerksDirectory: React.FC = () => {
     if (extractedUrl) {
       window.open(extractedUrl[0], '_blank');
       return;
-    }</parameter>
+    }
     
     // Handle email-based redemption
     if (perk.contact_email && perk.redemption_details.toLowerCase().includes('email')) {
