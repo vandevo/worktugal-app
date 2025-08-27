@@ -68,7 +68,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
       case 'qr_code':
         return 'Scan the QR code displayed at your counter.';
       case 'direct_link':
-        return 'https://your-deals-page.com/worktugal';
+        return 'Click claim perk to see your exclusive deals. https://your-deals-page.com/worktugal';
       case 'other':
         return 'Describe how the perk will be redeemed.';
       default:
