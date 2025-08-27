@@ -159,10 +159,14 @@ export const PerksDirectory: React.FC = () => {
       return;
     }
     
-    // Handle email-based redemption
-    if (perk.contact_email && perk.redemption_details.toLowerCase().includes('email')) {
+    // Handle email-based redemption (broader detection)
+    if (perk.contact_email && (
+      perk.redemption_details.toLowerCase().includes('email') ||
+      perk.redemption_details.toLowerCase().includes('request') ||
+      perk.business_name.toLowerCase().includes('second home')
+    )) {
       const subject = encodeURIComponent('Worktugal Pass – Free Trial Request');
-      const body = encodeURIComponent(`Hi,\n\nI'm a Worktugal Pass member interested in: ${perk.title}\n\nCould you please help me redeem this perk?\n\nThank you!\n\nBest regards`);
+      const body = encodeURIComponent(`Hi,\n\nI'm a Worktugal Pass member interested in: ${perk.title}\n\n${perk.redemption_details}\n\nCould you please help me redeem this perk?\n\nThank you!\n\nBest regards`);
       const mailtoUrl = `mailto:${perk.contact_email}?subject=${subject}&body=${body}`;
       window.open(mailtoUrl, '_blank');
       return;
@@ -216,7 +220,12 @@ export const PerksDirectory: React.FC = () => {
       return 'Claim Perk';
     }
     
-    if (perk.contact_email && perk.redemption_details.toLowerCase().includes('email')) {
+    // Check for email-based redemption (broader detection)
+    if (perk.contact_email && (
+      perk.redemption_details.toLowerCase().includes('email') ||
+      perk.redemption_details.toLowerCase().includes('request') ||
+      perk.business_name.toLowerCase().includes('second home')
+    )) {
       return 'Email for Free Trial';
     }
     
