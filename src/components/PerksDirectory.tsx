@@ -207,17 +207,17 @@ export const PerksDirectory: React.FC = () => {
   const getActionButtonText = (perk: any) => {
     // If user is not authenticated, show unlock text
     if (!user) {
-      return 'Unlock Perk Access';
+      return 'Unlock perk access';
     }
     
     if (perk.redemption_method === 'direct_link') {
-      return 'Claim Perk';
+      return 'Claim this perk';
     }
     
     // Check if redemption details contain a URL (even if method isn't 'direct_link')
     const urlMatch = perk.redemption_details.match(/(https?:\/\/[^\s]+)/);
     if (urlMatch) {
-      return 'Claim Perk';
+      return 'View offer';
     }
     
     // Check for email-based redemption (broader detection)
@@ -230,27 +230,27 @@ export const PerksDirectory: React.FC = () => {
       const details = perk.redemption_details.toLowerCase();
       
       if (details.includes('trial') || details.includes('free day') || perk.business_name.toLowerCase().includes('second home')) {
-        return 'Email for Free Trial';
+        return 'Get free trial';
       } else if (details.includes('rate') || details.includes('condition') || details.includes('discount') || details.includes('exclusive')) {
-        return 'Email for Exclusive Rates';
+        return 'Get exclusive rates';
       } else if (details.includes('consultation') || details.includes('quote')) {
-        return 'Email for Consultation';
+        return 'Book consultation';
       } else if (details.includes('booking') || details.includes('appointment')) {
-        return 'Email to Book';
+        return 'Make booking';
       } else {
-        return 'Send Email';
+        return 'Get in touch';
       }
     }
     
     if (perk.business_website && perk.redemption_details.toLowerCase().includes('website')) {
-      return 'Visit Website';
+      return 'Visit website';
     }
     
     if (perk.contact_phone || (perk.redemption_method === 'other' && perk.redemption_details.toLowerCase().includes('whatsapp'))) {
       return 'Message on WhatsApp';
     }
     
-    return 'Use This Now';
+    return 'Get this offer';
   };
 
   const renderDescription = (perk: DisplayPerk) => {
@@ -527,7 +527,7 @@ export const PerksDirectory: React.FC = () => {
                     ) : (
                       <>
                         <Lock className="mr-2 h-4 w-4" />
-                        Unlock Perk Access
+                        Unlock perk access
                       </>
                     )}
                   </Button>
