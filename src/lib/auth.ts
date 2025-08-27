@@ -51,13 +51,19 @@ export const signIn = async (email: string, password: string, captchaToken?: str
 };
 
 export const signOut = async () => {
-  const { error } = await supabase.auth.signOut();
-  
-  // Handle cases where session is already invalid - treat as successful logout
-  if (error) {
-    const errorMessage = error.message.toLowerCase();
-    const errorCode = error.code?.toLowerCase();
+  try {
+    const { error } = await supabase.auth.signOut();
+    
+    // If no error, sign out was successful
+    if (!error) {
+      return;
+    }
+    
+    // Handle cases where session is already invalid - treat as successful logout
+    const errorMessage = error.message?.toLowerCase() || '';
+    const errorCode = error.code?.toLowerCase() || '';
     const errorStatus = (error as any).status;
+    
     const isSessionAlreadyInvalid = 
       errorMessage.includes('auth session missing') ||
       errorMessage.includes('session from session_id claim in jwt does not exist') ||
@@ -68,6 +74,22 @@ export const signOut = async () => {
     if (!isSessionAlreadyInvalid) {
       throw error;
     }
+    
+    // If we reach here, the session was already invalid, which means logout was effectively successful
+    console.log('Session was already invalid - treating as successful logout');
+    
+  } catch (networkError: any) {
+    // Handle network errors or other unexpected errors
+    if (networkError.message?.includes('session_not_found') || 
+        networkError.status === 403 ||
+        networkError.code === 'session_not_found') {
+      // Even if there's a network error about session not found, treat as successful logout
+      console.log('Network error indicates session already invalid - treating as successful logout');
+      return;
+    }
+    
+    // Re-throw only if it's a different type of error
+    throw networkError;
   }
 };
 
