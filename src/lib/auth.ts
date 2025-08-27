@@ -52,7 +52,19 @@ export const signIn = async (email: string, password: string, captchaToken?: str
 
 export const signOut = async () => {
   const { error } = await supabase.auth.signOut();
-  if (error) throw error;
+  
+  // Handle cases where session is already invalid - treat as successful logout
+  if (error) {
+    const errorMessage = error.message.toLowerCase();
+    const isSessionAlreadyInvalid = 
+      errorMessage.includes('auth session missing') ||
+      errorMessage.includes('session from session_id claim in jwt does not exist') ||
+      errorMessage.includes('session_not_found');
+    
+    if (!isSessionAlreadyInvalid) {
+      throw error;
+    }
+  }
 };
 
 export const getCurrentUser = async () => {
