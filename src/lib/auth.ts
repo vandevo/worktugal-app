@@ -76,7 +76,8 @@ export const signOut = async () => {
     }
     
     // If we reach here, the session was already invalid, which means logout was effectively successful
-    console.log('Session was already invalid - treating as successful logout');
+    console.warn('Session was already invalid - treating as successful logout');
+    return;
     
   } catch (networkError: any) {
     // Handle network errors or other unexpected errors
@@ -84,7 +85,7 @@ export const signOut = async () => {
         networkError.status === 403 ||
         networkError.code === 'session_not_found') {
       // Even if there's a network error about session not found, treat as successful logout
-      console.log('Network error indicates session already invalid - treating as successful logout');
+      console.warn('Network error indicates session already invalid - treating as successful logout');
       return;
     }
     
