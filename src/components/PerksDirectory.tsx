@@ -469,7 +469,14 @@ export const PerksDirectory: React.FC = () => {
                          <span>How to redeem</span>
                         </div>
                         <span className="text-gray-200 leading-relaxed block">
-                          {perk.redemption_details}
+                          {(() => {
+                            // Extract URL and show only user-friendly text
+                            const urlMatch = perk.redemption_details.match(/(.*?)\s*(https?:\/\/[^\s]+)/);
+                            if (urlMatch && urlMatch[1]) {
+                              return urlMatch[1].trim();
+                            }
+                            return perk.redemption_details;
+                          })()}
                         </span>
                       </div>
                     </div>
