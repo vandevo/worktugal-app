@@ -127,6 +127,7 @@ export const PerksDirectory: React.FC = () => {
       case 'qr_code': return <QrCode className="h-4 w-4" />;
       case 'verbal': return <MessageCircle className="h-4 w-4" />;
       case 'show_pass': return <MessageCircle className="h-4 w-4" />;
+      case 'direct_link': return <ExternalLink className="h-4 w-4" />;
       default: return <Tag className="h-4 w-4" />;
     }
   };
@@ -151,6 +152,16 @@ export const PerksDirectory: React.FC = () => {
   };
 
   const handlePerkAction = (perk: any) => {
+    // Handle direct link redemption first (highest priority)
+    if (perk.redemption_method === 'direct_link' && perk.redemption_details) {
+      // Ensure URL has proper protocol
+      const url = perk.redemption_details.startsWith('http') 
+        ? perk.redemption_details 
+        : `https://${perk.redemption_details}`;
+      window.open(url, '_blank');
+      return;
+    }
+    
     // Handle email-based redemption
     if (perk.contact_email && perk.redemption_details.toLowerCase().includes('email')) {
       const subject = encodeURIComponent('Worktugal Pass – Free Trial Request');
@@ -196,6 +207,10 @@ export const PerksDirectory: React.FC = () => {
     // If user is not authenticated, show unlock text
     if (!user) {
       return 'Unlock Perk Access';
+    }
+    
+    if (perk.redemption_method === 'direct_link') {
+      return 'Claim Perk';
     }
     
     if (perk.contact_email && perk.redemption_details.toLowerCase().includes('email')) {

@@ -67,6 +67,8 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
         return 'Use code WORKTUGAL10 during checkout.';
       case 'qr_code':
         return 'Scan the QR code displayed at your counter.';
+      case 'direct_link':
+        return 'https://your-deals-page.com/worktugal';
       case 'other':
         return 'Describe how the perk will be redeemed.';
       default:
