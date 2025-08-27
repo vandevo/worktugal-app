@@ -154,11 +154,24 @@ export const PerksDirectory: React.FC = () => {
   const handlePerkAction = (perk: any) => {
     // Handle direct link redemption first (highest priority)
     if (perk.redemption_method === 'direct_link' && perk.redemption_details) {
-      // Ensure URL has proper protocol
-      const url = perk.redemption_details.startsWith('http') 
-        ? perk.redemption_details 
-        : `https://${perk.redemption_details}`;
-      window.open(url, '_blank');
+      // For direct_link method, try to extract URL from redemption_details
+      // Check if it's already just a URL
+      if (perk.redemption_details.startsWith('http')) {
+        window.open(perk.redemption_details, '_blank');
+        return;
+      }
+      // Extract URL from text using improved regex
+      const urlMatch = perk.redemption_details.match(/(https?:\/\/[^\s]+)/);
+      if (urlMatch) {
+        window.open(urlMatch[1], '_blank');
+        return;
+      }
+    }
+    
+    // Check for any URL in redemption details as fallback
+    const urlMatch = perk.redemption_details?.match(/(https?:\/\/[^\s]+)/);
+    if (urlMatch) {
+      window.open(urlMatch[1], '_blank');
       return;
     }
     

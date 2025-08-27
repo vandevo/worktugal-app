@@ -171,16 +171,36 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
           error={errors.redemption_method?.message}
         />
 
-        <Input
-          label="Redemption Details"
-          placeholder={getPlaceholderText(redemptionMethod)}
-          readOnly={redemptionMethod === 'verbal' || redemptionMethod === 'show_pass'}
-          {...register('redemption_details')}
-          error={errors.redemption_details?.message}
-          hint={redemptionMethod === 'verbal' || redemptionMethod === 'show_pass' 
-            ? "This is automatically set based on your selection above" 
-            : "Provide specific details for your redemption method"}
-        />
+        {redemptionMethod === 'direct_link' ? (
+          <div className="space-y-4">
+            <Input
+              label="Perk Landing Page URL"
+              type="url"
+              placeholder="https://your-website.com/worktugal-deals"
+              {...register('perk_url')}
+              error={errors.perk_url?.message}
+              hint="Direct link where customers can view and claim your perk"
+            />
+            <Input
+              label="Instructions for Customers"
+              placeholder="Click claim perk to see the latest member deals and exclusive offers."
+              {...register('redemption_details')}
+              error={errors.redemption_details?.message}
+              hint="Friendly text explaining what happens when they click the link"
+            />
+          </div>
+        ) : (
+          <Input
+            label="Redemption Details"
+            placeholder={getPlaceholderText(redemptionMethod)}
+            readOnly={redemptionMethod === 'verbal' || redemptionMethod === 'show_pass'}
+            {...register('redemption_details')}
+            error={errors.redemption_details?.message}
+            hint={redemptionMethod === 'verbal' || redemptionMethod === 'show_pass' 
+              ? "This is automatically set based on your selection above" 
+              : "Provide specific details for your redemption method"}
+          />
+        )}
 
         {/* Optional Image/Logo Fields */}
         <div className="space-y-6">

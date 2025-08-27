@@ -33,12 +33,24 @@ export const perkSchema = z.object({
   description: z.string().min(20, 'Description must be at least 20 characters'),
   redemption_method: z.string().min(1, 'Please select how customers will redeem this perk'),
   redemption_details: z.string().min(10, 'Please provide specific redemption details'),
+  perk_url: z.string().url('Please enter a valid URL').optional().or(z.literal('')),
   images: z.array(z.string().url('Invalid image URL')).optional().default([]),
   logo: z.string().url('Invalid logo URL').optional().or(z.literal('')),
   is_portuguese_owned: z.boolean(),
   needs_nif: z.boolean(),
   customer_nif: z.string().optional(),
   customer_name: z.string().optional(),
+}).refine((data) => {
+  // If redemption method is direct_link, perk_url is required
+  if (data.redemption_method === 'direct_link') {
+    if (!data.perk_url || data.perk_url.trim() === '') {
+      return false;
+    }
+  }
+  return true;
+}, {
+  message: "URL is required for direct link redemption",
+  path: ["perk_url"],
 }).refine((data) => {
   // If needs_nif is true, customer_nif must be provided and valid
   if (data.needs_nif) {
