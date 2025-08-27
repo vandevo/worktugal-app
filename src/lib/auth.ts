@@ -56,10 +56,12 @@ export const signOut = async () => {
   // Handle cases where session is already invalid - treat as successful logout
   if (error) {
     const errorMessage = error.message.toLowerCase();
+    const errorCode = error.code?.toLowerCase();
     const isSessionAlreadyInvalid = 
       errorMessage.includes('auth session missing') ||
       errorMessage.includes('session from session_id claim in jwt does not exist') ||
-      errorMessage.includes('session_not_found');
+      errorMessage.includes('session_not_found') ||
+      errorCode === 'session_not_found';
     
     if (!isSessionAlreadyInvalid) {
       throw error;
