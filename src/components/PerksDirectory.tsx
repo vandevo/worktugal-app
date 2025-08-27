@@ -162,6 +162,13 @@ export const PerksDirectory: React.FC = () => {
       return;
     }
     
+    // Check if redemption details contain a URL (even if method isn't 'direct_link')
+    const urlMatch = perk.redemption_details.match(/(https?:\/\/[^\s]+)/);
+    if (urlMatch) {
+      window.open(urlMatch[0], '_blank');
+      return;
+    }
+    
     // Handle email-based redemption
     if (perk.contact_email && perk.redemption_details.toLowerCase().includes('email')) {
       const subject = encodeURIComponent('Worktugal Pass – Free Trial Request');
@@ -210,6 +217,12 @@ export const PerksDirectory: React.FC = () => {
     }
     
     if (perk.redemption_method === 'direct_link') {
+      return 'Claim Perk';
+    }
+    
+    // Check if redemption details contain a URL (even if method isn't 'direct_link')
+    const urlMatch = perk.redemption_details.match(/(https?:\/\/[^\s]+)/);
+    if (urlMatch) {
       return 'Claim Perk';
     }
     
