@@ -72,10 +72,10 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
             €{LISTING_PRICE} one time payment
           </p>
           <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Cold outreach is noisy. Agencies are expensive.<br />
-            This is the fastest way to get discovered by remote professionals in Lisbon.<br />
-            List your offer where remote professionals actually look.<br />
-            You provide a perk. We give you visibility. They come to you.
+            Cold outreach doesn't work for professional services. Agencies are expensive and generic.<br />
+            This is where remote workers discover trusted coworking, wellness, business services, and authentic local experiences.<br />
+            List your expert service where quality clients actually look.<br />
+            You provide value. We connect you with remote professionals who invest in quality.
           </p>
         </div>
 

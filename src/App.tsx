@@ -88,8 +88,8 @@ const HomePage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Lisbon Perks for Remote Workers | Worktugal Pass"
-        description="Join 1,000+ verified remote workers in Lisbon's trusted perk marketplace. Get exclusive discounts at cafés, gyms, coworking spaces, and more. Lifetime access."
+        title="Professional Services for Remote Workers | Worktugal Pass"
+        description="Join 1,000+ verified remote workers in Lisbon's trusted professional services marketplace. Access coworking, wellness, business services, and authentic local experiences. Lifetime access."
         ogType="website"
         structuredData={{
           "@context": "https://schema.org",

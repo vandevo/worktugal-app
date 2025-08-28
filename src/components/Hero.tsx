@@ -37,7 +37,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
             </h1>
             
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Remote workers don't cold call cafés. They use trusted perks with fast redemption and real locals. You list. They come.
+              Remote workers need real services: coworking, wellness, professional help, and authentic experiences. Skip the cold outreach. Get discovered by quality clients who value what you offer.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
