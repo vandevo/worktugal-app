@@ -92,8 +92,8 @@ export const Footer: React.FC = () => {
             <h4 className="font-semibold mb-4">Follow Us</h4>
             <div className="flex space-x-4">
               <motion.a
-                href="https://www.instagram.com/worktugal/"
-                aria-label="Worktugal Instagram profile"
+                href="https://www.instagram.com/worktugalpass/"
+                aria-label="Worktugal Pass Instagram profile"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1 }}
