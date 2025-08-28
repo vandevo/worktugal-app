@@ -112,12 +112,6 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
                     : 'bg-blue-600/20 text-blue-300 border-blue-600/40'
                 }`}
               >
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                >
-                  <Target className="h-4 w-4" />
-                </motion.div>
                 <span className="text-sm sm:text-base font-bold tracking-wide">
                   {spotsLeft !== null 
                     ? spotsLeft <= 5
