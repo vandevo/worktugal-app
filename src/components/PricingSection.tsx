@@ -178,14 +178,6 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-sm sm:text-base leading-relaxed text-gray-400">
-                    Verified profile access with a partner dashboard <span className="text-xs text-gray-500 font-normal">— coming soon</span>
-                  </span>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
-                    <Check className="h-3.5 w-3.5 text-green-400" />
-                  </div>
                   <span className="text-base sm:text-lg leading-relaxed text-gray-400">Featured in our monthly newsletter</span>
                 </div>
                 <div className="flex items-start space-x-3">
