@@ -129,7 +129,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
       </div>
 
       <Card variant="glass" className="p-8">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 text-white">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         {/* Auth warning for image uploads */}
         {showImageFields && !user && (
           <Alert variant="info" className="mb-6">
@@ -361,7 +361,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
               className="mt-6 p-6 border border-white/[0.06] rounded-2xl bg-white/[0.02] backdrop-blur-xl space-y-6"
             >
               <div className="mb-3">
-                <h4 className="text-base font-semibold text-gray-200 mb-3">Customer Tax Information</h4>
+                <h4 className="text-base font-semibold text-white mb-3">Customer Tax Information</h4>
                 <p className="text-sm text-gray-400 leading-relaxed">
                   We'll include this info in your official Fatura or Recibo Verde, as required by law.
                 </p>

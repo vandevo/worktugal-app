@@ -82,7 +82,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
       </div>
 
       <Card variant="glass" className="p-8">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 text-white">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <Input
           label="Business Name"
           placeholder="Your Amazing Business"
@@ -118,7 +118,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
 
         {/* Location & Business Type - Grouped */}
         <div className="p-6 border border-white/[0.06] rounded-2xl bg-white/[0.02] backdrop-blur-xl space-y-6">
-          <h3 className="text-base font-semibold text-gray-200 mb-4">Business Details</h3>
+          <h3 className="text-base font-semibold text-white mb-4">Business Details</h3>
           <Select
             label="Business Category"
             hint="What type of business is this?"

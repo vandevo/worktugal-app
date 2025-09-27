@@ -23,16 +23,14 @@ export const Footer: React.FC = () => {
               <span className="text-xl font-bold">Worktugal Pass</span>
             </a>
             <p className="text-gray-400 text-sm">
-              <span className="text-gray-500">Lisbon's trusted perk marketplace for remote professionals and expats.</span>
+              Lisbon's trusted perk marketplace for remote professionals and expats.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
+            <h4 className="font-semibold mb-4 text-white">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#directory" className="text-gray-500 hover:text-white transition-colors">Browse Perks</a></li>
-              <li><a href="#pricing" className="text-gray-500 hover:text-white transition-colors">For Partners</a></li>
               <li><a href="/privacy" className="text-gray-500 hover:text-white transition-colors">Privacy Policy</a></li>
               <li><a href="/terms" className="text-gray-500 hover:text-white transition-colors">Terms of Service</a></li>
               <li>
@@ -58,7 +56,7 @@ export const Footer: React.FC = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
+            <h4 className="font-semibold mb-4 text-white">Contact</h4>
             <div className="space-y-2 text-sm">
               <div className="flex items-center space-x-2 text-gray-400">
                 <Mail className="h-4 w-4" />
@@ -89,7 +87,7 @@ export const Footer: React.FC = () => {
 
           {/* Social Links */}
           <div>
-            <h4 className="font-semibold mb-4">Follow Us</h4>
+            <h4 className="font-semibold mb-4 text-white">Follow Us</h4>
             <div className="flex space-x-4">
               <motion.a
                 href="https://www.instagram.com/worktugalpass/"

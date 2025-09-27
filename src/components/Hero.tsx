@@ -44,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
               <span className="text-white">and spend more</span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-400 mb-10 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-500 mb-10 max-w-4xl mx-auto leading-relaxed">
               Remote workers need real services: coworking, wellness, professional help, and authentic experiences. Skip the cold outreach. Get discovered by quality clients who value what you offer.
             </p>
             

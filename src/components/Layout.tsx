@@ -120,7 +120,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
       </nav>
-      <main>{children}</main>
+      <main className="text-gray-400">{children}</main>
       
       <AuthModal
         isOpen={showAuthModal}

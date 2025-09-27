@@ -75,11 +75,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
           <p className="text-xl sm:text-2xl bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent font-bold mb-6">
             €{LISTING_PRICE} one time payment
           </p>
-          <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            <span className="text-gray-500">Cold outreach doesn't work for professional services. Agencies are expensive and generic.<br />
+          <p className="text-lg sm:text-xl text-gray-500 max-w-4xl mx-auto leading-relaxed">
+            Cold outreach doesn't work for professional services. Agencies are expensive and generic.<br />
             This is where remote workers discover trusted coworking, wellness, business services, and authentic local experiences.<br />
             List your expert service where quality clients actually look.<br />
-            You provide value. We connect you with remote professionals who invest in quality.</span>
+            You provide value. We connect you with remote professionals who invest in quality.
           </p>
         </div>
 

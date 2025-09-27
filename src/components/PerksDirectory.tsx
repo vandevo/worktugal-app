@@ -259,7 +259,7 @@ export const PerksDirectory: React.FC = () => {
     
     if (!needsTruncation) {
       return (
-        <p className="text-sm text-gray-400 leading-relaxed mb-4">
+        <p className="text-sm text-gray-500 leading-relaxed mb-4">
           {perk.description}
         </p>
       );
@@ -271,7 +271,7 @@ export const PerksDirectory: React.FC = () => {
     return (
       <div className="mb-4">
         <motion.p
-          className="text-sm text-gray-400 leading-relaxed"
+          className="text-sm text-gray-500 leading-relaxed"
           initial={false}
           animate={{ height: 'auto' }}
           transition={{ duration: 0.3, ease: 'easeInOut' }}
@@ -307,7 +307,7 @@ export const PerksDirectory: React.FC = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">
             Verified Perks Used by Remote Workers Who Stay and Spend
           </h2>
-          <p className="text-lg md:text-xl text-gray-400 mb-6 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-500 mb-6 max-w-4xl mx-auto leading-relaxed">
             These are not coupon deals. They are trusted offers from real Lisbon professionals - coworking spaces, wellness experts, business services, and authentic experiences used by freelancers, founders, and remote workers who call Lisbon home.
           </p>
         </div>
@@ -432,7 +432,7 @@ export const PerksDirectory: React.FC = () => {
                       
                       <div className="flex items-center space-x-1.5 text-sm text-gray-400">
                         <MapPin className="h-3.5 w-3.5 flex-shrink-0" />
-                        <span>{perk.neighborhood}</span>
+                        <span className="text-gray-500">{perk.neighborhood}</span>
                       </div>
                       
                       {/* Business Links */}
@@ -482,7 +482,7 @@ export const PerksDirectory: React.FC = () => {
 
                 {/* Category tagline above perk details */}
                 <div className="mb-3">
-                  <span className="text-xs text-gray-500 font-medium uppercase tracking-wider">
+                  <span className="text-xs text-gray-600 font-medium uppercase tracking-wider">
                     {perk.category}
                   </span>
                 </div>

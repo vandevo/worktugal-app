@@ -81,7 +81,7 @@ export const SuccessPage: React.FC = () => {
             className="mb-8"
           >
             <h1 className="text-4xl font-bold mb-4 text-white">Welcome to Early Access!</h1>
-            <p className="text-xl text-gray-400 mb-6">
+            <p className="text-xl text-gray-500 mb-6">
               You've successfully secured your spot in Lisbon's #1 perk marketplace
             </p>
             <div className="inline-flex items-center space-x-2 bg-green-600/20 text-green-300 px-4 py-2 rounded-full">
