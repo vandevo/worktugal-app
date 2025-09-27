@@ -283,6 +283,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
                   {index < 2 && <div className="w-1.5 h-1.5 bg-gray-500/60 rounded-full"></div>}
                 </div>
               ))}
+            </div>
             <p className="text-base sm:text-lg text-white mb-10 font-medium">No renewals • No surprises</p>
             
             <div className="relative mt-8 pt-8 border-t border-white/[0.06]">
