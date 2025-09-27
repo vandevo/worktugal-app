@@ -1,25 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
   html {
     @apply bg-gray-900;
   }
   
   body {
-    @apply bg-gray-900 text-white;
+    @apply bg-gray-900;
   }
   
-  /* Ensure form elements are white but allow component overrides */
+  /* Only ensure form elements are white for readability */
   input:not([class*="text-"]), 
   textarea:not([class*="text-"]), 
   select:not([class*="text-"]) {
     @apply text-white;
   }
-  
-  /* Reset default text inheritance to allow component control */
-  * {
-    color: inherit;
-  }
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

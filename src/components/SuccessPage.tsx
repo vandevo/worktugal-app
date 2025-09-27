@@ -80,7 +80,7 @@ export const SuccessPage: React.FC = () => {
             transition={{ delay: 0.3 }}
             className="mb-8"
           >
-            <h1 className="text-4xl font-bold mb-4">Welcome to Early Access!</h1>
+            <h1 className="text-4xl font-bold mb-4 text-white">Welcome to Early Access!</h1>
             <p className="text-xl text-gray-400 mb-6">
               You've successfully secured your spot in Lisbon's #1 perk marketplace
             </p>
@@ -99,17 +99,17 @@ export const SuccessPage: React.FC = () => {
           >
             <Card className="p-6 text-center">
               <Users className="h-8 w-8 text-blue-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold">1,000+</div>
+              <div className="text-2xl font-bold text-white">1,000+</div>
               <div className="text-sm text-gray-400">Remote Workers</div>
             </Card>
             <Card className="p-6 text-center">
               <TrendingUp className="h-8 w-8 text-green-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold">€49</div>
+              <div className="text-2xl font-bold text-white">€49</div>
               <div className="text-sm text-gray-400">One-time Payment</div>
             </Card>
             <Card className="p-6 text-center">
               <Calendar className="h-8 w-8 text-purple-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold">Lifetime</div>
+              <div className="text-2xl font-bold text-white">Lifetime</div>
               <div className="text-sm text-gray-400">Access</div>
             </Card>
           </motion.div>
@@ -122,15 +122,15 @@ export const SuccessPage: React.FC = () => {
             className="mb-8"
           >
             <Card className="p-8 max-w-2xl mx-auto text-left">
-              <h2 className="text-2xl font-bold mb-6 text-center">What happens next?</h2>
+              <h2 className="text-2xl font-bold mb-6 text-center text-white">What happens next?</h2>
               <div className="space-y-4">
                 <div className="flex items-start space-x-4">
                   <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                     1
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Review & Verification</h3>
-                    <p className="text-gray-500 text-sm">
+                    <h3 className="font-semibold mb-1 text-white">Review & Verification</h3>
+                    <p className="text-gray-400 text-sm">
                       Our team will review your submission and verify all details within 24 hours
                     </p>
                   </div>
@@ -140,7 +140,7 @@ export const SuccessPage: React.FC = () => {
                     2
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Contact & Clarification</h3>
+                    <h3 className="font-semibold mb-1 text-white">Contact & Clarification</h3>
                     <p className="text-gray-400 text-sm">
                       We'll contact you if we need any additional information or clarification
                     </p>
@@ -151,7 +151,7 @@ export const SuccessPage: React.FC = () => {
                     3
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Go Live with Priority Placement</h3>
+                    <h3 className="font-semibold mb-1 text-white">Go Live with Priority Placement</h3>
                     <p className="text-gray-400 text-sm">
                       You'll be notified when your perk goes live in our directory with trusted partner badge and priority positioning
                     </p>
@@ -194,13 +194,13 @@ export const SuccessPage: React.FC = () => {
             transition={{ delay: 0.7 }}
             className="bg-gray-800 rounded-xl p-6 max-w-md mx-auto"
           >
-            <h3 className="font-semibold mb-2">Need Help?</h3>
+            <h3 className="font-semibold mb-2 text-white">Need Help?</h3>
             <p className="text-sm text-gray-400 mb-3">
               Our team is here to help you get started. Reach out with any questions about your membership.
             </p>
             <div className="space-y-2 text-sm">
               <p>
-                <span className="text-gray-400">Email:</span>{' '}
+                <span className="text-gray-500">Email:</span>{' '}
                 <a 
                   href="mailto:hello@worktugal.com" 
                   className="text-blue-400 hover:text-blue-300 transition-colors"
@@ -209,7 +209,7 @@ export const SuccessPage: React.FC = () => {
                 </a>
               </p>
               <p>
-                <span className="text-gray-400">WhatsApp:</span>{' '}
+                <span className="text-gray-500">WhatsApp:</span>{' '}
                 <a 
                   href="https://wa.me/351928090121" 
                   className="text-blue-400 hover:text-blue-300 transition-colors"

@@ -44,8 +44,8 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
               <span className="text-white">and spend more</span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-4xl mx-auto leading-relaxed">
-              <span className="text-gray-400">Remote workers need real services: coworking, wellness, professional help, and authentic experiences. Skip the cold outreach. Get discovered by quality clients who value what you offer.</span>
+            <p className="text-xl md:text-2xl text-gray-400 mb-10 max-w-4xl mx-auto leading-relaxed">
+              Remote workers need real services: coworking, wellness, professional help, and authentic experiences. Skip the cold outreach. Get discovered by quality clients who value what you offer.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -89,7 +89,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
                 <TrendingUp className="h-6 w-6 text-green-400 mr-2" />
                 <span className="text-3xl md:text-4xl font-bold bg-gradient-to-br from-green-300 to-green-400 bg-clip-text text-transparent">€49</span>
               </div>
-              <p className="text-gray-300 font-medium">Early access pricing</p>
+              <p className="text-gray-400 font-medium">Early access pricing</p>
             </Card>
             <Card variant="glass" className="p-6 text-center hover:scale-105 transition-transform duration-300">
               <div className="flex items-center justify-center mb-3">
@@ -98,7 +98,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
                   {spotsLoading ? '...' : (spotsLeft !== null ? spotsLeft : 'N/A')}
                 </span>
               </div>
-              <p className="text-gray-300 font-medium">Partner slots remaining</p>
+              <p className="text-gray-400 font-medium">Partner slots remaining</p>
             </Card>
           </motion.div>
         </div>
