@@ -38,7 +38,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
               Attract verified remote clients who{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-cyan-300">
+              <span className="bg-gradient-to-r from-blue-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent">
                 stay longer
               </span>{' '}
               and spend more
