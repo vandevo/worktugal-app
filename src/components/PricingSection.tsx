@@ -222,21 +222,20 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-white/[0.02] backdrop-blur-2xl rounded-3xl p-8 sm:p-10 max-w-4xl mx-auto border border-white/[0.06] shadow-2xl relative overflow-hidden"
+            className="bg-white/[0.02] backdrop-blur-2xl rounded-3xl p-6 sm:p-8 max-w-3xl mx-auto border border-white/[0.06] shadow-2xl relative overflow-hidden"
           >
             {/* Inner glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 rounded-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/3 via-transparent to-purple-500/3 rounded-3xl" />
             
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-200 mb-6 sm:mb-8">
-              How it works:
+            <h3 className="text-lg font-semibold text-white mb-6 text-center">
+              Simple 4-Step Process
             </h3>
             
-            {/* Mobile-first step cards */}
-            <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {[
-                { number: "1", title: "Fill business details", icon: "📝" },
-                { number: "2", title: "Setup your perk", icon: "🎁" },
-                { number: "3", title: "Secure payment", icon: "💳" },
+                { number: "1", title: "Business info", icon: "📝" },
+                { number: "2", title: "Create perk", icon: "🎁" },
+                { number: "3", title: "Pay €49", icon: "💳" },
                 { number: "4", title: "Go live", icon: "🚀" }
               ].map((step, index) => (
                 <motion.div
@@ -246,41 +245,26 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
                   transition={{ delay: 0.5 + index * 0.1 }}
                   className="group relative"
                 >
-                  <div className="bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-xl rounded-2xl p-6 text-center transition-all duration-300 border border-white/[0.06] hover:border-white/[0.12] hover:shadow-xl hover:shadow-blue-500/10 group-hover:scale-105">
-                    {/* Step number with iOS-style badge */}
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-500 rounded-2xl flex items-center justify-center text-white text-sm font-bold mx-auto mb-4 shadow-xl shadow-blue-500/30 group-hover:scale-110 transition-all duration-300 border border-blue-400/20">
+                  <div className="bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-xl rounded-2xl p-4 text-center transition-all duration-300 border border-white/[0.06] hover:border-white/[0.12] group-hover:scale-105">
+                    <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl flex items-center justify-center text-white text-sm font-bold mx-auto mb-3 shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-all duration-300">
                       {step.number}
                     </div>
-                    
-                    {/* Emoji icon */}
-                    <div className="text-xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                    <div className="text-lg mb-2 group-hover:scale-110 transition-transform duration-300">
                       {step.icon}
                     </div>
-                    
-                    {/* Step title */}
-                    <p className="text-sm font-semibold text-gray-200 leading-tight">
+                    <p className="text-xs font-medium text-gray-300 leading-tight">
                       {step.title}
                     </p>
                   </div>
-                  
-                  {/* Connection arrow for desktop only */}
-                  {index < 3 && (
-                    <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 text-gray-500">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  )}
                 </motion.div>
               ))}
             </div>
             
-            {/* Mobile connection indicators */}
-            <div className="lg:hidden flex justify-center items-center space-x-2 mt-6">
+            <div className="lg:hidden flex justify-center items-center space-x-1 mt-4">
               {[0, 1, 2].map((index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <div className="w-2.5 h-2.5 bg-blue-400/60 rounded-full animate-pulse backdrop-blur-sm" style={{ animationDelay: `${index * 0.3}s` }}></div>
-                  {index < 2 && <div className="w-1.5 h-1.5 bg-gray-500/60 rounded-full"></div>}
+                <div key={index} className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-blue-400/40 rounded-full animate-pulse" style={{ animationDelay: `${index * 0.3}s` }}></div>
+                  {index < 2 && <div className="w-1 h-1 bg-gray-500/40 rounded-full"></div>}
                 </div>
               ))}
             </div>
@@ -288,7 +272,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
             
             <div className="relative mt-8 pt-8 border-t border-white/[0.06]">
               <p className="text-base sm:text-lg text-white leading-relaxed max-w-lg mx-auto">
-                <span className="text-gray-300">Takes 3-5 minutes to complete • Review within 24 hours • Trusted by 1,000+ remote professionals</span>
+                <span className="text-gray-400 text-center block">3 minutes • Approved in 24h • Trusted by 1,000+ professionals</span>
               </p>
             </div>
           </motion.div>
