@@ -1,11 +1,22 @@
 @layer base {
-  html, body {
+  html {
+    @apply bg-gray-900;
+  }
+  
+  body {
     @apply bg-gray-900 text-white;
   }
   
-  /* Ensure form elements are white */
-  input, textarea, select {
+  /* Ensure form elements are white but allow component overrides */
+  input:not([class*="text-"]), 
+  textarea:not([class*="text-"]), 
+  select:not([class*="text-"]) {
     @apply text-white;
+  }
+  
+  /* Reset default text inheritance to allow component control */
+  * {
+    color: inherit;
   }
 }
 

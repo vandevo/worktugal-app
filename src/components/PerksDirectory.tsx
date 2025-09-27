@@ -308,7 +308,7 @@ export const PerksDirectory: React.FC = () => {
             Verified Perks Used by Remote Workers Who Stay and Spend
           </h2>
           <p className="text-lg md:text-xl text-white mb-6 max-w-4xl mx-auto leading-relaxed">
-            <span className="text-gray-300">These are not coupon deals. They are trusted offers from real Lisbon professionals - coworking spaces, wellness experts, business services, and authentic experiences used by freelancers, founders, and remote workers who call Lisbon home.</span>
+            <span className="text-gray-400">These are not coupon deals. They are trusted offers from real Lisbon professionals - coworking spaces, wellness experts, business services, and authentic experiences used by freelancers, founders, and remote workers who call Lisbon home.</span>
           </p>
         </div>
 
