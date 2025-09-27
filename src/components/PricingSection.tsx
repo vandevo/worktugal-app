@@ -76,7 +76,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
             €{LISTING_PRICE} one time payment
           </p>
           <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            <span className="text-gray-400">Cold outreach doesn't work for professional services. Agencies are expensive and generic.<br />
+            <span className="text-gray-500">Cold outreach doesn't work for professional services. Agencies are expensive and generic.<br />
             This is where remote workers discover trusted coworking, wellness, business services, and authentic local experiences.<br />
             List your expert service where quality clients actually look.<br />
             You provide value. We connect you with remote professionals who invest in quality.</span>
@@ -128,10 +128,10 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
                 </span>
               </motion.div>
               <div className="mt-6 sm:mt-8 space-y-4 max-w-lg mx-auto">
-                <p className="text-sm sm:text-base font-medium text-orange-400">
+                <p className="text-sm sm:text-base font-medium text-gray-400">
                   Lock your spot. Get visibility. Be first
                 </p>
-                <p className="text-sm sm:text-base text-gray-400 leading-relaxed px-4 sm:px-0">
+                <p className="text-sm sm:text-base text-gray-500 leading-relaxed px-4 sm:px-0">
                   Only 25 listings available at this early access price. Once filled, the next tier will open at a higher rate.
                 </p>
               </div>
@@ -147,12 +147,12 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
                 </h3>
                 <div className="flex items-baseline justify-center mb-4">
                   <span className="text-5xl sm:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">€{LISTING_PRICE}</span>
-                  <span className="text-gray-300 ml-4 text-lg sm:text-xl font-medium">one time</span>
+                  <span className="text-gray-400 ml-4 text-lg sm:text-xl font-medium">one time</span>
                 </div>
-                <p className="text-base sm:text-lg text-gray-300 mb-10 font-medium">No renewals • No surprises</p>
+                <p className="text-base sm:text-lg text-gray-500 mb-10 font-medium">No renewals • No surprises</p>
                 
                 <div className="text-center mb-8">
-                  <p className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-lg mx-auto">
+                  <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-lg mx-auto">
                     <span className="text-gray-400">Join the marketplace where quality remote professionals discover trusted local businesses. No spam, no cold calls - just genuine connections.</span>
                   </p>
                 </div>
@@ -169,13 +169,13 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-300">"Trusted Partner" badge on your listing</span>
+                  <span className="text-base sm:text-lg leading-relaxed text-gray-400">"Trusted Partner" badge on your listing</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-sm sm:text-base leading-relaxed">
+                  <span className="text-sm sm:text-base leading-relaxed text-gray-400">
                     Verified profile access with a partner dashboard <span className="text-xs text-gray-500 font-normal">— coming soon</span>
                   </span>
                 </div>
@@ -183,25 +183,25 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-300">Featured in our monthly newsletter</span>
+                  <span className="text-base sm:text-lg leading-relaxed text-gray-400">Featured in our monthly newsletter</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-300">Shoutouts at select in-person events</span>
+                  <span className="text-base sm:text-lg leading-relaxed text-gray-400">Shoutouts at select in-person events</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-300">Ongoing support to update or refresh your perks</span>
+                  <span className="text-base sm:text-lg leading-relaxed text-gray-400">Ongoing support to update or refresh your perks</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-300">Invite-only access to our Partner Insider Network as we grow</span>
+                  <span className="text-base sm:text-lg leading-relaxed text-gray-400">Invite-only access to our Partner Insider Network as we grow</span>
                 </div>
               </div>
 
@@ -268,11 +268,10 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
                 </div>
               ))}
             </div>
-            <p className="text-base sm:text-lg text-white mb-10 font-medium">No renewals • No surprises</p>
             
             <div className="relative mt-8 pt-8 border-t border-white/[0.06]">
-              <p className="text-base sm:text-lg text-white leading-relaxed max-w-lg mx-auto">
-                <span className="text-gray-400 text-center block">3 minutes • Approved in 24h • Trusted by 1,000+ professionals</span>
+              <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-lg mx-auto text-center">
+                3 minutes • Approved in 24h • Trusted by 1,000+ professionals
               </p>
             </div>
           </motion.div>
