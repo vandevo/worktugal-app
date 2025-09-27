@@ -166,7 +166,6 @@ const HomePage: React.FC = () => {
             <Suspense fallback={<LoadingSpinner />}>
               <PricingSection onGetStarted={handleGetStarted} />
             </Suspense>
-            <Footer />
           </motion.div>
         )}
       </AnimatePresence>
