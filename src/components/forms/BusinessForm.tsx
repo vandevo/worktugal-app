@@ -8,6 +8,7 @@ import { BUSINESS_CATEGORIES, LISBON_NEIGHBORHOOD_GROUPS } from '../../utils/con
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 import { Button } from '../ui/Button';
+import { Card } from '../ui/Card';
 
 interface BusinessFormProps {
   onSubmit: (data: BusinessFormData) => void;
