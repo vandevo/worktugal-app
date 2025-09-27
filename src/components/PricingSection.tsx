@@ -142,8 +142,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 rounded-3xl" />
               
               <div className="relative mb-10 sm:mb-12">
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 leading-tight bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
-                  🎯 Early Access Lifetime Listing
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 leading-tight">
+                  <span className="text-2xl sm:text-3xl lg:text-4xl">🎯</span>{' '}
+                  <span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
+                    Early Access Lifetime Listing
+                  </span>
                 </h3>
                 <div className="flex items-baseline justify-center mb-4">
                   <span className="text-5xl sm:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">€{LISTING_PRICE}</span>
