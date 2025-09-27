@@ -82,7 +82,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
       </div>
 
       <Card variant="glass" className="p-8">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 text-white">
         <Input
           label="Business Name"
           placeholder="Your Amazing Business"

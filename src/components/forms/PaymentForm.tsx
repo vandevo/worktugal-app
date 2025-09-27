@@ -107,13 +107,13 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
       {/* Confirmation Summary */}
       <Card variant="glass" className="text-center mb-8 p-6">
         <p className="text-lg font-medium text-gray-200 mb-2">
-          You're listing <span className="text-blue-400 font-semibold">{formData.business.name}</span>
+          <span className="text-white">You're listing </span><span className="text-blue-400 font-semibold">{formData.business.name}</span>
         </p>
         <p className="text-xl font-bold text-white">
           with the perk: "{formData.perk.title}"
         </p>
         <div className="mt-4 text-sm text-gray-400">
-          <p>in {formData.business.neighborhood} • {formData.business.category}</p>
+          <p className="text-gray-300">in {formData.business.neighborhood} • {formData.business.category}</p>
         </div>
       </Card>
 
