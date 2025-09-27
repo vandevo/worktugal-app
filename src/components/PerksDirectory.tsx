@@ -307,8 +307,8 @@ export const PerksDirectory: React.FC = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">
             Verified Perks Used by Remote Workers Who Stay and Spend
           </h2>
-          <p className="text-lg md:text-xl text-white mb-6 max-w-4xl mx-auto leading-relaxed">
-            <span className="text-gray-400">These are not coupon deals. They are trusted offers from real Lisbon professionals - coworking spaces, wellness experts, business services, and authentic experiences used by freelancers, founders, and remote workers who call Lisbon home.</span>
+          <p className="text-lg md:text-xl text-gray-400 mb-6 max-w-4xl mx-auto leading-relaxed">
+            These are not coupon deals. They are trusted offers from real Lisbon professionals - coworking spaces, wellness experts, business services, and authentic experiences used by freelancers, founders, and remote workers who call Lisbon home.
           </p>
         </div>
 
@@ -496,9 +496,9 @@ export const PerksDirectory: React.FC = () => {
                       <div className="w-full">
                         <div className="flex items-center space-x-3 font-medium text-green-400 text-xs uppercase tracking-wide mb-2">
                           {getRedemptionIcon(perk.redemption_method)}
-                         <span>How to redeem</span>
+                         <span className="text-green-400">How to redeem</span>
                         </div>
-                        <span className="text-gray-200 leading-relaxed block">
+                        <span className="text-gray-300 leading-relaxed block">
                           {(() => {
                             // Extract URL and show only user-friendly text
                             const urlMatch = perk.redemption_details.match(/(.*?)\s*(https?:\/\/[^\s]+)/);
@@ -515,7 +515,7 @@ export const PerksDirectory: React.FC = () => {
                       <div className="w-full">
                         <div className="flex items-center space-x-3 font-medium text-blue-400 text-xs uppercase tracking-wide mb-2">
                           <Lock className="h-4 w-4" />
-                         <span>Redemption Details</span>
+                         <span className="text-blue-400">Redemption Details</span>
                         </div>
                         <span className="text-blue-200 leading-relaxed block">
                           Create your free account to see how to redeem this perk
