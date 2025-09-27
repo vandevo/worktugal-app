@@ -9,6 +9,7 @@ import { Button } from './ui/Button';
 import { useState } from 'react';
 import { User, LogOut, Settings } from 'lucide-react';
 import { signOut } from '../lib/auth';
+import { Footer } from './Footer';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -134,4 +135,5 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       />
     </div>
   );
+
 };
