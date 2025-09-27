@@ -177,9 +177,9 @@ export const CookieConsentBanner: React.FC = () => {
                         <h3 className="text-lg font-semibold text-white">We use cookies</h3>
                       </div>
                       <p className="text-sm text-gray-300 leading-relaxed">
-                        We use cookies to enhance your experience, analyze site traffic, and personalize content. 
+                        <span className="text-gray-400">We use cookies to enhance your experience, analyze site traffic, and personalize content. 
                         You can accept all cookies, reject non-essential ones, or customize your preferences. 
-                        Read our <a href="/privacy" className="text-blue-400 hover:text-blue-300 underline">Privacy Policy</a> for more details.
+                        Read our <a href="/privacy" className="text-blue-400 hover:text-blue-300 underline">Privacy Policy</a> for more details.</span>
                       </p>
                     </div>
                     
@@ -313,7 +313,7 @@ export const CookieConsentBanner: React.FC = () => {
                 <h3 className="text-base font-semibold text-white">We use cookies</h3>
               </div>
               <p className="text-sm text-gray-300 leading-relaxed mb-4">
-                We use cookies to enhance your experience and analyze site traffic. You can customize your preferences.
+                <span className="text-gray-400">We use cookies to enhance your experience and analyze site traffic. You can customize your preferences.</span>
               </p>
               
               <div className="space-y-2">

@@ -35,7 +35,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
         {...props}
       />
       {hint && !error && (
-        <p className="text-xs text-gray-500">{hint}</p>
+        <p className="text-xs text-gray-400">{hint}</p>
       )}
       {error && (
         <p className="text-xs text-red-400">{error}</p>

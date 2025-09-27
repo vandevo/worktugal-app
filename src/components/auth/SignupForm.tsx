@@ -72,7 +72,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
           </div>
           <div className="text-left flex-1">
             <h2 className="text-lg font-bold leading-tight">Create your account</h2>
-            <p className="text-sm text-gray-400 leading-tight">Get access to verified perks in Lisbon</p>
+            <p className="text-sm text-gray-500 leading-tight">Get access to verified perks in Lisbon</p>
           </div>
         </div>
       </div>
@@ -164,7 +164,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
 
       {onSwitchToLogin && (
         <div className="mt-6 text-center pt-4 border-t border-gray-700/50">
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-500 text-sm">
             Already have an account?{' '}
             <button
               type="button"

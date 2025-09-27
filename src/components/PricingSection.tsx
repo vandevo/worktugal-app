@@ -76,10 +76,10 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
             €{LISTING_PRICE} one time payment
           </p>
           <p className="text-lg sm:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            Cold outreach doesn't work for professional services. Agencies are expensive and generic.<br />
+            <span className="text-gray-400">Cold outreach doesn't work for professional services. Agencies are expensive and generic.<br />
             This is where remote workers discover trusted coworking, wellness, business services, and authentic local experiences.<br />
             List your expert service where quality clients actually look.<br />
-            You provide value. We connect you with remote professionals who invest in quality.
+            You provide value. We connect you with remote professionals who invest in quality.</span>
           </p>
         </div>
 
@@ -153,7 +153,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
                 
                 <div className="text-center mb-8">
                   <p className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-lg mx-auto">
-                    Join the marketplace where quality remote professionals discover trusted local businesses. No spam, no cold calls - just genuine connections.
+                    <span className="text-gray-400">Join the marketplace where quality remote professionals discover trusted local businesses. No spam, no cold calls - just genuine connections.</span>
                   </p>
                 </div>
               </div>
@@ -163,13 +163,13 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-200">Listed on our public perk directory</span>
+                  <span className="text-base sm:text-lg leading-relaxed text-gray-300">Listed on our public perk directory</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-200">"Trusted Partner" badge on your listing</span>
+                  <span className="text-base sm:text-lg leading-relaxed text-gray-300">"Trusted Partner" badge on your listing</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
@@ -183,25 +183,25 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-200">Featured in our monthly newsletter</span>
+                  <span className="text-base sm:text-lg leading-relaxed text-gray-300">Featured in our monthly newsletter</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-200">Shoutouts at select in-person events</span>
+                  <span className="text-base sm:text-lg leading-relaxed text-gray-300">Shoutouts at select in-person events</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-200">Ongoing support to update or refresh your perks</span>
+                  <span className="text-base sm:text-lg leading-relaxed text-gray-300">Ongoing support to update or refresh your perks</span>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
                     <Check className="h-3.5 w-3.5 text-green-400" />
                   </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-200">Invite-only access to our Partner Insider Network as we grow</span>
+                  <span className="text-base sm:text-lg leading-relaxed text-gray-300">Invite-only access to our Partner Insider Network as we grow</span>
                 </div>
               </div>
 
@@ -288,7 +288,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) 
             
             <div className="relative mt-8 pt-8 border-t border-white/[0.06]">
               <p className="text-base sm:text-lg text-white leading-relaxed max-w-lg mx-auto">
-                Takes 3-5 minutes to complete • Review within 24 hours • Trusted by 1,000+ remote professionals
+                <span className="text-gray-300">Takes 3-5 minutes to complete • Review within 24 hours • Trusted by 1,000+ remote professionals</span>
               </p>
             </div>
           </motion.div>

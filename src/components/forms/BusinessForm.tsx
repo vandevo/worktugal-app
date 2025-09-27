@@ -78,7 +78,7 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
           <Building className="h-8 w-8 text-blue-400" />
         </div>
         <h2 className="text-2xl font-bold mb-2">Add your business details</h2>
-        <p className="text-gray-400">This info creates your live listing and helps remote clients find you</p>
+        <p className="text-gray-500">This info creates your live listing and helps remote clients find you</p>
       </div>
 
       <Card variant="glass" className="p-8">

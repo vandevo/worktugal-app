@@ -125,7 +125,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
           <Gift className="h-8 w-8 text-blue-400" />
         </div>
         <h2 className="text-2xl font-bold mb-2">Setup your perk</h2>
-        <p className="text-gray-400">Tell us about the special offer you'll provide</p>
+        <p className="text-gray-500">Tell us about the special offer you'll provide</p>
       </div>
 
       <Card variant="glass" className="p-8">
@@ -152,12 +152,12 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
             Description
           </label>
           <textarea
-            className="w-full px-4 py-3 bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:border-blue-400/40 hover:bg-white/[0.03] transition-all duration-300 resize-none shadow-lg"
+            className="w-full px-4 py-3 bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:border-blue-400/40 hover:bg-white/[0.03] transition-all duration-300 resize-none shadow-lg"
             rows={4}
             placeholder="Describe your perk in detail. What makes it special? Any restrictions?"
             {...register('description')}
           />
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-400">
             e.g., "Enjoy 20% off all food items, valid for dine-in only. Not combinable with other offers."
           </p>
           {errors.description && (

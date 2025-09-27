@@ -45,7 +45,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-4xl mx-auto leading-relaxed">
-              Remote workers need real services: coworking, wellness, professional help, and authentic experiences. Skip the cold outreach. Get discovered by quality clients who value what you offer.
+              <span className="text-gray-400">Remote workers need real services: coworking, wellness, professional help, and authentic experiences. Skip the cold outreach. Get discovered by quality clients who value what you offer.</span>
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

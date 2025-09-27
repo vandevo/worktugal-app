@@ -61,7 +61,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
         <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none transition-transform duration-200" />
       </div>
       {hint && !error && (
-        <p className="text-xs text-gray-500">{hint}</p>
+        <p className="text-xs text-gray-400">{hint}</p>
       )}
       {error && (
         <p className="text-xs text-red-400">{error}</p>

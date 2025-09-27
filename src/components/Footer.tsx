@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
               <span className="text-xl font-bold">Worktugal Pass</span>
             </a>
             <p className="text-gray-400 text-sm">
-              Lisbon's trusted perk marketplace for remote professionals and expats.
+              <span className="text-gray-500">Lisbon's trusted perk marketplace for remote professionals and expats.</span>
             </p>
           </div>
 
@@ -31,16 +31,16 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#directory" className="text-gray-400 hover:text-white transition-colors">Browse Perks</a></li>
-              <li><a href="#pricing" className="text-gray-400 hover:text-white transition-colors">For Partners</a></li>
-              <li><a href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+              <li><a href="#directory" className="text-gray-500 hover:text-white transition-colors">Browse Perks</a></li>
+              <li><a href="#pricing" className="text-gray-500 hover:text-white transition-colors">For Partners</a></li>
+              <li><a href="/privacy" className="text-gray-500 hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms" className="text-gray-500 hover:text-white transition-colors">Terms of Service</a></li>
               <li>
                 <a 
                   href="https://www.linkedin.com/company/worktugal/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-gray-500 hover:text-white transition-colors"
                 >
                   About Us
                 </a>
@@ -48,7 +48,7 @@ export const Footer: React.FC = () => {
               <li>
                 <a 
                   href="mailto:hello@worktugal.com" 
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-gray-500 hover:text-white transition-colors"
                 >
                   Contact
                 </a>
@@ -147,7 +147,7 @@ export const Footer: React.FC = () => {
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p>&copy; 2025 Worktugal Pass. All rights reserved.</p>
+            <p className="text-gray-500">&copy; 2025 Worktugal Pass. All rights reserved.</p>
             <div className="flex flex-col sm:flex-row items-center gap-4 text-sm">
               <button
                 onClick={openConsentBanner}
@@ -158,14 +158,14 @@ export const Footer: React.FC = () => {
               <span className="hidden sm:inline text-gray-600">•</span>
               <a 
                 href="/privacy" 
-                className="text-blue-400 hover:text-blue-300 transition-colors underline"
+                className="text-gray-500 hover:text-white transition-colors underline"
               >
                 Privacy Policy
               </a>
               <span className="hidden sm:inline text-gray-600">•</span>
               <a 
                 href="/terms" 
-                className="text-blue-400 hover:text-blue-300 transition-colors underline"
+                className="text-gray-500 hover:text-white transition-colors underline"
               >
                 Terms of Service
               </a>

@@ -101,7 +101,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
           <CreditCard className="h-8 w-8 text-blue-400" />
         </div>
         <h2 className="text-2xl font-bold mb-2">Secure Your Partnership</h2>
-        <p className="text-gray-400">Join the marketplace trusted by 1,000+ remote professionals</p>
+        <p className="text-gray-500">Join the marketplace trusted by 1,000+ remote professionals</p>
       </div>
 
       {/* Confirmation Summary */}
@@ -146,7 +146,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
               <div className="w-5 h-5 bg-green-400/20 rounded-full flex items-center justify-center backdrop-blur-xl border border-green-400/20">
                 <Check className="h-3 w-3 text-green-400" />
               </div>
-              <span>Lifetime visibility in Lisbon's trusted perk marketplace</span>
+              <span className="text-gray-300">Lifetime visibility in Lisbon's trusted perk marketplace</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-5 h-5 bg-green-400/20 rounded-full flex items-center justify-center backdrop-blur-xl border border-green-400/20">
@@ -202,8 +202,8 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
 
       <div className="space-y-4">
         <div className="text-center text-base text-gray-400">
-          <p>🔒 Payments securely processed with Stripe • 30-day money-back guarantee</p>
-          <p className="text-sm mt-2">By proceeding, you agree to our Terms of Service</p>
+          <p className="text-gray-500">🔒 Payments securely processed with Stripe • 30-day money-back guarantee</p>
+          <p className="text-sm mt-2 text-gray-500">By proceeding, you agree to our Terms of Service</p>
         </div>
 
         <div className="flex space-x-4">

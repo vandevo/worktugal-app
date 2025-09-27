@@ -81,7 +81,7 @@ export const SuccessPage: React.FC = () => {
             className="mb-8"
           >
             <h1 className="text-4xl font-bold mb-4">Welcome to Early Access!</h1>
-            <p className="text-xl text-gray-300 mb-6">
+            <p className="text-xl text-gray-400 mb-6">
               You've successfully secured your spot in Lisbon's #1 perk marketplace
             </p>
             <div className="inline-flex items-center space-x-2 bg-green-600/20 text-green-300 px-4 py-2 rounded-full">
@@ -130,7 +130,7 @@ export const SuccessPage: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Review & Verification</h3>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-gray-500 text-sm">
                       Our team will review your submission and verify all details within 24 hours
                     </p>
                   </div>

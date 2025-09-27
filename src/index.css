@@ -3,16 +3,6 @@
     @apply bg-gray-900 text-white;
   }
   
-  /* Force all text elements to be white on dark theme */
-  h1, h2, h3, h4, h5, h6, p, span, div, label {
-    @apply text-white;
-  }
-  
-  /* Override any black text */
-  * {
-    color: inherit;
-  }
-  
   /* Ensure form elements are white */
   input, textarea, select {
     @apply text-white;

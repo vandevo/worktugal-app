@@ -259,7 +259,7 @@ export const PerksDirectory: React.FC = () => {
     
     if (!needsTruncation) {
       return (
-        <p className="text-sm text-gray-300 leading-relaxed mb-4">
+        <p className="text-sm text-gray-400 leading-relaxed mb-4">
           {perk.description}
         </p>
       );
@@ -271,7 +271,7 @@ export const PerksDirectory: React.FC = () => {
     return (
       <div className="mb-4">
         <motion.p
-          className="text-sm text-gray-300 leading-relaxed"
+          className="text-sm text-gray-400 leading-relaxed"
           initial={false}
           animate={{ height: 'auto' }}
           transition={{ duration: 0.3, ease: 'easeInOut' }}
@@ -308,7 +308,7 @@ export const PerksDirectory: React.FC = () => {
             Verified Perks Used by Remote Workers Who Stay and Spend
           </h2>
           <p className="text-lg md:text-xl text-white mb-6 max-w-4xl mx-auto leading-relaxed">
-            These are not coupon deals. They are trusted offers from real Lisbon professionals - coworking spaces, wellness experts, business services, and authentic experiences used by freelancers, founders, and remote workers who call Lisbon home.
+            <span className="text-gray-300">These are not coupon deals. They are trusted offers from real Lisbon professionals - coworking spaces, wellness experts, business services, and authentic experiences used by freelancers, founders, and remote workers who call Lisbon home.</span>
           </p>
         </div>
 
@@ -550,8 +550,8 @@ export const PerksDirectory: React.FC = () => {
           <div className="text-center py-12">
             <div className="text-gray-400 mb-4">
               <Filter className="h-12 w-12 mx-auto mb-4" />
-              <p className="text-lg">No perks found matching your criteria</p>
-              <p className="text-sm">Try adjusting your search or filters</p>
+              <p className="text-lg text-gray-400">No perks found matching your criteria</p>
+              <p className="text-sm text-gray-500">Try adjusting your search or filters</p>
             </div>
           </div>
         )}

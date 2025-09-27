@@ -55,10 +55,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             
             <div className="flex items-center space-x-6">
               <div className="hidden md:flex items-center space-x-6">
-                <a href="#directory" className="text-gray-300 hover:text-white transition-all duration-300 font-medium">
+                <a href="#directory" className="text-gray-400 hover:text-white transition-all duration-300 font-medium">
                   Browse Perks
                 </a>
-                <a href="#pricing" className="text-gray-300 hover:text-white transition-all duration-300 font-medium">
+                <a href="#pricing" className="text-gray-400 hover:text-white transition-all duration-300 font-medium">
                   For Partners
                 </a>
               </div>
@@ -69,7 +69,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <div className="relative">
                     <button
                       onClick={() => setShowUserMenu(!showUserMenu)}
-                      className="flex items-center space-x-2 text-gray-300 hover:text-white transition-all duration-300 group"
+                      className="flex items-center space-x-2 text-gray-400 hover:text-white transition-all duration-300 group"
                     >
                       <div className="w-9 h-9 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center text-white text-sm font-medium group-hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-500/25 border border-white/[0.08]">
                         {getInitials()}
@@ -90,14 +90,14 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                             setShowProfileModal(true);
                             setShowUserMenu(false);
                           }}
-                          className="w-full px-4 py-3 text-left text-gray-300 hover:text-white hover:bg-white/[0.04] transition-all duration-300 flex items-center space-x-2 rounded-xl mx-1"
+                          className="w-full px-4 py-3 text-left text-gray-400 hover:text-white hover:bg-white/[0.04] transition-all duration-300 flex items-center space-x-2 rounded-xl mx-1"
                         >
                           <Settings className="h-4 w-4" />
                           <span>Edit Profile</span>
                         </button>
                         <button
                           onClick={handleSignOut}
-                          className="w-full px-4 py-3 text-left text-gray-300 hover:text-white hover:bg-white/[0.04] transition-all duration-300 flex items-center space-x-2 rounded-xl mx-1"
+                          className="w-full px-4 py-3 text-left text-gray-400 hover:text-white hover:bg-white/[0.04] transition-all duration-300 flex items-center space-x-2 rounded-xl mx-1"
                         >
                           <LogOut className="h-4 w-4" />
                           <span>Sign Out</span>
