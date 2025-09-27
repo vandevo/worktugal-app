@@ -151,11 +151,11 @@ export const CookieConsentBanner: React.FC = () => {
         className="hidden md:block fixed bottom-0 left-0 right-0 z-50 p-4 pointer-events-none"
       >
         <div className="max-w-7xl mx-auto pointer-events-auto">
-          <Card className="p-6 bg-gray-800/95 backdrop-blur-md border-gray-700/50 shadow-2xl">
+          <Card variant="glass" className="p-6 shadow-2xl">
             {/* Close button */}
             <button
               onClick={dismissBannerTemporarily}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-700/50 hover:bg-gray-600/50 text-gray-400 hover:text-white transition-all duration-200 flex items-center justify-center"
+              className="absolute top-4 right-4 w-9 h-9 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-xl text-gray-400 hover:text-white transition-all duration-300 flex items-center justify-center border border-white/[0.06]"
               aria-label="Dismiss banner temporarily"
             >
               <X className="h-4 w-4" />
@@ -188,7 +188,7 @@ export const CookieConsentBanner: React.FC = () => {
                         variant="primary"
                         size="md"
                         onClick={acceptAllCookies}
-                        className="sm:min-w-[120px]"
+                        className="sm:min-w-[120px] rounded-2xl"
                       >
                         <Check className="mr-2 h-4 w-4" />
                         Accept All
@@ -197,7 +197,7 @@ export const CookieConsentBanner: React.FC = () => {
                         variant="outline"
                         size="md"
                         onClick={rejectAllCookies}
-                        className="sm:min-w-[120px]"
+                        className="sm:min-w-[120px] rounded-2xl"
                       >
                         Reject All
                       </Button>
@@ -205,7 +205,7 @@ export const CookieConsentBanner: React.FC = () => {
                         variant="ghost"
                         size="md"
                         onClick={togglePreferences}
-                        className="sm:min-w-[140px]"
+                        className="sm:min-w-[140px] rounded-2xl"
                       >
                         <Settings className="mr-2 h-4 w-4" />
                         Preferences
@@ -298,11 +298,11 @@ export const CookieConsentBanner: React.FC = () => {
         className="md:hidden fixed bottom-0 left-0 right-0 z-40 p-4 pointer-events-none"
       >
         <div className="pointer-events-auto">
-          <Card className="p-4 bg-gray-800/95 backdrop-blur-md border-gray-700/50 shadow-2xl">
+          <Card variant="glass" className="p-4 shadow-2xl">
             {/* Close button */}
             <button
               onClick={dismissBannerTemporarily}
-              className="absolute top-3 right-3 w-7 h-7 rounded-full bg-gray-700/50 hover:bg-gray-600/50 text-gray-400 hover:text-white transition-all duration-200 flex items-center justify-center"
+              className="absolute top-3 right-3 w-8 h-8 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-xl text-gray-400 hover:text-white transition-all duration-300 flex items-center justify-center border border-white/[0.06]"
               aria-label="Dismiss banner temporarily"
             >
               <X className="h-3.5 w-3.5" />

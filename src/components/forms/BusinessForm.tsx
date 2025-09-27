@@ -73,12 +73,15 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
       className="space-y-6"
     >
       <div className="text-center mb-8">
-        <Building className="h-12 w-12 text-blue-400 mx-auto mb-4" />
+        <div className="w-16 h-16 bg-blue-400/10 backdrop-blur-xl rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-400/20 shadow-lg">
+          <Building className="h-8 w-8 text-blue-400" />
+        </div>
         <h2 className="text-2xl font-bold mb-2">Add your business details</h2>
         <p className="text-gray-400">This info creates your live listing and helps remote clients find you</p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <Card variant="glass" className="p-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <Input
           label="Business Name"
           placeholder="Your Amazing Business"
@@ -113,8 +116,8 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
         </div>
 
         {/* Location & Business Type - Grouped */}
-        <div className="p-4 border border-gray-700 rounded-xl bg-gray-800/50 space-y-4">
-          <h3 className="text-sm font-medium text-gray-300 mb-3">Business Details</h3>
+        <div className="p-6 border border-white/[0.06] rounded-2xl bg-white/[0.02] backdrop-blur-xl space-y-6">
+          <h3 className="text-base font-semibold text-gray-200 mb-4">Business Details</h3>
           <Select
             label="Business Category"
             hint="What type of business is this?"
@@ -150,12 +153,13 @@ export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialDat
         <Button
           type="submit"
           size="lg"
-          className="w-full"
+          className="w-full rounded-2xl h-14 text-lg font-semibold"
           loading={isSubmitting}
         >
           Continue to Perk Details
         </Button>
       </form>
+      </Card>
     </motion.div>
   );
 };

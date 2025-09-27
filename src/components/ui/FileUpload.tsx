@@ -167,10 +167,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             className={cn(
-              'relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 cursor-pointer hover:border-blue-500 hover:bg-gray-800/50',
-              dragOver ? 'border-blue-500 bg-blue-500/10' : 'border-gray-600 bg-gray-800/30',
+              'relative border-2 border-dashed rounded-2xl p-8 text-center transition-all duration-300 cursor-pointer backdrop-blur-xl',
+              dragOver 
+                ? 'border-blue-400 bg-blue-400/10 shadow-lg shadow-blue-500/20' 
+                : 'border-white/[0.12] bg-white/[0.02] hover:border-blue-400/60 hover:bg-white/[0.04] hover:shadow-lg',
               (uploading || disabled) && 'cursor-not-allowed',
-              error && 'border-red-500'
+              error && 'border-red-400'
             )}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
@@ -227,7 +229,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                     Drop an image here, or{' '}
                     <span className="text-blue-400 font-medium">click to browse</span>
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm text-gray-400">
                     JPEG, PNG, or WebP up to 5MB
                   </p>
                 </div>

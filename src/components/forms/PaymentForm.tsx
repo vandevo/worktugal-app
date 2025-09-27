@@ -97,13 +97,15 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
       className="space-y-6"
     >
       <div className="text-center mb-8">
-        <CreditCard className="h-12 w-12 text-blue-400 mx-auto mb-4" />
+        <div className="w-16 h-16 bg-blue-400/10 backdrop-blur-xl rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-400/20 shadow-lg">
+          <CreditCard className="h-8 w-8 text-blue-400" />
+        </div>
         <h2 className="text-2xl font-bold mb-2">Secure Your Partnership</h2>
         <p className="text-gray-400">Join the marketplace trusted by 1,000+ remote professionals</p>
       </div>
 
       {/* Confirmation Summary */}
-      <div className="text-center mb-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700">
+      <Card variant="glass" className="text-center mb-8 p-6">
         <p className="text-lg font-medium text-gray-200 mb-2">
           You're listing <span className="text-blue-400 font-semibold">{formData.business.name}</span>
         </p>
@@ -113,7 +115,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
         <div className="mt-4 text-sm text-gray-400">
           <p>in {formData.business.neighborhood} • {formData.business.category}</p>
         </div>
-      </div>
+      </Card>
 
       {error && (
         <Alert variant="error" className="mb-6" onClose={() => setError(null)}>
@@ -128,11 +130,11 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
         </Alert>
       )}
 
-      <Card className="p-6">
+      <Card variant="glass" className="p-8 mb-8">
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-lg font-medium">Early Access Partnership</span>
-            <span className="text-2xl font-bold text-blue-400">€{LISTING_PRICE}</span>
+            <span className="text-3xl font-bold bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">€{LISTING_PRICE}</span>
           </div>
           
           <div className="text-sm text-gray-500 mb-4">
@@ -141,27 +143,39 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
           
           <div className="space-y-2 text-sm text-gray-400">
             <div className="flex items-center space-x-2">
-              <Check className="h-4 w-4 text-green-400" />
+              <div className="w-5 h-5 bg-green-400/20 rounded-full flex items-center justify-center backdrop-blur-xl border border-green-400/20">
+                <Check className="h-3 w-3 text-green-400" />
+              </div>
               <span>Lifetime visibility in Lisbon's trusted perk marketplace</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Check className="h-4 w-4 text-green-400" />
+              <div className="w-5 h-5 bg-green-400/20 rounded-full flex items-center justify-center backdrop-blur-xl border border-green-400/20">
+                <Check className="h-3 w-3 text-green-400" />
+              </div>
               <span>Direct access to 1,000+ verified remote professionals</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Check className="h-4 w-4 text-green-400" />
+              <div className="w-5 h-5 bg-green-400/20 rounded-full flex items-center justify-center backdrop-blur-xl border border-green-400/20">
+                <Check className="h-3 w-3 text-green-400" />
+              </div>
               <span>Priority featuring in events & community channels</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Check className="h-4 w-4 text-green-400" />
+              <div className="w-5 h-5 bg-green-400/20 rounded-full flex items-center justify-center backdrop-blur-xl border border-green-400/20">
+                <Check className="h-3 w-3 text-green-400" />
+              </div>
               <span>Performance tracking & customer insights</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Check className="h-4 w-4 text-green-400" />
+              <div className="w-5 h-5 bg-green-400/20 rounded-full flex items-center justify-center backdrop-blur-xl border border-green-400/20">
+                <Check className="h-3 w-3 text-green-400" />
+              </div>
               <span>No renewal fees • No commissions • No hidden costs</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Check className="h-4 w-4 text-green-400" />
+              <div className="w-5 h-5 bg-green-400/20 rounded-full flex items-center justify-center backdrop-blur-xl border border-green-400/20">
+                <Check className="h-3 w-3 text-green-400" />
+              </div>
               <span>Dedicated Portugal-based team & support</span>
             </div>
           </div>
@@ -170,26 +184,26 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
 
       {/* Secure Checkout Badge */}
       <div className="text-center">
-        <div className="inline-flex items-center space-x-2 text-green-400 bg-green-600/10 px-4 py-2 rounded-full border border-green-600/20">
+        <div className="inline-flex items-center space-x-2 text-green-300 bg-green-400/10 backdrop-blur-xl px-5 py-3 rounded-full border border-green-400/20 shadow-lg">
           <ShieldCheck className="h-5 w-5" />
           <span className="font-medium">Secure Checkout</span>
         </div>
       </div>
 
-      <div className="bg-orange-600/10 border border-orange-600/20 rounded-xl p-4">
-        <div className="flex items-center space-x-2 mb-2">
+      <Card variant="frosted" className="p-6">
+        <div className="flex items-center space-x-2 mb-3">
           <Shield className="h-5 w-5 text-blue-400" />
           <span className="font-medium text-orange-400">Early Access - 21 Spots Remaining</span>
         </div>
-        <p className="text-sm text-gray-300 leading-relaxed">
+        <p className="text-base text-gray-300 leading-relaxed">
           Join the first 25 partners in the marketplace that remote workers trust. These are quality customers who stay longer, spend more, and share their experiences.
         </p>
-      </div>
+      </Card>
 
       <div className="space-y-4">
-        <div className="text-center text-sm text-gray-400">
+        <div className="text-center text-base text-gray-400">
           <p>🔒 Payments securely processed with Stripe • 30-day money-back guarantee</p>
-          <p className="text-xs mt-1">By proceeding, you agree to our Terms of Service</p>
+          <p className="text-sm mt-2">By proceeding, you agree to our Terms of Service</p>
         </div>
 
         <div className="flex space-x-4">
@@ -198,13 +212,13 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
             variant="outline"
             size="lg"
             onClick={onBack}
-            className="flex-1"
+            className="flex-1 rounded-2xl h-14"
           >
             Back
           </Button>
           <Button
             size="lg"
-            className="flex-1"
+            className="flex-1 rounded-2xl h-14 font-semibold"
             onClick={handlePayment}
             loading={processing}
             disabled={isPreviewMode}

@@ -121,12 +121,15 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
       className="space-y-6"
     >
       <div className="text-center mb-8">
-        <Gift className="h-12 w-12 text-blue-400 mx-auto mb-4" />
+        <div className="w-16 h-16 bg-blue-400/10 backdrop-blur-xl rounded-2xl flex items-center justify-center mx-auto mb-6 border border-blue-400/20 shadow-lg">
+          <Gift className="h-8 w-8 text-blue-400" />
+        </div>
         <h2 className="text-2xl font-bold mb-2">Setup your perk</h2>
         <p className="text-gray-400">Tell us about the special offer you'll provide</p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <Card variant="glass" className="p-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         {/* Auth warning for image uploads */}
         {showImageFields && !user && (
           <Alert variant="info" className="mb-6">
@@ -149,7 +152,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
             Description
           </label>
           <textarea
-            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+            className="w-full px-4 py-3 bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:border-blue-400/40 hover:bg-white/[0.03] transition-all duration-300 resize-none shadow-lg"
             rows={4}
             placeholder="Describe your perk in detail. What makes it special? Any restrictions?"
             {...register('description')}
@@ -226,7 +229,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
           </div>
 
           {showImageFields && (
-            <div className="space-y-6 p-6 border border-gray-700 rounded-xl bg-gray-800/50">
+            <div className="space-y-6 p-6 border border-white/[0.06] rounded-2xl bg-white/[0.02] backdrop-blur-xl">
               <FileUpload
                 label="Business Logo (optional)"
                 hint="Upload your business logo to make your perk more recognizable"
@@ -261,7 +264,7 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
                 {images.length > 0 && (
                   <div className="space-y-4">
                     {images.map((imageUrl, index) => (
-                      <Card key={index} className="p-4">
+                      <Card key={index} variant="frosted" className="p-4">
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-sm text-gray-400">
                             Image {index + 1}
@@ -355,11 +358,11 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="mt-4 p-4 border border-gray-700 rounded-xl bg-gray-800/30 space-y-4"
+              className="mt-6 p-6 border border-white/[0.06] rounded-2xl bg-white/[0.02] backdrop-blur-xl space-y-6"
             >
               <div className="mb-3">
-                <h4 className="text-sm font-medium text-gray-300 mb-2">Customer Tax Information</h4>
-                <p className="text-xs text-gray-500 leading-relaxed">
+                <h4 className="text-base font-semibold text-gray-200 mb-3">Customer Tax Information</h4>
+                <p className="text-sm text-gray-400 leading-relaxed">
                   We'll include this info in your official Fatura or Recibo Verde, as required by law.
                 </p>
               </div>
@@ -393,20 +396,21 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
             variant="outline"
             size="lg"
             onClick={onBack}
-            className="flex-1"
+            className="flex-1 rounded-2xl h-14"
           >
             Back
           </Button>
           <Button
             type="submit"
             size="lg"
-            className="flex-1"
+            className="flex-1 rounded-2xl h-14 font-semibold"
             loading={isSubmitting}
           >
             Continue to Payment
           </Button>
         </div>
       </form>
+      </Card>
 
       <AuthModal
         isOpen={showAuthModal}

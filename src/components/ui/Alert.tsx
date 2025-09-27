@@ -20,22 +20,22 @@ export const Alert: React.FC<AlertProps> = ({
 }) => {
   const variants = {
     info: {
-      container: 'bg-blue-600/10 border-blue-600/20 text-blue-300',
+      container: 'bg-blue-400/10 backdrop-blur-xl border-blue-400/20 text-blue-300',
       icon: 'text-blue-400',
       IconComponent: Info,
     },
     success: {
-      container: 'bg-green-600/10 border-green-600/20 text-green-300',
+      container: 'bg-green-400/10 backdrop-blur-xl border-green-400/20 text-green-300',
       icon: 'text-green-400',
       IconComponent: CheckCircle,
     },
     warning: {
-      container: 'bg-yellow-600/10 border-yellow-600/20 text-yellow-300',
+      container: 'bg-yellow-400/10 backdrop-blur-xl border-yellow-400/20 text-yellow-300',
       icon: 'text-yellow-400',
       IconComponent: AlertCircle,
     },
     error: {
-      container: 'bg-red-600/10 border-red-600/20 text-red-300',
+      container: 'bg-red-400/10 backdrop-blur-xl border-red-400/20 text-red-300',
       icon: 'text-red-400',
       IconComponent: AlertCircle,
     },
@@ -49,7 +49,7 @@ export const Alert: React.FC<AlertProps> = ({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       className={cn(
-        'border rounded-xl p-4',
+        'border rounded-2xl p-5 shadow-lg',
         container,
         className
       )}
