@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
-import { Gift, ImageIcon, Plus, Trash2 } from 'lucide-react';
+import { Gift, Image as ImageIcon, Plus, Trash2 } from 'lucide-react';
 import { perkSchema, PerkFormData } from '../../lib/validations';
 import { REDEMPTION_METHODS } from '../../utils/constants';
 import { useAuth } from '../../hooks/useAuth';
