@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Users, TrendingUp, MapPin, Ticket } from 'lucide-react';
 import { Button } from './ui/Button';
+import { Card } from './ui/Card';
 
 interface HeroProps {
   onGetStarted: () => void;
