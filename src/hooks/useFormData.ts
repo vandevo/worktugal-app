@@ -13,7 +13,6 @@ const initialFormData: FormData = {
     phone: '',
     category: '',
     neighborhood: '',
-    neighborhood: '',
   },
   perk: {
     title: '',
