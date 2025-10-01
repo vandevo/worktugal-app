@@ -12,7 +12,6 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { ProtectedSuccessRoute } from './components/ProtectedSuccessRoute';
 import { Seo } from './components/Seo';
 import { useFormData } from './hooks/useFormData';
-import { CookieConsentProvider } from './contexts/CookieConsentContext';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { type ProductName } from './stripe-config';
 
@@ -24,40 +23,38 @@ function App() {
   };
 
   return (
-    <CookieConsentProvider>
-      <Router>
-        <Seo />
-        <Layout>
-          <Routes>
-            <Route path="/" element={<FormWizard />} />
-            <Route 
-              path="/services" 
-              element={<ServicesPage onServiceSelect={handleServiceSelect} />} 
-            />
-            <Route path="/checkout-success" element={<CheckoutSuccess />} />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/success"
-              element={
-                <ProtectedSuccessRoute>
-                  <SuccessPage />
-                </ProtectedSuccessRoute>
-              }
-            />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<TermsAndConditions />} />
-          </Routes>
-        </Layout>
-        <CookieConsentBanner />
-      </Router>
-    </CookieConsentProvider>
+    <Router>
+      <Seo />
+      <Layout>
+        <Routes>
+          <Route path="/" element={<FormWizard />} />
+          <Route
+            path="/services"
+            element={<ServicesPage onServiceSelect={handleServiceSelect} />}
+          />
+          <Route path="/checkout-success" element={<CheckoutSuccess />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/success"
+            element={
+              <ProtectedSuccessRoute>
+                <SuccessPage />
+              </ProtectedSuccessRoute>
+            }
+          />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsAndConditions />} />
+        </Routes>
+      </Layout>
+      <CookieConsentBanner />
+    </Router>
   );
 }
 
