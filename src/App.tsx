@@ -5,6 +5,8 @@ import { Seo } from './components/Seo';
 import { Layout } from './components/Layout';
 import { Hero } from './components/Hero';
 import { PricingSection } from './components/PricingSection';
+import { AccountingServices } from './components/AccountingServices';
+import { PartnerServices } from './components/PartnerServices';
 import { Footer } from './components/Footer';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { useAuth } from './hooks/useAuth';
@@ -39,7 +41,8 @@ const HomePage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [searchParams] = useSearchParams();
   const [spotsLeft, setSpotsLeft] = useState<number | null>(null);
-  const [spotsLoading, setSpotsLoading] = useState(true);
+      <AccountingServices />
+      <PartnerServices />
   const [activePerksCount, setActivePerksCount] = useState<number | null>(null);
   const [activePerksLoading, setActivePerksLoading] = useState(true);
   
@@ -221,6 +224,8 @@ function App() {
               </ProtectedSuccessRoute>
             </Suspense>
           } />
+          <Route path="/accounting" element={<AccountingServices />} />
+          <Route path="/partners" element={<PartnerServices />} />
           <Route path="/perks" element={<PerksDirectory />} />
           <Route path="/reset-password" element={
             <Suspense fallback={<LoadingSpinner />}>

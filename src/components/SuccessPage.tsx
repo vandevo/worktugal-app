@@ -1,209 +1,196 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { CheckCircle, Calendar, Receipt, ArrowRight } from 'lucide-react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { CheckCircle, ArrowRight, Download, Calendar } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
-import { stripeProducts } from '../stripe-config';
+import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
 
-interface PurchaseDetails {
-  customerEmail: string;
+interface PurchaseData {
   productName: string;
   amount: number;
   currency: string;
-  purchaseDate: string;
+  orderDate: string;
 }
 
-export function SuccessPage() {
+export const SuccessPage: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const [purchaseDetails, setPurchaseDetails] = useState<PurchaseDetails | null>(null);
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [purchaseData, setPurchaseData] = useState<PurchaseData | null>(null);
   const [loading, setLoading] = useState(true);
 
   const sessionId = searchParams.get('session_id');
 
   useEffect(() => {
-    const fetchPurchaseDetails = async () => {
-      if (!sessionId) {
-        setLoading(false);
-        return;
-      }
+    if (!sessionId) {
+      navigate('/');
+      return;
+    }
 
+    const fetchPurchaseData = async () => {
       try {
-        // Query stripe_orders to get purchase details
-        const { data: order, error } = await supabase
+        // Fetch the latest order for this user
+        const { data: orders, error } = await supabase
           .from('stripe_orders')
           .select(`
             *,
-            stripe_customers!inner(
-              user_id,
-              customer_id
-            )
+            stripe_customers!inner(user_id)
           `)
+          .eq('stripe_customers.user_id', user?.id)
           .eq('checkout_session_id', sessionId)
-          .single();
+          .order('created_at', { ascending: false })
+          .limit(1);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error fetching purchase data:', error);
+          return;
+        }
 
-        if (order) {
-          // Get user details
-          const { data: user } = await supabase.auth.getUser();
-          
-          // Try to determine product from amount
-          const productKey = Object.keys(stripeProducts).find(key => {
-            const product = stripeProducts[key as keyof typeof stripeProducts];
-            return Math.abs(product.price * 100 - order.amount_total) < 1; // Compare in cents
-          });
-
-          const productName = productKey 
-            ? stripeProducts[productKey as keyof typeof stripeProducts].name
-            : 'Purchase';
-
-          setPurchaseDetails({
-            customerEmail: user.user?.email || '',
-            productName,
-            amount: order.amount_total / 100, // Convert from cents
-            currency: order.currency.toUpperCase(),
-            purchaseDate: new Date(order.created_at).toLocaleDateString()
+        if (orders && orders.length > 0) {
+          const order = orders[0];
+          setPurchaseData({
+            productName: 'Your Purchase', // Will be updated with actual product name
+            amount: order.amount_total / 100, // Convert cents to euros
+            currency: order.currency,
+            orderDate: new Date(order.created_at).toLocaleDateString()
           });
         }
       } catch (error) {
-        console.error('Error fetching purchase details:', error);
+        console.error('Error:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPurchaseDetails();
-  }, [sessionId]);
+    if (user) {
+      fetchPurchaseData();
+    }
+  }, [sessionId, user, navigate]);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto mb-4"></div>
           <p className="text-slate-600">Loading your purchase details...</p>
         </div>
       </div>
     );
   }
 
-  if (!sessionId || !purchaseDetails) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50 flex items-center justify-center">
-        <Card className="max-w-md mx-auto text-center p-8">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Receipt className="w-8 h-8 text-red-600" />
-          </div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-2">Invalid Session</h1>
-          <p className="text-slate-600 mb-6">
-            We couldn't find your purchase details. Please check your email for confirmation.
-          </p>
-          <Button 
-            onClick={() => window.location.href = '/'}
-            className="bg-teal-600 hover:bg-teal-700 text-white"
-          >
-            Return Home
-          </Button>
-        </Card>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-2xl mx-auto">
-          <Card className="text-center p-8 mb-8">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="w-12 h-12 text-green-600" />
-            </div>
-            
-            <h1 className="text-3xl font-bold text-slate-900 mb-4">
-              Payment Successful!
-            </h1>
-            
-            <p className="text-lg text-slate-600 mb-8">
-              Thank you for your purchase. Your payment has been processed successfully.
-            </p>
+    <div className="min-h-screen bg-slate-50 py-16">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center mb-8"
+        >
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle className="w-10 h-10 text-green-600" />
+          </div>
+          
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            Payment Successful!
+          </h1>
+          
+          <p className="text-lg text-slate-600">
+            Thank you for your purchase. Your order has been confirmed and you'll receive 
+            further instructions via email shortly.
+          </p>
+        </motion.div>
 
-            <div className="bg-slate-50 rounded-lg p-6 mb-8">
-              <h3 className="font-semibold text-slate-900 mb-4">Purchase Details</h3>
-              <div className="space-y-3 text-left">
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Product:</span>
-                  <span className="font-medium text-slate-900">{purchaseDetails.productName}</span>
+        {purchaseData && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <Card className="p-8 mb-8">
+              <h2 className="text-xl font-semibold text-slate-900 mb-6">Order Summary</h2>
+              
+              <div className="space-y-4">
+                <div className="flex justify-between items-center py-3 border-b border-slate-200">
+                  <span className="text-slate-600">Product</span>
+                  <span className="font-medium text-slate-900">{purchaseData.productName}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Amount:</span>
+                
+                <div className="flex justify-between items-center py-3 border-b border-slate-200">
+                  <span className="text-slate-600">Amount</span>
                   <span className="font-medium text-slate-900">
-                    €{purchaseDetails.amount.toFixed(2)}
+                    €{purchaseData.amount.toFixed(2)}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Email:</span>
-                  <span className="font-medium text-slate-900">{purchaseDetails.customerEmail}</span>
+                
+                <div className="flex justify-between items-center py-3 border-b border-slate-200">
+                  <span className="text-slate-600">Order Date</span>
+                  <span className="font-medium text-slate-900">{purchaseData.orderDate}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Date:</span>
-                  <span className="font-medium text-slate-900">{purchaseDetails.purchaseDate}</span>
+                
+                <div className="flex justify-between items-center py-3">
+                  <span className="text-slate-600">Customer</span>
+                  <span className="font-medium text-slate-900">{user?.email}</span>
                 </div>
               </div>
+            </Card>
+          </motion.div>
+        )}
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8"
+        >
+          <h3 className="text-lg font-semibold text-blue-900 mb-3">
+            What Happens Next?
+          </h3>
+          
+          <div className="space-y-3 text-blue-800">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-blue-200 rounded-full flex items-center justify-center text-sm font-semibold">
+                1
+              </div>
+              <span>You'll receive a confirmation email with order details</span>
             </div>
-
-            {purchaseDetails.productName.includes('Tax Triage') && (
-              <div className="bg-teal-50 border border-teal-200 rounded-lg p-6 mb-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <Calendar className="w-5 h-5 text-teal-600" />
-                  <h4 className="font-semibold text-teal-900">Next Steps</h4>
-                </div>
-                <p className="text-teal-800 text-sm">
-                  You'll receive an email within 2 hours with booking instructions to schedule your 
-                  30-minute consultation. Your written outcome note will be delivered within 48 hours 
-                  of your consultation.
-                </p>
+            
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-blue-200 rounded-full flex items-center justify-center text-sm font-semibold">
+                2
               </div>
-            )}
-
-            {purchaseDetails.productName.includes('Partner Listing') && (
-              <div className="bg-orange-50 border border-orange-200 rounded-lg p-6 mb-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <ArrowRight className="w-5 h-5 text-orange-600" />
-                  <h4 className="font-semibold text-orange-900">Welcome to the Marketplace!</h4>
-                </div>
-                <p className="text-orange-800 text-sm">
-                  Your business now has lifetime access to our perk marketplace. You'll receive 
-                  setup instructions within 24 hours to complete your listing.
-                </p>
-              </div>
-            )}
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                onClick={() => window.location.href = '/'}
-                variant="outline"
-                className="flex-1"
-              >
-                Return Home
-              </Button>
-              <Button 
-                onClick={() => window.location.href = '/perks'}
-                className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
-              >
-                Browse Perks
-              </Button>
+              <span>Our team will contact you within 24 hours to schedule your consultation</span>
             </div>
-          </Card>
-
-          <div className="text-center">
-            <p className="text-sm text-slate-500">
-              Questions about your purchase?{' '}
-              <a href="mailto:hello@worktugal.com" className="text-teal-600 hover:text-teal-700">
-                Contact support
-              </a>
-            </p>
+            
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-blue-200 rounded-full flex items-center justify-center text-sm font-semibold">
+                3
+              </div>
+              <span>Receive your consultation and written outcome document</span>
+            </div>
           </div>
-        </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="text-center space-y-4"
+        >
+          <Button
+            onClick={() => navigate('/dashboard')}
+            className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-3 rounded-lg font-medium inline-flex items-center gap-2"
+          >
+            Go to Dashboard
+            <ArrowRight className="w-4 h-4" />
+          </Button>
+          
+          <p className="text-sm text-slate-500">
+            Questions? Contact our support team at support@worktugal.com
+          </p>
+        </motion.div>
       </div>
     </div>
   );
-}
+};
