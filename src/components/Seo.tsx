@@ -2,8 +2,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 interface SeoProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
@@ -15,8 +15,8 @@ interface SeoProps {
 }
 
 export const Seo: React.FC<SeoProps> = ({
-  title,
-  description,
+  title = 'Professional Services for Remote Workers',
+  description = 'Trusted professional services for remote workers in Lisbon. Join 1,000+ verified professionals accessing coworking, wellness, business services & experiences. Lifetime access.',
   ogTitle,
   ogDescription,
   ogImage = 'https://pass.worktugal.com/worktugal-logo-bg-light-radius-1000-1000.png',
