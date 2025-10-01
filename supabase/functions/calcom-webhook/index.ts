@@ -57,7 +57,18 @@ Deno.serve(async (req: Request) => {
     const webhookData: CalComWebhookPayload = await req.json();
     const { triggerEvent, payload } = webhookData;
 
-    console.log('Cal.com webhook received:', triggerEvent, payload.uid);
+    console.log('Cal.com webhook received:', triggerEvent, payload?.uid);
+
+    // Handle ping test from Cal.com
+    if (triggerEvent === 'PING' || !payload) {
+      return new Response(
+        JSON.stringify({ message: 'Webhook endpoint is active', status: 'ok' }),
+        {
+          status: 200,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      );
+    }
 
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
