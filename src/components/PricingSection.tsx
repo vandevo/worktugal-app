@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Check, ArrowRight, Zap } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
-import { stripeProducts } from '../stripe-config';
+import { STRIPE_PRODUCTS } from '../stripe-config';
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
 
@@ -14,24 +14,22 @@ export function PricingSection({ onProductSelect }: PricingSectionProps) {
   const { user } = useAuth();
   const [loading, setLoading] = useState<string | null>(null);
 
-  const handleCheckout = async (productKey: string) => {
+  const handleCheckout = async (priceId: string) => {
     if (!user) return;
-    
-    setLoading(productKey);
-    
+
+    setLoading(priceId);
+
     try {
-      const product = stripeProducts[productKey as keyof typeof stripeProducts];
-      
       const { data, error } = await supabase.functions.invoke('stripe-checkout', {
         body: {
-          priceId: product.priceId,
+          priceId: priceId,
           email: user.email,
-          productType: productKey
+          productType: 'consultation'
         }
       });
 
       if (error) throw error;
-      
+
       if (data?.url) {
         window.location.href = data.url;
       }
@@ -43,8 +41,12 @@ export function PricingSection({ onProductSelect }: PricingSectionProps) {
     }
   };
 
-  const consultProduct = stripeProducts['tax-triage-consult'];
-  const partnerProduct = stripeProducts['partner-listing-lifetime'];
+  const consultProduct = STRIPE_PRODUCTS.find(p => p.name === 'Tax Triage Consult');
+  const partnerProduct = STRIPE_PRODUCTS.find(p => p.name === 'Partner Listing Early Access (Lifetime)');
+
+  if (!consultProduct || !partnerProduct) {
+    return <div>Loading products...</div>;
+  }
 
   return (
     <section className="py-16 bg-slate-50">
@@ -75,7 +77,7 @@ export function PricingSection({ onProductSelect }: PricingSectionProps) {
               
               <div className="mb-6">
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-3xl font-bold text-slate-900">{consultProduct.currencySymbol}{consultProduct.price}</span>
+                  <span className="text-3xl font-bold text-slate-900">€{consultProduct.price}</span>
                   <span className="text-slate-500">one-time</span>
                 </div>
                 <p className="text-slate-600 text-sm leading-relaxed">
@@ -103,11 +105,11 @@ export function PricingSection({ onProductSelect }: PricingSectionProps) {
               </ul>
 
               <Button
-                onClick={() => handleCheckout('tax-triage-consult')}
+                onClick={() => handleCheckout(consultProduct.priceId)}
                 className="w-full bg-teal-600 hover:bg-teal-700 text-white"
-                disabled={loading === 'tax-triage-consult'}
+                disabled={loading === consultProduct.priceId}
               >
-                {loading === 'tax-triage-consult' ? (
+                {loading === consultProduct.priceId ? (
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                     <span>Processing...</span>
@@ -143,7 +145,7 @@ export function PricingSection({ onProductSelect }: PricingSectionProps) {
               
               <div className="mb-6">
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-3xl font-bold text-slate-900">{partnerProduct.currencySymbol}{partnerProduct.price}</span>
+                  <span className="text-3xl font-bold text-slate-900">€{partnerProduct.price}</span>
                   <span className="text-slate-500">lifetime</span>
                 </div>
                 <p className="text-slate-600 text-sm leading-relaxed">
@@ -171,11 +173,11 @@ export function PricingSection({ onProductSelect }: PricingSectionProps) {
               </ul>
 
               <Button
-                onClick={() => handleCheckout('partner-listing-lifetime')}
+                onClick={() => handleCheckout(partnerProduct.priceId)}
                 className="w-full bg-orange-600 hover:bg-orange-700 text-white"
-                disabled={loading === 'partner-listing-lifetime'}
+                disabled={loading === partnerProduct.priceId}
               >
-                {loading === 'partner-listing-lifetime' ? (
+                {loading === partnerProduct.priceId ? (
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                     <span>Processing...</span>

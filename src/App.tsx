@@ -41,8 +41,7 @@ const HomePage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [searchParams] = useSearchParams();
   const [spotsLeft, setSpotsLeft] = useState<number | null>(null);
-      <AccountingServices />
-      <PartnerServices />
+  const [spotsLoading, setSpotsLoading] = useState(true);
   const [activePerksCount, setActivePerksCount] = useState<number | null>(null);
   const [activePerksLoading, setActivePerksLoading] = useState(true);
   
