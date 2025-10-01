@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
-import { FormWizard } from './components/FormWizard';
+import { HomePage } from './components/HomePage';
 import { ServicesPage } from './components/ServicesPage';
 import { CheckoutSuccess } from './components/CheckoutSuccess';
 import { Dashboard } from './components/Dashboard';
@@ -11,7 +11,6 @@ import { TermsAndConditions } from './components/TermsAndConditions';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { ProtectedSuccessRoute } from './components/ProtectedSuccessRoute';
 import { Seo } from './components/Seo';
-import { useFormData } from './hooks/useFormData';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { type ProductName } from './stripe-config';
 
@@ -27,7 +26,7 @@ function App() {
       <Seo />
       <Layout>
         <Routes>
-          <Route path="/" element={<FormWizard />} />
+          <Route path="/" element={<HomePage />} />
           <Route
             path="/services"
             element={<ServicesPage onServiceSelect={handleServiceSelect} />}
