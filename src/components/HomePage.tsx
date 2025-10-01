@@ -76,8 +76,8 @@ export const HomePage: React.FC = () => {
             activePerksCount={activePerksCount}
             activePerksLoading={activePerksLoading}
           />
-          <PartnerPricingHero onGetStarted={handleGetStarted} />
           <PerksDirectory />
+          <PartnerPricingHero onGetStarted={handleGetStarted} />
         </>
       ) : (
         <div className="py-20">
