@@ -78,7 +78,7 @@ export const ConsultCheckout: React.FC = () => {
           mode: 'payment',
           submission_id: booking.id,
           payment_type: 'consult',
-          success_url: `${window.location.origin}/accounting/success?booking=${booking.id}`,
+          success_url: `${window.location.origin}/accounting/consult-success?booking=${booking.id}`,
           cancel_url: `${window.location.origin}/accounting/checkout?booking=${booking.id}`,
         }),
       });
