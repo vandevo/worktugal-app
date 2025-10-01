@@ -21,6 +21,10 @@ const TermsAndConditions = React.lazy(() => import('./components/TermsAndConditi
 const AccountingDeskLanding = React.lazy(() => import('./components/accounting/AccountingDeskLanding').then(module => ({ default: module.AccountingDeskLanding })));
 const ConsultCheckout = React.lazy(() => import('./components/accounting/ConsultCheckout').then(module => ({ default: module.ConsultCheckout })));
 const ConsultSuccess = React.lazy(() => import('./components/accounting/ConsultSuccess').then(module => ({ default: module.ConsultSuccess })));
+const AccountantApplicationPage = React.lazy(() => import('./components/accountant/AccountantApplicationPage').then(module => ({ default: module.AccountantApplicationPage })));
+const AccountantDashboard = React.lazy(() => import('./components/accountant/AccountantDashboard').then(module => ({ default: module.AccountantDashboard })));
+const ClientDashboard = React.lazy(() => import('./components/client/ClientDashboard').then(module => ({ default: module.ClientDashboard })));
+const AdminDashboard = React.lazy(() => import('./components/admin/AdminDashboard').then(module => ({ default: module.AdminDashboard })));
 
 const TOTAL_EARLY_ACCESS_SPOTS = 50;
 
@@ -227,6 +231,26 @@ function App() {
           <Route path="/terms" element={
             <Suspense fallback={<LoadingSpinner />}>
               <TermsAndConditions />
+            </Suspense>
+          } />
+          <Route path="/join-accountant" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <AccountantApplicationPage />
+            </Suspense>
+          } />
+          <Route path="/accountant/dashboard" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <AccountantDashboard />
+            </Suspense>
+          } />
+          <Route path="/dashboard" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <ClientDashboard />
+            </Suspense>
+          } />
+          <Route path="/admin" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <AdminDashboard />
             </Suspense>
           } />
         </Routes>
