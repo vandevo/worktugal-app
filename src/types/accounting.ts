@@ -42,7 +42,8 @@ export const CONSULT_SERVICES: ConsultService[] = [
       'Activity code guidance',
       'VAT decision clarity',
       'Next steps checklist'
-    ]
+    ],
+    stripePriceId: import.meta.env.VITE_STRIPE_PRICE_TRIAGE
   },
   {
     id: 'start_pack',
@@ -58,7 +59,8 @@ export const CONSULT_SERVICES: ConsultService[] = [
       'Written setup report',
       '60 days email support',
       'Tax optimization recommendations'
-    ]
+    ],
+    stripePriceId: import.meta.env.VITE_STRIPE_PRICE_START_PACK
   },
   {
     id: 'annual_return',
@@ -74,6 +76,7 @@ export const CONSULT_SERVICES: ConsultService[] = [
       'Written recommendations',
       'IRS Form 3 overview',
       'Social security guidance'
-    ]
+    ],
+    stripePriceId: import.meta.env.VITE_STRIPE_PRICE_ANNUAL_RETURN
   }
 ];

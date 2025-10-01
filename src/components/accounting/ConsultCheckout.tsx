@@ -59,7 +59,7 @@ export const ConsultCheckout: React.FC = () => {
         throw new Error('Service not found');
       }
 
-      const priceId = getPriceIdForService(booking.service_type);
+      const priceId = service.stripePriceId;
       if (!priceId) {
         throw new Error('Price configuration not found. Please contact support.');
       }
@@ -99,11 +99,6 @@ export const ConsultCheckout: React.FC = () => {
       setError(err instanceof Error ? err.message : 'Failed to start checkout');
       setCheckingOut(false);
     }
-  };
-
-  const getPriceIdForService = (serviceType: string): string | undefined => {
-    const envKey = `VITE_STRIPE_PRICE_${serviceType.toUpperCase()}`;
-    return import.meta.env[envKey];
   };
 
   if (loading) {
