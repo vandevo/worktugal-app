@@ -51,34 +51,39 @@ export const PartnerPricingHero: React.FC<PartnerPricingHeroProps> = ({ onGetSta
     if (onGetStarted) {
       onGetStarted();
     } else {
-      // Fallback: scroll to top and trigger form
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   return (
     <section className="relative py-20 overflow-hidden">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 right-10 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 left-10 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
+      </div>
+
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-pink-500/20 border border-orange-400/30 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] backdrop-blur-xl border border-orange-400/20 mb-6 shadow-lg">
             <Sparkles className="w-4 h-4 text-orange-400" />
             <span className="text-sm font-semibold text-orange-300">LIMITED EARLY ACCESS</span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             <span className="text-white">Join Lisbon's #1</span>
             <br />
-            <span className="bg-gradient-to-r from-orange-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-300 via-pink-300 to-purple-300 bg-clip-text text-transparent">
               Perk Marketplace
             </span>
           </h2>
 
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
             Get discovered by remote workers who are actively looking for services like yours
           </p>
         </motion.div>
@@ -88,27 +93,31 @@ export const PartnerPricingHero: React.FC<PartnerPricingHeroProps> = ({ onGetSta
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Card variant="glass" className="relative overflow-hidden border-2 border-gradient-to-r from-orange-400/30 via-pink-400/30 to-purple-400/30">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-500/10 via-pink-500/10 to-purple-500/10 blur-3xl rounded-full transform translate-x-32 -translate-y-32"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl rounded-full transform -translate-x-32 translate-y-32"></div>
+          <Card variant="glass" className="relative overflow-hidden">
+            {/* Subtle gradient orbs inside card */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-500/5 via-pink-500/5 to-purple-500/5 blur-3xl rounded-full transform translate-x-20 -translate-y-20"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-blue-500/5 via-purple-500/5 to-pink-500/5 blur-3xl rounded-full transform -translate-x-20 translate-y-20"></div>
 
             <div className="relative p-8 md:p-12">
-              <div className="flex items-start justify-between mb-8">
-                <div>
-                  <div className="flex items-baseline gap-3 mb-2">
-                    <span className="text-5xl md:text-6xl font-bold text-white">€49</span>
-                    <span className="text-xl text-gray-400">lifetime</span>
-                  </div>
+              <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-8">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-5xl md:text-6xl font-bold text-white">€49</span>
+                  <span className="text-xl text-gray-400">lifetime</span>
                 </div>
 
-                {!loading && (
-                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500 to-pink-500 shadow-lg shadow-orange-500/50">
+                {!loading && spotsLeft !== null && (
+                  <motion.div
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/90 to-pink-500/90 shadow-xl shadow-orange-500/30 border border-orange-400/30"
+                  >
                     <span className="text-sm font-bold text-white">{spotsLeft} SPOTS LEFT</span>
-                  </div>
+                  </motion.div>
                 )}
               </div>
 
-              <p className="text-gray-300 text-lg leading-relaxed mb-8">
+              <p className="text-gray-200 text-base md:text-lg leading-relaxed mb-8">
                 Join Lisbon's #1 Perk Marketplace. Get lifetime visibility to remote workers, expats, and
                 digital nomads. This early access offer is limited to 25 local businesses only. No renewals,
                 no hidden fees.
@@ -121,12 +130,12 @@ export const PartnerPricingHero: React.FC<PartnerPricingHeroProps> = ({ onGetSta
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                    className="flex items-center gap-3"
+                    className="flex items-start gap-3"
                   >
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center shadow-lg shadow-pink-500/50">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-br from-pink-500/90 to-purple-500/90 flex items-center justify-center shadow-lg shadow-pink-500/30 mt-0.5">
                       <Check className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-gray-200 font-medium">{feature}</span>
+                    <span className="text-gray-200 font-medium leading-relaxed">{feature}</span>
                   </motion.li>
                 ))}
               </ul>
@@ -135,7 +144,7 @@ export const PartnerPricingHero: React.FC<PartnerPricingHeroProps> = ({ onGetSta
                 <Button
                   onClick={handleListBusiness}
                   size="lg"
-                  className="w-full bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 hover:from-orange-400 hover:via-pink-400 hover:to-purple-400 text-white font-bold text-lg py-4 shadow-2xl shadow-pink-500/50 border-none"
+                  className="w-full bg-gradient-to-r from-orange-500/90 via-pink-500/90 to-purple-500/90 hover:from-orange-400/90 hover:via-pink-400/90 hover:to-purple-400/90 text-white font-bold text-base md:text-lg py-4 md:py-6 shadow-2xl shadow-pink-500/40 hover:shadow-pink-500/50 border border-orange-400/30 rounded-2xl transition-all duration-300"
                 >
                   <span>List My Business Now</span>
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -155,7 +164,7 @@ export const PartnerPricingHero: React.FC<PartnerPricingHeroProps> = ({ onGetSta
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-8"
         >
-          <p className="text-gray-400">
+          <p className="text-gray-400 text-sm md:text-base">
             This early access pricing is limited to the first 25 businesses.
             <br />
             <span className="text-gray-500">Regular price will be €149/year after launch.</span>
