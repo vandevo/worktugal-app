@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, ArrowRight, Sparkles } from 'lucide-react';
-import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 import { STRIPE_PRODUCTS } from '../stripe-config';
 
@@ -97,14 +96,13 @@ export const PartnerPricing: React.FC<PartnerPricingProps> = ({ onGetStarted }) 
                 ))}
               </div>
 
-              <Button
+              <button
                 onClick={onGetStarted}
-                size="lg"
-                className="w-full bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 hover:from-orange-600 hover:via-pink-600 hover:to-purple-600 text-white font-semibold py-6 rounded-2xl shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 text-lg"
+                className="w-full inline-flex items-center justify-center bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 hover:from-orange-600 hover:via-pink-600 hover:to-purple-600 text-white font-semibold py-6 rounded-2xl shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 text-lg border border-orange-400/20 backdrop-blur-xl focus:outline-none focus:ring-2 focus:ring-orange-400/40 focus:ring-offset-2 focus:ring-offset-gray-900 active:scale-[0.98] hover:scale-[1.01] active:shadow-lg"
               >
                 <span>List My Business Now</span>
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              </button>
 
               <p className="text-center text-sm text-gray-400 mt-6">
                 No credit card required to start • Secure payment via Stripe
