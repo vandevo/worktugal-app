@@ -30,10 +30,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
         ref={ref}
         type={type}
         className={cn(
-          'w-full px-4 py-3 bg-white/[0.05] backdrop-blur-xl border-0 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:bg-white/[0.08] hover:bg-white/[0.07] transition-all duration-200',
+          'w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150',
           isDateTimeInput && 'cursor-pointer',
-          readOnly && 'bg-gray-700 cursor-not-allowed',
-          error && 'bg-red-500/10 focus:bg-red-500/15 text-white',
+          readOnly && 'bg-gray-700 cursor-not-allowed opacity-60',
+          error && 'bg-red-900/30 focus:bg-red-900/40 ring-1 ring-red-500/50',
           className
         )}
         readOnly={readOnly}
