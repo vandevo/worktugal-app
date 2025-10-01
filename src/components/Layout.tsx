@@ -37,9 +37,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20 md:h-24">
             <a href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-              <img
-                src="/worktugal-logo-bg-light-radius-1000-1000.png"
-                alt=""
+              <img 
+                src="/worktugal-logo-bg-light-radius-1000-1000.png" 
+                alt="" 
                 className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl object-contain shadow-lg"
                 width="32"
                 height="32"
@@ -52,22 +52,22 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </span>
               </div>
             </a>
-
+            <a
+              href="/accounting"
+              className="text-slate-600 hover:text-teal-600 transition-colors font-medium"
+            >
+              Accounting Desk
+            </a>
+            <a
+              href="/partners"
+              className="text-slate-600 hover:text-teal-600 transition-colors font-medium"
+            >
+              Partner Program
+            </a>
+            
             <div className="flex items-center space-x-6">
               <div className="hidden md:flex items-center space-x-6">
-                <a
-                  href="/accounting"
-                  className="text-gray-400 hover:text-white transition-all duration-300 font-medium"
-                >
-                  Accounting Desk
-                </a>
-                <a
-                  href="/partners"
-                  className="text-gray-400 hover:text-white transition-all duration-300 font-medium"
-                >
-                  Partner Program
-                </a>
-                <a
+                <a 
                   href="/pricing"
                   className="text-gray-400 hover:text-white transition-all duration-300 font-medium"
                 >
@@ -76,7 +76,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <a href="#directory" className="text-gray-400 hover:text-white transition-all duration-300 font-medium">
                   Browse Perks
                 </a>
-                <a
+                <a 
                   href="/partner-form"
                   className="text-gray-400 hover:text-white transition-all duration-300 font-medium"
                 >
