@@ -18,6 +18,9 @@ const ProtectedSuccessRoute = React.lazy(() => import('./components/ProtectedSuc
 const ResetPasswordForm = React.lazy(() => import('./components/auth/ResetPasswordForm').then(module => ({ default: module.ResetPasswordForm })));
 const PrivacyPolicy = React.lazy(() => import('./components/PrivacyPolicy').then(module => ({ default: module.PrivacyPolicy })));
 const TermsAndConditions = React.lazy(() => import('./components/TermsAndConditions').then(module => ({ default: module.TermsAndConditions })));
+const AccountingDeskLanding = React.lazy(() => import('./components/accounting/AccountingDeskLanding').then(module => ({ default: module.AccountingDeskLanding })));
+const ConsultCheckout = React.lazy(() => import('./components/accounting/ConsultCheckout').then(module => ({ default: module.ConsultCheckout })));
+const ConsultSuccess = React.lazy(() => import('./components/accounting/ConsultSuccess').then(module => ({ default: module.ConsultSuccess })));
 
 const TOTAL_EARLY_ACCESS_SPOTS = 50;
 
@@ -189,6 +192,21 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/accounting" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <AccountingDeskLanding />
+            </Suspense>
+          } />
+          <Route path="/accounting/checkout" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <ConsultCheckout />
+            </Suspense>
+          } />
+          <Route path="/accounting/success" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <ConsultSuccess />
+            </Suspense>
+          } />
           <Route path="/success" element={
             <Suspense fallback={<LoadingSpinner />}>
               <ProtectedSuccessRoute>
