@@ -27,11 +27,11 @@ export const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-white mb-4">How It Works</h2>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Simple, transparent process from booking to delivery
           </p>
         </div>
@@ -47,15 +47,15 @@ export const HowItWorks: React.FC = () => {
               className="relative"
             >
               <div className="flex flex-col items-center text-center">
-                <div className="bg-blue-100 rounded-full p-6 mb-4">
-                  <step.icon className="w-10 h-10 text-blue-600" />
+                <div className="bg-white/[0.04] backdrop-blur-xl rounded-full p-6 mb-4 border border-white/[0.10] shadow-xl shadow-black/20">
+                  <step.icon className="w-10 h-10 text-blue-400" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
-                <p className="text-gray-600">{step.description}</p>
+                <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+                <p className="text-gray-300">{step.description}</p>
               </div>
 
               {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-16 left-full w-full h-0.5 bg-blue-200 -ml-4"
+                <div className="hidden lg:block absolute top-16 left-full w-full h-0.5 bg-white/[0.10] -ml-4"
                      style={{ width: 'calc(100% - 6rem)' }} />
               )}
             </motion.div>

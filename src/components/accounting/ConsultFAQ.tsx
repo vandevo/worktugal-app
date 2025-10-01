@@ -50,13 +50,13 @@ export const ConsultFAQ: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-gray-900">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl font-bold text-white mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-300">
             Everything you need to know about our accounting desk
           </p>
         </div>
@@ -69,17 +69,17 @@ export const ConsultFAQ: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="bg-white rounded-lg shadow-md overflow-hidden"
+              className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] shadow-xl shadow-black/20 overflow-hidden"
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between p-6 text-left hover:bg-white/[0.06] transition-colors rounded-2xl"
               >
-                <span className="text-lg font-semibold text-gray-900 pr-8">
+                <span className="text-lg font-semibold text-white pr-8">
                   {item.question}
                 </span>
                 <ChevronDown
-                  className={`w-5 h-5 text-gray-500 flex-shrink-0 transition-transform ${
+                  className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform ${
                     openIndex === index ? 'rotate-180' : ''
                   }`}
                 />
@@ -94,7 +94,7 @@ export const ConsultFAQ: React.FC = () => {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 text-gray-700">
+                    <div className="px-6 pb-6 text-gray-300">
                       {item.answer}
                     </div>
                   </motion.div>
@@ -104,9 +104,9 @@ export const ConsultFAQ: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-12 p-6 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm text-gray-700 leading-relaxed">
-            <strong className="text-gray-900">Compliance Disclaimer:</strong> The information provided during consults is for educational purposes only and does not constitute legal or financial advice. Tax laws change frequently. Always verify current requirements with official Portuguese tax authorities (Autoridade Tributária e Aduaneira) or seek formal legal counsel for your specific situation.
+        <div className="mt-12 p-6 bg-white/[0.02] backdrop-blur-xl border border-blue-400/20 rounded-2xl">
+          <p className="text-sm text-gray-300 leading-relaxed">
+            <strong className="text-blue-300">Compliance Disclaimer:</strong> The information provided during consults is for educational purposes only and does not constitute legal or financial advice. Tax laws change frequently. Always verify current requirements with official Portuguese tax authorities (Autoridade Tributária e Aduaneira) or seek formal legal counsel for your specific situation.
           </p>
         </div>
       </div>

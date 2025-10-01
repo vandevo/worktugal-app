@@ -36,13 +36,13 @@ export const ConsultSuccess: React.FC = () => {
   const service = booking ? CONSULT_SERVICES.find(s => s.id === booking.service_type) : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-gray-50 py-20">
+    <div className="min-h-screen bg-gray-900 py-20">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="bg-white rounded-2xl shadow-2xl p-8 md:p-12"
+          className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8 md:p-12"
         >
           <div className="text-center mb-8">
             <motion.div
@@ -53,51 +53,51 @@ export const ConsultSuccess: React.FC = () => {
             >
               <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-4" />
             </motion.div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl font-bold text-white mb-4">
               Booking Confirmed!
             </h1>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Your consult has been successfully booked and paid.
             </p>
           </div>
 
           {!loading && booking && service && (
             <div className="space-y-6">
-              <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
-                <h3 className="font-semibold text-gray-900 mb-2">Service Details</h3>
-                <p className="text-lg font-semibold text-blue-900">{service.name}</p>
-                <p className="text-gray-700">{service.duration} · €{service.price}</p>
+              <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-6 border border-blue-400/20">
+                <h3 className="font-semibold text-white mb-2">Service Details</h3>
+                <p className="text-lg font-semibold text-blue-300">{service.name}</p>
+                <p className="text-gray-300">{service.duration} · €{service.price}</p>
               </div>
 
               <div className="grid md:grid-cols-3 gap-4">
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <Calendar className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                  <h4 className="font-semibold text-gray-900 mb-1">Next Step</h4>
-                  <p className="text-sm text-gray-600">
+                <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-4 text-center border border-white/[0.08]">
+                  <Calendar className="w-8 h-8 text-blue-400 mx-auto mb-2" />
+                  <h4 className="font-semibold text-white mb-1">Next Step</h4>
+                  <p className="text-sm text-gray-300">
                     We'll confirm your appointment within 24 hours
                   </p>
                 </div>
 
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <FileText className="w-8 h-8 text-green-600 mx-auto mb-2" />
-                  <h4 className="font-semibold text-gray-900 mb-1">Written Outcome</h4>
-                  <p className="text-sm text-gray-600">
+                <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-4 text-center border border-white/[0.08]">
+                  <FileText className="w-8 h-8 text-green-400 mx-auto mb-2" />
+                  <h4 className="font-semibold text-white mb-1">Written Outcome</h4>
+                  <p className="text-sm text-gray-300">
                     Delivered within 48 hours of your consult
                   </p>
                 </div>
 
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <Mail className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-                  <h4 className="font-semibold text-gray-900 mb-1">Check Your Email</h4>
-                  <p className="text-sm text-gray-600">
+                <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-4 text-center border border-white/[0.08]">
+                  <Mail className="w-8 h-8 text-purple-400 mx-auto mb-2" />
+                  <h4 className="font-semibold text-white mb-1">Check Your Email</h4>
+                  <p className="text-sm text-gray-300">
                     Confirmation sent to {booking.email}
                   </p>
                 </div>
               </div>
 
-              <div className="bg-gray-50 rounded-lg p-6">
-                <h3 className="font-semibold text-gray-900 mb-3">What Happens Next?</h3>
-                <ol className="space-y-2 text-gray-700">
+              <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-6 border border-white/[0.08]">
+                <h3 className="font-semibold text-white mb-3">What Happens Next?</h3>
+                <ol className="space-y-2 text-gray-300">
                   <li className="flex items-start">
                     <span className="font-semibold mr-2">1.</span>
                     <span>You'll receive a confirmation email with your booking details</span>
