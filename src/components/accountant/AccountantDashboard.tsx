@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../hooks/useAuth';
 import { getAccountantProfile } from '../../lib/accountants';
-import { getAccountantAppointments } from '../../lib/appointments';
+import { getAccountantAppointments, markAppointmentCompleted, submitOutcomeDocument } from '../../lib/appointments';
 import { getAccountantPendingEarnings, getAccountantCompletedEarnings } from '../../lib/payouts';
-import { Calendar, DollarSign, TrendingUp, Clock, CheckCircle } from 'lucide-react';
+import { Calendar, DollarSign, TrendingUp, Clock, CheckCircle, Upload, FileText } from 'lucide-react';
 import { Alert } from '../ui/Alert';
 import type { AccountantProfile, Appointment } from '../../types/accountant';
 
@@ -16,6 +16,7 @@ export const AccountantDashboard: React.FC = () => {
   const [completedEarnings, setCompletedEarnings] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [uploadingDoc, setUploadingDoc] = useState<number | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -49,8 +50,36 @@ export const AccountantDashboard: React.FC = () => {
     }
   };
 
-  const upcomingAppointments = appointments.filter(a => a.status === 'scheduled');
+  const upcomingAppointments = appointments.filter(a =>
+    a.status === 'confirmed' || (a.status === 'pending' && a.scheduled_date)
+  );
   const completedAppointments = appointments.filter(a => a.status === 'completed');
+  const needsOutcome = appointments.filter(a =>
+    a.status === 'completed' && a.consultation_completed_at && !a.outcome_document_url
+  );
+
+  const handleMarkComplete = async (appointmentId: number) => {
+    try {
+      await markAppointmentCompleted(appointmentId);
+      await loadDashboardData();
+    } catch (err) {
+      console.error('Error marking complete:', err);
+      alert('Failed to mark appointment as complete');
+    }
+  };
+
+  const handleUploadOutcome = async (appointmentId: number, url: string) => {
+    setUploadingDoc(appointmentId);
+    try {
+      await submitOutcomeDocument(appointmentId, url);
+      await loadDashboardData();
+    } catch (err) {
+      console.error('Error uploading outcome:', err);
+      alert('Failed to upload outcome document');
+    } finally {
+      setUploadingDoc(null);
+    }
+  };
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return 'Not scheduled';
@@ -140,6 +169,58 @@ export const AccountantDashboard: React.FC = () => {
             </div>
           </div>
 
+          {needsOutcome.length > 0 && (
+            <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-2xl p-6 mb-6">
+              <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <Upload className="w-6 h-6 text-yellow-400" />
+                Action Required: Upload Outcome Documents
+              </h2>
+              <div className="space-y-3">
+                {needsOutcome.map((appointment) => (
+                  <div
+                    key={appointment.id}
+                    className="bg-white/[0.03] rounded-xl p-4 border border-white/[0.08]"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="font-semibold text-white mb-1">
+                          {appointment.service_type.replace('_', ' ').toUpperCase()}
+                        </h3>
+                        <p className="text-sm text-gray-400">
+                          Completed: {formatDate(appointment.consultation_completed_at)}
+                        </p>
+                      </div>
+                      <div>
+                        <input
+                          type="url"
+                          placeholder="Enter document URL"
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              const url = (e.target as HTMLInputElement).value;
+                              if (url) handleUploadOutcome(appointment.id, url);
+                            }
+                          }}
+                          className="px-3 py-2 bg-white/[0.05] border border-white/[0.10] rounded-lg text-white text-sm mr-2"
+                          disabled={uploadingDoc === appointment.id}
+                        />
+                        <button
+                          onClick={() => {
+                            const input = document.querySelector(`input[type="url"]`) as HTMLInputElement;
+                            if (input?.value) handleUploadOutcome(appointment.id, input.value);
+                          }}
+                          disabled={uploadingDoc === appointment.id}
+                          className="px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+                        >
+                          {uploadingDoc === appointment.id ? 'Uploading...' : 'Upload'}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6 mb-6">
             <h2 className="text-2xl font-bold text-white mb-6">Upcoming Consultations</h2>
 
@@ -169,16 +250,26 @@ export const AccountantDashboard: React.FC = () => {
                             {appointment.duration_minutes} minutes
                           </span>
                         </div>
-                        {appointment.meeting_url && (
-                          <a
-                            href={appointment.meeting_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block mt-3 text-blue-400 hover:text-blue-300 text-sm font-medium"
-                          >
-                            Join Meeting →
-                          </a>
-                        )}
+                        <div className="mt-3 flex items-center gap-3">
+                          {appointment.meeting_url && (
+                            <a
+                              href={appointment.meeting_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-400 hover:text-blue-300 text-sm font-medium"
+                            >
+                              Join Meeting →
+                            </a>
+                          )}
+                          {appointment.status === 'confirmed' && (
+                            <button
+                              onClick={() => handleMarkComplete(appointment.id)}
+                              className="text-sm px-3 py-1 bg-green-500/20 hover:bg-green-500/30 text-green-400 rounded-lg font-medium transition-colors"
+                            >
+                              Mark as Complete
+                            </button>
+                          )}
+                        </div>
                       </div>
                       <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-400/10 text-blue-400">
                         Scheduled
