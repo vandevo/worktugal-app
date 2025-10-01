@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { LogOut, Settings } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useUserProfile } from '../hooks/useUserProfile';
 import { UserRoleBadge } from './UserRoleBadge';
 import { AuthModal } from './auth/AuthModal';
 import { ProfileModal } from './ProfileModal';
 import { Button } from './ui/Button';
-import { useState } from 'react';
-import { User, LogOut, Settings } from 'lucide-react';
 import { signOut } from '../lib/auth';
 import { Footer } from './Footer';
 
@@ -36,57 +35,43 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <nav className="sticky top-0 z-50 bg-gray-900/30 backdrop-blur-2xl border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20 md:h-24">
+            {/* Logo */}
             <a href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-              <img 
-                src="/worktugal-logo-bg-light-radius-1000-1000.png" 
-                alt="" 
+              <img
+                src="/worktugal-logo-bg-light-radius-1000-1000.png"
+                alt=""
                 className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl object-contain shadow-lg"
                 width="32"
                 height="32"
               />
               <div className="flex items-center space-x-2">
-                <span className="text-lg sm:text-xl font-bold hidden xs:inline">Worktugal Pass</span>
-                <span className="text-lg sm:text-xl font-bold xs:hidden">Worktugal</span>
+                <span className="text-lg sm:text-xl font-bold text-white hidden xs:inline">Worktugal Pass</span>
+                <span className="text-lg sm:text-xl font-bold text-white xs:hidden">Worktugal</span>
                 <span className="hidden xs:inline-flex items-center bg-white/[0.04] backdrop-blur-xl text-blue-200 px-3 py-1.5 rounded-full border border-blue-400/20 shadow-lg text-xs font-medium tracking-wide">
                   Early Access
                 </span>
               </div>
             </a>
-            <a
-              href="/accounting"
-              className="text-slate-600 hover:text-teal-600 transition-colors font-medium"
-            >
-              Accounting Desk
-            </a>
-            <a
-              href="/partners"
-              className="text-slate-600 hover:text-teal-600 transition-colors font-medium"
-            >
-              Partner Program
-            </a>
-            
+
+            {/* Navigation Links & Auth */}
             <div className="flex items-center space-x-6">
+              {/* Desktop Navigation Links */}
               <div className="hidden md:flex items-center space-x-6">
-                <a 
-                  href="/pricing"
+                <a
+                  href="/#directory"
                   className="text-gray-400 hover:text-white transition-all duration-300 font-medium"
                 >
-                  Services
-                </a>
-                <a href="#directory" className="text-gray-400 hover:text-white transition-all duration-300 font-medium">
                   Browse Perks
                 </a>
-                <a 
-                  href="/partner-form"
+                <a
+                  href="/#pricing"
                   className="text-gray-400 hover:text-white transition-all duration-300 font-medium"
                 >
-                  List Your Business
-                </a>
-                <a href="#pricing" className="text-gray-400 hover:text-white transition-all duration-300 font-medium">
-                  For Partners
+                  Pricing
                 </a>
               </div>
-              
+
+              {/* User Menu or Sign In */}
               {user ? (
                 <div className="flex items-center space-x-3 md:space-x-4">
                   <UserRoleBadge />
@@ -102,7 +87,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                         {getDisplayName()}
                       </span>
                     </button>
-                    
+
                     {showUserMenu && (
                       <motion.div
                         initial={{ opacity: 0, y: -10 }}
@@ -144,15 +129,16 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
       </nav>
+
       <main className="text-gray-400">{children}</main>
       <Footer />
-      
+
       <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         initialMode="login"
       />
-      
+
       <ProfileModal
         isOpen={showProfileModal}
         onClose={() => setShowProfileModal(false)}
