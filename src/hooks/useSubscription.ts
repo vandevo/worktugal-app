@@ -45,29 +45,78 @@ export const useSubscription = () => {
       }
 
       try {
-        // Fetch subscription data
+        // Fetch customer ID first
+        const { data: customerData, error: customerError } = await supabase
+          .from('stripe_customers')
+          .select('customer_id')
+          .eq('user_id', user.id)
+          .is('deleted_at', null)
+          .maybeSingle();
+
+        if (customerError) {
+          console.error('Error fetching customer:', customerError);
+          setError('Failed to fetch customer data');
+          setLoading(false);
+          return;
+        }
+
+        if (!customerData) {
+          setSubscription(null);
+          setOrders([]);
+          setLoading(false);
+          return;
+        }
+
+        const customerId = customerData.customer_id;
+
+        // Fetch subscription data using secure table
         const { data: subData, error: subError } = await supabase
-          .from('stripe_user_subscriptions')
-          .select('*')
+          .from('stripe_subscriptions')
+          .select('customer_id, subscription_id, status, price_id, current_period_start, current_period_end, cancel_at_period_end, payment_method_brand, payment_method_last4')
+          .eq('customer_id', customerId)
+          .is('deleted_at', null)
           .maybeSingle();
 
         if (subError) {
           console.error('Error fetching subscription:', subError);
-        } else {
-          setSubscription(subData);
+        } else if (subData) {
+          setSubscription({
+            customer_id: subData.customer_id,
+            subscription_id: subData.subscription_id,
+            subscription_status: subData.status,
+            price_id: subData.price_id,
+            current_period_start: subData.current_period_start,
+            current_period_end: subData.current_period_end,
+            cancel_at_period_end: subData.cancel_at_period_end,
+            payment_method_brand: subData.payment_method_brand,
+            payment_method_last4: subData.payment_method_last4,
+          });
         }
 
-        // Fetch order data
+        // Fetch order data using secure table
         const { data: orderData, error: orderError } = await supabase
-          .from('stripe_user_orders')
-          .select('*')
-          .eq('order_status', 'completed')
-          .order('order_date', { ascending: false });
+          .from('stripe_orders')
+          .select('id, customer_id, checkout_session_id, payment_intent_id, amount_subtotal, amount_total, currency, payment_status, status, created_at')
+          .eq('customer_id', customerId)
+          .eq('status', 'completed')
+          .is('deleted_at', null)
+          .order('created_at', { ascending: false });
 
         if (orderError) {
           console.error('Error fetching orders:', orderError);
-        } else {
-          setOrders(orderData || []);
+        } else if (orderData) {
+          setOrders(orderData.map(order => ({
+            customer_id: order.customer_id,
+            order_id: order.id,
+            checkout_session_id: order.checkout_session_id,
+            payment_intent_id: order.payment_intent_id,
+            amount_subtotal: order.amount_subtotal,
+            amount_total: order.amount_total,
+            currency: order.currency,
+            payment_status: order.payment_status,
+            order_status: order.status,
+            order_date: order.created_at,
+          })));
         }
 
         setError(null);
