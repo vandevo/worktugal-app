@@ -12,6 +12,8 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { ProtectedSuccessRoute } from './components/ProtectedSuccessRoute';
 import { Seo } from './components/Seo';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
+import { AccountingDeskLanding } from './components/accounting/AccountingDeskLanding';
+import { ConsultSuccess } from './components/accounting/ConsultSuccess';
 import { type ProductName } from './stripe-config';
 
 function App() {
@@ -50,6 +52,8 @@ function App() {
           />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsAndConditions />} />
+          <Route path="/accounting" element={<AccountingDeskLanding />} />
+          <Route path="/accounting/consult-success" element={<ConsultSuccess />} />
         </Routes>
       </Layout>
       <CookieConsentBanner />

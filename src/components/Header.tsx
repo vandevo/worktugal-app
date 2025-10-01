@@ -27,11 +27,11 @@ export function Header() {
 
   return (
     <>
-      <header className="bg-white shadow-sm border-b border-gray-200">
+      <header className="bg-gray-900/50 backdrop-blur-xl shadow-lg border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <div className="flex items-center">
+            <div className="flex items-center gap-3">
               <button
                 onClick={handleLogoClick}
                 className="flex items-center gap-3 hover:opacity-80 transition-opacity"
@@ -41,26 +41,29 @@ export function Header() {
                   alt="Worktugal"
                   className="h-8 w-8"
                 />
-                <span className="text-xl font-bold text-gray-900">
-                  Worktugal
+                <span className="text-xl font-bold text-white">
+                  Worktugal Pass
                 </span>
               </button>
+              <span className="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                Early Access
+              </span>
             </div>
 
             {/* Navigation */}
             <nav className="hidden md:flex items-center gap-8">
               <button
                 onClick={handleServicesClick}
-                className="text-gray-600 hover:text-gray-900 transition-colors"
+                className="text-gray-300 hover:text-white transition-colors"
               >
                 Services
               </button>
-              
+
               {user ? (
                 <div className="flex items-center gap-4">
                   <button
                     onClick={handleDashboardClick}
-                    className="text-gray-600 hover:text-gray-900 transition-colors"
+                    className="text-gray-300 hover:text-white transition-colors"
                   >
                     Dashboard
                   </button>
@@ -88,7 +91,7 @@ export function Header() {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-gray-600 hover:text-gray-900"
+                className="text-gray-300 hover:text-white"
               >
                 {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -97,18 +100,18 @@ export function Header() {
 
           {/* Mobile menu */}
           {isMenuOpen && (
-            <div className="md:hidden py-4 border-t border-gray-200">
+            <div className="md:hidden py-4 border-t border-white/[0.08]">
               <div className="flex flex-col gap-4">
                 <button
                   onClick={() => {
                     handleServicesClick();
                     setIsMenuOpen(false);
                   }}
-                  className="text-left text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-left text-gray-300 hover:text-white transition-colors"
                 >
                   Services
                 </button>
-                
+
                 {user ? (
                   <>
                     <button
@@ -116,7 +119,7 @@ export function Header() {
                         handleDashboardClick();
                         setIsMenuOpen(false);
                       }}
-                      className="text-left text-gray-600 hover:text-gray-900 transition-colors"
+                      className="text-left text-gray-300 hover:text-white transition-colors"
                     >
                       Dashboard
                     </button>

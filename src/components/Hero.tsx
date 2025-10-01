@@ -89,7 +89,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
                 <TrendingUp className="h-6 w-6 text-green-400 mr-2" />
                 <span className="text-3xl md:text-4xl font-bold bg-gradient-to-br from-green-300 to-green-400 bg-clip-text text-transparent">€49</span>
               </div>
-              <p className="text-gray-400 font-medium">Early access pricing</p>
+              <p className="text-gray-300 font-medium">Early access pricing</p>
             </Card>
             <Card variant="glass" className="p-6 text-center hover:scale-105 transition-transform duration-300">
               <div className="flex items-center justify-center mb-3">
@@ -98,16 +98,8 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
                   {spotsLoading ? '...' : (spotsLeft !== null ? spotsLeft : 'N/A')}
                 </span>
               </div>
-              <p className="text-gray-400 font-medium">Spots left</p>
+              <p className="text-gray-300 font-medium">Spots left</p>
             </Card>
-            <Button
-              onClick={() => window.location.href = '/services'}
-              variant="outline"
-              size="lg"
-              className="px-8 py-3 text-lg"
-            >
-              View Services
-            </Button>
           </motion.div>
         </div>
       </div>
