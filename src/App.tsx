@@ -162,18 +162,15 @@ const HomePage: React.FC = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Hero 
-              onGetStarted={handleGetStarted} 
-              spotsLeft={spotsLeft} 
+            <Hero
+              onGetStarted={handleGetStarted}
+              spotsLeft={spotsLeft}
               spotsLoading={spotsLoading}
               activePerksCount={activePerksCount}
               activePerksLoading={activePerksLoading}
             />
             <Suspense fallback={<LoadingSpinner />}>
               <PerksDirectory />
-            </Suspense>
-            <Suspense fallback={<LoadingSpinner />}>
-              <PricingSection onGetStarted={handleGetStarted} />
             </Suspense>
           </motion.div>
         )}
