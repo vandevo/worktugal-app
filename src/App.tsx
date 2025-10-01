@@ -14,6 +14,7 @@ import { getApprovedSubmissionsCount, getApprovedPerksCount } from './lib/submis
 // Lazy load components for better performance
 const FormWizard = React.lazy(() => import('./components/FormWizard').then(module => ({ default: module.FormWizard })));
 const PerksDirectory = React.lazy(() => import('./components/PerksDirectory').then(module => ({ default: module.PerksDirectory })));
+const PartnerPricing = React.lazy(() => import('./components/PartnerPricing').then(module => ({ default: module.PartnerPricing })));
 const PricingSection = React.lazy(() => import('./components/PricingSection').then(module => ({ default: module.PricingSection })));
 const SuccessPage = React.lazy(() => import('./components/SuccessPage').then(module => ({ default: module.SuccessPage })));
 const ProtectedSuccessRoute = React.lazy(() => import('./components/ProtectedSuccessRoute').then(module => ({ default: module.ProtectedSuccessRoute })));
@@ -171,6 +172,9 @@ const HomePage: React.FC = () => {
             />
             <Suspense fallback={<LoadingSpinner />}>
               <PerksDirectory />
+            </Suspense>
+            <Suspense fallback={<LoadingSpinner />}>
+              <PartnerPricing onGetStarted={handleGetStarted} />
             </Suspense>
           </motion.div>
         )}
