@@ -76,7 +76,7 @@ export const HomePage: React.FC = () => {
             activePerksCount={activePerksCount}
             activePerksLoading={activePerksLoading}
           />
-          <PartnerPricingHero />
+          <PartnerPricingHero onGetStarted={handleGetStarted} />
           <PerksDirectory />
         </>
       ) : (

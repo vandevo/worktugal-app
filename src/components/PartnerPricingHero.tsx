@@ -5,7 +5,11 @@ import { Card } from './ui/Card';
 import { supabase } from '../lib/supabase';
 import { motion } from 'framer-motion';
 
-export const PartnerPricingHero: React.FC = () => {
+interface PartnerPricingHeroProps {
+  onGetStarted?: () => void;
+}
+
+export const PartnerPricingHero: React.FC<PartnerPricingHeroProps> = ({ onGetStarted }) => {
   const [spotsLeft, setSpotsLeft] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -44,7 +48,12 @@ export const PartnerPricingHero: React.FC = () => {
   ];
 
   const handleListBusiness = () => {
-    window.location.href = '/services';
+    if (onGetStarted) {
+      onGetStarted();
+    } else {
+      // Fallback: scroll to top and trigger form
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
