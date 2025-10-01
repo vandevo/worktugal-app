@@ -48,9 +48,14 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <span className="text-lg sm:text-xl font-bold hidden xs:inline">Worktugal Pass</span>
                 <span className="text-lg sm:text-xl font-bold xs:hidden">Worktugal</span>
                 <span className="hidden xs:inline-flex items-center bg-white/[0.04] backdrop-blur-xl text-blue-200 px-3 py-1.5 rounded-full border border-blue-400/20 shadow-lg text-xs font-medium tracking-wide">
-              href="/accounting"
                   Early Access
                 </span>
+              </div>
+            </a>
+            <a
+              href="/accounting"
+              className="text-slate-600 hover:text-teal-600 transition-colors font-medium"
+            >
               Accounting Desk
             </a>
             <a
