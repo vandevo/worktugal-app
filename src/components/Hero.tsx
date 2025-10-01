@@ -100,6 +100,14 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
               </div>
               <p className="text-gray-400 font-medium">Spots left</p>
             </Card>
+            <Button
+              onClick={() => window.location.href = '/services'}
+              variant="outline"
+              size="lg"
+              className="px-8 py-3 text-lg"
+            >
+              View Services
+            </Button>
           </motion.div>
         </div>
       </div>
