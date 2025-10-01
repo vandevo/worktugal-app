@@ -15,6 +15,9 @@ import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { AccountingDeskLanding } from './components/accounting/AccountingDeskLanding';
 import { ConsultSuccess } from './components/accounting/ConsultSuccess';
 import { ConsultCheckout } from './components/accounting/ConsultCheckout';
+import { AccountantApplicationPage } from './components/accountant/AccountantApplicationPage';
+import { AppointmentManagement } from './components/admin/AppointmentManagement';
+import { AccountantApplicationReview } from './components/admin/AccountantApplicationReview';
 import { type ProductName } from './stripe-config';
 
 function App() {
@@ -56,6 +59,23 @@ function App() {
           <Route path="/accounting" element={<AccountingDeskLanding />} />
           <Route path="/accounting/checkout" element={<ConsultCheckout />} />
           <Route path="/accounting/consult-success" element={<ConsultSuccess />} />
+          <Route path="/join-accountants" element={<AccountantApplicationPage />} />
+          <Route
+            path="/admin/appointments"
+            element={
+              <ProtectedRoute>
+                <AppointmentManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/applications"
+            element={
+              <ProtectedRoute>
+                <AccountantApplicationReview />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Layout>
       <CookieConsentBanner />

@@ -127,19 +127,70 @@ async function handleEvent(event: Stripe.Event) {
           if (!isNaN(submissionId)) {
             if (paymentType === 'consult') {
               // Update consult booking status for Accounting Desk
-              const { error: consultError } = await supabase
+              const { data: booking, error: consultError } = await supabase
                 .from('consult_bookings')
                 .update({
                   status: 'completed_payment',
                   stripe_session_id: checkout_session_id,
                   updated_at: new Date().toISOString(),
                 })
-                .eq('id', submissionId);
+                .eq('id', submissionId)
+                .select('*')
+                .single();
 
               if (consultError) {
                 console.error('Error updating consult booking status:', consultError);
               } else {
                 console.info(`Successfully updated consult booking ${submissionId} to completed_payment`);
+
+                // Create appointment record for the paid consultation
+                if (booking) {
+                  // Determine duration based on service type
+                  const durationMap: Record<string, number> = {
+                    'triage': 30,
+                    'start_pack': 90,
+                    'annual_return': 60,
+                    'add_on': 30,
+                  };
+
+                  const duration = durationMap[booking.service_type] || 30;
+
+                  // Calculate platform fee (30%) and accountant payout (70%)
+                  const priceMap: Record<string, number> = {
+                    'triage': 59.00,
+                    'start_pack': 349.00,
+                    'annual_return': 149.00,
+                    'add_on': 49.00,
+                  };
+
+                  const totalAmount = priceMap[booking.service_type] || 0;
+                  const platformFee = totalAmount * 0.30;
+                  const accountantPayout = totalAmount * 0.70;
+
+                  const { data: appointment, error: appointmentError } = await supabase
+                    .from('appointments')
+                    .insert({
+                      client_id: booking.user_id,
+                      service_type: booking.service_type,
+                      status: 'pending_assignment',
+                      duration_minutes: duration,
+                      payment_amount: totalAmount,
+                      platform_fee_amount: platformFee,
+                      accountant_payout_amount: accountantPayout,
+                      stripe_payment_intent_id: payment_intent as string,
+                      consult_booking_id: booking.id,
+                      client_notes: booking.notes,
+                      preferred_date: booking.preferred_date,
+                    })
+                    .select()
+                    .single();
+
+                  if (appointmentError) {
+                    console.error('Error creating appointment:', appointmentError);
+                  } else {
+                    console.info(`Successfully created appointment ${appointment.id} for booking ${submissionId}`);
+                  }
+                }
               }
             } else {
               // Update partner submission status for Perk Marketplace

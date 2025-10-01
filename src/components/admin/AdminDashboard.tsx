@@ -164,12 +164,12 @@ export const AdminDashboard: React.FC = () => {
                     <p className="text-gray-300 text-sm mb-3">
                       {pendingPayouts.length} payout{pendingPayouts.length > 1 ? 's' : ''} totaling €{pendingPayoutAmount.toFixed(2)}
                     </p>
-                    <button
-                      onClick={() => window.location.href = '/admin/payouts'}
+                    <a
+                      href="/admin/appointments"
                       className="text-yellow-400 hover:text-yellow-300 text-sm font-medium"
                     >
-                      Review Payouts →
-                    </button>
+                      Manage Appointments →
+                    </a>
                   </div>
                 )}
 
@@ -179,12 +179,12 @@ export const AdminDashboard: React.FC = () => {
                     <p className="text-gray-300 text-sm mb-3">
                       {pendingApplications} application{pendingApplications > 1 ? 's' : ''} awaiting review
                     </p>
-                    <button
-                      onClick={() => window.location.href = '/admin/applications'}
+                    <a
+                      href="/admin/applications"
                       className="text-purple-400 hover:text-purple-300 text-sm font-medium"
                     >
                       Review Applications →
-                    </button>
+                    </a>
                   </div>
                 )}
 
