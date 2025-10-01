@@ -182,7 +182,7 @@ export const SuccessPage: React.FC = () => {
             onClick={() => navigate('/dashboard')}
             className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-3 rounded-lg font-medium inline-flex items-center gap-2"
           >
-            Go to Dashboard
+            View My Account
             <ArrowRight className="w-4 h-4" />
           </Button>
           

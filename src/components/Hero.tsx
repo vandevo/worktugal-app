@@ -94,11 +94,11 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
             <Card variant="glass" className="p-6 text-center hover:scale-105 transition-transform duration-300">
               <div className="flex items-center justify-center mb-3">
                 <MapPin className="h-6 w-6 text-purple-400 mr-2" />
-            size="lg"
-            className="bg-teal-600 hover:bg-teal-700 text-white text-lg px-8 py-4"
-            onClick={() => window.location.href = '/pricing'}
+                <span className="text-3xl md:text-4xl font-bold bg-gradient-to-br from-purple-300 to-purple-400 bg-clip-text text-transparent">
+                  {spotsLoading ? '...' : (spotsLeft !== null ? spotsLeft : 'N/A')}
+                </span>
               </div>
-            View Services
+              <p className="text-gray-400 font-medium">Spots left</p>
             </Card>
           </motion.div>
         </div>
