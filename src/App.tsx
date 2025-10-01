@@ -219,8 +219,9 @@ function App() {
               <ProtectedSuccessRoute>
                 <SuccessPage />
               </ProtectedSuccessRoute>
-          <Route path="/perks" element={<PerksDirectory />} />
+            </Suspense>
           } />
+          <Route path="/perks" element={<PerksDirectory />} />
           <Route path="/reset-password" element={
             <Suspense fallback={<LoadingSpinner />}>
               <ResetPasswordForm />
