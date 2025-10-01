@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, User, Save } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useUserProfile, notifyProfileUpdate } from '../hooks/useUserProfile';
+import { useSubscription } from '../hooks/useSubscription';
 import { updateUserProfile } from '../lib/profile';
 import { Input } from './ui/Input';
 import { Button } from './ui/Button';
@@ -16,6 +17,7 @@ interface ProfileModalProps {
 export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   const { user } = useAuth();
   const { profile, getDisplayName, refetch } = useUserProfile();
+  const { purchases } = useSubscription();
   const [displayName, setDisplayName] = useState(profile?.display_name || '');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
