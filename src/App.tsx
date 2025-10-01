@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Seo } from './components/Seo';
 import { Layout } from './components/Layout';
 import { Hero } from './components/Hero';
-import { PricingSection } from './components/PricingSection';
 import { AccountingServices } from './components/AccountingServices';
 import { PartnerServices } from './components/PartnerServices';
 import { Footer } from './components/Footer';
