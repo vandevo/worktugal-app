@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Instagram, Globe, Send, Linkedin, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Globe, Send, Linkedin, MessageCircle } from 'lucide-react';
 import { useCookieConsent } from '../contexts/CookieConsentContext';
 
 export const Footer: React.FC = () => {
@@ -13,9 +13,9 @@ export const Footer: React.FC = () => {
           {/* Brand */}
           <div className="space-y-4">
             <a href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-              <img 
-                src="/worktugal-logo-bg-light-radius-1000-1000.png" 
-                alt="" 
+              <img
+                src="/worktugal-logo-bg-light-radius-1000-1000.png"
+                alt=""
                 className="w-8 h-8 rounded-lg object-contain"
                 width="32"
                 height="32"
@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
               <span className="text-xl font-bold">Worktugal Pass</span>
             </a>
             <p className="text-gray-400 text-sm">
-              Lisbon's trusted perk marketplace for remote professionals and expats.
+              Exclusive perks and benefits for remote professionals in Lisbon.
             </p>
           </div>
 
@@ -89,16 +89,6 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-semibold mb-4 text-white">Follow Us</h4>
             <div className="flex space-x-4">
-              <motion.a
-                href="https://www.instagram.com/worktugalpass/"
-                aria-label="Worktugal Pass Instagram profile"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
-              >
-                <Instagram className="h-5 w-5" />
-              </motion.a>
               <motion.a
                 href="https://t.me/worktugal"
                 aria-label="Worktugal Telegram channel"

@@ -305,10 +305,10 @@ export const PerksDirectory: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">
-            Verified Perks Used by Remote Workers Who Stay and Spend
+            Trusted Partner Benefits for Remote Professionals
           </h2>
           <p className="text-lg md:text-xl text-gray-500 mb-6 max-w-4xl mx-auto leading-relaxed">
-            These are not coupon deals. They are trusted offers from real Lisbon professionals - coworking spaces, wellness experts, business services, and authentic experiences used by freelancers, founders, and remote workers who call Lisbon home.
+            Quality services from established Lisbon professionals - coworking spaces, wellness experts, business services, and authentic experiences. These are curated partnerships, not generic coupon deals.
           </p>
         </div>
 

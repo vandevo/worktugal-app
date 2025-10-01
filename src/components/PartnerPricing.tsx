@@ -17,7 +17,7 @@ export const PartnerPricing: React.FC<PartnerPricingProps> = ({ onGetStarted }) 
 
   const features = [
     'Lifetime visibility to 1,000+ verified remote workers',
-    'Featured in Lisbon\'s #1 perk marketplace',
+    'Featured in our trusted partner network',
     'Direct contact from qualified leads',
     'No renewal fees or hidden costs',
     'Limited to first 25 businesses only',
@@ -40,15 +40,15 @@ export const PartnerPricing: React.FC<PartnerPricingProps> = ({ onGetStarted }) 
           </div>
 
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-white">Join Lisbon's #1</span>
+            <span className="text-white">Become a</span>
             <br />
             <span className="bg-gradient-to-r from-orange-300 via-pink-300 to-purple-300 bg-clip-text text-transparent">
-              Perk Marketplace
+              Trusted Partner
             </span>
           </h2>
 
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Get discovered by remote workers who are actively looking for services like yours
+            Connect with remote workers seeking quality services like yours
           </p>
         </motion.div>
 

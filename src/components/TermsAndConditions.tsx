@@ -10,7 +10,7 @@ export const TermsAndConditions: React.FC = () => {
     <div className="min-h-screen bg-gray-900 py-12">
       <Seo
         title="Terms and Conditions - Service Agreement"
-        description="Read the terms and conditions for using Worktugal Pass. Understand your rights and obligations as a partner or user of our perk marketplace."
+        description="Read the terms and conditions for using Worktugal Pass. Understand your rights and obligations as a partner or user of our partner network."
         ogType="article"
         structuredData={{
           "@context": "https://schema.org",

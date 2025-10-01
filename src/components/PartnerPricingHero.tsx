@@ -40,7 +40,7 @@ export const PartnerPricingHero: React.FC<PartnerPricingHeroProps> = ({ onGetSta
 
   const features = [
     'Lifetime visibility to 1,000+ verified remote workers',
-    "Featured in Lisbon's #1 perk marketplace",
+    'Featured in our trusted partner network',
     'Direct contact from qualified leads',
     'No renewal fees or hidden costs',
     'Limited to first 25 businesses only',
@@ -76,15 +76,15 @@ export const PartnerPricingHero: React.FC<PartnerPricingHeroProps> = ({ onGetSta
           </div>
 
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            <span className="text-white">Join Lisbon's #1</span>
+            <span className="text-white">Become a</span>
             <br />
             <span className="bg-gradient-to-r from-orange-300 via-pink-300 to-purple-300 bg-clip-text text-transparent">
-              Perk Marketplace
+              Trusted Partner
             </span>
           </h2>
 
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            Get discovered by remote workers who are actively looking for services like yours
+            Connect with remote workers seeking quality services like yours
           </p>
         </motion.div>
 
@@ -118,8 +118,8 @@ export const PartnerPricingHero: React.FC<PartnerPricingHeroProps> = ({ onGetSta
               </div>
 
               <p className="text-gray-200 text-base md:text-lg leading-relaxed mb-8">
-                Join Lisbon's #1 Perk Marketplace. Get lifetime visibility to remote workers, expats, and
-                digital nomads. This early access offer is limited to 25 local businesses only. No renewals,
+                Join our trusted partner network. Get lifetime visibility to remote workers, expats, and
+                digital nomads in Lisbon. This early access offer is limited to 25 local businesses only. No renewals,
                 no hidden fees.
               </p>
 

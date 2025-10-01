@@ -37,24 +37,24 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
             </div>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
-              <span className="text-white">Attract verified remote clients who{' '}</span>
+              <span className="text-white">Connect with remote professionals who{' '}</span>
               <span className="bg-gradient-to-r from-blue-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent">
-                stay longer
+                value quality
               </span>{' '}
-              <span className="text-white">and spend more</span>
+              <span className="text-white">local services</span>
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-gray-500 mb-10 max-w-4xl mx-auto leading-relaxed">
-              Remote workers need real services: coworking, wellness, professional help, and authentic experiences. Skip the cold outreach. Get discovered by quality clients who value what you offer.
+              Remote workers seek trusted services: coworking, wellness, professional help, and authentic experiences. Become a partner and offer exclusive benefits to our community.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Button
                 size="lg"
                 onClick={onGetStarted}
                 className="text-lg px-10 py-5 rounded-2xl"
               >
-                List My Offer
+                Become a Partner
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
@@ -63,7 +63,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoadin
                 className="text-lg px-10 py-5 rounded-2xl"
                 onClick={() => document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Browse Verified Perks
+                Browse Partner Benefits
               </Button>
             </div>
           </motion.div>

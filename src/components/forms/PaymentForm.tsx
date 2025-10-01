@@ -101,7 +101,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
           <CreditCard className="h-8 w-8 text-blue-400" />
         </div>
         <h2 className="text-2xl font-bold mb-2">Secure Your Partnership</h2>
-        <p className="text-gray-500">Join the marketplace trusted by 1,000+ remote professionals</p>
+        <p className="text-gray-500">Join the partner network trusted by 1,000+ remote professionals</p>
       </div>
 
       {/* Confirmation Summary */}
@@ -146,7 +146,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
               <div className="w-5 h-5 bg-green-400/20 rounded-full flex items-center justify-center backdrop-blur-xl border border-green-400/20">
                 <Check className="h-3 w-3 text-green-400" />
               </div>
-              <span className="text-gray-300">Lifetime visibility in Lisbon's trusted perk marketplace</span>
+              <span className="text-gray-300">Lifetime visibility in our trusted partner network</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-5 h-5 bg-green-400/20 rounded-full flex items-center justify-center backdrop-blur-xl border border-green-400/20">
@@ -196,7 +196,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
           <span className="font-medium text-orange-400">Early Access - 21 Spots Remaining</span>
         </div>
         <p className="text-base text-gray-300 leading-relaxed">
-          Join the first 25 partners in the marketplace that remote workers trust. These are quality customers who stay longer, spend more, and share their experiences.
+          Join the first 25 partners in our network that remote workers trust. These are quality customers who stay longer, spend more, and share their experiences.
         </p>
       </Card>
 
