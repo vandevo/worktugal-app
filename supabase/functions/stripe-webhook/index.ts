@@ -118,52 +118,73 @@ async function handleEvent(event: Stripe.Event) {
           return;
         }
 
-        // Update partner submission status if submission_id is in metadata
+        // Determine payment type from metadata and update appropriate table
+        const paymentType = metadata?.payment_type || 'perk'; // Default to perk for backward compatibility
+
         if (metadata?.submission_id && orderData?.id) {
           const submissionId = parseInt(metadata.submission_id);
-          
+
           if (!isNaN(submissionId)) {
-            const { error: submissionError } = await supabase
-              .from('partner_submissions')
-              .update({
-                status: 'completed_payment',
-                stripe_order_id: orderData.id,
-                updated_at: new Date().toISOString(),
-              })
-              .eq('id', submissionId);
+            if (paymentType === 'consult') {
+              // Update consult booking status for Accounting Desk
+              const { error: consultError } = await supabase
+                .from('consult_bookings')
+                .update({
+                  status: 'completed_payment',
+                  stripe_session_id: checkout_session_id,
+                  updated_at: new Date().toISOString(),
+                })
+                .eq('id', submissionId);
 
-            if (submissionError) {
-              console.error('Error updating partner submission status:', submissionError);
+              if (consultError) {
+                console.error('Error updating consult booking status:', consultError);
+              } else {
+                console.info(`Successfully updated consult booking ${submissionId} to completed_payment`);
+              }
             } else {
-              console.info(`Successfully updated partner submission ${submissionId} to completed_payment`);
-              
-              // Update user role to 'partner' after successful payment
-              try {
-                // Get the user_id from the stripe_customers table
-                const { data: customerData, error: customerError } = await supabase
-                  .from('stripe_customers')
-                  .select('user_id')
-                  .eq('customer_id', customerId)
-                  .single();
+              // Update partner submission status for Perk Marketplace
+              const { error: submissionError } = await supabase
+                .from('partner_submissions')
+                .update({
+                  status: 'completed_payment',
+                  stripe_order_id: orderData.id,
+                  updated_at: new Date().toISOString(),
+                })
+                .eq('id', submissionId);
 
-                if (customerError) {
-                  console.error('Error fetching user_id from stripe_customers:', customerError);
-                } else if (customerData?.user_id) {
-                  // Update the user's role to 'partner'
-                  const { error: roleUpdateError } = await supabase
-                    .from('user_profiles')
-                    .update({ role: 'partner' })
-                    .eq('id', customerData.user_id);
+              if (submissionError) {
+                console.error('Error updating partner submission status:', submissionError);
+              } else {
+                console.info(`Successfully updated partner submission ${submissionId} to completed_payment`);
 
-                  if (roleUpdateError) {
-                    console.error('Error updating user role to partner:', roleUpdateError);
-                  } else {
-                    console.info(`Successfully updated user ${customerData.user_id} role to 'partner'`);
+                // Update user role to 'partner' after successful perk marketplace payment
+                try {
+                  // Get the user_id from the stripe_customers table
+                  const { data: customerData, error: customerError } = await supabase
+                    .from('stripe_customers')
+                    .select('user_id')
+                    .eq('customer_id', customerId)
+                    .single();
+
+                  if (customerError) {
+                    console.error('Error fetching user_id from stripe_customers:', customerError);
+                  } else if (customerData?.user_id) {
+                    // Update the user's role to 'partner'
+                    const { error: roleUpdateError } = await supabase
+                      .from('user_profiles')
+                      .update({ role: 'partner' })
+                      .eq('id', customerData.user_id);
+
+                    if (roleUpdateError) {
+                      console.error('Error updating user role to partner:', roleUpdateError);
+                    } else {
+                      console.info(`Successfully updated user ${customerData.user_id} role to 'partner'`);
+                    }
                   }
+                } catch (roleError) {
+                  console.error('Error in user role update process:', roleError);
+                  // Don't throw here - we don't want to fail the entire webhook for this
                 }
-              } catch (roleError) {
-                console.error('Error in user role update process:', roleError);
-                // Don't throw here - we don't want to fail the entire webhook for this
               }
             }
           }

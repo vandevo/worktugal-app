@@ -1,3 +1,14 @@
+/**
+ * Perk Marketplace Partner Submissions
+ *
+ * This module handles partner submissions for the Perk Marketplace only.
+ * For Accounting Desk consultation bookings, see lib/consults.ts
+ *
+ * These two business models are completely separate:
+ * - Perk Marketplace: Partners submit their businesses to offer perks to members
+ * - Accounting Desk: Clients book accounting consultations
+ */
+
 import { supabase } from './supabase';
 import type { BusinessFormData, PerkFormData, PartnerSubmission } from '../types';
 

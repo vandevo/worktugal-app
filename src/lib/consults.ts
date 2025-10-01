@@ -17,10 +17,9 @@ export async function createConsultBooking(data: {
     }
 
     const { data: booking, error } = await supabase
-      .from('partner_submissions')
+      .from('consult_bookings')
       .insert({
         user_id: user.id,
-        submission_type: 'consult',
         service_type: data.service_type,
         full_name: data.full_name,
         email: data.email,
@@ -47,10 +46,9 @@ export async function createConsultBooking(data: {
 export async function getConsultBooking(id: number): Promise<{ data: ConsultBooking | null; error: Error | null }> {
   try {
     const { data: booking, error } = await supabase
-      .from('partner_submissions')
+      .from('consult_bookings')
       .select('*')
       .eq('id', id)
-      .eq('submission_type', 'consult')
       .maybeSingle();
 
     if (error) {
@@ -74,10 +72,9 @@ export async function getUserConsultBookings(): Promise<{ data: ConsultBooking[]
     }
 
     const { data: bookings, error } = await supabase
-      .from('partner_submissions')
+      .from('consult_bookings')
       .select('*')
       .eq('user_id', user.id)
-      .eq('submission_type', 'consult')
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -104,7 +101,7 @@ export async function updateConsultStatus(
     }
 
     const { data: booking, error } = await supabase
-      .from('partner_submissions')
+      .from('consult_bookings')
       .update(updateData)
       .eq('id', id)
       .select()
