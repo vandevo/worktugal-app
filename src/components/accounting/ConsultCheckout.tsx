@@ -108,18 +108,18 @@ export const ConsultCheckout: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-blue-400" />
       </div>
     );
   }
 
   if (!booking) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Booking Not Found</h2>
-          <p className="text-gray-600 mb-6">
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8 text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">Booking Not Found</h2>
+          <p className="text-gray-300 mb-6">
             {error || 'The booking you are looking for could not be found.'}
           </p>
           <Button onClick={() => navigate('/accounting')}>
@@ -133,10 +133,10 @@ export const ConsultCheckout: React.FC = () => {
   const service = CONSULT_SERVICES.find(s => s.id === booking.service_type);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-20">
+    <div className="min-h-screen bg-gray-900 py-20">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl shadow-xl p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Complete Your Booking</h1>
+        <div className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8">
+          <h1 className="text-3xl font-bold text-white mb-8">Complete Your Booking</h1>
 
           {error && (
             <Alert variant="error" className="mb-6">
@@ -145,35 +145,35 @@ export const ConsultCheckout: React.FC = () => {
           )}
 
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Booking Summary</h2>
+            <h2 className="text-xl font-semibold text-white mb-4">Booking Summary</h2>
 
-            <div className="bg-gray-50 rounded-lg p-6 space-y-4">
+            <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl border border-white/[0.08] p-6 space-y-4">
               <div>
-                <p className="text-sm text-gray-600">Service</p>
-                <p className="text-lg font-semibold text-gray-900">{service?.name}</p>
+                <p className="text-sm text-gray-400">Service</p>
+                <p className="text-lg font-semibold text-white">{service?.name}</p>
               </div>
 
               <div>
-                <p className="text-sm text-gray-600">Name</p>
-                <p className="text-gray-900">{booking.full_name}</p>
+                <p className="text-sm text-gray-400">Name</p>
+                <p className="text-gray-200">{booking.full_name}</p>
               </div>
 
               <div>
-                <p className="text-sm text-gray-600">Email</p>
-                <p className="text-gray-900">{booking.email}</p>
+                <p className="text-sm text-gray-400">Email</p>
+                <p className="text-gray-200">{booking.email}</p>
               </div>
 
               {booking.phone && (
                 <div>
-                  <p className="text-sm text-gray-600">Phone</p>
-                  <p className="text-gray-900">{booking.phone}</p>
+                  <p className="text-sm text-gray-400">Phone</p>
+                  <p className="text-gray-200">{booking.phone}</p>
                 </div>
               )}
 
               {booking.preferred_date && (
                 <div>
-                  <p className="text-sm text-gray-600">Preferred Date</p>
-                  <p className="text-gray-900">
+                  <p className="text-sm text-gray-400">Preferred Date</p>
+                  <p className="text-gray-200">
                     {new Date(booking.preferred_date).toLocaleString()}
                   </p>
                 </div>
@@ -181,19 +181,19 @@ export const ConsultCheckout: React.FC = () => {
 
               {booking.notes && (
                 <div>
-                  <p className="text-sm text-gray-600">Notes</p>
-                  <p className="text-gray-900">{booking.notes}</p>
+                  <p className="text-sm text-gray-400">Notes</p>
+                  <p className="text-gray-200">{booking.notes}</p>
                 </div>
               )}
             </div>
           </div>
 
-          <div className="border-t pt-6 mb-6">
+          <div className="border-t border-white/[0.10] pt-6 mb-6">
             <div className="flex justify-between items-center mb-6">
-              <span className="text-lg font-semibold text-gray-900">Total</span>
-              <span className="text-3xl font-bold text-gray-900">€{service?.price}</span>
+              <span className="text-lg font-semibold text-white">Total</span>
+              <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">€{service?.price}</span>
             </div>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-400">
               Includes VAT. Payment processed securely via Stripe.
             </p>
           </div>

@@ -80,20 +80,21 @@ export const ConsultBookingForm: React.FC<ConsultBookingFormProps> = ({
       animate={{ opacity: 1, y: 0 }}
       className="max-w-2xl mx-auto"
     >
-      <div className="bg-white rounded-2xl shadow-xl p-8">
+      <div className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8">
         <button
           onClick={onBack}
-          className="text-gray-600 hover:text-gray-900 mb-6 flex items-center"
+          className="text-gray-400 hover:text-white mb-6 flex items-center transition-colors group"
         >
-          ← Back to services
+          <span className="group-hover:-translate-x-1 transition-transform">←</span>
+          <span className="ml-2">Back to services</span>
         </button>
 
         <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">{service.name}</h2>
-          <p className="text-gray-600 mb-4">{service.description}</p>
+          <h2 className="text-3xl font-bold text-white mb-2">{service.name}</h2>
+          <p className="text-gray-300 mb-4">{service.description}</p>
           <div className="flex items-baseline">
-            <span className="text-4xl font-bold text-gray-900">€{service.price}</span>
-            <span className="text-gray-600 ml-2">· {service.duration}</span>
+            <span className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">€{service.price}</span>
+            <span className="text-gray-400 ml-2">· {service.duration}</span>
           </div>
         </div>
 
@@ -105,7 +106,7 @@ export const ConsultBookingForm: React.FC<ConsultBookingFormProps> = ({
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="full_name" className="block text-sm font-semibold text-gray-300 mb-2">
               Full Name *
             </label>
             <Input
@@ -120,7 +121,7 @@ export const ConsultBookingForm: React.FC<ConsultBookingFormProps> = ({
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-2">
               Email *
             </label>
             <Input
@@ -135,7 +136,7 @@ export const ConsultBookingForm: React.FC<ConsultBookingFormProps> = ({
           </div>
 
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="phone" className="block text-sm font-semibold text-gray-300 mb-2">
               Phone Number
             </label>
             <Input
@@ -149,7 +150,7 @@ export const ConsultBookingForm: React.FC<ConsultBookingFormProps> = ({
           </div>
 
           <div>
-            <label htmlFor="preferred_date" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="preferred_date" className="block text-sm font-semibold text-gray-300 mb-2">
               Preferred Date & Time
             </label>
             <Input
@@ -159,13 +160,13 @@ export const ConsultBookingForm: React.FC<ConsultBookingFormProps> = ({
               value={formData.preferred_date}
               onChange={handleChange}
             />
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs text-gray-400 mt-2">
               We'll confirm availability within 24 hours
             </p>
           </div>
 
           <div>
-            <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="notes" className="block text-sm font-semibold text-gray-300 mb-2">
               Additional Notes
             </label>
             <textarea
@@ -175,12 +176,12 @@ export const ConsultBookingForm: React.FC<ConsultBookingFormProps> = ({
               value={formData.notes}
               onChange={handleChange}
               placeholder="Tell us about your tax situation or any specific questions..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 bg-white/[0.03] backdrop-blur-2xl border border-white/[0.12] rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400/80 focus:border-blue-400/60 focus:bg-white/[0.08] hover:border-white/[0.16] hover:bg-white/[0.06] transition-all duration-300 shadow-2xl shadow-black/40 resize-none"
             />
           </div>
 
-          <div className="bg-gray-50 rounded-lg p-4">
-            <p className="text-sm text-gray-700">
+          <div className="bg-white/[0.02] backdrop-blur-xl rounded-xl border border-white/[0.08] p-4">
+            <p className="text-sm text-gray-300 leading-relaxed">
               By booking, you agree to our terms of service and privacy policy. Payment will be processed securely via Stripe.
             </p>
           </div>
