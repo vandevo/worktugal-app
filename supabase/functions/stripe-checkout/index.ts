@@ -43,7 +43,7 @@ Deno.serve(async (req) => {
       return corsResponse({ error: 'Method not allowed' }, 405);
     }
 
-    const { price_id, success_url, cancel_url, mode, submission_id } = await req.json();
+    const { price_id, success_url, cancel_url, mode, submission_id, payment_type } = await req.json();
 
     const error = validateParameters(
       { price_id, success_url, cancel_url, mode, submission_id },
@@ -193,10 +193,11 @@ Deno.serve(async (req) => {
       cancel_url,
     };
 
-    // Add submission_id to metadata if provided
+    // Add submission_id and payment_type to metadata if provided
     if (submission_id) {
       sessionConfig.metadata = {
         submission_id: submission_id.toString(),
+        payment_type: payment_type || 'perk', // Default to 'perk' for backward compatibility
       };
     }
 

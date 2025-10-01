@@ -49,7 +49,7 @@ export interface Appointment {
   id: number;
   client_id: string;
   accountant_id?: string;
-  submission_id?: number;
+  booking_id?: number;
   service_type: string;
   cal_event_id?: string;
   cal_event_uid?: string;
