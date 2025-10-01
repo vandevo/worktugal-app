@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Hero } from './Hero';
 import { PerksDirectory } from './PerksDirectory';
 import { FormWizard } from './FormWizard';
+import { PartnerPricingHero } from './PartnerPricingHero';
 import { supabase } from '../lib/supabase';
 
 export const HomePage: React.FC = () => {
@@ -75,6 +76,7 @@ export const HomePage: React.FC = () => {
             activePerksCount={activePerksCount}
             activePerksLoading={activePerksLoading}
           />
+          <PartnerPricingHero />
           <PerksDirectory />
         </>
       ) : (
