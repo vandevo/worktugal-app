@@ -52,41 +52,20 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </span>
               </div>
             </a>
-            <a
-              href="/accounting"
-              className="text-slate-600 hover:text-teal-600 transition-colors font-medium"
-            >
-              Accounting Desk
-            </a>
-            <a
-              href="/partners"
-              className="text-slate-600 hover:text-teal-600 transition-colors font-medium"
-            >
-              Partner Program
-            </a>
-            
+
             <div className="flex items-center space-x-6">
               <div className="hidden md:flex items-center space-x-6">
-                <a 
-                  href="/pricing"
-                  className="text-gray-400 hover:text-white transition-all duration-300 font-medium"
-                >
-                  Services
-                </a>
-                <a href="#directory" className="text-gray-400 hover:text-white transition-all duration-300 font-medium">
+                <a href="/#directory" className="text-gray-400 hover:text-white transition-all duration-300 font-medium">
                   Browse Perks
                 </a>
-                <a 
+                <a
                   href="/partner-form"
                   className="text-gray-400 hover:text-white transition-all duration-300 font-medium"
                 >
-                  List Your Business
-                </a>
-                <a href="#pricing" className="text-gray-400 hover:text-white transition-all duration-300 font-medium">
-                  For Partners
+                  List My Business
                 </a>
               </div>
-              
+
               {user ? (
                 <div className="flex items-center space-x-3 md:space-x-4">
                   <UserRoleBadge />

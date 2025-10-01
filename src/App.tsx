@@ -197,9 +197,17 @@ function App() {
     <Router>
       <Layout>
         <Routes>
-          <Route path="/" element={<PerksDirectory />} />
-          <Route path="/pricing" element={<PricingSection />} />
-          <Route path="/partner-form" element={<FormWizard />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/pricing" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <PricingSection />
+            </Suspense>
+          } />
+          <Route path="/partner-form" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <FormWizard />
+            </Suspense>
+          } />
           <Route path="/accounting" element={
             <Suspense fallback={<LoadingSpinner />}>
               <AccountingDeskLanding />
