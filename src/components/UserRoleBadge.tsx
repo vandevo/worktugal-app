@@ -1,74 +1,51 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Crown, Shield, User, Loader2 } from 'lucide-react';
-import { useUserProfile } from '../hooks/useUserProfile';
+import { Shield, Briefcase, User, Calculator } from 'lucide-react';
 
-export const UserRoleBadge: React.FC = () => {
-  const { profile, loading } = useUserProfile();
+interface UserRoleBadgeProps {
+  role: string;
+  purchases?: Array<{ productName: string }>;
+}
 
-  if (loading) {
-    return (
-      <div className="flex items-center space-x-2 text-gray-400">
-        <Loader2 className="h-3.5 w-3.5 animate-spin flex-shrink-0" />
-        <span className="text-xs font-medium">Loading...</span>
-      </div>
-    );
-  }
-
-  if (!profile) {
-    return null;
-  }
-
-  const role = profile.role || 'user';
-
-  const getRoleConfig = () => {
+export function UserRoleBadge({ role, purchases = [] }: UserRoleBadgeProps) {
+  const getRoleInfo = () => {
     switch (role) {
-      case 'partner':
-        return {
-          icon: Crown,
-          bgColor: 'from-blue-400/20 to-purple-400/20',
-          textColor: 'text-blue-300',
-          borderColor: 'border-blue-400/30',
-          fullText: 'Partner',
-          shortText: 'P',
-          description: 'Verified partner with active listing'
-        };
       case 'admin':
         return {
+          label: 'Admin',
           icon: Shield,
-          bgColor: 'from-red-400/20 to-pink-400/20',
-          textColor: 'text-red-300',
-          borderColor: 'border-red-400/30',
-          fullText: 'Admin',
-          shortText: 'A',
-          description: 'Administrator with full access'
+          className: 'bg-red-100 text-red-800 border-red-200'
         };
-      case 'user':
-      default:
+      case 'partner':
         return {
+          label: 'Partner',
+          icon: Briefcase,
+          className: 'bg-orange-100 text-orange-800 border-orange-200'
+        };
+      case 'accountant':
+        return {
+          label: 'Accountant',
+          icon: Calculator,
+          className: 'bg-blue-100 text-blue-800 border-blue-200'
+        };
+      default:
+        // Check if user has made any purchases to show active status
+        const hasActivePurchases = purchases.length > 0;
+        return {
+          label: hasActivePurchases ? 'Active Member' : 'Member',
           icon: User,
-          bgColor: 'from-gray-400/20 to-gray-500/20',
-          textColor: 'text-gray-300',
-          borderColor: 'border-gray-400/30',
-          fullText: 'Member',
-          shortText: 'M',
-          description: 'Registered community member'
+          className: hasActivePurchases 
+            ? 'bg-teal-100 text-teal-800 border-teal-200'
+            : 'bg-slate-100 text-slate-800 border-slate-200'
         };
     }
   };
 
-  const config = getRoleConfig();
-  const IconComponent = config.icon;
+  const { label, icon: Icon, className } = getRoleInfo();
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className={`inline-flex items-center space-x-1 sm:space-x-1.5 bg-gradient-to-r ${config.bgColor} backdrop-blur-xl ${config.textColor} px-3 sm:px-3.5 py-1.5 rounded-full border ${config.borderColor} shadow-lg`}
-      title={config.description}
-    >
-      <IconComponent className="h-3.5 w-3.5 flex-shrink-0" />
-      <span className="text-xs font-medium">{config.fullText}</span>
-    </motion.div>
+    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium border ${className}`}>
+      <Icon className="w-4 h-4" />
+      <span>{label}</span>
+    </div>
   );
-};
+}

@@ -1,279 +1,196 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Check, ArrowRight, Loader2, Target } from 'lucide-react';
+import React, { useState } from 'react';
+import { Check, ArrowRight, Zap } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
-import { Alert } from './ui/Alert';
-import { LISTING_PRICE } from '../utils/constants';
-import { getApprovedSubmissionsCount } from '../lib/submissions';
-
-const TOTAL_EARLY_ACCESS_SPOTS = 25;
+import { stripeProducts } from '../stripe-config';
+import { useAuth } from '../hooks/useAuth';
+import { supabase } from '../lib/supabase';
 
 interface PricingSectionProps {
-  onGetStarted: () => void;
+  onProductSelect?: (productKey: string) => void;
 }
 
-export const PricingSection: React.FC<PricingSectionProps> = ({ onGetStarted }) => {
-  const [error, setError] = useState<string | null>(null);
-  const [spotsLeft, setSpotsLeft] = useState<number | null>(null);
-  const [spotsLoading, setSpotsLoading] = useState(true);
+export function PricingSection({ onProductSelect }: PricingSectionProps) {
+  const { user } = useAuth();
+  const [loading, setLoading] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchSpots = async () => {
-      try {
-        setSpotsLoading(true);
-        const approvedCount = await getApprovedSubmissionsCount();
-        setSpotsLeft(TOTAL_EARLY_ACCESS_SPOTS - approvedCount);
-      } catch (err) {
-        console.error('Failed to fetch spots left:', err);
-        setSpotsLeft(null);
-      } finally {
-        setSpotsLoading(false);
-      }
-    };
-    fetchSpots();
-  }, []);
-
-  const handleStartListing = () => {
-    // Track button click for analytics
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'pricing_section_list_offer_click', {
-        event_category: 'engagement',
-        event_label: 'pricing_section',
-        value: 1
-      });
-    }
+  const handleCheckout = async (productKey: string) => {
+    if (!user) return;
     
-    onGetStarted();
+    setLoading(productKey);
+    
+    try {
+      const product = stripeProducts[productKey as keyof typeof stripeProducts];
+      
+      const { data, error } = await supabase.functions.invoke('stripe-checkout', {
+        body: {
+          priceId: product.priceId,
+          email: user.email,
+          productType: productKey
+        }
+      });
+
+      if (error) throw error;
+      
+      if (data?.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('Failed to start checkout. Please try again.');
+    } finally {
+      setLoading(null);
+    }
   };
 
-  if (spotsLoading) {
-    return (
-      <section className="py-20 bg-gray-800/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <Loader2 className="h-12 w-12 animate-spin mx-auto mb-4 text-blue-500" />
-            <p className="text-gray-400">Loading pricing information...</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const consultProduct = stripeProducts['tax-triage-consult'];
+  const partnerProduct = stripeProducts['partner-listing-lifetime'];
 
   return (
-    <>
-      <section id="pricing" className="py-20 bg-gradient-to-b from-gray-900/50 to-gray-800/30 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.08),transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(147,51,234,0.06),transparent_50%)]" />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 bg-slate-50">
+      <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
-            Reach Verified Remote Clients Without Ads or Agencies
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            Choose Your Service
           </h2>
-          <p className="text-xl sm:text-2xl bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent font-bold mb-6">
-            €{LISTING_PRICE} one time payment
-          </p>
-          <p className="text-lg sm:text-xl text-gray-500 max-w-4xl mx-auto leading-relaxed">
-            Cold outreach doesn't work for professional services. Agencies are expensive and generic.<br />
-            This is where remote workers discover trusted coworking, wellness, business services, and authentic local experiences.<br />
-            List your expert service where quality clients actually look.<br />
-            You provide value. We connect you with remote professionals who invest in quality.
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            Professional tax consultation or partner marketplace access
           </p>
         </div>
 
-        {error && (
-          <Alert variant="error" className="mb-8 max-w-2xl mx-auto" onClose={() => setError(null)}>
-            {error}
-          </Alert>
-        )}
-
-        <div className="max-w-lg mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="relative max-w-2xl mx-auto"
-          >
-            {/* FOMO Badge */}
-            <div className="text-center mb-10 sm:mb-12">
-              <motion.div
-                animate={spotsLeft !== null && spotsLeft <= 10 ? {
-                  scale: [1, 1.05, 1],
-                  boxShadow: [
-                    "0 0 0 0 rgba(239, 68, 68, 0)",
-                    "0 0 0 8px rgba(239, 68, 68, 0.1)",
-                    "0 0 0 0 rgba(239, 68, 68, 0)"
-                  ]
-                } : {}}
-                transition={{ duration: 2, repeat: Infinity }}
-                className={`inline-flex items-center space-x-2 px-6 py-4 sm:px-7 sm:py-5 rounded-full border font-bold shadow-2xl backdrop-blur-xl ${
-                  spotsLeft !== null && spotsLeft <= 5
-                    ? 'bg-red-500/10 text-red-300 border-red-400/30 shadow-red-500/25'
-                    : spotsLeft !== null && spotsLeft <= 10
-                    ? 'bg-orange-500/10 text-orange-300 border-orange-400/30 shadow-orange-500/25'
-                    : 'bg-blue-500/10 text-blue-300 border-blue-400/30 shadow-blue-500/25'
-                }`}
-              >
-                <span className="text-sm sm:text-base font-bold tracking-wide">
-                  {spotsLeft !== null 
-                    ? spotsLeft <= 5
-                      ? `🔥 FINAL ${spotsLeft} SPOTS`
-                      : spotsLeft <= 10
-                      ? `⚡ Only ${spotsLeft} left`
-                      : `${spotsLeft} spots remaining`
-                    : 'Loading spots...'
-                  }
-                </span>
-              </motion.div>
-              <div className="mt-6 sm:mt-8 space-y-4 max-w-lg mx-auto">
-                <p className="text-sm sm:text-base font-medium text-gray-400">
-                  Lock your spot. Get visibility. Be first
-                </p>
-                <p className="text-sm sm:text-base text-gray-500 leading-relaxed px-4 sm:px-0">
-                  Only 25 listings available at this early access price. Once filled, the next tier will open at a higher rate.
-                </p>
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Tax Consultation */}
+          <Card className="relative overflow-hidden border-2 border-teal-200 bg-white">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-blue-500"></div>
+            <div className="p-8">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center">
+                  <Zap className="w-6 h-6 text-teal-600" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900">Tax Consultation</h3>
+                  <p className="text-sm text-slate-500">Professional guidance</p>
+                </div>
               </div>
-            </div>
-
-            <Card variant="glass" className="p-8 sm:p-10 lg:p-12 text-center relative overflow-hidden" hover>
-              {/* Inner glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 rounded-3xl" />
               
-              <div className="relative mb-10 sm:mb-12">
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 leading-tight">
-                  <span className="text-2xl sm:text-3xl lg:text-4xl">🎯</span>{' '}
-                  <span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
-                    Early Access Lifetime Listing
-                  </span>
-                </h3>
-                <div className="flex items-baseline justify-center mb-4">
-                  <span className="text-5xl sm:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">€{LISTING_PRICE}</span>
-                  <span className="text-gray-400 ml-4 text-lg sm:text-xl font-medium">one time</span>
+              <div className="mb-6">
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-3xl font-bold text-slate-900">{consultProduct.currencySymbol}{consultProduct.price}</span>
+                  <span className="text-slate-500">one-time</span>
                 </div>
-                <p className="text-base sm:text-lg text-gray-500 mb-10 font-medium">No renewals • No surprises</p>
-                
-                <div className="text-center mb-8">
-                  <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-lg mx-auto">
-                    <span className="text-gray-400">Join the marketplace where quality remote professionals discover trusted local businesses. No spam, no cold calls - just genuine connections.</span>
-                  </p>
-                </div>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  {consultProduct.description}
+                </p>
               </div>
 
-              <div className="relative space-y-5 sm:space-y-6 mb-12 text-left max-w-2xl mx-auto">
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
-                    <Check className="h-3.5 w-3.5 text-green-400" />
-                  </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-300">Listed on our public perk directory</span>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
-                    <Check className="h-3.5 w-3.5 text-green-400" />
-                  </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-400">"Trusted Partner" badge on your listing</span>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
-                    <Check className="h-3.5 w-3.5 text-green-400" />
-                  </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-400">Featured in our monthly newsletter</span>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
-                    <Check className="h-3.5 w-3.5 text-green-400" />
-                  </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-400">Shoutouts at select in-person events</span>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
-                    <Check className="h-3.5 w-3.5 text-green-400" />
-                  </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-400">Ongoing support to update or refresh your perks</span>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-400/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 backdrop-blur-xl border border-green-400/20">
-                    <Check className="h-3.5 w-3.5 text-green-400" />
-                  </div>
-                  <span className="text-base sm:text-lg leading-relaxed text-gray-400">Invite-only access to our Partner Insider Network as we grow</span>
-                </div>
-              </div>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-teal-500 flex-shrink-0" />
+                  <span className="text-slate-700">30-minute video consultation</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-teal-500 flex-shrink-0" />
+                  <span className="text-slate-700">OCC-certified accountant</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-teal-500 flex-shrink-0" />
+                  <span className="text-slate-700">Written outcome note delivered</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-teal-500 flex-shrink-0" />
+                  <span className="text-slate-700">48-hour delivery guarantee</span>
+                </li>
+              </ul>
 
               <Button
-                size="lg"
-                className="w-full h-16 sm:h-18 text-lg sm:text-xl font-bold shadow-2xl hover:shadow-3xl rounded-2xl transition-all duration-300"
-                onClick={handleStartListing}
+                onClick={() => handleCheckout('tax-triage-consult')}
+                className="w-full bg-teal-600 hover:bg-teal-700 text-white"
+                disabled={loading === 'tax-triage-consult'}
               >
-                <ArrowRight className="mr-2 h-5 w-5" />
-                List My Offer • €{LISTING_PRICE}
-              </Button>
-            </Card>
-          </motion.div>
-        </div>
-
-        <div className="mt-8 sm:mt-12 text-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="bg-white/[0.02] backdrop-blur-2xl rounded-3xl p-6 sm:p-8 max-w-3xl mx-auto border border-white/[0.06] shadow-2xl relative overflow-hidden"
-          >
-            {/* Inner glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/3 via-transparent to-purple-500/3 rounded-3xl" />
-            
-            <h3 className="text-lg font-semibold text-white mb-6 text-center">
-              Simple 4-Step Process
-            </h3>
-            
-            <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-              {[
-                { number: "1", title: "Business info", icon: "📝" },
-                { number: "2", title: "Create perk", icon: "🎁" },
-                { number: "3", title: "Pay €49", icon: "💳" },
-                { number: "4", title: "Go live", icon: "🚀" }
-              ].map((step, index) => (
-                <motion.div
-                  key={step.number}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 + index * 0.1 }}
-                  className="group relative"
-                >
-                  <div className="bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-xl rounded-2xl p-4 text-center transition-all duration-300 border border-white/[0.06] hover:border-white/[0.12] group-hover:scale-105">
-                    <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl flex items-center justify-center text-white text-sm font-bold mx-auto mb-3 shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-all duration-300">
-                      {step.number}
-                    </div>
-                    <div className="text-lg mb-2 group-hover:scale-110 transition-transform duration-300">
-                      {step.icon}
-                    </div>
-                    <p className="text-xs font-medium text-gray-300 leading-tight">
-                      {step.title}
-                    </p>
+                {loading === 'tax-triage-consult' ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Processing...</span>
                   </div>
-                </motion.div>
-              ))}
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <span>Book Consultation</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                )}
+              </Button>
             </div>
-            
-            <div className="lg:hidden flex justify-center items-center space-x-1 mt-4">
-              {[0, 1, 2].map((index) => (
-                <div key={index} className="flex items-center space-x-1">
-                  <div className="w-2 h-2 bg-blue-400/40 rounded-full animate-pulse" style={{ animationDelay: `${index * 0.3}s` }}></div>
-                  {index < 2 && <div className="w-1 h-1 bg-gray-500/40 rounded-full"></div>}
-                </div>
-              ))}
-            </div>
-            
-            <div className="relative mt-8 pt-8 border-t border-white/[0.06]">
-              <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-lg mx-auto text-center">
-                3 minutes • Approved in 24h • Trusted by 1,000+ professionals
-              </p>
-            </div>
-          </motion.div>
-        </div>
-        </div>
-      </section>
+          </Card>
 
-    </>
+          {/* Partner Listing */}
+          <Card className="relative overflow-hidden border-2 border-orange-200 bg-white">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 to-red-500"></div>
+            <div className="absolute top-4 right-4">
+              <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                LIMITED
+              </span>
+            </div>
+            <div className="p-8">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                  <ArrowRight className="w-6 h-6 text-orange-600" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900">Partner Access</h3>
+                  <p className="text-sm text-slate-500">Lifetime membership</p>
+                </div>
+              </div>
+              
+              <div className="mb-6">
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-3xl font-bold text-slate-900">{partnerProduct.currencySymbol}{partnerProduct.price}</span>
+                  <span className="text-slate-500">lifetime</span>
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  {partnerProduct.description}
+                </p>
+              </div>
+
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                  <span className="text-slate-700">Lifetime marketplace visibility</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                  <span className="text-slate-700">Access to premium audience</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                  <span className="text-slate-700">No renewal fees ever</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                  <span className="text-slate-700">Limited to 25 businesses</span>
+                </li>
+              </ul>
+
+              <Button
+                onClick={() => handleCheckout('partner-listing-lifetime')}
+                className="w-full bg-orange-600 hover:bg-orange-700 text-white"
+                disabled={loading === 'partner-listing-lifetime'}
+              >
+                {loading === 'partner-listing-lifetime' ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Processing...</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <span>Join Marketplace</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                )}
+              </Button>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
   );
-};
+}

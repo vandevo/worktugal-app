@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Seo } from './components/Seo';
 import { Layout } from './components/Layout';
 import { Hero } from './components/Hero';
+import { PricingSection } from './components/PricingSection';
 import { Footer } from './components/Footer';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { useAuth } from './hooks/useAuth';
@@ -195,7 +196,9 @@ function App() {
     <Router>
       <Layout>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<PerksDirectory />} />
+          <Route path="/pricing" element={<PricingSection />} />
+          <Route path="/partner-form" element={<FormWizard />} />
           <Route path="/accounting" element={
             <Suspense fallback={<LoadingSpinner />}>
               <AccountingDeskLanding />
@@ -216,7 +219,7 @@ function App() {
               <ProtectedSuccessRoute>
                 <SuccessPage />
               </ProtectedSuccessRoute>
-            </Suspense>
+          <Route path="/perks" element={<PerksDirectory />} />
           } />
           <Route path="/reset-password" element={
             <Suspense fallback={<LoadingSpinner />}>

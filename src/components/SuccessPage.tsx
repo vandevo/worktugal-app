@@ -1,228 +1,209 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { CheckCircle, ArrowRight, Home, Gift, Calendar, Users, TrendingUp } from 'lucide-react';
-import { Seo } from './Seo';
+import { useSearchParams } from 'react-router-dom';
+import { CheckCircle, Calendar, Receipt, ArrowRight } from 'lucide-react';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
-import { useSubscription } from '../hooks/useSubscription';
+import { stripeProducts } from '../stripe-config';
+import { supabase } from '../lib/supabase';
 
-export const SuccessPage: React.FC = () => {
-  const { hasActivePayment, activeProductName } = useSubscription();
-  const [showConfetti, setShowConfetti] = useState(true);
+interface PurchaseDetails {
+  customerEmail: string;
+  productName: string;
+  amount: number;
+  currency: string;
+  purchaseDate: string;
+}
+
+export function SuccessPage() {
+  const [searchParams] = useSearchParams();
+  const [purchaseDetails, setPurchaseDetails] = useState<PurchaseDetails | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const sessionId = searchParams.get('session_id');
 
   useEffect(() => {
-    // Hide confetti after animation
-    const timer = setTimeout(() => setShowConfetti(false), 3000);
-    return () => clearTimeout(timer);
-  }, []);
+    const fetchPurchaseDetails = async () => {
+      if (!sessionId) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        // Query stripe_orders to get purchase details
+        const { data: order, error } = await supabase
+          .from('stripe_orders')
+          .select(`
+            *,
+            stripe_customers!inner(
+              user_id,
+              customer_id
+            )
+          `)
+          .eq('checkout_session_id', sessionId)
+          .single();
+
+        if (error) throw error;
+
+        if (order) {
+          // Get user details
+          const { data: user } = await supabase.auth.getUser();
+          
+          // Try to determine product from amount
+          const productKey = Object.keys(stripeProducts).find(key => {
+            const product = stripeProducts[key as keyof typeof stripeProducts];
+            return Math.abs(product.price * 100 - order.amount_total) < 1; // Compare in cents
+          });
+
+          const productName = productKey 
+            ? stripeProducts[productKey as keyof typeof stripeProducts].name
+            : 'Purchase';
+
+          setPurchaseDetails({
+            customerEmail: user.user?.email || '',
+            productName,
+            amount: order.amount_total / 100, // Convert from cents
+            currency: order.currency.toUpperCase(),
+            purchaseDate: new Date(order.created_at).toLocaleDateString()
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching purchase details:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPurchaseDetails();
+  }, [sessionId]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-slate-600">Loading your purchase details...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!sessionId || !purchaseDetails) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50 flex items-center justify-center">
+        <Card className="max-w-md mx-auto text-center p-8">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Receipt className="w-8 h-8 text-red-600" />
+          </div>
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">Invalid Session</h1>
+          <p className="text-slate-600 mb-6">
+            We couldn't find your purchase details. Please check your email for confirmation.
+          </p>
+          <Button 
+            onClick={() => window.location.href = '/'}
+            className="bg-teal-600 hover:bg-teal-700 text-white"
+          >
+            Return Home
+          </Button>
+        </Card>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-900 py-20">
-      <Seo
-        title="Welcome to Early Access - Payment Successful"
-        description="Congratulations! You've successfully joined Worktugal Pass as an early access partner. Your business will be featured to 1,000+ remote professionals in Lisbon."
-        ogTitle="Successfully Joined Worktugal Pass Early Access"
-        ogDescription="Now part of Lisbon's trusted perk marketplace for remote professionals"
-      />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-center"
-        >
-          {/* Success Icon */}
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-            className="mb-8"
-          >
-            <div className="relative inline-block">
-              <CheckCircle className="h-24 w-24 text-green-400 mx-auto" />
-              {showConfetti && (
-                <motion.div
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: 0 }}
-                  transition={{ delay: 2, duration: 1 }}
-                  className="absolute inset-0 pointer-events-none"
-                >
-                  {/* Confetti particles */}
-                  {[...Array(12)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-2 h-2 bg-blue-400 rounded-full"
-                      initial={{
-                        x: 0,
-                        y: 0,
-                        scale: 0,
-                      }}
-                      animate={{
-                        x: (Math.random() - 0.5) * 200,
-                        y: (Math.random() - 0.5) * 200,
-                        scale: [0, 1, 0],
-                      }}
-                      transition={{
-                        duration: 2,
-                        delay: i * 0.1,
-                      }}
-                    />
-                  ))}
-                </motion.div>
-              )}
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
+      <div className="container mx-auto px-4 py-16">
+        <div className="max-w-2xl mx-auto">
+          <Card className="text-center p-8 mb-8">
+            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="w-12 h-12 text-green-600" />
             </div>
-          </motion.div>
-
-          {/* Success Message */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mb-8"
-          >
-            <h1 className="text-4xl font-bold mb-4 text-white">Welcome to Early Access!</h1>
-            <p className="text-xl text-gray-500 mb-6">
-              You've successfully secured your spot in Lisbon's #1 perk marketplace
+            
+            <h1 className="text-3xl font-bold text-slate-900 mb-4">
+              Payment Successful!
+            </h1>
+            
+            <p className="text-lg text-slate-600 mb-8">
+              Thank you for your purchase. Your payment has been processed successfully.
             </p>
-            <div className="inline-flex items-center space-x-2 bg-green-600/20 text-green-300 px-4 py-2 rounded-full">
-              <Gift className="h-4 w-4" />
-              <span className="text-sm font-medium">Early Access Member</span>
-            </div>
-          </motion.div>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
-          >
-            <Card className="p-6 text-center">
-              <Users className="h-8 w-8 text-blue-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white">1,000+</div>
-              <div className="text-sm text-gray-400">Remote Workers</div>
-            </Card>
-            <Card className="p-6 text-center">
-              <TrendingUp className="h-8 w-8 text-green-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white">€49</div>
-              <div className="text-sm text-gray-400">One-time Payment</div>
-            </Card>
-            <Card className="p-6 text-center">
-              <Calendar className="h-8 w-8 text-purple-400 mx-auto mb-2" />
-              <div className="text-2xl font-bold text-white">Lifetime</div>
-              <div className="text-sm text-gray-400">Access</div>
-            </Card>
-          </motion.div>
-
-          {/* Next Steps */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mb-8"
-          >
-            <Card className="p-8 max-w-2xl mx-auto text-left">
-              <h2 className="text-2xl font-bold mb-6 text-center text-white">What happens next?</h2>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
-                    1
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1 text-white">Review & Verification</h3>
-                    <p className="text-gray-400 text-sm">
-                      Our team will review your submission and verify all details within 24 hours
-                    </p>
-                  </div>
+            <div className="bg-slate-50 rounded-lg p-6 mb-8">
+              <h3 className="font-semibold text-slate-900 mb-4">Purchase Details</h3>
+              <div className="space-y-3 text-left">
+                <div className="flex justify-between">
+                  <span className="text-slate-600">Product:</span>
+                  <span className="font-medium text-slate-900">{purchaseDetails.productName}</span>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
-                    2
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1 text-white">Contact & Clarification</h3>
-                    <p className="text-gray-400 text-sm">
-                      We'll contact you if we need any additional information or clarification
-                    </p>
-                  </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-600">Amount:</span>
+                  <span className="font-medium text-slate-900">
+                    €{purchaseDetails.amount.toFixed(2)}
+                  </span>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
-                    3
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1 text-white">Go Live with Priority Placement</h3>
-                    <p className="text-gray-400 text-sm">
-                      You'll be notified when your perk goes live in our directory with trusted partner badge and priority positioning
-                    </p>
-                  </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-600">Email:</span>
+                  <span className="font-medium text-slate-900">{purchaseDetails.customerEmail}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-600">Date:</span>
+                  <span className="font-medium text-slate-900">{purchaseDetails.purchaseDate}</span>
                 </div>
               </div>
-            </Card>
-          </motion.div>
-
-          {/* Action Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
-          >
-            <Button
-              size="lg"
-              onClick={() => window.location.href = '/?start=true'}
-              className="px-8"
-            >
-              Submit another business
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => window.location.href = '/'}
-              className="px-8"
-            >
-              <Home className="mr-2 h-5 w-5" />
-              Back to Home
-            </Button>
-          </motion.div>
-
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
-            className="bg-gray-800 rounded-xl p-6 max-w-md mx-auto"
-          >
-            <h3 className="font-semibold mb-2 text-white">Need Help?</h3>
-            <p className="text-sm text-gray-400 mb-3">
-              Our team is here to help you get started. Reach out with any questions about your membership.
-            </p>
-            <div className="space-y-2 text-sm">
-              <p>
-                <span className="text-gray-500">Email:</span>{' '}
-                <a 
-                  href="mailto:hello@worktugal.com" 
-                  className="text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  hello@worktugal.com
-                </a>
-              </p>
-              <p>
-                <span className="text-gray-500">WhatsApp:</span>{' '}
-                <a 
-                  href="https://wa.me/351928090121" 
-                  className="text-blue-400 hover:text-blue-300 transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  +351 928 090 121
-                </a>
-              </p>
             </div>
-          </motion.div>
-        </motion.div>
+
+            {purchaseDetails.productName.includes('Tax Triage') && (
+              <div className="bg-teal-50 border border-teal-200 rounded-lg p-6 mb-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <Calendar className="w-5 h-5 text-teal-600" />
+                  <h4 className="font-semibold text-teal-900">Next Steps</h4>
+                </div>
+                <p className="text-teal-800 text-sm">
+                  You'll receive an email within 2 hours with booking instructions to schedule your 
+                  30-minute consultation. Your written outcome note will be delivered within 48 hours 
+                  of your consultation.
+                </p>
+              </div>
+            )}
+
+            {purchaseDetails.productName.includes('Partner Listing') && (
+              <div className="bg-orange-50 border border-orange-200 rounded-lg p-6 mb-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <ArrowRight className="w-5 h-5 text-orange-600" />
+                  <h4 className="font-semibold text-orange-900">Welcome to the Marketplace!</h4>
+                </div>
+                <p className="text-orange-800 text-sm">
+                  Your business now has lifetime access to our perk marketplace. You'll receive 
+                  setup instructions within 24 hours to complete your listing.
+                </p>
+              </div>
+            )}
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button 
+                onClick={() => window.location.href = '/'}
+                variant="outline"
+                className="flex-1"
+              >
+                Return Home
+              </Button>
+              <Button 
+                onClick={() => window.location.href = '/perks'}
+                className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
+              >
+                Browse Perks
+              </Button>
+            </div>
+          </Card>
+
+          <div className="text-center">
+            <p className="text-sm text-slate-500">
+              Questions about your purchase?{' '}
+              <a href="mailto:hello@worktugal.com" className="text-teal-600 hover:text-teal-700">
+                Contact support
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
-};
+}
