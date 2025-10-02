@@ -86,3 +86,20 @@ export const validateDocumentFile = (file: File): string | null => {
 
   return null;
 };
+
+export const getSignedUrl = async (
+  path: string,
+  bucket: string = 'accountant-resumes',
+  expiresIn: number = 3600
+): Promise<string> => {
+  const { data, error } = await supabase.storage
+    .from(bucket)
+    .createSignedUrl(path, expiresIn);
+
+  if (error || !data) {
+    console.error('Error creating signed URL:', error);
+    throw new Error(`Failed to create signed URL: ${error?.message}`);
+  }
+
+  return data.signedUrl;
+};

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { getAllApplications, updateApplicationStatus, createAccountantProfile } from '../../lib/accountants';
+import { getSignedUrl } from '../../lib/storage';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
 import { Badge } from '../ui/Badge';
@@ -223,9 +224,19 @@ export const AccountantApplicationReview: React.FC = () => {
                         <div className="flex gap-3">
                           {application.resume_url && (
                             <button
-                              onClick={(e) => {
+                              onClick={async (e) => {
                                 e.stopPropagation();
-                                window.open(application.resume_url, '_blank');
+                                try {
+                                  if (application.resume_path) {
+                                    const signedUrl = await getSignedUrl(application.resume_path);
+                                    window.open(signedUrl, '_blank');
+                                  } else {
+                                    window.open(application.resume_url, '_blank');
+                                  }
+                                } catch (err) {
+                                  console.error('Error opening resume:', err);
+                                  setError('Failed to load resume. Please try again.');
+                                }
                               }}
                               className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all duration-200 shadow-lg hover:scale-105 active:scale-95"
                             >
