@@ -1,84 +1,74 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import { X } from 'lucide-react';
-import { LoginForm } from './LoginForm';
-import { SignupForm } from './SignupForm';
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  initialMode?: 'login' | 'signup';
-  source?: string;
+  initialMode: 'login' | 'signup';
 }
 
-export const AuthModal: React.FC<AuthModalProps> = ({
-  isOpen,
-  onClose,
-  initialMode = 'login',
-  source,
-}) => {
-  const [mode, setMode] = useState<'login' | 'signup'>(initialMode);
-
-  const handleSuccess = () => {
-    // Track successful authentication from gated content
-    if (typeof gtag !== 'undefined' && source) {
-      gtag('event', 'signup_from_gated_content', {
-        event_category: 'conversion',
-        event_label: source,
-        value: 1
-      });
-    }
-    
-    onClose();
-  };
+export function AuthModal({ isOpen, onClose, initialMode }: AuthModalProps) {
+  const [mode, setMode] = useState(initialMode);
 
   if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center">
-        {/* Backdrop */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div className="relative w-full max-w-md mx-4 bg-white rounded-2xl shadow-xl">
+        <button
           onClick={onClose}
-        />
-
-        {/* Modal */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="relative bg-white/[0.03] backdrop-blur-2xl rounded-3xl border border-white/[0.08] shadow-2xl p-6 sm:p-8 lg:p-10 w-full max-w-md mx-4"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
         >
-          {/* Close button */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 w-9 h-9 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-xl text-gray-400 hover:text-white transition-all duration-300 flex items-center justify-center border border-white/[0.06]"
-          >
-            <X className="h-4 w-4" />
-          </button>
+          <X className="h-5 w-5" />
+        </button>
 
-          {/* Form content */}
-          <AnimatePresence mode="wait">
-            {mode === 'login' ? (
-              <LoginForm
-                key="login"
-                onSuccess={handleSuccess}
-                onSwitchToSignup={() => setMode('signup')}
+        <div className="p-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            {mode === 'login' ? 'Sign In' : 'Create Account'}
+          </h2>
+
+          <form className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="you@example.com"
               />
-            ) : (
-              <SignupForm
-                key="signup"
-                onSuccess={handleSuccess}
-                onSwitchToLogin={() => setMode('login')}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="••••••••"
               />
-            )}
-          </AnimatePresence>
-        </motion.div>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              {mode === 'login' ? 'Sign In' : 'Create Account'}
+            </button>
+          </form>
+
+          <p className="mt-4 text-center text-sm text-gray-600">
+            {mode === 'login' ? "Don't have an account? " : 'Already have an account? '}
+            <button
+              onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
+              className="text-blue-600 hover:text-blue-700 font-medium"
+            >
+              {mode === 'login' ? 'Sign up' : 'Sign in'}
+            </button>
+          </p>
+        </div>
       </div>
-    </AnimatePresence>
+    </div>
   );
-};
+}
