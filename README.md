@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-10-10
+**Last Updated:** 2025-09-30
 
 ---
 
@@ -24,13 +24,10 @@ Contact details managed through Supabase profile system and displayed via authen
 
 - **Partner Directory**: Searchable catalog of vetted Portuguese service providers across multiple categories (legal, real estate, banking, healthcare, utilities, lifestyle)
 - **Exclusive Perks System**: Members-only discounts and offers from partner businesses
-- **Accounting Desk**: Prepaid tax consultation booking system with three service tiers (Quick, Standard, Premium)
-- **Accountant Network**: Self-service application portal for OCC-certified accountants with resume upload
 - **Multi-Step Onboarding**: Progressive form wizard collecting user profiles, business information, and payment details
-- **Stripe Integration**: Subscription payment processing and one-time consultation payments with webhook-driven status updates
+- **Stripe Integration**: Subscription payment processing with webhook-driven status updates
 - **Authentication System**: Email/password authentication via Supabase Auth with profile management
-- **File Upload**: Secure document storage for business logos, resumes, and verification materials
-- **Admin Dashboard**: Protected routes for appointment management and accountant application review
+- **File Upload**: Secure document storage for business logos and verification materials
 - **Mobile-First Design**: Responsive interface optimized for all device sizes
 - **Cookie Consent Management**: GDPR-compliant cookie banner with granular consent options
 - **SEO Optimization**: Server-side rendering support, meta tags, sitemap, robots.txt
@@ -422,20 +419,12 @@ http://worktugal.com/*  https://worktugal.com/:splat  301!
 
 ## Database Schema
 
-**Note:** As of 2025-10-10, Accounting Desk tables added (consult_bookings, accounting_clients, accountant_profiles, accountant_applications, appointments, payouts). See migrations 20251001190901 and 20251001185333 for full schema details.
-
 ### Tables Overview
 
 1. **profiles**: User account information and preferences
 2. **partners**: Service provider directory entries
 3. **submissions**: Form wizard data collection
 4. **subscriptions**: Stripe subscription status tracking
-5. **consult_bookings**: Accounting consultation booking records
-6. **accounting_clients**: Client profiles for accounting services
-7. **accountant_profiles**: OCC-certified accountant information
-8. **accountant_applications**: Self-service accountant recruitment submissions
-9. **appointments**: Scheduled consultation sessions
-10. **payouts**: Accountant payment tracking
 
 ---
 
@@ -1952,19 +1941,6 @@ https://worktugal.com?debug=true
 
 ## Recent Updates
 
-**2025-10-10:**
-- Launched Accounting Desk product line for prepaid tax consultations
-- Created separate schema for accounting operations with consult_bookings and accounting_clients tables
-- Implemented three-tier consultation pricing (Quick €59, Standard €149, Premium €349)
-- Built accountant application system with resume upload to resumes storage bucket
-- Added Cal.com webhook preparation fields for appointment scheduling integration
-- Created admin routes for appointment management and accountant application review
-- Deployed 14 new accounting-focused React components including booking forms, pricing sections, and case tracking
-- Separated accounting desk data flow from partner submissions to prevent schema contamination
-- Added dark-themed landing page for Accounting Desk at /accounting route
-- Implemented accountant recruitment banner and self-service onboarding flow
-- Migrations: 20251001190901 (accounting schema), 20251001232711 (appointment enhancements), 20251002002621 (resume bucket)
-
 **2025-09-30:**
 - Initial README documentation created
 - Comprehensive project structure documented
@@ -2021,18 +1997,18 @@ https://worktugal.com?debug=true
 8. **Analytics Event Gaps:** Some user interactions not tracked (e.g., partner search queries, filter usage).
 
 **Bugs:**
-- None reported as of 2025-10-10
+- None reported as of 2025-09-30
 
 ---
 
 ### Planned Improvements
 
 **High Priority (Next 30 Days):**
-1. **Cal.com Integration:** Connect appointment scheduling system to auto-book consults after payment.
-2. **Accountant Assignment Logic:** Manual or automated accountant matching based on availability and specialization.
-3. **Accounting Desk Email Notifications:** Send booking confirmations to clients and assignment alerts to accountants via Make.com.
-4. **Stripe Product Configuration:** Set up three live-mode products for Accounting Desk consultations.
-5. **Admin Notification System:** Alert admins of new accountant applications requiring review.
+1. **Stripe Customer Portal Integration:** Allow users to self-manage subscriptions, update payment methods, view invoices.
+2. **Email Verification:** Optional email confirmation step with resend functionality.
+3. **Partner Search Enhancements:** Full-text search across all partner fields, fuzzy matching for typos.
+4. **Webhook Retry Logic:** Implement exponential backoff for failed Stripe webhooks.
+5. **Mobile File Upload Improvement:** Native file picker for iOS/Android, better preview handling.
 
 **Medium Priority (60-90 Days):**
 1. **Portuguese Localization:** Translate all UI text, forms, emails to Portuguese.
