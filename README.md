@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-10-10
+**Last Updated:** 2025-10-02
 
 ---
 
@@ -422,7 +422,7 @@ http://worktugal.com/*  https://worktugal.com/:splat  301!
 
 ## Database Schema
 
-**Note:** As of 2025-10-10, Accounting Desk tables added (consult_bookings, accounting_clients, accountant_profiles, accountant_applications, appointments, payouts). See migrations 20251001190901 and 20251001185333 for full schema details.
+**Note:** As of 2025-10-02, Accounting Desk tables added (consult_bookings, accounting_clients, accountant_profiles, accountant_applications, appointments, payouts). See migrations 20251001190901 and 20251001185333 for full schema details.
 
 ### Tables Overview
 
@@ -1952,7 +1952,7 @@ https://worktugal.com?debug=true
 
 ## Recent Updates
 
-**2025-10-10:**
+**2025-10-02:**
 - Launched Accounting Desk product line for prepaid tax consultations
 - Created separate schema for accounting operations with consult_bookings and accounting_clients tables
 - Implemented three-tier consultation pricing (Quick €59, Standard €149, Premium €349)
@@ -2021,7 +2021,7 @@ https://worktugal.com?debug=true
 8. **Analytics Event Gaps:** Some user interactions not tracked (e.g., partner search queries, filter usage).
 
 **Bugs:**
-- None reported as of 2025-10-10
+- None reported as of 2025-10-02
 
 ---
 
