@@ -69,15 +69,25 @@ export const ConsultSuccess: React.FC = () => {
                 <p className="text-gray-300">{service.duration} · €{service.price}</p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-4">
-                <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-4 text-center border border-white/[0.08]">
-                  <Calendar className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                  <h4 className="font-semibold text-white mb-1">Next Step</h4>
-                  <p className="text-sm text-gray-300">
-                    We'll confirm your appointment within 24 hours
+              <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 backdrop-blur-xl rounded-2xl p-8 border border-blue-400/30 mb-6">
+                <div className="text-center mb-4">
+                  <Calendar className="w-12 h-12 text-blue-400 mx-auto mb-3" />
+                  <h3 className="text-2xl font-bold text-white mb-2">Schedule Your Appointment</h3>
+                  <p className="text-gray-300">
+                    Choose a time that works for you. Our accountants are available Monday-Friday.
                   </p>
                 </div>
+                <a
+                  href={service.calcomLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full bg-gradient-to-br from-blue-500/90 to-blue-600/90 hover:from-blue-400/90 hover:to-blue-500/90 text-white py-4 rounded-xl font-bold text-lg transition-all shadow-xl shadow-blue-500/40 hover:shadow-2xl border border-blue-400/30 text-center"
+                >
+                  Book Your {service.duration} Appointment
+                </a>
+              </div>
 
+              <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-4 text-center border border-white/[0.08]">
                   <FileText className="w-8 h-8 text-green-400 mx-auto mb-2" />
                   <h4 className="font-semibold text-white mb-1">Written Outcome</h4>
@@ -87,7 +97,7 @@ export const ConsultSuccess: React.FC = () => {
                 </div>
 
                 <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-4 text-center border border-white/[0.08]">
-                  <Mail className="w-8 h-8 text-purple-400 mx-auto mb-2" />
+                  <Mail className="w-8 h-8 text-blue-400 mx-auto mb-2" />
                   <h4 className="font-semibold text-white mb-1">Check Your Email</h4>
                   <p className="text-sm text-gray-300">
                     Confirmation sent to {booking.email}
@@ -100,19 +110,19 @@ export const ConsultSuccess: React.FC = () => {
                 <ol className="space-y-2 text-gray-300">
                   <li className="flex items-start">
                     <span className="font-semibold mr-2">1.</span>
-                    <span>You'll receive a confirmation email with your booking details</span>
+                    <span>Book your appointment using the button above</span>
                   </li>
                   <li className="flex items-start">
                     <span className="font-semibold mr-2">2.</span>
-                    <span>We'll reach out within 24 hours to schedule your appointment</span>
+                    <span>You'll receive calendar invites and reminders</span>
                   </li>
                   <li className="flex items-start">
                     <span className="font-semibold mr-2">3.</span>
-                    <span>Meet with your OCC-certified accountant via video or phone</span>
+                    <span>Meet with your OCC-certified accountant via video call</span>
                   </li>
                   <li className="flex items-start">
                     <span className="font-semibold mr-2">4.</span>
-                    <span>Receive your written outcome note with clear next steps within 48 hours</span>
+                    <span>Receive your written outcome note within 48 hours</span>
                   </li>
                 </ol>
               </div>
@@ -120,7 +130,7 @@ export const ConsultSuccess: React.FC = () => {
               <div className="text-center pt-6">
                 <Link
                   to="/accounting"
-                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+                  className="inline-block bg-white/[0.04] hover:bg-white/[0.08] text-white px-8 py-3 rounded-lg font-semibold transition-colors border border-white/[0.12] hover:border-white/[0.20]"
                 >
                   Back to Accounting Desk
                 </Link>

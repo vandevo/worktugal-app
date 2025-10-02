@@ -26,6 +26,7 @@ export interface ConsultService {
   description: string;
   features: string[];
   stripePriceId?: string;
+  calcomLink: string;
 }
 
 export const CONSULT_SERVICES: ConsultService[] = [
@@ -43,7 +44,8 @@ export const CONSULT_SERVICES: ConsultService[] = [
       'VAT decision clarity',
       'Next steps checklist'
     ],
-    stripePriceId: import.meta.env.VITE_STRIPE_PRICE_TRIAGE
+    stripePriceId: import.meta.env.VITE_STRIPE_PRICE_TRIAGE,
+    calcomLink: 'https://cal.com/worktugal/tax-triage'
   },
   {
     id: 'start_pack',
@@ -60,7 +62,8 @@ export const CONSULT_SERVICES: ConsultService[] = [
       '60 days email support',
       'Tax optimization recommendations'
     ],
-    stripePriceId: import.meta.env.VITE_STRIPE_PRICE_START_PACK
+    stripePriceId: import.meta.env.VITE_STRIPE_PRICE_START_PACK,
+    calcomLink: 'https://cal.com/worktugal/freelancer-start'
   },
   {
     id: 'annual_return',
@@ -77,6 +80,7 @@ export const CONSULT_SERVICES: ConsultService[] = [
       'IRS Form 3 overview',
       'Social security guidance'
     ],
-    stripePriceId: import.meta.env.VITE_STRIPE_PRICE_ANNUAL_RETURN
+    stripePriceId: import.meta.env.VITE_STRIPE_PRICE_ANNUAL_RETURN,
+    calcomLink: 'https://cal.com/worktugal/annual-return'
   }
 ];
