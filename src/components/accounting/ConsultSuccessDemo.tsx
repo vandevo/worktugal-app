@@ -9,7 +9,7 @@ export const ConsultSuccessDemo: React.FC = () => {
     id: 123,
     email: 'demo@example.com',
     full_name: 'John Doe',
-    service_type: 'triage_consult',
+    service_type: 'triage',
     amount_paid: 59,
     created_at: new Date().toISOString(),
   };
