@@ -9,12 +9,20 @@ interface FAQItem {
 
 const faqData: FAQItem[] = [
   {
+    question: 'How does the booking process work?',
+    answer: 'Choose your service, pay upfront, and you\'ll receive a confirmation email with a Cal.com booking link. You\'ll select your specific appointment time (available within 7 days). After your consult, receive your written outcome within 48 hours.'
+  },
+  {
     question: 'Do you help me get a NIF?',
     answer: 'We provide guidance on the NIF process, but we focus on getting you tax ready, not just obtaining a number. Our consults help you understand activity codes, VAT requirements, and ongoing compliance.'
   },
   {
     question: 'What is the VAT threshold in Portugal?',
     answer: 'For services, the threshold is €13,500 per year. For goods, it is €10,000. Once you exceed these amounts, you must charge and remit VAT. Our Start Pack helps you understand which applies to you.'
+  },
+  {
+    question: 'Can I reschedule or get a refund?',
+    answer: 'You can reschedule up to 24 hours before your appointment via Cal.com. Missed appointments without 24-hour notice cannot be refunded or rescheduled. All sales are final once the consult is completed.'
   },
   {
     question: 'Can I transfer my fiscal representative?',
@@ -34,11 +42,15 @@ const faqData: FAQItem[] = [
   },
   {
     question: 'Are your accountants certified?',
-    answer: 'Yes, all our accountants are certified by the Ordem dos Contabilistas Certificados (OCC) and fluent in English.'
+    answer: 'Yes, all our accountants are certified by the Ordem dos Contabilistas Certificados (OCC) and fluent in English. You\'ll be matched with the right specialist based on your needs.'
   },
   {
     question: 'What if I need ongoing accounting help?',
-    answer: 'Our consults are designed to get you started. If you need ongoing services like quarterly VAT filing or annual returns, we can connect you with the right accountant from our network.'
+    answer: 'Our consults are designed to get you started. If you need ongoing services like quarterly VAT filing or annual returns, we\'ll connect you directly with an accountant from our network who can provide continuous support.'
+  },
+  {
+    question: 'How does the €149 Annual Return credit work?',
+    answer: 'Book the Annual Return Consult for €149. If you decide to hire us for your full annual filing, that €149 is automatically credited toward the filing fee. No special code or request needed.'
   }
 ];
 
