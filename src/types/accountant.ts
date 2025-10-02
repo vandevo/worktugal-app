@@ -117,6 +117,7 @@ export interface AccountantApplication {
   specializations: string[];
   certifications: Certification[];
   resume_url?: string;
+  resume_path?: string;
   linkedin_url?: string;
   status: ApplicationStatus;
   admin_notes?: string;

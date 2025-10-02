@@ -4,6 +4,7 @@ import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 import { Alert } from '../ui/Alert';
+import { DocumentUpload } from '../ui/DocumentUpload';
 import { CheckCircle, Briefcase, Award, Globe } from 'lucide-react';
 import { submitAccountantApplication } from '../../lib/accountants';
 import type { Certification } from '../../types/accountant';
@@ -23,6 +24,7 @@ export const AccountantApplicationPage: React.FC = () => {
     specializations: [] as string[],
     certifications: [] as Certification[],
     resume_url: '',
+    resume_path: '',
     linkedin_url: '',
   });
 
@@ -188,18 +190,19 @@ export const AccountantApplicationPage: React.FC = () => {
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-300 mb-2">
-          Resume / CV URL
-        </label>
-        <Input
-          type="url"
+        <DocumentUpload
+          label="Resume / CV *"
+          hint="Upload your resume or CV (PDF, DOC, DOCX, or image)"
           value={formData.resume_url}
-          onChange={(e) => handleInputChange('resume_url', e.target.value)}
-          placeholder="Link to your resume (Google Drive, Dropbox, etc.)"
+          onChange={(url, path) => {
+            handleInputChange('resume_url', url);
+            handleInputChange('resume_path', path);
+          }}
+          onClear={() => {
+            handleInputChange('resume_url', '');
+            handleInputChange('resume_path', '');
+          }}
         />
-        <p className="text-xs text-gray-400 mt-1">
-          Upload your resume to a cloud service and paste the shareable link here
-        </p>
       </div>
 
       <div>
@@ -312,7 +315,7 @@ export const AccountantApplicationPage: React.FC = () => {
   );
 
   const isStep1Valid = () => {
-    return formData.full_name && formData.email && formData.phone && formData.bio && formData.experience_years > 0;
+    return formData.full_name && formData.email && formData.phone && formData.bio && formData.experience_years > 0 && formData.resume_url;
   };
 
   const isStep2Valid = () => {

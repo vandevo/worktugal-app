@@ -64,3 +64,25 @@ export const validateImageFile = (file: File): string | null => {
 
   return null;
 };
+
+export const validateDocumentFile = (file: File): string | null => {
+  const allowedTypes = [
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'image/jpeg',
+    'image/jpg',
+    'image/png'
+  ];
+  const maxSize = 10 * 1024 * 1024; // 10MB
+
+  if (!allowedTypes.includes(file.type)) {
+    return 'Please upload a valid document (PDF, DOC, DOCX, or image)';
+  }
+
+  if (file.size > maxSize) {
+    return 'File size must be less than 10MB';
+  }
+
+  return null;
+};

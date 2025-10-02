@@ -4,7 +4,7 @@ import { getAllApplications, updateApplicationStatus, createAccountantProfile } 
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
 import { Badge } from '../ui/Badge';
-import { CheckCircle, XCircle, Clock, Award, Briefcase, Mail, Phone, Calendar } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, Award, Briefcase, Mail, Phone, Calendar, Eye, FileText } from 'lucide-react';
 import type { AccountantApplication } from '../../types/accountant';
 
 export const AccountantApplicationReview: React.FC = () => {
@@ -219,24 +219,27 @@ export const AccountantApplicationReview: React.FC = () => {
 
                     {(application.resume_url || application.linkedin_url) && (
                       <div>
-                        <h4 className="text-sm font-semibold text-gray-300 mb-2">Links</h4>
+                        <h4 className="text-sm font-semibold text-gray-300 mb-2">Documents & Links</h4>
                         <div className="flex gap-3">
                           {application.resume_url && (
-                            <a
-                              href={application.resume_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-400 hover:text-blue-300 text-sm"
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(application.resume_url, '_blank');
+                              }}
+                              className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all duration-200 shadow-lg hover:scale-105 active:scale-95"
                             >
-                              View Resume ↗
-                            </a>
+                              <Eye className="w-4 h-4" />
+                              <FileText className="w-4 h-4" />
+                              View Resume
+                            </button>
                           )}
                           {application.linkedin_url && (
                             <a
                               href={application.linkedin_url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-400 hover:text-blue-300 text-sm"
+                              className="flex items-center gap-2 px-4 py-2 bg-white/[0.05] hover:bg-white/[0.10] text-blue-400 hover:text-blue-300 rounded-lg transition-all duration-200"
                             >
                               LinkedIn ↗
                             </a>
