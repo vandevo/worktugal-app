@@ -1942,6 +1942,8 @@ https://worktugal.com?debug=true
 ## Recent Updates
 
 **2025-10-03:**
+- Cleaned up Layout navigation component by removing "Services", "Browse Perks", and "Pricing" links
+- Streamlined header navigation to focus on essential user actions
 - Updated logo implementation across all navigation components (Header, Layout, Footer)
 - Replaced local logo assets with Supabase Storage CDN URL for centralized management
 - Logo now displays consistently before "Worktugal Pass" wordmark throughout the application
