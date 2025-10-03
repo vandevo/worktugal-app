@@ -8,7 +8,7 @@ import { HowItWorks } from './HowItWorks';
 import { MeetAccountants } from './MeetAccountants';
 import { ConsultFAQ } from './ConsultFAQ';
 import { AccountantRecruitmentBanner } from './AccountantRecruitmentBanner';
-import { AccountingWaitlistModal } from './AccountingWaitlistModal';
+import { EarlyAccessForm } from './EarlyAccessForm';
 import { ConsultBookingForm } from './ConsultBookingForm';
 import { useNavigate } from 'react-router-dom';
 import type { ServiceType } from '../../types/accounting';
@@ -21,7 +21,6 @@ const EARLY_BIRDS_MODE = true;
 export const AccountingDeskLanding: React.FC = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('landing');
   const [selectedService, setSelectedService] = useState<ServiceType | null>(null);
-  const [isWaitlistModalOpen, setIsWaitlistModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleSelectService = (serviceType: ServiceType) => {
@@ -39,7 +38,11 @@ export const AccountingDeskLanding: React.FC = () => {
   };
 
   const handleBookNow = () => {
-    setIsWaitlistModalOpen(true);
+    // Scroll to the early access form
+    const formElement = document.getElementById('early-access-form');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -67,24 +70,10 @@ export const AccountingDeskLanding: React.FC = () => {
           <div key="landing">
             <AccountingHero onBookNow={handleBookNow} />
 
-            {/* Early Birds Banner */}
+            {/* Early Access Form - Embedded directly on page */}
             {EARLY_BIRDS_MODE && (
-              <div className="bg-gradient-to-r from-blue-600 to-blue-700 py-12">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                  <h3 className="text-2xl font-bold text-white mb-3">
-                    Launching Soon - Join Early Access
-                  </h3>
-                  <p className="text-lg text-blue-100 mb-6 max-w-3xl mx-auto">
-                    We're building something special. Be first in line when booking opens.
-                    Get priority access and exclusive launch updates.
-                  </p>
-                  <button
-                    onClick={handleBookNow}
-                    className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-50 transition-all transform hover:scale-105 shadow-xl"
-                  >
-                    Join the Waitlist
-                  </button>
-                </div>
+              <div id="early-access-form">
+                <EarlyAccessForm />
               </div>
             )}
 
@@ -116,10 +105,6 @@ export const AccountingDeskLanding: React.FC = () => {
         )}
       </AnimatePresence>
 
-      <AccountingWaitlistModal
-        isOpen={isWaitlistModalOpen}
-        onClose={() => setIsWaitlistModalOpen(false)}
-      />
     </>
   );
 };
