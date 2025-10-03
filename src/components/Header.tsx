@@ -18,10 +18,6 @@ export function Header() {
     navigate('/');
   };
 
-  const handleServicesClick = () => {
-    navigate('/services');
-  };
-
   const handleDashboardClick = () => {
     navigate('/dashboard');
   };
@@ -54,13 +50,6 @@ export function Header() {
             </button>
 
             <nav className="hidden md:flex items-center gap-6">
-              <button
-                onClick={handleServicesClick}
-                className="text-slate-400 hover:text-white transition-colors duration-200 font-medium text-sm"
-              >
-                Services
-              </button>
-
               {user ? (
                 <div className="flex items-center gap-4">
                   {user && <UserSubscriptionStatus />}
@@ -104,16 +93,6 @@ export function Header() {
           {isMenuOpen && (
             <div className="md:hidden py-4 border-t border-slate-800/50">
               <div className="flex flex-col gap-3">
-                <button
-                  onClick={() => {
-                    handleServicesClick();
-                    setIsMenuOpen(false);
-                  }}
-                  className="text-left text-slate-300 hover:text-white transition-colors duration-200 font-medium py-2"
-                >
-                  Services
-                </button>
-
                 {user ? (
                   <>
                     <button
