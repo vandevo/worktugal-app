@@ -85,7 +85,7 @@ export const EarlyAccessForm: React.FC = () => {
     <div className="bg-gray-900 py-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-white mb-4">Join the Waitlist</h2>
+          <h2 className="text-4xl font-bold text-white mb-4">Get Early Bird Access</h2>
           <p className="text-xl text-gray-300">
             Be the first to get access when we open booking slots. No commitment required.
           </p>
