@@ -56,22 +56,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
             {/* Navigation Links & Auth */}
             <div className="flex items-center space-x-6">
-              {/* Desktop Navigation Links */}
-              <div className="hidden md:flex items-center space-x-8">
-                <a
-                  href="/#directory"
-                  className="text-slate-400 hover:text-white transition-colors duration-200 font-medium text-sm"
-                >
-                  Browse Perks
-                </a>
-                <a
-                  href="/#pricing"
-                  className="text-slate-400 hover:text-white transition-colors duration-200 font-medium text-sm"
-                >
-                  Pricing
-                </a>
-              </div>
-
               {/* User Menu or Sign In */}
               {user ? (
                 <div className="flex items-center space-x-3 md:space-x-4">
