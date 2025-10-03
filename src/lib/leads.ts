@@ -23,72 +23,48 @@ export interface Lead extends LeadSubmission {
  */
 export async function insertLead(data: LeadSubmission): Promise<{ data: Lead | null; error: Error | null }> {
   try {
-    // Prepare lead data
-    const leadData = {
-      name: data.name,
-      email: data.email,
-      country: data.country || '',
-      main_need: data.main_need || '',
-      urgency: data.urgency || '',
-      consent: data.consent,
-      source: data.source || 'accounting_page',
-      status: 'new'
-    };
+    // Call Edge Function to submit lead
+    // Edge Function has proper database access and will trigger Make.com webhook
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const functionUrl = `${supabaseUrl}/functions/v1/submit-lead`;
 
-    // Try to insert into database
-    const { data: lead, error } = await supabase
-      .from('leads_accounting')
-      .insert(leadData)
-      .select()
-      .single();
+    const response = await fetch(functionUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: data.name,
+        email: data.email,
+        country: data.country || '',
+        main_need: data.main_need || '',
+        urgency: data.urgency || '',
+        consent: data.consent,
+        source: data.source || 'accounting_early_access',
+      }),
+    });
 
-    // Call Make.com webhook regardless of database success
-    // This ensures leads are captured even if database connection fails
-    try {
-      const makeWebhookUrl = 'https://hook.eu2.make.com/lgaoguuofatr0ox3fvrjwyg7cr0mu5qn';
-
-      fetch(makeWebhookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          lead_id: lead?.id || 0,
-          name: leadData.name,
-          email: leadData.email,
-          country: leadData.country,
-          main_need: leadData.main_need,
-          urgency: leadData.urgency,
-          consent: leadData.consent,
-          source: leadData.source,
-          status: leadData.status,
-          created_at: lead?.created_at || new Date().toISOString(),
-          timestamp: new Date().toISOString(),
-        })
-      }).catch(err => {
-        console.warn('Failed to trigger Make.com webhook:', err);
-      });
-    } catch (webhookError) {
-      console.warn('Failed to call Make.com webhook:', webhookError);
-    }
-
-    // If database insert failed, still return success since webhook was called
-    if (error) {
-      console.error('Error inserting lead to database (webhook sent anyway):', error);
-      // Return success with placeholder data so form shows success page
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('Failed to submit lead:', errorData);
       return {
-        data: {
-          id: 0,
-          ...leadData,
-          created_at: new Date().toISOString()
-        } as Lead,
-        error: null
+        data: null,
+        error: new Error(errorData.error || 'Failed to submit lead'),
       };
     }
 
-    return { data: lead as Lead, error: null };
+    const result = await response.json();
+
+    if (!result.success) {
+      return {
+        data: null,
+        error: new Error(result.error || 'Failed to submit lead'),
+      };
+    }
+
+    return { data: result.data as Lead, error: null };
   } catch (error) {
-    console.error('Unexpected error inserting lead:', error);
+    console.error('Unexpected error submitting lead:', error);
     return { data: null, error: error as Error };
   }
 }
