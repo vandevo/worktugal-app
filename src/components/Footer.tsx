@@ -11,14 +11,7 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <a href="/" className="flex items-center space-x-2 hover:opacity-90 transition-opacity">
-              <img
-                src="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
-                alt="Worktugal Logo"
-                className="w-9 h-9 object-contain drop-shadow-lg"
-                width="36"
-                height="36"
-              />
+            <a href="/" className="hover:opacity-90 transition-opacity">
               <span className="text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">Worktugal Pass</span>
             </a>
             <p className="text-slate-400 text-sm leading-relaxed">
