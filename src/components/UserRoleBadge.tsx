@@ -13,19 +13,19 @@ export function UserRoleBadge({ role, purchases = [] }: UserRoleBadgeProps) {
         return {
           label: 'Admin',
           icon: Shield,
-          className: 'bg-red-100 text-red-800 border-red-200'
+          className: 'bg-red-500/10 text-red-400 border-red-500/20 backdrop-blur-xl shadow-lg shadow-red-500/5'
         };
       case 'partner':
         return {
           label: 'Partner',
           icon: Briefcase,
-          className: 'bg-orange-100 text-orange-800 border-orange-200'
+          className: 'bg-orange-500/10 text-orange-400 border-orange-500/20 backdrop-blur-xl shadow-lg shadow-orange-500/5'
         };
       case 'accountant':
         return {
           label: 'Accountant',
           icon: Calculator,
-          className: 'bg-blue-100 text-blue-800 border-blue-200'
+          className: 'bg-blue-500/10 text-blue-400 border-blue-500/20 backdrop-blur-xl shadow-lg shadow-blue-500/5'
         };
       default:
         // Check if user has made any purchases to show active status
@@ -33,9 +33,9 @@ export function UserRoleBadge({ role, purchases = [] }: UserRoleBadgeProps) {
         return {
           label: hasActivePurchases ? 'Active Member' : 'Member',
           icon: User,
-          className: hasActivePurchases 
-            ? 'bg-teal-100 text-teal-800 border-teal-200'
-            : 'bg-slate-100 text-slate-800 border-slate-200'
+          className: hasActivePurchases
+            ? 'bg-teal-500/10 text-teal-400 border-teal-500/20 backdrop-blur-xl shadow-lg shadow-teal-500/5'
+            : 'bg-slate-700/30 text-slate-300 border-slate-600/30 backdrop-blur-xl shadow-lg'
         };
     }
   };
