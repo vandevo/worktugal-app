@@ -7,7 +7,7 @@ export const WhatToExpect: React.FC = () => {
     {
       icon: CreditCard,
       title: 'Book & Pay',
-      time: 'Today',
+      time: 'When available',
       description: 'Choose your service and pay upfront. Clear pricing, no hidden fees.',
     },
     {
@@ -106,7 +106,7 @@ export const WhatToExpect: React.FC = () => {
             </li>
             <li className="flex items-start gap-3 leading-relaxed">
               <span className="text-blue-400 mt-0.5 flex-shrink-0">•</span>
-              <span>The €149 credit for Annual Return Consult applies automatically if you book filing services through us</span>
+              <span>Credits and pricing details will be provided when booking opens</span>
             </li>
             <li className="flex items-start gap-3 leading-relaxed">
               <span className="text-blue-400 mt-0.5 flex-shrink-0">•</span>
