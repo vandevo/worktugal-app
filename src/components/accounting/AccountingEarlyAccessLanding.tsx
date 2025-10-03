@@ -3,7 +3,6 @@ import { Seo } from '../Seo';
 import { AccountingEarlyHero } from './AccountingEarlyHero';
 import { EarlyAccessWhatToExpect } from './EarlyAccessWhatToExpect';
 import { EarlyAccessForm } from './EarlyAccessForm';
-import { AccountantRecruitmentBanner } from './AccountantRecruitmentBanner';
 
 export const AccountingEarlyAccessLanding: React.FC = () => {
   const handleJoinWaitlist = () => {
@@ -17,7 +16,7 @@ export const AccountingEarlyAccessLanding: React.FC = () => {
     <>
       <Seo
         title="Early Access - Accounting Desk for Expats | Worktugal"
-        description="Join the waitlist for Worktugal Accounting Desk. Prepaid tax consults for freelancers and expats in Portugal. Priority access for early birds."
+        description="Got your NIF, now what? Talk to an OCC-certified accountant and get a written action plan. Priority access for early birds."
         ogType="website"
         structuredData={{
           "@context": "https://schema.org",
@@ -40,8 +39,6 @@ export const AccountingEarlyAccessLanding: React.FC = () => {
         <div id="early-access-form">
           <EarlyAccessForm />
         </div>
-
-        <AccountantRecruitmentBanner />
       </div>
     </>
   );

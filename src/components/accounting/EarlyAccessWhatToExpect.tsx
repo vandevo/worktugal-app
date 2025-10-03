@@ -8,19 +8,19 @@ export const EarlyAccessWhatToExpect: React.FC = () => {
       icon: Mail,
       title: 'Join the Waitlist',
       time: 'Now',
-      description: 'Share your details and what you need help with',
+      description: 'Tell us your situation - takes 60 seconds',
     },
     {
       icon: Calendar,
-      title: 'Get Priority Access',
-      time: 'Within 48 hours',
-      description: "We'll email you when booking slots open",
+      title: 'Get Your Confirmation',
+      time: 'Within 10 minutes',
+      description: "Receive a checklist and what to expect next via email",
     },
     {
       icon: CreditCard,
-      title: 'Book Your Consult',
-      time: 'When live',
-      description: 'Choose your service and pay securely',
+      title: 'Book Your Slot',
+      time: 'Within 48 hours',
+      description: "We'll send you priority access to available booking slots",
     },
   ];
 

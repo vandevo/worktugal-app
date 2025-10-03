@@ -13,7 +13,6 @@ export const EarlyAccessForm: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    country: '',
     main_need: '',
     urgency: '',
     consent: false,
@@ -44,7 +43,7 @@ export const EarlyAccessForm: React.FC = () => {
       await insertLead({
         name: formData.name,
         email: formData.email,
-        country: formData.country || null,
+        country: null,
         main_need: formData.main_need || null,
         urgency: formData.urgency || null,
         source: 'accounting_early_access',
@@ -67,12 +66,28 @@ export const EarlyAccessForm: React.FC = () => {
           <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-12">
             <CheckCircle className="w-20 h-20 text-green-400 mx-auto mb-6" />
             <h2 className="text-3xl font-bold text-white mb-4">You're on the Early Birds list!</h2>
-            <div className="max-w-lg mx-auto space-y-4">
+            <div className="max-w-lg mx-auto space-y-6">
               <p className="text-lg text-gray-300">
-                We'll email you within 48 hours with priority booking access. Keep an eye on your inbox - spots are limited.
+                Check your email in the next 10 minutes for:
               </p>
-              <p className="text-gray-400">
-                Urgent case? Reply to the confirmation email with your main question.
+
+              <div className="bg-gray-900/50 rounded-xl p-6 text-left space-y-3">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-gray-300">Quick checklist: 5 things every freelancer in Portugal must do</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-gray-300">What to expect next and when</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-gray-300">Priority booking access (opens within 48 hours)</p>
+                </div>
+              </div>
+
+              <p className="text-sm text-gray-400">
+                Don't see it? Check your spam folder. Urgent case? Reply to the confirmation email.
               </p>
             </div>
           </div>
@@ -86,9 +101,24 @@ export const EarlyAccessForm: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-white mb-4">Get Early Bird Access</h2>
-          <p className="text-xl text-gray-300">
+          <p className="text-xl text-gray-300 mb-8">
             Be the first to get access when we open booking slots. No commitment required.
           </p>
+
+          <div className="flex flex-wrap justify-center items-center gap-8 mb-8 text-sm">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-400 mb-1">48h</div>
+              <div className="text-gray-400">Average response time</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-400 mb-1">€59</div>
+              <div className="text-gray-400">Starting from</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-400 mb-1">100%</div>
+              <div className="text-gray-400">OCC-certified</div>
+            </div>
+          </div>
         </div>
 
         <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-8 md:p-12">
@@ -128,49 +158,43 @@ export const EarlyAccessForm: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-2">
-                  Country
-                </label>
-                <Input
-                  value={formData.country}
-                  onChange={(e) => handleInputChange('country', e.target.value)}
-                  placeholder="e.g., Portugal, USA"
-                  disabled={isSubmitting}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-2">
-                  How urgent is this?
-                </label>
-                <select
-                  value={formData.urgency}
-                  onChange={(e) => handleInputChange('urgency', e.target.value)}
-                  disabled={isSubmitting}
-                  className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150"
-                >
-                  <option value="">Select urgency</option>
-                  <option value="This week">This week</option>
-                  <option value="This month">This month</option>
-                  <option value="Just exploring">Just exploring</option>
-                </select>
-              </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-300 mb-2">
+                What's your situation? *
+              </label>
+              <select
+                value={formData.main_need}
+                onChange={(e) => handleInputChange('main_need', e.target.value)}
+                disabled={isSubmitting}
+                required
+                className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150"
+              >
+                <option value="">Select your situation</option>
+                <option value="Just got my NIF, not sure what's next">Just got my NIF, not sure what's next</option>
+                <option value="Freelancing but haven't filed anything yet">Freelancing but haven't filed anything yet</option>
+                <option value="Got a letter from Financas">Got a letter from Financas</option>
+                <option value="Need to switch fiscal representative">Need to switch fiscal representative</option>
+                <option value="Need help with quarterly VAT filing">Need help with quarterly VAT filing</option>
+                <option value="Annual tax return questions">Annual tax return questions</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
 
             <div>
               <label className="block text-sm font-semibold text-gray-300 mb-2">
-                What do you need help with?
+                How urgent is this?
               </label>
-              <textarea
-                value={formData.main_need}
-                onChange={(e) => handleInputChange('main_need', e.target.value)}
-                rows={3}
-                placeholder="e.g., Setting up as a freelancer, filing annual return, NIF questions..."
+              <select
+                value={formData.urgency}
+                onChange={(e) => handleInputChange('urgency', e.target.value)}
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150 resize-none"
-              />
+                className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150"
+              >
+                <option value="">Select urgency</option>
+                <option value="This week">This week</option>
+                <option value="This month">This month</option>
+                <option value="Just exploring">Just exploring</option>
+              </select>
             </div>
 
             <div className="flex items-start gap-3 p-4 bg-blue-500/5 border border-blue-500/20 rounded-xl">
@@ -189,7 +213,7 @@ export const EarlyAccessForm: React.FC = () => {
 
             <Button
               type="submit"
-              disabled={isSubmitting || !formData.name || !formData.email || !formData.consent}
+              disabled={isSubmitting || !formData.name || !formData.email || !formData.main_need || !formData.consent}
               className="w-full"
               size="lg"
             >
