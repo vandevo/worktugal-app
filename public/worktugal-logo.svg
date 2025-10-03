@@ -1,0 +1,24 @@
+<svg width="1000" height="1000" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <!-- Light background circle -->
+  <circle cx="500" cy="500" r="500" fill="#f8fafc"/>
+
+  <!-- Modern "W" lettermark with gradient -->
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Stylized "W" for Worktugal -->
+  <path d="M250 300 L325 650 L400 450 L475 650 L550 450 L625 650 L700 300"
+        stroke="url(#logoGradient)"
+        stroke-width="45"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"/>
+
+  <!-- Subtle accent dots -->
+  <circle cx="400" cy="700" r="20" fill="#3b82f6" opacity="0.3"/>
+  <circle cx="550" cy="700" r="20" fill="#10b981" opacity="0.3"/>
+</svg>
