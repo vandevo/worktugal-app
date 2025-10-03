@@ -31,23 +31,23 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-400">
-      <nav className="sticky top-0 z-50 bg-gray-900/30 backdrop-blur-2xl border-b border-white/[0.08]">
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-300">
+      <nav className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/50 shadow-lg shadow-slate-950/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 md:h-24">
-            {/* Logo */}
-            <a href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+          <div className="flex items-center justify-between h-16 md:h-20">
+            <a href="/" className="flex items-center gap-3 hover:opacity-90 transition-all duration-300">
               <img
-                src="/worktugal-logo-bg-light-radius-1000-1000.png"
-                alt=""
-                className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl object-contain shadow-lg"
-                width="32"
-                height="32"
+                src="/worktugal-logo-new.png"
+                alt="Worktugal Logo"
+                className="w-9 h-9 sm:w-11 sm:h-11 object-contain drop-shadow-lg"
+                width="44"
+                height="44"
               />
-              <div className="flex items-center space-x-2">
-                <span className="text-lg sm:text-xl font-bold text-white hidden xs:inline">Worktugal Pass</span>
-                <span className="text-lg sm:text-xl font-bold text-white xs:hidden">Worktugal</span>
-                <span className="hidden xs:inline-flex items-center bg-white/[0.04] backdrop-blur-xl text-blue-200 px-3 py-1.5 rounded-full border border-blue-400/20 shadow-lg text-xs font-medium tracking-wide">
+              <div className="flex items-center gap-3">
+                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
+                  Worktugal Pass
+                </span>
+                <span className="hidden sm:inline-flex items-center bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20 text-xs font-semibold tracking-wide shadow-sm">
                   Early Access
                 </span>
               </div>
@@ -56,16 +56,16 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             {/* Navigation Links & Auth */}
             <div className="flex items-center space-x-6">
               {/* Desktop Navigation Links */}
-              <div className="hidden md:flex items-center space-x-6">
+              <div className="hidden md:flex items-center space-x-8">
                 <a
                   href="/#directory"
-                  className="text-gray-400 hover:text-white transition-all duration-300 font-medium"
+                  className="text-slate-400 hover:text-white transition-colors duration-200 font-medium text-sm"
                 >
                   Browse Perks
                 </a>
                 <a
                   href="/#pricing"
-                  className="text-gray-400 hover:text-white transition-all duration-300 font-medium"
+                  className="text-slate-400 hover:text-white transition-colors duration-200 font-medium text-sm"
                 >
                   Pricing
                 </a>
@@ -78,12 +78,12 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <div className="relative">
                     <button
                       onClick={() => setShowUserMenu(!showUserMenu)}
-                      className="flex items-center space-x-2 text-gray-400 hover:text-white transition-all duration-300 group"
+                      className="flex items-center space-x-3 text-slate-300 hover:text-white transition-all duration-200 group"
                     >
-                      <div className="w-9 h-9 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center text-white text-sm font-medium group-hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-500/25 border border-white/[0.08]">
+                      <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-xl flex items-center justify-center text-white text-sm font-semibold group-hover:shadow-lg group-hover:shadow-blue-500/30 transition-all duration-200 border border-white/10">
                         {getInitials()}
                       </div>
-                      <span className="hidden sm:inline text-sm">
+                      <span className="hidden sm:inline text-sm font-medium">
                         {getDisplayName()}
                       </span>
                     </button>
@@ -92,21 +92,21 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                       <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="absolute right-0 mt-2 w-48 bg-white/[0.03] backdrop-blur-2xl rounded-2xl border border-white/[0.08] shadow-2xl py-2"
+                        className="absolute right-0 mt-3 w-52 bg-slate-900/95 backdrop-blur-xl rounded-xl border border-slate-700/50 shadow-2xl shadow-slate-950/50 py-2"
                       >
                         <button
                           onClick={() => {
                             setShowProfileModal(true);
                             setShowUserMenu(false);
                           }}
-                          className="w-full px-4 py-3 text-left text-gray-400 hover:text-white hover:bg-white/[0.04] transition-all duration-300 flex items-center space-x-2 rounded-xl mx-1"
+                          className="w-full px-4 py-2.5 text-left text-slate-300 hover:text-white hover:bg-slate-800/50 transition-colors duration-200 flex items-center space-x-3 text-sm font-medium"
                         >
                           <Settings className="h-4 w-4" />
                           <span>Edit Profile</span>
                         </button>
                         <button
                           onClick={handleSignOut}
-                          className="w-full px-4 py-3 text-left text-gray-400 hover:text-white hover:bg-white/[0.04] transition-all duration-300 flex items-center space-x-2 rounded-xl mx-1"
+                          className="w-full px-4 py-2.5 text-left text-slate-300 hover:text-white hover:bg-slate-800/50 transition-colors duration-200 flex items-center space-x-3 text-sm font-medium"
                         >
                           <LogOut className="h-4 w-4" />
                           <span>Sign Out</span>
@@ -120,7 +120,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   variant="outline"
                   size="sm"
                   onClick={() => setShowAuthModal(true)}
-                  className="text-sm font-medium rounded-2xl px-6"
+                  className="text-sm font-semibold rounded-xl px-6 py-2 border-slate-700 hover:border-slate-600 hover:bg-slate-800/50"
                 >
                   Sign In
                 </Button>
@@ -130,7 +130,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
       </nav>
 
-      <main className="text-gray-400">{children}</main>
+      <main className="text-slate-300">{children}</main>
       <Footer />
 
       <AuthModal

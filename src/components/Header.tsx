@@ -27,34 +27,32 @@ export function Header() {
 
   return (
     <>
-      <header className="bg-gray-900/50 backdrop-blur-xl shadow-lg border-b border-white/[0.08]">
+      <header className="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-xl shadow-lg shadow-slate-950/50 border-b border-slate-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            {/* Logo */}
             <div className="flex items-center gap-3">
               <button
                 onClick={handleLogoClick}
-                className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                className="flex items-center gap-3 hover:opacity-90 transition-all duration-300"
               >
                 <img
-                  src="/worktugal-logo-bg-light-radius-1000-1000.png"
-                  alt="Worktugal"
-                  className="h-8 w-8"
+                  src="/worktugal-logo-new.png"
+                  alt="Worktugal Logo"
+                  className="h-10 w-10 object-contain drop-shadow-lg"
                 />
-                <span className="text-xl font-bold text-white">
+                <span className="text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
                   Worktugal Pass
                 </span>
               </button>
-              <span className="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-400/30">
+              <span className="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm tracking-wide">
                 Early Access
               </span>
             </div>
 
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden md:flex items-center gap-6">
               <button
                 onClick={handleServicesClick}
-                className="text-gray-300 hover:text-white transition-colors"
+                className="text-slate-400 hover:text-white transition-colors duration-200 font-medium text-sm"
               >
                 Services
               </button>
@@ -63,7 +61,7 @@ export function Header() {
                 <div className="flex items-center gap-4">
                   <button
                     onClick={handleDashboardClick}
-                    className="text-gray-300 hover:text-white transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors duration-200 font-medium text-sm"
                   >
                     Dashboard
                   </button>
@@ -71,7 +69,7 @@ export function Header() {
                     onClick={() => setIsProfileModalOpen(true)}
                     variant="outline"
                     size="sm"
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 border-slate-700 hover:border-slate-600 hover:bg-slate-800/50 rounded-xl"
                   >
                     <User className="w-4 h-4" />
                     {user.email?.split('@')[0]}
@@ -81,33 +79,32 @@ export function Header() {
                 <Button
                   onClick={() => setIsAuthModalOpen(true)}
                   size="sm"
+                  className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 rounded-xl font-semibold shadow-lg shadow-blue-600/20"
                 >
                   Sign In
                 </Button>
               )}
             </nav>
 
-            {/* Mobile menu button */}
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-gray-300 hover:text-white"
+                className="text-slate-300 hover:text-white transition-colors duration-200"
               >
                 {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </div>
 
-          {/* Mobile menu */}
           {isMenuOpen && (
-            <div className="md:hidden py-4 border-t border-white/[0.08]">
-              <div className="flex flex-col gap-4">
+            <div className="md:hidden py-4 border-t border-slate-800/50">
+              <div className="flex flex-col gap-3">
                 <button
                   onClick={() => {
                     handleServicesClick();
                     setIsMenuOpen(false);
                   }}
-                  className="text-left text-gray-300 hover:text-white transition-colors"
+                  className="text-left text-slate-300 hover:text-white transition-colors duration-200 font-medium py-2"
                 >
                   Services
                 </button>
@@ -119,7 +116,7 @@ export function Header() {
                         handleDashboardClick();
                         setIsMenuOpen(false);
                       }}
-                      className="text-left text-gray-300 hover:text-white transition-colors"
+                      className="text-left text-slate-300 hover:text-white transition-colors duration-200 font-medium py-2"
                     >
                       Dashboard
                     </button>
@@ -130,7 +127,7 @@ export function Header() {
                       }}
                       variant="outline"
                       size="sm"
-                      className="justify-start"
+                      className="justify-start border-slate-700 hover:border-slate-600 hover:bg-slate-800/50 rounded-xl"
                     >
                       <User className="w-4 h-4 mr-2" />
                       Profile
@@ -143,7 +140,7 @@ export function Header() {
                       setIsMenuOpen(false);
                     }}
                     size="sm"
-                    className="justify-start"
+                    className="justify-start bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 rounded-xl font-semibold"
                   >
                     Sign In
                   </Button>
