@@ -30,8 +30,7 @@ Deno.serve(async (req: Request) => {
 
   try {
     // Get the Make.com webhook URL from environment variables
-    // TODO: Add this to your Netlify environment variables after creating Make.com scenario
-    const makeWebhookUrl = Deno.env.get('MAKE_WEBHOOK_LEADS_URL');
+    const makeWebhookUrl = Deno.env.get('MAKE_WEBHOOK_LEADS_URL') || 'https://hook.eu2.make.com/lgaoguuofatr0ox3fvrjwyg7cr0mu5qn';
 
     if (!makeWebhookUrl) {
       console.warn('MAKE_WEBHOOK_LEADS_URL not configured - lead will not be sent to Make.com');
@@ -70,6 +69,8 @@ Deno.serve(async (req: Request) => {
       created_at: lead.created_at,
       timestamp: new Date().toISOString(),
     };
+
+    console.log('Sending to Make.com:', makeWebhookUrl);
 
     // Send to Make.com
     const makeResponse = await fetch(makeWebhookUrl, {

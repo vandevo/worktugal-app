@@ -19,6 +19,7 @@ export interface Lead extends LeadSubmission {
 /**
  * Insert a new lead into the leads_accounting table
  * No authentication required - anonymous submissions allowed
+ * Automatically triggers Make.com webhook for email automation
  */
 export async function insertLead(data: LeadSubmission): Promise<{ data: Lead | null; error: Error | null }> {
   try {
@@ -40,6 +41,30 @@ export async function insertLead(data: LeadSubmission): Promise<{ data: Lead | n
     if (error) {
       console.error('Error inserting lead:', error);
       return { data: null, error: new Error(error.message) };
+    }
+
+    // Call Edge Function to trigger Make.com webhook
+    // This runs in the background and doesn't block the user experience
+    try {
+      const edgeFunctionUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-lead-to-makecom`;
+
+      fetch(edgeFunctionUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'INSERT',
+          table: 'leads_accounting',
+          record: lead
+        })
+      }).catch(err => {
+        // Log error but don't fail the lead creation
+        console.warn('Failed to trigger Make.com webhook:', err);
+      });
+    } catch (webhookError) {
+      // Log error but don't fail the lead creation
+      console.warn('Failed to call Edge Function:', webhookError);
     }
 
     return { data: lead as Lead, error: null };
