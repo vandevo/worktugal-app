@@ -35,11 +35,9 @@ export function Header() {
                 onClick={handleLogoClick}
                 className="flex items-center gap-3 hover:opacity-90 transition-all duration-300"
               >
-                <img
-                  src="/worktugal-logo-bg-light-radius-1000-1000.png"
-                  alt="Worktugal Logo"
-                  className="h-10 w-10 object-contain drop-shadow-lg"
-                />
+                <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-600 to-emerald-600 flex items-center justify-center shadow-lg shadow-blue-600/20">
+                  <span className="text-white font-bold text-lg">W</span>
+                </div>
                 <span className="text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
                   Worktugal Pass
                 </span>
