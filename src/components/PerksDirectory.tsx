@@ -350,7 +350,7 @@ export const PerksDirectory: React.FC = () => {
               >
                 <span
                   className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition-all duration-300 ${
-                    showPortugueseOnly ? 'translate-x-6' : 'translate-x-1'
+                    showPortugueseOnly ? 'translate-x-5' : 'translate-x-1'
                   }`}
                 />
               </button>
