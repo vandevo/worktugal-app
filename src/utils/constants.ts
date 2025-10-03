@@ -1,156 +1,72 @@
-/**
- * Application-wide constants
- * Business categories, neighborhoods, and other static data
- */
-
-// Business categories for the Perk Marketplace
 export const BUSINESS_CATEGORIES = [
-  'Restaurants & Cafés',
-  'Bars & Nightlife',
-  'Fitness & Wellness',
-  'Coworking Spaces',
-  'Education & Language Schools',
-  'Health & Medical',
-  'Beauty & Personal Care',
-  'Transportation & Car Rental',
-  'Accommodation',
-  'Shopping & Retail',
-  'Professional Services',
-  'Arts & Entertainment',
-  'Tours & Activities',
-  'Real Estate Services',
-  'Technology & Electronics',
-  'Home & Living',
-  'Sports & Recreation',
-  'Food & Grocery',
-  'Pet Services',
-  'Other Services'
-] as const;
+  'Cafés & Restaurants',
+  'Coworking & Studios',
+  'Gyms & Wellness',
+  'Events & Social Spaces',
+  'Experts & Services',
+  'Travel & Experiences'
+];
 
-// Lisbon neighborhoods grouped by area
+export const REDEMPTION_METHODS = [
+  { value: 'verbal', label: 'Verbal mention: "I have Worktugal Pass"' },
+  { value: 'show_pass', label: 'Show digital Worktugal Pass' },
+  { value: 'promo_code', label: 'Use promo code' },
+  { value: 'qr_code', label: 'Scan QR code' },
+  { value: 'direct_link', label: 'Click direct link to claim' },
+  { value: 'other', label: 'Other method (explain)' }
+];
+
+export const LISTING_PRICE = 49; // €49 listing fee
+
+// Location constants - Grouped neighborhoods for better UX
 export const LISBON_NEIGHBORHOOD_GROUPS = [
   {
     label: 'Central Lisbon',
     options: [
-      'Baixa',
-      'Chiado',
-      'Bairro Alto',
-      'Príncipe Real',
-      'Avenida da Liberdade',
-      'Marquês de Pombal',
-      'Rato',
-      'Estrela'
+      { value: 'Chiado', label: 'Chiado' },
+      { value: 'Príncipe Real', label: 'Príncipe Real' },
+      { value: 'Baixa / Rossio', label: 'Baixa / Rossio' },
+      { value: 'Cais do Sodré', label: 'Cais do Sodré' },
+      { value: 'Bairro Alto', label: 'Bairro Alto' },
+      { value: 'Avenida da Liberdade', label: 'Avenida da Liberdade' },
     ]
   },
   {
-    label: 'Historic Districts',
+    label: 'West Lisbon',
     options: [
-      'Alfama',
-      'Mouraria',
-      'Graça',
-      'Castelo',
-      'Madragoa',
-      'Santos'
+      { value: 'Campo de Ourique', label: 'Campo de Ourique' },
+      { value: 'Estrela / Lapa', label: 'Estrela / Lapa' },
+      { value: 'Alcântara', label: 'Alcântara' },
+      { value: 'Belém / Ajuda', label: 'Belém / Ajuda' },
+      { value: 'Amoreiras / Campolide', label: 'Amoreiras / Campolide' },
     ]
   },
   {
-    label: 'Riverside & Waterfront',
+    label: 'North & Business Districts',
     options: [
-      'Cais do Sodré',
-      'Alcântara',
-      'Belém',
-      'Santa Apolónia',
-      'Parque das Nações',
-      'Terreiro do Paço'
+      { value: 'Avenidas Novas', label: 'Avenidas Novas' },
+      { value: 'Saldanha / Picoas', label: 'Saldanha / Picoas' },
+      { value: 'Marquês de Pombal', label: 'Marquês de Pombal' },
+      { value: 'Lumiar / Telheiras', label: 'Lumiar / Telheiras' },
     ]
   },
   {
-    label: 'Modern Lisbon',
+    label: 'East & Creative Zones',
     options: [
-      'Avenidas Novas',
-      'Campo de Ourique',
-      'Saldanha',
-      'Areeiro',
-      'Alvalade',
-      'Lumiar',
-      'Telheiras'
+      { value: 'Intendente / Anjos / Arroios', label: 'Intendente / Anjos / Arroios' },
+      { value: 'Beato / Marvila', label: 'Beato / Marvila' },
+      { value: 'Parque das Nações', label: 'Parque das Nações' },
     ]
   },
   {
-    label: 'East Lisbon',
+    label: 'Other',
     options: [
-      'Marvila',
-      'Beato',
-      'Braço de Prata',
-      'Xabregas',
-      'Chelas',
-      'Olivais'
-    ]
-  },
-  {
-    label: 'West & North',
-    options: [
-      'Benfica',
-      'Carnide',
-      'Ajuda',
-      'Restelo',
-      'Monsanto'
-    ]
-  },
-  {
-    label: 'Greater Lisbon Area',
-    options: [
-      'Cascais',
-      'Estoril',
-      'Oeiras',
-      'Sintra',
-      'Almada',
-      'Costa da Caparica',
-      'Setúbal',
-      'Other'
+      { value: 'Online Services', label: 'Online Services' },
+      { value: 'Other / Not Listed', label: 'Other / Not Listed' },
     ]
   }
-] as const;
+];
 
-// Flatten neighborhoods for simple dropdown use
-export const LISBON_NEIGHBORHOODS = LISBON_NEIGHBORHOOD_GROUPS.flatMap(
-  group => group.options
-);
-
-// Phone country code for Portugal
-export const PORTUGAL_COUNTRY_CODE = '+351';
-
-// Currency
-export const DEFAULT_CURRENCY = 'EUR';
-export const CURRENCY_SYMBOL = '€';
-
-// Platform fees
-export const PLATFORM_FEE_PERCENTAGE = 0.30; // 30% platform fee on consultations
-export const ACCOUNTANT_PAYOUT_PERCENTAGE = 0.70; // 70% goes to accountant
-
-// Validation constants
-export const MAX_FILE_SIZE_MB = 5;
-export const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
-export const ALLOWED_DOCUMENT_TYPES = ['application/pdf', 'image/jpeg', 'image/png'];
-
-// Contact information
-export const PLATFORM_EMAIL = 'hello@worktugal.com';
-export const SUPPORT_EMAIL = 'support@worktugal.com';
-
-// Social media
-export const SOCIAL_LINKS = {
-  instagram: 'https://instagram.com/worktugal',
-  linkedin: 'https://linkedin.com/company/worktugal',
-  twitter: 'https://twitter.com/worktugal'
-} as const;
-
-// Perk redemption methods
-export const REDEMPTION_METHODS = [
-  { value: 'qr', label: 'QR Code' },
-  { value: 'verbal', label: 'Verbal Code' },
-  { value: 'promo_code', label: 'Promo Code' },
-  { value: 'other', label: 'Other Method' }
-] as const;
-
-// Partner listing price (lifetime early access offer)
-export const LISTING_PRICE = 49; // €49 one-time payment for lifetime listing
+// Future-ready city structure
+export const CURRENT_CITY = 'Lisbon';
+export const CURRENT_COUNTRY = 'Portugal';

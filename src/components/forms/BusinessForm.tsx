@@ -1,11 +1,21 @@
-import { FC } from 'react';
+import React, { useRef, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { motion } from 'framer-motion';
+import { Building, Globe, Instagram, User, Mail, Phone, Tag } from 'lucide-react';
+import { businessSchema, BusinessFormData } from '../../lib/validations';
+import { BUSINESS_CATEGORIES, LISBON_NEIGHBORHOOD_GROUPS } from '../../utils/constants';
+import { Input } from '../ui/Input';
+import { Select } from '../ui/Select';
+import { Button } from '../ui/Button';
+import { Card } from '../ui/Card';
 
 interface BusinessFormProps {
   onSubmit: (data: BusinessFormData) => void;
   initialData?: Partial<BusinessFormData>;
 }
 
-export const BusinessForm: FC<BusinessFormProps> = ({ onSubmit, initialData }) => {
+export const BusinessForm: React.FC<BusinessFormProps> = ({ onSubmit, initialData }) => {
   const phoneInputRef = useRef<HTMLInputElement>(null);
 
   const {

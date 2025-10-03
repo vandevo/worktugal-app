@@ -1,9 +1,20 @@
-import { FC } from 'react';
+import React, { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { Seo } from '../Seo';
+import { AccountingHero } from './AccountingHero';
+import { ConsultPricingSection } from './ConsultPricingSection';
+import { WhatToExpect } from './WhatToExpect';
+import { HowItWorks } from './HowItWorks';
+import { MeetAccountants } from './MeetAccountants';
+import { ConsultFAQ } from './ConsultFAQ';
+import { AccountantRecruitmentBanner } from './AccountantRecruitmentBanner';
+import { ConsultBookingForm } from './ConsultBookingForm';
+import { useNavigate } from 'react-router-dom';
 import type { ServiceType } from '../../types/accounting';
 
 type ViewMode = 'landing' | 'booking';
 
-export const AccountingDeskLanding: FC = () => {
+export const AccountingDeskLanding: React.FC = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('landing');
   const [selectedService, setSelectedService] = useState<ServiceType | null>(null);
   const navigate = useNavigate();

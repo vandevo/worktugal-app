@@ -1,10 +1,15 @@
-import { FC } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Check, ArrowRight, Sparkles } from 'lucide-react';
+import { Button } from './ui/Button';
+import { Card } from './ui/Card';
+import { supabase } from '../lib/supabase';
+import { motion } from 'framer-motion';
 
 interface PartnerPricingHeroProps {
   onGetStarted?: () => void;
 }
 
-export const PartnerPricingHero: FC<PartnerPricingHeroProps> = ({ onGetStarted }) => {
+export const PartnerPricingHero: React.FC<PartnerPricingHeroProps> = ({ onGetStarted }) => {
   const [spotsLeft, setSpotsLeft] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 

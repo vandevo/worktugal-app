@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode, FC } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { ConsentState, CookieCategory, CookiePreferences } from '../types/cookie';
 import { DEFAULT_PREFERENCES, CONSENT_STORAGE_KEY } from '../utils/cookieConstants';
 
@@ -29,7 +29,7 @@ interface CookieConsentProviderProps {
   children: ReactNode;
 }
 
-export const CookieConsentProvider: FC<CookieConsentProviderProps> = ({ children }) => {
+export const CookieConsentProvider: React.FC<CookieConsentProviderProps> = ({ children }) => {
   const [consentState, setConsentState] = useState<ConsentState | null>(null);
   const [showBanner, setShowBanner] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);

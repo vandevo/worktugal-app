@@ -1,4 +1,16 @@
-import { FC } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { CreditCard, Shield, Check, ShieldCheck } from 'lucide-react';
+import { Button } from '../ui/Button';
+import { Card } from '../ui/Card';
+import { Alert } from '../ui/Alert';
+import { LISTING_PRICE } from '../../utils/constants';
+import { STRIPE_PRODUCTS } from '../../stripe-config';
+import { createCheckoutSession } from '../../lib/stripe';
+import { createPartnerSubmission } from '../../lib/submissions';
+import { useAuth } from '../../hooks/useAuth';
+import { FormData } from '../../types';
+import { AuthModal } from '../auth/AuthModal';
 
 interface PaymentFormProps {
   onSubmit: () => void;
@@ -8,7 +20,7 @@ interface PaymentFormProps {
   isPreviewMode?: boolean;
 }
 
-export const PaymentForm: FC<PaymentFormProps> = ({ onSubmit, onBack, formData, updateFormData, isPreviewMode = false }) => {
+export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, formData, updateFormData, isPreviewMode = false }) => {
   const { user } = useAuth();
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);

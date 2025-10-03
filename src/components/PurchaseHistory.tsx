@@ -1,6 +1,10 @@
-import { FC } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ShoppingBag, Calendar, CreditCard } from 'lucide-react';
+import { Card } from './ui/Card';
+import { useUserPurchases } from '../hooks/useUserPurchases';
 
-export const PurchaseHistory: FC = () => {
+export const PurchaseHistory: React.FC = () => {
   const { purchases, loading, error } = useUserPurchases();
 
   if (loading) {

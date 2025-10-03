@@ -1,6 +1,11 @@
-import { FC } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FileText, Mail, MapPin, Building, Scale, ArrowLeft, CreditCard, Shield, AlertCircle } from 'lucide-react';
+import { Seo } from './Seo';
+import { Card } from './ui/Card';
+import { Button } from './ui/Button';
 
-export const TermsAndConditions: FC = () => {
+export const TermsAndConditions: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-900 py-12">
       <Seo

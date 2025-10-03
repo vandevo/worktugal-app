@@ -1,6 +1,8 @@
-import { FC } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Calendar, Video, FileText, CheckCircle } from 'lucide-react';
 
-export const HowItWorks: FC = () => {
+export const HowItWorks: React.FC = () => {
   const steps = [
     {
       icon: Calendar,

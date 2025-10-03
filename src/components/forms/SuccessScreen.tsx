@@ -1,11 +1,15 @@
-import { FC } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { CheckCircle, Calendar, Eye, ArrowRight } from 'lucide-react';
+import { Button } from '../ui/Button';
+import { Card } from '../ui/Card';
 
 interface SuccessScreenProps {
   onViewDirectory: () => void;
   onStartOver: () => void;
 }
 
-export const SuccessScreen: FC<SuccessScreenProps> = ({ onViewDirectory, onStartOver }) => {
+export const SuccessScreen: React.FC<SuccessScreenProps> = ({ onViewDirectory, onStartOver }) => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}

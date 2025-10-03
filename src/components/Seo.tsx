@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 interface SeoProps {
   title?: string;
@@ -13,7 +14,7 @@ interface SeoProps {
   structuredData?: object;
 }
 
-export const Seo: FC<SeoProps> = ({
+export const Seo: React.FC<SeoProps> = ({
   title = 'Professional Services for Remote Workers',
   description = 'Trusted professional services for remote workers in Lisbon. Join 1,000+ verified professionals accessing coworking, wellness, business services & experiences. Lifetime access.',
   ogTitle,

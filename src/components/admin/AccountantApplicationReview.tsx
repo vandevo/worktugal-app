@@ -1,7 +1,15 @@
-import { FC } from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { getAllApplications, updateApplicationStatus, createAccountantProfile, approveApplicationAndCreateAccount } from '../../lib/accountants';
+import { getSignedUrl } from '../../lib/storage';
+import { useAuth } from '../../hooks/useAuth';
+import { Button } from '../ui/Button';
+import { Alert } from '../ui/Alert';
+import { Badge } from '../ui/Badge';
+import { CheckCircle, XCircle, Clock, Award, Briefcase, Mail, Phone, Calendar, Eye, FileText, Copy, Check } from 'lucide-react';
 import type { AccountantApplication } from '../../types/accountant';
 
-export const AccountantApplicationReview: FC = () => {
+export const AccountantApplicationReview: React.FC = () => {
   const { user } = useAuth();
   const [applications, setApplications] = useState<AccountantApplication[]>([]);
   const [loading, setLoading] = useState(true);

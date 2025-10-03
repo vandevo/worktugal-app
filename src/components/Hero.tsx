@@ -1,4 +1,8 @@
-import { FC } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Users, TrendingUp, MapPin, Ticket } from 'lucide-react';
+import { Button } from './ui/Button';
+import { Card } from './ui/Card';
 
 interface HeroProps {
   onGetStarted: () => void;
@@ -7,7 +11,7 @@ interface HeroProps {
   activePerksCount: number | null;
   activePerksLoading: boolean;
 }
-export const Hero: FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoading, activePerksCount, activePerksLoading }) => {
+export const Hero: React.FC<HeroProps> = ({ onGetStarted, spotsLeft, spotsLoading, activePerksCount, activePerksLoading }) => {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-900/0 to-transparent" />

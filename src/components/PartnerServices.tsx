@@ -1,6 +1,11 @@
-import { FC } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Store, Star, Timer } from 'lucide-react';
+import { ProductCard } from './ProductCard';
+import { STRIPE_PRODUCTS } from '../stripe-config';
+import { useStripeCheckout } from '../hooks/useStripeCheckout';
 
-export const PartnerServices: FC = () => {
+export const PartnerServices: React.FC = () => {
   const { createCheckoutSession, isLoading } = useStripeCheckout();
 
   const partnerProducts = STRIPE_PRODUCTS.filter(product => 

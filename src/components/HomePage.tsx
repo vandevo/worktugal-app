@@ -1,6 +1,11 @@
-import { FC } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Hero } from './Hero';
+import { PerksDirectory } from './PerksDirectory';
+import { FormWizard } from './FormWizard';
+import { PartnerPricingHero } from './PartnerPricingHero';
+import { supabase } from '../lib/supabase';
 
-export const HomePage: FC = () => {
+export const HomePage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [spotsLeft, setSpotsLeft] = useState<number | null>(null);
   const [spotsLoading, setSpotsLoading] = useState(true);

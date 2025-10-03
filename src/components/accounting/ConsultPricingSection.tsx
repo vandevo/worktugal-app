@@ -1,11 +1,14 @@
-import { FC } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Check } from 'lucide-react';
+import { CONSULT_SERVICES } from '../../types/accounting';
 import type { ServiceType } from '../../types/accounting';
 
 interface ConsultPricingSectionProps {
   onSelectService: (serviceType: ServiceType) => void;
 }
 
-export const ConsultPricingSection: FC<ConsultPricingSectionProps> = ({ onSelectService }) => {
+export const ConsultPricingSection: React.FC<ConsultPricingSectionProps> = ({ onSelectService }) => {
   return (
     <section className="py-20 bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

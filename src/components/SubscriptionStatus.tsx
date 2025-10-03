@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Badge } from './ui/Badge';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../hooks/useAuth';

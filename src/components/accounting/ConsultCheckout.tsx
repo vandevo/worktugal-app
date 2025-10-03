@@ -1,6 +1,12 @@
-import { FC } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { getConsultBooking } from '../../lib/consults';
+import { CONSULT_SERVICES } from '../../types/accounting';
+import { Button } from '../ui/Button';
+import { Alert } from '../ui/Alert';
+import { Loader2 } from 'lucide-react';
 
-export const ConsultCheckout: FC = () => {
+export const ConsultCheckout: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const bookingId = searchParams.get('booking');

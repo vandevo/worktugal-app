@@ -1,10 +1,20 @@
-import { FC } from 'react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { LogOut, Settings } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+import { useUserProfile } from '../hooks/useUserProfile';
+import { UserRoleBadge } from './UserRoleBadge';
+import { AuthModal } from './auth/AuthModal';
+import { ProfileModal } from './ProfileModal';
+import { Button } from './ui/Button';
+import { signOut } from '../lib/auth';
+import { Footer } from './Footer';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-export const Layout: FC<LayoutProps> = ({ children }) => {
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user } = useAuth();
   const { getDisplayName, getInitials } = useUserProfile();
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -34,9 +44,8 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
                 height="40"
               />
               <div className="flex items-center gap-3">
-                <span className="text-sm sm:text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent whitespace-nowrap">
-                  <span className="sm:hidden">Worktugal</span>
-                  <span className="hidden sm:inline">Worktugal Pass</span>
+                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
+                  Worktugal Pass
                 </span>
                 <span className="hidden sm:inline-flex items-center bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20 text-xs font-semibold tracking-wide shadow-sm">
                   Early Access

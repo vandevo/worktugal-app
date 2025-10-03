@@ -1,11 +1,20 @@
-import { FC } from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, User, Save } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+import { useUserProfile, notifyProfileUpdate } from '../hooks/useUserProfile';
+import { useSubscription } from '../hooks/useSubscription';
+import { updateUserProfile } from '../lib/profile';
+import { Input } from './ui/Input';
+import { Button } from './ui/Button';
+import { Alert } from './ui/Alert';
 
 interface ProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const ProfileModal: FC<ProfileModalProps> = ({ isOpen, onClose }) => {
+export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   const { user } = useAuth();
   const { profile, getDisplayName, refetch } = useUserProfile();
   const { purchases } = useSubscription();

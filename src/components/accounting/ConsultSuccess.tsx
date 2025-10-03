@@ -1,6 +1,11 @@
-import { FC } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { CheckCircle, Calendar, FileText, Mail } from 'lucide-react';
+import { getConsultBooking } from '../../lib/consults';
+import { CONSULT_SERVICES } from '../../types/accounting';
 
-export const ConsultSuccess: FC = () => {
+export const ConsultSuccess: React.FC = () => {
   const [searchParams] = useSearchParams();
   const bookingId = searchParams.get('booking');
   const [booking, setBooking] = useState<any>(null);

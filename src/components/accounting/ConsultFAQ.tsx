@@ -1,4 +1,6 @@
-import { FC } from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 
 interface FAQItem {
   question: string;
@@ -52,7 +54,7 @@ const faqData: FAQItem[] = [
   }
 ];
 
-export const ConsultFAQ: FC = () => {
+export const ConsultFAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {

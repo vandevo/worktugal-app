@@ -1,6 +1,8 @@
-import { FC } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { CreditCard, Mail, Calendar, Video, FileText, MessageCircle } from 'lucide-react';
 
-export const WhatToExpect: FC = () => {
+export const WhatToExpect: React.FC = () => {
   const timeline = [
     {
       icon: CreditCard,

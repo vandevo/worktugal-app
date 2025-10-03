@@ -1,10 +1,14 @@
-import { FC } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Check, ArrowRight, Sparkles } from 'lucide-react';
+import { Card } from './ui/Card';
+import { STRIPE_PRODUCTS } from '../stripe-config';
 
 interface PartnerPricingProps {
   onGetStarted: () => void;
 }
 
-export const PartnerPricing: FC<PartnerPricingProps> = ({ onGetStarted }) => {
+export const PartnerPricing: React.FC<PartnerPricingProps> = ({ onGetStarted }) => {
   const partnerProduct = STRIPE_PRODUCTS.find(p => p.name === 'Partner Listing Early Access (Lifetime)');
 
   if (!partnerProduct) {

@@ -1,6 +1,11 @@
-import { FC } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Calculator, FileText, Users } from 'lucide-react';
+import { ProductCard } from './ProductCard';
+import { STRIPE_PRODUCTS } from '../stripe-config';
+import { useStripeCheckout } from '../hooks/useStripeCheckout';
 
-export const AccountingServices: FC = () => {
+export const AccountingServices: React.FC = () => {
   const { createCheckoutSession, isLoading } = useStripeCheckout();
 
   const accountingProducts = STRIPE_PRODUCTS.filter(product => 

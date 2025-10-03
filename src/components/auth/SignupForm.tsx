@@ -1,4 +1,13 @@
-import { FC } from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { motion } from 'framer-motion';
+import { UserPlus, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import { signUp } from '../../lib/auth';
+import { Input } from '../ui/Input';
+import { Button } from '../ui/Button';
+import { Alert } from '../ui/Alert';
 
 const signupSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -18,7 +27,7 @@ interface SignupFormProps {
   onSwitchToLogin?: () => void;
 }
 
-export const SignupForm: FC<SignupFormProps> = ({ onSuccess, onSwitchToLogin }) => {
+export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLogin }) => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);

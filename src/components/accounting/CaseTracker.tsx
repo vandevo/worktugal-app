@@ -1,4 +1,10 @@
-import { FC } from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { getUserConsultBookings } from '../../lib/consults';
+import { CONSULT_SERVICES } from '../../types/accounting';
+import { Clock, CheckCircle, Calendar, FileText, AlertCircle, ExternalLink } from 'lucide-react';
+import { Alert } from '../ui/Alert';
+import { Button } from '../ui/Button';
 
 type ConsultBooking = {
   id: number;
@@ -42,7 +48,7 @@ const STATUS_CONFIG = {
   }
 } as const;
 
-export const CaseTracker: FC = () => {
+export const CaseTracker: React.FC = () => {
   const [bookings, setBookings] = useState<ConsultBooking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

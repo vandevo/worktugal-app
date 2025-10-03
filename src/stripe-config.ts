@@ -1,14 +1,3 @@
-/**
- * Stripe Product Configuration
- * Defines all products/services available for purchase in the platform
- *
- * Two main product categories:
- * 1. Accounting Desk Services - Tax consultations for expats in Portugal
- * 2. Partner Marketplace - Business listings in the Perks Directory
- *
- * Important: Price IDs must match those created in Stripe Dashboard
- * Mode: 'payment' = one-time payment, 'subscription' = recurring
- */
 export const STRIPE_PRODUCTS = {
   // Accounting Desk Services
   'Tax Triage Consult': {

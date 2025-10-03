@@ -1,7 +1,14 @@
-import { FC } from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { getAllAppointments, assignAccountant, updateAppointment } from '../../lib/appointments';
+import { getAllActiveAccountants } from '../../lib/accountants';
+import { Button } from '../ui/Button';
+import { Select } from '../ui/Select';
+import { Alert } from '../ui/Alert';
+import { Calendar, Clock, User, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import type { Appointment, AccountantProfile } from '../../types/accountant';
 
-export const AppointmentManagement: FC = () => {
+export const AppointmentManagement: React.FC = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [accountants, setAccountants] = useState<AccountantProfile[]>([]);
   const [loading, setLoading] = useState(true);

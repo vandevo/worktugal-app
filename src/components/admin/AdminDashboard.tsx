@@ -1,7 +1,13 @@
-import { FC } from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { getAllAppointments } from '../../lib/appointments';
+import { getAllPayouts, getPendingPayouts } from '../../lib/payouts';
+import { getAllApplications } from '../../lib/accountants';
+import { Users, DollarSign, Calendar, Briefcase } from 'lucide-react';
+import { Alert } from '../ui/Alert';
 import type { Appointment, Payout, AccountantApplication } from '../../types/accountant';
 
-export const AdminDashboard: FC = () => {
+export const AdminDashboard: React.FC = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [payouts, setPayouts] = useState<Payout[]>([]);
   const [pendingPayouts, setPendingPayouts] = useState<Payout[]>([]);

@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from './useAuth';
-import { UserPurchase } from '../types';
 
-/**
- * Hook to fetch and manage user's subscription and purchase history
- * Used primarily in SubscriptionStatus component to display payment history
- */
+export interface UserPurchase {
+  id: string;
+  productName: string;
+  amount: number;
+  currency: string;
+  status: string;
+  purchaseDate: string;
+}
 
 export function useSubscription() {
   const { user } = useAuth();

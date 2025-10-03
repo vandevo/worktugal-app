@@ -1,4 +1,15 @@
-import { FC } from 'react';
+import React, { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
+import { Search, Filter, MapPin, ExternalLink, QrCode, MessageCircle, Tag, Shield, Globe, Instagram, Linkedin, Lock, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
+import { useAuth } from '../hooks/useAuth';
+import { supabase } from '../lib/supabase';
+import { AuthModal } from './auth/AuthModal';
+import { Input } from './ui/Input';
+import { Select } from './ui/Select';
+import { Card } from './ui/Card';
+import { Button } from './ui/Button';
+import { BUSINESS_CATEGORIES } from '../utils/constants';
+import { PartnerSubmission } from '../types';
 
 // Character limit for description truncation
 const MAX_DESCRIPTION_LENGTH = 180;
@@ -22,7 +33,7 @@ interface DisplayPerk {
   contact_phone?: string;
 }
 
-export const PerksDirectory: FC = () => {
+export const PerksDirectory: React.FC = () => {
   const { user } = useAuth();
   const [perks, setPerks] = useState<DisplayPerk[]>([]);
   const [loading, setLoading] = useState(true);

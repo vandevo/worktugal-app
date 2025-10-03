@@ -1,11 +1,13 @@
-import { FC } from 'react';
+import React from 'react';
+import { useAuth } from '../hooks/useAuth';
+import { AuthModal } from './auth/AuthModal';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
   fallback?: React.ReactNode;
 }
 
-export const ProtectedRoute: FC<ProtectedRouteProps> = ({
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   fallback,
 }) => {

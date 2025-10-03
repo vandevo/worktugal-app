@@ -1,7 +1,14 @@
-import { FC } from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useAuth } from '../../hooks/useAuth';
+import { getAccountantProfile } from '../../lib/accountants';
+import { getAccountantAppointments, markAppointmentCompleted, submitOutcomeDocument } from '../../lib/appointments';
+import { getAccountantPendingEarnings, getAccountantCompletedEarnings } from '../../lib/payouts';
+import { Calendar, DollarSign, TrendingUp, Clock, CheckCircle, Upload, FileText } from 'lucide-react';
+import { Alert } from '../ui/Alert';
 import type { AccountantProfile, Appointment } from '../../types/accountant';
 
-export const AccountantDashboard: FC = () => {
+export const AccountantDashboard: React.FC = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState<AccountantProfile | null>(null);
   const [appointments, setAppointments] = useState<Appointment[]>([]);

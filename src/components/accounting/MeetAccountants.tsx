@@ -1,4 +1,6 @@
-import { FC } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Shield, Globe } from 'lucide-react';
 
 interface Accountant {
   name: string;
@@ -25,7 +27,7 @@ const accountants: Accountant[] = [
   },
 ];
 
-export const MeetAccountants: FC = () => {
+export const MeetAccountants: React.FC = () => {
   return (
     <section className="py-20 bg-gray-800/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
