@@ -6,6 +6,7 @@ import { ServicesPage } from './components/ServicesPage';
 import { CheckoutSuccess } from './components/CheckoutSuccess';
 import { Dashboard } from './components/Dashboard';
 import { SuccessPage } from './components/SuccessPage';
+import { ServicesPage } from './components/ServicesPage';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsAndConditions } from './components/TermsAndConditions';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -29,6 +30,7 @@ function App() {
   };
 
   return (
+              <Route path="/services" element={<ServicesPage />} />
     <Router>
       <Seo />
       <Layout>
@@ -71,11 +73,7 @@ function App() {
             }
           />
           <Route
-            path="/admin/applications"
-            element={
-              <ProtectedRoute>
-                <AccountantApplicationReview />
-              </ProtectedRoute>
+                element={<SuccessPage />}
             }
           />
         </Routes>

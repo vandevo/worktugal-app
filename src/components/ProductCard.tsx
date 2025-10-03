@@ -1,26 +1,32 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Check, ArrowRight, Loader2 } from 'lucide-react';
 import { Button } from './ui/Button';
-import { StripeProduct, formatPrice } from '../stripe-config';
+import { Card } from './ui/Card';
+import { Loader2 } from 'lucide-react';
+
+interface Product {
+  id: string;
+  priceId: string;
+  name: string;
+  description: string;
+  price: number;
+  currency: string;
+  currencySymbol: string;
+  mode: string;
+}
 
 interface ProductCardProps {
-  product: StripeProduct;
-  onPurchase: (priceId: string, productName: string) => Promise<void>;
+  product: Product;
+  onPurchase: (priceId: string) => Promise<void>;
   className?: string;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({
-  product,
-  onPurchase,
-  className = ''
-}) => {
+export function ProductCard({ product, onPurchase, className = '' }: ProductCardProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePurchase = async () => {
     setIsLoading(true);
     try {
-      await onPurchase(product.priceId, product.name);
+      await onPurchase(product.priceId);
     } catch (error) {
       console.error('Purchase failed:', error);
     } finally {
@@ -29,49 +35,34 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className={`bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg transition-shadow duration-300 ${className}`}
-    >
-      <div className="flex flex-col h-full">
-        <div className="flex-1">
-          <h3 className="text-xl font-semibold text-slate-900 mb-3">
-            {product.name}
-          </h3>
-          
-          <p className="text-slate-600 text-sm leading-relaxed mb-4">
-            {product.description}
-          </p>
-          
-          <div className="flex items-baseline gap-1 mb-6">
-            <span className="text-3xl font-bold text-slate-900">
-              {formatPrice(product.price, product.currency)}
-            </span>
-            {product.mode === 'payment' && (
-              <span className="text-slate-500 text-sm">one-time</span>
-            )}
-          </div>
+    <Card className={`p-6 ${className}`}>
+      <div className="space-y-4">
+        <div>
+          <h3 className="text-xl font-semibold text-gray-900">{product.name}</h3>
+          <p className="text-gray-600 mt-2">{product.description}</p>
         </div>
-
-        <Button
-          onClick={handlePurchase}
-          disabled={isLoading}
-          className="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              Processing...
-            </>
-          ) : (
-            <>
-              Purchase Now
-              <ArrowRight className="w-4 h-4" />
-            </>
-          )}
-        </Button>
+        
+        <div className="flex items-center justify-between">
+          <div className="text-2xl font-bold text-gray-900">
+            {product.currencySymbol}{product.price.toFixed(2)}
+          </div>
+          
+          <Button
+            onClick={handlePurchase}
+            disabled={isLoading}
+            className="min-w-[120px]"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Processing...
+              </>
+            ) : (
+              'Purchase'
+            )}
+          </Button>
+        </div>
       </div>
-    </motion.div>
+    </Card>
   );
-};
+}
