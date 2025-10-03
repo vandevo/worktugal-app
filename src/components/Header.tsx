@@ -42,7 +42,7 @@ export function Header() {
                 height="40"
               />
               <div className="flex items-center gap-2 sm:gap-3">
-                <span className="text-base sm:text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent whitespace-nowrap">
+                <span className="text-sm sm:text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent whitespace-nowrap">
                   Worktugal Pass
                 </span>
                 <span className="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm tracking-wide">
