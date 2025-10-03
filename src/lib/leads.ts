@@ -43,20 +43,28 @@ export async function insertLead(data: LeadSubmission): Promise<{ data: Lead | n
       return { data: null, error: new Error(error.message) };
     }
 
-    // Call Edge Function to trigger Make.com webhook
+    // Call Make.com webhook directly to trigger email automation
     // This runs in the background and doesn't block the user experience
     try {
-      const edgeFunctionUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-lead-to-makecom`;
+      const makeWebhookUrl = 'https://hook.eu2.make.com/lgaoguuofatr0ox3fvrjwyg7cr0mu5qn';
 
-      fetch(edgeFunctionUrl, {
+      fetch(makeWebhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          type: 'INSERT',
-          table: 'leads_accounting',
-          record: lead
+          lead_id: lead.id,
+          name: lead.name,
+          email: lead.email,
+          country: lead.country || '',
+          main_need: lead.main_need || '',
+          urgency: lead.urgency || '',
+          consent: lead.consent,
+          source: lead.source,
+          status: lead.status,
+          created_at: lead.created_at,
+          timestamp: new Date().toISOString(),
         })
       }).catch(err => {
         // Log error but don't fail the lead creation
@@ -64,7 +72,7 @@ export async function insertLead(data: LeadSubmission): Promise<{ data: Lead | n
       });
     } catch (webhookError) {
       // Log error but don't fail the lead creation
-      console.warn('Failed to call Edge Function:', webhookError);
+      console.warn('Failed to call Make.com webhook:', webhookError);
     }
 
     return { data: lead as Lead, error: null };
