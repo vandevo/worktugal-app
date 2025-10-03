@@ -50,7 +50,7 @@ export const WhatToExpect: React.FC = () => {
             What to Expect
           </h2>
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto px-4">
-            From booking to delivery, here's exactly what happens
+            Once booking opens, here's exactly how it works
           </p>
         </div>
 
@@ -110,7 +110,7 @@ export const WhatToExpect: React.FC = () => {
             </li>
             <li className="flex items-start gap-3 leading-relaxed">
               <span className="text-blue-400 mt-0.5 flex-shrink-0">•</span>
-              <span>Email support times vary by service tier (see pricing for details)</span>
+              <span>Email support times will vary by service tier</span>
             </li>
           </ul>
         </motion.div>
