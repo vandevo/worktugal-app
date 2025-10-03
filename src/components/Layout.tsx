@@ -44,8 +44,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 height="40"
               />
               <div className="flex items-center gap-3">
-                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
-                  Worktugal Pass
+                <span className="text-sm sm:text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent whitespace-nowrap">
+                  <span className="sm:hidden">Worktugal</span>
+                  <span className="hidden sm:inline">Worktugal Pass</span>
                 </span>
                 <span className="hidden sm:inline-flex items-center bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20 text-xs font-semibold tracking-wide shadow-sm">
                   Early Access
