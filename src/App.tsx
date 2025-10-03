@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { HomePage } from './components/HomePage';
-import { ServicesPage } from './components/ServicesPage';
 import { CheckoutSuccess } from './components/CheckoutSuccess';
 import { Dashboard } from './components/Dashboard';
 import { SuccessPage } from './components/SuccessPage';
@@ -34,10 +33,6 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route
-            path="/services"
-            element={<ServicesPage onServiceSelect={handleServiceSelect} />}
-          />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route
             path="/dashboard"
