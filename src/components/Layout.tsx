@@ -36,21 +36,12 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             <a href="/" className="flex items-center gap-3 hover:opacity-90 transition-all duration-300">
-              <img
-                src="/worktugal-logo.png"
-                alt="Worktugal Logo"
-                className="w-9 h-9 sm:w-11 sm:h-11 object-contain drop-shadow-lg"
-                width="44"
-                height="44"
-              />
-              <div className="flex items-center gap-3">
-                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
-                  Worktugal Pass
-                </span>
-                <span className="hidden sm:inline-flex items-center bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20 text-xs font-semibold tracking-wide shadow-sm">
-                  Early Access
-                </span>
-              </div>
+              <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
+                Worktugal Pass
+              </span>
+              <span className="hidden sm:inline-flex items-center bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20 text-xs font-semibold tracking-wide shadow-sm">
+                Early Access
+              </span>
             </a>
 
             {/* Navigation Links & Auth */}
