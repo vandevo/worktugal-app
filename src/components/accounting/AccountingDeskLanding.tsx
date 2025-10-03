@@ -16,7 +16,7 @@ import type { ServiceType } from '../../types/accounting';
 type ViewMode = 'landing' | 'booking';
 
 // Early Birds Phase Flag - Set to false when ready to launch full booking
-const EARLY_BIRDS_MODE = true;
+const EARLY_BIRDS_MODE = false;
 
 export const AccountingDeskLanding: React.FC = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('landing');
@@ -38,10 +38,10 @@ export const AccountingDeskLanding: React.FC = () => {
   };
 
   const handleBookNow = () => {
-    // Scroll to the early access form
-    const formElement = document.getElementById('early-access-form');
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Scroll to the pricing section
+    const pricingElement = document.getElementById('pricing');
+    if (pricingElement) {
+      pricingElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 

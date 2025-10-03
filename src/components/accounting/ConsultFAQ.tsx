@@ -9,8 +9,8 @@ interface FAQItem {
 
 const faqData: FAQItem[] = [
   {
-    question: 'How will the booking process work?',
-    answer: 'When we launch, you\'ll choose your service, pay upfront, and receive a confirmation email with a Cal.com booking link. You\'ll select your specific appointment time (available within 7 days). After your consult, you\'ll receive your written outcome within 48 hours.'
+    question: 'How does the booking process work?',
+    answer: 'Choose your service, pay upfront, and receive a confirmation email with a Cal.com booking link. You\'ll select your specific appointment time (available within 7 days). After your consult, you\'ll receive your written outcome within 48 hours.'
   },
   {
     question: 'Do you help me get a NIF?',
@@ -49,8 +49,8 @@ const faqData: FAQItem[] = [
     answer: 'Our consults are designed to get you started. If you need ongoing services like quarterly VAT filing or annual returns, we\'ll connect you directly with an accountant from our network who can provide continuous support.'
   },
   {
-    question: 'How will the €149 Annual Return credit work?',
-    answer: 'The Annual Return Consult will be priced at €149. If you decide to hire us for your full annual filing, that €149 will be automatically credited toward the filing fee. No special code or request needed.'
+    question: 'How does the €149 Annual Return credit work?',
+    answer: 'The Annual Return Consult is priced at €149. If you decide to hire us for your full annual filing, that €149 is automatically credited toward the filing fee. No special code or request needed.'
   }
 ];
 

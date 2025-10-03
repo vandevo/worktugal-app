@@ -7,7 +7,7 @@ export const WhatToExpect: React.FC = () => {
     {
       icon: CreditCard,
       title: 'Book & Pay',
-      time: 'When available',
+      time: 'Now',
       description: 'Choose your service and pay upfront. Clear pricing, no hidden fees.',
     },
     {
@@ -50,7 +50,7 @@ export const WhatToExpect: React.FC = () => {
             What to Expect
           </h2>
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto px-4">
-            Once booking opens, here's exactly how it works
+            Here's exactly how it works
           </p>
         </div>
 
@@ -106,11 +106,11 @@ export const WhatToExpect: React.FC = () => {
             </li>
             <li className="flex items-start gap-3 leading-relaxed">
               <span className="text-blue-400 mt-0.5 flex-shrink-0">•</span>
-              <span>Credits and pricing details will be provided when booking opens</span>
+              <span>The €149 Annual Return Consult credit is automatically applied if you hire us for full filing</span>
             </li>
             <li className="flex items-start gap-3 leading-relaxed">
               <span className="text-blue-400 mt-0.5 flex-shrink-0">•</span>
-              <span>Email support times will vary by service tier</span>
+              <span>Email support response times vary by service tier selected</span>
             </li>
           </ul>
         </motion.div>
