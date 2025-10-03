@@ -1,0 +1,523 @@
+# AI Integration Master Guide for Worktugal
+**Version 1.0 | October 2025**
+
+This document serves as the master reference for AI assistants working on the Worktugal project. Follow these guidelines to prevent common integration issues.
+
+---
+
+## 🚨 CRITICAL RULES - READ FIRST
+
+### Database & Backend Integration
+
+**NEVER assume the frontend can directly connect to Supabase in development environments.**
+
+The development environment has special constraints:
+- Browser cannot directly access Supabase database
+- Database credentials in `.env` may not work from browser
+- Edge Functions have proper database access via service role keys
+
+**✅ CORRECT PATTERN: Use Edge Functions for Database Operations**
+
+```
+User Browser → Edge Function → Supabase Database → Make.com Webhook
+```
+
+**❌ WRONG PATTERN: Direct Database Access from Browser**
+
+```
+User Browser → Supabase Client Library → Database (FAILS in dev environment)
+```
+
+### Edge Function Requirements
+
+When creating ANY form submission or data mutation that needs to save to database:
+
+1. **Always create an Edge Function** to handle the operation
+2. **Always set `verify_jwt: false`** for public forms (waitlists, lead capture, contact forms)
+3. **Always include proper CORS headers** (see template below)
+4. **Always use service role key** in Edge Function for database access
+5. **Always add comprehensive logging** for debugging
+
+---
+
+## 📋 STEP-BY-STEP CHECKLIST
+
+### When Adding a New Form with Database Integration
+
+- [ ] Create Edge Function with `verify_jwt: false`
+- [ ] Include CORS headers for all responses
+- [ ] Use `createClient(url, serviceRoleKey)` in Edge Function
+- [ ] Add comprehensive error logging
+- [ ] Test database insert via MCP tools first
+- [ ] Update frontend to call Edge Function (not direct Supabase)
+- [ ] Add webhook integration if needed (Make.com, etc.)
+- [ ] Rebuild project with `npm run build`
+- [ ] Test form submission in browser
+- [ ] Verify database was populated via MCP query
+- [ ] Verify webhook was triggered (check Make.com logs)
+
+---
+
+## 🛠️ EDGE FUNCTION TEMPLATE
+
+Use this template for all public form submissions:
+
+```typescript
+import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
+import { createClient } from 'jsr:@supabase/supabase-js@2';
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Client-Info, Apikey',
+};
+
+interface FormSubmission {
+  // Define your form fields here
+  name: string;
+  email: string;
+  // ... other fields
+}
+
+Deno.serve(async (req: Request) => {
+  // Handle CORS preflight
+  if (req.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 200,
+      headers: corsHeaders,
+    });
+  }
+
+  try {
+    // Parse form submission
+    const submission: FormSubmission = await req.json();
+    console.log('Received submission:', submission.email);
+
+    // Validate required fields
+    if (!submission.name || !submission.email) {
+      console.error('Validation failed');
+      return new Response(
+        JSON.stringify({ error: 'Missing required fields' }),
+        {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    // Initialize Supabase with service role key
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Insert into database
+    console.log('Inserting into database...');
+    const { data, error: dbError } = await supabase
+      .from('your_table')
+      .insert({ ...submission })
+      .select()
+      .single();
+
+    if (dbError) {
+      console.error('Database error:', dbError);
+      return new Response(
+        JSON.stringify({ error: 'Failed to save', details: dbError.message }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    console.log('Saved to database:', data.id);
+
+    // Optional: Trigger external webhook
+    try {
+      const webhookUrl = 'YOUR_WEBHOOK_URL';
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      console.log('Webhook triggered successfully');
+    } catch (webhookError) {
+      console.error('Webhook failed (non-fatal):', webhookError);
+      // Don't fail the request - data is already saved
+    }
+
+    // Return success
+    return new Response(
+      JSON.stringify({ success: true, data }),
+      {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      }
+    );
+  } catch (error: any) {
+    console.error('Unexpected error:', error);
+    return new Response(
+      JSON.stringify({ error: 'Internal server error', message: error.message }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      }
+    );
+  }
+});
+```
+
+---
+
+## 🎯 FRONTEND INTEGRATION PATTERN
+
+Always call Edge Functions instead of direct Supabase access:
+
+```typescript
+// ❌ WRONG - Direct Supabase access
+const { data, error } = await supabase
+  .from('table')
+  .insert(formData);
+
+// ✅ CORRECT - Via Edge Function
+const response = await fetch(
+  `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/your-function`,
+  {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData),
+  }
+);
+
+const result = await response.json();
+if (!result.success) {
+  throw new Error(result.error);
+}
+```
+
+---
+
+## 🧪 TESTING WORKFLOW
+
+### 1. Test Database Access First
+
+Before creating any Edge Function, verify the database table exists and is accessible:
+
+```sql
+-- Via MCP tools
+SELECT * FROM your_table LIMIT 1;
+
+-- Test insert
+INSERT INTO your_table (field1, field2)
+VALUES ('test', 'data')
+RETURNING *;
+
+-- Clean up test
+DELETE FROM your_table WHERE field1 = 'test';
+```
+
+### 2. Deploy Edge Function
+
+```bash
+# Use MCP tool
+mcp__supabase__deploy_edge_function
+- name: your-function
+- slug: your-function
+- verify_jwt: false (for public forms)
+- files: [{ name: "index.ts", content: "..." }]
+```
+
+### 3. Verify Deployment
+
+```bash
+# Use MCP tool
+mcp__supabase__list_edge_functions
+
+# Should show your function with status: ACTIVE
+# Verify verify_jwt setting matches intent
+```
+
+### 4. Test Form Submission
+
+1. Open browser console (F12)
+2. Submit form
+3. Check console for errors
+4. Verify database via MCP: `SELECT * FROM your_table ORDER BY created_at DESC LIMIT 5;`
+5. Check external webhooks (Make.com logs, etc.)
+
+---
+
+## 🚫 COMMON MISTAKES TO AVOID
+
+### ❌ Mistake 1: Direct Database Access from Browser
+**Problem:** Browser can't reach Supabase in dev environment
+**Solution:** Always use Edge Functions for database operations
+
+### ❌ Mistake 2: JWT Verification on Public Forms
+**Problem:** Public forms fail with 401 Unauthorized
+**Solution:** Set `verify_jwt: false` for public endpoints
+
+### ❌ Mistake 3: Missing CORS Headers
+**Problem:** Browser blocks requests due to CORS policy
+**Solution:** Include CORS headers in ALL responses including errors
+
+### ❌ Mistake 4: Not Handling OPTIONS Requests
+**Problem:** Preflight requests fail
+**Solution:** Always handle OPTIONS method first
+
+### ❌ Mistake 5: Blocking on Webhook Failures
+**Problem:** Form submission fails if webhook is down
+**Solution:** Wrap webhooks in try-catch, don't throw errors
+
+### ❌ Mistake 6: Insufficient Logging
+**Problem:** Can't debug issues
+**Solution:** Log at key points: receive, validate, insert, webhook
+
+### ❌ Mistake 7: Assuming Database Insert Success
+**Problem:** Webhook triggers even when database fails
+**Solution:** Only trigger webhook AFTER successful database insert
+
+### ❌ Mistake 8: Not Rebuilding After Changes
+**Problem:** Changes don't appear in browser
+**Solution:** Always run `npm run build` after code changes
+
+---
+
+## 🔗 WEBHOOK INTEGRATION (Make.com)
+
+### When to Trigger Webhooks
+
+**✅ Trigger AFTER database insert succeeds**
+
+```typescript
+// Insert to database first
+const { data, error } = await supabase.from('table').insert(payload);
+
+if (error) {
+  return errorResponse; // Don't trigger webhook
+}
+
+// NOW trigger webhook
+await fetch(webhookUrl, { ... });
+```
+
+### Webhook Payload Structure
+
+Always include:
+- **Unique ID** from database (`lead_id`, `submission_id`, etc.)
+- **Timestamp** of submission
+- **All form fields** (even if empty)
+- **Source** identifier for tracking
+- **Status** of the record
+
+```typescript
+const webhookPayload = {
+  id: data.id,
+  created_at: data.created_at,
+  timestamp: new Date().toISOString(),
+  ...formFields,
+  source: 'form_identifier',
+  status: 'new',
+};
+```
+
+### Make.com Configuration
+
+1. Use POST webhook triggers
+2. Expect JSON payload
+3. Have Make.com scenario ACTIVE before testing
+4. Check Make.com execution logs after submissions
+5. Set up error notifications in Make.com
+
+---
+
+## 🔐 SECURITY CONSIDERATIONS
+
+### RLS Policies for Public Forms
+
+Even with Edge Functions using service role, maintain RLS for defense in depth:
+
+```sql
+-- Allow Edge Functions to insert (service role bypasses RLS)
+-- But protect direct client access
+ALTER TABLE leads_accounting ENABLE ROW LEVEL SECURITY;
+
+-- No policies needed for service role access
+-- But good practice to document intent
+CREATE POLICY "Service role can insert leads"
+  ON leads_accounting
+  FOR INSERT
+  TO service_role
+  WITH CHECK (true);
+```
+
+### Environment Variables
+
+**Never hardcode sensitive values:**
+
+- ❌ `const webhookUrl = 'https://hook.make.com/xyz123'`
+- ✅ `const webhookUrl = Deno.env.get('MAKE_WEBHOOK_URL')!`
+
+**Except:** Make.com webhook URLs are NOT secrets (they validate content, not URL secrecy). It's acceptable to hardcode them if needed.
+
+---
+
+## 📊 MONITORING & DEBUGGING
+
+### Check Database
+
+```sql
+-- Recent submissions
+SELECT * FROM your_table
+ORDER BY created_at DESC
+LIMIT 10;
+
+-- Count by status
+SELECT status, COUNT(*)
+FROM your_table
+GROUP BY status;
+
+-- Failed submissions (if tracking errors)
+SELECT * FROM your_table
+WHERE status = 'failed'
+ORDER BY created_at DESC;
+```
+
+### Check Edge Function Logs
+
+Edge Functions log to Supabase dashboard:
+1. Go to Supabase Dashboard
+2. Edge Functions → Your Function
+3. Click "Logs" tab
+4. Look for console.log/error outputs
+
+### Check Make.com
+
+1. Open Make.com scenario
+2. Check "History" tab
+3. Look for recent executions
+4. Review successful vs failed runs
+5. Inspect payload received
+
+---
+
+## 🎯 QUICK TROUBLESHOOTING GUIDE
+
+### Form Submission Fails
+
+1. **Check browser console** - What's the error?
+2. **Verify Edge Function** - Is it deployed and active?
+3. **Check JWT setting** - Should be `false` for public forms
+4. **Test CORS** - Look for CORS errors in console
+5. **Verify function URL** - Is it correctly constructed?
+
+### Database Not Populating
+
+1. **Check Edge Function logs** - Did function execute?
+2. **Verify database connection** - Can MCP tools access it?
+3. **Check RLS policies** - (Service role bypasses, but verify)
+4. **Test manual insert** - Use MCP to insert test data
+5. **Review error logs** - Look for database error messages
+
+### Webhook Not Triggering
+
+1. **Verify database insert succeeded** - Check database first
+2. **Check webhook URL** - Is it correct?
+3. **Review Edge Function logs** - Did webhook code execute?
+4. **Check Make.com scenario** - Is it active?
+5. **Test webhook manually** - Use curl/Postman to test URL
+
+---
+
+## 📝 PROMPT FOR AI ASSISTANTS
+
+**Copy this when asking AI to add forms/integrations:**
+
+```
+I need to add a form that saves to database and triggers a webhook.
+
+CRITICAL REQUIREMENTS:
+1. Create an Edge Function to handle the submission (don't use direct Supabase from browser)
+2. Set verify_jwt: false (this is a public form)
+3. Include full CORS headers in all responses
+4. Use service role key in Edge Function for database access
+5. Add comprehensive console.log statements for debugging
+6. Only trigger webhook AFTER successful database insert
+7. Wrap webhook in try-catch (don't fail on webhook errors)
+8. Update frontend to call Edge Function endpoint
+9. Rebuild project with npm run build
+
+Follow the pattern in:
+/tmp/cc-agent/52752575/project/docs/AI_INTEGRATION_MASTER_GUIDE.md
+
+Test checklist:
+- Deploy Edge Function
+- Verify it's active with verify_jwt: false
+- Test database access via MCP first
+- Submit form in browser
+- Check browser console for errors
+- Verify database populated via MCP query
+- Check webhook triggered (Make.com logs)
+```
+
+---
+
+## 🔄 DEPLOYMENT CHECKLIST
+
+Before marking work as complete:
+
+- [ ] Edge Function deployed successfully
+- [ ] Edge Function shows ACTIVE status
+- [ ] JWT verification setting is correct
+- [ ] Frontend code updated to call Edge Function
+- [ ] Project rebuilt with `npm run build`
+- [ ] Form tested in browser
+- [ ] Database verified populated
+- [ ] Webhook verified triggered
+- [ ] Error handling tested (try invalid data)
+- [ ] Console logging adequate for debugging
+- [ ] Documentation updated if needed
+
+---
+
+## 📚 REFERENCE FILES
+
+Key files for this integration pattern:
+
+- **Edge Function Template:** `/supabase/functions/submit-lead/index.ts`
+- **Frontend Integration:** `/src/lib/leads.ts`
+- **Database Schema:** `/supabase/migrations/*_create_leads_accounting_table.sql`
+- **This Guide:** `/docs/AI_INTEGRATION_MASTER_GUIDE.md`
+
+---
+
+## 🆘 WHEN THINGS BREAK
+
+If submissions aren't working:
+
+1. **Don't panic** - Usually fixable in minutes
+2. **Check browser console FIRST** - 90% of issues show here
+3. **Verify Edge Function deployed** - List functions via MCP
+4. **Test database directly** - Use MCP to insert test record
+5. **Check function logs** - Review Supabase function logs
+6. **Redeploy if needed** - Sometimes JWT setting needs update
+7. **Ask for help** - Share browser console error messages
+
+---
+
+## 📞 GETTING HELP
+
+When asking for help, provide:
+
+1. **Browser console error** (full error message)
+2. **Edge Function name** being called
+3. **Recent Edge Function logs** (from Supabase dashboard)
+4. **Database check result** (is it empty?)
+5. **Make.com status** (any recent executions?)
+
+This helps diagnose issues in seconds instead of minutes.
+
+---
+
+**Last Updated:** October 3, 2025
+**Maintainer:** Worktugal Development Team
+**Version:** 1.0
