@@ -17,15 +17,18 @@ export const AccountingHero: React.FC<AccountingHeroProps> = ({ onBookNow }) => 
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6">
-            Worktugal Accounting Desk
+          <div className="mb-4 inline-block">
+            <span className="text-blue-300 text-sm font-semibold uppercase tracking-wider">Worktugal Accounting Desk</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            Got your NIF.<br />Now what?
           </h1>
-          <p className="text-2xl sm:text-3xl text-blue-200 mb-4 font-medium">
-            We don't sell NIF. We get you tax ready.
+          <p className="text-xl sm:text-2xl text-gray-200 mb-4 max-w-3xl mx-auto leading-relaxed">
+            Freelancing in Portugal but not sure if you're doing it right?<br />
+            Got a letter from Financas you can't read?
           </p>
-          <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-            Prepaid consults. Clear outcomes. No surprises.<br />
-            Book an OCC-certified accountant for your Portugal tax needs.
+          <p className="text-lg text-blue-200 mb-12 max-w-2xl mx-auto">
+            Talk to an OCC-certified accountant. Get a written action plan within 48 hours. From €59.
           </p>
         </motion.div>
 
@@ -37,20 +40,20 @@ export const AccountingHero: React.FC<AccountingHeroProps> = ({ onBookNow }) => 
         >
           <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
             <Calendar className="w-10 h-10 text-blue-400 mx-auto mb-3" />
-            <h3 className="text-white font-semibold mb-2">Fast Booking</h3>
-            <p className="text-gray-300 text-sm">Get a slot with an OCC-certified accountant within 7 days</p>
+            <h3 className="text-white font-semibold mb-2">Answers Within 48h</h3>
+            <p className="text-gray-300 text-sm">No more waiting weeks wondering if you're compliant</p>
           </div>
 
           <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
             <FileCheck className="w-10 h-10 text-green-400 mx-auto mb-3" />
-            <h3 className="text-white font-semibold mb-2">Written Outcomes</h3>
-            <p className="text-gray-300 text-sm">Every consult includes a written note with next steps</p>
+            <h3 className="text-white font-semibold mb-2">Written Action Plan</h3>
+            <p className="text-gray-300 text-sm">Know exactly what to do next, no confusion</p>
           </div>
 
           <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
             <Shield className="w-10 h-10 text-blue-400 mx-auto mb-3" />
-            <h3 className="text-white font-semibold mb-2">Fixed Prices</h3>
-            <p className="text-gray-300 text-sm">Clear pricing upfront, no hidden fees or surprises</p>
+            <h3 className="text-white font-semibold mb-2">OCC-Certified Pros</h3>
+            <p className="text-gray-300 text-sm">Real Portuguese accountants who speak English</p>
           </div>
         </motion.div>
 

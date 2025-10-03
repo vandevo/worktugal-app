@@ -49,7 +49,7 @@ export const AccountingDeskLanding: React.FC = () => {
     <>
       <Seo
         title="Accounting Desk for Expats in Portugal | Worktugal"
-        description="Prepaid tax consults for freelancers and expats in Portugal. Book an OCC-certified accountant. Clear pricing, written outcomes, no surprises. From €59."
+        description="Got your NIF, now what? Talk to an OCC-certified accountant and get a written action plan within 48 hours. Freelance in Portugal with confidence. From €59."
         ogType="website"
         structuredData={{
           "@context": "https://schema.org",
