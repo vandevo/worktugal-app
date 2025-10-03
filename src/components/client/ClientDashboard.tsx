@@ -1,16 +1,8 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { useAuth } from '../../hooks/useAuth';
-import { Button } from '../ui/Button';
-import { Alert } from '../ui/Alert';
-import { Calendar, FileText, User, Clock, CheckCircle, Download, Star, AlertCircle, Video } from 'lucide-react';
-import { getUserConsultBookings } from '../../lib/consults';
-import { getClientAppointments, approveAppointment, rateAppointment } from '../../lib/appointments';
-import { CONSULT_SERVICES } from '../../types/accounting';
+import { FC } from 'react';
 import type { ConsultBooking } from '../../types/accounting';
 import type { Appointment } from '../../types/accountant';
 
-export const ClientDashboard: React.FC = () => {
+export const ClientDashboard: FC = () => {
   const { user } = useAuth();
   const [bookings, setBookings] = useState<ConsultBooking[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);

@@ -1,20 +1,10 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { LogOut, Settings } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth';
-import { useUserProfile } from '../hooks/useUserProfile';
-import { UserRoleBadge } from './UserRoleBadge';
-import { AuthModal } from './auth/AuthModal';
-import { ProfileModal } from './ProfileModal';
-import { Button } from './ui/Button';
-import { signOut } from '../lib/auth';
-import { Footer } from './Footer';
+import { FC } from 'react';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const Layout: FC<LayoutProps> = ({ children }) => {
   const { user } = useAuth();
   const { getDisplayName, getInitials } = useUserProfile();
   const [showAuthModal, setShowAuthModal] = useState(false);

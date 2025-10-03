@@ -1,10 +1,6 @@
-import { motion } from 'framer-motion';
-import { Shield, Mail, MapPin, Building, FileText, ArrowLeft } from 'lucide-react';
-import { Seo } from './Seo';
-import { Card } from './ui/Card';
-import { Button } from './ui/Button';
+import { FC } from 'react';
 
-export const PrivacyPolicy: React.FC = () => {
+export const PrivacyPolicy: FC = () => {
   return (
     <div className="min-h-screen bg-gray-900 py-12">
       <Seo

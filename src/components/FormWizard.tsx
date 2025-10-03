@@ -1,20 +1,11 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useFormData } from '../hooks/useFormData';
-import { BusinessForm } from './forms/BusinessForm';
-import { PerkForm } from './forms/PerkForm';
-import { PaymentForm } from './forms/PaymentForm';
-import { SuccessScreen } from './forms/SuccessScreen';
-import { ProgressBar } from './ui/ProgressBar';
-import { BusinessFormData, PerkFormData } from '../lib/validations';
-import { Alert } from './ui/Alert';
+import { FC } from 'react';
 
 interface FormWizardProps {
   onComplete: () => void;
   submissionId?: number;
 }
 
-export const FormWizard: React.FC<FormWizardProps> = ({ onComplete, submissionId }) => {
+export const FormWizard: FC<FormWizardProps> = ({ onComplete, submissionId }) => {
   const { formData, currentStep, loading, isPreviewMode, updateFormData, setCurrentStep, resetForm } = useFormData(submissionId);
   const [error, setError] = useState<string | null>(null);
 

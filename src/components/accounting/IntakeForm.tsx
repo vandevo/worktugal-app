@@ -1,10 +1,4 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Button } from '../ui/Button';
-import { Input } from '../ui/Input';
-import { Select } from '../ui/Select';
-import { Alert } from '../ui/Alert';
-import { ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
+import { FC } from 'react';
 
 interface IntakeFormData {
   residency_status: string;
@@ -39,7 +33,7 @@ const INCOME_SOURCES = [
   { value: 'other', label: 'Other' }
 ];
 
-export const IntakeForm: React.FC<IntakeFormProps> = ({ onSubmit, onBack, initialData }) => {
+export const IntakeForm: FC<IntakeFormProps> = ({ onSubmit, onBack, initialData }) => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<IntakeFormData>({
     residency_status: initialData?.residency_status || '',

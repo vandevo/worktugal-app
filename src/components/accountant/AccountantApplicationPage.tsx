@@ -1,15 +1,7 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Button } from '../ui/Button';
-import { Input } from '../ui/Input';
-import { Select } from '../ui/Select';
-import { Alert } from '../ui/Alert';
-import { DocumentUpload } from '../ui/DocumentUpload';
-import { CheckCircle, Briefcase, Award, Globe } from 'lucide-react';
-import { submitAccountantApplication } from '../../lib/accountants';
+import { FC } from 'react';
 import type { Certification } from '../../types/accountant';
 
-export const AccountantApplicationPage: React.FC = () => {
+export const AccountantApplicationPage: FC = () => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);

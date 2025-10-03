@@ -1,11 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { CheckCircle, ArrowRight, Download, Calendar } from 'lucide-react';
-import { Button } from './ui/Button';
-import { Card } from './ui/Card';
-import { useAuth } from '../hooks/useAuth';
-import { supabase } from '../lib/supabase';
+import { FC } from 'react';
 
 interface PurchaseData {
   productName: string;
@@ -14,7 +7,7 @@ interface PurchaseData {
   orderDate: string;
 }
 
-export const SuccessPage: React.FC = () => {
+export const SuccessPage: FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { user } = useAuth();

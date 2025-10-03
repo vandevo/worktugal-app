@@ -1,11 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { CheckCircle, Calendar, FileText, Mail } from 'lucide-react';
-import { getConsultBooking } from '../../lib/consults';
-import { CONSULT_SERVICES } from '../../types/accounting';
+import { FC } from 'react';
 
-export const ConsultSuccess: React.FC = () => {
+export const ConsultSuccess: FC = () => {
   const [searchParams] = useSearchParams();
   const bookingId = searchParams.get('booking');
   const [booking, setBooking] = useState<any>(null);

@@ -1,8 +1,6 @@
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Globe, Send, Linkedin, MessageCircle } from 'lucide-react';
-import { useCookieConsent } from '../contexts/CookieConsentContext';
+import { FC } from 'react';
 
-export const Footer: React.FC = () => {
+export const Footer: FC = () => {
   const { openConsentBanner } = useCookieConsent();
 
   return (

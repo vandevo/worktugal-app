@@ -1,13 +1,6 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Cookie, Settings, Check, ChevronUp } from 'lucide-react';
-import { useCookieConsent } from '../contexts/CookieConsentContext';
-import { COOKIE_CATEGORIES } from '../utils/cookieConstants';
-import { CookiePreferences } from '../types/cookie';
-import { Button } from './ui/Button';
-import { Card } from './ui/Card';
+import { FC } from 'react';
 
-export const CookieConsentBanner: React.FC = () => {
+export const CookieConsentBanner: FC = () => {
   const {
     showBanner,
     showPreferences,

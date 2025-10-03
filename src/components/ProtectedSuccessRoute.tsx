@@ -1,13 +1,10 @@
-import { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import { useSubscription } from '../hooks/useSubscription';
+import { FC } from 'react';
 
 interface ProtectedSuccessRouteProps {
   children: React.ReactNode;
 }
 
-export const ProtectedSuccessRoute: React.FC<ProtectedSuccessRouteProps> = ({ children }) => {
+export const ProtectedSuccessRoute: FC<ProtectedSuccessRouteProps> = ({ children }) => {
   const { user, loading: authLoading } = useAuth();
   const { hasActivePayment, loading: subscriptionLoading } = useSubscription();
   const navigate = useNavigate();

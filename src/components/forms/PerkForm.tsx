@@ -1,18 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { motion } from 'framer-motion';
-import { Gift, Image as ImageIcon, Plus, Trash2 } from 'lucide-react';
-import { perkSchema, PerkFormData } from '../../lib/validations';
-import { REDEMPTION_METHODS } from '../../utils/constants';
-import { useAuth } from '../../hooks/useAuth';
-import { AuthModal } from '../auth/AuthModal';
-import { Alert } from '../ui/Alert';
-import { Input } from '../ui/Input';
-import { Select } from '../ui/Select';
-import { Button } from '../ui/Button';
-import { FileUpload } from '../ui/FileUpload';
-import { Card } from '../ui/Card';
+import { FC } from 'react';
 
 interface PerkFormProps {
   onSubmit: (data: PerkFormData) => void;
@@ -20,7 +6,7 @@ interface PerkFormProps {
   initialData?: Partial<PerkFormData>;
 }
 
-export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialData }) => {
+export const PerkForm: FC<PerkFormProps> = ({ onSubmit, onBack, initialData }) => {
   const [showImageFields, setShowImageFields] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const { user } = useAuth();

@@ -1,8 +1,4 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Check, ArrowRight, Loader2 } from 'lucide-react';
-import { Button } from './ui/Button';
-import { StripeProduct, formatPrice } from '../stripe-config';
+import { FC } from 'react';
 
 interface ProductCardProps {
   product: StripeProduct;
@@ -10,7 +6,7 @@ interface ProductCardProps {
   className?: string;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({
+export const ProductCard: FC<ProductCardProps> = ({
   product,
   onPurchase,
   className = ''

@@ -1,10 +1,6 @@
-import { motion } from 'framer-motion';
-import { Calculator, FileText, Users } from 'lucide-react';
-import { ProductCard } from './ProductCard';
-import { STRIPE_PRODUCTS } from '../stripe-config';
-import { useStripeCheckout } from '../hooks/useStripeCheckout';
+import { FC } from 'react';
 
-export const AccountingServices: React.FC = () => {
+export const AccountingServices: FC = () => {
   const { createCheckoutSession, isLoading } = useStripeCheckout();
 
   const accountingProducts = STRIPE_PRODUCTS.filter(product => 

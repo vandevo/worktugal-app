@@ -1,12 +1,5 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useAuth } from '../../hooks/useAuth';
-import { createConsultBooking } from '../../lib/consults';
-import { Button } from '../ui/Button';
-import { Input } from '../ui/Input';
-import { Alert } from '../ui/Alert';
+import { FC } from 'react';
 import type { ServiceType } from '../../types/accounting';
-import { CONSULT_SERVICES } from '../../types/accounting';
 
 interface ConsultBookingFormProps {
   serviceType: ServiceType;
@@ -14,7 +7,7 @@ interface ConsultBookingFormProps {
   onBack: () => void;
 }
 
-export const ConsultBookingForm: React.FC<ConsultBookingFormProps> = ({
+export const ConsultBookingForm: FC<ConsultBookingFormProps> = ({
   serviceType,
   onSuccess,
   onBack,

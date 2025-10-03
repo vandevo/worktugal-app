@@ -1,8 +1,6 @@
-import { motion } from 'framer-motion';
-import { Briefcase, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { FC } from 'react';
 
-export const AccountantRecruitmentBanner: React.FC = () => {
+export const AccountantRecruitmentBanner: FC = () => {
   return (
     <section className="py-16 bg-gradient-to-br from-blue-900/30 to-blue-800/20 border-t border-white/[0.10]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

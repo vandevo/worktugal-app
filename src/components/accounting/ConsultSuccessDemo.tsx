@@ -1,9 +1,6 @@
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { CheckCircle, Calendar, FileText, Mail } from 'lucide-react';
-import { CONSULT_SERVICES } from '../../types/accounting';
+import { FC } from 'react';
 
-export const ConsultSuccessDemo: React.FC = () => {
+export const ConsultSuccessDemo: FC = () => {
   const mockBooking = {
     id: 123,
     email: 'demo@example.com',

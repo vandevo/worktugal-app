@@ -1,8 +1,4 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
-import { LoginForm } from './LoginForm';
-import { SignupForm } from './SignupForm';
+import { FC } from 'react';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -11,7 +7,7 @@ interface AuthModalProps {
   source?: string;
 }
 
-export const AuthModal: React.FC<AuthModalProps> = ({
+export const AuthModal: FC<AuthModalProps> = ({
   isOpen,
   onClose,
   initialMode = 'login',

@@ -1,13 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { motion } from 'framer-motion';
-import { Lock, Eye, EyeOff, CheckCircle, AlertCircle } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
-import { Input } from '../ui/Input';
-import { Button } from '../ui/Button';
-import { Alert } from '../ui/Alert';
+import { FC } from 'react';
 
 const resetPasswordSchema = z.object({
   password: z.string()
@@ -21,7 +12,7 @@ const resetPasswordSchema = z.object({
 
 type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
 
-export const ResetPasswordForm: React.FC = () => {
+export const ResetPasswordForm: FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
