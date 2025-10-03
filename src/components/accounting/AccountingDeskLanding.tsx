@@ -15,6 +15,9 @@ import type { ServiceType } from '../../types/accounting';
 
 type ViewMode = 'landing' | 'booking';
 
+// Early Birds Phase Flag - Set to false when ready to launch full booking
+const EARLY_BIRDS_MODE = true;
+
 export const AccountingDeskLanding: React.FC = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('landing');
   const [selectedService, setSelectedService] = useState<ServiceType | null>(null);
@@ -63,9 +66,35 @@ export const AccountingDeskLanding: React.FC = () => {
         {viewMode === 'landing' ? (
           <div key="landing">
             <AccountingHero onBookNow={handleBookNow} />
-            <div id="pricing">
-              <ConsultPricingSection onSelectService={handleSelectService} />
-            </div>
+
+            {/* Early Birds Banner */}
+            {EARLY_BIRDS_MODE && (
+              <div className="bg-gradient-to-r from-blue-600 to-blue-700 py-12">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                  <h3 className="text-2xl font-bold text-white mb-3">
+                    Launching Soon - Join Early Access
+                  </h3>
+                  <p className="text-lg text-blue-100 mb-6 max-w-3xl mx-auto">
+                    We're building something special. Be first in line when booking opens.
+                    Get priority access and exclusive launch updates.
+                  </p>
+                  <button
+                    onClick={handleBookNow}
+                    className="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-50 transition-all transform hover:scale-105 shadow-xl"
+                  >
+                    Join the Waitlist
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Hide pricing during Early Birds phase */}
+            {!EARLY_BIRDS_MODE && (
+              <div id="pricing">
+                <ConsultPricingSection onSelectService={handleSelectService} />
+              </div>
+            )}
+
             <WhatToExpect />
             <HowItWorks />
             <MeetAccountants />
