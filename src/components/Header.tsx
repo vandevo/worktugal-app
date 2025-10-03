@@ -30,19 +30,26 @@ export function Header() {
       <header className="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-xl shadow-lg shadow-slate-950/50 border-b border-slate-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-3">
-              <button
-                onClick={handleLogoClick}
-                className="hover:opacity-90 transition-all duration-300"
-              >
+            <button
+              onClick={handleLogoClick}
+              className="flex items-center gap-3 hover:opacity-90 transition-all duration-300"
+            >
+              <img
+                src="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
+                alt="Worktugal Logo"
+                className="w-9 h-9 sm:w-10 sm:h-10 object-contain drop-shadow-lg"
+                width="40"
+                height="40"
+              />
+              <div className="flex items-center gap-3">
                 <span className="text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
                   Worktugal Pass
                 </span>
-              </button>
-              <span className="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm tracking-wide">
-                Early Access
-              </span>
-            </div>
+                <span className="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm tracking-wide">
+                  Early Access
+                </span>
+              </div>
+            </button>
 
             <nav className="hidden md:flex items-center gap-6">
               <button
