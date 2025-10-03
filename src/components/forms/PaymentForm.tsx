@@ -5,7 +5,7 @@ import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { Alert } from '../ui/Alert';
 import { LISTING_PRICE } from '../../utils/constants';
-import { STRIPE_PRODUCTS } from '../../stripe-config';
+import { STRIPE_CONFIG } from '../../stripe-config';
 import { createCheckoutSession } from '../../lib/stripe';
 import { createPartnerSubmission } from '../../lib/submissions';
 import { useAuth } from '../../hooks/useAuth';
@@ -52,8 +52,8 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onBack, form
 
     try {
       let submissionId = formData.submissionId;
-      
-      const product = STRIPE_PRODUCTS[0]; // Get the first (and only) product
+
+      const product = STRIPE_CONFIG.products[0]; // Get the first (and only) product
       
       // Determine access_type based on product mode
       const accessType: 'lifetime' | 'subscription' = product.mode === 'payment' ? 'lifetime' : 'subscription';

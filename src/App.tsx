@@ -6,7 +6,6 @@ import { ServicesPage } from './components/ServicesPage';
 import { CheckoutSuccess } from './components/CheckoutSuccess';
 import { Dashboard } from './components/Dashboard';
 import { SuccessPage } from './components/SuccessPage';
-import { ServicesPage } from './components/ServicesPage';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsAndConditions } from './components/TermsAndConditions';
 import { ProtectedRoute } from './components/ProtectedRoute';
