@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
           <div className="space-y-4">
             <a href="/" className="flex items-center space-x-2 hover:opacity-90 transition-opacity">
               <img
-                src="/worktugal-logo-new.png"
+                src="/worktugal-logo-bg-light-radius-1000-1000.png"
                 alt="Worktugal Logo"
                 className="w-9 h-9 object-contain drop-shadow-lg"
                 width="36"
