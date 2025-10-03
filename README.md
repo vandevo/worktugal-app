@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-09-30
+**Last Updated:** 2025-10-03
 
 ---
 
@@ -1940,6 +1940,12 @@ https://worktugal.com?debug=true
 ---
 
 ## Recent Updates
+
+**2025-10-03:**
+- Updated logo implementation across all navigation components (Header, Layout, Footer)
+- Replaced local logo assets with Supabase Storage CDN URL for centralized management
+- Logo now displays consistently before "Worktugal Pass" wordmark throughout the application
+- Mobile-friendly logo sizing implemented (32px footer, 36-40px headers)
 
 **2025-09-30:**
 - Initial README documentation created
