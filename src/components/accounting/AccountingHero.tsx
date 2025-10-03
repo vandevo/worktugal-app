@@ -54,18 +54,6 @@ export const AccountingHero: React.FC<AccountingHeroProps> = ({ onBookNow }) => 
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <button
-            onClick={onBookNow}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 shadow-xl"
-          >
-            Join the Waitlist
-          </button>
-        </motion.div>
       </div>
     </section>
   );
