@@ -338,31 +338,34 @@ export const PerksDirectory: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-3">
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={() => setShowPortugueseOnly(!showPortugueseOnly)}
-                aria-label="Toggle show only Portuguese-owned businesses"
-                className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-gray-900 shadow-lg backdrop-blur-xl border ${
-                  showPortugueseOnly 
-                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 border-blue-400/20' 
-                    : 'bg-white/[0.04] border-white/[0.08]'
-                }`}
-              >
-                <span
-                  className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition-all duration-300 ${
-                    showPortugueseOnly ? 'translate-x-6' : 'translate-x-1'
-                  }`}
-                />
-              </button>
-              <div>
-                <label className="text-sm text-gray-300 font-medium">
+            <button
+              onClick={() => setShowPortugueseOnly(!showPortugueseOnly)}
+              className={`group flex items-start gap-3 p-4 rounded-xl border transition-all duration-300 hover:scale-[1.02] ${
+                showPortugueseOnly
+                  ? 'bg-blue-500/10 border-blue-500/30 shadow-lg shadow-blue-500/10'
+                  : 'bg-white/[0.02] border-white/[0.08] hover:bg-white/[0.04]'
+              }`}
+            >
+              <div className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-300 ${
+                showPortugueseOnly
+                  ? 'bg-blue-500 border-blue-500'
+                  : 'bg-transparent border-slate-600 group-hover:border-slate-500'
+              }`}>
+                {showPortugueseOnly && (
+                  <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+              </div>
+              <div className="flex-1 text-left">
+                <label className="text-sm text-gray-300 font-medium cursor-pointer block">
                   Show only local Portuguese businesses
                 </label>
                 <p className="text-xs text-gray-500 mt-0.5">
                   Support authentic local businesses with deep community roots
                 </p>
               </div>
-            </div>
+            </button>
           </div>
         </div>
 
