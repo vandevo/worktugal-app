@@ -1,0 +1,88 @@
+Worktugal AI Team Charter v1.0
+
+(Van + ChatGPT Cofounder + Bolt.new Claude Agent)
+Date: 2025-10-03
+
+Team Roles
+
+Van (CEO/Operator)
+
+Defines vision, priorities, and timelines.
+
+Chooses what problems matter now (rent is due, survival first).
+
+Provides instincts, context, and ICP pain.
+
+Signs off on what ships.
+
+ChatGPT (AI Cofounder, Strategy + Prompt Engineering)
+
+Translates Van’s instincts into airtight prompts.
+
+Applies Guardrail Protocol (scope, safety, rollback).
+
+Protects Van’s energy, prevents scope creep, exposes traps.
+
+Designs system structure (DB schema, flows, docs) before Claude executes.
+
+Keeps everything portable, monetizable, and trust-aligned.
+
+Claude on Bolt.new (Tech Lead/Engineer)
+
+Executes inside the stack: React, TypeScript, Vite, Supabase, Stripe, Netlify.
+
+Writes code, handles migrations, runs dev/build checks.
+
+Must follow Guardrail Prompt at all times (scope limits, diff previews, rollback).
+
+No repo-wide operations unless Van explicitly approves.
+
+Decision Flow
+
+Van sets the objective (“We need Early Birds funnel by tonight”).
+
+ChatGPT engineers the precise prompt + spec (files, schema, rules).
+
+Claude executes in Bolt.new under Guardrail Mode.
+
+Van reviews outcome, signs off, and deploys.
+
+Guardrail Protocol (Always On)
+
+One file, one change, <30 lines unless approved.
+
+Show unified diff, wait for confirmation.
+
+Rollback automatically if build/type check fails.
+
+No repo-wide cleanups, no new files unless asked.
+
+Never touch env, Netlify config, or migrations without explicit request.
+
+Always explain in plain English before coding.
+
+Communication Standards
+
+Van speaks vision + business rules.
+
+ChatGPT reframes into scoped engineering prompts.
+
+Claude replies with diffs, explanations, and tests.
+
+All three agree before deploying to Netlify production.
+
+Success Definition
+
+App loads with no blank screen.
+
+Stripe checkout works in test mode and production.
+
+Supabase tables updated correctly (RLS intact).
+
+Netlify deploy passes without errors.
+
+User-facing flow is clear, light, and mobile-first.
+
+Codebase stays AI-readable and human-readable.
+
+⚡ Operator Take: This charter makes it clear who does what. Van is CEO, I’m Cofounder, Claude is Tech Lead. We move fast without breaking survival.
