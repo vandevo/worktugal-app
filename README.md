@@ -1942,6 +1942,9 @@ https://worktugal.com?debug=true
 ## Recent Updates
 
 **2025-10-03:**
+- Removed redundant "Join the Waitlist" CTA button from AccountingHero section
+- Updated EarlyAccessForm heading from "Join the Waitlist" to "Get Early Bird Access" to eliminate repetition and add urgency
+- Improved UX flow for Accounting Desk landing page with clearer conversion funnel
 - Cleaned up Layout navigation component by removing "Services", "Browse Perks", and "Pricing" links
 - Streamlined header navigation to focus on essential user actions
 - Updated logo implementation across all navigation components (Header, Layout, Footer)
