@@ -1,89 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Hero } from './Hero';
-import { PerksDirectory } from './PerksDirectory';
-import { FormWizard } from './FormWizard';
-import { PartnerPricingHero } from './PartnerPricingHero';
 import { supabase } from '../lib/supabase';
+import { useNavigate } from 'react-router-dom';
 
-export const HomePage: React.FC = () => {
-  const [showForm, setShowForm] = useState(false);
+export function HomePage() {
+  const navigate = useNavigate();
   const [spotsLeft, setSpotsLeft] = useState<number | null>(null);
   const [spotsLoading, setSpotsLoading] = useState(true);
   const [activePerksCount, setActivePerksCount] = useState<number | null>(null);
   const [activePerksLoading, setActivePerksLoading] = useState(true);
 
   useEffect(() => {
-    const fetchSpotsLeft = async () => {
+    async function fetchStats() {
       try {
-        setSpotsLoading(true);
-        const { count, error } = await supabase
+        const { count: submissionsCount } = await supabase
           .from('partner_submissions')
-          .select('*', { count: 'exact', head: true })
-          .eq('status', 'approved');
+          .select('*', { count: 'exact', head: true });
 
-        if (error) throw error;
-
-        const total = 25;
-        const remaining = Math.max(0, total - (count || 0));
-        setSpotsLeft(remaining);
-      } catch (err) {
-        console.error('Error fetching spots:', err);
-        setSpotsLeft(null);
-      } finally {
+        const totalSpots = 100;
+        setSpotsLeft(totalSpots - (submissionsCount || 0));
         setSpotsLoading(false);
-      }
-    };
 
-    const fetchActivePerks = async () => {
-      try {
-        setActivePerksLoading(true);
-        const { count, error } = await supabase
-          .from('partner_submissions')
-          .select('*', { count: 'exact', head: true })
-          .eq('status', 'approved');
-
-        if (error) throw error;
-        setActivePerksCount(count || 0);
-      } catch (err) {
-        console.error('Error fetching active perks:', err);
-        setActivePerksCount(null);
-      } finally {
+        setActivePerksCount(submissionsCount || 0);
+        setActivePerksLoading(false);
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+        setSpotsLoading(false);
         setActivePerksLoading(false);
       }
-    };
+    }
 
-    fetchSpotsLeft();
-    fetchActivePerks();
+    fetchStats();
   }, []);
 
   const handleGetStarted = () => {
-    setShowForm(true);
-  };
-
-  const handleFormComplete = () => {
-    setShowForm(false);
-    document.getElementById('directory')?.scrollIntoView({ behavior: 'smooth' });
+    navigate('/services');
   };
 
   return (
-    <>
-      {!showForm ? (
-        <>
-          <Hero
-            onGetStarted={handleGetStarted}
-            spotsLeft={spotsLeft}
-            spotsLoading={spotsLoading}
-            activePerksCount={activePerksCount}
-            activePerksLoading={activePerksLoading}
-          />
-          <PerksDirectory />
-          <PartnerPricingHero onGetStarted={handleGetStarted} />
-        </>
-      ) : (
-        <div className="py-20">
-          <FormWizard onComplete={handleFormComplete} />
-        </div>
-      )}
-    </>
+    <div>
+      <Hero
+        onGetStarted={handleGetStarted}
+        spotsLeft={spotsLeft}
+        spotsLoading={spotsLoading}
+        activePerksCount={activePerksCount}
+        activePerksLoading={activePerksLoading}
+      />
+    </div>
   );
-};
+}
