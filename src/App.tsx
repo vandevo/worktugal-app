@@ -30,7 +30,6 @@ function App() {
   };
 
   return (
-              <Route path="/services" element={<ServicesPage />} />
     <Router>
       <Seo />
       <Layout>
@@ -73,7 +72,11 @@ function App() {
             }
           />
           <Route
-                element={<SuccessPage />}
+            path="/admin/accountant-applications"
+            element={
+              <ProtectedRoute>
+                <AccountantApplicationReview />
+              </ProtectedRoute>
             }
           />
         </Routes>
