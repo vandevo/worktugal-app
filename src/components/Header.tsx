@@ -39,6 +39,11 @@ export function Header() {
                   src="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
                   alt="Worktugal Logo"
                   className="h-10 w-10 object-contain drop-shadow-lg"
+                  crossOrigin="anonymous"
+                  onError={(e) => {
+                    console.error('Logo failed to load:', e);
+                    e.currentTarget.style.display = 'none';
+                  }}
                 />
                 <span className="text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
                   Worktugal Pass
