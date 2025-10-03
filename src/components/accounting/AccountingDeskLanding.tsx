@@ -8,6 +8,7 @@ import { HowItWorks } from './HowItWorks';
 import { MeetAccountants } from './MeetAccountants';
 import { ConsultFAQ } from './ConsultFAQ';
 import { AccountantRecruitmentBanner } from './AccountantRecruitmentBanner';
+import { AccountingWaitlistModal } from './AccountingWaitlistModal';
 import { ConsultBookingForm } from './ConsultBookingForm';
 import { useNavigate } from 'react-router-dom';
 import type { ServiceType } from '../../types/accounting';
@@ -17,6 +18,7 @@ type ViewMode = 'landing' | 'booking';
 export const AccountingDeskLanding: React.FC = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('landing');
   const [selectedService, setSelectedService] = useState<ServiceType | null>(null);
+  const [isWaitlistModalOpen, setIsWaitlistModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleSelectService = (serviceType: ServiceType) => {
@@ -34,10 +36,7 @@ export const AccountingDeskLanding: React.FC = () => {
   };
 
   const handleBookNow = () => {
-    const pricingSection = document.getElementById('pricing');
-    if (pricingSection) {
-      pricingSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    setIsWaitlistModalOpen(true);
   };
 
   return (
@@ -87,6 +86,11 @@ export const AccountingDeskLanding: React.FC = () => {
           </div>
         )}
       </AnimatePresence>
+
+      <AccountingWaitlistModal
+        isOpen={isWaitlistModalOpen}
+        onClose={() => setIsWaitlistModalOpen(false)}
+      />
     </>
   );
 };

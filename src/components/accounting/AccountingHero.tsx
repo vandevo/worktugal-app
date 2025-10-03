@@ -25,7 +25,7 @@ export const AccountingHero: React.FC<AccountingHeroProps> = ({ onBookNow }) => 
           </p>
           <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
             Prepaid consults. Clear outcomes. No surprises.<br />
-            Book a real accountant this week.
+            Join the waitlist and get priority booking access.
           </p>
         </motion.div>
 
@@ -63,7 +63,7 @@ export const AccountingHero: React.FC<AccountingHeroProps> = ({ onBookNow }) => 
             onClick={onBookNow}
             className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 shadow-xl"
           >
-            Book a Consult
+            Join Early Access
           </button>
         </motion.div>
       </div>
