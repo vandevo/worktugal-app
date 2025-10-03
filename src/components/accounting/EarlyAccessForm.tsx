@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { CheckCircle, Loader } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
-import { Select } from '../ui/Select';
 import { Alert } from '../ui/Alert';
 import { insertLead } from '../../lib/leads';
 
@@ -146,16 +145,17 @@ export const EarlyAccessForm: React.FC = () => {
                 <label className="block text-sm font-semibold text-gray-300 mb-2">
                   How urgent is this?
                 </label>
-                <Select
+                <select
                   value={formData.urgency}
                   onChange={(e) => handleInputChange('urgency', e.target.value)}
                   disabled={isSubmitting}
+                  className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150"
                 >
                   <option value="">Select urgency</option>
                   <option value="This week">This week</option>
                   <option value="This month">This month</option>
                   <option value="Just exploring">Just exploring</option>
-                </Select>
+                </select>
               </div>
             </div>
 
