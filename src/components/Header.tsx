@@ -4,6 +4,7 @@ import { Button } from './ui/Button';
 import { AuthModal } from './auth/AuthModal';
 import { ProfileModal } from './ProfileModal';
 import { useAuth } from '../hooks/useAuth';
+import { UserSubscriptionStatus } from './UserSubscriptionStatus';
 import { useNavigate } from 'react-router-dom';
 
 export function Header() {
@@ -62,6 +63,7 @@ export function Header() {
 
               {user ? (
                 <div className="flex items-center gap-4">
+                  {user && <UserSubscriptionStatus />}
                   <button
                     onClick={handleDashboardClick}
                     className="text-slate-400 hover:text-white transition-colors duration-200 font-medium text-sm"
