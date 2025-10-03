@@ -36,7 +36,7 @@ export function Header() {
                 className="flex items-center gap-3 hover:opacity-90 transition-all duration-300"
               >
                 <img
-                  src="/worktugal-logo.png"
+                  src="/worktugal-logo-bg-light-radius-1000-1000.png"
                   alt="Worktugal Logo"
                   className="h-10 w-10 object-contain drop-shadow-lg"
                 />
