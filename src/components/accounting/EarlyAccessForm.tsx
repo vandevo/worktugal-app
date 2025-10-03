@@ -48,7 +48,7 @@ export const EarlyAccessForm: React.FC = () => {
         main_need: formData.main_need || null,
         urgency: formData.urgency || null,
         source: 'accounting_early_access',
-        consent_marketing: formData.consent,
+        consent: formData.consent,
       });
 
       setIsSubmitted(true);
@@ -66,13 +66,13 @@ export const EarlyAccessForm: React.FC = () => {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-12">
             <CheckCircle className="w-20 h-20 text-green-400 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold text-white mb-4">You're on the list!</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">You're on the Early Birds list!</h2>
             <div className="max-w-lg mx-auto space-y-4">
               <p className="text-lg text-gray-300">
-                We'll send you booking links as soon as slots open.
+                We'll email you within 48 hours with priority booking access. Keep an eye on your inbox - spots are limited.
               </p>
               <p className="text-gray-400">
-                If your case is urgent, reply to the confirmation email with your main question and NIF status.
+                Urgent case? Reply to the confirmation email with your main question.
               </p>
             </div>
           </div>

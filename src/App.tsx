@@ -12,6 +12,7 @@ import { ProtectedSuccessRoute } from './components/ProtectedSuccessRoute';
 import { Seo } from './components/Seo';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { AccountingDeskLanding } from './components/accounting/AccountingDeskLanding';
+import { AccountingEarlyAccessLanding } from './components/accounting/AccountingEarlyAccessLanding';
 import { ConsultSuccess } from './components/accounting/ConsultSuccess';
 import { ConsultSuccessDemo } from './components/accounting/ConsultSuccessDemo';
 import { ConsultCheckout } from './components/accounting/ConsultCheckout';
@@ -53,6 +54,7 @@ function App() {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/accounting" element={<AccountingDeskLanding />} />
+          <Route path="/accounting-early" element={<AccountingEarlyAccessLanding />} />
           <Route path="/accounting/checkout" element={<ConsultCheckout />} />
           <Route path="/accounting/consult-success" element={<ConsultSuccess />} />
           <Route path="/accounting/success-demo" element={<ConsultSuccessDemo />} />
