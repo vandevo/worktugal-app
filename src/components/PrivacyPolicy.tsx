@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Mail, MapPin, Building, FileText, ArrowLeft } from 'lucide-react';
 import { Seo } from './Seo';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Hero } from './Hero';
 import { PerksDirectory } from './PerksDirectory';
 import { FormWizard } from './FormWizard';

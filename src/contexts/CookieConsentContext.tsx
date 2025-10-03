@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { ConsentState, CookieCategory, CookiePreferences } from '../types/cookie';
 import { DEFAULT_PREFERENCES, CONSENT_STORAGE_KEY } from '../utils/cookieConstants';
 

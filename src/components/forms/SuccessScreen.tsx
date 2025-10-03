@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, Calendar, Eye, ArrowRight } from 'lucide-react';
 import { Button } from '../ui/Button';

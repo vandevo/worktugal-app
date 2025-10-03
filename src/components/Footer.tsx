@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Globe, Send, Linkedin, MessageCircle } from 'lucide-react';
 import { useCookieConsent } from '../contexts/CookieConsentContext';

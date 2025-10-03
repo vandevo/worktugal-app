@@ -1,4 +1,3 @@
-import React from 'react';
 import { Shield, Briefcase, User, Calculator } from 'lucide-react';
 
 interface UserRoleBadgeProps {

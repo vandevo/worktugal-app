@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, X, FileText, Loader2, Eye } from 'lucide-react';
 import { cn } from '../../utils/cn';

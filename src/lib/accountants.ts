@@ -135,17 +135,23 @@ export const updateAccountantStats = async (accountantId: string) => {
   }
 };
 
-const STANDARD_ACCOUNTANT_PASSWORD = 'Worktugal2025!';
-
+/**
+ * Approves an accountant application and creates their account
+ * Creates: Auth user, user profile, and accountant profile
+ * Uses standard password from environment variable for initial login
+ */
 export const approveApplicationAndCreateAccount = async (
   application: AccountantApplication,
   adminId: string
 ) => {
   try {
+    // Get standard password from environment variable
+    const standardPassword = import.meta.env.VITE_ACCOUNTANT_DEFAULT_PASSWORD || 'ChangeMe123!';
+
     // 1. Create auth user with standard password
     const { data: authData, error: authError } = await supabase.auth.admin.createUser({
       email: application.email,
-      password: STANDARD_ACCOUNTANT_PASSWORD,
+      password: standardPassword,
       email_confirm: true,
       user_metadata: {
         full_name: application.full_name,
@@ -204,7 +210,7 @@ export const approveApplicationAndCreateAccount = async (
       success: true,
       userId,
       email: application.email,
-      password: STANDARD_ACCOUNTANT_PASSWORD,
+      password: standardPassword,
       error: null,
     };
   } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Cookie, Settings, Check, ChevronUp } from 'lucide-react';
 import { useCookieConsent } from '../contexts/CookieConsentContext';

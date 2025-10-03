@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from './useAuth';
+import { UserPurchase } from '../types';
 
-interface UserPurchase {
-  id: number;
-  productName: string;
-  amount: number;
-  currency: string;
-  status: string;
-  purchaseDate: string;
-}
+/**
+ * Hook to fetch user's purchase history with detailed error handling
+ * Includes refetch capability for updating after new purchases
+ * Used in PurchaseHistory component
+ */
 
 export const useUserPurchases = () => {
   const { user } = useAuth();
@@ -49,7 +47,7 @@ export const useUserPurchases = () => {
 
         // Transform the data
         const purchaseData: UserPurchase[] = orders?.map(order => ({
-          id: order.id,
+          id: order.id.toString(),
           productName: 'Purchase', // Will be enhanced with actual product names
           amount: order.amount_total / 100, // Convert cents to euros
           currency: order.currency,

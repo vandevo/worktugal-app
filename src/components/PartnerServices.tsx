@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Store, Star, Timer } from 'lucide-react';
 import { ProductCard } from './ProductCard';

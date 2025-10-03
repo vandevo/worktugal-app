@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingBag, Calendar, CreditCard } from 'lucide-react';
 import { Card } from './ui/Card';

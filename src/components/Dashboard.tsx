@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { SubscriptionStatus } from './SubscriptionStatus';
 import { Button } from './ui/Button';

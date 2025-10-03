@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Calculator, FileText, Users } from 'lucide-react';
 import { ProductCard } from './ProductCard';
