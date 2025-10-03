@@ -30,8 +30,11 @@ Deno.serve(async (req: Request) => {
     // Parse the form submission
     const submission: LeadSubmission = await req.json();
 
+    console.log('Received lead submission:', submission.email);
+
     // Validate required fields
     if (!submission.name || !submission.email || !submission.consent) {
+      console.error('Validation failed:', { name: submission.name, email: submission.email, consent: submission.consent });
       return new Response(
         JSON.stringify({
           error: 'Missing required fields: name, email, and consent are required',
@@ -46,9 +49,12 @@ Deno.serve(async (req: Request) => {
     // Initialize Supabase client with service role key
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    
+    console.log('Initializing Supabase client...');
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     // Insert lead into database
+    console.log('Inserting lead into database...');
     const { data: lead, error: dbError } = await supabase
       .from('leads_accounting')
       .insert({
@@ -84,6 +90,7 @@ Deno.serve(async (req: Request) => {
     const makeWebhookUrl = 'https://hook.eu2.make.com/lgaoguuofatr0ox3fvrjwyg7cr0mu5qn';
 
     try {
+      console.log('Sending to Make.com webhook...');
       const makeResponse = await fetch(makeWebhookUrl, {
         method: 'POST',
         headers: {
@@ -106,13 +113,11 @@ Deno.serve(async (req: Request) => {
 
       if (!makeResponse.ok) {
         console.error('Make.com webhook failed:', makeResponse.status);
-        // Don't fail the request - lead is already saved
       } else {
         console.log('Successfully sent to Make.com');
       }
     } catch (webhookError) {
       console.error('Failed to call Make.com webhook:', webhookError);
-      // Don't fail the request - lead is already saved
     }
 
     // Return success
