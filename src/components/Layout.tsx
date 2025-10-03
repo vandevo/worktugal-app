@@ -53,9 +53,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </span>
               </div>
             </a>
-            <a href="/services" className="text-gray-700 hover:text-blue-600 transition-colors">
-              Services
-            </a>
 
             {/* Navigation Links & Auth */}
             <div className="flex items-center space-x-6">
