@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { HomePage } from './components/HomePage';
 import { CheckoutSuccess } from './components/CheckoutSuccess';
@@ -13,6 +13,8 @@ import { Seo } from './components/Seo';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { AccountingDeskLanding } from './components/accounting/AccountingDeskLanding';
 import { AccountingEarlyAccessLanding } from './components/accounting/AccountingEarlyAccessLanding';
+import { PartnersPage } from './components/PartnersPage';
+import { FormWizard } from './components/FormWizard';
 import { ConsultSuccess } from './components/accounting/ConsultSuccess';
 import { ConsultSuccessDemo } from './components/accounting/ConsultSuccessDemo';
 import { ConsultCheckout } from './components/accounting/ConsultCheckout';
@@ -53,8 +55,14 @@ function App() {
           />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsAndConditions />} />
-          <Route path="/accounting" element={<AccountingDeskLanding />} />
-          <Route path="/accounting-early" element={<AccountingEarlyAccessLanding />} />
+          {/* Redirects for old routes */}
+          <Route path="/accounting-early" element={<Navigate to="/" replace />} />
+          <Route path="/accounting" element={<Navigate to="/" replace />} />
+          <Route path="/perks" element={<Navigate to="/partners" replace />} />
+
+          {/* Partner Hub routes */}
+          <Route path="/partners" element={<PartnersPage />} />
+          <Route path="/partners/join" element={<FormWizard onComplete={() => window.location.href = '/partners'} />} />
           <Route path="/accounting/checkout" element={<ConsultCheckout />} />
           <Route path="/accounting/consult-success" element={<ConsultSuccess />} />
           <Route path="/accounting/success-demo" element={<ConsultSuccessDemo />} />

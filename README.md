@@ -1941,6 +1941,22 @@ https://worktugal.com?debug=true
 
 ## Recent Updates
 
+**2025-10-04: v2.0 - Accounting Desk + Partner Hub Pivot**
+- **Major Strategic Repositioning:** Transitioned from perk marketplace to Accounting Desk primary product
+- Homepage now features Accounting Desk early access as primary hero section
+- Partner directory repositioned as secondary "Partner Hub" supporting ecosystem
+- Implemented SEO-safe redirects: /accounting-early → /, /perks → /partners, /accounting → /
+- Created dedicated /partners route with full partner directory
+- Created /partners/join route for partner onboarding (3-step form with €49 lifetime payment)
+- Featured partners section added to homepage (6-8 partners displayed below accounting content)
+- Updated all messaging: "Accounting and trusted partners for remote professionals"
+- Partner Hub CTA section added to homepage encouraging business listings
+- Preserved all existing partner submission flow and Stripe payment integration
+- Footer tagline updated to reflect new positioning
+- Visual hierarchy adjusted: Accounting Desk prominent, partners as supporting content
+- All backend infrastructure maintained (no breaking changes to database, authentication, or payments)
+- Build successfully compiles with no errors
+
 **2025-10-03:**
 - Removed redundant "Join the Waitlist" CTA button from AccountingHero section
 - Updated EarlyAccessForm heading from "Join the Waitlist" to "Get Early Bird Access" to eliminate repetition and add urgency

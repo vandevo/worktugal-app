@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
               <span className="text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">Worktugal Pass</span>
             </a>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Exclusive perks and benefits for remote professionals in Lisbon.
+              Accounting and trusted partners for remote professionals in Lisbon.
             </p>
           </div>
 
