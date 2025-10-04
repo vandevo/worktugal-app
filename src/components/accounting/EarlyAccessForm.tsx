@@ -90,30 +90,18 @@ export const EarlyAccessForm: React.FC = () => {
               <div>
                 <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                   <Calendar className="w-5 h-5 text-blue-400" />
-                  Check your email in the next 10 minutes for:
+                  Check your email in the next 10 minutes
                 </h3>
 
-                <div className="bg-gray-900/50 rounded-xl p-5 space-y-3">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-white font-medium">Quick checklist: 5 things every freelancer must do</p>
-                      <p className="text-sm text-gray-400">Essential compliance steps for Portugal</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-white font-medium">What happens next and when</p>
-                      <p className="text-sm text-gray-400">Timeline and booking process explained</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-white font-medium">Priority booking link (when slots open)</p>
-                      <p className="text-sm text-gray-400">You'll get notified before public launch</p>
-                    </div>
+                <div className="bg-gray-900/50 rounded-xl p-5 space-y-4">
+                  <p className="text-gray-300">
+                    You'll receive a confirmation email with simple next steps while you wait for booking slots to open.
+                  </p>
+
+                  <div className="space-y-2 text-sm text-gray-400">
+                    <p>✓ Confirmation that you're on the priority list</p>
+                    <p>✓ What to prepare before your consultation</p>
+                    <p>✓ How you'll be notified when slots open</p>
                   </div>
                 </div>
               </div>
@@ -122,10 +110,10 @@ export const EarlyAccessForm: React.FC = () => {
               <div className="bg-blue-600/10 border border-blue-600/20 rounded-xl p-5">
                 <div className="flex items-center gap-3 mb-3">
                   <Users className="w-5 h-5 text-blue-400" />
-                  <h4 className="text-white font-semibold">Join 87 remote professionals</h4>
+                  <h4 className="text-white font-semibold">You're on the priority list</h4>
                 </div>
                 <p className="text-sm text-gray-300">
-                  You're part of the early access group getting first priority when booking opens. Average wait time: 3-5 days.
+                  We open booking slots in small batches. Early access members get notified first, before public launch.
                 </p>
               </div>
 
