@@ -57,7 +57,7 @@ export const PrivacyPolicy: React.FC = () => {
             We're transparent about how we collect, use, and protect your personal data
           </p>
           <p className="text-sm text-gray-400 mt-4">
-            <strong>Effective Date:</strong> August 9, 2025
+            <strong>Effective Date:</strong> October 4, 2025
           </p>
         </motion.div>
 
@@ -115,6 +115,8 @@ export const PrivacyPolicy: React.FC = () => {
               </p>
               <ul className="space-y-2 text-gray-300">
                 <li><strong>Partner listings:</strong> name, email, WhatsApp, business info</li>
+                <li><strong>Accounting consultations:</strong> name, email, phone, case details, documents you upload</li>
+                <li><strong>Appointment bookings:</strong> name, email, timezone, meeting preferences (via Cal.com)</li>
                 <li><strong>Payments:</strong> Stripe processes payment data (we don't store card info)</li>
                 <li><strong>Website visits:</strong> anonymized cookie and usage data (with consent)</li>
                 <li><strong>Contact:</strong> any info you voluntarily provide via forms or messages</li>
@@ -133,10 +135,12 @@ export const PrivacyPolicy: React.FC = () => {
                 We collect and process your data to:
               </p>
               <ul className="space-y-2 text-gray-300">
-                <li>Create and manage your Worktugal Pass listing</li>
+                <li>Create and manage your Partner Hub listing</li>
+                <li>Connect you with OCC-certified accountants for tax consultations</li>
+                <li>Schedule and manage accounting appointments</li>
                 <li>Process payments and send confirmations</li>
                 <li>Improve the website experience</li>
-                <li>Send relevant updates or event invites</li>
+                <li>Send relevant updates about services you've purchased</li>
                 <li>Fulfill legal, accounting, or tax requirements</li>
               </ul>
               <p className="text-blue-300 font-medium mt-4">
@@ -153,10 +157,12 @@ export const PrivacyPolicy: React.FC = () => {
                 Your data is stored securely using:
               </p>
               <ul className="space-y-2 text-gray-300">
-                <li><strong>Supabase</strong> (accounts, partner submissions)</li>
-                <li><strong>Stripe</strong> (payments)</li>
-                <li><strong>Netlify</strong> (hosting)</li>
-                <li><strong>Make.com</strong> (automated emails)</li>
+                <li><strong>Supabase</strong> (accounts, partner submissions, consultation data)</li>
+                <li><strong>Stripe</strong> (payment processing)</li>
+                <li><strong>Cal.com</strong> (appointment scheduling for accountants)</li>
+                <li><strong>Airtable</strong> (lead management and consultation tracking)</li>
+                <li><strong>Netlify</strong> (website hosting)</li>
+                <li><strong>Make.com</strong> (automated notifications and workflows)</li>
               </ul>
               <p className="text-green-300 font-medium mt-4">
                 We apply strict access controls and appropriate technical safeguards to protect your information.
@@ -175,11 +181,17 @@ export const PrivacyPolicy: React.FC = () => {
                 We share data only with GDPR-compliant service providers who help us operate Worktugal Pass:
               </p>
               <ul className="space-y-2 text-gray-300">
-                <li>Stripe (payments)</li>
-                <li>Supabase (database and auth)</li>
-                <li>Make.com (automation)</li>
-                <li>Netlify (hosting)</li>
+                <li><strong>Stripe</strong> (payment processing)</li>
+                <li><strong>Supabase</strong> (database and authentication)</li>
+                <li><strong>Cal.com</strong> (appointment scheduling)</li>
+                <li><strong>Airtable</strong> (consultation management)</li>
+                <li><strong>Make.com</strong> (workflow automation)</li>
+                <li><strong>Netlify</strong> (website hosting)</li>
+                <li><strong>Amazon SES</strong> (transactional emails)</li>
               </ul>
+              <p className="text-gray-300 leading-relaxed mt-4">
+                All these providers are GDPR-compliant and process data under strict security standards.
+              </p>
             </div>
           </Card>
 

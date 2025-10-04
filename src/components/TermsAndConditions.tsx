@@ -57,7 +57,7 @@ export const TermsAndConditions: React.FC = () => {
             Your agreement for using Worktugal Pass services
           </p>
           <p className="text-sm text-gray-400 mt-4">
-            <strong>Effective Date:</strong> August 9, 2025
+            <strong>Effective Date:</strong> October 4, 2025
           </p>
         </motion.div>
 
@@ -120,21 +120,30 @@ export const TermsAndConditions: React.FC = () => {
             </h2>
             <div className="prose prose-invert max-w-none">
               <p className="text-gray-300 leading-relaxed mb-4">
-                Worktugal Pass provides digital listing services for businesses who want visibility to remote 
-                professionals and expats based in Portugal.
+                Worktugal Pass provides two core services:
               </p>
-              <p className="text-gray-300 leading-relaxed mb-4">
-                Listings are displayed at{' '}
-                <a 
-                  href="https://pass.worktugal.com" 
-                  className="text-blue-400 hover:text-blue-300 transition-colors underline"
-                >
-                  https://pass.worktugal.com
-                </a>
-              </p>
-              <p className="text-blue-300 font-medium">
-                Our current offer includes a one-time payment of €49 for a verified business listing with no subscription or renewal.
-              </p>
+              <div className="space-y-4 mb-4">
+                <div className="p-4 bg-blue-600/10 border border-blue-600/20 rounded-xl">
+                  <h3 className="text-white font-semibold mb-2">1. Accounting Desk</h3>
+                  <p className="text-gray-300 text-sm">
+                    Tax consultation services connecting remote professionals with OCC-certified Portuguese accountants.
+                    Includes 30-minute video consultations, written action plans, and follow-up support.
+                  </p>
+                  <p className="text-blue-300 font-medium text-sm mt-2">
+                    Pricing: €59 (Early Access), €149-€299 (Full Service)
+                  </p>
+                </div>
+                <div className="p-4 bg-green-600/10 border border-green-600/20 rounded-xl">
+                  <h3 className="text-white font-semibold mb-2">2. Partner Hub</h3>
+                  <p className="text-gray-300 text-sm">
+                    Digital listing services for businesses who want visibility to remote professionals based in Portugal.
+                    Lifetime verified business listings displayed at pass.worktugal.com/partners
+                  </p>
+                  <p className="text-green-300 font-medium text-sm mt-2">
+                    Pricing: €49 (one-time, no subscription or renewal)
+                  </p>
+                </div>
+              </div>
             </div>
           </Card>
 
@@ -146,11 +155,21 @@ export const TermsAndConditions: React.FC = () => {
             </h2>
             <div className="prose prose-invert max-w-none">
               <ul className="space-y-2 text-gray-300">
-                <li>All payments are processed securely via Stripe.</li>
+                <li>All payments are processed securely via <strong>Stripe</strong>.</li>
                 <li>We do not store or handle your credit card information directly.</li>
                 <li>Receipts are automatically issued and sent via email.</li>
-                <li><strong>Payments are final and non-refundable</strong> unless explicitly agreed in writing.</li>
+                <li>All prices are in <strong>EUR (€)</strong> and include applicable VAT where required.</li>
               </ul>
+              <div className="mt-4 p-4 bg-orange-600/10 border border-orange-600/20 rounded-xl">
+                <p className="text-orange-300 font-medium text-sm">
+                  <strong>Refund Policy:</strong>
+                </p>
+                <ul className="text-gray-300 text-sm mt-2 space-y-1">
+                  <li>• <strong>Partner Hub listings:</strong> Non-refundable once approved and published</li>
+                  <li>• <strong>Accounting consultations:</strong> Refundable before appointment is scheduled. Non-refundable within 24 hours of appointment or after consultation has occurred</li>
+                  <li>• Exceptional refund requests can be submitted to hello@worktugal.com</li>
+                </ul>
+              </div>
             </div>
           </Card>
 
@@ -220,7 +239,8 @@ export const TermsAndConditions: React.FC = () => {
               <ul className="space-y-2 text-gray-300">
                 <li>Loss of income or leads</li>
                 <li>Listing visibility fluctuations</li>
-                <li>Third-party service issues (e.g. Stripe, Make.com, Supabase)</li>
+                <li>Third-party service issues (e.g. Stripe, Cal.com, Supabase, Airtable)</li>
+                <li>Quality or outcomes of accounting consultations (we connect you with professionals but don't provide the advice ourselves)</li>
                 <li>Mistakes caused by false info submitted by partners</li>
               </ul>
             </div>
@@ -260,7 +280,7 @@ export const TermsAndConditions: React.FC = () => {
                 </a>
               </div>
               <p className="text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                We're building Worktugal Pass with transparency, trust, and respect for our community.
+                We're building Worktugal Pass with transparency, trust, and respect for the remote professional community in Portugal.
               </p>
             </div>
           </Card>
