@@ -172,7 +172,7 @@ export const EarlyAccessForm: React.FC = () => {
                 <option value="Need to switch fiscal representative">Need to switch fiscal representative</option>
                 <option value="Need help with quarterly VAT filing">Need help with quarterly VAT filing</option>
                 <option value="Annual tax return questions">Annual tax return questions</option>
-                <option value="Other">Other</option>
+                <option value="Something else (I'll explain in the confirmation email)">Something else (I'll explain in the confirmation email)</option>
               </select>
             </div>
 
@@ -227,6 +227,13 @@ export const EarlyAccessForm: React.FC = () => {
               We respect your privacy. Your information is secure and will only be used to notify you when booking opens.
             </p>
           </form>
+        </div>
+
+        <div className="mt-8 text-center">
+          <p className="text-xs text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            Worktugal Accounting Desk is currently in early access. We are building this with certified Portuguese accountants.
+            Joining the list does not guarantee immediate service.
+          </p>
         </div>
       </div>
     </div>
