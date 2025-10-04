@@ -8,9 +8,42 @@ export const PartnersPage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Partner Hub - Trusted Service Providers | Worktugal"
-        description="Browse our network of trusted service providers helping remote professionals navigate Portugal. From accountants to coworking spaces."
+        title="Partner Hub - Trusted Service Providers in Lisbon"
+        description="Connect with OCC-certified accountants, lawyers, coworking spaces, and local businesses helping remote professionals thrive in Portugal. Verified partners, exclusive offers."
+        ogTitle="Worktugal Partner Hub - Trusted Services for Expats in Lisbon"
+        ogDescription="Our partner network includes established Lisbon professionals: accountants, lawyers, coworking spaces, and service providers. Get special offers and priority access."
+        ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
+        ogUrl="https://pass.worktugal.com/partners"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Worktugal Partner Hub",
+          "description": "Directory of trusted service providers for remote professionals in Lisbon, Portugal",
+          "url": "https://pass.worktugal.com/partners",
+          "image": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
+          "inLanguage": "en-US",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "Worktugal Pass",
+            "url": "https://pass.worktugal.com/"
+          },
+          "about": {
+            "@type": "Thing",
+            "name": "Professional Services for Remote Workers",
+            "description": "Accounting, legal, coworking, and business services"
+          },
+          "provider": {
+            "@type": "Organization",
+            "name": "Worktugal",
+            "url": "https://worktugal.com/",
+            "logo": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
+            "sameAs": [
+              "https://www.linkedin.com/company/worktugal/",
+              "https://t.me/worktugal"
+            ]
+          }
+        }}
       />
 
       {/* Hero Section */}

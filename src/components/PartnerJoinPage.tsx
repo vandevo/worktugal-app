@@ -4,12 +4,54 @@ import { ArrowLeft, Shield, Sparkles, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { FormWizard } from './FormWizard';
 import { Button } from './ui/Button';
+import { Seo } from './Seo';
 
 export const PartnerJoinPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-850 to-gray-900">
+    <>
+      <Seo
+        title="Become a Partner - List Your Business in Lisbon"
+        description="Join Worktugal's trusted partner network. Get lifetime visibility to remote professionals in Lisbon. One-time €49 fee, no renewal costs. Connect with qualified leads."
+        ogTitle="List Your Business on Worktugal - Connect with Remote Workers"
+        ogDescription="Join our partner ecosystem and reach 1,000+ remote professionals in Lisbon. Lifetime listing for €49. Featured placement, direct leads, verified badge."
+        ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
+        ogType="website"
+        ogUrl="https://pass.worktugal.com/partners/join"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Worktugal Partner Listing",
+          "description": "List your business in our trusted partner directory for remote professionals in Lisbon",
+          "url": "https://pass.worktugal.com/partners/join",
+          "image": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
+          "provider": {
+            "@type": "Organization",
+            "name": "Worktugal",
+            "url": "https://worktugal.com/"
+          },
+          "offers": {
+            "@type": "Offer",
+            "name": "Partner Directory Listing - Lifetime Access",
+            "price": "49",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://pass.worktugal.com/partners/join",
+            "description": "Lifetime visibility in our partner directory with no renewal fees"
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Lisbon",
+            "containedIn": {
+              "@type": "Country",
+              "name": "Portugal"
+            }
+          }
+        }}
+      />
+
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-850 to-gray-900">
       {/* Hero Section with Back Button */}
       <section className="relative py-12 md:py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIGZpbGw9IiMyMzY1YzQiIGZpbGwtb3BhY2l0eT0iMC4wMiIvPjwvZz48L3N2Zz4=')] opacity-20"></div>
@@ -97,6 +139,7 @@ export const PartnerJoinPage: React.FC = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };

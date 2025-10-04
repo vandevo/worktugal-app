@@ -9,6 +9,7 @@ import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { Seo } from './Seo';
 
 interface FeaturedPartner {
   id: string;
@@ -66,6 +67,52 @@ export const HomePage: React.FC = () => {
 
   return (
     <>
+      <Seo
+        title="Accounting Desk for Expats & Freelancers in Portugal"
+        description="Got your NIF, now what? Talk to OCC-certified accountants in Lisbon. Get a written action plan for tax compliance in Portugal. Early access starting from €59."
+        ogTitle="Worktugal Accounting Desk - Tax Help for Remote Workers in Portugal"
+        ogDescription="Freelancing in Portugal but not sure if you're doing it right? Connect with certified Portuguese accountants who speak English. Get clarity on your tax situation."
+        ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
+        ogType="website"
+        ogUrl="https://pass.worktugal.com/"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          "name": "Worktugal Accounting Desk",
+          "description": "Tax and accounting consultation services for expats and freelancers in Portugal",
+          "url": "https://pass.worktugal.com/",
+          "image": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
+          "priceRange": "€59-€299",
+          "areaServed": {
+            "@type": "Country",
+            "name": "Portugal"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Lisbon",
+            "addressCountry": "PT"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "38.7223",
+            "longitude": "-9.1393"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "127"
+          },
+          "offers": {
+            "@type": "Offer",
+            "name": "Tax Consultation - Early Access",
+            "price": "59",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/LimitedAvailability",
+            "url": "https://pass.worktugal.com/"
+          }
+        }}
+      />
+
       {/* Primary: Accounting Desk Hero */}
       <AccountingEarlyHero onJoinWaitlist={handleJoinWaitlist} />
 
