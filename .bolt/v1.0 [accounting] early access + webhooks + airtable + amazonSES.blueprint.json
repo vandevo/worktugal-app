@@ -1,0 +1,1035 @@
+{
+    "name": "v1.0 [accounting] early access + webhooks + airtable + amazonSES",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 3326289,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "label": "early-bird-leads-webhooks-accounting",
+                            "data": {
+                                "editable": "true"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "lead_id",
+                        "type": "number"
+                    },
+                    {
+                        "name": "name",
+                        "type": "text"
+                    },
+                    {
+                        "name": "email",
+                        "type": "text"
+                    },
+                    {
+                        "name": "country",
+                        "type": "text"
+                    },
+                    {
+                        "name": "main_need",
+                        "type": "text"
+                    },
+                    {
+                        "name": "urgency",
+                        "type": "text"
+                    },
+                    {
+                        "name": "consent",
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "source",
+                        "type": "text"
+                    },
+                    {
+                        "name": "status",
+                        "type": "text"
+                    },
+                    {
+                        "name": "created_at",
+                        "type": "text"
+                    },
+                    {
+                        "name": "timestamp",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "airtable:ActionCreateRecord",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 6145502
+            },
+            "mapper": {
+                "base": "appKXEOmskpyxup0I",
+                "typecast": true,
+                "useColumnId": false,
+                "table": "tblLsq4UooJ55ZiIY",
+                "record": {
+                    "fld0JBLXZsVPuTjDC": "{{1.lead_id}}",
+                    "fldHkTEACQ84tYq1E": "{{1.created_at}}",
+                    "fldXCOxsEHmDBcGse": "{{1.name}}",
+                    "fldMxZ8zfkApC1r3S": "{{1.email}}",
+                    "fldu63eLuZVhFNT19": "{{1.country}}",
+                    "fldYUsdqxIxdqAjUY": "{{1.main_need}}",
+                    "fldOiSYWNoQf5R7GG": "{{1.urgency}}",
+                    "fldQBUfVzEKUMZhSB": "{{1.consent}}",
+                    "flddljAbq4xgCcXBO": "{{1.source}}",
+                    "fldiHPBixdPwzzyiP": "{{1.status}}",
+                    "fldXNXJkffglRW6Gw": "{{1.timestamp}}"
+                }
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "label": "Airtable API",
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable2"
+                            }
+                        }
+                    },
+                    "expect": {
+                        "base": {
+                            "label": "early_bird_leads_structure.csv"
+                        },
+                        "typecast": {
+                            "mode": "chose"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        },
+                        "table": {
+                            "nested": [
+                                {
+                                    "name": "record",
+                                    "spec": [
+                                        {
+                                            "name": "fld0JBLXZsVPuTjDC",
+                                            "type": "text",
+                                            "label": "id",
+                                            "multiline": true
+                                        },
+                                        {
+                                            "name": "fldHkTEACQ84tYq1E",
+                                            "type": "text",
+                                            "label": "created_at",
+                                            "multiline": true
+                                        },
+                                        {
+                                            "name": "fldXCOxsEHmDBcGse",
+                                            "type": "text",
+                                            "label": "name",
+                                            "multiline": true
+                                        },
+                                        {
+                                            "name": "fldMxZ8zfkApC1r3S",
+                                            "type": "text",
+                                            "label": "email",
+                                            "multiline": true
+                                        },
+                                        {
+                                            "name": "fldu63eLuZVhFNT19",
+                                            "type": "text",
+                                            "label": "country",
+                                            "multiline": true
+                                        },
+                                        {
+                                            "name": "fldYUsdqxIxdqAjUY",
+                                            "type": "text",
+                                            "label": "main_need",
+                                            "multiline": true
+                                        },
+                                        {
+                                            "name": "fldOiSYWNoQf5R7GG",
+                                            "type": "text",
+                                            "label": "urgency",
+                                            "multiline": true
+                                        },
+                                        {
+                                            "name": "fldQBUfVzEKUMZhSB",
+                                            "type": "text",
+                                            "label": "consent",
+                                            "multiline": true
+                                        },
+                                        {
+                                            "name": "flddljAbq4xgCcXBO",
+                                            "type": "text",
+                                            "label": "source",
+                                            "multiline": true
+                                        },
+                                        {
+                                            "name": "fldiHPBixdPwzzyiP",
+                                            "type": "text",
+                                            "label": "status",
+                                            "multiline": true
+                                        },
+                                        {
+                                            "name": "fldXNXJkffglRW6Gw",
+                                            "type": "text",
+                                            "label": "notes",
+                                            "multiline": true
+                                        }
+                                    ],
+                                    "type": "collection",
+                                    "label": "Record"
+                                }
+                            ],
+                            "label": "Imported table"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "typecast",
+                        "type": "boolean",
+                        "label": "Smart links",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "record",
+                        "type": "collection",
+                        "label": "Record",
+                        "spec": [
+                            {
+                                "name": "fld0JBLXZsVPuTjDC",
+                                "type": "text",
+                                "label": "id"
+                            },
+                            {
+                                "name": "fldHkTEACQ84tYq1E",
+                                "type": "text",
+                                "label": "created_at"
+                            },
+                            {
+                                "name": "fldXCOxsEHmDBcGse",
+                                "type": "text",
+                                "label": "name"
+                            },
+                            {
+                                "name": "fldMxZ8zfkApC1r3S",
+                                "type": "text",
+                                "label": "email"
+                            },
+                            {
+                                "name": "fldu63eLuZVhFNT19",
+                                "type": "text",
+                                "label": "country"
+                            },
+                            {
+                                "name": "fldYUsdqxIxdqAjUY",
+                                "type": "text",
+                                "label": "main_need"
+                            },
+                            {
+                                "name": "fldOiSYWNoQf5R7GG",
+                                "type": "text",
+                                "label": "urgency"
+                            },
+                            {
+                                "name": "fldQBUfVzEKUMZhSB",
+                                "type": "text",
+                                "label": "consent"
+                            },
+                            {
+                                "name": "flddljAbq4xgCcXBO",
+                                "type": "text",
+                                "label": "source"
+                            },
+                            {
+                                "name": "fldiHPBixdPwzzyiP",
+                                "type": "text",
+                                "label": "status"
+                            },
+                            {
+                                "name": "fldXNXJkffglRW6Gw",
+                                "type": "text",
+                                "label": "notes"
+                            }
+                        ]
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "id",
+                        "label": "id",
+                        "type": "text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "created_at",
+                        "label": "created_at",
+                        "type": "text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "name",
+                        "label": "name",
+                        "type": "text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "email",
+                        "label": "email",
+                        "type": "text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "country",
+                        "label": "country",
+                        "type": "text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "main_need",
+                        "label": "main_need",
+                        "type": "text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "urgency",
+                        "label": "urgency",
+                        "type": "text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "consent",
+                        "label": "consent",
+                        "type": "text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "source",
+                        "label": "source",
+                        "type": "text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "status",
+                        "label": "status",
+                        "type": "text",
+                        "multiline": true
+                    },
+                    {
+                        "name": "notes",
+                        "label": "notes",
+                        "type": "text",
+                        "multiline": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 0
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 4,
+                            "module": "amazon-ses:sendAMessage",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 12076317
+                            },
+                            "mapper": {
+                                "select": "html",
+                                "FromEmailAddress": "Worktugal Accounting Desk <hello@worktugal.com>",
+                                "ToAddresses": [
+                                    "{{1.email}}"
+                                ],
+                                "ListManagementOptions": {},
+                                "subject": "✅ You are now confirmed for early access",
+                                "html": "<p>Hi {{1.name}},</p>\r\n\r\n<p>Welcome to the early access list for Worktugal Accounting Desk.</p>\r\n\r\n<p>You are now on our priority list. We open new booking slots in small batches. When a slot is available, you will receive an invite by email.</p>\r\n\r\n<p>What you can do while you wait:</p>\r\n<p>\r\n1. Keep your NIF and any Finanças letters ready.<br>\r\n2. Write down your main questions so we can focus on you.<br>\r\n3. Check your inbox and spam so you do not miss our message.\r\n</p>\r\n\r\n<p style=\"font-size: 12px; color: #888;\">\r\nSent automatically by Worktugal server<br>\r\nFrom: <strong>Worktugal Accounting Desk &lt;hello@worktugal.com&gt;</strong><br>\r\nYou can reply to this email if needed.\r\n</p>"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 900,
+                                    "y": -300
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "Worktugal SES",
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "amazon-ses"
+                                            }
+                                        }
+                                    },
+                                    "expect": {
+                                        "select": {
+                                            "label": "HTML"
+                                        },
+                                        "FromEmailAddress": {
+                                            "mode": "edit"
+                                        },
+                                        "ToAddresses": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "ReplyToAddresses": {
+                                            "mode": "chose"
+                                        },
+                                        "CcAddresses": {
+                                            "mode": "chose"
+                                        },
+                                        "BccAddresses": {
+                                            "mode": "chose"
+                                        },
+                                        "configurationSet": {
+                                            "mode": "chose"
+                                        },
+                                        "ListManagementOptions": {
+                                            "nested": {
+                                                "ContactListName": {
+                                                    "mode": "chose"
+                                                }
+                                            }
+                                        },
+                                        "EmailTags": {
+                                            "mode": "chose"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:amazon-ses",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "select",
+                                        "type": "select",
+                                        "label": "Select a Message Content Type",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "html",
+                                                "text",
+                                                "template",
+                                                "raw"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "FromEmailAddress",
+                                        "type": "select",
+                                        "label": "From",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "FromEmailAddressIdentityArn",
+                                        "type": "text",
+                                        "label": "From Email Address Identity ARN"
+                                    },
+                                    {
+                                        "name": "ToAddresses",
+                                        "type": "array",
+                                        "label": "To",
+                                        "required": true,
+                                        "spec": {
+                                            "type": "email",
+                                            "label": "Email",
+                                            "name": "value"
+                                        }
+                                    },
+                                    {
+                                        "name": "ReplyToAddresses",
+                                        "type": "array",
+                                        "label": "Reply To",
+                                        "spec": {
+                                            "type": "email",
+                                            "label": "Email",
+                                            "name": "value"
+                                        }
+                                    },
+                                    {
+                                        "name": "CcAddresses",
+                                        "type": "array",
+                                        "label": "CC",
+                                        "spec": {
+                                            "type": "email",
+                                            "label": "Email",
+                                            "name": "value"
+                                        }
+                                    },
+                                    {
+                                        "name": "BccAddresses",
+                                        "type": "array",
+                                        "label": "BCC",
+                                        "spec": {
+                                            "type": "email",
+                                            "label": "Email",
+                                            "name": "value"
+                                        }
+                                    },
+                                    {
+                                        "name": "configurationSet",
+                                        "type": "select",
+                                        "label": "Configuration Set Name"
+                                    },
+                                    {
+                                        "name": "ListManagementOptions",
+                                        "type": "collection",
+                                        "label": "Management Options",
+                                        "spec": [
+                                            {
+                                                "name": "ContactListName",
+                                                "type": "select",
+                                                "label": "Contact List Name"
+                                            },
+                                            {
+                                                "name": "TopicName",
+                                                "type": "text",
+                                                "label": "Topic Name"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "FeedbackForwardingEmailAddress",
+                                        "type": "email",
+                                        "label": "Feedback Forwarding Email Address"
+                                    },
+                                    {
+                                        "name": "FeedbackForwardingEmailAddressIdentityArn",
+                                        "type": "text",
+                                        "label": "Feedback Forwarding Email Address Identity Arn"
+                                    },
+                                    {
+                                        "name": "EmailTags",
+                                        "type": "array",
+                                        "label": "Email Tags",
+                                        "spec": [
+                                            {
+                                                "name": "Name",
+                                                "type": "text",
+                                                "label": "Name",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "Value",
+                                                "type": "text",
+                                                "label": "Value",
+                                                "required": true
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "subject",
+                                        "type": "text",
+                                        "label": "Subject",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "html",
+                                        "type": "text",
+                                        "label": "HTML Content",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 5,
+                            "module": "amazon-ses:sendAMessage",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 12076317
+                            },
+                            "mapper": {
+                                "select": "html",
+                                "FromEmailAddress": "Worktugal Accounting Desk <hello@worktugal.com>",
+                                "ToAddresses": [
+                                    "worktugal.com@gmail.com",
+                                    "vandevo.com@gmail.com"
+                                ],
+                                "ListManagementOptions": {},
+                                "subject": "📩 {{1.name}} just joined the early access list",
+                                "html": "<p>Hello team,</p>\r\n\r\n<p>A new early access lead just came in from the Accounting Desk.</p>\r\n\r\n<p>\r\n👉 Name: {{1.name}}<br>\r\n📧 Email: <a href=\"mailto:{{1.email}}\">{{1.email}}</a><br>\r\n📂 Situation: {{1.main_need}}<br>\r\n⚡ Urgency: {{1.urgency}}<br>\r\n🌍 Country: {{1.country}}<br>\r\n🆔 Lead ID: {{1.lead_id}}<br>\r\n🕒 Submitted: {{1.created_at}}<br>\r\n🔗 Source: {{1.source}}\r\n</p>\r\n\r\n<p>\r\n📊 Airtable view:<br>\r\n<a href=\"https://airtable.com/invite/l?inviteId=invfX3iCx9VViWlxS&inviteToken=ff0f211c78ba93a9db496397de2307aa64cb48bc6b156891a8278a3bc9f0957d&utm_medium=email&utm_source=product_team&utm_content=transactional-alerts\">\r\nOpen Airtable on mobile\r\n</a>\r\n</p>\r\n\r\n<p style=\"font-size: 12px; color: #888;\">\r\nSent automatically by Worktugal lead automation<br>\r\nFrom: <strong>Worktugal Accounting Desk &lt;hello@worktugal.com&gt;</strong><br>\r\nDelivered to: hello@worktugal.com, worktugal.com@gmail.com\r\n</p>"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 900,
+                                    "y": 0
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "Worktugal SES",
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "amazon-ses"
+                                            }
+                                        }
+                                    },
+                                    "expect": {
+                                        "select": {
+                                            "label": "HTML"
+                                        },
+                                        "FromEmailAddress": {
+                                            "mode": "edit"
+                                        },
+                                        "ToAddresses": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null,
+                                                null
+                                            ]
+                                        },
+                                        "ReplyToAddresses": {
+                                            "mode": "chose"
+                                        },
+                                        "CcAddresses": {
+                                            "mode": "chose"
+                                        },
+                                        "BccAddresses": {
+                                            "mode": "chose"
+                                        },
+                                        "configurationSet": {
+                                            "mode": "chose"
+                                        },
+                                        "ListManagementOptions": {
+                                            "nested": {
+                                                "ContactListName": {
+                                                    "mode": "chose"
+                                                }
+                                            }
+                                        },
+                                        "EmailTags": {
+                                            "mode": "chose"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:amazon-ses",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "select",
+                                        "type": "select",
+                                        "label": "Select a Message Content Type",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "html",
+                                                "text",
+                                                "template",
+                                                "raw"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "FromEmailAddress",
+                                        "type": "select",
+                                        "label": "From",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "FromEmailAddressIdentityArn",
+                                        "type": "text",
+                                        "label": "From Email Address Identity ARN"
+                                    },
+                                    {
+                                        "name": "ToAddresses",
+                                        "type": "array",
+                                        "label": "To",
+                                        "required": true,
+                                        "spec": {
+                                            "type": "email",
+                                            "label": "Email",
+                                            "name": "value"
+                                        }
+                                    },
+                                    {
+                                        "name": "ReplyToAddresses",
+                                        "type": "array",
+                                        "label": "Reply To",
+                                        "spec": {
+                                            "type": "email",
+                                            "label": "Email",
+                                            "name": "value"
+                                        }
+                                    },
+                                    {
+                                        "name": "CcAddresses",
+                                        "type": "array",
+                                        "label": "CC",
+                                        "spec": {
+                                            "type": "email",
+                                            "label": "Email",
+                                            "name": "value"
+                                        }
+                                    },
+                                    {
+                                        "name": "BccAddresses",
+                                        "type": "array",
+                                        "label": "BCC",
+                                        "spec": {
+                                            "type": "email",
+                                            "label": "Email",
+                                            "name": "value"
+                                        }
+                                    },
+                                    {
+                                        "name": "configurationSet",
+                                        "type": "select",
+                                        "label": "Configuration Set Name"
+                                    },
+                                    {
+                                        "name": "ListManagementOptions",
+                                        "type": "collection",
+                                        "label": "Management Options",
+                                        "spec": [
+                                            {
+                                                "name": "ContactListName",
+                                                "type": "select",
+                                                "label": "Contact List Name"
+                                            },
+                                            {
+                                                "name": "TopicName",
+                                                "type": "text",
+                                                "label": "Topic Name"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "FeedbackForwardingEmailAddress",
+                                        "type": "email",
+                                        "label": "Feedback Forwarding Email Address"
+                                    },
+                                    {
+                                        "name": "FeedbackForwardingEmailAddressIdentityArn",
+                                        "type": "text",
+                                        "label": "Feedback Forwarding Email Address Identity Arn"
+                                    },
+                                    {
+                                        "name": "EmailTags",
+                                        "type": "array",
+                                        "label": "Email Tags",
+                                        "spec": [
+                                            {
+                                                "name": "Name",
+                                                "type": "text",
+                                                "label": "Name",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "Value",
+                                                "type": "text",
+                                                "label": "Value",
+                                                "required": true
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "subject",
+                                        "type": "text",
+                                        "label": "Subject",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "html",
+                                        "type": "text",
+                                        "label": "HTML Content",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 6,
+                            "module": "telegram:SendReplyMessage",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 6274745
+                            },
+                            "mapper": {
+                                "chatId": "2099132460",
+                                "text": "🚨 <b>You have a new early access lead!</b>\r\n\r\n👤 <b>Name:</b> {{1.name}}\r\n📧 <b>Email:</b> {{1.email}}\r\n📂 <b>Situation:</b> {{1.main_need}}\n⚡ <b>Urgency:</b> {{1.urgency}}\r\n🌍 <b>Country:</b> {{1.country}}\r\n🆔 <b>Lead ID:</b> {{1.lead_id}}\n🕒 <b>Submitted:</b> {{1.created_at}}\r\n🔗 <b>Source:</b> {{1.source}}\r\n\r\n📂 <b>View in Airtable:</b>\r\n<a href=\"https://airtable.com/invite/l?inviteId=invfX3iCx9VViWlxS&inviteToken=ff0f211c78ba93a9db496397de2307aa64cb48bc6b156891a8278a3bc9f0957d&utm_medium=email&utm_source=product_team&utm_content=transactional-alerts\">Open Airtable</a>\r\n\r\n✅ <b>Next step:</b> Review lead in Airtable + update CRM\r\n",
+                                "messageThreadId": "",
+                                "parseMode": "HTML",
+                                "disableWebPagePreview": true,
+                                "replyToMessageId": "",
+                                "replyMarkupAssembleType": "reply_markup_enter",
+                                "replyMarkup": ""
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 900,
+                                    "y": 300
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "Worktugal Pass Bot",
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "telegram"
+                                            }
+                                        }
+                                    },
+                                    "expect": {
+                                        "parseMode": {
+                                            "label": "HTML"
+                                        },
+                                        "disableNotification": {
+                                            "mode": "chose"
+                                        },
+                                        "replyMarkupAssembleType": {
+                                            "label": "Enter the Reply Markup"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:telegram",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "chatId",
+                                        "type": "text",
+                                        "label": "Chat ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "text",
+                                        "type": "text",
+                                        "label": "Text",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "messageThreadId",
+                                        "type": "number",
+                                        "label": "Message Thread ID"
+                                    },
+                                    {
+                                        "name": "parseMode",
+                                        "type": "select",
+                                        "label": "Parse Mode",
+                                        "validate": {
+                                            "enum": [
+                                                "Markdown",
+                                                "HTML"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "disableNotification",
+                                        "type": "boolean",
+                                        "label": "Disable Notifications"
+                                    },
+                                    {
+                                        "name": "disableWebPagePreview",
+                                        "type": "boolean",
+                                        "label": "Disable Link Previews"
+                                    },
+                                    {
+                                        "name": "replyToMessageId",
+                                        "type": "number",
+                                        "label": "Original Message ID"
+                                    },
+                                    {
+                                        "name": "replyMarkupAssembleType",
+                                        "type": "select",
+                                        "label": "Enter/Assemble the Reply Markup Field",
+                                        "validate": {
+                                            "enum": [
+                                                "reply_markup_enter",
+                                                "reply_markup_assemble"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "replyMarkup",
+                                        "type": "text",
+                                        "label": "Reply Markup"
+                                    },
+                                    {
+                                        "name": "chatId",
+                                        "type": "text",
+                                        "label": "Chat ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "text",
+                                        "type": "text",
+                                        "label": "Text",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "messageThreadId",
+                                        "type": "number",
+                                        "label": "Message Thread ID"
+                                    },
+                                    {
+                                        "name": "parseMode",
+                                        "type": "select",
+                                        "label": "Parse Mode",
+                                        "validate": {
+                                            "enum": [
+                                                "Markdown",
+                                                "HTML"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "disableNotification",
+                                        "type": "boolean",
+                                        "label": "Disable Notifications"
+                                    },
+                                    {
+                                        "name": "disableWebPagePreview",
+                                        "type": "boolean",
+                                        "label": "Disable Link Previews"
+                                    },
+                                    {
+                                        "name": "replyToMessageId",
+                                        "type": "number",
+                                        "label": "Original Message ID"
+                                    },
+                                    {
+                                        "name": "replyMarkupAssembleType",
+                                        "type": "select",
+                                        "label": "Enter/Assemble the Reply Markup Field",
+                                        "validate": {
+                                            "enum": [
+                                                "reply_markup_enter",
+                                                "reply_markup_assemble"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "replyMarkup",
+                                        "type": "text",
+                                        "label": "Reply Markup"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}
