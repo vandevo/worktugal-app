@@ -65,7 +65,7 @@ export const EarlyAccessForm: React.FC = () => {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-12">
             <CheckCircle className="w-20 h-20 text-green-400 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold text-white mb-4">You're on the Early Birds list!</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">You're on the list!</h2>
             <div className="max-w-lg mx-auto space-y-6">
               <p className="text-lg text-gray-300">
                 Check your email in the next 10 minutes for:
@@ -82,7 +82,7 @@ export const EarlyAccessForm: React.FC = () => {
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-gray-300">Priority booking access (opens within 48 hours)</p>
+                  <p className="text-gray-300">Booking invite (when new slots open)</p>
                 </div>
               </div>
 
@@ -100,16 +100,12 @@ export const EarlyAccessForm: React.FC = () => {
     <div className="bg-gray-900 py-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-white mb-4">Get Early Bird Access</h2>
+          <h2 className="text-4xl font-bold text-white mb-4">Join the Early Access List</h2>
           <p className="text-xl text-gray-300 mb-8">
-            Be the first to get access when we open booking slots. No commitment required.
+            Get notified first when booking slots open. No commitment required.
           </p>
 
           <div className="flex flex-wrap justify-center items-center gap-8 mb-8 text-sm">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-400 mb-1">48h</div>
-              <div className="text-gray-400">Average response time</div>
-            </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-400 mb-1">€59</div>
               <div className="text-gray-400">Starting from</div>

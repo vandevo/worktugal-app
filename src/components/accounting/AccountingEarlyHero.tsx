@@ -29,7 +29,7 @@ export const AccountingEarlyHero: React.FC<AccountingEarlyHeroProps> = ({ onJoin
             Got a letter from Financas you can't read?
           </p>
           <p className="text-lg text-blue-200 mb-8 max-w-2xl mx-auto">
-            Talk to an OCC-certified accountant. Get a written action plan within 48 hours. From €59.
+            Talk to an OCC-certified accountant. Get guidance on your tax situation. Starting from €59.
           </p>
 
           <Button
@@ -37,11 +37,11 @@ export const AccountingEarlyHero: React.FC<AccountingEarlyHeroProps> = ({ onJoin
             size="lg"
             className="mb-6 px-12 py-4 text-lg"
           >
-            Get Priority Access
+            Join Early Access List
           </Button>
 
           <p className="text-sm text-blue-300 font-medium">
-            Early birds get first access to booking slots. No commitment required.
+            Join the waitlist. We'll notify you when slots open. No commitment required.
           </p>
         </motion.div>
 
@@ -53,8 +53,8 @@ export const AccountingEarlyHero: React.FC<AccountingEarlyHeroProps> = ({ onJoin
         >
           <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
             <Calendar className="w-10 h-10 text-blue-400 mx-auto mb-3" />
-            <h3 className="text-white font-semibold mb-2">Answers Within 48h</h3>
-            <p className="text-gray-300 text-sm">No more waiting weeks wondering if you're compliant</p>
+            <h3 className="text-white font-semibold mb-2">Clear Guidance</h3>
+            <p className="text-gray-300 text-sm">Get help understanding your tax obligations</p>
           </div>
 
           <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
