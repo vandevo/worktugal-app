@@ -14,7 +14,7 @@ import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { AccountingDeskLanding } from './components/accounting/AccountingDeskLanding';
 import { AccountingEarlyAccessLanding } from './components/accounting/AccountingEarlyAccessLanding';
 import { PartnersPage } from './components/PartnersPage';
-import { FormWizard } from './components/FormWizard';
+import { PartnerJoinPage } from './components/PartnerJoinPage';
 import { ConsultSuccess } from './components/accounting/ConsultSuccess';
 import { ConsultSuccessDemo } from './components/accounting/ConsultSuccessDemo';
 import { ConsultCheckout } from './components/accounting/ConsultCheckout';
@@ -62,7 +62,7 @@ function App() {
 
           {/* Partner Hub routes */}
           <Route path="/partners" element={<PartnersPage />} />
-          <Route path="/partners/join" element={<FormWizard onComplete={() => window.location.href = '/partners'} />} />
+          <Route path="/partners/join" element={<PartnerJoinPage />} />
           <Route path="/accounting/checkout" element={<ConsultCheckout />} />
           <Route path="/accounting/consult-success" element={<ConsultSuccess />} />
           <Route path="/accounting/success-demo" element={<ConsultSuccessDemo />} />
