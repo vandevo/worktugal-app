@@ -10,7 +10,7 @@ export const PartnersPage: React.FC = () => {
       <Seo
         title="Partner Hub - Trusted Service Providers in Lisbon"
         description="Connect with OCC-certified accountants, lawyers, coworking spaces, and local businesses helping remote professionals thrive in Portugal. Verified partners, exclusive offers."
-        ogTitle="Worktugal Partner Hub - Trusted Services for Expats in Lisbon"
+        ogTitle="Worktugal Partner Hub - Trusted Services for Remote Professionals in Lisbon"
         ogDescription="Our partner network includes established Lisbon professionals: accountants, lawyers, coworking spaces, and service providers. Get special offers and priority access."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"

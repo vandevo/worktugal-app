@@ -14,7 +14,7 @@ export const PartnerJoinPage: React.FC = () => {
       <Seo
         title="Become a Partner - List Your Business in Lisbon"
         description="Join Worktugal's trusted partner network. Get lifetime visibility to remote professionals in Lisbon. One-time €49 fee, no renewal costs. Connect with qualified leads."
-        ogTitle="List Your Business on Worktugal - Connect with Remote Workers"
+        ogTitle="List Your Business on Worktugal - Connect with Remote Professionals"
         ogDescription="Join our partner ecosystem and reach 1,000+ remote professionals in Lisbon. Lifetime listing for €49. Featured placement, direct leads, verified badge."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"

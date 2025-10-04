@@ -68,10 +68,10 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Accounting Desk for Expats & Freelancers in Portugal"
-        description="Got your NIF, now what? Talk to OCC-certified accountants in Lisbon. Get a written action plan for tax compliance in Portugal. Early access starting from €59."
-        ogTitle="Worktugal Accounting Desk - Tax Help for Remote Workers in Portugal"
-        ogDescription="Freelancing in Portugal but not sure if you're doing it right? Connect with certified Portuguese accountants who speak English. Get clarity on your tax situation."
+        title="Accounting Desk for Remote Professionals in Portugal"
+        description="Working remotely in Portugal? Talk to OCC-certified accountants in Lisbon. Get a written action plan for tax compliance. For freelancers, founders, and remote workers. Starting from €59."
+        ogTitle="Worktugal Accounting Desk - Tax Compliance for Remote Professionals"
+        ogDescription="Freelancing, remote work, or building a startup in Portugal? Get clarity on your tax situation. Connect with English-speaking Portuguese accountants who understand your journey."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
         ogUrl="https://pass.worktugal.com/"
@@ -79,7 +79,7 @@ export const HomePage: React.FC = () => {
           "@context": "https://schema.org",
           "@type": "ProfessionalService",
           "name": "Worktugal Accounting Desk",
-          "description": "Tax and accounting consultation services for expats and freelancers in Portugal",
+          "description": "Tax and accounting consultation services for remote professionals, freelancers, and founders in Portugal",
           "url": "https://pass.worktugal.com/",
           "image": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
           "priceRange": "€59-€299",
