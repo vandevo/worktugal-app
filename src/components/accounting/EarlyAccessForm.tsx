@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { CheckCircle, Loader } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { CheckCircle, Loader, Calendar, MessageCircle, Users, ExternalLink, ArrowRight } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Alert } from '../ui/Alert';
 import { insertLead } from '../../lib/leads';
+import { motion } from 'framer-motion';
 
 export const EarlyAccessForm: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -62,35 +63,120 @@ export const EarlyAccessForm: React.FC = () => {
   if (isSubmitted) {
     return (
       <div className="bg-gray-900 py-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-12">
-            <CheckCircle className="w-20 h-20 text-green-400 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold text-white mb-4">You're on the list!</h2>
-            <div className="max-w-lg mx-auto space-y-6">
-              <p className="text-lg text-gray-300">
-                Check your email in the next 10 minutes for:
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden"
+          >
+            {/* Success Header */}
+            <div className="bg-gradient-to-br from-green-600/20 via-blue-600/20 to-purple-600/20 p-8 text-center border-b border-white/10">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', duration: 0.6, delay: 0.1 }}
+              >
+                <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
+              </motion.div>
+              <h2 className="text-3xl font-bold text-white mb-2">You're on the list!</h2>
+              <p className="text-gray-300">
+                Position secured. Check your inbox now.
               </p>
+            </div>
 
-              <div className="bg-gray-900/50 rounded-xl p-6 text-left space-y-3">
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-gray-300">Quick checklist: 5 things every freelancer in Portugal must do</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-gray-300">What to expect next and when</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-gray-300">Booking invite (when new slots open)</p>
+            {/* Email Checklist */}
+            <div className="p-8 space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <Calendar className="w-5 h-5 text-blue-400" />
+                  Check your email in the next 10 minutes for:
+                </h3>
+
+                <div className="bg-gray-900/50 rounded-xl p-5 space-y-3">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-white font-medium">Quick checklist: 5 things every freelancer must do</p>
+                      <p className="text-sm text-gray-400">Essential compliance steps for Portugal</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-white font-medium">What happens next and when</p>
+                      <p className="text-sm text-gray-400">Timeline and booking process explained</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-white font-medium">Priority booking link (when slots open)</p>
+                      <p className="text-sm text-gray-400">You'll get notified before public launch</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <p className="text-sm text-gray-400">
-                Don't see it? Check your spam folder. Urgent case? Reply to the confirmation email.
+              {/* Social Proof */}
+              <div className="bg-blue-600/10 border border-blue-600/20 rounded-xl p-5">
+                <div className="flex items-center gap-3 mb-3">
+                  <Users className="w-5 h-5 text-blue-400" />
+                  <h4 className="text-white font-semibold">Join 87 remote professionals</h4>
+                </div>
+                <p className="text-sm text-gray-300">
+                  You're part of the early access group getting first priority when booking opens. Average wait time: 3-5 days.
+                </p>
+              </div>
+
+              {/* Urgent Cases CTA */}
+              <div className="bg-orange-600/10 border border-orange-600/20 rounded-xl p-5">
+                <div className="flex items-start gap-3">
+                  <MessageCircle className="w-5 h-5 text-orange-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-white font-semibold mb-2">Need help this week?</h4>
+                    <p className="text-sm text-gray-300 mb-3">
+                      Reply to the confirmation email with "URGENT" and your main question. We'll try to fast-track your consultation.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Next Steps */}
+              <div className="border-t border-white/10 pt-6">
+                <h4 className="text-white font-semibold mb-4">While you wait:</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <a
+                    href="/partners"
+                    className="flex items-center justify-between p-4 bg-gray-700/30 hover:bg-gray-700/50 rounded-xl border border-white/10 transition-colors group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Users className="w-5 h-5 text-blue-400" />
+                      <span className="text-white text-sm font-medium">Browse Partner Directory</span>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
+                  </a>
+                  <a
+                    href="https://t.me/worktugal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-4 bg-gray-700/30 hover:bg-gray-700/50 rounded-xl border border-white/10 transition-colors group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <MessageCircle className="w-5 h-5 text-blue-400" />
+                      <span className="text-white text-sm font-medium">Join Telegram Community</span>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Fine Print */}
+              <p className="text-xs text-gray-500 text-center">
+                Don't see the email? Check your spam folder or add hello@worktugal.com to contacts.
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     );
