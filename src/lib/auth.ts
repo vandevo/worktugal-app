@@ -17,10 +17,54 @@ export const signUp = async (email: string, password: string, captchaToken?: str
       },
     },
   });
-  
+
   if (error) throw error;
+
+  // Fire signup webhook notification (non-blocking)
+  // This notifies Make.com → FluentCRM, Telegram, and Amazon SES
+  if (data.user) {
+    notifySignup(data.user.id, email).catch((err) => {
+      // Log but don't throw - we don't want to break signup
+      console.warn('Signup notification failed (non-critical):', err);
+    });
+  }
+
   return data;
 };
+
+// Notify Make.com webhook about new signup
+// This is fire-and-forget - errors are logged but don't block signup
+async function notifySignup(userId: string, email: string): Promise<void> {
+  try {
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+
+    if (!supabaseUrl) {
+      console.warn('VITE_SUPABASE_URL not configured - skipping signup notification');
+      return;
+    }
+
+    const response = await fetch(`${supabaseUrl}/functions/v1/notify-signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        email: email,
+        display_name: email.split('@')[0],
+        created_at: new Date().toISOString(),
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.warn('Signup notification response:', response.status, errorText);
+    }
+  } catch (error) {
+    // Silently log - this is intentionally non-blocking
+    console.warn('Signup notification error:', error);
+  }
+}
 
 export const signIn = async (email: string, password: string, captchaToken?: string) => {
   const { data, error } = await supabase.auth.signInWithPassword({
