@@ -42,11 +42,14 @@ async function notifySignup(userId: string, email: string): Promise<void> {
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 
     if (!supabaseUrl) {
-      console.warn('VITE_SUPABASE_URL not configured - skipping signup notification');
+      console.warn('[Webhook] VITE_SUPABASE_URL not configured - skipping signup notification');
       return;
     }
 
-    const response = await fetch(`${supabaseUrl}/functions/v1/notify-signup`, {
+    console.log('[Webhook] Sending signup notification for:', email);
+
+    // Fire and forget - don't even await the response
+    fetch(`${supabaseUrl}/functions/v1/notify-signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -57,23 +60,20 @@ async function notifySignup(userId: string, email: string): Promise<void> {
         display_name: email.split('@')[0],
         created_at: new Date().toISOString(),
       }),
+    }).then(response => {
+      if (response.ok) {
+        console.log('[Webhook] Signup notification sent successfully');
+      } else {
+        console.warn('[Webhook] Failed with status:', response.status);
+      }
+    }).catch(error => {
+      console.warn('[Webhook] Error:', error instanceof Error ? error.message : 'Unknown');
     });
 
-    if (!response.ok) {
-      // Try to read response as text first (more forgiving than .json())
-      try {
-        const errorText = await response.text();
-        console.warn('Signup notification failed:', response.status, errorText);
-      } catch (textError) {
-        console.warn('Signup notification failed:', response.status, 'Could not read response');
-      }
-    } else {
-      // Success - log for debugging
-      console.log('Signup notification sent successfully');
-    }
+    // Return immediately - don't wait for webhook
   } catch (error) {
     // Silently log - this is intentionally non-blocking
-    console.warn('Signup notification error:', error instanceof Error ? error.message : 'Unknown error');
+    console.warn('[Webhook] Notification error:', error instanceof Error ? error.message : 'Unknown error');
   }
 }
 
