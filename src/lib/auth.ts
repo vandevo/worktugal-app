@@ -24,17 +24,16 @@ export const signUp = async (email: string, password: string, captchaToken?: str
       throw error;
     }
 
-    // TEMPORARILY DISABLED: Fire signup webhook notification (non-blocking)
+    // Fire signup webhook notification (non-blocking)
     // This notifies Make.com → FluentCRM, Telegram, and Amazon SES
-    // TODO: Re-enable once webhook response issue is resolved
-    // if (data.user) {
-    //   setTimeout(() => {
-    //     notifySignup(data.user!.id, email).catch((err) => {
-    //       // Log but don't throw - we don't want to break signup
-    //       console.warn('Signup notification failed (non-critical):', err);
-    //     });
-    //   }, 0);
-    // }
+    if (data.user) {
+      setTimeout(() => {
+        notifySignup(data.user!.id, email).catch((err) => {
+          // Log but don't throw - we don't want to break signup
+          console.warn('Signup notification failed (non-critical):', err);
+        });
+      }, 0);
+    }
 
     return data;
   } catch (error: any) {
