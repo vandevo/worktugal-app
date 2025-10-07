@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-10-04
+**Last Updated:** 2025-10-07
 
 ---
 
@@ -1940,6 +1940,19 @@ https://worktugal.com?debug=true
 ---
 
 ## Recent Updates
+
+**2025-10-07: Authentication System Repair + Webhook Restoration**
+- Fixed critical authentication issue blocking all new user signups
+- Identified and removed problematic "Before User Created" hook in Supabase dashboard causing 400 errors
+- Hook was calling Make.com webhook synchronously during signup, causing "hook_payload_over_size_limit" errors
+- Re-enabled non-blocking webhook notification system in auth.ts after removing blocking hook
+- Webhook now triggers successfully after signup completes: frontend → notify-signup Edge Function → Make.com
+- User signup flow restored to working state: account creation succeeds, webhook fires in background
+- Webhook fires to https://hook.eu2.make.com/pueq1sw659ym23cr3fwe7huvhxk4nx9v for FluentCRM, Telegram, and Amazon SES notifications
+- Authentication errors no longer occur ("Unable to connect to authentication service" resolved)
+- Non-blocking architecture ensures signup succeeds even if webhook fails
+- Production build successfully compiles with all changes
+- Note: Authentication → Hooks section updated (removed blocking webhook configuration)
 
 **2025-10-04: Early Access Form UX Refinement + Complete SEO Update**
 - Refined EarlyAccessForm success screen messaging to align with actual email content
