@@ -45,7 +45,13 @@ export async function insertLead(data: LeadSubmission): Promise<{ data: Lead | n
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+      let errorData: any = {};
+      try {
+        const text = await response.text();
+        errorData = text ? JSON.parse(text) : {};
+      } catch (e) {
+        console.error('Failed to parse error response');
+      }
       console.error('Failed to submit lead:', errorData);
       return {
         data: null,
@@ -53,7 +59,17 @@ export async function insertLead(data: LeadSubmission): Promise<{ data: Lead | n
       };
     }
 
-    const result = await response.json();
+    let result: any;
+    try {
+      const text = await response.text();
+      result = text ? JSON.parse(text) : {};
+    } catch (e) {
+      console.error('Failed to parse success response');
+      return {
+        data: null,
+        error: new Error('Invalid response from server'),
+      };
+    }
 
     if (!result.success) {
       return {
