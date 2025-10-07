@@ -48,8 +48,9 @@ async function notifySignup(userId: string, email: string): Promise<void> {
 
     console.log('[Webhook] Sending signup notification for:', email);
 
-    // Fire and forget - don't even await the response
-    fetch(`${supabaseUrl}/functions/v1/notify-signup`, {
+    // Fire and forget - completely ignore response to avoid ANY errors from bubbling up
+    // Using void to explicitly discard the promise
+    void fetch(`${supabaseUrl}/functions/v1/notify-signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -60,16 +61,9 @@ async function notifySignup(userId: string, email: string): Promise<void> {
         display_name: email.split('@')[0],
         created_at: new Date().toISOString(),
       }),
-    }).then(response => {
-      if (response.ok) {
-        console.log('[Webhook] Signup notification sent successfully');
-      } else {
-        console.warn('[Webhook] Failed with status:', response.status);
-      }
-    }).catch(error => {
-      console.warn('[Webhook] Error:', error instanceof Error ? error.message : 'Unknown');
     });
 
+    console.log('[Webhook] Notification queued (fire-and-forget)');
     // Return immediately - don't wait for webhook
   } catch (error) {
     // Silently log - this is intentionally non-blocking
