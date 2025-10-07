@@ -7,32 +7,46 @@ export interface AuthState {
 }
 
 export const signUp = async (email: string, password: string, captchaToken?: string) => {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: window.location.origin, // Set proper redirect
-      data: {
-        email_confirm: false, // Explicitly disable email confirmation
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: window.location.origin, // Set proper redirect
+        data: {
+          email_confirm: false, // Explicitly disable email confirmation
+        },
       },
-    },
-  });
+    });
 
-  if (error) throw error;
+    if (error) {
+      console.error('Supabase signup error:', error);
+      throw error;
+    }
 
-  // TEMPORARILY DISABLED: Fire signup webhook notification (non-blocking)
-  // This notifies Make.com → FluentCRM, Telegram, and Amazon SES
-  // TODO: Re-enable once webhook response issue is resolved
-  // if (data.user) {
-  //   setTimeout(() => {
-  //     notifySignup(data.user!.id, email).catch((err) => {
-  //       // Log but don't throw - we don't want to break signup
-  //       console.warn('Signup notification failed (non-critical):', err);
-  //     });
-  //   }, 0);
-  // }
+    // TEMPORARILY DISABLED: Fire signup webhook notification (non-blocking)
+    // This notifies Make.com → FluentCRM, Telegram, and Amazon SES
+    // TODO: Re-enable once webhook response issue is resolved
+    // if (data.user) {
+    //   setTimeout(() => {
+    //     notifySignup(data.user!.id, email).catch((err) => {
+    //       // Log but don't throw - we don't want to break signup
+    //       console.warn('Signup notification failed (non-critical):', err);
+    //     });
+    //   }, 0);
+    // }
 
-  return data;
+    return data;
+  } catch (error: any) {
+    console.error('Signup error details:', error);
+
+    // Handle the JSON parse error specifically
+    if (error.message && error.message.includes('Invalid JSON')) {
+      throw new Error('Unable to connect to authentication service. Please check your connection and try again.');
+    }
+
+    throw error;
+  }
 };
 
 // Notify Make.com webhook about new signup
