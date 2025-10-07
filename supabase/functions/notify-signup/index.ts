@@ -39,42 +39,31 @@ Deno.serve(async (req: Request) => {
       user_id: payload.user_id,
     };
 
-    console.log("Sending signup notification to Make.com:", webhookPayload);
+    console.log("Firing webhook to Make.com (non-blocking):", webhookPayload);
 
-    // Send to Make.com webhook
-    const response = await fetch(MAKECOM_WEBHOOK_URL, {
+    // Fire-and-forget: Send to Make.com in background without waiting for response
+    // This prevents Make.com's text/plain response from breaking our signup flow
+    fetch(MAKECOM_WEBHOOK_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(webhookPayload),
+    }).then(response => {
+      if (response.ok) {
+        console.log("Make.com webhook delivered successfully");
+      } else {
+        console.error("Make.com webhook failed with status:", response.status);
+      }
+    }).catch(error => {
+      console.error("Make.com webhook error:", error);
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Make.com webhook failed:", response.status, errorText);
-
-      // Don't throw - just log and return success
-      // We don't want to block signup if webhook fails
-      return new Response(
-        JSON.stringify({
-          success: true,
-          warning: "Webhook delivery failed but user was created successfully",
-          status: response.status,
-        }),
-        {
-          status: 200,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        }
-      );
-    }
-
-    console.log("Make.com webhook delivered successfully");
-
+    // Return success immediately without waiting for Make.com
     return new Response(
       JSON.stringify({
         success: true,
-        message: "Signup notification sent",
+        message: "Signup notification queued",
       }),
       {
         status: 200,
