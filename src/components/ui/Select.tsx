@@ -9,7 +9,8 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   error?: string;
   hint?: string;
-  options: SelectOption[] | SelectGroup[];
+  options?: SelectOption[] | SelectGroup[];
+  children?: React.ReactNode;
 }
 
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
@@ -17,11 +18,12 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
   error,
   hint,
   options,
+  children,
   className,
   ...props
 }, ref) => {
   // Check if options are grouped
-  const isGrouped = options.length > 0 && 'options' in options[0];
+  const isGrouped = options && options.length > 0 && 'options' in options[0];
 
   return (
     <div className="space-y-2">
@@ -44,23 +46,27 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
           )}
           {...props}
         >
-          <option value="" className="bg-gray-800 text-white">{!label ? 'All Categories' : 'Select an option'}</option>
-          {isGrouped 
-            ? (options as SelectGroup[]).map((group) => (
-                <optgroup key={group.label} label={group.label} className="bg-gray-800 text-white font-medium">
-                  {group.options.map((option) => (
+          {children || (
+            <>
+              <option value="" className="bg-gray-800 text-white">{!label ? 'All Categories' : 'Select an option'}</option>
+              {isGrouped
+                ? (options as SelectGroup[]).map((group) => (
+                    <optgroup key={group.label} label={group.label} className="bg-gray-800 text-white font-medium">
+                      {group.options.map((option) => (
+                        <option key={option.value} value={option.value} className="bg-gray-800 text-white py-2">
+                          {option.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ))
+                : (options as SelectOption[]).map((option) => (
                     <option key={option.value} value={option.value} className="bg-gray-800 text-white py-2">
                       {option.label}
                     </option>
-                  ))}
-                </optgroup>
-              ))
-            : (options as SelectOption[]).map((option) => (
-                <option key={option.value} value={option.value} className="bg-gray-800 text-white py-2">
-                  {option.label}
-                </option>
-              ))
-          }
+                  ))
+              }
+            </>
+          )}
         </select>
         <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none transition-transform duration-200" />
       </div>
