@@ -45,22 +45,25 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
             className
           )}
           {...props}
+          style={{
+            colorScheme: 'dark'
+          }}
         >
           {children || (
             <>
-              <option value="" className="bg-gray-800 text-white">{!label ? 'All Categories' : 'Select an option'}</option>
+              <option value="">{!label ? 'All Categories' : 'Select an option'}</option>
               {isGrouped
                 ? (options as SelectGroup[]).map((group) => (
-                    <optgroup key={group.label} label={group.label} className="bg-gray-800 text-white font-medium">
+                    <optgroup key={group.label} label={group.label}>
                       {group.options.map((option) => (
-                        <option key={option.value} value={option.value} className="bg-gray-800 text-white py-2">
+                        <option key={option.value} value={option.value}>
                           {option.label}
                         </option>
                       ))}
                     </optgroup>
                   ))
                 : (options as SelectOption[]).map((option) => (
-                    <option key={option.value} value={option.value} className="bg-gray-800 text-white py-2">
+                    <option key={option.value} value={option.value}>
                       {option.label}
                     </option>
                   ))
