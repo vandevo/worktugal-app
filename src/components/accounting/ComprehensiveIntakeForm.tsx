@@ -666,10 +666,17 @@ export const ComprehensiveIntakeForm: React.FC = () => {
 
           {/* Form Steps */}
           <form onSubmit={(e) => e.preventDefault()}>
-            {step === 1 && renderStep1()}
-            {step === 2 && renderStep2()}
-            {step === 3 && renderStep3()}
-            {step === 4 && renderStep4()}
+            <motion.div
+              key={step}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {step === 1 && renderStep1()}
+              {step === 2 && renderStep2()}
+              {step === 3 && renderStep3()}
+              {step === 4 && renderStep4()}
+            </motion.div>
 
             {/* Navigation Buttons */}
             <div className="flex gap-4 mt-10">
