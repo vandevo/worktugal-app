@@ -21,6 +21,8 @@ import { ConsultCheckout } from './components/accounting/ConsultCheckout';
 import { AccountantApplicationPage } from './components/accountant/AccountantApplicationPage';
 import { AppointmentManagement } from './components/admin/AppointmentManagement';
 import { AccountantApplicationReview } from './components/admin/AccountantApplicationReview';
+import { ComprehensiveIntakeForm } from './components/accounting/ComprehensiveIntakeForm';
+import { IntakeSuccess } from './components/accounting/IntakeSuccess';
 import { type ProductName } from './stripe-config';
 
 function App() {
@@ -63,6 +65,10 @@ function App() {
           {/* Partner Hub routes */}
           <Route path="/partners" element={<PartnersPage />} />
           <Route path="/partners/join" element={<PartnerJoinPage />} />
+
+          {/* Accounting Desk routes */}
+          <Route path="/accounting/intake" element={<ComprehensiveIntakeForm />} />
+          <Route path="/accounting/intake/success" element={<IntakeSuccess />} />
           <Route path="/accounting/checkout" element={<ConsultCheckout />} />
           <Route path="/accounting/consult-success" element={<ConsultSuccess />} />
           <Route path="/accounting/success-demo" element={<ConsultSuccessDemo />} />
