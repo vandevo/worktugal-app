@@ -25,6 +25,20 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
   // Check if options are grouped
   const isGrouped = options && options.length > 0 && 'options' in options[0];
 
+  // Process children to add inline dark styles to option elements
+  const processedChildren = children ? React.Children.map(children, child => {
+    if (React.isValidElement(child) && child.type === 'option') {
+      return React.cloneElement(child as React.ReactElement<any>, {
+        style: {
+          backgroundColor: '#1f2937',
+          color: '#ffffff',
+          ...(child.props.style || {})
+        }
+      });
+    }
+    return child;
+  }) : null;
+
   return (
     <div className="space-y-2">
       {label && (
@@ -49,21 +63,23 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
             colorScheme: 'dark'
           }}
         >
-          {children || (
+          {processedChildren || (
             <>
-              <option value="">{!label ? 'All Categories' : 'Select an option'}</option>
+              <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
+                {!label ? 'All Categories' : 'Select an option'}
+              </option>
               {isGrouped
                 ? (options as SelectGroup[]).map((group) => (
                     <optgroup key={group.label} label={group.label}>
                       {group.options.map((option) => (
-                        <option key={option.value} value={option.value}>
+                        <option key={option.value} value={option.value} style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
                           {option.label}
                         </option>
                       ))}
                     </optgroup>
                   ))
                 : (options as SelectOption[]).map((option) => (
-                    <option key={option.value} value={option.value}>
+                    <option key={option.value} value={option.value} style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
                       {option.label}
                     </option>
                   ))
