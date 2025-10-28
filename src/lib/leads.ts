@@ -6,6 +6,7 @@ export interface LeadSubmission {
   country?: string;
   main_need?: string;
   urgency?: string;
+  additional_details?: string;
   consent: boolean;
   source?: string;
 }
@@ -39,6 +40,7 @@ export async function insertLead(data: LeadSubmission): Promise<{ data: Lead | n
         country: data.country || '',
         main_need: data.main_need || '',
         urgency: data.urgency || '',
+        additional_details: data.additional_details || '',
         consent: data.consent,
         source: data.source || 'accounting_early_access',
       }),

@@ -16,6 +16,7 @@ export const EarlyAccessForm: React.FC = () => {
     email: '',
     main_need: '',
     urgency: '',
+    additional_details: '',
     consent: false,
   });
 
@@ -47,6 +48,7 @@ export const EarlyAccessForm: React.FC = () => {
         country: null,
         main_need: formData.main_need || null,
         urgency: formData.urgency || null,
+        additional_details: formData.additional_details || null,
         source: 'accounting_early_access',
         consent: formData.consent,
       });
@@ -246,8 +248,29 @@ export const EarlyAccessForm: React.FC = () => {
                 <option value="Need to switch fiscal representative">Need to switch fiscal representative</option>
                 <option value="Need help with quarterly VAT filing">Need help with quarterly VAT filing</option>
                 <option value="Annual tax return questions">Annual tax return questions</option>
-                <option value="Something else (I'll explain in the confirmation email)">Something else (I'll explain in the confirmation email)</option>
+                <option value="Something else">Something else</option>
               </select>
+
+              {formData.main_need === 'Something else' && (
+                <div className="mt-4">
+                  <label className="block text-sm font-semibold text-gray-300 mb-2">
+                    Please briefly describe your situation *
+                  </label>
+                  <textarea
+                    value={formData.additional_details}
+                    onChange={(e) => handleInputChange('additional_details', e.target.value)}
+                    disabled={isSubmitting}
+                    required={formData.main_need === 'Something else'}
+                    placeholder="Tell us about your specific situation so we can better help you..."
+                    maxLength={500}
+                    rows={4}
+                    className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150 resize-none"
+                  />
+                  <div className="mt-2 text-right text-xs text-gray-500">
+                    {formData.additional_details.length}/500 characters
+                  </div>
+                </div>
+              )}
             </div>
 
             <div>
@@ -283,7 +306,14 @@ export const EarlyAccessForm: React.FC = () => {
 
             <Button
               type="submit"
-              disabled={isSubmitting || !formData.name || !formData.email || !formData.main_need || !formData.consent}
+              disabled={
+                isSubmitting ||
+                !formData.name ||
+                !formData.email ||
+                !formData.main_need ||
+                (formData.main_need === 'Something else' && !formData.additional_details.trim()) ||
+                !formData.consent
+              }
               className="w-full"
               size="lg"
             >

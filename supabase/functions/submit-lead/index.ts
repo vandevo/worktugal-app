@@ -13,6 +13,7 @@ interface LeadSubmission {
   country?: string;
   main_need?: string;
   urgency?: string;
+  additional_details?: string;
   consent: boolean;
   source?: string;
 }
@@ -63,6 +64,7 @@ Deno.serve(async (req: Request) => {
         country: submission.country || null,
         main_need: submission.main_need || null,
         urgency: submission.urgency || null,
+        additional_details: submission.additional_details || null,
         consent: submission.consent,
         source: submission.source || 'accounting_early_access',
         status: 'new',
@@ -103,6 +105,7 @@ Deno.serve(async (req: Request) => {
           country: lead.country || '',
           main_need: lead.main_need || '',
           urgency: lead.urgency || '',
+          additional_details: lead.additional_details || '',
           consent: lead.consent,
           source: lead.source,
           status: lead.status,
