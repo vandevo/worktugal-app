@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CheckCircle, Loader, Calendar, MessageCircle, Users, ExternalLink, ArrowRight } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
+import { Select } from '../ui/Select';
 import { Alert } from '../ui/Alert';
 import { insertLead } from '../../lib/leads';
 import { motion } from 'framer-motion';
@@ -234,12 +235,11 @@ export const EarlyAccessForm: React.FC = () => {
               <label className="block text-sm font-semibold text-gray-300 mb-2">
                 What's your situation? *
               </label>
-              <select
+              <Select
                 value={formData.main_need}
                 onChange={(e) => handleInputChange('main_need', e.target.value)}
                 disabled={isSubmitting}
                 required
-                className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150"
               >
                 <option value="">Select your situation</option>
                 <option value="Just got my NIF, not sure what's next">Just got my NIF, not sure what's next</option>
@@ -249,7 +249,7 @@ export const EarlyAccessForm: React.FC = () => {
                 <option value="Need help with quarterly VAT filing">Need help with quarterly VAT filing</option>
                 <option value="Annual tax return questions">Annual tax return questions</option>
                 <option value="Something else">Something else</option>
-              </select>
+              </Select>
 
               {formData.main_need === 'Something else' && (
                 <div className="mt-4">
@@ -264,7 +264,7 @@ export const EarlyAccessForm: React.FC = () => {
                     placeholder="Tell us about your specific situation so we can better help you..."
                     maxLength={500}
                     rows={4}
-                    className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150 resize-none"
+                    className="w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl rounded-xl text-white placeholder-gray-500 border border-white/[0.12] shadow-lg shadow-black/20 focus:outline-none focus:bg-white/[0.06] focus:border-blue-400/40 focus:ring-2 focus:ring-blue-400/20 hover:bg-white/[0.05] hover:border-white/[0.16] transition-all duration-200 resize-none"
                   />
                   <div className="mt-2 text-right text-xs text-gray-500">
                     {formData.additional_details.length}/500 characters
@@ -277,17 +277,16 @@ export const EarlyAccessForm: React.FC = () => {
               <label className="block text-sm font-semibold text-gray-300 mb-2">
                 How urgent is this?
               </label>
-              <select
+              <Select
                 value={formData.urgency}
                 onChange={(e) => handleInputChange('urgency', e.target.value)}
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150"
               >
                 <option value="">Select urgency</option>
                 <option value="This week">This week</option>
                 <option value="This month">This month</option>
                 <option value="Just exploring">Just exploring</option>
-              </select>
+              </Select>
             </div>
 
             <div className="flex items-start gap-3 p-4 bg-blue-500/5 border border-blue-500/20 rounded-xl">
