@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Globe, Send, Linkedin, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Linkedin, MessageCircle } from 'lucide-react';
 import { useCookieConsent } from '../contexts/CookieConsentContext';
 
 export const Footer: React.FC = () => {
@@ -29,6 +29,28 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-semibold mb-4 text-white">Quick Links</h4>
             <ul className="space-y-2.5 text-sm">
+              <li>
+                <a
+                  href="https://worktugal.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-400 hover:text-white transition-colors duration-200"
+                >
+                  Resources
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://jobs.worktugal.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-400 hover:text-white transition-colors duration-200"
+                >
+                  Jobs
+                </a>
+              </li>
+              <li><a href="/accounting" className="text-slate-400 hover:text-white transition-colors duration-200">Accounting Desk</a></li>
+              <li><a href="/partners" className="text-slate-400 hover:text-white transition-colors duration-200">Partners</a></li>
               <li><a href="/privacy" className="text-slate-400 hover:text-white transition-colors duration-200">Privacy Policy</a></li>
               <li><a href="/terms" className="text-slate-400 hover:text-white transition-colors duration-200">Terms of Service</a></li>
               <li>
@@ -112,16 +134,6 @@ export const Footer: React.FC = () => {
                 className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-200 border border-slate-800/50"
               >
                 <MessageCircle className="h-5 w-5" />
-              </motion.a>
-              <motion.a
-                href="https://worktugal.com/"
-                aria-label="Visit main Worktugal website"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-200 border border-slate-800/50"
-              >
-                <Globe className="h-5 w-5" />
               </motion.a>
             </div>
           </div>
