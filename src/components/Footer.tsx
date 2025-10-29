@@ -49,10 +49,6 @@ export const Footer: React.FC = () => {
                   Jobs
                 </a>
               </li>
-              <li><a href="/accounting" className="text-slate-400 hover:text-white transition-colors duration-200">Accounting Desk</a></li>
-              <li><a href="/partners" className="text-slate-400 hover:text-white transition-colors duration-200">Partners</a></li>
-              <li><a href="/privacy" className="text-slate-400 hover:text-white transition-colors duration-200">Privacy Policy</a></li>
-              <li><a href="/terms" className="text-slate-400 hover:text-white transition-colors duration-200">Terms of Service</a></li>
               <li>
                 <a
                   href="https://www.linkedin.com/company/worktugal/"
@@ -65,7 +61,9 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="mailto:hello@worktugal.com"
+                  href="https://worktugal.com/contact/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-slate-400 hover:text-white transition-colors duration-200"
                 >
                   Contact
