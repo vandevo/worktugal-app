@@ -1941,6 +1941,18 @@ https://worktugal.com?debug=true
 
 ## Recent Updates
 
+**2025-10-29: Sitemap SEO Fix for Google Search Console**
+- Fixed critical sitemap date error preventing Google Search Console indexing
+- Updated all lastmod dates in sitemap.xml from 2024-10-29 to 2025-10-29 (correct current date)
+- Verified Vite configuration correctly serves static files from public folder without processing
+- Confirmed robots.txt properly references sitemap at https://app.worktugal.com/sitemap.xml
+- Rebuilt project and verified sitemap.xml correctly copied to dist folder with updated dates
+- Sitemap now displays clean XML format (previously showing mixed CSS/JavaScript content)
+- Ready for resubmission to Google Search Console after deployment
+- Sitemap contains 4 URLs: homepage, success page, privacy policy, terms and conditions
+- All URLs use correct ISO 8601 date format for lastmod timestamps
+- Note: Build & Deployment section (sitemap now production-ready for Google indexing)
+
 **2025-10-29: Security Issues Resolved + Footer Navigation Cleanup**
 - Fixed critical RLS performance issues in leads_accounting and accounting_intakes tables
 - Optimized 3 RLS policies by replacing auth.uid() with (select auth.uid()) for 10-100x better query performance
