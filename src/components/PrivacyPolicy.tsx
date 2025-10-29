@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Mail, MapPin, Building, FileText, ArrowLeft } from 'lucide-react';
+import { Shield, Mail, MapPin, Building, FileText, ArrowLeft, Phone } from 'lucide-react';
 import { Seo } from './Seo';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
@@ -57,7 +57,7 @@ export const PrivacyPolicy: React.FC = () => {
             We're transparent about how we collect, use, and protect your personal data
           </p>
           <p className="text-sm text-gray-400 mt-4">
-            <strong>Effective Date:</strong> October 4, 2025
+            <strong>Effective Date:</strong> October 29, 2025
           </p>
         </motion.div>
 
@@ -93,6 +93,12 @@ export const PrivacyPolicy: React.FC = () => {
                     <Mail className="h-4 w-4 text-gray-400" />
                     <a href="mailto:hello@worktugal.com" className="text-blue-400 hover:text-blue-300 transition-colors">
                       hello@worktugal.com
+                    </a>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Phone className="h-4 w-4 text-gray-400" />
+                    <a href="tel:+351215818485" className="text-blue-400 hover:text-blue-300 transition-colors">
+                      +351 215 818 485
                     </a>
                   </div>
                 </div>
