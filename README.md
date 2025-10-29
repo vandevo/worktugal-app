@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-10-07
+**Last Updated:** 2025-10-29
 
 ---
 
@@ -1940,6 +1940,23 @@ https://worktugal.com?debug=true
 ---
 
 ## Recent Updates
+
+**2025-10-29: Security Issues Resolved + Footer Navigation Cleanup**
+- Fixed critical RLS performance issues in leads_accounting and accounting_intakes tables
+- Optimized 3 RLS policies by replacing auth.uid() with (select auth.uid()) for 10-100x better query performance
+- Removed 44 unused database indexes consuming disk space and slowing write operations
+- Fixed 4 database functions with mutable search_path security vulnerabilities
+- Added explicit SET search_path to update_accounting_intakes_updated_at, send_order_with_email_to_webhook, handle_new_user, and log_user_signup functions
+- Cleaned up footer Quick Links section to remove duplication and anchor links
+- Removed Privacy Policy and Terms of Service from Quick Links (already present in footer bottom)
+- Removed Accounting Desk and Partners anchor links from Quick Links navigation
+- Updated Contact link to use proper contact page (https://worktugal.com/contact/) instead of email
+- Streamlined Quick Links to 4 essential items: Resources, Jobs, About Us, Contact
+- Created comprehensive security documentation at docs/SECURITY_ISSUES_RESOLVED.md
+- Documented performance improvements and manual intervention requirements
+- Multiple permissive policies flagged as intentional (role-based access control best practice)
+- Production build successfully compiles with all security fixes
+- Note: Database Schema section (see migration: fix_security_issues_rls_performance_and_cleanup.sql)
 
 **2025-10-07: Authentication System Repair + Webhook Restoration**
 - Fixed critical authentication issue blocking all new user signups
