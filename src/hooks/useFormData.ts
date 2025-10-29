@@ -43,7 +43,7 @@ const dummyFormData: FormData = {
     title: '[PREVIEW] 20% off all meals',
     description: '[PREVIEW] Enjoy a 20% discount on all food items. Perfect for lunch breaks and dinner with colleagues. This is preview data for development purposes.',
     redemption_method: 'verbal',
-    redemption_details: 'Just mention "Worktugal Pass" at checkout',
+    redemption_details: 'Just mention "Worktugal" at checkout',
     images: [],
     logo: '',
     is_portuguese_owned: true,

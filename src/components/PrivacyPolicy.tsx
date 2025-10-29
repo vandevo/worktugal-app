@@ -10,18 +10,18 @@ export const PrivacyPolicy: React.FC = () => {
     <div className="min-h-screen bg-gray-900 py-12">
       <Seo
         title="Privacy Policy - How We Protect Your Data"
-        description="Learn how Worktugal Pass collects, uses, and protects your personal data. We're GDPR compliant and transparent about our data practices."
+        description="Learn how Worktugal collects, uses, and protects your personal data. We're GDPR compliant and transparent about our data practices."
         ogType="article"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "Privacy Policy",
-          "description": "Privacy Policy for Worktugal Pass - GDPR compliant data protection practices",
-          "url": "https://pass.worktugal.com/privacy",
+          "description": "Privacy Policy for Worktugal - GDPR compliant data protection practices",
+          "url": "https://app.worktugal.com/privacy",
           "isPartOf": {
             "@type": "WebSite",
-            "name": "Worktugal Pass",
-            "url": "https://pass.worktugal.com"
+            "name": "Worktugal",
+            "url": "https://app.worktugal.com"
           }
         }}
       />
@@ -72,7 +72,7 @@ export const PrivacyPolicy: React.FC = () => {
           <Card className="p-8">
             <div className="prose prose-invert max-w-none">
               <p className="text-gray-300 leading-relaxed text-lg">
-                This Privacy Policy explains how <strong className="text-white">Worktugal Pass</strong> ("we," "us," or "our") 
+                This Privacy Policy explains how <strong className="text-white">Worktugal</strong> ("we," "us," or "our") 
                 collects, uses, and protects your personal data when you use our website or services.
               </p>
               
@@ -243,10 +243,10 @@ export const PrivacyPolicy: React.FC = () => {
               <p className="text-gray-300 leading-relaxed">
                 The latest version will always be available at:{' '}
                 <a 
-                  href="https://pass.worktugal.com/privacy" 
+                  href="https://app.worktugal.com/privacy" 
                   className="text-blue-400 hover:text-blue-300 transition-colors underline"
                 >
-                  https://pass.worktugal.com/privacy
+                  https://app.worktugal.com/privacy
                 </a>
               </p>
             </div>
@@ -267,7 +267,7 @@ export const PrivacyPolicy: React.FC = () => {
                 </a>
               </div>
               <p className="text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                We're building Worktugal Pass with transparency, trust, and respect for your data.
+                We're building Worktugal with transparency, trust, and respect for your data.
               </p>
             </div>
           </Card>

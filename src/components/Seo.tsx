@@ -19,14 +19,14 @@ export const Seo: React.FC<SeoProps> = ({
   description = 'Tax compliance made simple for remote professionals in Portugal. Talk to OCC-certified accountants, get a written action plan, and navigate Portuguese tax law with confidence. Starting from €59.',
   ogTitle,
   ogDescription,
-  ogImage = 'https://pass.worktugal.com/worktugal-logo-bg-light-radius-1000-1000.png',
+  ogImage = 'https://app.worktugal.com/worktugal-logo-bg-light-radius-1000-1000.png',
   ogType = 'website',
   ogUrl,
   twitterCard = 'summary_large_image',
   canonicalUrl,
   structuredData,
 }) => {
-  const fullTitle = title.includes('Worktugal Pass') ? title : `${title} | Worktugal Pass`;
+  const fullTitle = title.includes('Worktugal') ? title : `${title} | Worktugal`;
   const currentUrl = ogUrl || (typeof window !== 'undefined' ? window.location.href : '');
   const canonical = canonicalUrl || currentUrl;
 
@@ -38,7 +38,7 @@ export const Seo: React.FC<SeoProps> = ({
       <meta name="description" content={description} />
       <meta name="robots" content="index, follow" />
       <meta name="language" content="English" />
-      <meta name="author" content="Worktugal Pass" />
+      <meta name="author" content="Worktugal" />
 
       {/* Canonical URL */}
       {canonical && <link rel="canonical" href={canonical} />}
@@ -49,7 +49,7 @@ export const Seo: React.FC<SeoProps> = ({
       <meta property="og:title" content={ogTitle || fullTitle} />
       <meta property="og:description" content={ogDescription || description} />
       <meta property="og:image" content={ogImage} />
-      <meta property="og:site_name" content="Worktugal Pass" />
+      <meta property="og:site_name" content="Worktugal" />
       <meta property="og:locale" content="en_US" />
 
       {/* Twitter */}

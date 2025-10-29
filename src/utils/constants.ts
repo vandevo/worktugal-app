@@ -8,8 +8,8 @@ export const BUSINESS_CATEGORIES = [
 ];
 
 export const REDEMPTION_METHODS = [
-  { value: 'verbal', label: 'Verbal mention: "I have Worktugal Pass"' },
-  { value: 'show_pass', label: 'Show digital Worktugal Pass' },
+  { value: 'verbal', label: 'Verbal mention: "I have Worktugal"' },
+  { value: 'show_pass', label: 'Show digital Worktugal membership' },
   { value: 'promo_code', label: 'Use promo code' },
   { value: 'qr_code', label: 'Scan QR code' },
   { value: 'direct_link', label: 'Click direct link to claim' },

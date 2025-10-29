@@ -47,8 +47,8 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
 
   // Move standardPlaceholders outside to prevent useEffect from running unnecessarily
   const standardPlaceholders = useMemo(() => [
-    'Just mention you have Worktugal Pass at checkout.',
-    'Show your digital Worktugal Pass when ordering.',
+    'Just mention you have Worktugal at checkout.',
+    'Show your digital Worktugal membership when ordering.',
     'Use code WORKTUGAL10 during checkout.',
     'Scan the QR code displayed at your counter.',
     'Describe how the perk will be redeemed.',
@@ -60,9 +60,9 @@ export const PerkForm: React.FC<PerkFormProps> = ({ onSubmit, onBack, initialDat
   const getPlaceholderText = (method: string) => {
     switch (method) {
       case 'verbal':
-        return 'Just mention you have Worktugal Pass at checkout.';
+        return 'Just mention you have Worktugal at checkout.';
       case 'show_pass':
-        return 'Show your digital Worktugal Pass when ordering.';
+        return 'Show your digital Worktugal membership when ordering.';
       case 'promo_code':
         return 'Use code WORKTUGAL10 during checkout.';
       case 'qr_code':

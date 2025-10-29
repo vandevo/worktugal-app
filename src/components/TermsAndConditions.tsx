@@ -10,18 +10,18 @@ export const TermsAndConditions: React.FC = () => {
     <div className="min-h-screen bg-gray-900 py-12">
       <Seo
         title="Terms and Conditions - Service Agreement"
-        description="Read the terms and conditions for using Worktugal Pass. Understand your rights and obligations as a partner or user of our partner network."
+        description="Read the terms and conditions for using Worktugal. Understand your rights and obligations as a partner or user of our partner network."
         ogType="article"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "Terms and Conditions",
-          "description": "Terms and Conditions for Worktugal Pass - Service agreement and user obligations",
-          "url": "https://pass.worktugal.com/terms",
+          "description": "Terms and Conditions for Worktugal - Service agreement and user obligations",
+          "url": "https://app.worktugal.com/terms",
           "isPartOf": {
             "@type": "WebSite",
-            "name": "Worktugal Pass",
-            "url": "https://pass.worktugal.com"
+            "name": "Worktugal",
+            "url": "https://app.worktugal.com"
           }
         }}
       />
@@ -72,7 +72,7 @@ export const TermsAndConditions: React.FC = () => {
           <Card className="p-8">
             <div className="prose prose-invert max-w-none">
               <p className="text-gray-300 leading-relaxed text-lg">
-                Welcome to <strong className="text-white">Worktugal Pass</strong>. By accessing or using our website and services, 
+                Welcome to <strong className="text-white">Worktugal</strong>. By accessing or using our website and services, 
                 you agree to the following terms.
               </p>
             </div>
@@ -86,7 +86,7 @@ export const TermsAndConditions: React.FC = () => {
             </h2>
             <div className="prose prose-invert max-w-none">
               <p className="text-gray-300 leading-relaxed mb-4">
-                Worktugal Pass is operated by:
+                Worktugal is operated by:
               </p>
               
               <div className="p-6 bg-gray-700/30 rounded-xl border border-gray-600/20">
@@ -120,7 +120,7 @@ export const TermsAndConditions: React.FC = () => {
             </h2>
             <div className="prose prose-invert max-w-none">
               <p className="text-gray-300 leading-relaxed mb-4">
-                Worktugal Pass provides two core services:
+                Worktugal provides two core services:
               </p>
               <div className="space-y-4 mb-4">
                 <div className="p-4 bg-blue-600/10 border border-blue-600/20 rounded-xl">
@@ -137,7 +137,7 @@ export const TermsAndConditions: React.FC = () => {
                   <h3 className="text-white font-semibold mb-2">2. Partner Hub</h3>
                   <p className="text-gray-300 text-sm">
                     Digital listing services for businesses who want visibility to remote professionals based in Portugal.
-                    Lifetime verified business listings displayed at pass.worktugal.com/partners
+                    Lifetime verified business listings displayed at app.worktugal.com/partners
                   </p>
                   <p className="text-green-300 font-medium text-sm mt-2">
                     Pricing: €49 (one-time, no subscription or renewal)
@@ -280,7 +280,7 @@ export const TermsAndConditions: React.FC = () => {
                 </a>
               </div>
               <p className="text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                We're building Worktugal Pass with transparency, trust, and respect for the remote professional community in Portugal.
+                We're building Worktugal with transparency, trust, and respect for the remote professional community in Portugal.
               </p>
             </div>
           </Card>

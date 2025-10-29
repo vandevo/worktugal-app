@@ -28,7 +28,7 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ onViewDirectory, o
       <div>
         <h2 className="text-3xl font-bold mb-4">You're in!</h2>
         <p className="text-xl text-gray-300 mb-6">
-          Welcome to the Worktugal Pass partner network
+          Welcome to the Worktugal partner network
         </p>
       </div>
 
