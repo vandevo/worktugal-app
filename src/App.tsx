@@ -18,7 +18,6 @@ import { PartnerJoinPage } from './components/PartnerJoinPage';
 import { ConsultSuccess } from './components/accounting/ConsultSuccess';
 import { ConsultSuccessDemo } from './components/accounting/ConsultSuccessDemo';
 import { ConsultCheckout } from './components/accounting/ConsultCheckout';
-import { AccountantApplicationPage } from './components/accountant/AccountantApplicationPage';
 import { AppointmentManagement } from './components/admin/AppointmentManagement';
 import { AccountantApplicationReview } from './components/admin/AccountantApplicationReview';
 import { ComprehensiveIntakeForm } from './components/accounting/ComprehensiveIntakeForm';
@@ -72,7 +71,8 @@ function App() {
           <Route path="/accounting/checkout" element={<ConsultCheckout />} />
           <Route path="/accounting/consult-success" element={<ConsultSuccess />} />
           <Route path="/accounting/success-demo" element={<ConsultSuccessDemo />} />
-          <Route path="/join-accountants" element={<AccountantApplicationPage />} />
+          {/* TODO: Create AccountantApplicationPage component */}
+          {/* <Route path="/join-accountants" element={<AccountantApplicationPage />} /> */}
           <Route
             path="/admin/appointments"
             element={
