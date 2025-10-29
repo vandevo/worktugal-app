@@ -74,13 +74,13 @@ export const HomePage: React.FC = () => {
         ogDescription="Freelancing, remote work, or building a startup in Portugal? Get clarity on your tax situation. Connect with English-speaking Portuguese accountants who understand your journey."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
-        ogUrl="https://pass.worktugal.com/"
+        ogUrl="https://app.worktugal.com/"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "ProfessionalService",
           "name": "Worktugal Accounting Desk",
           "description": "Tax and accounting consultation services for remote professionals, freelancers, and founders in Portugal",
-          "url": "https://pass.worktugal.com/",
+          "url": "https://app.worktugal.com/",
           "image": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
           "priceRange": "€59-€299",
           "areaServed": {
@@ -108,7 +108,7 @@ export const HomePage: React.FC = () => {
             "price": "59",
             "priceCurrency": "EUR",
             "availability": "https://schema.org/LimitedAvailability",
-            "url": "https://pass.worktugal.com/"
+            "url": "https://app.worktugal.com/"
           }
         }}
       />

@@ -56,7 +56,7 @@ export const AccountingDeskLanding: React.FC = () => {
           "@type": "ProfessionalService",
           "name": "Worktugal Accounting Desk",
           "description": "Tax and accounting consults for expats and freelancers in Portugal",
-          "url": "https://pass.worktugal.com/accounting",
+          "url": "https://app.worktugal.com/accounting",
           "priceRange": "€59-€349",
           "areaServed": {
             "@type": "Country",

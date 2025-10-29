@@ -23,7 +23,7 @@ export const AccountingEarlyAccessLanding: React.FC = () => {
           "@type": "ProfessionalService",
           "name": "Worktugal Accounting Desk - Early Access",
           "description": "Tax and accounting consults for expats and freelancers in Portugal - Early Access",
-          "url": "https://pass.worktugal.com/accounting-early",
+          "url": "https://app.worktugal.com/accounting-early",
           "areaServed": {
             "@type": "Country",
             "name": "Portugal"

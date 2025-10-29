@@ -18,13 +18,13 @@ export const PartnerJoinPage: React.FC = () => {
         ogDescription="Join our partner ecosystem and reach 1,000+ remote professionals in Lisbon. Lifetime listing for €49. Featured placement, direct leads, verified badge."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
-        ogUrl="https://pass.worktugal.com/partners/join"
+        ogUrl="https://app.worktugal.com/partners/join"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "Service",
           "name": "Worktugal Partner Listing",
           "description": "List your business in our trusted partner directory for remote professionals in Lisbon",
-          "url": "https://pass.worktugal.com/partners/join",
+          "url": "https://app.worktugal.com/partners/join",
           "image": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
           "provider": {
             "@type": "Organization",
@@ -37,7 +37,7 @@ export const PartnerJoinPage: React.FC = () => {
             "price": "49",
             "priceCurrency": "EUR",
             "availability": "https://schema.org/InStock",
-            "url": "https://pass.worktugal.com/partners/join",
+            "url": "https://app.worktugal.com/partners/join",
             "description": "Lifetime visibility in our partner directory with no renewal fees"
           },
           "areaServed": {

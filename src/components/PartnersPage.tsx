@@ -14,19 +14,19 @@ export const PartnersPage: React.FC = () => {
         ogDescription="Our partner network includes established Lisbon professionals: accountants, lawyers, coworking spaces, and service providers. Get special offers and priority access."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
-        ogUrl="https://pass.worktugal.com/partners"
+        ogUrl="https://app.worktugal.com/partners"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           "name": "Worktugal Partner Hub",
           "description": "Directory of trusted service providers for remote professionals in Lisbon, Portugal",
-          "url": "https://pass.worktugal.com/partners",
+          "url": "https://app.worktugal.com/partners",
           "image": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
           "inLanguage": "en-US",
           "isPartOf": {
             "@type": "WebSite",
             "name": "Worktugal Pass",
-            "url": "https://pass.worktugal.com/"
+            "url": "https://app.worktugal.com/"
           },
           "about": {
             "@type": "Thing",
