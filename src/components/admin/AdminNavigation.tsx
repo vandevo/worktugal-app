@@ -42,7 +42,6 @@ export const AdminNavigation: React.FC<AdminNavigationProps> = ({ pendingCounts 
   ];
 
   const handleNavigate = (path: string) => {
-    console.log('Navigating to:', path);
     navigate(path);
   };
 

@@ -154,10 +154,11 @@ export function ContactRequestsManager() {
       />
       <div className="min-h-screen bg-gray-900 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-white mb-2">Contact Requests</h1>
+            <p className="text-gray-400">Manage incoming contact requests and inquiries</p>
+          </div>
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-white">Contact Requests</h2>
-            </div>
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div className="bg-white p-4 rounded-lg border border-slate-200">
