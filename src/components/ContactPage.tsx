@@ -330,7 +330,7 @@ export function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="flex gap-4 mt-8">
+                  <div className="flex flex-col md:flex-row gap-3 md:gap-4 mt-8">
                     <Button
                       type="button"
                       variant="outline"
@@ -338,14 +338,14 @@ export function ContactPage() {
                         setStep('purpose');
                         setShowInfoMessage(false);
                       }}
-                      className="flex-1"
+                      className="flex-1 w-full"
                     >
                       Back
                     </Button>
                     <Button
                       type="button"
                       onClick={handleDetailsNext}
-                      className="flex-1"
+                      className="flex-1 w-full"
                       disabled={isSubmitting}
                     >
                       {purpose === 'partnership' ? 'Next' : 'Send Message'}
@@ -415,19 +415,19 @@ export function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="flex gap-4 mt-8">
+                  <div className="flex flex-col md:flex-row gap-3 md:gap-4 mt-8">
                     <Button
                       type="button"
                       variant="outline"
                       onClick={() => setStep('details')}
-                      className="flex-1"
+                      className="flex-1 w-full"
                     >
                       Back
                     </Button>
                     <Button
                       type="button"
                       onClick={handleSubmit(onSubmit)}
-                      className="flex-1"
+                      className="flex-1 w-full"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? 'Sending...' : 'Send Request'}
