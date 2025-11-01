@@ -16,7 +16,7 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user } = useAuth();
-  const { getDisplayName, getInitials } = useUserProfile();
+  const { profile, getDisplayName, getInitials } = useUserProfile();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -58,7 +58,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               {/* User Menu or Sign In */}
               {user ? (
                 <div className="flex items-center space-x-3 md:space-x-4">
-                  <UserRoleBadge />
+                  {profile && <UserRoleBadge role={profile.role} />}
                   <div className="relative">
                     <button
                       onClick={() => setShowUserMenu(!showUserMenu)}

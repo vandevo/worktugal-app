@@ -9,6 +9,7 @@ import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsAndConditions } from './components/TermsAndConditions';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { ProtectedSuccessRoute } from './components/ProtectedSuccessRoute';
+import { AdminRoute } from './components/AdminRoute';
 import { Seo } from './components/Seo';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { AccountingDeskLanding } from './components/accounting/AccountingDeskLanding';
@@ -80,25 +81,25 @@ function App() {
           <Route
             path="/admin/appointments"
             element={
-              <ProtectedRoute>
+              <AdminRoute>
                 <AppointmentManagement />
-              </ProtectedRoute>
+              </AdminRoute>
             }
           />
           <Route
             path="/admin/accountant-applications"
             element={
-              <ProtectedRoute>
+              <AdminRoute>
                 <AccountantApplicationReview />
-              </ProtectedRoute>
+              </AdminRoute>
             }
           />
           <Route
             path="/admin/contacts"
             element={
-              <ProtectedRoute>
+              <AdminRoute>
                 <ContactRequestsManager />
-              </ProtectedRoute>
+              </AdminRoute>
             }
           />
 
