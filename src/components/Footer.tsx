@@ -61,9 +61,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="https://worktugal.com/contact/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/contact"
                   className="text-slate-400 hover:text-white transition-colors duration-200"
                 >
                   Contact
