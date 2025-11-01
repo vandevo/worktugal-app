@@ -25,6 +25,7 @@ import { ComprehensiveIntakeForm } from './components/accounting/ComprehensiveIn
 import { IntakeSuccess } from './components/accounting/IntakeSuccess';
 import { ContactPage } from './components/ContactPage';
 import { ContactSuccess } from './components/ContactSuccess';
+import { ContactSuccessDemo } from './components/ContactSuccessDemo';
 import { type ProductName } from './stripe-config';
 
 function App() {
@@ -104,6 +105,7 @@ function App() {
           {/* Contact routes */}
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/contact/success" element={<ContactSuccess />} />
+          <Route path="/contact/success/demo" element={<ContactSuccessDemo />} />
         </Routes>
       </Layout>
       <CookieConsentBanner />
