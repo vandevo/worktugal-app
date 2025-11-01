@@ -259,24 +259,28 @@ export function ContactPage() {
 
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-300 mb-2">
+                      <label htmlFor="contact-full-name" className="block text-sm font-semibold text-gray-300 mb-2">
                         Full Name *
                       </label>
                       <Input
+                        id="contact-full-name"
                         {...register('full_name')}
                         placeholder="John Doe"
+                        autoComplete="name"
                         error={errors.full_name?.message}
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-300 mb-2">
+                      <label htmlFor="contact-email" className="block text-sm font-semibold text-gray-300 mb-2">
                         Email *
                       </label>
                       <Input
+                        id="contact-email"
                         {...register('email')}
                         type="email"
                         placeholder="john@example.com"
+                        autoComplete="email"
                         error={errors.email?.message}
                       />
                     </div>
@@ -284,23 +288,27 @@ export function ContactPage() {
                     {(purpose === 'partnership' || purpose === 'accounting') && (
                       <>
                         <div>
-                          <label className="block text-sm font-semibold text-gray-300 mb-2">
+                          <label htmlFor="contact-company" className="block text-sm font-semibold text-gray-300 mb-2">
                             Company/Project
                           </label>
                           <Input
+                            id="contact-company"
                             {...register('company_name')}
                             placeholder="Your company name"
+                            autoComplete="organization"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-sm font-semibold text-gray-300 mb-2">
+                          <label htmlFor="contact-website" className="block text-sm font-semibold text-gray-300 mb-2">
                             Website or LinkedIn
                           </label>
                           <Input
+                            id="contact-website"
                             {...register('website_url')}
                             type="url"
                             placeholder="https://example.com"
+                            autoComplete="url"
                             error={errors.website_url?.message}
                           />
                         </div>
@@ -308,7 +316,7 @@ export function ContactPage() {
                     )}
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-300 mb-2">
+                      <label htmlFor="contact-message" className="block text-sm font-semibold text-gray-300 mb-2">
                         {purpose === 'partnership'
                           ? 'What would you like to collaborate on? *'
                           : purpose === 'accounting'
@@ -318,6 +326,7 @@ export function ContactPage() {
                           : 'How can we help? *'}
                       </label>
                       <textarea
+                        id="contact-message"
                         {...register('message')}
                         rows={4}
                         className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150 resize-none border border-white/[0.08]"
@@ -374,9 +383,11 @@ export function ContactPage() {
                         ].map((option) => (
                           <label
                             key={option.value}
+                            htmlFor={`budget-${option.value}`}
                             className="flex items-center gap-3 p-4 border-2 border-white/[0.08] bg-white/[0.02] rounded-xl hover:border-blue-400/50 cursor-pointer transition-all duration-200"
                           >
                             <input
+                              id={`budget-${option.value}`}
                               type="radio"
                               {...register('budget_range')}
                               value={option.value}
@@ -400,9 +411,11 @@ export function ContactPage() {
                         ].map((option) => (
                           <label
                             key={option.value}
+                            htmlFor={`timeline-${option.value}`}
                             className="flex items-center gap-3 p-4 border-2 border-white/[0.08] bg-white/[0.02] rounded-xl hover:border-blue-400/50 cursor-pointer transition-all duration-200"
                           >
                             <input
+                              id={`timeline-${option.value}`}
                               type="radio"
                               {...register('timeline')}
                               value={option.value}

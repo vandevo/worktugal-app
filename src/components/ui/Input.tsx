@@ -15,19 +15,25 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
   readOnly,
   className,
   type,
+  id,
+  name,
   ...props
 }, ref) => {
+  const inputId = id || name || `input-${Math.random().toString(36).substr(2, 9)}`;
+  const inputName = name || id;
   const isDateTimeInput = type === 'datetime-local' || type === 'date' || type === 'time';
 
   return (
     <div className="space-y-2">
       {label && (
-        <label className="block text-sm font-medium text-gray-300">
+        <label htmlFor={inputId} className="block text-sm font-medium text-gray-300">
           {label}
         </label>
       )}
       <input
         ref={ref}
+        id={inputId}
+        name={inputName}
         type={type}
         className={cn(
           'w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl rounded-xl text-white placeholder-gray-500',

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getAllAppointments } from '../../lib/appointments';
 import { getAllPayouts, getPendingPayouts } from '../../lib/payouts';
@@ -215,12 +216,12 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                 )}
                 {recentContacts.length > 0 && (
-                  <a
-                    href="/admin/contacts"
+                  <Link
+                    to="/admin/contacts"
                     className="block text-center text-teal-400 hover:text-teal-300 text-sm font-medium pt-2"
                   >
                     View All Contacts →
-                  </a>
+                  </Link>
                 )}
               </div>
             </div>
@@ -234,12 +235,12 @@ export const AdminDashboard: React.FC = () => {
                     <p className="text-gray-300 text-sm mb-3">
                       {pendingPayouts.length} payout{pendingPayouts.length > 1 ? 's' : ''} totaling €{pendingPayoutAmount.toFixed(2)}
                     </p>
-                    <a
-                      href="/admin/appointments"
+                    <Link
+                      to="/admin/appointments"
                       className="text-yellow-400 hover:text-yellow-300 text-sm font-medium"
                     >
                       Manage Appointments →
-                    </a>
+                    </Link>
                   </div>
                 )}
 
@@ -249,12 +250,12 @@ export const AdminDashboard: React.FC = () => {
                     <p className="text-gray-300 text-sm mb-3">
                       {pendingApplications} application{pendingApplications > 1 ? 's' : ''} awaiting review
                     </p>
-                    <a
-                      href="/admin/applications"
+                    <Link
+                      to="/admin/accountant-applications"
                       className="text-purple-400 hover:text-purple-300 text-sm font-medium"
                     >
                       Review Applications →
-                    </a>
+                    </Link>
                   </div>
                 )}
 
@@ -264,12 +265,12 @@ export const AdminDashboard: React.FC = () => {
                     <p className="text-gray-300 text-sm mb-3">
                       {contactStats.new} new contact request{contactStats.new > 1 ? 's' : ''} awaiting review
                     </p>
-                    <a
-                      href="/admin/contacts"
+                    <Link
+                      to="/admin/contacts"
                       className="text-teal-400 hover:text-teal-300 text-sm font-medium"
                     >
                       Review Contacts →
-                    </a>
+                    </Link>
                   </div>
                 )}
 

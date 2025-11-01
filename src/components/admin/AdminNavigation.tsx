@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Calendar, Briefcase, Mail } from 'lucide-react';
 import { cn } from '../../utils/cn';
 
@@ -12,7 +12,6 @@ interface AdminNavigationProps {
 }
 
 export const AdminNavigation: React.FC<AdminNavigationProps> = ({ pendingCounts = {} }) => {
-  const navigate = useNavigate();
   const location = useLocation();
 
   const navItems = [
@@ -50,11 +49,11 @@ export const AdminNavigation: React.FC<AdminNavigationProps> = ({ pendingCounts 
             const isActive = location.pathname === item.path;
 
             return (
-              <button
+              <Link
                 key={item.path}
-                onClick={() => navigate(item.path)}
+                to={item.path}
                 className={cn(
-                  'flex items-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap cursor-pointer',
+                  'flex items-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
                   isActive
                     ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
@@ -67,7 +66,7 @@ export const AdminNavigation: React.FC<AdminNavigationProps> = ({ pendingCounts 
                     {item.badge}
                   </span>
                 )}
-              </button>
+              </Link>
             );
           })}
         </div>

@@ -110,13 +110,16 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
         />
 
         <div className="space-y-1">
-          <label className="block text-sm font-medium text-gray-300">
+          <label htmlFor="login-password" className="block text-sm font-medium text-gray-300">
             Password
           </label>
           <div className="relative">
             <input
+              id="login-password"
+              name="password"
               type={showPassword ? 'text' : 'password'}
               placeholder="Enter your password"
+              autoComplete="current-password"
               className="w-full px-4 py-3 pr-12 bg-gray-800/80 border border-gray-600/60 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/80 focus:border-blue-500/50 focus:bg-gray-750 hover:border-gray-500/60 transition-all duration-200 shadow-sm"
               {...register('password')}
             />
