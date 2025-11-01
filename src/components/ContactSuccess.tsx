@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Button } from './ui/Button';
 import { CheckCircle, ExternalLink, BookOpen, Briefcase, MessageCircle } from 'lucide-react';
@@ -23,7 +24,7 @@ export function ContactSuccess() {
         actions: [
           {
             label: 'Learn More About Accounting Desk',
-            href: '/accounting-desk',
+            href: '/',
             external: false,
           },
         ],
@@ -121,23 +122,27 @@ export function ContactSuccess() {
   const Icon = content.icon;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center px-4 py-12">
-      <div className="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8 md:p-12">
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-12">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-2xl w-full bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8 md:p-12"
+      >
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-            <Icon className="w-8 h-8 text-green-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-green-400/10 rounded-full mb-4">
+            <Icon className="w-8 h-8 text-green-400" />
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">{content.title}</h1>
-          <p className="text-lg text-slate-600">{content.message}</p>
+          <h1 className="text-3xl font-bold text-white mb-2">{content.title}</h1>
+          <p className="text-lg text-gray-400">{content.message}</p>
         </div>
 
         {content.subMessage && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-            <p className="font-medium text-blue-900 mb-3">Quick context:</p>
+          <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-6 mb-6">
+            <p className="font-medium text-blue-400 mb-3">Quick context:</p>
             <ul className="space-y-2">
               {content.subMessage.map((item, index) => (
-                <li key={index} className="text-blue-800 text-sm flex items-start gap-2">
-                  <span className="text-blue-600 mt-1">•</span>
+                <li key={index} className="text-gray-300 text-sm flex items-start gap-2">
+                  <span className="text-blue-400 mt-1">•</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -146,7 +151,7 @@ export function ContactSuccess() {
         )}
 
         {content.footer && (
-          <p className="text-center text-slate-600 mb-6">{content.footer}</p>
+          <p className="text-center text-gray-400 mb-6">{content.footer}</p>
         )}
 
         {content.actions && content.actions.length > 0 && (
@@ -158,7 +163,7 @@ export function ContactSuccess() {
                   href={action.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                  className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors duration-200 font-medium"
                 >
                   {action.label}
                   <ExternalLink className="w-4 h-4" />
@@ -167,7 +172,7 @@ export function ContactSuccess() {
                 <Link
                   key={index}
                   to={action.href}
-                  className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                  className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors duration-200 font-medium"
                 >
                   {action.label}
                 </Link>
@@ -176,12 +181,12 @@ export function ContactSuccess() {
           </div>
         )}
 
-        <div className="flex gap-4 justify-center pt-6 border-t border-slate-200">
+        <div className="flex gap-4 justify-center pt-6 border-t border-white/[0.08]">
           <Link to="/">
             <Button variant="outline">Back to Home</Button>
           </Link>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
