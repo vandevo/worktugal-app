@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { getAllAppointments, assignAccountant, updateAppointment } from '../../lib/appointments';
-import { getAllActiveAccountants } from '../../lib/accountants';
+import { getAllActiveAccountants, getAllApplications } from '../../lib/accountants';
+import { getContactRequestStats } from '../../lib/contacts';
 import { Button } from '../ui/Button';
 import { Select } from '../ui/Select';
 import { Alert } from '../ui/Alert';
@@ -16,6 +17,8 @@ export const AppointmentManagement: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [assigningId, setAssigningId] = useState<number | null>(null);
   const [selectedAccountant, setSelectedAccountant] = useState<Record<number, string>>({});
+  const [pendingApplications, setPendingApplications] = useState(0);
+  const [contactStats, setContactStats] = useState<any>(null);
 
   useEffect(() => {
     loadData();
@@ -26,13 +29,19 @@ export const AppointmentManagement: React.FC = () => {
     setError(null);
 
     try {
-      const [appointmentsRes, accountantsRes] = await Promise.all([
+      const [appointmentsRes, accountantsRes, applicationsRes, contactStatsData] = await Promise.all([
         getAllAppointments(),
         getAllActiveAccountants(),
+        getAllApplications(),
+        getContactRequestStats(),
       ]);
 
       if (appointmentsRes.data) setAppointments(appointmentsRes.data);
       if (accountantsRes.data) setAccountants(accountantsRes.data);
+      if (applicationsRes.data) {
+        setPendingApplications(applicationsRes.data.filter((a: any) => a.status === 'pending').length);
+      }
+      setContactStats(contactStatsData);
     } catch (err) {
       console.error('Error loading data:', err);
       setError('Failed to load appointment data');
@@ -132,7 +141,13 @@ export const AppointmentManagement: React.FC = () => {
 
   return (
     <>
-      <AdminNavigation />
+      <AdminNavigation
+        pendingCounts={{
+          appointments: appointments.filter(a => a.status === 'scheduled').length,
+          applications: pendingApplications,
+          contacts: contactStats?.new || 0,
+        }}
+      />
       <div className="min-h-screen bg-gray-900 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-6">

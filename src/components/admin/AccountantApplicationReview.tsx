@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { getAllApplications, updateApplicationStatus, createAccountantProfile, approveApplicationAndCreateAccount } from '../../lib/accountants';
+import { getAllApplications, updateApplicationStatus, createAccountantProfile, approveApplicationAndCreateAccount, getAllActiveAccountants } from '../../lib/accountants';
+import { getAllAppointments } from '../../lib/appointments';
+import { getContactRequestStats } from '../../lib/contacts';
 import { getSignedUrl } from '../../lib/storage';
 import { useAuth } from '../../hooks/useAuth';
 import { Button } from '../ui/Button';
@@ -20,6 +22,8 @@ export const AccountantApplicationReview: React.FC = () => {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [credentials, setCredentials] = useState<{ email: string; password: string } | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [scheduledCount, setScheduledCount] = useState(0);
+  const [contactStats, setContactStats] = useState<any>(null);
 
   useEffect(() => {
     loadApplications();
@@ -30,9 +34,18 @@ export const AccountantApplicationReview: React.FC = () => {
     setError(null);
 
     try {
-      const { data, error: fetchError } = await getAllApplications();
-      if (fetchError) throw fetchError;
-      if (data) setApplications(data);
+      const [applicationsRes, appointmentsRes, contactStatsData] = await Promise.all([
+        getAllApplications(),
+        getAllAppointments(),
+        getContactRequestStats(),
+      ]);
+
+      if (applicationsRes.error) throw applicationsRes.error;
+      if (applicationsRes.data) setApplications(applicationsRes.data);
+      if (appointmentsRes.data) {
+        setScheduledCount(appointmentsRes.data.filter((a: any) => a.status === 'scheduled').length);
+      }
+      setContactStats(contactStatsData);
     } catch (err) {
       console.error('Error loading applications:', err);
       setError('Failed to load applications');
@@ -128,7 +141,13 @@ export const AccountantApplicationReview: React.FC = () => {
 
   return (
     <>
-      <AdminNavigation />
+      <AdminNavigation
+        pendingCounts={{
+          appointments: scheduledCount,
+          applications: applications.filter(a => a.status === 'pending').length,
+          contacts: contactStats?.new || 0,
+        }}
+      />
       <div className="min-h-screen bg-gray-900 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-6">

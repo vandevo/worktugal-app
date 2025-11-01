@@ -8,6 +8,8 @@ import {
   getContactRequestStats,
   type ContactRequest,
 } from '../../lib/contacts';
+import { getAllAppointments } from '../../lib/appointments';
+import { getAllApplications } from '../../lib/accountants';
 import { Mail, ExternalLink, Calendar, DollarSign, Clock, Filter } from 'lucide-react';
 
 export function ContactRequestsManager() {
@@ -26,11 +28,32 @@ export function ContactRequestsManager() {
     purpose: '',
     priority: '',
   });
+  const [scheduledCount, setScheduledCount] = useState(0);
+  const [pendingApplications, setPendingApplications] = useState(0);
 
   useEffect(() => {
     loadRequests();
     loadStats();
+    loadAdminData();
   }, [filters]);
+
+  const loadAdminData = async () => {
+    try {
+      const [appointmentsRes, applicationsRes] = await Promise.all([
+        getAllAppointments(),
+        getAllApplications(),
+      ]);
+
+      if (appointmentsRes.data) {
+        setScheduledCount(appointmentsRes.data.filter((a: any) => a.status === 'scheduled').length);
+      }
+      if (applicationsRes.data) {
+        setPendingApplications(applicationsRes.data.filter((a: any) => a.status === 'pending').length);
+      }
+    } catch (error) {
+      console.error('Error loading admin data:', error);
+    }
+  };
 
   const loadRequests = async () => {
     try {
@@ -122,7 +145,13 @@ export function ContactRequestsManager() {
 
   return (
     <>
-      <AdminNavigation />
+      <AdminNavigation
+        pendingCounts={{
+          appointments: scheduledCount,
+          applications: pendingApplications,
+          contacts: stats.new,
+        }}
+      />
       <div className="min-h-screen bg-gray-900 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-6">
