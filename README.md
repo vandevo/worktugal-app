@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-10-29
+**Last Updated:** 2025-11-01
 
 ---
 
@@ -1940,6 +1940,20 @@ https://worktugal.com?debug=true
 ---
 
 ## Recent Updates
+
+**2025-11-01: Mobile UX Improvements for Contact Form and Option Buttons**
+- Improved mobile responsiveness of contact form purpose selection buttons
+- Changed button layout from horizontal to vertical stack on mobile screens (icon above text, centered alignment)
+- Implemented responsive icon sizing (20px mobile, 24px desktop) with adaptive padding
+- Added responsive text sizing (xs/base mobile, sm/lg desktop) with improved line height
+- Fixed cramped CTA button layout on mobile by implementing full-width vertical stacking
+- Buttons now stack one per row on mobile instead of side-by-side, preventing text wrapping issues
+- "Send Message" and "Send Request" buttons no longer wrap awkwardly on small screens
+- Desktop layout preserved with elegant side-by-side button arrangement
+- Optimized spacing and padding for better mobile touch targets and visual breathing room
+- Applied changes to both contact form details step and partnership qualification step
+- Production build successfully compiles with all responsive layout improvements
+- Note: UI/UX section (mobile-first design principles applied to form interactions)
 
 **2025-10-29: Sitemap SEO Fix for Google Search Console**
 - Fixed critical sitemap date error preventing Google Search Console indexing
