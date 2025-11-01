@@ -20,8 +20,11 @@ import { ConsultSuccessDemo } from './components/accounting/ConsultSuccessDemo';
 import { ConsultCheckout } from './components/accounting/ConsultCheckout';
 import { AppointmentManagement } from './components/admin/AppointmentManagement';
 import { AccountantApplicationReview } from './components/admin/AccountantApplicationReview';
+import { ContactRequestsManager } from './components/admin/ContactRequestsManager';
 import { ComprehensiveIntakeForm } from './components/accounting/ComprehensiveIntakeForm';
 import { IntakeSuccess } from './components/accounting/IntakeSuccess';
+import { ContactPage } from './components/ContactPage';
+import { ContactSuccess } from './components/ContactSuccess';
 import { type ProductName } from './stripe-config';
 
 function App() {
@@ -89,6 +92,18 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/admin/contacts"
+            element={
+              <ProtectedRoute>
+                <ContactRequestsManager />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Contact routes */}
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/contact/success" element={<ContactSuccess />} />
         </Routes>
       </Layout>
       <CookieConsentBanner />
