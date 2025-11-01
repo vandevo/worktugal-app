@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
+import { AdminNavigation } from './AdminNavigation';
 import {
   getContactRequests,
   updateContactRequest,
@@ -120,10 +121,14 @@ export function ContactRequestsManager() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-slate-900">Contact Requests</h2>
-      </div>
+    <>
+      <AdminNavigation />
+      <div className="min-h-screen bg-gray-900 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-white">Contact Requests</h2>
+            </div>
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div className="bg-white p-4 rounded-lg border border-slate-200">
@@ -414,6 +419,9 @@ export function ContactRequestsManager() {
           </div>
         </div>
       )}
-    </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

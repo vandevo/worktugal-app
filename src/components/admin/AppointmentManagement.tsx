@@ -5,6 +5,7 @@ import { getAllActiveAccountants } from '../../lib/accountants';
 import { Button } from '../ui/Button';
 import { Select } from '../ui/Select';
 import { Alert } from '../ui/Alert';
+import { AdminNavigation } from './AdminNavigation';
 import { Calendar, Clock, User, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import type { Appointment, AccountantProfile } from '../../types/accountant';
 
@@ -130,20 +131,24 @@ export const AppointmentManagement: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
-      {error && (
-        <Alert variant="error" className="mb-4">
-          {error}
-        </Alert>
-      )}
+    <>
+      <AdminNavigation />
+      <div className="min-h-screen bg-gray-900 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-6">
+            {error && (
+              <Alert variant="error" className="mb-4">
+                {error}
+              </Alert>
+            )}
 
-      <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
+            <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
           <AlertTriangle className="w-6 h-6 text-yellow-400" />
           Pending Assignment ({pendingAssignments.length})
-        </h2>
+              </h2>
 
-        {pendingAssignments.length === 0 ? (
+              {pendingAssignments.length === 0 ? (
           <div className="text-center py-8">
             <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-4" />
             <p className="text-gray-400">All appointments have been assigned</p>
@@ -217,25 +222,25 @@ export const AppointmentManagement: React.FC = () => {
                     {assigningId === appointment.id ? 'Assigning...' : 'Assign'}
                   </Button>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </div>
+                  </motion.div>
+                ))}
+                </div>
+              )}
+            </div>
 
-      <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-          <Calendar className="w-6 h-6 text-blue-400" />
-          Scheduled Appointments ({scheduled.length})
-        </h2>
+            <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
+              <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                <Calendar className="w-6 h-6 text-blue-400" />
+                Scheduled Appointments ({scheduled.length})
+              </h2>
 
-        {scheduled.length === 0 ? (
-          <div className="text-center py-8">
-            <Calendar className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-            <p className="text-gray-400">No scheduled appointments</p>
-          </div>
-        ) : (
-          <div className="space-y-3">
+              {scheduled.length === 0 ? (
+                <div className="text-center py-8">
+                  <Calendar className="w-12 h-12 text-gray-500 mx-auto mb-4" />
+                  <p className="text-gray-400">No scheduled appointments</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
             {scheduled.slice(0, 10).map((appointment) => (
               <div
                 key={appointment.id}
@@ -267,25 +272,25 @@ export const AppointmentManagement: React.FC = () => {
                     <p className="text-xl font-bold text-white">€{appointment.payment_amount?.toFixed(2)}</p>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+                  </div>
+                ))}
+                </div>
+              )}
+            </div>
 
-      <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
-        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-          <CheckCircle className="w-6 h-6 text-green-400" />
-          Recent Completed ({completed.length})
-        </h2>
+            <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
+              <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                <CheckCircle className="w-6 h-6 text-green-400" />
+                Recent Completed ({completed.length})
+              </h2>
 
-        {completed.length === 0 ? (
-          <div className="text-center py-8">
-            <CheckCircle className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-            <p className="text-gray-400">No completed appointments yet</p>
-          </div>
-        ) : (
-          <div className="space-y-3">
+              {completed.length === 0 ? (
+                <div className="text-center py-8">
+                  <CheckCircle className="w-12 h-12 text-gray-500 mx-auto mb-4" />
+                  <p className="text-gray-400">No completed appointments yet</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
             {completed.slice(0, 5).map((appointment) => (
               <div
                 key={appointment.id}
@@ -311,10 +316,13 @@ export const AppointmentManagement: React.FC = () => {
                   </div>
                 </div>
               </div>
-            ))}
+                ))}
+                </div>
+              )}
+            </div>
           </div>
-        )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };

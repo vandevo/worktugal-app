@@ -6,6 +6,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
 import { Badge } from '../ui/Badge';
+import { AdminNavigation } from './AdminNavigation';
 import { CheckCircle, XCircle, Clock, Award, Briefcase, Mail, Phone, Calendar, Eye, FileText, Copy, Check } from 'lucide-react';
 import type { AccountantApplication } from '../../types/accountant';
 
@@ -126,12 +127,16 @@ export const AccountantApplicationReview: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
-      {error && (
-        <Alert variant="error" className="mb-4">
-          {error}
-        </Alert>
-      )}
+    <>
+      <AdminNavigation />
+      <div className="min-h-screen bg-gray-900 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-6">
+            {error && (
+              <Alert variant="error" className="mb-4">
+                {error}
+              </Alert>
+            )}
 
       <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
@@ -438,6 +443,9 @@ export const AccountantApplicationReview: React.FC = () => {
           </motion.div>
         </div>
       )}
-    </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };

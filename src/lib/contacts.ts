@@ -90,19 +90,42 @@ export async function updateContactRequest(
 export async function getContactRequestStats() {
   const { data, error } = await supabase
     .from('contact_requests')
-    .select('status, priority, purpose');
+    .select('status, priority, purpose, created_at');
 
   if (error) {
     throw error;
   }
 
+  const now = new Date();
+  const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
   const stats = {
     total: data.length,
     new: data.filter((r) => r.status === 'new').length,
     highPriority: data.filter((r) => r.priority === 'high').length,
-    thisMonth: 0,
+    thisMonth: data.filter((r) => new Date(r.created_at || '') >= firstDayOfMonth).length,
     converted: data.filter((r) => r.status === 'converted').length,
+    byPurpose: {
+      accounting: data.filter((r) => r.purpose === 'accounting').length,
+      partnership: data.filter((r) => r.purpose === 'partnership').length,
+      job: data.filter((r) => r.purpose === 'job').length,
+      other: data.filter((r) => r.purpose === 'info' || r.purpose === 'other').length,
+    },
   };
 
   return stats;
+}
+
+export async function getRecentContactRequests(limit: number = 5) {
+  const { data, error } = await supabase
+    .from('contact_requests')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
 }

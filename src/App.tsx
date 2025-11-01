@@ -79,6 +79,14 @@ function App() {
           {/* TODO: Create AccountantApplicationPage component */}
           {/* <Route path="/join-accountants" element={<AccountantApplicationPage />} /> */}
           <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <Navigate to="/dashboard" replace />
+              </AdminRoute>
+            }
+          />
+          <Route
             path="/admin/appointments"
             element={
               <AdminRoute>
