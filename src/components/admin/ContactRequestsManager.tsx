@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
-import { AdminNavigation } from './AdminNavigation';
 import {
   getContactRequests,
   updateContactRequest,
@@ -10,9 +10,10 @@ import {
 } from '../../lib/contacts';
 import { getAllAppointments } from '../../lib/appointments';
 import { getAllApplications } from '../../lib/accountants';
-import { Mail, ExternalLink, Calendar, DollarSign, Clock, Filter } from 'lucide-react';
+import { Mail, ExternalLink, Calendar, DollarSign, Clock, Filter, ArrowLeft } from 'lucide-react';
 
 export function ContactRequestsManager() {
+  const navigate = useNavigate();
   const [requests, setRequests] = useState<ContactRequest[]>([]);
   const [stats, setStats] = useState({
     total: 0,
@@ -144,20 +145,20 @@ export function ContactRequestsManager() {
   }
 
   return (
-    <>
-      <AdminNavigation
-        pendingCounts={{
-          appointments: scheduledCount,
-          applications: pendingApplications,
-          contacts: stats.new,
-        }}
-      />
-      <div className="min-h-screen bg-gray-900 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Contact Requests</h1>
-            <p className="text-gray-400">Manage incoming contact requests and inquiries</p>
-          </div>
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <Button
+            variant="outline"
+            onClick={() => navigate('/dashboard')}
+            className="mb-6 text-slate-400 hover:text-white"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Overview
+          </Button>
+          <h1 className="text-3xl font-bold text-white mb-2">Contact Requests</h1>
+          <p className="text-slate-400">Manage incoming contact requests and inquiries</p>
+        </div>
           <div className="space-y-6">
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
@@ -449,9 +450,8 @@ export function ContactRequestsManager() {
           </div>
         </div>
       )}
-          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

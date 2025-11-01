@@ -6,7 +6,7 @@ import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 import { User, Settings, CreditCard } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { AdminDashboard } from './admin/AdminDashboard';
+import { AdminOverview } from './admin/AdminOverview';
 import { ClientDashboard } from './client/ClientDashboard';
 
 export function Dashboard() {
@@ -23,7 +23,7 @@ export function Dashboard() {
   }
 
   if (profile?.role === 'admin') {
-    return <AdminDashboard />;
+    return <AdminOverview />;
   }
 
   if (profile?.role === 'accountant') {

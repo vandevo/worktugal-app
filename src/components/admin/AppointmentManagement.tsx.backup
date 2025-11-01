@@ -169,14 +169,14 @@ export const AppointmentManagement: React.FC = () => {
               Pending Assignment ({pendingAssignments.length})
             </h2>
 
-            {pendingAssignments.length === 0 ? (
-              <div className="text-center py-8">
-                <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-4" />
-                <p className="text-gray-400">All appointments have been assigned</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {pendingAssignments.map((appointment) => (
+              {pendingAssignments.length === 0 ? (
+          <div className="text-center py-8">
+            <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-4" />
+            <p className="text-gray-400">All appointments have been assigned</p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {pendingAssignments.map((appointment) => (
               <motion.div
                 key={appointment.id}
                 initial={{ opacity: 0, y: 10 }}
@@ -243,11 +243,11 @@ export const AppointmentManagement: React.FC = () => {
                     {assigningId === appointment.id ? 'Assigning...' : 'Assign'}
                   </Button>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </div>
+                  </motion.div>
+                ))}
+                </div>
+              )}
+            </div>
 
             <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
               <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">

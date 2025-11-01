@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { getAllApplications, updateApplicationStatus, createAccountantProfile, approveApplicationAndCreateAccount, getAllActiveAccountants } from '../../lib/accountants';
 import { getAllAppointments } from '../../lib/appointments';
 import { getContactRequestStats } from '../../lib/contacts';
@@ -8,12 +9,12 @@ import { useAuth } from '../../hooks/useAuth';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
 import { Badge } from '../ui/Badge';
-import { AdminNavigation } from './AdminNavigation';
-import { CheckCircle, XCircle, Clock, Award, Briefcase, Mail, Phone, Calendar, Eye, FileText, Copy, Check } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, Award, Briefcase, Mail, Phone, Calendar, Eye, FileText, Copy, Check, ArrowLeft } from 'lucide-react';
 import type { AccountantApplication } from '../../types/accountant';
 
 export const AccountantApplicationReview: React.FC = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [applications, setApplications] = useState<AccountantApplication[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -140,20 +141,20 @@ export const AccountantApplicationReview: React.FC = () => {
   }
 
   return (
-    <>
-      <AdminNavigation
-        pendingCounts={{
-          appointments: scheduledCount,
-          applications: applications.filter(a => a.status === 'pending').length,
-          contacts: contactStats?.new || 0,
-        }}
-      />
-      <div className="min-h-screen bg-gray-900 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Accountant Applications</h1>
-            <p className="text-gray-400">Review and manage accountant applications</p>
-          </div>
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <Button
+            variant="outline"
+            onClick={() => navigate('/dashboard')}
+            className="mb-6 text-slate-400 hover:text-white"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Overview
+          </Button>
+          <h1 className="text-3xl font-bold text-white mb-2">Accountant Applications</h1>
+          <p className="text-slate-400">Review and manage accountant applications</p>
+        </div>
           <div className="space-y-6">
             {error && (
               <Alert variant="error" className="mb-4">
@@ -466,9 +467,8 @@ export const AccountantApplicationReview: React.FC = () => {
           </motion.div>
         </div>
       )}
-          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
