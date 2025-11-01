@@ -210,17 +210,17 @@ export function ContactPage() {
                         <button
                           key={option.value}
                           onClick={() => handlePurposeSelect(option.value)}
-                          className="w-full text-left p-6 border-2 border-white/[0.08] bg-white/[0.02] rounded-xl hover:border-blue-400/50 hover:bg-white/[0.05] transition-all duration-200 group"
+                          className="w-full text-center md:text-left p-5 md:p-6 border-2 border-white/[0.08] bg-white/[0.02] rounded-xl hover:border-blue-400/50 hover:bg-white/[0.05] transition-all duration-200 group"
                         >
-                          <div className="flex items-start gap-4">
-                            <div className="p-3 bg-blue-400/10 rounded-xl group-hover:bg-blue-400/20 transition-colors duration-200">
-                              <Icon className="w-6 h-6 text-blue-400" />
+                          <div className="flex flex-col md:flex-row items-center md:items-start gap-3 md:gap-4">
+                            <div className="p-2.5 md:p-3 bg-blue-400/10 rounded-xl group-hover:bg-blue-400/20 transition-colors duration-200 shrink-0">
+                              <Icon className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
                             </div>
-                            <div className="flex-1">
-                              <h3 className="text-lg font-semibold text-white mb-1">
+                            <div className="flex-1 space-y-1">
+                              <h3 className="text-base md:text-lg font-semibold text-white">
                                 {option.label}
                               </h3>
-                              <p className="text-gray-400 text-sm">
+                              <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
                                 {option.description}
                               </p>
                             </div>
