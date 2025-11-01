@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Calendar, Briefcase, Mail } from 'lucide-react';
 import { cn } from '../../utils/cn';
 
@@ -12,6 +12,7 @@ interface AdminNavigationProps {
 }
 
 export const AdminNavigation: React.FC<AdminNavigationProps> = ({ pendingCounts = {} }) => {
+  const navigate = useNavigate();
   const location = useLocation();
 
   const navItems = [
@@ -40,8 +41,13 @@ export const AdminNavigation: React.FC<AdminNavigationProps> = ({ pendingCounts 
     },
   ];
 
+  const handleNavigate = (path: string) => {
+    console.log('Navigating to:', path);
+    navigate(path);
+  };
+
   return (
-    <nav className="sticky top-16 md:top-20 z-40 bg-slate-900/95 backdrop-blur-xl border-b border-slate-800/50">
+    <nav className="sticky top-16 md:top-20 z-50 bg-slate-900/95 backdrop-blur-xl border-b border-slate-800/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center space-x-1 overflow-x-auto py-2">
           {navItems.map((item) => {
@@ -49,11 +55,11 @@ export const AdminNavigation: React.FC<AdminNavigationProps> = ({ pendingCounts 
             const isActive = location.pathname === item.path;
 
             return (
-              <Link
+              <button
                 key={item.path}
-                to={item.path}
+                onClick={() => handleNavigate(item.path)}
                 className={cn(
-                  'flex items-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap',
+                  'flex items-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap cursor-pointer',
                   isActive
                     ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
@@ -66,7 +72,7 @@ export const AdminNavigation: React.FC<AdminNavigationProps> = ({ pendingCounts 
                     {item.badge}
                   </span>
                 )}
-              </Link>
+              </button>
             );
           })}
         </div>
