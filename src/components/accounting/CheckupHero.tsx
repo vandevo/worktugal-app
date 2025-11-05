@@ -44,7 +44,7 @@ export const CheckupHero: React.FC<CheckupHeroProps> = ({ onStartCheckup }) => {
           transition={{ duration: 0.6 }}
         >
           <div className="mb-4 inline-block">
-            <span className="text-blue-300 text-sm font-semibold uppercase tracking-wider">Worktugal</span>
+            <span className="text-blue-300 text-sm font-semibold uppercase tracking-wider">For Remote Professionals & Freelancers</span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Are you tax compliant<br />in Portugal?
