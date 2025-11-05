@@ -441,11 +441,11 @@ export const TaxCheckupForm: React.FC = () => {
       </div>
 
       <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-5">
-        <div className="flex items-start gap-3">
-          <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-          <div>
-            <h4 className="text-white font-semibold mb-2">What you'll get instantly</h4>
-            <ul className="text-sm text-gray-300 space-y-1.5">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-3">
+          <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0" />
+          <div className="flex-1">
+            <h4 className="text-white font-semibold mb-3">What you'll get instantly</h4>
+            <ul className="text-sm text-gray-300 space-y-2">
               <li>✓ Personalized compliance status report</li>
               <li>✓ Specific action steps ranked by priority</li>
               <li>✓ Timeline and penalty information</li>
@@ -547,8 +547,8 @@ export const TaxCheckupForm: React.FC = () => {
           className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8 md:p-12"
         >
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-3xl font-bold text-white">Tax Compliance Checkup</h2>
+            <div className="mb-4">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Tax Compliance Checkup</h2>
               <span className="text-sm text-gray-400">Step {step} of {totalSteps}</span>
             </div>
 
@@ -588,27 +588,27 @@ export const TaxCheckupForm: React.FC = () => {
               {step === 3 && renderStep3()}
             </motion.div>
 
-            <div className="flex gap-4 mt-10">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-10">
               {step > 1 && (
                 <Button
                   type="button"
                   variant="outline"
                   onClick={handlePrevious}
-                  className="flex items-center"
+                  className="flex items-center justify-center w-full sm:w-auto order-2 sm:order-1"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Previous
                 </Button>
               )}
 
-              <div className="flex-1" />
+              <div className="hidden sm:block flex-1" />
 
               {step < totalSteps ? (
                 <Button
                   type="button"
                   onClick={handleNext}
                   disabled={!isStepValid()}
-                  className="flex items-center"
+                  className="flex items-center justify-center w-full sm:w-auto order-1 sm:order-2"
                 >
                   Next
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -619,6 +619,7 @@ export const TaxCheckupForm: React.FC = () => {
                   onClick={handleSubmit}
                   disabled={!isStepValid() || isSubmitting}
                   size="lg"
+                  className="w-full sm:w-auto order-1 sm:order-2"
                 >
                   {isSubmitting ? 'Analyzing...' : 'Get My Compliance Report'}
                 </Button>
