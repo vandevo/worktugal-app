@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AccountingEarlyHero } from './accounting/AccountingEarlyHero';
-import { EarlyAccessWhatToExpect } from './accounting/EarlyAccessWhatToExpect';
-import { EarlyAccessForm } from './accounting/EarlyAccessForm';
+import { CheckupHero } from './accounting/CheckupHero';
 import { supabase } from '../lib/supabase';
 import { motion } from 'framer-motion';
 import { Shield, MapPin, Globe, Instagram, ArrowRight, ExternalLink } from 'lucide-react';
@@ -53,11 +51,8 @@ export const HomePage: React.FC = () => {
     fetchFeaturedPartners();
   }, []);
 
-  const handleJoinWaitlist = () => {
-    const formElement = document.getElementById('early-access-form');
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+  const handleStartCheckup = () => {
+    navigate('/checkup');
   };
 
   const truncateDescription = (text: string, maxLength: number = 120) => {
@@ -68,18 +63,18 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Accounting Desk for Remote Professionals in Portugal"
-        description="Working remotely in Portugal? Talk to OCC-certified accountants in Lisbon. Get a written action plan for tax compliance. For freelancers, founders, and remote workers. Starting from €59."
-        ogTitle="Worktugal Accounting Desk - Tax Compliance for Remote Professionals"
-        ogDescription="Freelancing, remote work, or building a startup in Portugal? Get clarity on your tax situation. Connect with English-speaking Portuguese accountants who understand your journey."
+        title="Tax compliance tools for freelancers in Portugal"
+        description="Are you tax compliant in Portugal? Take our free 3-minute checkup. Get your compliance score, see what you're missing, and get a clear action plan."
+        ogTitle="Worktugal - Compliance tools for freelancers in Portugal"
+        ogDescription="Free tax compliance checkup for freelancers in Portugal. Find out if you're compliant in 3 minutes."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
         ogUrl="https://app.worktugal.com/"
         structuredData={{
           "@context": "https://schema.org",
-          "@type": "ProfessionalService",
-          "name": "Worktugal Accounting Desk",
-          "description": "Tax and accounting consultation services for remote professionals, freelancers, and founders in Portugal",
+          "@type": "WebApplication",
+          "name": "Worktugal",
+          "description": "Tax compliance tools for freelancers and remote professionals in Portugal",
           "url": "https://app.worktugal.com/",
           "image": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
           "priceRange": "€59-€299",
@@ -104,35 +99,27 @@ export const HomePage: React.FC = () => {
           },
           "offers": {
             "@type": "Offer",
-            "name": "Tax Consultation - Early Access",
-            "price": "59",
+            "name": "Tax Compliance Checkup",
+            "price": "0",
             "priceCurrency": "EUR",
-            "availability": "https://schema.org/LimitedAvailability",
-            "url": "https://app.worktugal.com/"
+            "availability": "https://schema.org/InStock",
+            "url": "https://app.worktugal.com/checkup"
           }
         }}
       />
 
-      {/* Primary: Accounting Desk Hero */}
-      <AccountingEarlyHero onJoinWaitlist={handleJoinWaitlist} />
-
-      {/* What to Expect Section */}
-      <EarlyAccessWhatToExpect />
-
-      {/* Early Access Form */}
-      <div id="early-access-form">
-        <EarlyAccessForm />
-      </div>
+      {/* Primary: Tax Checkup Hero */}
+      <CheckupHero onStartCheckup={handleStartCheckup} />
 
       {/* Secondary: Featured Partners Section */}
       <section className="py-16 md:py-20 bg-gradient-to-b from-gray-900 via-gray-850 to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Built with Lisbon's Trusted Professionals
+              Built with Lisbon's trusted professionals
             </h2>
             <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Our partner network includes the accountants, lawyers, coworking spaces, and service providers who help remote professionals thrive in Portugal. Join our growing ecosystem.
+              Our partner network includes accountants, lawyers, coworking spaces, and service providers who help remote professionals thrive in Portugal.
             </p>
           </div>
 
@@ -260,10 +247,10 @@ export const HomePage: React.FC = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Join Our Partner Hub
+              Join our partner hub
             </h2>
             <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
-              List your business as a trusted service provider in our growing ecosystem. Help freelancers and remote workers navigate Portugal while growing your client base.
+              List your business as a trusted service provider. Help freelancers and remote workers in Portugal while growing your client base.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
               <div className="flex items-center justify-center gap-2 text-gray-300">

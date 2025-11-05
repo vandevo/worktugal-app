@@ -13,7 +13,6 @@ import { AdminRoute } from './components/AdminRoute';
 import { Seo } from './components/Seo';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
 import { AccountingDeskLanding } from './components/accounting/AccountingDeskLanding';
-import { AccountingEarlyAccessLanding } from './components/accounting/AccountingEarlyAccessLanding';
 import { PartnersPage } from './components/PartnersPage';
 import { PartnerJoinPage } from './components/PartnerJoinPage';
 import { ConsultSuccess } from './components/accounting/ConsultSuccess';
@@ -67,7 +66,7 @@ function App() {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsAndConditions />} />
           {/* Redirects for old routes */}
-          <Route path="/accounting-early" element={<Navigate to="/" replace />} />
+          <Route path="/accounting-early" element={<Navigate to="/checkup" replace />} />
           <Route path="/accounting" element={<Navigate to="/" replace />} />
           <Route path="/perks" element={<Navigate to="/partners" replace />} />
 
