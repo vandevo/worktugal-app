@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
@@ -11,7 +12,8 @@ import {
   Filter,
   Mail,
   Phone,
-  ExternalLink
+  ExternalLink,
+  ArrowLeft
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
@@ -37,6 +39,7 @@ interface TaxCheckupLead {
 }
 
 export const TaxCheckupLeads: React.FC = () => {
+  const navigate = useNavigate();
   const [leads, setLeads] = useState<TaxCheckupLead[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'high' | 'medium' | 'low'>('all');
@@ -133,6 +136,14 @@ export const TaxCheckupLeads: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
+          <Button
+            variant="outline"
+            onClick={() => navigate('/dashboard')}
+            className="mb-6 text-slate-400 hover:text-white border-slate-700/50 hover:border-slate-600 bg-slate-800/30 backdrop-blur-sm"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Overview
+          </Button>
           <h1 className="text-4xl font-bold text-white mb-3">Tax Checkup Leads</h1>
           <p className="text-xl text-slate-400">
             Lead generation from compliance diagnostic tool
