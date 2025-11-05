@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { LogOut, Settings } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
@@ -20,6 +20,23 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setShowUserMenu(false);
+      }
+    };
+
+    if (showUserMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUserMenu]);
 
   const handleSignOut = async () => {
     try {
@@ -59,7 +76,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               {user ? (
                 <div className="flex items-center space-x-3 md:space-x-4">
                   {profile && <UserRoleBadge role={profile.role} />}
-                  <div className="relative">
+                  <div className="relative" ref={userMenuRef}>
                     <button
                       onClick={() => setShowUserMenu(!showUserMenu)}
                       className="flex items-center space-x-3 text-slate-300 hover:text-white transition-all duration-200 group"
