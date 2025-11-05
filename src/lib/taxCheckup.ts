@@ -301,14 +301,41 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
 export async function getCheckupResults(intakeId: string) {
   const { data, error } = await supabase
     .from('accounting_intakes')
-    .select('*')
+    .select(`
+      id,
+      created_at,
+      name,
+      email,
+      phone,
+      work_type,
+      months_in_portugal,
+      residency_status,
+      has_nif,
+      activity_opened,
+      estimated_annual_income,
+      has_vat_number,
+      has_niss,
+      has_fiscal_representative,
+      source_type,
+      compliance_score_red,
+      compliance_score_yellow,
+      compliance_score_green,
+      compliance_report,
+      lead_quality_score,
+      urgency_level,
+      status
+    `)
     .eq('id', intakeId)
     .eq('source_type', 'tax_checkup')
-    .single();
+    .maybeSingle();
 
   if (error) {
     console.error('Error fetching checkup results:', error);
     throw new Error('Failed to fetch results');
+  }
+
+  if (!data) {
+    throw new Error('Results not found');
   }
 
   return data;
