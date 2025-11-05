@@ -6,6 +6,37 @@ import type { AccountingIntakeData } from '../types/intake';
  * Phase 1 MVP: Captures full compliance data for manual review
  */
 export async function submitAccountingIntake(data: Partial<AccountingIntakeData>) {
+  const emailHash = data.email?.toLowerCase().trim();
+
+  if (!emailHash) {
+    throw new Error('Email is required');
+  }
+
+  // Step 1: Check for existing submissions from this email
+  const { data: existingSubmissions, error: queryError } = await supabase
+    .from('accounting_intakes')
+    .select('id, submission_sequence, created_at, source_type, first_submission_at')
+    .eq('lead_email_hash', emailHash)
+    .order('created_at', { ascending: false })
+    .limit(1);
+
+  if (queryError) {
+    console.error('Error checking existing submissions:', queryError);
+  }
+
+  const latestSubmission = existingSubmissions?.[0];
+  const isResubmission = !!latestSubmission;
+  const nextSequence = isResubmission ? (latestSubmission.submission_sequence || 1) + 1 : 1;
+
+  // Step 2: If resubmitting, mark previous submissions as not latest
+  if (isResubmission) {
+    await supabase
+      .from('accounting_intakes')
+      .update({ is_latest_submission: false })
+      .eq('lead_email_hash', emailHash);
+  }
+
+  // Step 3: Insert new submission with deduplication fields
   const { data: intake, error } = await supabase
     .from('accounting_intakes')
     .insert([{
@@ -37,7 +68,13 @@ export async function submitAccountingIntake(data: Partial<AccountingIntakeData>
       special_notes: data.special_notes || null,
       files: data.files || {},
       status: 'new',
-      tags: data.tags || []
+      tags: data.tags || [],
+      source_type: 'full_intake',
+      lead_email_hash: emailHash,
+      is_latest_submission: true,
+      submission_sequence: nextSequence,
+      previous_submission_id: latestSubmission?.id || null,
+      first_submission_at: latestSubmission?.first_submission_at || new Date().toISOString()
     }])
     .select()
     .single();
@@ -51,14 +88,13 @@ export async function submitAccountingIntake(data: Partial<AccountingIntakeData>
   try {
     const makeWebhookUrl = import.meta.env.VITE_MAKE_INTAKE_WEBHOOK_URL;
     if (makeWebhookUrl) {
-      // Fire and forget - don't block user flow if webhook fails
       fetch(makeWebhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          event: 'intake_submitted',
+          event: isResubmission ? 'intake_resubmitted' : 'intake_submitted',
           intake_id: intake.id,
           name: intake.name,
           email: intake.email,
@@ -68,15 +104,15 @@ export async function submitAccountingIntake(data: Partial<AccountingIntakeData>
           has_iban: intake.has_iban,
           has_vat_number: intake.has_vat_number,
           biggest_worry: intake.biggest_worry,
+          submission_sequence: nextSequence,
+          is_resubmission: isResubmission,
           created_at: intake.created_at
         })
       }).catch(err => {
-        // Log but don't fail the submission
         console.error('Webhook notification failed:', err);
       });
     }
   } catch (err) {
-    // Webhook errors should never block the user
     console.error('Error calling Make.com webhook:', err);
   }
 

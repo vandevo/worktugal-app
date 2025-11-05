@@ -183,13 +183,39 @@ export function calculateComplianceScore(data: TaxCheckupFormData): ComplianceSc
 
 export async function submitTaxCheckup(formData: TaxCheckupFormData) {
   const scores = calculateComplianceScore(formData);
+  const emailHash = formData.email.toLowerCase().trim();
 
+  // Step 1: Check for existing submissions from this email
+  const { data: existingSubmissions, error: queryError } = await supabase
+    .from('accounting_intakes')
+    .select('id, submission_sequence, created_at, source_type, name, phone, first_submission_at')
+    .eq('lead_email_hash', emailHash)
+    .order('created_at', { ascending: false })
+    .limit(1);
+
+  if (queryError) {
+    console.error('Error checking existing submissions:', queryError);
+  }
+
+  const latestSubmission = existingSubmissions?.[0];
+  const isResubmission = !!latestSubmission;
+  const nextSequence = isResubmission ? (latestSubmission.submission_sequence || 1) + 1 : 1;
+
+  // Step 2: If resubmitting, mark previous submissions as not latest
+  if (isResubmission) {
+    await supabase
+      .from('accounting_intakes')
+      .update({ is_latest_submission: false })
+      .eq('lead_email_hash', emailHash);
+  }
+
+  // Step 3: Insert new submission with deduplication fields
   const { data: intake, error } = await supabase
     .from('accounting_intakes')
     .insert([{
-      name: formData.name || '',
+      name: formData.name || latestSubmission?.name || '',
       email: formData.email,
-      phone: formData.phone || null,
+      phone: formData.phone || latestSubmission?.phone || null,
       work_type: formData.work_type,
       months_in_portugal: formData.months_in_portugal,
       residency_status: formData.residency_status,
@@ -211,7 +237,12 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
       lead_quality_score: scores.leadQualityScore,
       urgency_level: scores.urgencyLevel,
       status: 'new',
-      income_sources: ['freelance']
+      income_sources: ['freelance'],
+      lead_email_hash: emailHash,
+      is_latest_submission: true,
+      submission_sequence: nextSequence,
+      previous_submission_id: latestSubmission?.id || null,
+      first_submission_at: latestSubmission?.first_submission_at || new Date().toISOString()
     }])
     .select()
     .single();
@@ -221,37 +252,50 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
     throw new Error('Failed to submit checkup. Please try again.');
   }
 
-  // Trigger Make.com webhook for confirmation email (non-blocking)
-  try {
-    const makeWebhookUrl = import.meta.env.VITE_MAKE_INTAKE_WEBHOOK_URL;
-    if (makeWebhookUrl) {
-      fetch(makeWebhookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          event: 'tax_checkup_submitted',
-          intake_id: intake.id,
-          name: formData.name || 'there',
-          email: formData.email,
-          work_type: formData.work_type,
-          compliance_score_red: scores.red,
-          compliance_score_yellow: scores.yellow,
-          compliance_score_green: scores.green,
-          urgency_level: scores.urgencyLevel,
-          lead_quality_score: scores.leadQualityScore,
-          created_at: intake.created_at
-        })
-      }).catch(err => {
-        console.error('Webhook notification failed:', err);
-      });
+  // Step 4: Trigger webhook ONLY for new leads OR significant changes
+  const shouldTriggerWebhook = !isResubmission ||
+    (scores.red > 0 && nextSequence <= 2) ||
+    (scores.leadQualityScore >= 70);
+
+  if (shouldTriggerWebhook) {
+    try {
+      const makeWebhookUrl = import.meta.env.VITE_MAKE_INTAKE_WEBHOOK_URL;
+      if (makeWebhookUrl) {
+        fetch(makeWebhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            event: isResubmission ? 'tax_checkup_resubmitted' : 'tax_checkup_submitted',
+            intake_id: intake.id,
+            name: formData.name || 'there',
+            email: formData.email,
+            work_type: formData.work_type,
+            compliance_score_red: scores.red,
+            compliance_score_yellow: scores.yellow,
+            compliance_score_green: scores.green,
+            urgency_level: scores.urgencyLevel,
+            lead_quality_score: scores.leadQualityScore,
+            submission_sequence: nextSequence,
+            is_resubmission: isResubmission,
+            created_at: intake.created_at
+          })
+        }).catch(err => {
+          console.error('Webhook notification failed:', err);
+        });
+      }
+    } catch (err) {
+      console.error('Error calling Make.com webhook:', err);
     }
-  } catch (err) {
-    console.error('Error calling Make.com webhook:', err);
   }
 
-  return { intake, scores };
+  return {
+    intake,
+    scores,
+    isResubmission,
+    submissionSequence: nextSequence
+  };
 }
 
 export async function getCheckupResults(intakeId: string) {
@@ -268,4 +312,119 @@ export async function getCheckupResults(intakeId: string) {
   }
 
   return data;
+}
+
+export async function linkAnonymousSubmissionsToUser(userId: string, email: string) {
+  const emailHash = email.toLowerCase().trim();
+
+  const { data, error } = await supabase
+    .from('accounting_intakes')
+    .update({ user_id: userId })
+    .eq('lead_email_hash', emailHash)
+    .is('user_id', null)
+    .select();
+
+  if (error) {
+    console.error('Error linking submissions:', error);
+    return { linked: 0, submissions: [] };
+  }
+
+  console.log(`Linked ${data.length} previous submissions to user ${userId}`);
+  return { linked: data.length, submissions: data };
+}
+
+export interface ComplianceHistoryEntry {
+  id: number;
+  date: string;
+  sequenceNumber: number;
+  complianceScore: number;
+  improvement: number;
+  sourceType: string;
+  redFlags: number;
+  yellowWarnings: number;
+  greenConfirmations: number;
+}
+
+export async function getUserComplianceHistory(userId: string): Promise<ComplianceHistoryEntry[]> {
+  const { data, error } = await supabase
+    .from('accounting_intakes')
+    .select('id, created_at, source_type, compliance_score_red, compliance_score_yellow, compliance_score_green, submission_sequence')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: true });
+
+  if (error) {
+    console.error('Error fetching compliance history:', error);
+    throw new Error('Failed to fetch compliance history');
+  }
+
+  const timeline = data.map((submission, index) => {
+    const total = submission.compliance_score_red + submission.compliance_score_yellow + submission.compliance_score_green;
+    const complianceScore = total > 0
+      ? Math.round((submission.compliance_score_green / total) * 100)
+      : 0;
+
+    const previousScore = index > 0
+      ? Math.round((data[index - 1].compliance_score_green /
+          (data[index - 1].compliance_score_red + data[index - 1].compliance_score_yellow + data[index - 1].compliance_score_green)) * 100)
+      : 0;
+
+    return {
+      id: submission.id,
+      date: submission.created_at,
+      sequenceNumber: submission.submission_sequence || index + 1,
+      complianceScore,
+      improvement: index > 0 ? complianceScore - previousScore : 0,
+      sourceType: submission.source_type || 'tax_checkup',
+      redFlags: submission.compliance_score_red || 0,
+      yellowWarnings: submission.compliance_score_yellow || 0,
+      greenConfirmations: submission.compliance_score_green || 0
+    };
+  });
+
+  return timeline;
+}
+
+export async function getLeadEngagementScore(email: string): Promise<{
+  totalSubmissions: number;
+  firstSubmissionDate: string | null;
+  latestSubmissionDate: string | null;
+  engagementScore: number;
+  complianceImprovement: number;
+}> {
+  const emailHash = email.toLowerCase().trim();
+
+  const { data, error } = await supabase
+    .from('accounting_intakes')
+    .select('created_at, first_submission_at, submission_sequence, compliance_score_red, compliance_score_yellow, compliance_score_green')
+    .eq('lead_email_hash', emailHash)
+    .order('created_at', { ascending: true });
+
+  if (error || !data || data.length === 0) {
+    return {
+      totalSubmissions: 0,
+      firstSubmissionDate: null,
+      latestSubmissionDate: null,
+      engagementScore: 0,
+      complianceImprovement: 0
+    };
+  }
+
+  const firstSubmission = data[0];
+  const latestSubmission = data[data.length - 1];
+
+  const firstTotal = firstSubmission.compliance_score_red + firstSubmission.compliance_score_yellow + firstSubmission.compliance_score_green;
+  const firstScore = firstTotal > 0 ? (firstSubmission.compliance_score_green / firstTotal) * 100 : 0;
+
+  const latestTotal = latestSubmission.compliance_score_red + latestSubmission.compliance_score_yellow + latestSubmission.compliance_score_green;
+  const latestScore = latestTotal > 0 ? (latestSubmission.compliance_score_green / latestTotal) * 100 : 0;
+
+  const engagementScore = Math.min(100, data.length * 20 + (latestScore > firstScore ? 20 : 0));
+
+  return {
+    totalSubmissions: data.length,
+    firstSubmissionDate: firstSubmission.first_submission_at || firstSubmission.created_at,
+    latestSubmissionDate: latestSubmission.created_at,
+    engagementScore,
+    complianceImprovement: Math.round(latestScore - firstScore)
+  };
 }
