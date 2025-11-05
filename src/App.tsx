@@ -23,6 +23,7 @@ import { AppointmentManagement } from './components/admin/AppointmentManagement'
 import { AccountantApplicationReview } from './components/admin/AccountantApplicationReview';
 import { ContactRequestsManager } from './components/admin/ContactRequestsManager';
 import { TaxCheckupLeads } from './components/admin/TaxCheckupLeads';
+import { AdminTestHub } from './components/admin/AdminTestHub';
 import { ComprehensiveIntakeForm } from './components/accounting/ComprehensiveIntakeForm';
 import { IntakeSuccess } from './components/accounting/IntakeSuccess';
 import { TaxCheckupForm } from './components/accounting/TaxCheckupForm';
@@ -122,6 +123,14 @@ function App() {
             element={
               <AdminRoute>
                 <TaxCheckupLeads />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/test-hub"
+            element={
+              <AdminRoute>
+                <AdminTestHub />
               </AdminRoute>
             }
           />
