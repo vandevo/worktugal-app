@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LogOut, Settings } from 'lucide-react';
+import { LogOut, Settings, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useUserProfile } from '../hooks/useUserProfile';
 import { UserRoleBadge } from './UserRoleBadge';
@@ -17,6 +18,7 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user } = useAuth();
   const { profile, getDisplayName, getInitials } = useUserProfile();
+  const navigate = useNavigate();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -95,6 +97,18 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                         animate={{ opacity: 1, y: 0 }}
                         className="absolute right-0 mt-3 w-52 bg-slate-900/95 backdrop-blur-xl rounded-xl border border-slate-700/50 shadow-2xl shadow-slate-950/50 py-2"
                       >
+                        {profile?.role === 'admin' && (
+                          <button
+                            onClick={() => {
+                              navigate('/dashboard');
+                              setShowUserMenu(false);
+                            }}
+                            className="w-full px-4 py-2.5 text-left text-slate-300 hover:text-white hover:bg-slate-800/50 transition-colors duration-200 flex items-center space-x-3 text-sm font-medium"
+                          >
+                            <LayoutDashboard className="h-4 w-4" />
+                            <span>Dashboard</span>
+                          </button>
+                        )}
                         <button
                           onClick={() => {
                             setShowProfileModal(true);
