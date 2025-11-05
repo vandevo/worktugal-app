@@ -111,7 +111,7 @@ export const TaxCheckupForm: React.FC = () => {
         <label className="block text-sm font-semibold text-gray-300 mb-3">
           What type of work do you do in Portugal?
         </label>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {WORK_TYPES.map(type => {
             const Icon = type.icon;
             return (
@@ -186,11 +186,11 @@ export const TaxCheckupForm: React.FC = () => {
         <label className="block text-sm font-semibold text-gray-300 mb-3">
           Do you have a Portuguese tax number (NIF - número de identificação fiscal)?
         </label>
-        <div className="flex gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             type="button"
             onClick={() => handleInputChange('has_nif', true)}
-            className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
               formData.has_nif === true
                 ? 'border-blue-400 bg-blue-400/10 text-white'
                 : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -201,7 +201,7 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('has_nif', false)}
-            className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
               formData.has_nif === false
                 ? 'border-blue-400 bg-blue-400/10 text-white'
                 : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -212,7 +212,7 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('has_nif', null)}
-            className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
               formData.has_nif === null
                 ? 'border-blue-400 bg-blue-400/10 text-white'
                 : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -227,11 +227,11 @@ export const TaxCheckupForm: React.FC = () => {
         <label className="block text-sm font-semibold text-gray-300 mb-3">
           Have you opened activity at Financas (abertura de atividade)?
         </label>
-        <div className="flex gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             type="button"
             onClick={() => handleInputChange('activity_opened', true)}
-            className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
               formData.activity_opened === true
                 ? 'border-blue-400 bg-blue-400/10 text-white'
                 : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -242,7 +242,7 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('activity_opened', false)}
-            className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
               formData.activity_opened === false
                 ? 'border-blue-400 bg-blue-400/10 text-white'
                 : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -253,7 +253,7 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('activity_opened', null)}
-            className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
               formData.activity_opened === null
                 ? 'border-blue-400 bg-blue-400/10 text-white'
                 : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -302,11 +302,11 @@ export const TaxCheckupForm: React.FC = () => {
         <label className="block text-sm font-semibold text-gray-300 mb-3">
           Are you VAT registered in Portugal?
         </label>
-        <div className="flex gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             type="button"
             onClick={() => handleInputChange('has_vat_number', true)}
-            className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
               formData.has_vat_number === true
                 ? 'border-blue-400 bg-blue-400/10 text-white'
                 : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -317,7 +317,7 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('has_vat_number', false)}
-            className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
               formData.has_vat_number === false
                 ? 'border-blue-400 bg-blue-400/10 text-white'
                 : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -328,7 +328,7 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('has_vat_number', null)}
-            className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
               formData.has_vat_number === null
                 ? 'border-blue-400 bg-blue-400/10 text-white'
                 : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -343,11 +343,11 @@ export const TaxCheckupForm: React.FC = () => {
         <label className="block text-sm font-semibold text-gray-300 mb-3">
           Do you have Social Security (NISS) registration?
         </label>
-        <div className="flex gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             type="button"
             onClick={() => handleInputChange('has_niss', true)}
-            className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
               formData.has_niss === true
                 ? 'border-blue-400 bg-blue-400/10 text-white'
                 : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -358,7 +358,7 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('has_niss', false)}
-            className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
               formData.has_niss === false
                 ? 'border-blue-400 bg-blue-400/10 text-white'
                 : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -369,7 +369,7 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('has_niss', null)}
-            className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
               formData.has_niss === null
                 ? 'border-blue-400 bg-blue-400/10 text-white'
                 : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -388,11 +388,11 @@ export const TaxCheckupForm: React.FC = () => {
           <label className="block text-sm font-semibold text-gray-300 mb-3">
             Do you have a fiscal representative in Portugal?
           </label>
-          <div className="flex gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <button
               type="button"
               onClick={() => handleInputChange('has_fiscal_representative', true)}
-              className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+              className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
                 formData.has_fiscal_representative === true
                   ? 'border-blue-400 bg-blue-400/10 text-white'
                   : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -403,7 +403,7 @@ export const TaxCheckupForm: React.FC = () => {
             <button
               type="button"
               onClick={() => handleInputChange('has_fiscal_representative', false)}
-              className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+              className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
                 formData.has_fiscal_representative === false
                   ? 'border-blue-400 bg-blue-400/10 text-white'
                   : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -414,7 +414,7 @@ export const TaxCheckupForm: React.FC = () => {
             <button
               type="button"
               onClick={() => handleInputChange('has_fiscal_representative', null)}
-              className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all ${
+              className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
                 formData.has_fiscal_representative === null
                   ? 'border-blue-400 bg-blue-400/10 text-white'
                   : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
@@ -471,7 +471,7 @@ export const TaxCheckupForm: React.FC = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-semibold text-gray-300 mb-2">
             First Name (Optional)
