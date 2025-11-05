@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Alert } from '../ui/Alert';
 import {
   Briefcase, Users, BookOpen, MessageCircle,
   Send, CheckCircle, AlertTriangle, Loader, Copy, Check,
-  Database, Mail, MessageSquare, FileText
+  Database, Mail, MessageSquare, FileText, Eye, ExternalLink
 } from 'lucide-react';
 import { submitContactRequest } from '../../lib/contacts';
 import { submitTaxCheckup } from '../../lib/taxCheckup';
@@ -217,11 +218,14 @@ const TEST_SCENARIOS: TestScenario[] = [
 ];
 
 export const AdminTestHub: React.FC = () => {
+  const navigate = useNavigate();
   const [selectedScenario, setSelectedScenario] = useState<TestScenario | null>(null);
   const [testEmail, setTestEmail] = useState('vandevo.com@gmail.com');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [result, setResult] = useState<{ success: boolean; message: string; id?: any } | null>(null);
+  const [result, setResult] = useState<{ success: boolean; message: string; id?: any; category?: string } | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [quickPreviewId, setQuickPreviewId] = useState('');
+  const [lastSubmittedId, setLastSubmittedId] = useState<string | null>(null);
 
   const getColorClasses = (color: string) => {
     const colors = {
@@ -235,6 +239,13 @@ export const AdminTestHub: React.FC = () => {
     return colors[color as keyof typeof colors] || colors.gray;
   };
 
+  useEffect(() => {
+    const stored = localStorage.getItem('last_tax_checkup_id');
+    if (stored) {
+      setLastSubmittedId(stored);
+    }
+  }, []);
+
   const handleSubmitTest = async (scenario: TestScenario) => {
     setIsSubmitting(true);
     setResult(null);
@@ -247,14 +258,19 @@ export const AdminTestHub: React.FC = () => {
         setResult({
           success: true,
           message: `Contact request submitted! Check your email (${testEmail}), Telegram, and Airtable.`,
-          id: contactData.id
+          id: contactData.id,
+          category: 'contact'
         });
       } else if (scenario.category === 'tax_checkup') {
         const checkupResult = await submitTaxCheckup(dataWithEmail as TaxCheckupFormData);
+        const intakeId = String(checkupResult.intake.id);
+        localStorage.setItem('last_tax_checkup_id', intakeId);
+        setLastSubmittedId(intakeId);
         setResult({
           success: true,
           message: `Tax checkup submitted! Lead Quality Score: ${checkupResult.scores.leadQualityScore}/100. Check your email, Telegram, and Airtable.`,
-          id: checkupResult.intake.id
+          id: intakeId,
+          category: 'tax_checkup'
         });
       }
     } catch (error) {
@@ -266,6 +282,30 @@ export const AdminTestHub: React.FC = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleSubmitAndViewResults = async (scenario: TestScenario) => {
+    setIsSubmitting(true);
+    setResult(null);
+
+    try {
+      const dataWithEmail = { ...scenario.data, email: testEmail };
+      const checkupResult = await submitTaxCheckup(dataWithEmail as TaxCheckupFormData);
+      const intakeId = String(checkupResult.intake.id);
+      localStorage.setItem('last_tax_checkup_id', intakeId);
+      navigate(`/checkup/results?id=${intakeId}`);
+    } catch (error) {
+      console.error('Test submission error:', error);
+      setResult({
+        success: false,
+        message: error instanceof Error ? error.message : 'Failed to submit test. Check console for details.'
+      });
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleViewResults = (intakeId: string) => {
+    navigate(`/checkup/results?id=${intakeId}`);
   };
 
   const copyToClipboard = (text: string, id: string) => {
@@ -325,8 +365,8 @@ export const AdminTestHub: React.FC = () => {
               variant={result.success ? 'success' : 'error'}
               className="mb-8"
             >
-              <div className="flex items-center justify-between">
-                <div>
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex-1">
                   {result.message}
                   {result.id && (
                     <div className="text-xs mt-2 opacity-70">
@@ -334,18 +374,30 @@ export const AdminTestHub: React.FC = () => {
                     </div>
                   )}
                 </div>
-                {result.id && (
-                  <button
-                    onClick={() => copyToClipboard(String(result.id), 'result')}
-                    className="ml-4 p-2 hover:bg-white/10 rounded transition-colors"
-                  >
-                    {copiedId === 'result' ? (
-                      <Check className="w-4 h-4 text-green-400" />
-                    ) : (
-                      <Copy className="w-4 h-4" />
-                    )}
-                  </button>
-                )}
+                <div className="flex items-center gap-2">
+                  {result.id && result.category === 'tax_checkup' && (
+                    <Button
+                      size="sm"
+                      onClick={() => handleViewResults(String(result.id))}
+                      className="whitespace-nowrap"
+                    >
+                      <Eye className="w-3 h-3 mr-1" />
+                      View Results
+                    </Button>
+                  )}
+                  {result.id && (
+                    <button
+                      onClick={() => copyToClipboard(String(result.id), 'result')}
+                      className="ml-2 p-2 hover:bg-white/10 rounded transition-colors"
+                    >
+                      {copiedId === 'result' ? (
+                        <Check className="w-4 h-4 text-green-400" />
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
+                    </button>
+                  )}
+                </div>
               </div>
             </Alert>
           )}
@@ -411,6 +463,31 @@ export const AdminTestHub: React.FC = () => {
             </div>
           </div>
 
+          {lastSubmittedId && (
+            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 mb-8">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Eye className="w-5 h-5 text-blue-400" />
+                  <div>
+                    <p className="text-blue-300 font-semibold">
+                      Last Submitted Tax Checkup
+                    </p>
+                    <p className="text-blue-400/80 text-xs mt-1">
+                      ID: {lastSubmittedId}
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  size="sm"
+                  onClick={() => handleViewResults(lastSubmittedId)}
+                >
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  View Results
+                </Button>
+              </div>
+            </div>
+          )}
+
           <div className="mb-8">
             <h2 className="text-xl font-bold text-white mb-4">Tax Checkup Scenarios</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -448,27 +525,65 @@ export const AdminTestHub: React.FC = () => {
                       ))}
                     </div>
 
-                    <Button
-                      onClick={() => handleSubmitTest(scenario)}
-                      disabled={isSubmitting}
-                      className="w-full text-sm py-2"
-                      size="sm"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader className="w-3 h-3 mr-2 animate-spin" />
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="w-3 h-3 mr-2" />
-                          Send Test
-                        </>
-                      )}
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={() => handleSubmitTest(scenario)}
+                        disabled={isSubmitting}
+                        className="flex-1 text-sm py-2"
+                        size="sm"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader className="w-3 h-3 mr-2 animate-spin" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-3 h-3 mr-2" />
+                            Send Test
+                          </>
+                        )}
+                      </Button>
+                      <Button
+                        onClick={() => handleSubmitAndViewResults(scenario)}
+                        disabled={isSubmitting}
+                        variant="outline"
+                        className="text-sm py-2 px-3"
+                        size="sm"
+                        title="Submit and view results page"
+                      >
+                        <Eye className="w-3 h-3" />
+                      </Button>
+                    </div>
                   </motion.div>
                 );
               })}
+            </div>
+          </div>
+
+          <div className="bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-white/[0.10] p-6 mb-8">
+            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <Eye className="w-5 h-5" />
+              Quick Preview - View Results
+            </h3>
+            <p className="text-sm text-gray-400 mb-4">
+              Enter any existing intake ID to view its results page directly
+            </p>
+            <div className="flex gap-3">
+              <Input
+                type="text"
+                value={quickPreviewId}
+                onChange={(e) => setQuickPreviewId(e.target.value)}
+                placeholder="Enter intake ID (e.g., 123)"
+                className="flex-1"
+              />
+              <Button
+                onClick={() => quickPreviewId && handleViewResults(quickPreviewId)}
+                disabled={!quickPreviewId}
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
+                View Results
+              </Button>
             </div>
           </div>
 
