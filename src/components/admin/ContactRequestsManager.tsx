@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/Button';
+import { Select } from '../ui/Select';
 import {
   getContactRequests,
   updateContactRequest,
@@ -180,13 +181,12 @@ export function ContactRequestsManager() {
               <Filter className="w-5 h-5 text-blue-400" />
               <h3 className="text-lg font-semibold text-white">Filters</h3>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Status</label>
-                <select
+                <label className="block text-sm text-slate-400 mb-2">Status</label>
+                <Select
                   value={filters.status}
                   onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-slate-900/50 border border-slate-700/50 rounded-xl text-slate-200 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all backdrop-blur-sm"
                 >
                   <option value="">All</option>
                   <option value="new">New</option>
@@ -194,14 +194,13 @@ export function ContactRequestsManager() {
                   <option value="replied">Replied</option>
                   <option value="converted">Converted</option>
                   <option value="archived">Archived</option>
-                </select>
+                </Select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Purpose</label>
-                <select
+                <label className="block text-sm text-slate-400 mb-2">Purpose</label>
+                <Select
                   value={filters.purpose}
                   onChange={(e) => setFilters({ ...filters, purpose: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-slate-900/50 border border-slate-700/50 rounded-xl text-slate-200 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all backdrop-blur-sm"
                 >
                   <option value="">All</option>
                   <option value="accounting">Accounting</option>
@@ -209,20 +208,19 @@ export function ContactRequestsManager() {
                   <option value="job">Job</option>
                   <option value="info">Info</option>
                   <option value="other">Other</option>
-                </select>
+                </Select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Priority</label>
-                <select
+                <label className="block text-sm text-slate-400 mb-2">Priority</label>
+                <Select
                   value={filters.priority}
                   onChange={(e) => setFilters({ ...filters, priority: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-slate-900/50 border border-slate-700/50 rounded-xl text-slate-200 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all backdrop-blur-sm"
                 >
                   <option value="">All</option>
                   <option value="high">High</option>
                   <option value="normal">Normal</option>
                   <option value="low">Low</option>
-                </select>
+                </Select>
               </div>
             </div>
           </motion.div>
@@ -316,13 +314,14 @@ export function ContactRequestsManager() {
                           <select
                             value={request.status || 'new'}
                             onChange={(e) => handleStatusChange(request.id!, e.target.value)}
-                            className="text-sm bg-slate-900/50 border border-slate-700/50 rounded-lg px-3 py-1.5 text-slate-200 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
+                            className="text-sm bg-white/[0.03] backdrop-blur-xl border border-white/[0.12] rounded-lg px-3 py-1.5 text-white focus:outline-none focus:bg-white/[0.06] focus:border-blue-400/40 focus:ring-2 focus:ring-blue-400/20 hover:bg-white/[0.05] hover:border-white/[0.16] transition-all cursor-pointer appearance-none pr-8"
+                            style={{ colorScheme: 'dark' }}
                           >
-                            <option value="new">New</option>
-                            <option value="reviewed">Reviewed</option>
-                            <option value="replied">Replied</option>
-                            <option value="converted">Converted</option>
-                            <option value="archived">Archived</option>
+                            <option value="new" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>New</option>
+                            <option value="reviewed" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Reviewed</option>
+                            <option value="replied" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Replied</option>
+                            <option value="converted" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Converted</option>
+                            <option value="archived" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Archived</option>
                           </select>
                         </div>
                       </td>
