@@ -22,8 +22,11 @@ import { ConsultCheckout } from './components/accounting/ConsultCheckout';
 import { AppointmentManagement } from './components/admin/AppointmentManagement';
 import { AccountantApplicationReview } from './components/admin/AccountantApplicationReview';
 import { ContactRequestsManager } from './components/admin/ContactRequestsManager';
+import { TaxCheckupLeads } from './components/admin/TaxCheckupLeads';
 import { ComprehensiveIntakeForm } from './components/accounting/ComprehensiveIntakeForm';
 import { IntakeSuccess } from './components/accounting/IntakeSuccess';
+import { TaxCheckupForm } from './components/accounting/TaxCheckupForm';
+import { CheckupResults } from './components/accounting/CheckupResults';
 import { ContactPage } from './components/ContactPage';
 import { ContactSuccess } from './components/ContactSuccess';
 import { ContactSuccessDemo } from './components/ContactSuccessDemo';
@@ -76,6 +79,10 @@ function App() {
           <Route path="/accounting/checkout" element={<ConsultCheckout />} />
           <Route path="/accounting/consult-success" element={<ConsultSuccess />} />
           <Route path="/accounting/success-demo" element={<ConsultSuccessDemo />} />
+
+          {/* Tax Checkup routes */}
+          <Route path="/checkup" element={<TaxCheckupForm />} />
+          <Route path="/checkup/results" element={<CheckupResults />} />
           {/* TODO: Create AccountantApplicationPage component */}
           {/* <Route path="/join-accountants" element={<AccountantApplicationPage />} /> */}
           <Route
@@ -107,6 +114,14 @@ function App() {
             element={
               <AdminRoute>
                 <ContactRequestsManager />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/checkup-leads"
+            element={
+              <AdminRoute>
+                <TaxCheckupLeads />
               </AdminRoute>
             }
           />

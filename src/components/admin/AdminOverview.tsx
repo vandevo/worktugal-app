@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, Briefcase, Mail, ArrowRight } from 'lucide-react';
+import { Calendar, Briefcase, Mail, ArrowRight, ClipboardCheck } from 'lucide-react';
 import { getAllAppointments } from '../../lib/appointments';
 import { getAllApplications } from '../../lib/accountants';
 import { getContactRequestStats } from '../../lib/contacts';
+import { supabase } from '../../lib/supabase';
 
 export const AdminOverview: React.FC = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export const AdminOverview: React.FC = () => {
     scheduledAppointments: 0,
     pendingApplications: 0,
     newContactRequests: 0,
+    taxCheckupLeads: 0,
   });
   const [loading, setLoading] = useState(true);
 
@@ -21,10 +23,11 @@ export const AdminOverview: React.FC = () => {
 
   const loadStats = async () => {
     try {
-      const [appointmentsRes, applicationsRes, contactStats] = await Promise.all([
+      const [appointmentsRes, applicationsRes, contactStats, checkupLeadsRes] = await Promise.all([
         getAllAppointments(),
         getAllApplications(),
         getContactRequestStats(),
+        supabase.from('accounting_intakes').select('id', { count: 'exact', head: true }).eq('source_type', 'tax_checkup'),
       ]);
 
       const scheduledCount = appointmentsRes.data?.filter(a => a.status === 'scheduled').length || 0;
@@ -34,6 +37,7 @@ export const AdminOverview: React.FC = () => {
         scheduledAppointments: scheduledCount,
         pendingApplications: pendingCount,
         newContactRequests: contactStats?.new || 0,
+        taxCheckupLeads: checkupLeadsRes.count || 0,
       });
     } catch (error) {
       console.error('Error loading stats:', error);
@@ -67,6 +71,14 @@ export const AdminOverview: React.FC = () => {
       badge: stats.newContactRequests,
       color: 'purple',
     },
+    {
+      title: 'Tax Checkup Leads',
+      description: 'Lead generation from compliance diagnostic tool',
+      icon: ClipboardCheck,
+      path: '/admin/checkup-leads',
+      badge: stats.taxCheckupLeads,
+      color: 'orange',
+    },
   ];
 
   if (loading) {
@@ -98,6 +110,7 @@ export const AdminOverview: React.FC = () => {
               blue: 'from-blue-500/10 to-blue-600/5 border-blue-500/20 hover:border-blue-400/40',
               emerald: 'from-emerald-500/10 to-emerald-600/5 border-emerald-500/20 hover:border-emerald-400/40',
               purple: 'from-purple-500/10 to-purple-600/5 border-purple-500/20 hover:border-purple-400/40',
+              orange: 'from-orange-500/10 to-orange-600/5 border-orange-500/20 hover:border-orange-400/40',
             }[section.color];
 
             return (
