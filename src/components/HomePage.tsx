@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { CheckupHero } from './accounting/CheckupHero';
+import { CheckupHowItWorks } from './accounting/CheckupHowItWorks';
+import { CheckupWhyItMatters } from './accounting/CheckupWhyItMatters';
+import { CheckupSocialProof } from './accounting/CheckupSocialProof';
+import { CheckupCTA } from './accounting/CheckupCTA';
+import { CheckupFAQ } from './accounting/CheckupFAQ';
 import { supabase } from '../lib/supabase';
 import { motion } from 'framer-motion';
 import { Shield, MapPin, Globe, Instagram, ArrowRight, ExternalLink } from 'lucide-react';
@@ -110,6 +115,21 @@ export const HomePage: React.FC = () => {
 
       {/* Primary: Tax Checkup Hero */}
       <CheckupHero onStartCheckup={handleStartCheckup} />
+
+      {/* How It Works */}
+      <CheckupHowItWorks />
+
+      {/* Why This Matters */}
+      <CheckupWhyItMatters />
+
+      {/* Mid-page CTA */}
+      <CheckupCTA onStartCheckup={handleStartCheckup} />
+
+      {/* Social Proof */}
+      <CheckupSocialProof />
+
+      {/* FAQ Section */}
+      <CheckupFAQ />
 
       {/* Secondary: Featured Partners Section */}
       <section className="py-16 md:py-20 bg-gradient-to-b from-gray-900 via-gray-850 to-gray-900">

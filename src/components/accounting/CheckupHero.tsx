@@ -12,16 +12,12 @@ export const CheckupHero: React.FC<CheckupHeroProps> = ({ onStartCheckup }) => {
   const [weeklyCheckups, setWeeklyCheckups] = useState<number | null>(null);
 
   useEffect(() => {
-    const fetchWeeklyCheckups = async () => {
+    const fetchTotalCheckups = async () => {
       try {
-        const sevenDaysAgo = new Date();
-        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
         const { count, error } = await supabase
           .from('accounting_intakes')
           .select('*', { count: 'exact', head: true })
-          .eq('source_type', 'tax_checkup')
-          .gte('created_at', sevenDaysAgo.toISOString());
+          .eq('source_type', 'tax_checkup');
 
         if (error) {
           console.error('Error fetching checkup count:', error);
@@ -30,11 +26,11 @@ export const CheckupHero: React.FC<CheckupHeroProps> = ({ onStartCheckup }) => {
 
         setWeeklyCheckups(count || 0);
       } catch (err) {
-        console.error('Error fetching weekly checkups:', err);
+        console.error('Error fetching total checkups:', err);
       }
     };
 
-    fetchWeeklyCheckups();
+    fetchTotalCheckups();
   }, []);
 
   return (
@@ -75,7 +71,7 @@ export const CheckupHero: React.FC<CheckupHeroProps> = ({ onStartCheckup }) => {
               transition={{ delay: 0.3 }}
               className="text-sm text-blue-300 font-medium"
             >
-              <strong>{weeklyCheckups} freelancers</strong> checked their compliance this week
+              <strong>{weeklyCheckups} freelancers</strong> have checked their compliance
             </motion.p>
           )}
         </motion.div>
