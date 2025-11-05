@@ -56,16 +56,15 @@ export const useUserProfile = () => {
 
       try {
         console.log('[useUserProfile] Fetching profile for user:', user.id);
-        setLoading(true);
         const userProfile = await getUserProfile(user.id);
         console.log('[useUserProfile] Profile fetched successfully:', userProfile);
         setProfile(userProfile);
         setError(null);
+        setLoading(false);
       } catch (err: any) {
         console.error('[useUserProfile] Error fetching profile:', err);
         setError(err.message || 'Failed to fetch profile');
         setProfile(null);
-      } finally {
         setLoading(false);
       }
     };
