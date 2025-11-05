@@ -106,11 +106,28 @@ export const AdminOverview: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {adminSections.map((section, index) => {
             const Icon = section.icon;
+
             const colorClasses = {
-              blue: 'from-blue-500/10 to-blue-600/5 border-blue-500/20 hover:border-blue-400/40',
-              emerald: 'from-emerald-500/10 to-emerald-600/5 border-emerald-500/20 hover:border-emerald-400/40',
-              purple: 'from-purple-500/10 to-purple-600/5 border-purple-500/20 hover:border-purple-400/40',
-              orange: 'from-orange-500/10 to-orange-600/5 border-orange-500/20 hover:border-orange-400/40',
+              blue: {
+                card: 'from-blue-500/10 to-blue-600/5 border-blue-500/20 hover:border-blue-400/40 hover:shadow-blue-500/20',
+                icon: 'bg-gradient-to-br from-blue-500 to-blue-600',
+                badge: 'bg-blue-500',
+              },
+              emerald: {
+                card: 'from-emerald-500/10 to-emerald-600/5 border-emerald-500/20 hover:border-emerald-400/40 hover:shadow-emerald-500/20',
+                icon: 'bg-gradient-to-br from-emerald-500 to-emerald-600',
+                badge: 'bg-emerald-500',
+              },
+              purple: {
+                card: 'from-purple-500/10 to-purple-600/5 border-purple-500/20 hover:border-purple-400/40 hover:shadow-purple-500/20',
+                icon: 'bg-gradient-to-br from-purple-500 to-purple-600',
+                badge: 'bg-purple-500',
+              },
+              orange: {
+                card: 'from-orange-500/10 to-orange-600/5 border-orange-500/20 hover:border-orange-400/40 hover:shadow-orange-500/20',
+                icon: 'bg-gradient-to-br from-orange-500 to-orange-600',
+                badge: 'bg-orange-500',
+              },
             }[section.color];
 
             return (
@@ -120,14 +137,14 @@ export const AdminOverview: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 onClick={() => navigate(section.path)}
-                className={`relative bg-gradient-to-br ${colorClasses} border rounded-2xl p-8 text-left transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-${section.color}-500/20 group`}
+                className={`relative bg-gradient-to-br ${colorClasses.card} border rounded-2xl p-8 text-left transition-all duration-300 hover:scale-105 hover:shadow-2xl group`}
               >
                 <div className="flex items-start justify-between mb-6">
-                  <div className={`p-3 bg-gradient-to-br from-${section.color}-500 to-${section.color}-600 rounded-xl shadow-lg`}>
+                  <div className={`p-3 ${colorClasses.icon} rounded-xl shadow-lg`}>
                     <Icon className="h-7 w-7 text-white" />
                   </div>
                   {section.badge > 0 && (
-                    <span className={`px-3 py-1 bg-${section.color}-500 text-white text-sm font-bold rounded-full`}>
+                    <span className={`px-3 py-1 ${colorClasses.badge} text-white text-sm font-bold rounded-full`}>
                       {section.badge}
                     </span>
                   )}
