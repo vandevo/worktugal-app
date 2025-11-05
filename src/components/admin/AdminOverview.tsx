@@ -23,21 +23,22 @@ export const AdminOverview: React.FC = () => {
 
   const loadStats = async () => {
     try {
-      const [appointmentsRes, applicationsRes, contactStats, checkupLeadsRes] = await Promise.all([
+      const [appointmentsRes, applicationsRes, contactStats, allIntakesRes] = await Promise.all([
         getAllAppointments(),
         getAllApplications(),
         getContactRequestStats(),
-        supabase.from('accounting_intakes').select('id', { count: 'exact', head: true }).eq('source_type', 'tax_checkup'),
+        supabase.rpc('get_all_accounting_intakes'),
       ]);
 
       const scheduledCount = appointmentsRes.data?.filter(a => a.status === 'scheduled').length || 0;
       const pendingCount = applicationsRes.data?.filter(a => a.status === 'pending').length || 0;
+      const taxCheckupCount = allIntakesRes.data?.filter((intake: any) => intake.source_type === 'tax_checkup').length || 0;
 
       setStats({
         scheduledAppointments: scheduledCount,
         pendingApplications: pendingCount,
         newContactRequests: contactStats?.new || 0,
-        taxCheckupLeads: checkupLeadsRes.count || 0,
+        taxCheckupLeads: taxCheckupCount,
       });
     } catch (error) {
       console.error('Error loading stats:', error);
