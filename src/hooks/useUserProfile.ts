@@ -42,18 +42,27 @@ export const useUserProfile = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
+      console.log('[useUserProfile] useEffect triggered', {
+        hasUser: !!user,
+        userId: user?.id
+      });
+
       if (!user) {
+        console.log('[useUserProfile] No user, skipping fetch');
         setProfile(null);
         setLoading(false);
         return;
       }
 
       try {
+        console.log('[useUserProfile] Fetching profile for user:', user.id);
         setLoading(true);
         const userProfile = await getUserProfile(user.id);
+        console.log('[useUserProfile] Profile fetched successfully:', userProfile);
         setProfile(userProfile);
         setError(null);
       } catch (err: any) {
+        console.error('[useUserProfile] Error fetching profile:', err);
         setError(err.message || 'Failed to fetch profile');
         setProfile(null);
       } finally {
