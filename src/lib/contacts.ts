@@ -45,28 +45,27 @@ export async function getContactRequests(filters?: {
   purpose?: string;
   priority?: string;
 }) {
-  let query = supabase
-    .from('contact_requests')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (filters?.status) {
-    query = query.eq('status', filters.status);
-  }
-  if (filters?.purpose) {
-    query = query.eq('purpose', filters.purpose);
-  }
-  if (filters?.priority) {
-    query = query.eq('priority', filters.priority);
-  }
-
-  const { data, error } = await query;
+  // Use RPC function to bypass RLS for admin users
+  const { data, error } = await supabase.rpc('get_all_contact_requests');
 
   if (error) {
     throw error;
   }
 
-  return data;
+  // Apply filters client-side
+  let filteredData = data || [];
+
+  if (filters?.status) {
+    filteredData = filteredData.filter((r: any) => r.status === filters.status);
+  }
+  if (filters?.purpose) {
+    filteredData = filteredData.filter((r: any) => r.purpose === filters.purpose);
+  }
+  if (filters?.priority) {
+    filteredData = filteredData.filter((r: any) => r.priority === filters.priority);
+  }
+
+  return filteredData;
 }
 
 export async function updateContactRequest(
@@ -88,9 +87,7 @@ export async function updateContactRequest(
 }
 
 export async function getContactRequestStats() {
-  const { data, error } = await supabase
-    .from('contact_requests')
-    .select('status, priority, purpose, created_at');
+  const { data, error } = await supabase.rpc('get_all_contact_requests');
 
   if (error) {
     throw error;
@@ -117,15 +114,12 @@ export async function getContactRequestStats() {
 }
 
 export async function getRecentContactRequests(limit: number = 5) {
-  const { data, error } = await supabase
-    .from('contact_requests')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(limit);
+  const { data, error } = await supabase.rpc('get_all_contact_requests');
 
   if (error) {
     throw error;
   }
 
-  return data;
+  // Return only the most recent entries up to the limit
+  return (data || []).slice(0, limit);
 }

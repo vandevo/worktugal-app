@@ -69,10 +69,7 @@ export const submitAccountantApplication = async (
 };
 
 export const getAllApplications = async () => {
-  const { data, error } = await supabase
-    .from('accountant_applications')
-    .select('*')
-    .order('created_at', { ascending: false });
+  const { data, error } = await supabase.rpc('get_all_applications');
 
   if (error) throw error;
   return { data, error: null };

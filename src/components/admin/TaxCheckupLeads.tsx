@@ -49,14 +49,16 @@ export const TaxCheckupLeads: React.FC = () => {
   const loadLeads = async () => {
     try {
       const { data, error } = await supabase
-        .from('accounting_intakes')
-        .select('*')
-        .eq('source_type', 'tax_checkup')
-        .order('created_at', { ascending: false });
+        .rpc('get_all_accounting_intakes');
 
       if (error) throw error;
 
-      setLeads(data || []);
+      // Filter for tax_checkup source type
+      const taxCheckupLeads = (data || []).filter(
+        (lead: any) => lead.source_type === 'tax_checkup'
+      );
+
+      setLeads(taxCheckupLeads);
     } catch (error) {
       console.error('Error loading checkup leads:', error);
     } finally {

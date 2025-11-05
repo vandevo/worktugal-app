@@ -48,10 +48,7 @@ export const getAccountantAppointments = async (accountantId: string) => {
 };
 
 export const getAllAppointments = async () => {
-  const { data, error } = await supabase
-    .from('appointments')
-    .select('*')
-    .order('created_at', { ascending: false });
+  const { data, error } = await supabase.rpc('get_all_appointments');
 
   if (error) throw error;
   return { data, error: null };
