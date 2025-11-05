@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, Briefcase, Mail, ArrowRight, ClipboardCheck } from 'lucide-react';
+import { Calendar, Briefcase, Mail, ArrowRight, ClipboardCheck, FlaskConical } from 'lucide-react';
 import { getAllAppointments } from '../../lib/appointments';
 import { getAllApplications } from '../../lib/accountants';
 import { getContactRequestStats } from '../../lib/contacts';
@@ -80,6 +80,14 @@ export const AdminOverview: React.FC = () => {
       badge: stats.taxCheckupLeads,
       color: 'orange',
     },
+    {
+      title: 'Test Hub',
+      description: 'Testing and development utilities',
+      icon: FlaskConical,
+      path: '/admin/test-hub',
+      badge: 0,
+      color: 'slate',
+    },
   ];
 
   if (loading) {
@@ -128,6 +136,11 @@ export const AdminOverview: React.FC = () => {
                 card: 'from-orange-500/10 to-orange-600/5 border-orange-500/20 hover:border-orange-400/40 hover:shadow-orange-500/20',
                 icon: 'bg-gradient-to-br from-orange-500 to-orange-600',
                 badge: 'bg-orange-500',
+              },
+              slate: {
+                card: 'from-slate-500/10 to-slate-600/5 border-slate-500/20 hover:border-slate-400/40 hover:shadow-slate-500/20',
+                icon: 'bg-gradient-to-br from-slate-500 to-slate-600',
+                badge: 'bg-slate-500',
               },
             }[section.color];
 
