@@ -12,14 +12,20 @@ export const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
   const { user, loading: authLoading } = useAuth();
   const { profile, loading: profileLoading } = useUserProfile();
 
-  console.log('[AdminRoute] Debug:', {
+  console.log('[AdminRoute] Render check:', {
     authLoading,
     profileLoading,
     hasUser: !!user,
-    profile: profile ? { id: profile.id, email: profile.email, role: profile.role } : null,
+    userId: user?.id,
+    profile: profile ? {
+      id: profile.id,
+      display_name: profile.display_name,
+      role: profile.role
+    } : null,
   });
 
   if (authLoading || profileLoading) {
+    console.log('[AdminRoute] Still loading - showing spinner');
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -28,7 +34,7 @@ export const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
   }
 
   if (!user) {
-    console.log('[AdminRoute] No user, showing auth modal');
+    console.log('[AdminRoute] No user - showing auth modal');
     return (
       <AuthModal
         isOpen={true}
@@ -38,14 +44,21 @@ export const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
     );
   }
 
-  if (!profile || profile.role !== 'admin') {
-    console.log('[AdminRoute] Access denied - redirecting to dashboard', {
-      hasProfile: !!profile,
-      role: profile?.role,
+  if (!profile) {
+    console.error('[AdminRoute] User exists but profile is NULL - this should not happen!', {
+      userId: user.id,
+      userEmail: user.email
     });
     return <Navigate to="/dashboard" replace />;
   }
 
-  console.log('[AdminRoute] Access granted');
+  if (profile.role !== 'admin') {
+    console.log('[AdminRoute] Access denied - user is not admin', {
+      role: profile.role,
+    });
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  console.log('[AdminRoute] ✅ Access granted to admin dashboard');
   return <>{children}</>;
 };
