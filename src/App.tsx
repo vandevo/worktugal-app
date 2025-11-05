@@ -28,6 +28,7 @@ import { ComprehensiveIntakeForm } from './components/accounting/ComprehensiveIn
 import { IntakeSuccess } from './components/accounting/IntakeSuccess';
 import { TaxCheckupForm } from './components/accounting/TaxCheckupForm';
 import { CheckupResults } from './components/accounting/CheckupResults';
+import { CheckupResultsDemo } from './components/accounting/CheckupResultsDemo';
 import { ContactPage } from './components/ContactPage';
 import { ContactSuccess } from './components/ContactSuccess';
 import { ContactSuccessDemo } from './components/ContactSuccessDemo';
@@ -84,6 +85,7 @@ function App() {
           {/* Tax Checkup routes */}
           <Route path="/checkup" element={<TaxCheckupForm />} />
           <Route path="/checkup/results" element={<CheckupResults />} />
+          <Route path="/checkup/results/demo" element={<CheckupResultsDemo />} />
           {/* TODO: Create AccountantApplicationPage component */}
           {/* <Route path="/join-accountants" element={<AccountantApplicationPage />} /> */}
           <Route

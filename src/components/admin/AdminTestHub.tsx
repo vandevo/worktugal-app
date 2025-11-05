@@ -567,9 +567,9 @@ export const AdminTestHub: React.FC = () => {
               Quick Preview - View Results
             </h3>
             <p className="text-sm text-gray-400 mb-4">
-              Enter any existing intake ID to view its results page directly
+              Enter any existing intake ID to view its results page directly, or view the demo page
             </p>
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <Input
                 type="text"
                 value={quickPreviewId}
@@ -583,6 +583,13 @@ export const AdminTestHub: React.FC = () => {
               >
                 <ExternalLink className="w-4 h-4 mr-2" />
                 View Results
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => navigate('/checkup/results/demo')}
+              >
+                <Eye className="w-4 h-4 mr-2" />
+                View Demo
               </Button>
             </div>
           </div>
