@@ -12,6 +12,7 @@ interface SeoProps {
   twitterCard?: 'summary' | 'summary_large_image';
   canonicalUrl?: string;
   structuredData?: object;
+  noindex?: boolean;
 }
 
 export const Seo: React.FC<SeoProps> = ({
@@ -25,10 +26,23 @@ export const Seo: React.FC<SeoProps> = ({
   twitterCard = 'summary_large_image',
   canonicalUrl,
   structuredData,
+  noindex = false,
 }) => {
   const fullTitle = title.includes('Worktugal') ? title : `${title} | Worktugal`;
   const currentUrl = ogUrl || (typeof window !== 'undefined' ? window.location.href : '');
-  const canonical = canonicalUrl || currentUrl;
+
+  const normalizeUrl = (url: string): string => {
+    if (!url) return '';
+    try {
+      const urlObj = new URL(url);
+      return `${urlObj.origin}${urlObj.pathname}`.replace(/\/$/, '');
+    } catch {
+      return url;
+    }
+  };
+
+  const canonical = canonicalUrl ? normalizeUrl(canonicalUrl) : (currentUrl ? normalizeUrl(currentUrl) : '');
+  const robotsContent = noindex ? 'noindex, nofollow' : 'index, follow';
 
   return (
     <Helmet>
@@ -36,7 +50,7 @@ export const Seo: React.FC<SeoProps> = ({
       <title>{fullTitle}</title>
       <meta name="title" content={fullTitle} />
       <meta name="description" content={description} />
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content={robotsContent} />
       <meta name="language" content="English" />
       <meta name="author" content="Worktugal" />
 

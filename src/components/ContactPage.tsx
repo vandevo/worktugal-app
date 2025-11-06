@@ -8,6 +8,7 @@ import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 import { Briefcase, MessageCircle, BookOpen, Users, Building } from 'lucide-react';
 import { submitContactRequest } from '../lib/contacts';
+import { Seo } from './Seo';
 
 const contactSchema = z.object({
   purpose: z.enum(['accounting', 'partnership', 'job', 'info', 'other']),
@@ -155,6 +156,11 @@ export function ContactPage() {
 
   return (
     <div className="min-h-screen bg-gray-900 py-12 px-4">
+      <Seo
+        title="Contact Us - Get in Touch with Worktugal"
+        description="Have questions about accounting services, partnerships, or work opportunities in Portugal? Contact Worktugal's team for personalized assistance."
+        canonicalUrl="https://app.worktugal.com/contact"
+      />
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

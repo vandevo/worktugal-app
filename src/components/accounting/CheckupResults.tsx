@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
+import { Seo } from '../Seo';
 import {
   AlertTriangle,
   AlertCircle,
@@ -91,6 +92,11 @@ export const CheckupResults: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 py-12">
+      <Seo
+        title="Your Tax Compliance Results"
+        description="View your personalized tax compliance score and action plan for staying compliant in Portugal."
+        noindex={true}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

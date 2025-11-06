@@ -12,6 +12,7 @@ export const TermsAndConditions: React.FC = () => {
         title="Terms and Conditions - Service Agreement"
         description="Read the terms and conditions for using Worktugal. Understand your rights and obligations as a partner or user of our partner network."
         ogType="article"
+        canonicalUrl="https://app.worktugal.com/terms"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "WebPage",

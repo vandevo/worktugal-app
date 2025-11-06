@@ -4,6 +4,7 @@ import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 import { Alert } from '../ui/Alert';
+import { Seo } from '../Seo';
 import {
   ArrowRight,
   ArrowLeft,
@@ -540,6 +541,11 @@ export const TaxCheckupForm: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 py-12">
+      <Seo
+        title="Free Tax Compliance Checkup for Freelancers in Portugal"
+        description="Take our free 3-minute tax compliance checkup. Get your score, see what you're missing, and receive a personalized action plan for staying compliant in Portugal."
+        canonicalUrl="https://app.worktugal.com/checkup"
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

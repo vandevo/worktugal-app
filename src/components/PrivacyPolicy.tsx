@@ -12,6 +12,7 @@ export const PrivacyPolicy: React.FC = () => {
         title="Privacy Policy - How We Protect Your Data"
         description="Learn how Worktugal collects, uses, and protects your personal data. We're GDPR compliant and transparent about our data practices."
         ogType="article"
+        canonicalUrl="https://app.worktugal.com/privacy"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "WebPage",

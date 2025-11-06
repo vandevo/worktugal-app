@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabase';
 import { getProductByPriceId } from '../stripe-config';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
+import { Seo } from './Seo';
 
 export function SuccessPage() {
   const [searchParams] = useSearchParams();
@@ -81,6 +82,11 @@ export function SuccessPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
+      <Seo
+        title="Order Successful - Payment Confirmation"
+        description="Thank you for your purchase. Your order has been confirmed."
+        noindex={true}
+      />
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="text-center mb-8">
