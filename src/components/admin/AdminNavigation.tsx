@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Calendar, Briefcase, Mail, FlaskConical } from 'lucide-react';
+import { LayoutDashboard, Calendar, Briefcase, Mail, FlaskConical, BookOpen } from 'lucide-react';
 import { cn } from '../../utils/cn';
 
 interface AdminNavigationProps {
@@ -43,6 +43,11 @@ export const AdminNavigation: React.FC<AdminNavigationProps> = ({ pendingCounts 
       path: '/admin/test-hub',
       label: 'Test Hub',
       icon: FlaskConical,
+    },
+    {
+      path: '/admin/changelog',
+      label: 'Changelog',
+      icon: BookOpen,
     },
   ];
 

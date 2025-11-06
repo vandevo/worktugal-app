@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-11-01
+**Last Updated:** 2025-11-06
 
 ---
 
@@ -37,6 +37,11 @@ Contact details managed through Supabase profile system and displayed via authen
 - **Form State Persistence**: Local storage backup preventing data loss during navigation
 - **Progressive Disclosure**: Step-by-step information collection minimizing cognitive load
 - **Real-time Validation**: Client-side form validation with immediate user feedback
+- **Accounting Desk**: Comprehensive freelancer/expat tax compliance intake system with document upload
+- **Tax Checkup Tool**: Lead generation diagnostic tool with compliance scoring (red/yellow/green)
+- **Contact Request System**: Multi-purpose contact form with purpose-based routing and admin management
+- **Admin Dashboard**: Comprehensive admin panel for managing contact requests, tax checkup leads, and appointments
+- **Deduplication System**: Email-based lead deduplication with session ID tracking to prevent duplicate submissions
 
 ---
 
@@ -1996,6 +2001,129 @@ https://worktugal.com?debug=true
 - Non-blocking architecture ensures signup succeeds even if webhook fails
 - Production build successfully compiles with all changes
 - Note: Authentication → Hooks section updated (removed blocking webhook configuration)
+
+**2025-11-06: Google Analytics Configuration Update**
+- Updated Google Analytics implementation to match official GA4 installation code
+- Removed custom `send_page_view: false` configuration
+- Changed comment from "Google Analytics" to "Google tag (gtag.js)" to match Google's format
+- Maintained RouteTracker component for SPA page view tracking
+- All event tracking (checkup, login, signup, contact) continues to work as expected
+
+**2025-11-05: Security Hardening + Admin Access Improvements**
+- Comprehensive security audit and RLS policy fixes across all tables
+- Fixed admin access policies using security definer functions
+- Added deduplication fields to accounting_intakes (session_id, is_duplicate)
+- Fixed user signup trigger to properly create user profiles
+- Added anon read policy for partners table to fix directory display
+- Rolled back unsafe anon select policy for intakes (security risk)
+- Fixed get_all_applications return type for admin dashboard
+- Fixed applications table policies for proper admin access
+
+**2025-11-05: Tax Checkup Lead Generation System**
+- Added comprehensive tax checkup fields to accounting_intakes table
+- New fields: source_type, compliance scores (red/yellow/green), compliance_report
+- Added lead quality scoring system (1-100 scale)
+- Implemented marketing attribution tracking (utm_source, utm_campaign, utm_medium)
+- Added funnel analytics (last_step_reached) for abandonment tracking
+- New work_type and estimated_annual_income fields for lead qualification
+- Added months_in_portugal for tax residency calculation
+- Email marketing consent field for GDPR compliance
+- Created indexes for source_type, compliance_red, and lead_quality_score
+
+**2025-11-01: Contact Request Management System**
+- Created contact_requests table with comprehensive inquiry tracking
+- Purpose-based routing: accounting, partnership, job, info, other
+- Budget range and timeline qualification fields for partnership inquiries
+- Status tracking: new, reviewed, replied, converted, archived
+- Priority levels: high, normal, low
+- Make.com webhook integration with tracking (webhook_sent, webhook_sent_at)
+- Admin-only access with full CRUD policies
+- Anonymous submission allowed for lead capture
+- Indexes on purpose, status, priority, created_at, and email for admin filtering
+
+**2025-10-29: Security Audit + Performance Optimization**
+- Comprehensive RLS policy review and fixes across all tables
+- Performance optimization with strategic index additions
+- Cleaned up redundant policies and improved policy efficiency
+- Fixed security issues in accounting_intakes, leads_accounting, and contact_requests
+
+**2025-10-28: Lead Enrichment Fields**
+- Added additional_details JSONB field to leads_accounting table
+- Enables flexible capture of custom lead qualification data
+- Supports future expansion without schema changes
+
+**2025-10-27: Accounting Intakes RLS Policy Refinement**
+- Multiple iterations to perfect anonymous intake submission flow
+- Fixed anon insert policy for public intake submissions
+- Restored original intake policy for authenticated user access
+- Added select policy for anon inserts to enable immediate confirmation page
+- Final RLS configuration balances security with user experience
+
+**2025-10-26: Comprehensive Accounting Intake System - Phase 1 MVP**
+- Created accounting_intakes table with 30+ fields for freelancer/expat compliance data
+- Personal information: name, email, phone, country
+- Residency tracking: residency_status, days_in_portugal, city
+- Income sources: JSONB array supporting freelance, employment, rental, investment, pension, business, crypto
+- Tax registration status: NIF, NISS, IBAN, VAT number fields with validation
+- Activity tracking: opened activity at Financas, CAE code, activity date
+- Accounting history: previous_accountant, accounting_software used
+- Urgency assessment: urgency_level, biggest_worry, special_notes
+- Document storage: JSONB files object for passport, NIF, IBAN, lease, NISS certificates
+- Status workflow: new → ready → missing_docs → in_review → claimed → completed
+- Compliance tagging: JSONB tags array for urgent, missing_niss, vat_threshold_risk, fiscal_rep_needed
+- Future accountant claims: claimed_by, claimed_at (Phase 2 placeholder)
+- RLS policies: Anonymous INSERT for public submissions, authenticated users can view own intakes by email
+- Performance indexes: email, status, created_at, claimed_by
+- Updated_at trigger for automatic timestamp management
+- Designed for MVP Phase 1: data collection and manual review (no payments yet)
+- Structure ready for Phase 2: accountant marketplace, credit system, billing
+
+**2025-10-07: Webhook Cleanup**
+- Disabled all old signup webhook triggers
+- Consolidated webhook logic into single clean implementation
+- Removed redundant signup notification functions
+
+**2025-10-06: Webhook Trigger Management**
+- Disabled old signup triggers to prevent duplicate notifications
+- Streamlined webhook architecture
+
+**2025-10-03: Lead Generation System**
+- Created leads_accounting table for accounting desk early access signups
+- Webhook trigger to Make.com for automated lead distribution
+- Fixed webhook trigger URL configuration
+- Basic lead fields: email, name, message, status tracking
+
+**2025-10-03: Security + Performance Part 2**
+- RLS policy optimization across all tables
+- Improved query performance with targeted policy adjustments
+- Fixed policy conflicts and redundancies
+
+**2025-10-03: Security + Performance Part 1**
+- Added strategic indexes for frequently queried tables
+- Optimized partner_submissions, user_profiles, and stripe tables
+- Improved query performance for admin dashboard and partner directory
+
+**2025-10-02: Resume Storage**
+- Created resume storage bucket for accountant applications
+- Fixed bucket policies for secure authenticated upload/download
+- Supports PDF, DOC, DOCX file types
+
+**2025-10-01: Accounting Desk Infrastructure - Complete Build**
+- Created accountant_profiles table with OCC certification tracking, specializations, availability
+- Created appointments table with Cal.com integration fields (event_id, booking_id, reschedule_uid)
+- Created payouts table for future accountant commission tracking
+- Created disputes table for client/accountant conflict resolution
+- Created accountant_applications table for accountant recruitment flow
+- Added accountant role to user_profiles (role: 'admin' | 'accountant' | 'client')
+- Separated accounting desk schema from partner submissions table
+- Cleaned up partner_submissions: removed accounting-specific fields
+- Added consult booking fields: selected_accountant, payment_intent, booking_confirmed
+- Added consult intake fields: work_type, monthly_income, biggest_challenge
+- Added Cal.com webhook fields to appointments: raw_webhook_payload, cancellation_reason
+- Dropped unrestricted database views for security (removed public email exposure)
+- Added appointment enhancement fields: notes, internal_notes, tags, follow_up_date
+- Comprehensive RLS policies for all new tables with role-based access control
+- Performance indexes for accountant filtering, appointment management, and status tracking
 
 **2025-10-04: Early Access Form UX Refinement + Complete SEO Update**
 - Refined EarlyAccessForm success screen messaging to align with actual email content
