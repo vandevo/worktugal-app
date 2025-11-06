@@ -8,6 +8,7 @@ import { signUp } from '../../lib/auth';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
+import { trackSignup } from '../../lib/analytics';
 
 const signupSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -49,6 +50,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
 
     try {
       await signUp(data.email, data.password);
+      trackSignup('email');
       setSuccess('Account created successfully! You can now sign in.');
       onSuccess?.();
     } catch (err: any) {

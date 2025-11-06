@@ -5,6 +5,7 @@ import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 import { Alert } from '../ui/Alert';
 import { Seo } from '../Seo';
+import { trackCheckupCompletion } from '../../lib/analytics';
 import {
   ArrowRight,
   ArrowLeft,
@@ -91,6 +92,7 @@ export const TaxCheckupForm: React.FC = () => {
 
     try {
       const { intake, scores } = await submitTaxCheckup(formData as TaxCheckupFormData);
+      trackCheckupCompletion(scores.overall_score);
       navigate(`/checkup/results?id=${intake.id}`);
     } catch (err) {
       console.error('Error submitting checkup:', err);

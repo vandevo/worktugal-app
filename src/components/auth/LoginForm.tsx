@@ -8,6 +8,7 @@ import { signIn, resetPasswordForEmail } from '../../lib/auth';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
+import { trackLogin } from '../../lib/analytics';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -44,6 +45,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
 
     try {
       await signIn(data.email, data.password);
+      trackLogin('email');
       onSuccess?.();
     } catch (err: any) {
       setError(err.message || 'Failed to sign in');

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/Layout';
+import { RouteTracker } from './components/RouteTracker';
 import { HomePage } from './components/HomePage';
 import { CheckoutSuccess } from './components/CheckoutSuccess';
 import { Dashboard } from './components/Dashboard';
@@ -42,6 +43,7 @@ function App() {
 
   return (
     <Router>
+      <RouteTracker />
       <Seo />
       <Layout>
         <Routes>

@@ -9,6 +9,7 @@ import { Input } from './ui/Input';
 import { Briefcase, MessageCircle, BookOpen, Users, Building } from 'lucide-react';
 import { submitContactRequest } from '../lib/contacts';
 import { Seo } from './Seo';
+import { trackContactRequest } from '../lib/analytics';
 
 const contactSchema = z.object({
   purpose: z.enum(['accounting', 'partnership', 'job', 'info', 'other']),
@@ -107,6 +108,7 @@ export function ContactPage() {
     setIsSubmitting(true);
     try {
       await submitContactRequest(data);
+      trackContactRequest(data.purpose);
       navigate(`/contact/success?purpose=${data.purpose}&budget=${data.budget_range || 'none'}`);
     } catch (error) {
       console.error('Error submitting contact request:', error);
