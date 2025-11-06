@@ -2002,6 +2002,24 @@ https://worktugal.com?debug=true
 - Production build successfully compiles with all changes
 - Note: Authentication → Hooks section updated (removed blocking webhook configuration)
 
+**2025-11-06: Changelog Management System + Documentation Infrastructure**
+- Created project_changelog table in Supabase for tracking all project changes
+- Built ChangelogManager admin component accessible at /admin/changelog
+- Added changelog entry form with categories: feature, fix, database, ui, integration, security, performance, content, docs
+- Integrated changelog navigation into AdminNavigation component with BookOpen icon
+- Created generate-readme.js script for automated README generation from logged changes and migrations
+- Added npm script: npm run generate-readme scans last 30 days of migrations and 90 days of changelog entries
+- Script outputs README_UPDATES.md for review before merging into main README
+- Created comprehensive documentation: README_UPDATE_PROMPT.md for quick reference prompts
+- Created CHANGELOG_SYSTEM_GUIDE.md with complete workflow instructions and examples
+- Implemented sustainable documentation workflow: log changes in 30 seconds via admin panel, update README with single prompt
+- Added route /admin/changelog in App.tsx with AdminRoute protection
+- RLS policies: admin-only write access, public read access for transparency
+- Indexed on date, category, and created_at for performance
+- Tracks affected files, migration files, version numbers, and PR references
+- Eliminates documentation debt by making README updates effortless and systematic
+- Note: Database Schema section (see migration: create_project_changelog_table.sql)
+
 **2025-11-06: Google Analytics Configuration Update**
 - Updated Google Analytics implementation to match official GA4 installation code
 - Removed custom `send_page_view: false` configuration
