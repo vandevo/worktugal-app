@@ -633,8 +633,8 @@ export const ComprehensiveIntakeForm: React.FC = () => {
         >
           {/* Header */}
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-3xl font-bold text-white">Compliance Intake</h2>
+            <div className="mb-4">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Compliance Intake</h2>
               <span className="text-sm text-gray-400">Step {step} of {totalSteps}</span>
             </div>
 
@@ -679,27 +679,27 @@ export const ComprehensiveIntakeForm: React.FC = () => {
             </motion.div>
 
             {/* Navigation Buttons */}
-            <div className="flex gap-4 mt-10">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-10">
               {step > 1 && (
                 <Button
                   type="button"
                   variant="outline"
                   onClick={handlePrevious}
-                  className="flex items-center"
+                  className="flex items-center justify-center w-full sm:w-auto order-2 sm:order-1"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Previous
                 </Button>
               )}
 
-              <div className="flex-1" />
+              <div className="hidden sm:block flex-1" />
 
               {step < totalSteps ? (
                 <Button
                   type="button"
                   onClick={handleNext}
                   disabled={!isStepValid()}
-                  className="flex items-center"
+                  className="flex items-center justify-center w-full sm:w-auto order-1 sm:order-2"
                 >
                   Next
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -710,6 +710,7 @@ export const ComprehensiveIntakeForm: React.FC = () => {
                   onClick={handleSubmit}
                   disabled={!isStepValid() || isSubmitting}
                   size="lg"
+                  className="w-full sm:w-auto order-1 sm:order-2"
                 >
                   {isSubmitting ? 'Submitting...' : 'Complete Intake'}
                 </Button>
