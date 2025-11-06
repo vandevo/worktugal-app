@@ -31,7 +31,6 @@ interface TaxCheckupLead {
   compliance_score_yellow: number;
   compliance_score_green: number;
   lead_quality_score: number;
-  urgency_level: string;
   email_marketing_consent: boolean;
   status: string;
   utm_source: string | null;
@@ -42,8 +41,8 @@ export const TaxCheckupLeads: React.FC = () => {
   const navigate = useNavigate();
   const [leads, setLeads] = useState<TaxCheckupLead[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<'all' | 'high' | 'medium' | 'low'>('all');
-  const [sortBy, setSortBy] = useState<'created' | 'quality' | 'urgency'>('created');
+  const [filter, setFilter] = useState<'all' | 'high_quality' | 'needs_follow_up'>('all');
+  const [sortBy, setSortBy] = useState<'created' | 'quality' | 'compliance'>('created');
 
   useEffect(() => {
     loadLeads();
@@ -52,16 +51,13 @@ export const TaxCheckupLeads: React.FC = () => {
   const loadLeads = async () => {
     try {
       const { data, error } = await supabase
-        .rpc('get_all_accounting_intakes');
+        .from('tax_checkup_leads')
+        .select('*')
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
 
-      // Filter for tax_checkup source type
-      const taxCheckupLeads = (data || []).filter(
-        (lead: any) => lead.source_type === 'tax_checkup'
-      );
-
-      setLeads(taxCheckupLeads);
+      setLeads(data || []);
     } catch (error) {
       console.error('Error loading checkup leads:', error);
     } finally {
@@ -71,7 +67,7 @@ export const TaxCheckupLeads: React.FC = () => {
 
   const exportLeads = () => {
     const csvContent = [
-      ['Date', 'Name', 'Email', 'Phone', 'Work Type', 'Red Flags', 'Warnings', 'Quality Score', 'Urgency', 'Email Consent', 'UTM Source'].join(','),
+      ['Date', 'Name', 'Email', 'Phone', 'Work Type', 'Red Flags', 'Warnings', 'Quality Score', 'Email Consent', 'UTM Source'].join(','),
       ...filteredLeads.map(lead => [
         new Date(lead.created_at).toLocaleDateString(),
         lead.name || '',
@@ -81,7 +77,6 @@ export const TaxCheckupLeads: React.FC = () => {
         lead.compliance_score_red,
         lead.compliance_score_yellow,
         lead.lead_quality_score,
-        lead.urgency_level,
         lead.email_marketing_consent ? 'Yes' : 'No',
         lead.utm_source || ''
       ].join(','))
@@ -98,24 +93,25 @@ export const TaxCheckupLeads: React.FC = () => {
   const filteredLeads = leads
     .filter(lead => {
       if (filter === 'all') return true;
-      return lead.urgency_level === filter;
+      if (filter === 'high_quality') return (lead.lead_quality_score || 0) >= 70;
+      if (filter === 'needs_follow_up') return (lead.compliance_score_red || 0) >= 2;
+      return true;
     })
     .sort((a, b) => {
       if (sortBy === 'quality') {
         return (b.lead_quality_score || 0) - (a.lead_quality_score || 0);
       }
-      if (sortBy === 'urgency') {
-        const urgencyMap = { high: 3, medium: 2, low: 1 };
-        return urgencyMap[b.urgency_level as keyof typeof urgencyMap] - urgencyMap[a.urgency_level as keyof typeof urgencyMap];
+      if (sortBy === 'compliance') {
+        return (b.compliance_score_red || 0) - (a.compliance_score_red || 0);
       }
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
     });
 
   const stats = {
     total: leads.length,
-    high: leads.filter(l => l.urgency_level === 'high').length,
-    medium: leads.filter(l => l.urgency_level === 'medium').length,
-    low: leads.filter(l => l.urgency_level === 'low').length,
+    highQuality: leads.filter(l => (l.lead_quality_score || 0) >= 70).length,
+    criticalIssues: leads.filter(l => (l.compliance_score_red || 0) >= 2).length,
+    warnings: leads.filter(l => (l.compliance_score_yellow || 0) > 0).length,
     avgQuality: Math.round(leads.reduce((sum, l) => sum + (l.lead_quality_score || 0), 0) / leads.length) || 0,
     emailConsent: leads.filter(l => l.email_marketing_consent).length
   };
@@ -156,17 +152,17 @@ export const TaxCheckupLeads: React.FC = () => {
             <div className="text-2xl font-bold text-white">{stats.total}</div>
             <div className="text-sm text-gray-400">Total Leads</div>
           </div>
+          <div className="bg-green-500/10 backdrop-blur-xl border border-green-500/20 rounded-xl p-4">
+            <div className="text-2xl font-bold text-green-400">{stats.highQuality}</div>
+            <div className="text-sm text-gray-400">High Quality</div>
+          </div>
           <div className="bg-red-500/10 backdrop-blur-xl border border-red-500/20 rounded-xl p-4">
-            <div className="text-2xl font-bold text-red-400">{stats.high}</div>
-            <div className="text-sm text-gray-400">High Urgency</div>
+            <div className="text-2xl font-bold text-red-400">{stats.criticalIssues}</div>
+            <div className="text-sm text-gray-400">Critical Issues</div>
           </div>
           <div className="bg-yellow-500/10 backdrop-blur-xl border border-yellow-500/20 rounded-xl p-4">
-            <div className="text-2xl font-bold text-yellow-400">{stats.medium}</div>
-            <div className="text-sm text-gray-400">Medium</div>
-          </div>
-          <div className="bg-green-500/10 backdrop-blur-xl border border-green-500/20 rounded-xl p-4">
-            <div className="text-2xl font-bold text-green-400">{stats.low}</div>
-            <div className="text-sm text-gray-400">Low Priority</div>
+            <div className="text-2xl font-bold text-yellow-400">{stats.warnings}</div>
+            <div className="text-sm text-gray-400">With Warnings</div>
           </div>
           <div className="bg-blue-500/10 backdrop-blur-xl border border-blue-500/20 rounded-xl p-4">
             <div className="text-2xl font-bold text-blue-400">{stats.avgQuality}</div>
@@ -183,16 +179,15 @@ export const TaxCheckupLeads: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
             <div className="flex gap-4 flex-wrap">
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Filter by Urgency</label>
+                <label className="block text-sm text-gray-400 mb-2">Filter by Type</label>
                 <Select
                   value={filter}
                   onChange={(e) => setFilter(e.target.value as any)}
-                  className="w-40"
+                  className="w-48"
                 >
                   <option value="all">All Leads ({stats.total})</option>
-                  <option value="high">High ({stats.high})</option>
-                  <option value="medium">Medium ({stats.medium})</option>
-                  <option value="low">Low ({stats.low})</option>
+                  <option value="high_quality">High Quality ({stats.highQuality})</option>
+                  <option value="needs_follow_up">Needs Follow-up ({stats.criticalIssues})</option>
                 </Select>
               </div>
               <div>
@@ -204,7 +199,7 @@ export const TaxCheckupLeads: React.FC = () => {
                 >
                   <option value="created">Latest First</option>
                   <option value="quality">Quality Score</option>
-                  <option value="urgency">Urgency Level</option>
+                  <option value="compliance">Critical Issues</option>
                 </Select>
               </div>
             </div>
@@ -309,7 +304,7 @@ export const TaxCheckupLeads: React.FC = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4 text-center">
-                        <div className="inline-flex items-center gap-2">
+                        <div className="inline-flex flex-col items-center gap-1">
                           <span className={`text-lg font-bold ${
                             lead.lead_quality_score >= 70 ? 'text-green-400' :
                             lead.lead_quality_score >= 50 ? 'text-yellow-400' :
@@ -317,13 +312,7 @@ export const TaxCheckupLeads: React.FC = () => {
                           }`}>
                             {lead.lead_quality_score}
                           </span>
-                          <Badge variant={
-                            lead.urgency_level === 'high' ? 'error' :
-                            lead.urgency_level === 'medium' ? 'warning' :
-                            'success'
-                          }>
-                            {lead.urgency_level}
-                          </Badge>
+                          <span className="text-xs text-gray-500">/ 100</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
@@ -362,12 +351,12 @@ export const TaxCheckupLeads: React.FC = () => {
 
         {/* Summary Stats */}
         <div className="mt-6 bg-blue-500/10 border border-blue-500/20 rounded-xl p-6">
-          <h3 className="text-white font-semibold mb-2">Lead Generation Summary</h3>
+          <h3 className="text-white font-semibold mb-2">Lead generation summary</h3>
           <div className="text-sm text-gray-300 space-y-1">
-            <p>• {filteredLeads.length} leads shown (filtered from {leads.length} total)</p>
-            <p>• {stats.emailConsent} leads consented to email marketing ({Math.round((stats.emailConsent / stats.total) * 100)}%)</p>
-            <p>• Average lead quality score: {stats.avgQuality}/100</p>
-            <p>• {stats.high + stats.medium} leads require follow-up (high + medium urgency)</p>
+            <p>{filteredLeads.length} leads shown (filtered from {leads.length} total)</p>
+            <p>{stats.emailConsent} leads consented to email marketing ({Math.round((stats.emailConsent / stats.total) * 100) || 0}%)</p>
+            <p>Average lead quality score: {stats.avgQuality}/100</p>
+            <p>{stats.criticalIssues} leads with critical compliance issues need follow-up</p>
           </div>
         </div>
       </div>

@@ -187,9 +187,9 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
 
   // Step 1: Check for existing submissions from this email
   const { data: existingSubmissions, error: queryError } = await supabase
-    .from('accounting_intakes')
-    .select('id, submission_sequence, created_at, source_type, name, phone, first_submission_at')
-    .eq('lead_email_hash', emailHash)
+    .from('tax_checkup_leads')
+    .select('id, submission_sequence, created_at, name, phone, first_submission_at')
+    .eq('email_hash', emailHash)
     .order('created_at', { ascending: false })
     .limit(1);
 
@@ -204,14 +204,14 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
   // Step 2: If resubmitting, mark previous submissions as not latest
   if (isResubmission) {
     await supabase
-      .from('accounting_intakes')
+      .from('tax_checkup_leads')
       .update({ is_latest_submission: false })
-      .eq('lead_email_hash', emailHash);
+      .eq('email_hash', emailHash);
   }
 
   // Step 3: Insert new submission with deduplication fields
   const { data: intake, error } = await supabase
-    .from('accounting_intakes')
+    .from('tax_checkup_leads')
     .insert([{
       name: formData.name || latestSubmission?.name || '',
       email: formData.email,
@@ -229,16 +229,13 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
       utm_source: formData.utm_source || null,
       utm_campaign: formData.utm_campaign || null,
       utm_medium: formData.utm_medium || null,
-      source_type: 'tax_checkup',
       compliance_score_red: scores.red,
       compliance_score_yellow: scores.yellow,
       compliance_score_green: scores.green,
       compliance_report: scores.report,
       lead_quality_score: scores.leadQualityScore,
-      urgency_level: scores.urgencyLevel,
       status: 'new',
-      income_sources: ['freelance'],
-      lead_email_hash: emailHash,
+      email_hash: emailHash,
       is_latest_submission: true,
       submission_sequence: nextSequence,
       previous_submission_id: latestSubmission?.id || null,
@@ -268,14 +265,13 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
           },
           body: JSON.stringify({
             event: isResubmission ? 'tax_checkup_resubmitted' : 'tax_checkup_submitted',
-            intake_id: intake.id,
+            checkup_id: intake.id,
             name: formData.name || 'there',
             email: formData.email,
             work_type: formData.work_type,
             compliance_score_red: scores.red,
             compliance_score_yellow: scores.yellow,
             compliance_score_green: scores.green,
-            urgency_level: scores.urgencyLevel,
             lead_quality_score: scores.leadQualityScore,
             submission_sequence: nextSequence,
             is_resubmission: isResubmission,
@@ -294,13 +290,16 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
     intake,
     scores,
     isResubmission,
-    submissionSequence: nextSequence
+    submissionSequence: nextSequence,
+    overall_score: scores.green + scores.yellow + scores.red > 0
+      ? Math.round((scores.green / (scores.green + scores.yellow + scores.red)) * 100)
+      : 0
   };
 }
 
 export async function getCheckupResults(intakeId: string) {
   const { data, error } = await supabase
-    .from('accounting_intakes')
+    .from('tax_checkup_leads')
     .select(`
       id,
       created_at,
@@ -316,17 +315,14 @@ export async function getCheckupResults(intakeId: string) {
       has_vat_number,
       has_niss,
       has_fiscal_representative,
-      source_type,
       compliance_score_red,
       compliance_score_yellow,
       compliance_score_green,
       compliance_report,
       lead_quality_score,
-      urgency_level,
       status
     `)
     .eq('id', intakeId)
-    .eq('source_type', 'tax_checkup')
     .maybeSingle();
 
   if (error) {

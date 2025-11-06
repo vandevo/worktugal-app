@@ -254,22 +254,22 @@ export const CheckupResults: React.FC = () => {
             transition={{ delay: 0.4 }}
             className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8"
           >
-            <h2 className="text-2xl font-bold text-white mb-6">What's Next?</h2>
+            <h2 className="text-2xl font-bold text-white mb-6">What's next?</h2>
 
             <div className="space-y-4">
               <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-6">
                 <div className="flex items-start gap-4">
-                  <Calendar className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" />
+                  <FileText className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" />
                   <div className="flex-1">
-                    <h3 className="text-white font-semibold mb-2">Book a Free 15-Minute Consultation</h3>
+                    <h3 className="text-white font-semibold mb-2">Complete your compliance profile</h3>
                     <p className="text-gray-300 text-sm mb-4">
-                      Get personalized guidance from a Portuguese tax specialist. We'll review your specific situation and create an action plan.
+                      Submit our detailed intake form for a deeper analysis. We'll identify all compliance gaps, estimate penalties, and create a prioritized action plan. When we launch our specialist network, you'll get priority access.
                     </p>
                     <Button
-                      onClick={() => navigate('/accounting/checkout')}
+                      onClick={() => navigate('/accounting/intake')}
                       className="w-full sm:w-auto"
                     >
-                      Book Free Consultation
+                      Complete full intake
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </div>
@@ -278,26 +278,22 @@ export const CheckupResults: React.FC = () => {
 
               <div className="bg-white/[0.02] border border-white/[0.08] rounded-xl p-6">
                 <div className="flex items-start gap-4">
-                  <FileText className="w-6 h-6 text-gray-400 flex-shrink-0 mt-1" />
+                  <Calendar className="w-6 h-6 text-gray-400 flex-shrink-0 mt-1" />
                   <div className="flex-1">
-                    <h3 className="text-white font-semibold mb-2">Complete Full Intake for Detailed Review</h3>
-                    <p className="text-gray-300 text-sm mb-4">
-                      Submit comprehensive information for a complete compliance audit and written recommendations.
+                    <h3 className="text-white font-semibold mb-2">Specialist consultations coming soon</h3>
+                    <p className="text-gray-300 text-sm">
+                      We're building a network of verified Portuguese tax specialists. Be first to know when we launch.
                     </p>
-                    <Button
-                      variant="outline"
-                      onClick={() => navigate('/accounting/intake')}
-                      className="w-full sm:w-auto"
-                    >
-                      Start Full Intake
-                    </Button>
                   </div>
                 </div>
               </div>
 
-              <div className="text-center pt-4">
-                <p className="text-gray-400 text-sm mb-4">
+              <div className="text-center pt-4 border-t border-white/[0.05] mt-6">
+                <p className="text-gray-400 text-sm">
                   We've sent a copy of this report to <span className="text-white font-medium">{results.email}</span>
+                </p>
+                <p className="text-gray-500 text-xs mt-2">
+                  Keep this report handy when talking to accountants or tax advisors
                 </p>
               </div>
             </div>

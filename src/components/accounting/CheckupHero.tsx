@@ -15,9 +15,8 @@ export const CheckupHero: React.FC<CheckupHeroProps> = ({ onStartCheckup }) => {
     const fetchTotalCheckups = async () => {
       try {
         const { count, error } = await supabase
-          .from('accounting_intakes')
-          .select('*', { count: 'exact', head: true })
-          .eq('source_type', 'tax_checkup');
+          .from('tax_checkup_leads')
+          .select('*', { count: 'exact', head: true });
 
         if (error) {
           console.error('Error fetching checkup count:', error);
