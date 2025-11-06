@@ -16,8 +16,8 @@ interface SeoProps {
 }
 
 export const Seo: React.FC<SeoProps> = ({
-  title = 'Accounting Desk for Remote Professionals in Portugal',
-  description = 'Tax compliance made simple for remote professionals in Portugal. Talk to OCC-certified accountants, get a written action plan, and navigate Portuguese tax law with confidence. Starting from €59.',
+  title = 'Worktugal Tools - Compliance resources for remote professionals in Portugal',
+  description = 'Free tax and legal compliance tools for freelancers and remote workers in Portugal. Check your status, understand your obligations, and find the right professionals. Informational purposes only.',
   ogTitle,
   ogDescription,
   ogImage = 'https://app.worktugal.com/worktugal-logo-bg-light-radius-1000-1000.png',

@@ -107,9 +107,14 @@ export const CheckupResults: React.FC = () => {
           <div className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8 md:p-12">
             <div className="text-center mb-8">
               <h1 className="text-4xl font-bold text-white mb-4">Your Compliance Report</h1>
-              <p className="text-gray-400">
+              <p className="text-gray-400 mb-3">
                 Based on your answers, here's your current compliance status
               </p>
+              <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 max-w-2xl mx-auto">
+                <p className="text-yellow-200/90 text-xs italic leading-relaxed">
+                  This report provides general information only and does not constitute legal or tax advice. Results are educational and should be verified with licensed tax professionals or accountants specific to your situation.
+                </p>
+              </div>
             </div>
 
             {/* Compliance Score */}

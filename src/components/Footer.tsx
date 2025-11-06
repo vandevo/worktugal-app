@@ -22,7 +22,10 @@ export const Footer: React.FC = () => {
               <span className="text-xl font-bold bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">Worktugal</span>
             </a>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Accounting and trusted partners for remote professionals in Lisbon.
+              Compliance tools and resources for remote professionals in Portugal.
+            </p>
+            <p className="text-slate-500 text-xs leading-relaxed mt-2 border-t border-slate-800/50 pt-3">
+              Worktugal Tools provides informational resources only. We are not a law firm, tax firm, or accounting practice. Content is for research and educational purposes. Always consult licensed professionals for legal, tax, or immigration advice specific to your situation.
             </p>
           </div>
 

@@ -68,39 +68,25 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Tax compliance tools for freelancers in Portugal"
-        description="Are you tax compliant in Portugal? Take our free 3-minute checkup. Get your compliance score, see what you're missing, and get a clear action plan."
-        ogTitle="Worktugal - Compliance tools for freelancers in Portugal"
-        ogDescription="Free tax compliance checkup for freelancers in Portugal. Find out if you're compliant in 3 minutes."
+        title="Worktugal Tools - Compliance resources for remote professionals in Portugal"
+        description="Free tax and legal compliance tools for freelancers and remote workers in Portugal. Check your status, understand your obligations, and find the right professionals. Informational purposes only."
+        ogTitle="Worktugal Tools - Free compliance resources for Portugal"
+        ogDescription="Tax compliance checker, visa guides, and resources for remote professionals in Portugal. Free tools to understand your obligations before consulting professionals."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
         ogUrl="https://app.worktugal.com/"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "WebApplication",
-          "name": "Worktugal",
-          "description": "Tax compliance tools for freelancers and remote professionals in Portugal",
+          "name": "Worktugal Tools",
+          "description": "Free compliance tools and resources for freelancers and remote professionals in Portugal. Tax compliance checker, guides, and informational resources.",
           "url": "https://app.worktugal.com/",
           "image": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
-          "priceRange": "€59-€299",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Any",
           "areaServed": {
             "@type": "Country",
             "name": "Portugal"
-          },
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Lisbon",
-            "addressCountry": "PT"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": "38.7223",
-            "longitude": "-9.1393"
-          },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "reviewCount": "127"
           },
           "offers": {
             "@type": "Offer",

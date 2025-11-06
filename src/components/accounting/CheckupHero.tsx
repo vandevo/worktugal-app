@@ -59,10 +59,14 @@ export const CheckupHero: React.FC<CheckupHeroProps> = ({ onStartCheckup }) => {
           <Button
             onClick={onStartCheckup}
             size="lg"
-            className="mb-6 px-12 py-4 text-lg"
+            className="mb-4 px-12 py-4 text-lg"
           >
             Start your free checkup
           </Button>
+
+          <p className="text-xs text-blue-200/80 mb-6 max-w-2xl mx-auto italic">
+            This tool provides general information only and does not constitute legal or tax advice. Results are educational and should be verified with licensed professionals.
+          </p>
 
           {weeklyCheckups !== null && (
             <motion.p
