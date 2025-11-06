@@ -5,7 +5,8 @@ import { getAllAppointments } from '../../lib/appointments';
 import { getAllPayouts, getPendingPayouts } from '../../lib/payouts';
 import { getAllApplications } from '../../lib/accountants';
 import { getContactRequestStats, getRecentContactRequests } from '../../lib/contacts';
-import { Users, DollarSign, Calendar, Briefcase, Mail } from 'lucide-react';
+import { getTaxCheckupStats } from '../../lib/taxCheckup';
+import { Users, DollarSign, Calendar, Briefcase, Mail, ClipboardCheck } from 'lucide-react';
 import { Alert } from '../ui/Alert';
 import { AdminNavigation } from './AdminNavigation';
 import type { Appointment, Payout, AccountantApplication } from '../../types/accountant';
@@ -18,6 +19,7 @@ export const AdminDashboard: React.FC = () => {
   const [applications, setApplications] = useState<AccountantApplication[]>([]);
   const [contactStats, setContactStats] = useState<any>(null);
   const [recentContacts, setRecentContacts] = useState<ContactRequest[]>([]);
+  const [taxCheckupStats, setTaxCheckupStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,13 +32,14 @@ export const AdminDashboard: React.FC = () => {
     setError(null);
 
     try {
-      const [appointmentsRes, payoutsRes, pendingPayoutsRes, applicationsRes, contactStatsData, recentContactsData] = await Promise.all([
+      const [appointmentsRes, payoutsRes, pendingPayoutsRes, applicationsRes, contactStatsData, recentContactsData, taxCheckupStatsData] = await Promise.all([
         getAllAppointments(),
         getAllPayouts(),
         getPendingPayouts(),
         getAllApplications(),
         getContactRequestStats(),
         getRecentContactRequests(5),
+        getTaxCheckupStats(),
       ]);
 
       if (appointmentsRes.data) setAppointments(appointmentsRes.data);
@@ -45,6 +48,7 @@ export const AdminDashboard: React.FC = () => {
       if (applicationsRes.data) setApplications(applicationsRes.data);
       setContactStats(contactStatsData);
       setRecentContacts(recentContactsData);
+      setTaxCheckupStats(taxCheckupStatsData);
     } catch (err) {
       console.error('Error loading admin data:', err);
       setError('Failed to load admin dashboard data');
@@ -76,6 +80,7 @@ export const AdminDashboard: React.FC = () => {
           appointments: scheduledCount,
           applications: pendingApplications,
           contacts: contactStats?.new || 0,
+          taxCheckups: taxCheckupStats?.new || 0,
         }}
       />
       <div className="min-h-screen bg-gray-900 py-20">
@@ -99,7 +104,7 @@ export const AdminDashboard: React.FC = () => {
             </Alert>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
             <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
               <div className="flex items-center justify-between mb-4">
                 <Calendar className="w-10 h-10 text-blue-400" />
@@ -149,6 +154,16 @@ export const AdminDashboard: React.FC = () => {
               <p className="text-3xl font-bold text-white mb-1">{contactStats?.new || 0}</p>
               <p className="text-sm text-gray-400">New requests</p>
               <p className="text-xs text-gray-500 mt-2">{contactStats?.total || 0} total</p>
+            </div>
+
+            <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
+              <div className="flex items-center justify-between mb-4">
+                <ClipboardCheck className="w-10 h-10 text-orange-400" />
+                <span className="text-xs text-gray-400">Tax Checkups</span>
+              </div>
+              <p className="text-3xl font-bold text-white mb-1">{taxCheckupStats?.new || 0}</p>
+              <p className="text-sm text-gray-400">New leads</p>
+              <p className="text-xs text-gray-500 mt-2">{taxCheckupStats?.highQuality || 0} high quality</p>
             </div>
           </div>
 
@@ -274,7 +289,27 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                 )}
 
-                {pendingPayouts.length === 0 && pendingApplications === 0 && (contactStats?.new || 0) === 0 && (
+                {(taxCheckupStats?.new || 0) > 0 && (
+                  <div className="border border-orange-400/20 bg-orange-400/5 rounded-lg p-4">
+                    <h3 className="text-white font-semibold mb-2">Tax Checkup Leads</h3>
+                    <p className="text-gray-300 text-sm mb-3">
+                      {taxCheckupStats.new} new lead{taxCheckupStats.new > 1 ? 's' : ''} from compliance diagnostic
+                    </p>
+                    {taxCheckupStats.criticalIssues > 0 && (
+                      <p className="text-gray-400 text-xs mb-3">
+                        {taxCheckupStats.criticalIssues} with critical issues need follow-up
+                      </p>
+                    )}
+                    <Link
+                      to="/admin/tax-checkup-leads"
+                      className="text-orange-400 hover:text-orange-300 text-sm font-medium"
+                    >
+                      View Tax Checkup Leads →
+                    </Link>
+                  </div>
+                )}
+
+                {pendingPayouts.length === 0 && pendingApplications === 0 && (contactStats?.new || 0) === 0 && (taxCheckupStats?.new || 0) === 0 && (
                   <div className="text-center py-8">
                     <p className="text-gray-400">No pending actions</p>
                   </div>

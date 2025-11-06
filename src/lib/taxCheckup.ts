@@ -451,3 +451,26 @@ export async function getLeadEngagementScore(email: string): Promise<{
     complianceImprovement: Math.round(latestScore - firstScore)
   };
 }
+
+export async function getTaxCheckupStats() {
+  const { data, error } = await supabase
+    .from('tax_checkup_leads')
+    .select('id, lead_quality_score, compliance_score_red, compliance_score_yellow, status');
+
+  if (error) {
+    console.error('Error fetching tax checkup stats:', error);
+    return {
+      total: 0,
+      new: 0,
+      highQuality: 0,
+      criticalIssues: 0
+    };
+  }
+
+  return {
+    total: data.length,
+    new: data.filter(l => l.status === 'new').length,
+    highQuality: data.filter(l => (l.lead_quality_score || 0) >= 70).length,
+    criticalIssues: data.filter(l => (l.compliance_score_red || 0) >= 2).length
+  };
+}

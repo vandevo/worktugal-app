@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Calendar, Briefcase, Mail, FlaskConical, BookOpen } from 'lucide-react';
+import { LayoutDashboard, Calendar, Briefcase, Mail, FlaskConical, BookOpen, ClipboardCheck } from 'lucide-react';
 import { cn } from '../../utils/cn';
 
 interface AdminNavigationProps {
@@ -8,6 +8,7 @@ interface AdminNavigationProps {
     appointments?: number;
     applications?: number;
     contacts?: number;
+    taxCheckups?: number;
   };
 }
 
@@ -38,6 +39,12 @@ export const AdminNavigation: React.FC<AdminNavigationProps> = ({ pendingCounts 
       label: 'Contact Requests',
       icon: Mail,
       badge: pendingCounts.contacts,
+    },
+    {
+      path: '/admin/tax-checkup-leads',
+      label: 'Tax Checkup Leads',
+      icon: ClipboardCheck,
+      badge: pendingCounts.taxCheckups,
     },
     {
       path: '/admin/test-hub',
