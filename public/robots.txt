@@ -8,6 +8,3 @@ Sitemap: https://app.worktugal.com/sitemap.xml
 Disallow: /api/
 Disallow: /_netlify/
 Disallow: /.well-known/
-
-# Additional SEO optimization
-Crawl-delay: 1
