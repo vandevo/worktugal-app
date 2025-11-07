@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-11-06
+**Last Updated:** 2025-11-07
 
 ---
 
@@ -430,6 +430,7 @@ http://worktugal.com/*  https://worktugal.com/:splat  301!
 2. **partners**: Service provider directory entries
 3. **submissions**: Form wizard data collection
 4. **subscriptions**: Stripe subscription status tracking
+5. **tax_checkup_leads**: Tax compliance diagnostic tool lead generation (see migration: 20251106180000_create_tax_checkup_leads_table.sql)
 
 ---
 
@@ -1945,6 +1946,21 @@ https://worktugal.com?debug=true
 ---
 
 ## Recent Updates
+
+**2025-11-07: Admin Dashboard Tax Checkup Integration + Form Layout Harmonization**
+- Added Tax Checkup Leads stat card to main admin dashboard overview
+- New stat card displays: new lead count, high quality leads count
+- Added Tax Checkup Leads to AdminNavigation with badge counter and ClipboardCheck icon
+- Integrated pending action card showing new tax checkup leads with critical issues breakdown
+- Created getTaxCheckupStats helper function in taxCheckup.ts for dashboard metrics
+- Fixed Compliance Intake form mobile cramping by harmonizing layout with Tax Checkup form
+- Changed Compliance Intake header from side-by-side to vertical stack (title with mb-2, then step counter)
+- Added responsive typography to Compliance Intake: text-2xl sm:text-3xl matching Tax Checkup pattern
+- Harmonized button layouts: both forms now use flex-col sm:flex-row with order-2/order-1 for mobile-first UX
+- Both forms now have identical mobile experience: title and step counter stacked with breathing room
+- Consistent spacing, progress bars, and step labels across all multi-step form wizards
+- Production build successfully compiles with all dashboard and form improvements
+- Note: UX/UI section (mobile-first design principles reinforced across form wizards)
 
 **2025-11-01: Mobile UX Improvements for Contact Form and Option Buttons**
 - Improved mobile responsiveness of contact form purpose selection buttons
