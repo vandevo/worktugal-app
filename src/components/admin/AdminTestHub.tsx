@@ -153,7 +153,7 @@ const TEST_SCENARIOS: TestScenario[] = [
       name: 'Test Critical User',
       email: 'vandevo.com@gmail.com',
       phone: '+351912345678',
-      work_type: 'freelance',
+      work_type: 'developer',
       months_in_portugal: 12,
       residency_status: 'residence_permit',
       has_nif: false,
@@ -179,7 +179,8 @@ const TEST_SCENARIOS: TestScenario[] = [
     data: {
       name: 'Test Warning User',
       email: 'vandevo.com@gmail.com',
-      work_type: 'freelance',
+      phone: '+351912345678',
+      work_type: 'designer',
       months_in_portugal: 8,
       residency_status: 'residence_permit',
       has_nif: true,
@@ -188,7 +189,10 @@ const TEST_SCENARIOS: TestScenario[] = [
       has_vat_number: null,
       has_niss: true,
       has_fiscal_representative: null,
-      email_marketing_consent: true
+      email_marketing_consent: true,
+      utm_source: 'test',
+      utm_campaign: 'admin_test',
+      utm_medium: 'manual'
     },
     triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram']
   },
@@ -202,7 +206,8 @@ const TEST_SCENARIOS: TestScenario[] = [
     data: {
       name: 'Test Compliant User',
       email: 'vandevo.com@gmail.com',
-      work_type: 'freelance',
+      phone: '+351912345678',
+      work_type: 'consultant',
       months_in_portugal: 10,
       residency_status: 'residence_permit',
       has_nif: true,
@@ -211,7 +216,10 @@ const TEST_SCENARIOS: TestScenario[] = [
       has_vat_number: true,
       has_niss: true,
       has_fiscal_representative: true,
-      email_marketing_consent: false
+      email_marketing_consent: false,
+      utm_source: 'test',
+      utm_campaign: 'admin_test',
+      utm_medium: 'manual'
     },
     triggers: ['Airtable', 'Email', 'Telegram']
   }
