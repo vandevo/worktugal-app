@@ -209,10 +209,18 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
       .eq('email_hash', emailHash);
   }
 
-  // Step 3: Insert new submission with deduplication fields
-  const { data: intake, error } = await supabase
-    .from('tax_checkup_leads')
-    .insert([{
+  // Step 3: Submit via Edge Function (handles DB insert + webhook)
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const edgeFunctionUrl = `${supabaseUrl}/functions/v1/submit-tax-checkup`;
+
+  console.log('Submitting tax checkup via Edge Function...');
+
+  const response = await fetch(edgeFunctionUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
       name: formData.name || latestSubmission?.name || '',
       email: formData.email,
       phone: formData.phone || latestSubmission?.phone || null,
@@ -234,57 +242,27 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
       compliance_score_green: scores.green,
       compliance_report: scores.report,
       lead_quality_score: scores.leadQualityScore,
-      status: 'new',
       email_hash: emailHash,
       is_latest_submission: true,
       submission_sequence: nextSequence,
       previous_submission_id: latestSubmission?.id || null,
       first_submission_at: latestSubmission?.first_submission_at || new Date().toISOString()
-    }])
-    .select()
-    .single();
+    })
+  });
 
-  if (error) {
-    console.error('Error submitting tax checkup:', error);
-    throw new Error('Failed to submit checkup. Please try again.');
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    console.error('Edge Function error:', errorData);
+    throw new Error(errorData.error || 'Failed to submit checkup. Please try again.');
   }
 
-  // Step 4: Trigger webhook ONLY for new leads OR significant changes
-  const shouldTriggerWebhook = !isResubmission ||
-    (scores.red > 0 && nextSequence <= 2) ||
-    (scores.leadQualityScore >= 70);
+  const result = await response.json();
 
-  if (shouldTriggerWebhook) {
-    try {
-      const makeWebhookUrl = import.meta.env.VITE_MAKE_INTAKE_WEBHOOK_URL;
-      if (makeWebhookUrl) {
-        fetch(makeWebhookUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            event: isResubmission ? 'tax_checkup_resubmitted' : 'tax_checkup_submitted',
-            checkup_id: intake.id,
-            name: formData.name || 'there',
-            email: formData.email,
-            work_type: formData.work_type,
-            compliance_score_red: scores.red,
-            compliance_score_yellow: scores.yellow,
-            compliance_score_green: scores.green,
-            lead_quality_score: scores.leadQualityScore,
-            submission_sequence: nextSequence,
-            is_resubmission: isResubmission,
-            created_at: intake.created_at
-          })
-        }).catch(err => {
-          console.error('Webhook notification failed:', err);
-        });
-      }
-    } catch (err) {
-      console.error('Error calling Make.com webhook:', err);
-    }
+  if (!result.success) {
+    throw new Error(result.error || 'Failed to submit checkup. Please try again.');
   }
+
+  const intake = result.data;
 
   return {
     intake,
