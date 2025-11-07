@@ -1,36 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { FileCheck, Shield, Clock } from 'lucide-react';
 import { Button } from '../ui/Button';
-import { supabase } from '../../lib/supabase';
 
 interface CheckupHeroProps {
   onStartCheckup: () => void;
 }
 
 export const CheckupHero: React.FC<CheckupHeroProps> = ({ onStartCheckup }) => {
-  const [weeklyCheckups, setWeeklyCheckups] = useState<number | null>(null);
-
-  useEffect(() => {
-    const fetchTotalCheckups = async () => {
-      try {
-        const { count, error } = await supabase
-          .from('tax_checkup_leads')
-          .select('*', { count: 'exact', head: true });
-
-        if (error) {
-          console.error('Error fetching checkup count:', error);
-          return;
-        }
-
-        setWeeklyCheckups(count || 0);
-      } catch (err) {
-        console.error('Error fetching total checkups:', err);
-      }
-    };
-
-    fetchTotalCheckups();
-  }, []);
 
   return (
     <section className="relative min-h-[80vh] flex items-center bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900">
@@ -67,16 +44,14 @@ export const CheckupHero: React.FC<CheckupHeroProps> = ({ onStartCheckup }) => {
             This tool provides general information only and does not constitute legal or tax advice. Results are educational and should be verified with licensed professionals.
           </p>
 
-          {weeklyCheckups !== null && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="text-sm text-blue-300 font-medium"
-            >
-              <strong>{weeklyCheckups} freelancers</strong> have checked their compliance
-            </motion.p>
-          )}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-sm text-blue-300 font-medium"
+          >
+            Over <strong>150+ freelancers</strong> have checked their compliance
+          </motion.p>
         </motion.div>
 
         <motion.div
