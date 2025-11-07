@@ -37,7 +37,6 @@ interface TaxCheckupSubmission {
 }
 
 Deno.serve(async (req: Request) => {
-  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, {
       status: 200,
@@ -46,12 +45,10 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    // Parse the tax checkup submission
     const submission: TaxCheckupSubmission = await req.json();
 
     console.log('Received tax checkup submission:', submission.email);
 
-    // Validate required fields
     if (!submission.work_type || !submission.email || !submission.estimated_annual_income) {
       console.error('Validation failed:', {
         work_type: submission.work_type,
@@ -69,14 +66,12 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // Initialize Supabase client with service role key
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
     console.log('Initializing Supabase client...');
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    // Insert tax checkup lead into database
     console.log('Inserting tax checkup lead into database...');
     const { data: lead, error: dbError } = await supabase
       .from('tax_checkup_leads')
@@ -128,7 +123,6 @@ Deno.serve(async (req: Request) => {
 
     console.log('Tax checkup lead saved to database:', lead.id);
 
-    // Send to Make.com webhook
     const makeWebhookUrl = 'https://hook.eu2.make.com/y1fpmxf85vp5rmqlfv9fj3s54gm5w88y';
 
     try {
@@ -171,16 +165,15 @@ Deno.serve(async (req: Request) => {
       });
 
       if (!makeResponse.ok) {
-        console.error('Make.com webhook failed:', makeResponse.status);
+        const errorText = await makeResponse.text();
+        console.error('Make.com webhook failed:', makeResponse.status, errorText);
       } else {
-        console.log('Successfully sent to Make.com');
+        console.log('Successfully sent to Make.com webhook');
       }
     } catch (webhookError) {
       console.error('Failed to call Make.com webhook:', webhookError);
-      // Don't fail the request - data is already saved
     }
 
-    // Return success
     return new Response(
       JSON.stringify({
         success: true,

@@ -211,6 +211,7 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
 
   // Step 3: Submit via Edge Function (handles DB insert + webhook)
   const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
   const edgeFunctionUrl = `${supabaseUrl}/functions/v1/submit-tax-checkup`;
 
   console.log('Submitting tax checkup via Edge Function...');
@@ -219,6 +220,8 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${supabaseAnonKey}`,
+      'apikey': supabaseAnonKey,
     },
     body: JSON.stringify({
       name: formData.name || latestSubmission?.name || '',
