@@ -11,7 +11,9 @@ import {
   Calendar,
   ArrowRight,
   Download,
-  FileText
+  FileText,
+  Sparkles,
+  Clock
 } from 'lucide-react';
 import { getCheckupResults } from '../../lib/taxCheckup';
 
@@ -257,36 +259,62 @@ export const CheckupResults: React.FC = () => {
             <h2 className="text-2xl font-bold text-white mb-6">What's next?</h2>
 
             <div className="space-y-4">
-              <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-6">
+              <motion.div
+                className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-xl p-6 relative overflow-hidden"
+                whileHover={{ scale: 1.01 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="absolute top-4 right-4">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold rounded-full shadow-lg">
+                    <Sparkles className="w-3 h-3" />
+                    Coming Soon
+                  </span>
+                </div>
                 <div className="flex items-start gap-4">
                   <FileText className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" />
                   <div className="flex-1">
-                    <h3 className="text-white font-semibold mb-2">Complete your compliance profile</h3>
+                    <h3 className="text-white font-semibold mb-2 pr-24">Complete your compliance profile</h3>
                     <p className="text-gray-300 text-sm mb-4">
-                      Submit our detailed intake form for a deeper analysis. We'll identify all compliance gaps, estimate penalties, and create a prioritized action plan. When we launch our specialist network, you'll get priority access.
+                      Submit our detailed intake form for a deeper analysis. We'll identify all compliance gaps, estimate penalties, and create a prioritized action plan. When we launch, you'll get priority access.
                     </p>
                     <Button
-                      onClick={() => navigate('/accounting/intake')}
-                      className="w-full sm:w-auto"
+                      disabled
+                      className="w-full sm:w-auto opacity-60 cursor-not-allowed"
                     >
-                      Complete full intake
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                      <Clock className="w-4 h-4 mr-2" />
+                      Get early access (launching soon)
                     </Button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white/[0.02] border border-white/[0.08] rounded-xl p-6">
-                <div className="flex items-start gap-4">
-                  <Calendar className="w-6 h-6 text-gray-400 flex-shrink-0 mt-1" />
-                  <div className="flex-1">
-                    <h3 className="text-white font-semibold mb-2">Specialist consultations coming soon</h3>
-                    <p className="text-gray-300 text-sm">
-                      We're building a network of verified Portuguese tax specialists. Be first to know when we launch.
+                    <p className="text-blue-300 text-xs mt-3 font-medium">
+                      We'll notify you at {results.email} when it's ready
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
+
+              <motion.div
+                className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-xl p-6 relative overflow-hidden"
+                whileHover={{ scale: 1.01 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="absolute top-4 right-4">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full shadow-lg">
+                    <Sparkles className="w-3 h-3" />
+                    Coming Soon
+                  </span>
+                </div>
+                <div className="flex items-start gap-4">
+                  <Calendar className="w-6 h-6 text-purple-400 flex-shrink-0 mt-1" />
+                  <div className="flex-1">
+                    <h3 className="text-white font-semibold mb-2 pr-24">Specialist consultations</h3>
+                    <p className="text-gray-300 text-sm mb-3">
+                      We're building a network of verified Portuguese tax specialists. Book 30-minute consultations to get expert guidance tailored to your situation.
+                    </p>
+                    <p className="text-purple-300 text-xs font-medium">
+                      Launching in the next few weeks. You'll be first to know.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
 
               <div className="text-center pt-4 border-t border-white/[0.05] mt-6">
                 <p className="text-gray-400 text-sm">
