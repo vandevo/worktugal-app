@@ -9,7 +9,8 @@
     "build:sitemap": "echo 'Sitemap already in public/ - no generation needed'",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate-readme": "node scripts/generate-readme.js"
+    "generate-readme": "node scripts/generate-readme.js",
+    "analyze-checkup-data": "node scripts/analyze-tax-checkup-data.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",

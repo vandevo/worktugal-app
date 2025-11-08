@@ -1,4 +1,9 @@
 import { supabase } from './supabase';
+import {
+  detectEnhancedRedFlags,
+  getDataDrivenRecommendations,
+  FEATURE_FLAGS
+} from '../utils/taxCheckupEnhancements';
 
 export interface TaxCheckupFormData {
   work_type: string;
@@ -32,9 +37,32 @@ export interface ComplianceScore {
 }
 
 export function calculateComplianceScore(data: TaxCheckupFormData): ComplianceScore {
-  const redFlags: string[] = [];
-  const yellowWarnings: string[] = [];
+  // Use enhanced red flag detection if enabled (non-breaking)
+  let redFlags: string[] = [];
+  let yellowWarnings: string[] = [];
   const greenConfirmations: string[] = [];
+
+  // ENHANCEMENT: Get enhanced red flags with severity levels and actionable guidance
+  if (FEATURE_FLAGS.useEnhancedRedFlags) {
+    const enhancedFlags = detectEnhancedRedFlags(data);
+
+    // Convert enhanced flags to display strings (with additional context)
+    enhancedFlags.forEach(flag => {
+      const displayMessage = `${flag.message}${flag.penaltyInfo ? ` - ${flag.penaltyInfo}` : ''}${flag.deadline ? ` (Deadline: ${flag.deadline})` : ''}`;
+
+      if (flag.severity === 'critical' || flag.severity === 'high') {
+        redFlags.push(displayMessage);
+      } else if (flag.severity === 'medium') {
+        yellowWarnings.push(displayMessage);
+      } else {
+        yellowWarnings.push(displayMessage);
+      }
+    });
+  }
+
+  // FALLBACK: Keep original logic as backup (for safety)
+  const originalRedFlags: string[] = [];
+  const originalYellowWarnings: string[] = [];
 
   const isTaxResident = data.months_in_portugal >= 6;
   const isNonResident = data.residency_status === 'tourist' || data.residency_status === 'digital_nomad_visa';
@@ -42,54 +70,64 @@ export function calculateComplianceScore(data: TaxCheckupFormData): ComplianceSc
   const approachingVATThreshold = data.estimated_annual_income === '10k_25k';
   const overVATThreshold = hasHighIncome;
 
-  // RED FLAGS - Critical Issues
+  // ORIGINAL RED FLAGS - Critical Issues (kept as fallback)
   if (isTaxResident && data.has_nif === false) {
-    redFlags.push('No NIF after 6+ months in Portugal - AT penalties start at €375');
+    originalRedFlags.push('No NIF after 6+ months in Portugal - AT penalties start at €375');
   }
 
   if (data.activity_opened === false && data.estimated_annual_income !== 'under_10k') {
-    redFlags.push('Earning income without opened activity (abertura de atividade) - Required before issuing invoices');
+    originalRedFlags.push('Earning income without opened activity (abertura de atividade) - Required before issuing invoices');
   }
 
   if (overVATThreshold && data.has_vat_number === false) {
-    redFlags.push('Annual income over €15,000 without VAT registration - Mandatory compliance requirement');
+    originalRedFlags.push('Annual income over €15,000 without VAT registration - Mandatory compliance requirement');
   }
 
   if (isTaxResident && data.has_niss === false) {
-    redFlags.push('Tax resident without NISS registration - AIMA can reject residence renewal');
+    originalRedFlags.push('Tax resident without NISS registration - AIMA can reject residence renewal');
   }
 
   if (isNonResident && data.has_fiscal_representative === false && data.estimated_annual_income !== 'under_10k') {
-    redFlags.push('Non-resident earning Portuguese income without fiscal representative - Legal requirement');
+    originalRedFlags.push('Non-resident earning Portuguese income without fiscal representative - Legal requirement');
   }
 
-  // YELLOW WARNINGS - Areas to Review
+  // Use original flags as fallback if enhanced flags didn't produce any
+  if (!FEATURE_FLAGS.useEnhancedRedFlags || redFlags.length === 0) {
+    redFlags = originalRedFlags;
+  }
+
+  // ORIGINAL YELLOW WARNINGS - Areas to Review (kept as fallback)
   if (data.has_nif === null) {
-    yellowWarnings.push('Not sure about NIF status - This is your Portuguese tax ID number');
+    originalYellowWarnings.push('Not sure about NIF status - This is your Portuguese tax ID number');
   }
 
   if (data.activity_opened === null) {
-    yellowWarnings.push('Not sure if activity is opened - Check your Financas portal to confirm');
+    originalYellowWarnings.push('Not sure if activity is opened - Check your Financas portal to confirm');
   }
 
   if (approachingVATThreshold && data.has_vat_number !== true) {
-    yellowWarnings.push('Income approaching €15,000 VAT threshold - Consider registering soon');
+    originalYellowWarnings.push('Income approaching €15,000 VAT threshold - Consider registering soon');
   }
 
   if (data.has_vat_number === null) {
-    yellowWarnings.push('Not sure about VAT registration status - This affects quarterly filing requirements');
+    originalYellowWarnings.push('Not sure about VAT registration status - This affects quarterly filing requirements');
   }
 
   if (data.has_niss === null) {
-    yellowWarnings.push('Not sure about NISS status - Social Security registration is required for self-employed work');
+    originalYellowWarnings.push('Not sure about NISS status - Social Security registration is required for self-employed work');
   }
 
   if (data.months_in_portugal >= 6 && data.has_fiscal_representative === null) {
-    yellowWarnings.push('Spending 6+ months in Portugal - Verify your tax residency status');
+    originalYellowWarnings.push('Spending 6+ months in Portugal - Verify your tax residency status');
   }
 
   if (data.residency_status === 'digital_nomad_visa' && data.activity_opened === false) {
-    yellowWarnings.push('Digital Nomad visa holders may need activity registration depending on income source');
+    originalYellowWarnings.push('Digital Nomad visa holders may need activity registration depending on income source');
+  }
+
+  // Use original warnings as fallback if enhanced didn't produce any
+  if (!FEATURE_FLAGS.useEnhancedRedFlags || yellowWarnings.length === 0) {
+    yellowWarnings = originalYellowWarnings;
   }
 
   // GREEN CONFIRMATIONS - Compliant Areas
@@ -167,6 +205,17 @@ export function calculateComplianceScore(data: TaxCheckupFormData): ComplianceSc
   }
 
   report += `\nMost freelancers in your situation have ${Math.round(yellowWarnings.length * 1.2)} warnings on average.`;
+
+  // ENHANCEMENT: Add data-driven recommendations from real users
+  if (FEATURE_FLAGS.useCrossReferenceInsights) {
+    const dataDrivenRecs = getDataDrivenRecommendations(data);
+    if (dataDrivenRecs.length > 0) {
+      report += '\n\nINSIGHTS FROM REAL USERS:\n';
+      dataDrivenRecs.forEach((rec, i) => {
+        report += `${i + 1}. ${rec}\n`;
+      });
+    }
+  }
 
   return {
     red: redFlags.length,

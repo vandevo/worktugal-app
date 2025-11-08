@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { submitTaxCheckup, type TaxCheckupFormData } from '../../lib/taxCheckup';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { getConditionalHelperText, FEATURE_FLAGS } from '../../utils/taxCheckupEnhancements';
 
 const WORK_TYPES = [
   { value: 'developer', label: 'Software Developer', icon: Code },
@@ -224,6 +225,11 @@ export const TaxCheckupForm: React.FC = () => {
             Not Sure
           </button>
         </div>
+        {FEATURE_FLAGS.useConditionalHelpers && getConditionalHelperText('has_nif', formData) && (
+          <p className="text-xs mt-2 text-blue-300/90 bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2">
+            {getConditionalHelperText('has_nif', formData)}
+          </p>
+        )}
       </div>
 
       <div>
@@ -268,6 +274,11 @@ export const TaxCheckupForm: React.FC = () => {
         <p className="text-xs text-gray-400 mt-2">
           Required before you can legally issue invoices (faturas) to clients
         </p>
+        {FEATURE_FLAGS.useConditionalHelpers && getConditionalHelperText('activity_opened', formData) && (
+          <p className="text-xs mt-2 text-yellow-300/90 bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-3 py-2">
+            {getConditionalHelperText('activity_opened', formData)}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -340,6 +351,11 @@ export const TaxCheckupForm: React.FC = () => {
             Not Sure
           </button>
         </div>
+        {FEATURE_FLAGS.useConditionalHelpers && getConditionalHelperText('has_vat_number', formData) && (
+          <p className="text-xs mt-2 text-yellow-300/90 bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-3 py-2">
+            {getConditionalHelperText('has_vat_number', formData)}
+          </p>
+        )}
       </div>
 
       <div>
@@ -384,6 +400,11 @@ export const TaxCheckupForm: React.FC = () => {
         <p className="text-xs text-gray-400 mt-2">
           Required for self-employed work and AIMA residence permit renewal
         </p>
+        {FEATURE_FLAGS.useConditionalHelpers && getConditionalHelperText('has_niss', formData) && (
+          <p className="text-xs mt-2 text-yellow-300/90 bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-3 py-2">
+            {getConditionalHelperText('has_niss', formData)}
+          </p>
+        )}
       </div>
 
       {(formData.residency_status === 'tourist' || formData.residency_status === 'digital_nomad_visa') && (
@@ -429,6 +450,11 @@ export const TaxCheckupForm: React.FC = () => {
           <p className="text-xs text-gray-400 mt-2">
             Required for non-residents earning Portuguese-source income
           </p>
+          {FEATURE_FLAGS.useConditionalHelpers && getConditionalHelperText('has_fiscal_representative', formData) && (
+            <p className="text-xs mt-2 text-blue-300/90 bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2">
+              {getConditionalHelperText('has_fiscal_representative', formData)}
+            </p>
+          )}
         </div>
       )}
     </div>
