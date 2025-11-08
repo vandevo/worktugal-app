@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-11-07
+**Last Updated:** 2025-11-08
 
 ---
 
@@ -1946,6 +1946,29 @@ https://worktugal.com?debug=true
 ---
 
 ## Recent Updates
+
+**2025-11-08: Tax Compliance Checkup Enhanced with Data-Driven Intelligence**
+- Enhanced Tax Compliance Checkup with data-driven intelligence layer based on real user submissions
+- Added enhanced red flag detection system with 8 severity-based rules (critical/high/medium/low)
+- Implemented conditional helper text that appears based on user's previous answers in form
+- Added specific penalty amounts (€375 for missing NIF, €500+ for undeclared activity) to red flags
+- Added compliance deadlines (e.g., "Within 60 days of arrival" for NIF registration)
+- Created data analysis script (scripts/analyze-tax-checkup-data.js) for monthly insights updates
+- Added npm script: npm run analyze-checkup-data to regenerate configuration from real data
+- Created src/utils/taxCheckupEnhancements.ts configuration file with feature flags for safe rollback
+- Added real user pattern insights: 67% missing NIF, 67% missing NISS, 100% no activity opened, average 2.7 red flags
+- Implemented data-driven recommendations in compliance reports comparing user to similar freelancers
+- Updated landing page CheckupWhyItMatters component with real data examples
+- Updated landing page CheckupHowItWorks component to highlight severity levels and penalty information
+- Fixed critical VAT threshold inconsistency (€13,500 → €15,000) in CheckupWhyItMatters
+- Fixed question count (12 → 8 questions) in CheckupHowItWorks for accuracy
+- Added new FAQ explaining enhanced data-driven methodology and 67% statistic examples
+- All changes non-breaking with fallback logic: original red flag detection preserved as backup
+- Feature flags enable instant rollback: useEnhancedRedFlags, useConditionalHelpers, useCrossReferenceInsights
+- Production build passing with enhanced intelligence layer active
+- Created TAX_CHECKUP_ENHANCEMENTS_SUMMARY.md with complete implementation documentation
+- Note: Key Features section (Tax Checkup Tool now data-driven with severity levels and real user insights)
+- Note: Analytics section (tax checkup now tracks and analyzes user patterns for continuous improvement)
 
 **2025-11-07: Admin Dashboard Tax Checkup Integration + Form Layout Harmonization**
 - Added Tax Checkup Leads stat card to main admin dashboard overview
