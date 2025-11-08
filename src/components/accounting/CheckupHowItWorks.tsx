@@ -6,20 +6,20 @@ export const CheckupHowItWorks: React.FC = () => {
   const steps = [
     {
       icon: ClipboardList,
-      title: 'Answer 12 questions',
-      description: 'Tell us about your work, income, and residency status in Portugal',
+      title: 'Answer 8 questions',
+      description: 'Tell us about your work, income, and residency status in Portugal. Smart helper text guides you based on your answers',
       time: '3 minutes'
     },
     {
       icon: BarChart3,
       title: 'Get your compliance score',
-      description: 'Instant analysis of your tax situation with a clear percentage score',
+      description: 'Instant analysis with severity levels (critical/high/medium/low) and comparison to real user data',
       time: 'Instant'
     },
     {
       icon: CheckCircle2,
       title: 'See exactly what to fix',
-      description: 'Detailed action plan showing what you\'re missing and how to fix it',
+      description: 'Actionable guidance with specific penalty amounts (€375, €500+), deadlines, and priority ranking',
       time: 'Actionable'
     }
   ];
@@ -38,7 +38,7 @@ export const CheckupHowItWorks: React.FC = () => {
               How it works
             </h2>
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              Get clarity on your tax compliance in three simple steps
+              Enhanced with real user data and severity-based guidance
             </p>
           </motion.div>
         </div>

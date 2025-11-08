@@ -17,12 +17,12 @@ export const CheckupWhyItMatters: React.FC = () => {
     {
       icon: Scale,
       title: 'Know if you actually need to register',
-      description: 'Not everyone needs to "open activity" immediately. Some situations require immediate registration, others don\'t. Get clarity before you pay someone unnecessarily'
+      description: 'Not everyone needs to "open activity" immediately. Our enhanced checkup analyzes your specific situation and tells you exactly what\'s required, with clear deadlines and penalties'
     },
     {
       icon: TrendingUp,
       title: 'Prepare for growth without panic',
-      description: 'When you cross the VAT threshold (€13,500 for services) or hire your first contractor, you need to know what changes. Plan ahead instead of scrambling'
+      description: 'When you cross the VAT threshold (€15,000 annual income) or hire your first contractor, you need to know what changes. Get specific deadlines and action steps based on your income level'
     }
   ];
 
@@ -82,7 +82,7 @@ export const CheckupWhyItMatters: React.FC = () => {
           className="mt-12 p-6 bg-gradient-to-br from-blue-500/10 to-purple-500/10 backdrop-blur-xl rounded-2xl border border-blue-400/20"
         >
           <p className="text-center text-gray-300 text-sm leading-relaxed">
-            <strong className="text-blue-300">The reality:</strong> Portugal's tax system is complex, especially for non-Portuguese speakers. Small mistakes compound over time. This free checkup takes 3 minutes and tells you exactly where you stand.
+            <strong className="text-blue-300">The reality:</strong> Portugal's tax system is complex, especially for non-Portuguese speakers. Our enhanced checkup analyzes your situation against real user data and provides specific guidance with penalty amounts, deadlines, and priority ranking. Takes 3 minutes, could save you thousands.
           </p>
         </motion.div>
       </div>

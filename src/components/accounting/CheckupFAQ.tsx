@@ -14,7 +14,11 @@ const faqData: FAQItem[] = [
   },
   {
     question: 'How accurate is the compliance score?',
-    answer: 'The checkup is based on current Portuguese tax law as of 2025 and validated by OCC-certified accountants. However, it\'s a screening tool, not a legal consultation. For complex situations or official advice, you should speak with an accountant.'
+    answer: 'The checkup is based on current Portuguese tax law as of 2025 and enhanced with insights from real user data. It assigns severity levels (critical/high/medium/low) to each issue, provides specific penalty amounts, and compares your situation to similar freelancers. However, it\'s a screening tool, not legal advice. For complex situations, speak with an accountant.'
+  },
+  {
+    question: 'What makes this checkup "enhanced" and data-driven?',
+    answer: 'Our system analyzes patterns from real user submissions to provide contextual guidance. For example, if you\'re a tax resident without NIF, you\'ll see the exact penalty (€375+), the deadline (60 days from arrival), and know that 67% of similar users had the same issue. This goes beyond generic checklists to give you actionable, prioritized guidance.'
   },
   {
     question: 'What happens to my data?',
