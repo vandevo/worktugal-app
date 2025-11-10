@@ -260,20 +260,20 @@ export const CheckupResultsDemo: React.FC = () => {
 
             <div className="space-y-4">
               <motion.div
-                className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-xl p-6 relative overflow-hidden"
+                className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-xl p-6"
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="absolute top-4 right-4">
-                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold rounded-full shadow-lg">
-                    <Sparkles className="w-3 h-3" />
-                    Coming Soon
-                  </span>
-                </div>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-center md:justify-start gap-3">
-                    <FileText className="w-6 h-6 text-blue-400" />
-                    <h3 className="text-white font-semibold text-lg">Complete your compliance profile</h3>
+                  <div className="flex items-center justify-between flex-wrap gap-3">
+                    <div className="flex items-center gap-3">
+                      <FileText className="w-6 h-6 text-blue-400" />
+                      <h3 className="text-white font-semibold text-lg">Complete your compliance profile</h3>
+                    </div>
+                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold rounded-full shadow-lg">
+                      <Sparkles className="w-3 h-3" />
+                      Coming Soon
+                    </span>
                   </div>
                   <div>
                     <p className="text-gray-300 text-sm mb-4">
@@ -294,20 +294,20 @@ export const CheckupResultsDemo: React.FC = () => {
               </motion.div>
 
               <motion.div
-                className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-xl p-6 relative overflow-hidden"
+                className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-xl p-6"
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="absolute top-4 right-4">
-                  <span className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full shadow-lg">
-                    <Sparkles className="w-3 h-3" />
-                    Coming Soon
-                  </span>
-                </div>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-center md:justify-start gap-3">
-                    <Calendar className="w-6 h-6 text-purple-400" />
-                    <h3 className="text-white font-semibold text-lg">Specialist consultations</h3>
+                  <div className="flex items-center justify-between flex-wrap gap-3">
+                    <div className="flex items-center gap-3">
+                      <Calendar className="w-6 h-6 text-purple-400" />
+                      <h3 className="text-white font-semibold text-lg">Specialist consultations</h3>
+                    </div>
+                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full shadow-lg">
+                      <Sparkles className="w-3 h-3" />
+                      Coming Soon
+                    </span>
                   </div>
                   <div>
                     <p className="text-gray-300 text-sm mb-3">
