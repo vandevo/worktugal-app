@@ -504,3 +504,50 @@ export async function getTaxCheckupStats() {
     criticalIssues: data.filter(l => (l.compliance_score_red || 0) >= 2).length
   };
 }
+
+export interface CheckupFeedback {
+  checkupLeadId?: string;
+  flagType: 'red' | 'yellow' | 'green' | 'general';
+  flagId?: string;
+  feedbackType: 'helpful' | 'not_helpful' | 'error' | 'bug' | 'suggestion' | 'outdated';
+  isAccurate?: boolean;
+  comment?: string;
+  userEmail?: string;
+  userName?: string;
+}
+
+export async function submitCheckupFeedback(feedback: CheckupFeedback) {
+  const { data, error } = await supabase
+    .from('checkup_feedback')
+    .insert({
+      checkup_lead_id: feedback.checkupLeadId || null,
+      flag_type: feedback.flagType,
+      flag_id: feedback.flagId || null,
+      feedback_type: feedback.feedbackType,
+      is_accurate: feedback.isAccurate,
+      comment: feedback.comment || null,
+      user_email: feedback.userEmail || null,
+      user_name: feedback.userName || null
+    })
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error submitting feedback:', error);
+    throw new Error('Failed to submit feedback. Please try again.');
+  }
+
+  return data;
+}
+
+export async function getFlagAccuracyStats(flagId: string) {
+  const { data, error } = await supabase
+    .rpc('get_flag_accuracy_stats', { p_flag_id: flagId });
+
+  if (error) {
+    console.error('Error fetching flag accuracy:', error);
+    return null;
+  }
+
+  return data?.[0] || null;
+}
