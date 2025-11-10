@@ -10,11 +10,16 @@ import {
   ArrowRight,
   FileText,
   Sparkles,
-  Clock
+  Clock,
+  ThumbsUp,
+  ThumbsDown,
+  Flag,
+  Users
 } from 'lucide-react';
 
 export const CheckupResultsDemo: React.FC = () => {
   const navigate = useNavigate();
+  const [feedbackGiven, setFeedbackGiven] = React.useState<Set<string>>(new Set());
 
   const demoResults = {
     name: 'John Doe',
@@ -116,14 +121,47 @@ export const CheckupResultsDemo: React.FC = () => {
               </div>
             </div>
             <div className="space-y-4">
-              {redFlags.map((flag, index) => (
-                <div key={index} className="flex gap-4 p-4 bg-red-500/10 rounded-xl border border-red-500/20">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-sm font-bold">
-                    {index + 1}
+              {redFlags.map((flag, index) => {
+                const flagId = `demo-red-${index}`;
+                const hasVoted = feedbackGiven.has(flagId);
+                return (
+                  <div key={index} className="p-4 bg-red-500/10 rounded-xl border border-red-500/20">
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-sm font-bold">
+                        {index + 1}
+                      </div>
+                      <p className="text-gray-200 flex-1">{flag}</p>
+                    </div>
+                    <div className="mt-3 flex items-center justify-end gap-2 pt-3 border-t border-red-500/10">
+                      <span className="text-xs text-gray-500 mr-2">Is this accurate?</span>
+                      <button
+                        onClick={() => setFeedbackGiven(prev => new Set(prev).add(flagId))}
+                        disabled={hasVoted}
+                        className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                          hasVoted
+                            ? 'bg-green-500/20 text-green-300 cursor-not-allowed'
+                            : 'bg-white/5 hover:bg-green-500/20 text-gray-400 hover:text-green-300'
+                        }`}
+                      >
+                        <ThumbsUp className="w-3.5 h-3.5" />
+                        {hasVoted ? 'Thanks!' : 'Yes'}
+                      </button>
+                      <button
+                        onClick={() => setFeedbackGiven(prev => new Set(prev).add(flagId))}
+                        disabled={hasVoted}
+                        className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                          hasVoted
+                            ? 'bg-gray-500/20 text-gray-500 cursor-not-allowed'
+                            : 'bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-300'
+                        }`}
+                      >
+                        <ThumbsDown className="w-3.5 h-3.5" />
+                        No
+                      </button>
+                    </div>
                   </div>
-                  <p className="text-gray-200 flex-1">{flag}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </motion.div>
 
@@ -143,14 +181,47 @@ export const CheckupResultsDemo: React.FC = () => {
               </div>
             </div>
             <div className="space-y-3">
-              {yellowWarnings.map((warning, index) => (
-                <div key={index} className="flex gap-4 p-4 bg-yellow-500/10 rounded-xl border border-yellow-500/20">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-yellow-500 text-gray-900 flex items-center justify-center text-sm font-bold">
-                    {index + 1}
+              {yellowWarnings.map((warning, index) => {
+                const flagId = `demo-yellow-${index}`;
+                const hasVoted = feedbackGiven.has(flagId);
+                return (
+                  <div key={index} className="p-4 bg-yellow-500/10 rounded-xl border border-yellow-500/20">
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-yellow-500 text-gray-900 flex items-center justify-center text-sm font-bold">
+                        {index + 1}
+                      </div>
+                      <p className="text-gray-200 flex-1">{warning}</p>
+                    </div>
+                    <div className="mt-3 flex items-center justify-end gap-2 pt-3 border-t border-yellow-500/10">
+                      <span className="text-xs text-gray-500 mr-2">Is this accurate?</span>
+                      <button
+                        onClick={() => setFeedbackGiven(prev => new Set(prev).add(flagId))}
+                        disabled={hasVoted}
+                        className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                          hasVoted
+                            ? 'bg-green-500/20 text-green-300 cursor-not-allowed'
+                            : 'bg-white/5 hover:bg-green-500/20 text-gray-400 hover:text-green-300'
+                        }`}
+                      >
+                        <ThumbsUp className="w-3.5 h-3.5" />
+                        {hasVoted ? 'Thanks!' : 'Yes'}
+                      </button>
+                      <button
+                        onClick={() => setFeedbackGiven(prev => new Set(prev).add(flagId))}
+                        disabled={hasVoted}
+                        className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                          hasVoted
+                            ? 'bg-gray-500/20 text-gray-500 cursor-not-allowed'
+                            : 'bg-white/5 hover:bg-yellow-500/20 text-gray-400 hover:text-yellow-300'
+                        }`}
+                      >
+                        <ThumbsDown className="w-3.5 h-3.5" />
+                        No
+                      </button>
+                    </div>
                   </div>
-                  <p className="text-gray-200 flex-1">{warning}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </motion.div>
 
@@ -252,6 +323,84 @@ export const CheckupResultsDemo: React.FC = () => {
                 <p className="text-gray-500 text-xs mt-2">
                   Keep this report handy when talking to accountants or tax advisors
                 </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Report Issue Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8"
+          >
+            <div className="text-center">
+              <Flag className="w-8 h-8 text-orange-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">Found an error or outdated info?</h3>
+              <p className="text-gray-400 text-sm mb-6 max-w-2xl mx-auto">
+                This is our first version and we're continuously improving. Help us make this tool better for everyone.
+              </p>
+              <Button
+                onClick={() => navigate('/checkup')}
+                className="bg-orange-500/20 hover:bg-orange-500/30 text-orange-300 border border-orange-500/30"
+              >
+                <Flag className="w-4 h-4 mr-2" />
+                Take the real checkup to report feedback
+              </Button>
+            </div>
+          </motion.div>
+
+          {/* Facebook Community CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="bg-gradient-to-br from-blue-600/20 to-blue-500/10 backdrop-blur-3xl rounded-3xl border border-blue-500/30 shadow-2xl shadow-black/30 ring-1 ring-blue-500/[0.05] p-8 md:p-10"
+          >
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="flex-shrink-0">
+                <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+                  <Users className="w-8 h-8 text-blue-400" />
+                </div>
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-2xl font-bold text-white mb-2">Discuss your results with 19,800+ remote professionals</h3>
+                <p className="text-gray-300 text-sm mb-4">
+                  Join our Facebook community to share your experience, ask questions, and learn from others who've been through the same tax compliance journey in Portugal.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                  <Button
+                    onClick={() => window.open('https://www.facebook.com/groups/worktugal', '_blank')}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    <Users className="w-4 h-4 mr-2" />
+                    Join Worktugal Community
+                  </Button>
+                  <Button
+                    onClick={() => navigate('/partners')}
+                    variant="secondary"
+                    className="bg-white/10 hover:bg-white/20 text-white border-white/20"
+                  >
+                    <ArrowRight className="w-4 h-4 mr-2" />
+                    Browse Partner Services
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 pt-6 border-t border-blue-500/20">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                <div>
+                  <div className="text-2xl font-bold text-blue-300">19.8k</div>
+                  <div className="text-xs text-gray-400">Active members</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-blue-300">Daily</div>
+                  <div className="text-xs text-gray-400">Questions answered</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-blue-300">Free</div>
+                  <div className="text-xs text-gray-400">Forever</div>
+                </div>
               </div>
             </div>
           </motion.div>
