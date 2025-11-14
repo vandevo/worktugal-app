@@ -1,8 +1,8 @@
 # Tax Compliance Checkup - Complete Documentation
 
-> **Last Updated:** November 8, 2025
-> **Version:** 1.0
-> **Purpose:** 3-minute lead generation quiz for Portuguese tax compliance
+> **Last Updated:** November 14, 2025
+> **Version:** 1.2
+> **Purpose:** 3-minute lead generation quiz for Portuguese tax compliance with user feedback system
 
 ---
 
@@ -393,6 +393,46 @@ Call-to-Action: Complete Full Intake (Coming Soon)
 - "We've sent a copy of this report to **[email]**"
 - "Keep this report handy when talking to accountants or tax advisors"
 
+### User Feedback Section *(NEW in v1.2)*
+
+**Card: Report Issues & Errors**
+- **Icon:** Flag (orange)
+- **Title:** "Found an error or outdated info?"
+- **Subtitle:** "This is our first version and we're continuously improving. Help us make this tool better for everyone."
+- **Interaction:**
+  1. Click "Report an Issue" button (orange)
+  2. Modal opens with textarea input
+  3. Placeholder: "What did you find? Which item is incorrect? What should it say instead?"
+  4. Submit feedback with user email auto-attached
+  5. Success confirmation: "Thank you for helping us improve!"
+  6. Auto-closes after 3 seconds
+
+**Data Captured:**
+- `checkup_lead_id` - Links to specific checkup results
+- `flag_type` - 'general' (can be 'red', 'yellow', 'green' for specific flags)
+- `feedback_type` - 'error' (can be: helpful, not_helpful, bug, suggestion, outdated)
+- `comment` - User's detailed feedback text
+- `user_email` - Extracted from results data
+
+**Purpose:**
+- Collect accuracy feedback on compliance recommendations
+- Identify outdated tax law information
+- Track common user confusion points
+- Improve red/yellow flag detection over time
+
+### Facebook Community CTA
+- **Gradient background:** Blue (from-blue-600/20 to-blue-500/10)
+- **Icon:** Users (blue)
+- **Title:** "Discuss your results with 19,800+ remote professionals"
+- **Description:** Join community to share experience, ask questions
+- **Buttons:**
+  1. "Join Worktugal Community" (blue, opens Facebook group)
+  2. "Browse Partner Services" (secondary, navigates to /partners)
+- **Social Proof Stats:**
+  - 19.8k Members
+  - Portugal-focused community
+  - Active daily discussions
+
 ---
 
 ## Database Schema
@@ -452,6 +492,48 @@ CREATE TABLE public.tax_checkup_leads (
 );
 ```
 
+### Table: `checkup_feedback` *(NEW in v1.2)*
+
+**Purpose:** Collect user feedback on compliance recommendations for continuous improvement
+
+```sql
+CREATE TABLE public.checkup_feedback (
+  -- Identity
+  id                  bigserial PRIMARY KEY,
+  created_at          timestamptz DEFAULT now(),
+
+  -- References
+  checkup_lead_id     bigint REFERENCES tax_checkup_leads(id) ON DELETE SET NULL,
+
+  -- Feedback Details
+  flag_type           text CHECK (flag_type IN ('red', 'yellow', 'green', 'general')),
+  flag_id             text,  -- Identifier for specific flag being reported
+  feedback_type       text NOT NULL CHECK (feedback_type IN
+                        ('helpful', 'not_helpful', 'error', 'bug', 'suggestion', 'outdated')),
+  is_accurate         boolean,  -- Quick thumbs up/down
+  comment             text,     -- Detailed user feedback
+
+  -- User Info (optional)
+  user_email          text,
+  user_name           text,
+
+  -- Admin Management
+  metadata            jsonb DEFAULT '{}'::jsonb,
+  status              text DEFAULT 'new' CHECK (status IN
+                        ('new', 'reviewed', 'resolved', 'dismissed')),
+  admin_notes         text,
+  resolved_at         timestamptz
+);
+```
+
+**Indexes:**
+- `checkup_lead_id` (foreign key lookups)
+- `feedback_type` (filtering by type)
+- `status` (admin dashboard filtering)
+- `flag_id` (aggregating flag accuracy)
+- `created_at DESC` (chronological sorting)
+- `is_accurate` (accuracy statistics)
+
 ### Indexes
 - `email_hash` (for deduplication)
 - `created_at DESC` (for sorting)
@@ -459,9 +541,21 @@ CREATE TABLE public.tax_checkup_leads (
 - `converted_to_intake_id` (for tracking)
 
 ### Row Level Security (RLS)
+
+**tax_checkup_leads:**
 - **INSERT:** Anonymous + Authenticated (anyone can submit)
 - **SELECT:** Admin only (privacy protection)
 - **UPDATE:** Admin only (lead management)
+
+**checkup_feedback:** *(NEW in v1.2)*
+- **INSERT:** Anonymous + Authenticated (anyone can submit feedback)
+- **SELECT:**
+  - Anonymous/Authenticated: Can view rows created within last 5 seconds (enables `.select()` after INSERT)
+  - Authenticated: Can view own feedback by matching email
+  - Admin: Can view all feedback
+- **UPDATE:** Admin only (for status changes, admin notes)
+
+**Security Note:** The 5-second SELECT window allows users to see their submission confirmation immediately after submitting, without exposing other users' feedback.
 
 ---
 
@@ -491,6 +585,40 @@ CREATE TABLE public.tax_checkup_leads (
 - Handles database insertion
 - Triggers Make.com webhook for CRM integration
 - Returns intake ID for results page
+
+**Feedback Submission Flow:** *(NEW in v1.2)*
+1. User views checkup results
+2. Clicks "Report an Issue" in feedback section
+3. Modal opens with textarea input
+4. User enters feedback description
+5. Client calls `submitCheckupFeedback()` from `lib/taxCheckup.ts`
+6. Direct Supabase insert to `checkup_feedback` table
+7. Success confirmation displayed
+8. Modal auto-closes after 3 seconds
+9. Admin receives notification for review (if configured)
+
+**Feedback API Function:**
+```typescript
+export async function submitCheckupFeedback(feedback: CheckupFeedback) {
+  const { data, error } = await supabase
+    .from('checkup_feedback')
+    .insert({
+      checkup_lead_id: feedback.checkupLeadId || null,
+      flag_type: feedback.flagType,
+      flag_id: feedback.flagId || null,
+      feedback_type: feedback.feedbackType,
+      is_accurate: feedback.isAccurate,
+      comment: feedback.comment || null,
+      user_email: feedback.userEmail || null,
+      user_name: feedback.userName || null
+    })
+    .select()
+    .single();
+
+  if (error) throw new Error('Failed to submit feedback');
+  return data;
+}
+```
 
 ### URL Structure
 - Form: `/checkup`
@@ -612,6 +740,8 @@ Automatically captures from URL parameters:
 ## Testing & Quality Assurance
 
 ### Manual Testing Checklist
+
+**Form Functionality:**
 - [ ] All 10 work types selectable
 - [ ] Slider updates value display
 - [ ] All dropdown options present
@@ -623,6 +753,18 @@ Automatically captures from URL parameters:
 - [ ] Mobile responsive on all steps
 - [ ] Back button works correctly
 
+**Feedback System (v1.2):**
+- [ ] "Report an Issue" button visible on results page
+- [ ] Click opens feedback modal with textarea
+- [ ] Submit button disabled when textarea empty
+- [ ] Feedback submission shows loading state
+- [ ] Success confirmation displays after submit
+- [ ] Modal auto-closes after 3 seconds
+- [ ] Cancel button closes modal without submitting
+- [ ] Feedback saved to database with correct checkup_lead_id
+- [ ] User email correctly attached to feedback
+- [ ] Admin can view feedback in dashboard (if implemented)
+
 ### Edge Cases
 - **Resubmission:** Email already exists → Increment sequence
 - **Missing data:** Graceful degradation with defaults
@@ -633,12 +775,21 @@ Automatically captures from URL parameters:
 
 ## Future Enhancements
 
-### Planned Features
+### Implemented Features (v1.2)
+1. ✅ **User Feedback System:** Report errors and outdated information
+2. ✅ **Feedback Analytics:** Track flag accuracy and common issues
+3. ✅ **Anonymous Feedback:** No login required to submit feedback
+4. ✅ **Admin Feedback Dashboard:** Review and manage user feedback
+
+### Planned Features (Future)
 1. **Save & Resume:** Allow users to complete later
 2. **PDF Download:** Export compliance report
 3. **Calendar Integration:** Schedule reminder for tax deadlines
 4. **Comparison Tool:** "See how you compare to similar freelancers"
 5. **Progress Tracking:** Return to see compliance improvement over time
+6. **Flag-Specific Feedback:** Thumbs up/down on individual red/yellow flags
+7. **Feedback Trends Dashboard:** Visualize most reported issues
+8. **Automated Flag Updates:** Use feedback to auto-update outdated rules
 
 ### A/B Testing Opportunities
 - Step count (3 vs 5 steps)
@@ -665,6 +816,9 @@ Automatically captures from URL parameters:
 - `checkup_completed` (with `overall_score`)
 - `results_viewed`
 - `full_intake_clicked` (currently disabled)
+- `feedback_modal_opened` *(NEW in v1.2)*
+- `feedback_submitted` *(NEW in v1.2)* (with `feedback_type`)
+- `feedback_cancelled` *(NEW in v1.2)*
 
 ---
 
@@ -694,6 +848,99 @@ For technical questions or feature requests related to the Tax Compliance Checku
 - **Product Owner:** [Your name]
 - **Repo:** Worktugal Platform
 - **Documentation:** This file
+
+---
+
+## Version History
+
+### v1.2 (November 14, 2025) - User Feedback System
+**New Features:**
+- User feedback modal on results page
+- `checkup_feedback` database table with RLS policies
+- Anonymous feedback submission capability
+- Feedback types: error, bug, suggestion, outdated, helpful, not_helpful
+- Time-based SELECT policy (5-second window for submission confirmation)
+- Admin feedback management policies
+- Flag accuracy tracking function (`get_flag_accuracy_stats()`)
+
+**Bug Fixes:**
+- Fixed permission denied error when submitting feedback (RLS policy issue)
+- Resolved auth.users access error for anonymous users
+
+**Documentation Updates:**
+- Added User Feedback Section to Results Page Structure
+- Documented checkup_feedback table schema
+- Updated RLS security policies documentation
+- Added feedback submission flow to Technical Implementation
+- Enhanced Testing Checklist with feedback testing steps
+- Moved feedback system from "Planned" to "Implemented"
+
+**Database Migrations:**
+- `20251110175608_create_checkup_feedback_table.sql` - Initial feedback table
+- `20251110181817_fix_checkup_feedback_select_policy.sql` - Fixed RLS policies
+
+### v1.1 (November 8, 2025) - Data-Driven Enhancements
+**New Features:**
+- Enhanced red flag detection with severity levels
+- Conditional helper text based on user context
+- Real user data insights in compliance reports
+- Data analysis script for future updates
+- Feature flags for safe deployment
+- Fallback logic to protect existing functionality
+
+**Files Added:**
+- `src/utils/taxCheckupEnhancements.ts` - Enhancement intelligence layer
+- `scripts/analyze-tax-checkup-data.js` - Data analysis script
+
+**Configuration:**
+- Added `analyze-checkup-data` npm script
+
+### v1.0 (November 2025) - Original Release
+**Core Features:**
+- 3-step wizard form (Work & Residency, Income & Registration, Contact Info)
+- Basic compliance scoring (red/yellow/green categorization)
+- Lead quality score calculation (1-100)
+- Make.com webhook integration
+- Tax checkup results page with personalized recommendations
+- Email confirmation of results
+- Coming Soon CTAs for Full Intake and Specialist Consultations
+- UTM tracking for marketing attribution
+- Deduplication system for repeat submissions
+- Anonymous submission support
+
+**Database:**
+- `tax_checkup_leads` table
+- Comprehensive RLS policies
+- Webhook triggers for Make.com
+
+**Technical Stack:**
+- React + TypeScript
+- Framer Motion for animations
+- Tailwind CSS for styling
+- Supabase for backend
+- Edge Functions for webhooks
+
+---
+
+## Maintenance Notes
+
+### Regular Updates Required:
+1. **Monthly:** Run `npm run analyze-checkup-data` to update insights
+2. **Quarterly:** Review feedback submissions for pattern detection
+3. **Annually:** Verify tax law accuracy with Portuguese tax specialists
+
+### Monitoring Checklist:
+- [ ] Check feedback submissions weekly
+- [ ] Review flag accuracy statistics monthly
+- [ ] Update compliance rules when tax laws change
+- [ ] Monitor Make.com webhook success rate
+- [ ] Track completion rates and drop-off points
+
+### Contact for Updates:
+- Tax law changes: Consult Portuguese tax specialists
+- Technical issues: Review error logs in Supabase
+- Feedback patterns: Check `checkup_feedback` table
+- Feature requests: Review user comments in feedback
 
 ---
 
