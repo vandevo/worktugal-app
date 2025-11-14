@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-11-08
+**Last Updated:** 2025-11-14
 
 ---
 
@@ -431,6 +431,7 @@ http://worktugal.com/*  https://worktugal.com/:splat  301!
 3. **submissions**: Form wizard data collection
 4. **subscriptions**: Stripe subscription status tracking
 5. **tax_checkup_leads**: Tax compliance diagnostic tool lead generation (see migration: 20251106180000_create_tax_checkup_leads_table.sql)
+6. **checkup_feedback**: User feedback system for tax checkup accuracy (see migration: 20251110175608_create_checkup_feedback_table.sql)
 
 ---
 
@@ -1946,6 +1947,30 @@ https://worktugal.com?debug=true
 ---
 
 ## Recent Updates
+
+**2025-11-14: Tax Checkup User Feedback System and Documentation Update**
+- Implemented user feedback modal on Tax Checkup results page for reporting errors and outdated information
+- Created checkup_feedback database table with comprehensive feedback tracking
+- 6 feedback types supported: helpful, not_helpful, error, bug, suggestion, outdated
+- Flag-specific feedback tracking system for accuracy measurement
+- Admin feedback management policies with status workflow: new, reviewed, resolved, dismissed
+- Anonymous feedback submission enabled with time-based RLS policy (5-second SELECT window)
+- Fixed permission denied error when submitting feedback via RLS policy optimization
+- Feedback modal features: textarea input, auto-close after 3 seconds, cancel functionality
+- User email automatically attached to feedback submissions for follow-up
+- Created get_flag_accuracy_stats() function for aggregating flag accuracy statistics
+- Added comprehensive feedback section to results page with Flag icon and orange styling
+- Updated TAX_COMPLIANCE_CHECKUP_DOCUMENTATION.md to version 1.2 with all recent changes
+- Added detailed User Feedback Section documentation with modal flow and data capture
+- Documented checkup_feedback table schema with 14 columns and 6 performance indexes
+- Added Version History section tracking v1.0, v1.1, and v1.2 releases
+- Added Maintenance Notes section with monitoring checklist and update schedules
+- Moved User Feedback System from Planned Features to Implemented Features
+- Enhanced Testing Checklist with 10 new feedback system test cases
+- Added 3 new event tracking points: feedback_modal_opened, feedback_submitted, feedback_cancelled
+- Database migrations: 20251110175608_create_checkup_feedback_table.sql, 20251110181817_fix_checkup_feedback_select_policy.sql
+- Production build passing with all feedback system enhancements
+- Note: Database Schema section (see checkup_feedback table for full structure)
 
 **2025-11-08: Tax Compliance Checkup Enhanced with Data-Driven Intelligence**
 - Enhanced Tax Compliance Checkup with data-driven intelligence layer based on real user submissions
