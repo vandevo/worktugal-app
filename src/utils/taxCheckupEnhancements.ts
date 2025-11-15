@@ -5,8 +5,9 @@
  * to improve the Tax Compliance Checkup experience.
  *
  * SAFE TO UPDATE: This file only adds intelligence, doesn't break existing functionality
- * Last Updated: 2025-11-08
- * Data Source: tax_checkup_leads table (3 real user submissions analyzed)
+ * Last Updated: 2025-11-15
+ * Data Source: tax_checkup_leads table (11 real user submissions analyzed)
+ * Parallel Rules: Integrated from Portugal Freelancer Tax Survival Map 2020-2025
  */
 
 import { TaxCheckupFormData } from '../lib/taxCheckup';
@@ -16,36 +17,37 @@ import { TaxCheckupFormData } from '../lib/taxCheckup';
 // ============================================================================
 
 export const USER_INSIGHTS = {
-  lastAnalyzed: '2025-11-08',
-  totalSubmissions: 3,
+  lastAnalyzed: '2025-11-15',
+  totalSubmissions: 11,
   dataSource: 'tax_checkup_leads',
 
   // Real patterns from users
   patterns: {
-    avgMonthsInPortugal: 10, // Most users are long-term (tax residents)
-    avgRedFlags: 2.7, // High compliance issues
-    avgYellowWarnings: 1.0,
-    avgGreenItems: 1.7,
+    avgMonthsInPortugal: 9.5, // Most users are long-term (tax residents)
+    avgRedFlags: 2.5, // High compliance issues
+    avgYellowWarnings: 0.8,
+    avgGreenItems: 1.5,
 
     // Critical gaps identified
-    missingNIF: 66.7, // % without NIF
-    missingNISS: 66.7, // % without NISS
-    noActivityOpened: 100, // % haven't opened activity (CRITICAL!)
-    noVATRegistration: 75, // % without VAT when needed
+    missingNIF: 9.1, // % without NIF (MUCH BETTER!)
+    missingNISS: 27.3, // % without NISS
+    noActivityOpened: 72.7, // % haven't opened activity (CRITICAL!)
+    noVATRegistration: 72.7, // % without VAT when needed
   },
 
   // Work type distribution
   workTypes: {
-    developer: 66.7,
-    other: 33.3,
+    developer: 18.2,
+    consultant: 27.3,
+    other: 54.5,
   },
 
   // Income patterns
   income: {
-    under_10k: 0,
-    '10k_25k': 66.7,
-    '25k_50k': 0,
-    over_50k: 33.3,
+    under_10k: 27.3,
+    '10k_25k': 54.5,
+    '25k_50k': 9.1,
+    over_50k: 9.1,
   }
 };
 
@@ -145,15 +147,35 @@ export function detectEnhancedRedFlags(data: TaxCheckupFormData): EnhancedRedFla
     });
   }
 
+  // CRITICAL: Income exceeds VAT threshold by >25% (immediate loss of exemption)
+  const estimated_income_map = {
+    'under_10k': 10000,
+    '10k_25k': 20000,
+    '25k_50k': 37500,
+    'over_50k': 60000
+  };
+  const estimatedAmount = estimated_income_map[data.estimated_annual_income as keyof typeof estimated_income_map] || 0;
+
+  if (estimatedAmount > 18750 && data.has_vat_number === false) {
+    flags.push({
+      id: 'vat_125_immediate_loss',
+      severity: 'critical',
+      message: 'Income exceeds €15k threshold by >25% - VAT exemption lost IMMEDIATELY',
+      actionRequired: 'Register for VAT next month and charge VAT on all future invoices',
+      penaltyInfo: 'Liable for all uncharged VAT retroactively + penalties + interest',
+      deadline: 'Next month (immediate registration required)'
+    });
+  }
+
   // CRITICAL: Tax resident without NISS
   if (isTaxResident && data.has_niss === false) {
     flags.push({
       id: 'tax_resident_no_niss',
       severity: 'critical',
       message: 'Tax resident without NISS (Social Security) registration',
-      actionRequired: 'Register at Segurança Social within 30 days of starting work',
-      penaltyInfo: 'AIMA can reject residence renewal without valid NISS contributions',
-      deadline: '30 days from first invoice'
+      actionRequired: 'Register at Segurança Social. Then declare income quarterly (Apr/Jul/Oct/Jan) and pay monthly (10th-20th)',
+      penaltyInfo: 'AIMA can reject residence renewal without valid NISS contributions. Automatic interest on late payments',
+      deadline: '30 days from first invoice for registration'
     });
   }
 
@@ -178,6 +200,59 @@ export function detectEnhancedRedFlags(data: TaxCheckupFormData): EnhancedRedFla
       actionRequired: 'Monitor your annual income and register for VAT before crossing threshold',
       penaltyInfo: 'Registration must happen before exceeding €15,000',
       deadline: 'Before reaching €15,000 annual'
+    });
+  }
+
+  // MEDIUM: 15% Expense Justification Rule (applies to 0.75 coefficient users)
+  if (data.activity_opened === true && hasHighIncome) {
+    flags.push({
+      id: 'expense_justification_15pct',
+      severity: 'medium',
+      message: '15% of your gross income must be justified with documented expenses',
+      actionRequired: 'Request NIF on ALL professional purchases. Classify expenses on e-fatura portal',
+      penaltyInfo: 'If you fall short, the difference is added back to taxable income (20-30% tax increase)',
+      deadline: 'February 25, 2026 (for 2025 expenses)'
+    });
+  }
+
+  // MEDIUM: Quarterly VAT Return (NEW July 2025 requirement)
+  if (data.activity_opened === true && data.has_vat_number === false) {
+    const today = new Date();
+    const july2025 = new Date('2025-07-01');
+
+    if (today >= july2025) {
+      flags.push({
+        id: 'quarterly_vat_return_2025',
+        severity: 'medium',
+        message: 'NEW 2025: VAT-exempt freelancers must file quarterly turnover returns',
+        actionRequired: 'Declare your quarterly turnover in Portugal and EU (even if VAT-exempt)',
+        penaltyInfo: 'Mandatory starting July 1, 2025',
+        deadline: 'End of month following each quarter (Oct 31, Jan 31, Apr 30, Jul 31)'
+      });
+    }
+  }
+
+  // MEDIUM: Organized Accounting Requirement (€200k+ income)
+  if (data.estimated_annual_income === 'over_50k') {
+    flags.push({
+      id: 'organized_accounting_threshold',
+      severity: 'medium',
+      message: 'Income over €200k requires switch to Organized Accounting regime',
+      actionRequired: 'Monitor income closely. At €200k you must hire accountant and use double-entry bookkeeping',
+      penaltyInfo: 'Mandatory regime change, can no longer use Simplified Regime',
+      deadline: 'Before exceeding €200,000 annual income'
+    });
+  }
+
+  // LOW: Income Tax Prepayments (for established freelancers)
+  if (data.activity_opened === true && hasHighIncome) {
+    flags.push({
+      id: 'income_tax_prepayments',
+      severity: 'low',
+      message: 'You may be required to make 3 income tax prepayments per year',
+      actionRequired: 'Set aside funds for July, September, and December prepayments (Pagamentos por Conta)',
+      penaltyInfo: 'Applies if previous year tax exceeded certain threshold',
+      deadline: 'July 31, Sept 30, Dec 15 (if applicable)'
     });
   }
 
@@ -322,6 +397,13 @@ export function getDataDrivenRecommendations(data: TaxCheckupFormData): string[]
     );
   }
 
+  // POSITIVE: First-year tax discount for new freelancers
+  if (data.activity_opened === true && data.months_in_portugal <= 12) {
+    recommendations.push(
+      `✅ Good news: First-year freelancers get 50% tax reduction! Your taxable income is only 37.5% instead of 75% in year 1`
+    );
+  }
+
   return recommendations;
 }
 
@@ -343,14 +425,21 @@ export const FEATURE_FLAGS = {
 
 export const ENHANCEMENT_VERSION = {
   core: '1.0.0',                    // Original Tax Checkup
-  enhancements: '1.1.0',            // This enhancement layer
-  dataSourceDate: '2025-11-08',
-  nextUpdateScheduled: '2025-12-08', // Re-analyze monthly
+  enhancements: '1.2.0',            // This enhancement layer (Phase 1 + 1.5)
+  dataSourceDate: '2025-11-15',
+  nextUpdateScheduled: '2025-12-15', // Re-analyze monthly
   changesFromCore: [
     'Enhanced red flag detection with severity levels',
     'Conditional helper text based on user context',
     'Data-driven option ordering',
-    'Real user pattern insights',
-    'Actionable guidance with penalties and deadlines'
+    'Real user pattern insights (11 submissions)',
+    'Actionable guidance with penalties and deadlines',
+    'VAT 125% immediate loss rule',
+    '15% expense justification warning (Feb 25 deadline)',
+    'Quarterly VAT return (July 2025 new requirement)',
+    'Prepayments warning (July/Sep/Dec)',
+    '€200k organized accounting threshold',
+    'First-year tax discount positive message',
+    'Integrated Parallel.ai verified rules'
   ]
 };
