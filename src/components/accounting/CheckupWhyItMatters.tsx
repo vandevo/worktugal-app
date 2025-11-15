@@ -82,7 +82,7 @@ export const CheckupWhyItMatters: React.FC = () => {
           className="mt-12 p-6 bg-gradient-to-br from-blue-500/10 to-purple-500/10 backdrop-blur-xl rounded-2xl border border-blue-400/20"
         >
           <p className="text-center text-gray-300 text-sm leading-relaxed">
-            <strong className="text-blue-300">The reality:</strong> Portugal's tax system is complex, especially for non-Portuguese speakers. Our enhanced checkup analyzes your situation against 11+ real user submissions and provides specific guidance with penalty amounts, deadlines, and priority ranking. Covers 8 critical 2025 rules including the NEW quarterly VAT return requirement. Takes 3 minutes, could save you thousands.
+            <strong className="text-blue-300">The reality:</strong> Portugal's tax system is complex, especially for non-Portuguese speakers. Our enhanced checkup analyzes your situation against real freelancer data and provides specific guidance with penalty amounts, deadlines, and priority ranking. Covers 8 critical 2025 rules including the NEW quarterly VAT return requirement. Takes 3 minutes, could save you thousands.
           </p>
         </motion.div>
       </div>

@@ -18,7 +18,7 @@ const faqData: FAQItem[] = [
   },
   {
     question: 'What makes this checkup "enhanced" and data-driven?',
-    answer: 'Updated for 2025 with 8 critical tax rules verified by Parallel.ai research. Our system analyzes patterns from 11+ real user submissions to provide contextual guidance. For example, if you\'re a tax resident without NIF, you\'ll see the exact penalty (€375+), the deadline (60 days from arrival), and comparison to similar freelancers. Includes NEW 2025 quarterly VAT return requirement and first-year tax discount detection.'
+    answer: 'Updated for 2025 with 8 critical tax rules verified by Parallel.ai research. Our system analyzes patterns from real freelancer submissions to provide contextual guidance. For example, if you\'re a tax resident without NIF, you\'ll see the exact penalty (€375+), the deadline (60 days from arrival), and comparison to similar freelancers. Includes NEW 2025 quarterly VAT return requirement and first-year tax discount detection.'
   },
   {
     question: 'What happens to my data?',
