@@ -23,6 +23,12 @@ interface TestScenario {
   color: string;
   data: Partial<ContactRequest> | Partial<TaxCheckupFormData>;
   triggers: string[];
+  testsRules?: string[];
+  expectedWarnings?: {
+    red: number;
+    yellow: number;
+    green: number;
+  };
 }
 
 const TEST_SCENARIOS: TestScenario[] = [
@@ -146,7 +152,7 @@ const TEST_SCENARIOS: TestScenario[] = [
     id: 'tax-checkup-critical',
     category: 'tax_checkup',
     title: 'Tax Checkup - Critical Issues',
-    description: 'Freelancer with multiple red flags',
+    description: 'High earner with no registrations (4-5 red flags)',
     icon: AlertTriangle,
     color: 'red',
     data: {
@@ -167,13 +173,15 @@ const TEST_SCENARIOS: TestScenario[] = [
       utm_campaign: 'admin_test',
       utm_medium: 'manual'
     },
-    triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram']
+    triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram'],
+    testsRules: ['No NIF', 'No activity', 'No VAT', 'No NISS', 'VAT 125% rule'],
+    expectedWarnings: { red: 4, yellow: 0, green: 1 }
   },
   {
     id: 'tax-checkup-warnings',
     category: 'tax_checkup',
     title: 'Tax Checkup - Some Warnings',
-    description: 'Freelancer approaching VAT threshold',
+    description: 'Mid-income with some uncertainties (yellow flags)',
     icon: AlertTriangle,
     color: 'yellow',
     data: {
@@ -194,13 +202,15 @@ const TEST_SCENARIOS: TestScenario[] = [
       utm_campaign: 'admin_test',
       utm_medium: 'manual'
     },
-    triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram']
+    triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram'],
+    testsRules: ['Approaching VAT threshold', '15% expense rule'],
+    expectedWarnings: { red: 0, yellow: 2, green: 3 }
   },
   {
     id: 'tax-checkup-compliant',
     category: 'tax_checkup',
     title: 'Tax Checkup - Mostly Compliant',
-    description: 'Freelancer with everything in order',
+    description: 'All registrations complete (baseline positive)',
     icon: CheckCircle,
     color: 'green',
     data: {
@@ -221,7 +231,241 @@ const TEST_SCENARIOS: TestScenario[] = [
       utm_campaign: 'admin_test',
       utm_medium: 'manual'
     },
-    triggers: ['Airtable', 'Email', 'Telegram']
+    triggers: ['Airtable', 'Email', 'Telegram'],
+    testsRules: ['Baseline compliant'],
+    expectedWarnings: { red: 0, yellow: 0, green: 5 }
+  },
+  {
+    id: 'tax-checkup-first-year',
+    category: 'tax_checkup',
+    title: 'Tax Checkup - New Freelancer',
+    description: 'First year in Portugal (tests first-year discount)',
+    icon: CheckCircle,
+    color: 'green',
+    data: {
+      name: 'Test New Freelancer',
+      email: 'vandevo.com@gmail.com',
+      phone: '+351912345678',
+      work_type: 'writer',
+      months_in_portugal: 6,
+      residency_status: 'residence_permit',
+      has_nif: true,
+      activity_opened: true,
+      estimated_annual_income: '10k_25k',
+      has_vat_number: false,
+      has_niss: true,
+      has_fiscal_representative: false,
+      email_marketing_consent: true,
+      utm_source: 'test',
+      utm_campaign: 'admin_test',
+      utm_medium: 'manual'
+    },
+    triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram'],
+    testsRules: ['First-year tax discount', '15% expense rule', 'Approaching VAT'],
+    expectedWarnings: { red: 0, yellow: 2, green: 4 }
+  },
+  {
+    id: 'tax-checkup-vat-125',
+    category: 'tax_checkup',
+    title: 'Tax Checkup - VAT 125% Crisis',
+    description: 'High income without VAT (tests VAT 125% rule)',
+    icon: AlertTriangle,
+    color: 'red',
+    data: {
+      name: 'Test VAT Crisis User',
+      email: 'vandevo.com@gmail.com',
+      phone: '+351912345678',
+      work_type: 'developer',
+      months_in_portugal: 18,
+      residency_status: 'residence_permit',
+      has_nif: true,
+      activity_opened: true,
+      estimated_annual_income: 'over_50k',
+      has_vat_number: false,
+      has_niss: true,
+      has_fiscal_representative: false,
+      email_marketing_consent: true,
+      utm_source: 'test',
+      utm_campaign: 'admin_test',
+      utm_medium: 'manual'
+    },
+    triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram'],
+    testsRules: ['VAT 125% immediate loss', '15% expense rule', 'Prepayments'],
+    expectedWarnings: { red: 1, yellow: 3, green: 3 }
+  },
+  {
+    id: 'tax-checkup-tourist',
+    category: 'tax_checkup',
+    title: 'Tax Checkup - Tourist Working',
+    description: 'Tourist visa earning income (illegal status)',
+    icon: AlertTriangle,
+    color: 'red',
+    data: {
+      name: 'Test Tourist User',
+      email: 'vandevo.com@gmail.com',
+      phone: '+351912345678',
+      work_type: 'consultant',
+      months_in_portugal: 3,
+      residency_status: 'tourist',
+      has_nif: false,
+      activity_opened: false,
+      estimated_annual_income: '25k_50k',
+      has_vat_number: false,
+      has_niss: false,
+      has_fiscal_representative: false,
+      email_marketing_consent: true,
+      utm_source: 'test',
+      utm_campaign: 'admin_test',
+      utm_medium: 'manual'
+    },
+    triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram'],
+    testsRules: ['Tourist visa issue', 'Fiscal representative', 'No registrations'],
+    expectedWarnings: { red: 4, yellow: 1, green: 0 }
+  },
+  {
+    id: 'tax-checkup-dnv',
+    category: 'tax_checkup',
+    title: 'Tax Checkup - Digital Nomad',
+    description: 'DNV visa with foreign clients (compliant)',
+    icon: CheckCircle,
+    color: 'green',
+    data: {
+      name: 'Test Digital Nomad',
+      email: 'vandevo.com@gmail.com',
+      phone: '+351912345678',
+      work_type: 'developer',
+      months_in_portugal: 8,
+      residency_status: 'dnv',
+      has_nif: true,
+      activity_opened: false,
+      estimated_annual_income: 'under_10k',
+      has_vat_number: false,
+      has_niss: false,
+      has_fiscal_representative: false,
+      email_marketing_consent: true,
+      utm_source: 'test',
+      utm_campaign: 'admin_test',
+      utm_medium: 'manual'
+    },
+    triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram'],
+    testsRules: ['DNV low risk', 'Foreign clients only'],
+    expectedWarnings: { red: 0, yellow: 1, green: 3 }
+  },
+  {
+    id: 'tax-checkup-high-earner',
+    category: 'tax_checkup',
+    title: 'Tax Checkup - Established High Earner',
+    description: 'Veteran freelancer (tests €200k + prepayments)',
+    icon: AlertTriangle,
+    color: 'yellow',
+    data: {
+      name: 'Test High Earner',
+      email: 'vandevo.com@gmail.com',
+      phone: '+351912345678',
+      work_type: 'consultant',
+      months_in_portugal: 36,
+      residency_status: 'residence_permit',
+      has_nif: true,
+      activity_opened: true,
+      estimated_annual_income: 'over_50k',
+      has_vat_number: true,
+      has_niss: true,
+      has_fiscal_representative: false,
+      email_marketing_consent: true,
+      utm_source: 'test',
+      utm_campaign: 'admin_test',
+      utm_medium: 'manual'
+    },
+    triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram'],
+    testsRules: ['€200k threshold', 'Prepayments', '15% expense rule'],
+    expectedWarnings: { red: 0, yellow: 3, green: 5 }
+  },
+  {
+    id: 'tax-checkup-vat-exempt-2025',
+    category: 'tax_checkup',
+    title: 'Tax Checkup - VAT-Exempt 2025',
+    description: 'Low income VAT-exempt (tests quarterly return)',
+    icon: AlertTriangle,
+    color: 'yellow',
+    data: {
+      name: 'Test VAT Exempt User',
+      email: 'vandevo.com@gmail.com',
+      phone: '+351912345678',
+      work_type: 'designer',
+      months_in_portugal: 14,
+      residency_status: 'residence_permit',
+      has_nif: true,
+      activity_opened: true,
+      estimated_annual_income: '10k_25k',
+      has_vat_number: false,
+      has_niss: true,
+      has_fiscal_representative: false,
+      email_marketing_consent: true,
+      utm_source: 'test',
+      utm_campaign: 'admin_test',
+      utm_medium: 'manual'
+    },
+    triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram'],
+    testsRules: ['Quarterly VAT return (July 2025)', '15% expense rule'],
+    expectedWarnings: { red: 0, yellow: 2, green: 4 }
+  },
+  {
+    id: 'tax-checkup-uncertainty',
+    category: 'tax_checkup',
+    title: 'Tax Checkup - Uncertainty King',
+    description: 'All answers "Not Sure" (tests yellow warnings)',
+    icon: AlertTriangle,
+    color: 'yellow',
+    data: {
+      name: 'Test Uncertain User',
+      email: 'vandevo.com@gmail.com',
+      phone: '+351912345678',
+      work_type: 'other',
+      months_in_portugal: 5,
+      residency_status: 'residence_permit',
+      has_nif: null,
+      activity_opened: null,
+      estimated_annual_income: '10k_25k',
+      has_vat_number: null,
+      has_niss: null,
+      has_fiscal_representative: null,
+      email_marketing_consent: true,
+      utm_source: 'test',
+      utm_campaign: 'admin_test',
+      utm_medium: 'manual'
+    },
+    triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram'],
+    testsRules: ['All "Not Sure" handling', 'Yellow warning guidance'],
+    expectedWarnings: { red: 0, yellow: 5, green: 1 }
+  },
+  {
+    id: 'tax-checkup-nhr',
+    category: 'tax_checkup',
+    title: 'Tax Checkup - NHR Legacy User',
+    description: 'NHR status before 2024 closure (informational)',
+    icon: CheckCircle,
+    color: 'green',
+    data: {
+      name: 'Test NHR User',
+      email: 'vandevo.com@gmail.com',
+      phone: '+351912345678',
+      work_type: 'consultant',
+      months_in_portugal: 24,
+      residency_status: 'nhr',
+      has_nif: true,
+      activity_opened: true,
+      estimated_annual_income: '25k_50k',
+      has_vat_number: true,
+      has_niss: true,
+      has_fiscal_representative: false,
+      email_marketing_consent: true,
+      utm_source: 'test',
+      utm_campaign: 'admin_test',
+      utm_medium: 'manual'
+    },
+    triggers: ['Airtable', 'Email', 'Make.com Webhook', 'Telegram'],
+    testsRules: ['NHR informational', 'IFICI alternative'],
+    expectedWarnings: { red: 0, yellow: 0, green: 5 }
   }
 ];
 
@@ -521,6 +765,44 @@ export const AdminTestHub: React.FC = () => {
                         </p>
                       </div>
                     </div>
+
+                    {scenario.expectedWarnings && (
+                      <div className="flex items-center gap-2 mb-3 text-xs">
+                        <span className="flex items-center gap-1 text-red-400">
+                          <span className="w-2 h-2 rounded-full bg-red-400"></span>
+                          {scenario.expectedWarnings.red}
+                        </span>
+                        <span className="flex items-center gap-1 text-yellow-400">
+                          <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
+                          {scenario.expectedWarnings.yellow}
+                        </span>
+                        <span className="flex items-center gap-1 text-green-400">
+                          <span className="w-2 h-2 rounded-full bg-green-400"></span>
+                          {scenario.expectedWarnings.green}
+                        </span>
+                      </div>
+                    )}
+
+                    {scenario.testsRules && scenario.testsRules.length > 0 && (
+                      <div className="mb-3">
+                        <p className="text-xs text-gray-500 mb-1">Tests:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {scenario.testsRules.slice(0, 2).map((rule, idx) => (
+                            <span
+                              key={idx}
+                              className="text-xs px-2 py-0.5 bg-blue-500/10 border border-blue-500/20 rounded text-blue-400"
+                            >
+                              {rule}
+                            </span>
+                          ))}
+                          {scenario.testsRules.length > 2 && (
+                            <span className="text-xs px-2 py-0.5 text-gray-500">
+                              +{scenario.testsRules.length - 2} more
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
 
                     <div className="flex flex-wrap gap-1 mb-3">
                       {scenario.triggers.map(trigger => (
