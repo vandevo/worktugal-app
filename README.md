@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-11-14
+**Last Updated:** 2025-11-15
 
 ---
 
@@ -1947,6 +1947,25 @@ https://worktugal.com?debug=true
 ---
 
 ## Recent Updates
+
+**2025-11-15: Tax Checkup Test Scenarios Enhanced to 11 Comprehensive Scenarios**
+- Expanded Tax Checkup test scenarios from 3 to 11 comprehensive scenarios for 100% Phase 1+1.5 rule coverage
+- Added 8 new diverse test scenarios: New Freelancer (first-year discount), VAT 125% Crisis, Tourist Working (illegal status), Digital Nomad (DNV), Established High Earner, VAT-Exempt 2025 (quarterly return), Uncertainty King (all not sure answers), NHR Legacy User
+- Enhanced test scenario interface with visual metadata: expected warnings display (red/yellow/green dots), rules being tested tags, color-coded severity cards
+- Added testsRules and expectedWarnings fields to TestScenario interface for validation and documentation
+- Refined existing 3 scenarios with improved descriptions and realistic data (work types, residency statuses, income levels)
+- Visual indicators now show expected warning counts: 🔴 red (critical), 🟡 yellow (warnings), 🟢 green (compliant)
+- Each scenario card displays first 2 rules tested with +N more indicator for brevity
+- Coverage matrix: 7 residency types (Tourist, DNV, NHR, Residence Permit, etc.), 4 income levels (under €10k to €50k+), 6 work types (Developer, Consultant, Designer, Writer, Other)
+- All 8 Phase 1+1.5 rules now testable: VAT 125% immediate loss, 15% expense justification, quarterly VAT return (July 2025), €200k organized accounting threshold, prepayments warning, first-year tax discount, social security deadlines, updated USER_INSIGHTS
+- Test scenarios support diverse user profiles: 3-36 months in Portugal, tourist to veteran freelancer spectrum, low to high earners
+- No breaking changes: existing test automation triggers (Airtable, Email, Make.com, Telegram) work identically for all scenarios
+- Created comprehensive documentation: docs/TEST_SCENARIOS_ENHANCED.md with scenario matrix, rule coverage table, quick reference guide
+- Documentation includes testing workflow, expected vs actual validation approach, regression testing checklist
+- All scenarios designed to be evergreen, diverse, and easy to test with one-click submission
+- Production build successful with enhanced test hub: 426.51 kB (+7.15 kB from baseline, +1.2 kB gzipped)
+- Enhanced AdminTestHub component at src/components/admin/AdminTestHub.tsx with metadata display logic
+- Note: Testing section (Admin Test Hub now has 11 scenarios covering all user types and compliance rules)
 
 **2025-11-14: Tax Checkup User Feedback System and Documentation Update**
 - Implemented user feedback modal on Tax Checkup results page for reporting errors and outdated information
