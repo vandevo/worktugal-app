@@ -18,7 +18,7 @@ const faqData: FAQItem[] = [
   },
   {
     question: 'What makes this checkup "enhanced" and data-driven?',
-    answer: 'Our system analyzes patterns from real user submissions to provide contextual guidance. For example, if you\'re a tax resident without NIF, you\'ll see the exact penalty (€375+), the deadline (60 days from arrival), and know that 67% of similar users had the same issue. This goes beyond generic checklists to give you actionable, prioritized guidance.'
+    answer: 'Updated for 2025 with 8 critical tax rules verified by Parallel.ai research. Our system analyzes patterns from 11+ real user submissions to provide contextual guidance. For example, if you\'re a tax resident without NIF, you\'ll see the exact penalty (€375+), the deadline (60 days from arrival), and comparison to similar freelancers. Includes NEW 2025 quarterly VAT return requirement and first-year tax discount detection.'
   },
   {
     question: 'What happens to my data?',
@@ -43,6 +43,14 @@ const faqData: FAQItem[] = [
   {
     question: 'What if I already work with an accountant?',
     answer: 'Great! Use this checkup to verify that you\'re covering everything, or to prepare better questions for your accountant. Many freelancers discover gaps their current accountant missed.'
+  },
+  {
+    question: 'What\'s the NEW quarterly VAT return requirement in 2025?',
+    answer: 'Starting July 1, 2025, VAT-exempt freelancers (earning under €15,000) must file quarterly turnover declarations. This means even if you\'re not charging VAT, you need to report your quarterly income to Portuguese tax authorities. Deadlines: Oct 31, Jan 31, Apr 30, Jul 31. Our checkup identifies if this applies to you.'
+  },
+  {
+    question: 'Do first-year freelancers really get 50% tax reduction?',
+    answer: 'Yes! If you opened activity within your first 12 months in Portugal, you qualify for a significant tax benefit. Your taxable income coefficient is reduced from 75% to 37.5% in year 1 (and 62.5% in year 2). This can save thousands in taxes. Our checkup automatically detects if you qualify and explains how to claim this benefit.'
   }
 ];
 

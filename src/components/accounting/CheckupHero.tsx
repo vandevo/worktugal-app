@@ -29,7 +29,7 @@ export const CheckupHero: React.FC<CheckupHeroProps> = ({ onStartCheckup }) => {
             Find out in 3 minutes with our free compliance checkup
           </p>
           <p className="text-lg text-blue-200 mb-8 max-w-2xl mx-auto">
-            Get your compliance score, see what you're missing, and know exactly what to do next
+            Updated for 2025 with 8 critical tax rules. See your compliance score, discover first-year tax benefits, and get your action plan
           </p>
 
           <Button
@@ -50,7 +50,7 @@ export const CheckupHero: React.FC<CheckupHeroProps> = ({ onStartCheckup }) => {
             transition={{ delay: 0.3 }}
             className="text-sm text-blue-300 font-medium"
           >
-            Over <strong>150+ freelancers</strong> have checked their compliance
+            Join <strong>hundreds of freelancers</strong> who've discovered their compliance gaps
           </motion.p>
         </motion.div>
 
