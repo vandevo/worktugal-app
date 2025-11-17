@@ -50,7 +50,7 @@ const faqData: FAQItem[] = [
   },
   {
     question: 'Do first-year freelancers really get 50% tax reduction?',
-    answer: 'Yes! If you opened activity within your first 12 months in Portugal, you qualify for a significant tax benefit. Your taxable income coefficient is reduced from 75% to 37.5% in year 1 (and 62.5% in year 2). This can save thousands in taxes. Our checkup automatically detects if you qualify and explains how to claim this benefit.'
+    answer: 'Yes, but with conditions. Under Portugal\'s Simplified Regime, the tax coefficient for most services is cut in half in the first year of a new freelance activity. If you qualify, only 37.5% of your income is taxed instead of 75% in year 1 (and 56.25% instead of 75% in year 2). This benefit applies only if you have no employment or pension income in the same year and are under the Simplified Regime (Category B). Our checkup detects if you may qualify.'
   }
 ];
 

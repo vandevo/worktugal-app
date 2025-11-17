@@ -217,6 +217,10 @@ export function calculateComplianceScore(data: TaxCheckupFormData): ComplianceSc
     }
   }
 
+  // Add disclaimer footer
+  report += '\n\n---\n';
+  report += 'DISCLAIMER: This checkup provides general guidance based on 2025 Portuguese tax law. Specific tax benefits (like the first-year coefficient reduction) apply only under certain conditions. For personalized advice on your situation, reply to this email or consult with a qualified accountant.';
+
   return {
     red: redFlags.length,
     yellow: yellowWarnings.length,

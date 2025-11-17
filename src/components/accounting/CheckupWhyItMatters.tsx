@@ -17,7 +17,7 @@ export const CheckupWhyItMatters: React.FC = () => {
     {
       icon: Scale,
       title: 'Discover first-year tax benefits',
-      description: 'Good news: First-year freelancers get 50% tax reduction! Our checkup identifies if you qualify for this significant benefit and explains other registration requirements with clear deadlines'
+      description: 'New freelancers under the Simplified Regime may qualify for a 50% coefficient reduction in year 1 (only 37.5% of service income taxed). Applies if you have no salary or pension income. Our checkup identifies if you may qualify and explains registration requirements'
     },
     {
       icon: TrendingUp,

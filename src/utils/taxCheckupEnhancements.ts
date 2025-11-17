@@ -397,10 +397,10 @@ export function getDataDrivenRecommendations(data: TaxCheckupFormData): string[]
     );
   }
 
-  // POSITIVE: First-year tax discount for new freelancers
+  // POSITIVE: First-year tax discount for new freelancers (with conditions)
   if (data.activity_opened === true && data.months_in_portugal <= 12) {
     recommendations.push(
-      `✅ Good news: First-year freelancers get 50% tax reduction! Your taxable income is only 37.5% instead of 75% in year 1`
+      `✅ Good news: New freelancers under Portugal's Simplified Regime may qualify for a 50% coefficient reduction in year 1, meaning only 37.5% of service income is taxed instead of 75%. This applies if you have no salary or pension income in the same year. Reply to confirm if you qualify.`
     );
   }
 
@@ -439,7 +439,7 @@ export const ENHANCEMENT_VERSION = {
     'Quarterly VAT return (July 2025 new requirement)',
     'Prepayments warning (July/Sep/Dec)',
     '€200k organized accounting threshold',
-    'First-year tax discount positive message',
+    'First-year tax discount positive message (with conditions and disclaimer)',
     'Integrated Parallel.ai verified rules'
   ]
 };
