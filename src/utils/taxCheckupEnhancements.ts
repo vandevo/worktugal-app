@@ -5,8 +5,8 @@
  * to improve the Tax Compliance Checkup experience.
  *
  * SAFE TO UPDATE: This file only adds intelligence, doesn't break existing functionality
- * Last Updated: 2025-11-15
- * Data Source: tax_checkup_leads table (11 real user submissions analyzed)
+ * Last Updated: 2025-11-24
+ * Data Source: tax_checkup_leads table (27 real user submissions analyzed)
  * Parallel Rules: Integrated from Portugal Freelancer Tax Survival Map 2020-2025
  */
 
@@ -17,37 +17,38 @@ import { TaxCheckupFormData } from '../lib/taxCheckup';
 // ============================================================================
 
 export const USER_INSIGHTS = {
-  lastAnalyzed: '2025-11-15',
-  totalSubmissions: 11,
+  lastAnalyzed: '2025-11-24',
+  totalSubmissions: 27,
   dataSource: 'tax_checkup_leads',
 
   // Real patterns from users
   patterns: {
-    avgMonthsInPortugal: 9.5, // Most users are long-term (tax residents)
-    avgRedFlags: 2.5, // High compliance issues
-    avgYellowWarnings: 0.8,
-    avgGreenItems: 1.5,
+    avgMonthsInPortugal: 9.0, // Most users are long-term (tax residents)
+    avgRedFlags: 0.93, // Lower than expected - users are MORE compliant
+    avgYellowWarnings: 0.44, // Very low warning rate
+    avgGreenItems: 3.70, // High green confirmation rate
 
     // Critical gaps identified
-    missingNIF: 9.1, // % without NIF (MUCH BETTER!)
-    missingNISS: 27.3, // % without NISS
-    noActivityOpened: 72.7, // % haven't opened activity (CRITICAL!)
-    noVATRegistration: 72.7, // % without VAT when needed
+    missingNIF: 3.7, // % without NIF (Excellent!)
+    missingNISS: 22.2, // % without NISS
+    noActivityOpened: 48.1, // % haven't opened activity (PRIMARY OPPORTUNITY!)
+    noVATRegistration: 37.0, // % without VAT when needed
   },
 
   // Work type distribution
   workTypes: {
-    developer: 18.2,
-    consultant: 27.3,
-    other: 54.5,
+    developer: 11.1,
+    consultant: 11.1,
+    marketing: 18.5,
+    other: 51.9, // Most common
   },
 
-  // Income patterns
+  // Income patterns (most users are low-income)
   income: {
-    under_10k: 27.3,
-    '10k_25k': 54.5,
-    '25k_50k': 9.1,
-    over_50k: 9.1,
+    under_10k: 51.9, // Majority are low earners
+    '10k_25k': 29.6,
+    '25k_50k': 11.1,
+    over_50k: 3.7, // Too few for advanced rules
   }
 };
 
@@ -368,21 +369,21 @@ export function getConditionalHelperText(field: string, formData: Partial<TaxChe
 export function getDataDrivenRecommendations(data: TaxCheckupFormData): string[] {
   const recommendations: string[] = [];
 
-  // Based on real data: 100% of users need to open activity
+  // Based on real data: 48% of users need to open activity
   if (data.activity_opened === false) {
     recommendations.push(
-      `📊 Based on ${USER_INSIGHTS.totalSubmissions} similar freelancers: 100% needed to open activity before invoicing clients`
+      `📊 Based on ${USER_INSIGHTS.totalSubmissions} similar freelancers: ${USER_INSIGHTS.patterns.noActivityOpened}% haven't opened activity yet - this is the #1 issue we see`
     );
   }
 
-  // Based on real data: 66.7% are missing NIF
+  // Based on real data: 3.7% are missing NIF (very low!)
   if (data.has_nif === false) {
     recommendations.push(
-      `📊 You're not alone: ${USER_INSIGHTS.patterns.missingNIF}% of freelancers we analyzed were missing NIF registration`
+      `📊 You're in a small group: only ${USER_INSIGHTS.patterns.missingNIF}% of freelancers we analyzed were missing NIF registration - prioritize this immediately`
     );
   }
 
-  // Based on real data: 66.7% are missing NISS
+  // Based on real data: 22.2% are missing NISS
   if (data.has_niss === false) {
     recommendations.push(
       `📊 Common issue: ${USER_INSIGHTS.patterns.missingNISS}% of similar users needed NISS registration`
@@ -425,14 +426,14 @@ export const FEATURE_FLAGS = {
 
 export const ENHANCEMENT_VERSION = {
   core: '1.0.0',                    // Original Tax Checkup
-  enhancements: '1.2.0',            // This enhancement layer (Phase 1 + 1.5)
-  dataSourceDate: '2025-11-15',
-  nextUpdateScheduled: '2025-12-15', // Re-analyze monthly
+  enhancements: '1.2.1',            // This enhancement layer (Phase 1 + 1.5) - Data update
+  dataSourceDate: '2025-11-24',
+  nextUpdateScheduled: '2025-12-24', // Re-analyze when at 50+ submissions
   changesFromCore: [
     'Enhanced red flag detection with severity levels',
     'Conditional helper text based on user context',
     'Data-driven option ordering',
-    'Real user pattern insights (11 submissions)',
+    'Real user pattern insights (27 submissions - updated Nov 24)',
     'Actionable guidance with penalties and deadlines',
     'VAT 125% immediate loss rule',
     '15% expense justification warning (Feb 25 deadline)',
