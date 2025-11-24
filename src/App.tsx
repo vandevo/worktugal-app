@@ -33,6 +33,8 @@ import { CheckupResultsDemo } from './components/accounting/CheckupResultsDemo';
 import { ContactPage } from './components/ContactPage';
 import { ContactSuccess } from './components/ContactSuccess';
 import { ContactSuccessDemo } from './components/ContactSuccessDemo';
+import { AccountantApplicationForm } from './components/accounting/AccountantApplicationForm';
+import { AccountantApplicationSuccess } from './components/accounting/AccountantApplicationSuccess';
 import { type ProductName } from './stripe-config';
 
 function App() {
@@ -88,8 +90,11 @@ function App() {
           <Route path="/checkup" element={<TaxCheckupForm />} />
           <Route path="/checkup/results" element={<CheckupResults />} />
           <Route path="/checkup/results/demo" element={<CheckupResultsDemo />} />
-          {/* TODO: Create AccountantApplicationPage component */}
-          {/* <Route path="/join-accountants" element={<AccountantApplicationPage />} /> */}
+
+          {/* Accountant Partner routes */}
+          <Route path="/join-accountants" element={<AccountantApplicationForm />} />
+          <Route path="/join-accountants/success" element={<AccountantApplicationSuccess />} />
+
           <Route
             path="/admin"
             element={
