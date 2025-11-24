@@ -59,6 +59,7 @@ export const TaxCheckupForm: React.FC = () => {
     name: '',
     phone: '',
     email_marketing_consent: false,
+    interested_in_accounting_services: false,
     utm_source: searchParams.get('utm_source') || undefined,
     utm_campaign: searchParams.get('utm_campaign') || undefined,
     utm_medium: searchParams.get('utm_medium') || undefined
@@ -527,17 +528,32 @@ export const TaxCheckupForm: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex items-start gap-3">
-        <input
-          type="checkbox"
-          id="email_consent"
-          checked={formData.email_marketing_consent}
-          onChange={(e) => handleInputChange('email_marketing_consent', e.target.checked)}
-          className="mt-1 w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-400 focus:ring-blue-400"
-        />
-        <label htmlFor="email_consent" className="text-sm text-gray-300 cursor-pointer">
-          Send me compliance updates and tax deadline reminders (unsubscribe anytime)
-        </label>
+      <div className="space-y-4">
+        <div className="flex items-start gap-3">
+          <input
+            type="checkbox"
+            id="email_consent"
+            checked={formData.email_marketing_consent}
+            onChange={(e) => handleInputChange('email_marketing_consent', e.target.checked)}
+            className="mt-1 w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-400 focus:ring-blue-400 focus:ring-offset-0 focus:ring-offset-gray-900 cursor-pointer transition-colors"
+          />
+          <label htmlFor="email_consent" className="text-sm text-gray-300 cursor-pointer select-none leading-relaxed">
+            Send me compliance updates and tax deadline reminders (unsubscribe anytime)
+          </label>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <input
+            type="checkbox"
+            id="accounting_services_interest"
+            checked={formData.interested_in_accounting_services}
+            onChange={(e) => handleInputChange('interested_in_accounting_services', e.target.checked)}
+            className="mt-1 w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-400 focus:ring-blue-400 focus:ring-offset-0 focus:ring-offset-gray-900 cursor-pointer transition-colors"
+          />
+          <label htmlFor="accounting_services_interest" className="text-sm text-gray-300 cursor-pointer select-none leading-relaxed">
+            Keep me updated on accounting services
+          </label>
+        </div>
       </div>
 
       <div className="text-center pt-4">

@@ -21,6 +21,7 @@ interface TaxCheckupSubmission {
   name?: string;
   phone?: string;
   email_marketing_consent: boolean;
+  interested_in_accounting_services: boolean;
   utm_source?: string;
   utm_campaign?: string;
   utm_medium?: string;
@@ -89,6 +90,7 @@ Deno.serve(async (req: Request) => {
         has_niss: submission.has_niss,
         has_fiscal_representative: submission.has_fiscal_representative,
         email_marketing_consent: submission.email_marketing_consent || false,
+        interested_in_accounting_services: submission.interested_in_accounting_services || false,
         utm_source: submission.utm_source || null,
         utm_campaign: submission.utm_campaign || null,
         utm_medium: submission.utm_medium || null,
@@ -147,6 +149,7 @@ Deno.serve(async (req: Request) => {
           has_niss: lead.has_niss,
           has_fiscal_representative: lead.has_fiscal_representative,
           email_marketing_consent: lead.email_marketing_consent,
+          interested_in_accounting_services: lead.interested_in_accounting_services,
           compliance_score_red: lead.compliance_score_red,
           compliance_score_yellow: lead.compliance_score_yellow,
           compliance_score_green: lead.compliance_score_green,

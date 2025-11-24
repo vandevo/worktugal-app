@@ -19,6 +19,7 @@ export interface TaxCheckupFormData {
   name?: string;
   phone?: string;
   email_marketing_consent: boolean;
+  interested_in_accounting_services: boolean;
   utm_source?: string;
   utm_campaign?: string;
   utm_medium?: string;
@@ -290,6 +291,7 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
       has_niss: formData.has_niss,
       has_fiscal_representative: formData.has_fiscal_representative,
       email_marketing_consent: formData.email_marketing_consent,
+      interested_in_accounting_services: formData.interested_in_accounting_services,
       utm_source: formData.utm_source || null,
       utm_campaign: formData.utm_campaign || null,
       utm_medium: formData.utm_medium || null,
