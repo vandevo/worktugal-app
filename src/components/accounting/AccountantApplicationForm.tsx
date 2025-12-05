@@ -510,8 +510,7 @@ export const AccountantApplicationForm: React.FC = () => {
             className="mb-6"
           >
             <Alert variant="error">
-              <AlertCircle className="w-5 h-5" />
-              <span>{error}</span>
+              {error}
             </Alert>
           </motion.div>
         )}
@@ -1301,21 +1300,6 @@ export const AccountantApplicationForm: React.FC = () => {
             )}
           </motion.form>
         </AnimatePresence>
-
-        <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-slate-950/95 backdrop-blur-xl border-t border-white/10 z-40">
-          <div className="flex items-center justify-between text-xs text-gray-400 mb-2">
-            <span>Step {currentStep} of 5</span>
-            <span className="font-semibold text-white">{progressPercentage}% Complete</span>
-          </div>
-          <div className="h-1.5 bg-white/[0.05] rounded-full overflow-hidden">
-            <motion.div
-              className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"
-              initial={{ width: 0 }}
-              animate={{ width: `${progressPercentage}%` }}
-              transition={{ duration: 0.3 }}
-            />
-          </div>
-        </div>
       </div>
     </div>
   );
