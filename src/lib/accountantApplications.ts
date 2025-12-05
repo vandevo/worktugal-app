@@ -23,10 +23,7 @@ interface AccountantApplicationData {
   preferred_communication: string;
   accepts_triage_role: string;
   vat_scenario_answer: string;
-  open_to_revenue_share: boolean;
-  can_commit_cases_weekly: boolean;
-  comfortable_english_clients: boolean;
-  understands_relationship_model: boolean;
+  partnership_interest_level: string;
 }
 
 export const submitAccountantApplication = async (data: AccountantApplicationData) => {
@@ -76,10 +73,7 @@ export const submitAccountantApplication = async (data: AccountantApplicationDat
       preferred_communication: data.preferred_communication,
       accepts_triage_role: data.accepts_triage_role,
       vat_scenario_answer: data.vat_scenario_answer,
-      open_to_revenue_share: data.open_to_revenue_share,
-      can_commit_cases_weekly: data.can_commit_cases_weekly,
-      comfortable_english_clients: data.comfortable_english_clients,
-      understands_relationship_model: data.understands_relationship_model,
+      partnership_interest_level: data.partnership_interest_level,
     };
 
     const { data: application, error } = await supabase

@@ -63,10 +63,7 @@ export const AccountantApplicationForm: React.FC = () => {
     preferredCommunication: '',
     acceptsTriageRole: '',
     vatScenarioAnswer: '',
-    openToRevenueShare: false,
-    canCommitCasesWeekly: false,
-    comfortableEnglishClients: false,
-    understandsRelationshipModel: false,
+    partnershipInterestLevel: '',
     agreeToTerms: false,
   });
 
@@ -96,8 +93,9 @@ export const AccountantApplicationForm: React.FC = () => {
     if (!formData.acceptsTriageRole) return 'Please indicate your comfort with the partnership model';
     if (!formData.vatScenarioAnswer.trim()) return 'Please answer the VAT scenario question';
     if (formData.vatScenarioAnswer.length < 20) return 'Please provide a more detailed answer to the VAT scenario (minimum 20 characters)';
+    if (!formData.partnershipInterestLevel) return 'Please indicate your interest level in the partnership model';
     if (!formData.whyWorktugal.trim()) return 'Please tell us why you want to join';
-    if (formData.whyWorktugal.length < 200) return 'Please provide more detail in "Why Worktugal?" (minimum 200 characters)';
+    if (formData.whyWorktugal.length < 100) return 'Please provide more detail in "Why Worktugal?" (minimum 100 characters)';
     if (!formData.agreeToTerms) return 'You must agree to the terms';
     return null;
   };
@@ -138,10 +136,7 @@ export const AccountantApplicationForm: React.FC = () => {
         preferred_communication: formData.preferredCommunication,
         accepts_triage_role: formData.acceptsTriageRole,
         vat_scenario_answer: formData.vatScenarioAnswer,
-        open_to_revenue_share: formData.openToRevenueShare,
-        can_commit_cases_weekly: formData.canCommitCasesWeekly,
-        comfortable_english_clients: formData.comfortableEnglishClients,
-        understands_relationship_model: formData.understandsRelationshipModel,
+        partnership_interest_level: formData.partnershipInterestLevel,
       });
 
       if (result.error) {
@@ -200,6 +195,38 @@ export const AccountantApplicationForm: React.FC = () => {
               <Globe className="w-8 h-8 text-purple-400 mx-auto mb-3" />
               <h3 className="font-semibold text-white mb-2">Grow Your Practice</h3>
               <p className="text-sm text-gray-400">Focus on clients, we handle the rest</p>
+            </div>
+          </div>
+
+          {/* Visual Progress Indicator */}
+          <div className="mt-10 max-w-2xl mx-auto">
+            <div className="bg-white/[0.02] border border-white/[0.08] rounded-xl p-5">
+              <div className="flex items-center justify-between text-xs text-gray-400 mb-3">
+                <span>Application Progress</span>
+                <span>5 Sections</span>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xs font-bold">1</div>
+                  <div className="flex-1 text-sm text-gray-300">Basic Information</div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center text-green-400 text-xs font-bold">2</div>
+                  <div className="flex-1 text-sm text-gray-300">Professional Credentials</div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xs font-bold">3</div>
+                  <div className="flex-1 text-sm text-gray-300">Expertise & Services</div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-500/20 border border-orange-500/30 flex items-center justify-center text-orange-400 text-xs font-bold">4</div>
+                  <div className="flex-1 text-sm text-gray-300">Partnership Fit</div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-pink-500/20 border border-pink-500/30 flex items-center justify-center text-pink-400 text-xs font-bold">5</div>
+                  <div className="flex-1 text-sm text-gray-300">Why Worktugal & Submit</div>
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -549,16 +576,19 @@ export const AccountantApplicationForm: React.FC = () => {
 
               <div>
                 <label className="block text-sm font-semibold text-gray-300 mb-2">
-                  Technical Scenario <span className="text-red-400">*</span>
+                  Quick Scenario (Communication Style) <span className="text-red-400">*</span>
                 </label>
                 <p className="text-sm text-gray-400 mb-3">
-                  A freelancer client earns €16,000 in their first 6 months of 2025. What happens to their VAT status?
+                  A freelancer client asks: <span className="italic">"I just hit €16,000 revenue in 6 months. Do I need to do anything about VAT?"</span>
+                </p>
+                <p className="text-xs text-blue-300 mb-3">
+                  How would you respond to them? (Write as if replying to the client directly)
                 </p>
                 <textarea
                   value={formData.vatScenarioAnswer}
                   onChange={(e) => handleInputChange('vatScenarioAnswer', e.target.value)}
                   rows={3}
-                  placeholder="Briefly explain what actions the freelancer must take..."
+                  placeholder="Example: 'Yes, you've crossed the VAT threshold. Here's what you need to do...'"
                   className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150 resize-none border border-white/[0.08]"
                   required
                 />
@@ -599,12 +629,12 @@ export const AccountantApplicationForm: React.FC = () => {
               <textarea
                 value={formData.whyWorktugal}
                 onChange={(e) => handleInputChange('whyWorktugal', e.target.value)}
-                rows={5}
-                placeholder="Share your motivation for joining, what you hope to achieve, and what makes you a great fit for our community of professionals..."
+                rows={4}
+                placeholder="Example: 'I serve 30 freelancers but struggle with English-speaking clients. I'd value structured intake support...'"
                 className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150 resize-none border border-white/[0.08]"
                 required
               />
-              <p className="text-xs text-gray-500 mt-2">Minimum 200 characters • {formData.whyWorktugal.length} characters</p>
+              <p className="text-xs text-gray-500 mt-2">Minimum 100 characters (1-2 sentences) • {formData.whyWorktugal.length} characters</p>
             </div>
           </div>
 
@@ -612,73 +642,48 @@ export const AccountantApplicationForm: React.FC = () => {
             <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-6 mb-6">
               <h3 className="font-bold text-white mb-4 flex items-center gap-2">
                 <CheckCircle className="w-5 h-5 text-blue-400" />
-                Partnership Terms
+                Partnership Model Preview
               </h3>
-              <div className="space-y-3 mb-6">
-                <label className="flex items-start gap-3 text-gray-300 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={formData.openToRevenueShare}
-                    onChange={(e) => handleInputChange('openToRevenueShare', e.target.checked)}
-                    className="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800/50 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
-                  />
-                  <span className="text-sm">
-                    I'm interested in discussing a revenue-share partnership model where Worktugal handles client intake and I focus on filings
-                  </span>
-                </label>
+              <p className="text-sm text-gray-300 mb-4">
+                Before our intro call, here's how the partnership works:
+              </p>
+              <ul className="space-y-2 mb-6">
+                <li className="flex items-start gap-3 text-sm text-gray-300">
+                  <span className="text-blue-400 mt-1">•</span>
+                  <span>Revenue-share on filings (details discussed during call)</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm text-gray-300">
+                  <span className="text-blue-400 mt-1">•</span>
+                  <span>3-5 client cases per week commitment</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm text-gray-300">
+                  <span className="text-blue-400 mt-1">•</span>
+                  <span>Worktugal handles intake/triage, you focus on filings</span>
+                </li>
+                <li className="flex items-start gap-3 text-sm text-gray-300">
+                  <span className="text-blue-400 mt-1">•</span>
+                  <span>English-speaking freelancer clients who are pre-qualified</span>
+                </li>
+              </ul>
 
-                <label className="flex items-start gap-3 text-gray-300 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={formData.canCommitCasesWeekly}
-                    onChange={(e) => handleInputChange('canCommitCasesWeekly', e.target.checked)}
-                    className="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800/50 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
-                  />
-                  <span className="text-sm">
-                    I can commit to handling 3-5 client cases per week if matched with Worktugal
-                  </span>
+              <div className="bg-white/[0.03] border border-white/[0.08] rounded-lg p-4 mb-6">
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  How does this partnership model sound to you? <span className="text-red-400">*</span>
                 </label>
-
-                <label className="flex items-start gap-3 text-gray-300 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={formData.comfortableEnglishClients}
-                    onChange={(e) => handleInputChange('comfortableEnglishClients', e.target.checked)}
-                    className="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800/50 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
-                  />
-                  <span className="text-sm">
-                    I am comfortable working with English-speaking clients
-                  </span>
-                </label>
-
-                <label className="flex items-start gap-3 text-gray-300 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={formData.understandsRelationshipModel}
-                    onChange={(e) => handleInputChange('understandsRelationshipModel', e.target.checked)}
-                    className="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800/50 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
-                  />
-                  <span className="text-sm">
-                    I acknowledge Worktugal owns intake and client triage and I will focus on filings and regulated tasks
-                  </span>
-                </label>
-              </div>
-
-              <div className="border-t border-white/[0.08] pt-4">
-                <h4 className="font-semibold text-white mb-3">Professional Standards</h4>
-                <div className="text-sm text-gray-300 space-y-2">
-                  <p>By submitting this application, you confirm:</p>
-                  <ul className="list-disc list-inside space-y-1 ml-4 text-gray-400">
-                    <li>You hold necessary certifications and licenses to practice accounting in Portugal (or are actively pursuing them)</li>
-                    <li>You carry professional liability insurance covering your services</li>
-                    <li>You will comply with Portuguese tax law, GDPR, and professional standards</li>
-                    <li>You understand Worktugal facilitates client connections but does not employ accountants - you operate as an independent professional</li>
-                    <li>The information provided in this application is accurate and complete</li>
-                  </ul>
-                  <p className="text-xs text-gray-500 mt-4">
-                    Note: False information may result in application rejection or termination of partnership.
-                  </p>
-                </div>
+                <select
+                  value={formData.partnershipInterestLevel}
+                  onChange={(e) => handleInputChange('partnershipInterestLevel', e.target.value)}
+                  className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white border border-white/[0.08] focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors"
+                  required
+                >
+                  <option value="">Please select</option>
+                  <option value="very_interested">Very interested, let's discuss details</option>
+                  <option value="interested_with_questions">Interested but have questions</option>
+                  <option value="uncertain">Uncertain, would need more information</option>
+                </select>
+                <p className="text-xs text-gray-400 mt-2">
+                  By applying, you indicate interest in exploring this model
+                </p>
               </div>
             </div>
 
@@ -691,7 +696,7 @@ export const AccountantApplicationForm: React.FC = () => {
                 required
               />
               <span className="text-sm">
-                I have read and agree to the above professional standards and confirm that all information provided is accurate. <span className="text-red-400">*</span>
+                I confirm that all information provided is accurate and I'm interested in exploring this partnership opportunity. <span className="text-red-400">*</span>
               </span>
             </label>
 
@@ -716,6 +721,25 @@ export const AccountantApplicationForm: React.FC = () => {
             <p className="text-center text-sm text-gray-500 mt-4">
               We review applications within 5 business days. Qualified candidates will be invited for a brief video interview.
             </p>
+
+            <div className="mt-8 pt-6 border-t border-white/[0.08]">
+              <details className="text-xs text-gray-500">
+                <summary className="cursor-pointer hover:text-gray-400 transition-colors mb-2">Professional standards & requirements</summary>
+                <div className="mt-4 space-y-2 text-gray-500">
+                  <p>By submitting this application, you confirm:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>You hold necessary certifications and licenses to practice accounting in Portugal (or are actively pursuing them)</li>
+                    <li>You carry professional liability insurance covering your services</li>
+                    <li>You will comply with Portuguese tax law, GDPR, and professional standards</li>
+                    <li>You understand Worktugal facilitates client connections but does not employ accountants - you operate as an independent professional</li>
+                    <li>The information provided in this application is accurate and complete</li>
+                  </ul>
+                  <p className="mt-3 italic">
+                    Note: False information may result in application rejection or termination of partnership.
+                  </p>
+                </div>
+              </details>
+            </div>
           </div>
         </motion.form>
       </div>
