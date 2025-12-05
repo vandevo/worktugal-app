@@ -477,8 +477,7 @@ export const AccountantApplicationForm: React.FC = () => {
               className="mb-6"
             >
               <Alert className="bg-gradient-to-r from-orange-500/10 to-yellow-500/10 border-orange-500/30">
-                <Sparkles className="w-5 h-5 text-orange-400" />
-                <div className="flex-1">
+                <div>
                   <p className="font-semibold text-white">Demo Mode Active</p>
                   <p className="text-sm text-gray-300">
                     All fields are pre-filled so you can quickly test the form flow. Feel free to edit any field.
