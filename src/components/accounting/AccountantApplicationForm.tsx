@@ -799,7 +799,6 @@ export const AccountantApplicationForm: React.FC = () => {
                           className="mt-4"
                         >
                           <Alert variant="warning">
-                            <AlertCircle className="w-5 h-5" />
                             <div>
                               <p className="font-semibold">OCC certification is strongly preferred</p>
                               <p className="text-sm mt-1">
