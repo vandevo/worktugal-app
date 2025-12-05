@@ -8,6 +8,7 @@ import {
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Alert } from '../ui/Alert';
+import { Seo } from '../Seo';
 import { submitAccountantApplication } from '../../lib/accountantApplications';
 
 const SPECIALIZATIONS_GROUPED = {
@@ -448,7 +449,48 @@ export const AccountantApplicationForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-8 md:py-12">
+    <>
+      <Seo
+        title="Join Our Accountant Partner Network | Worktugal"
+        description="Partner with Worktugal to serve English-speaking freelancers and remote workers in Portugal. OCC-certified accountants wanted. Flexible hours, revenue share model, pre-qualified clients."
+        ogType="website"
+        canonicalUrl="https://app.worktugal.com/join-accountants"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "JobPosting",
+          "title": "Accountant Partner - Freelancer Tax Specialist",
+          "description": "Join Worktugal's partner network to serve English-speaking freelancers and digital nomads in Portugal. OCC certification required. Flexible hours with revenue share model.",
+          "datePosted": "2024-10-01",
+          "hiringOrganization": {
+            "@type": "Organization",
+            "name": "Worktugal",
+            "sameAs": "https://worktugal.com"
+          },
+          "jobLocation": {
+            "@type": "Place",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "PT",
+              "addressRegion": "Lisbon"
+            }
+          },
+          "employmentType": "CONTRACTOR",
+          "workHours": "Flexible",
+          "baseSalary": {
+            "@type": "MonetaryAmount",
+            "currency": "EUR",
+            "value": {
+              "@type": "QuantitativeValue",
+              "value": "Revenue Share",
+              "unitText": "PER_HOUR"
+            }
+          },
+          "qualifications": "OCC (Ordem dos Contabilistas Certificados) certification required. English fluency (C1-C2). Experience with Portuguese freelancer taxation.",
+          "responsibilities": "Provide tax advisory services to English-speaking freelancers in Portugal. Handle IRS filings, VAT registrations, and compliance matters. Communicate in plain English.",
+          "skills": "Portuguese taxation, freelancer compliance, cross-border tax planning, client communication"
+        }}
+      />
+      <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-8 md:py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -1378,5 +1420,6 @@ export const AccountantApplicationForm: React.FC = () => {
         </AnimatePresence>
       </div>
     </div>
+    </>
   );
 };
