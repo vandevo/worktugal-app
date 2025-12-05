@@ -5,8 +5,8 @@
  * to improve the Tax Compliance Checkup experience.
  *
  * SAFE TO UPDATE: This file only adds intelligence, doesn't break existing functionality
- * Last Updated: 2025-11-24
- * Data Source: tax_checkup_leads table (27 real user submissions analyzed)
+ * Last Updated: 2025-12-05
+ * Data Source: tax_checkup_leads table (52 real user submissions analyzed)
  * Parallel Rules: Integrated from Portugal Freelancer Tax Survival Map 2020-2025
  */
 
@@ -17,38 +17,38 @@ import { TaxCheckupFormData } from '../lib/taxCheckup';
 // ============================================================================
 
 export const USER_INSIGHTS = {
-  lastAnalyzed: '2025-11-24',
-  totalSubmissions: 27,
+  lastAnalyzed: '2025-12-05',
+  totalSubmissions: 52,
   dataSource: 'tax_checkup_leads',
 
   // Real patterns from users
   patterns: {
-    avgMonthsInPortugal: 9.0, // Most users are long-term (tax residents)
-    avgRedFlags: 0.93, // Lower than expected - users are MORE compliant
-    avgYellowWarnings: 0.44, // Very low warning rate
-    avgGreenItems: 3.70, // High green confirmation rate
+    avgMonthsInPortugal: 9.1, // Most users are long-term (tax residents)
+    avgRedFlags: 0.75, // Improved compliance (down from 0.93)
+    avgYellowWarnings: 0.60, // Warning rate stable
+    avgGreenItems: 3.71, // High green confirmation rate
 
     // Critical gaps identified
-    missingNIF: 3.7, // % without NIF (Excellent!)
-    missingNISS: 22.2, // % without NISS
-    noActivityOpened: 48.1, // % haven't opened activity (PRIMARY OPPORTUNITY!)
-    noVATRegistration: 37.0, // % without VAT when needed
+    missingNIF: 9.6, // % without NIF (increased from 3.7%)
+    missingNISS: 21.2, // % without NISS (stable)
+    noActivityOpened: 51.9, // % haven't opened activity (PRIMARY OPPORTUNITY!)
+    noVATRegistration: 46.2, // % without VAT when needed (increased)
   },
 
   // Work type distribution
   workTypes: {
-    developer: 11.1,
-    consultant: 11.1,
-    marketing: 18.5,
-    other: 51.9, // Most common
+    developer: 5.8,
+    consultant: 11.5,
+    marketing: 11.5,
+    other: 61.5, // Most common - diverse freelancer base
   },
 
-  // Income patterns (most users are low-income)
+  // Income patterns (more high earners entering)
   income: {
-    under_10k: 51.9, // Majority are low earners
-    '10k_25k': 29.6,
-    '25k_50k': 11.1,
-    over_50k: 3.7, // Too few for advanced rules
+    under_10k: 50.0, // Half are low earners
+    '10k_25k': 32.7,
+    '25k_50k': 7.7,
+    over_50k: 9.6, // Growing segment (up from 3.7%)
   }
 };
 
@@ -426,14 +426,14 @@ export const FEATURE_FLAGS = {
 
 export const ENHANCEMENT_VERSION = {
   core: '1.0.0',                    // Original Tax Checkup
-  enhancements: '1.2.1',            // This enhancement layer (Phase 1 + 1.5) - Data update
-  dataSourceDate: '2025-11-24',
-  nextUpdateScheduled: '2025-12-24', // Re-analyze when at 50+ submissions
+  enhancements: '1.2.2',            // This enhancement layer (Phase 1 + 1.5) - Data update Dec 5
+  dataSourceDate: '2025-12-05',
+  nextUpdateScheduled: '2026-01-15', // Re-analyze when at 100+ submissions
   changesFromCore: [
     'Enhanced red flag detection with severity levels',
     'Conditional helper text based on user context',
     'Data-driven option ordering',
-    'Real user pattern insights (27 submissions - updated Nov 24)',
+    'Real user pattern insights (52 submissions - updated Dec 5)',
     'Actionable guidance with penalties and deadlines',
     'VAT 125% immediate loss rule',
     '15% expense justification warning (Feb 25 deadline)',
