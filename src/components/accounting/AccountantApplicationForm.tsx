@@ -97,6 +97,7 @@ export const AccountantApplicationForm: React.FC = () => {
   const [showRestoreBanner, setShowRestoreBanner] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
+  const [isDragging, setIsDragging] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -363,8 +364,6 @@ export const AccountantApplicationForm: React.FC = () => {
   };
 
   const renderFileUpload = () => {
-    const [isDragging, setIsDragging] = useState(false);
-
     const handleDrop = (e: React.DragEvent) => {
       e.preventDefault();
       setIsDragging(false);
