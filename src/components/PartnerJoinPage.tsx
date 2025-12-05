@@ -12,9 +12,9 @@ export const PartnerJoinPage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Become a Partner - List Your Business in Lisbon"
+        title="Become a partner - List your business in Lisbon"
         description="Join Worktugal's trusted partner network. Get lifetime visibility to remote professionals in Lisbon. One-time €49 fee, no renewal costs. Connect with qualified leads."
-        ogTitle="List Your Business on Worktugal - Connect with Remote Professionals"
+        ogTitle="List your business on Worktugal - Connect with remote professionals"
         ogDescription="Join our partner ecosystem and reach 1,000+ remote professionals in Lisbon. Lifetime listing for €49. Featured placement, direct leads, verified badge."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
@@ -86,7 +86,7 @@ export const PartnerJoinPage: React.FC = () => {
               <span className="text-blue-300 text-sm font-semibold uppercase tracking-wider">Partner Application</span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
-              Join Our Partner Hub
+              Join our partner hub
             </h1>
             <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto leading-relaxed">
               Connect with remote professionals seeking trusted services in Lisbon. Get lifetime visibility for just €49.
@@ -96,19 +96,19 @@ export const PartnerJoinPage: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
               <div className="bg-white/5 backdrop-blur-md rounded-xl p-4 border border-white/10">
                 <Shield className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                <h3 className="text-white font-semibold text-sm mb-1">Verified Listing</h3>
+                <h3 className="text-white font-semibold text-sm mb-1">Verified listing</h3>
                 <p className="text-gray-400 text-xs">Featured as trusted partner</p>
               </div>
 
               <div className="bg-white/5 backdrop-blur-md rounded-xl p-4 border border-white/10">
                 <TrendingUp className="w-8 h-8 text-green-400 mx-auto mb-2" />
-                <h3 className="text-white font-semibold text-sm mb-1">Direct Leads</h3>
+                <h3 className="text-white font-semibold text-sm mb-1">Direct leads</h3>
                 <p className="text-gray-400 text-xs">Connect with qualified clients</p>
               </div>
 
               <div className="bg-white/5 backdrop-blur-md rounded-xl p-4 border border-white/10">
                 <Sparkles className="w-8 h-8 text-purple-400 mx-auto mb-2" />
-                <h3 className="text-white font-semibold text-sm mb-1">Lifetime Access</h3>
+                <h3 className="text-white font-semibold text-sm mb-1">Lifetime access</h3>
                 <p className="text-gray-400 text-xs">One-time €49 payment</p>
               </div>
             </div>
@@ -133,7 +133,7 @@ export const PartnerJoinPage: React.FC = () => {
               onClick={() => navigate('/partners')}
               className="group"
             >
-              View Partner Directory
+              View partner directory
               <ArrowLeft className="w-4 h-4 ml-2 rotate-180 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>

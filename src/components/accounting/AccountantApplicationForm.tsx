@@ -451,7 +451,7 @@ export const AccountantApplicationForm: React.FC = () => {
   return (
     <>
       <Seo
-        title="Join Our Accountant Partner Network | Worktugal"
+        title="Join our accountant partner network | Worktugal"
         description="Partner with Worktugal to serve English-speaking freelancers and remote workers in Portugal. OCC-certified accountants wanted. Flexible hours, revenue share model, pre-qualified clients."
         ogType="website"
         canonicalUrl="https://app.worktugal.com/join-accountants"
@@ -500,11 +500,11 @@ export const AccountantApplicationForm: React.FC = () => {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 md:px-6 py-2 mb-4 md:mb-6">
               <Award className="w-4 h-4 md:w-5 md:h-5 text-blue-400" />
-              <span className="text-sm md:text-base text-blue-400 font-semibold">Founding Partner Opportunity</span>
+              <span className="text-sm md:text-base text-blue-400 font-semibold">Founding partner opportunity</span>
             </div>
 
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6 px-4">
-              Join Worktugal's Partner Network
+              Join Worktugal's partner network
             </h1>
 
             <p className="text-lg md:text-xl text-gray-300 mb-4 max-w-3xl mx-auto px-4">
