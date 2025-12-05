@@ -258,7 +258,78 @@ export const AccountantApplicationReview: React.FC = () => {
 
                     <div>
                       <h4 className="text-sm font-semibold text-gray-300 mb-2">About</h4>
-                      <p className="text-sm text-gray-400">{application.bio}</p>
+                      <p className="text-sm text-gray-400 whitespace-pre-wrap">{application.bio}</p>
+                    </div>
+
+                    {/* Partnership Fit Section */}
+                    <div className="border-t border-white/[0.08] pt-4">
+                      <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                        <Briefcase className="w-4 h-4 text-blue-400" />
+                        Partnership Fit
+                      </h4>
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        {(application as any).current_freelancer_clients && (
+                          <div>
+                            <span className="text-gray-500">Current Freelancer Clients:</span>
+                            <p className="text-white font-medium">{(application as any).current_freelancer_clients}</p>
+                          </div>
+                        )}
+                        {(application as any).foreign_client_percentage && (
+                          <div>
+                            <span className="text-gray-500">Foreign Client %:</span>
+                            <p className="text-white font-medium">{(application as any).foreign_client_percentage}</p>
+                          </div>
+                        )}
+                        {(application as any).preferred_communication && (
+                          <div>
+                            <span className="text-gray-500">Preferred Communication:</span>
+                            <p className="text-white font-medium capitalize">{(application as any).preferred_communication}</p>
+                          </div>
+                        )}
+                        {(application as any).accepts_triage_role && (
+                          <div>
+                            <span className="text-gray-500">Accepts Triage Role:</span>
+                            <p className={`font-medium ${(application as any).accepts_triage_role === 'yes' ? 'text-green-400' : (application as any).accepts_triage_role === 'no' ? 'text-red-400' : 'text-yellow-400'}`}>
+                              {(application as any).accepts_triage_role === 'yes' ? '✓ Yes' : (application as any).accepts_triage_role === 'no' ? '✗ No' : '? Discuss'}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+
+                      {(application as any).vat_scenario_answer && (
+                        <div className="mt-4">
+                          <details className="bg-white/[0.02] border border-white/[0.08] rounded-lg p-3">
+                            <summary className="cursor-pointer text-sm font-semibold text-gray-300 hover:text-white transition-colors">
+                              VAT Scenario Answer (Click to view)
+                            </summary>
+                            <div className="mt-3 pt-3 border-t border-white/[0.08]">
+                              <p className="text-xs text-gray-500 mb-2">Question: A freelancer earns €16,000 in their first 6 months of 2025. What happens to their VAT status?</p>
+                              <p className="text-sm text-gray-300">{(application as any).vat_scenario_answer}</p>
+                              <div className="mt-3 p-2 bg-blue-500/10 border border-blue-500/30 rounded">
+                                <p className="text-xs text-blue-300">
+                                  <strong>Correct answer:</strong> They must register for VAT by the end of the month in which they cross €15,000 and begin charging VAT on invoices from that point forward.
+                                </p>
+                              </div>
+                            </div>
+                          </details>
+                        </div>
+                      )}
+
+                      {/* Partnership Terms Checkboxes */}
+                      <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
+                        <div className={`flex items-center gap-2 ${(application as any).open_to_revenue_share ? 'text-green-400' : 'text-gray-500'}`}>
+                          {(application as any).open_to_revenue_share ? '✓' : '○'} Revenue Share
+                        </div>
+                        <div className={`flex items-center gap-2 ${(application as any).can_commit_cases_weekly ? 'text-green-400' : 'text-gray-500'}`}>
+                          {(application as any).can_commit_cases_weekly ? '✓' : '○'} 3-5 Cases/Week
+                        </div>
+                        <div className={`flex items-center gap-2 ${(application as any).comfortable_english_clients ? 'text-green-400' : 'text-gray-500'}`}>
+                          {(application as any).comfortable_english_clients ? '✓' : '○'} English Clients
+                        </div>
+                        <div className={`flex items-center gap-2 ${(application as any).understands_relationship_model ? 'text-green-400' : 'text-gray-500'}`}>
+                          {(application as any).understands_relationship_model ? '✓' : '○'} Worktugal Triage Model
+                        </div>
+                      </div>
                     </div>
 
                     {(application.resume_url || application.linkedin_url) && (

@@ -14,10 +14,19 @@ interface AccountantApplicationData {
   portuguese_fluency: string;
   specializations: string[];
   bio: string;
-  typical_hourly_rate: string | null;
   availability: string;
   why_worktugal: string;
   resume_file: File | null;
+  // Partnership fit fields
+  current_freelancer_clients: string;
+  foreign_client_percentage: string;
+  preferred_communication: string;
+  accepts_triage_role: string;
+  vat_scenario_answer: string;
+  open_to_revenue_share: boolean;
+  can_commit_cases_weekly: boolean;
+  comfortable_english_clients: boolean;
+  understands_relationship_model: boolean;
 }
 
 export const submitAccountantApplication = async (data: AccountantApplicationData) => {
@@ -54,13 +63,23 @@ export const submitAccountantApplication = async (data: AccountantApplicationDat
       phone: data.phone,
       linkedin_url: data.linkedin_url,
       website_url: data.website_url,
-      bio: `${data.bio}\n\n---\nLanguages: English (${data.english_fluency}), Portuguese (${data.portuguese_fluency})\nAvailability: ${data.availability}\nTypical Rate: ${data.typical_hourly_rate ? `€${data.typical_hourly_rate}/hour` : 'Not specified'}\n\n---\nWhy Worktugal:\n${data.why_worktugal}`,
+      bio: `${data.bio}\n\n---\nLanguages: English (${data.english_fluency}), Portuguese (${data.portuguese_fluency})\nAvailability: ${data.availability}\n\n---\nWhy Worktugal:\n${data.why_worktugal}`,
       experience_years: parseInt(data.experience_years.replace('+', '')) || 0,
       specializations: data.specializations,
       certifications: certifications,
       resume_url: resumeUrl,
       resume_path: resumePath,
       status: 'pending',
+      // Partnership fit fields
+      current_freelancer_clients: data.current_freelancer_clients,
+      foreign_client_percentage: data.foreign_client_percentage,
+      preferred_communication: data.preferred_communication,
+      accepts_triage_role: data.accepts_triage_role,
+      vat_scenario_answer: data.vat_scenario_answer,
+      open_to_revenue_share: data.open_to_revenue_share,
+      can_commit_cases_weekly: data.can_commit_cases_weekly,
+      comfortable_english_clients: data.comfortable_english_clients,
+      understands_relationship_model: data.understands_relationship_model,
     };
 
     const { data: application, error } = await supabase

@@ -9,16 +9,16 @@ import { FileUpload } from '../ui/FileUpload';
 import { submitAccountantApplication } from '../../lib/accountantApplications';
 
 const SPECIALIZATIONS = [
-  'Freelancer/Self-employed taxation (Categoria B)',
-  'NHR (Non-Habitual Resident) applications',
-  'Corporate tax & company formation',
-  'VAT compliance & registration',
-  'Social Security (NISS) matters',
-  'Annual tax returns (IRS)',
-  'Cross-border taxation',
-  'Crypto & investment income',
-  'Rental property income',
-  'Tax optimization strategies',
+  'Activity opening (Início de atividade) for freelancers',
+  'Simplified regime (Regime Simplificado) management',
+  'VAT exemption and threshold monitoring (€15,000 rule)',
+  'Quarterly VAT filings',
+  'Annual IRS Modelo 3 for freelancers (Categoria B)',
+  'Social Security (NISS) first-year handling',
+  'Cross-border income classification',
+  'NHR/IFICI regime applications',
+  'Cryptocurrency income reporting',
+  'Residency determination (183-day rule)',
 ];
 
 const EXPERIENCE_OPTIONS = [
@@ -54,10 +54,19 @@ export const AccountantApplicationForm: React.FC = () => {
     portugueseFluency: 'native',
     specializations: [] as string[],
     bio: '',
-    typicalHourlyRate: '',
     availability: '',
     whyWorktugal: '',
     resumeFile: null as File | null,
+    // Partnership fit fields
+    currentFreelancerClients: '',
+    foreignClientPercentage: '',
+    preferredCommunication: '',
+    acceptsTriageRole: '',
+    vatScenarioAnswer: '',
+    openToRevenueShare: false,
+    canCommitCasesWeekly: false,
+    comfortableEnglishClients: false,
+    understandsRelationshipModel: false,
     agreeToTerms: false,
   });
 
@@ -81,8 +90,14 @@ export const AccountantApplicationForm: React.FC = () => {
     if (!formData.experienceYears) return 'Experience level is required';
     if (!formData.availability) return 'Availability is required';
     if (formData.specializations.length === 0) return 'Please select at least one specialization';
+    if (!formData.currentFreelancerClients) return 'Please select your current client volume';
+    if (!formData.foreignClientPercentage) return 'Please select your foreign client percentage';
+    if (!formData.preferredCommunication) return 'Please select your preferred communication method';
+    if (!formData.acceptsTriageRole) return 'Please indicate your comfort with the partnership model';
+    if (!formData.vatScenarioAnswer.trim()) return 'Please answer the VAT scenario question';
+    if (formData.vatScenarioAnswer.length < 20) return 'Please provide a more detailed answer to the VAT scenario (minimum 20 characters)';
     if (!formData.whyWorktugal.trim()) return 'Please tell us why you want to join';
-    if (formData.whyWorktugal.length < 50) return 'Please provide more detail (minimum 50 characters)';
+    if (formData.whyWorktugal.length < 200) return 'Please provide more detail in "Why Worktugal?" (minimum 200 characters)';
     if (!formData.agreeToTerms) return 'You must agree to the terms';
     return null;
   };
@@ -114,10 +129,19 @@ export const AccountantApplicationForm: React.FC = () => {
         portuguese_fluency: formData.portugueseFluency,
         specializations: formData.specializations,
         bio: formData.bio,
-        typical_hourly_rate: formData.typicalHourlyRate || null,
         availability: formData.availability,
         why_worktugal: formData.whyWorktugal,
         resume_file: formData.resumeFile,
+        // Partnership fit fields
+        current_freelancer_clients: formData.currentFreelancerClients,
+        foreign_client_percentage: formData.foreignClientPercentage,
+        preferred_communication: formData.preferredCommunication,
+        accepts_triage_role: formData.acceptsTriageRole,
+        vat_scenario_answer: formData.vatScenarioAnswer,
+        open_to_revenue_share: formData.openToRevenueShare,
+        can_commit_cases_weekly: formData.canCommitCasesWeekly,
+        comfortable_english_clients: formData.comfortableEnglishClients,
+        understands_relationship_model: formData.understandsRelationshipModel,
       });
 
       if (result.error) {
@@ -155,9 +179,11 @@ export const AccountantApplicationForm: React.FC = () => {
             Help freelancers and independent professionals navigate Portuguese taxation while growing your practice.
           </p>
 
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            We're building a curated network of Portugal's best bilingual tax professionals. As a founding partner, you'll receive pre-qualified clients, set your own schedule, and earn competitive fees with transparent revenue sharing.
-          </p>
+          <div className="bg-blue-500/10 border border-blue-500/30 rounded-2xl p-6 max-w-3xl mx-auto mt-8">
+            <p className="text-blue-200 font-medium leading-relaxed">
+              We're looking for one certified accountant to become our founding partner. You'll receive pre-qualified, English-speaking freelancer clients who've completed our diagnostic intake. Partnership includes revenue-share on filings and advisory services.
+            </p>
+          </div>
 
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             <div className="bg-white/[0.03] border border-white/[0.10] rounded-xl p-6">
@@ -301,6 +327,9 @@ export const AccountantApplicationForm: React.FC = () => {
                       onChange={(e) => handleInputChange('occNumber', e.target.value)}
                       placeholder="12345"
                     />
+                    <p className="text-xs text-gray-500 mt-2">
+                      We'll verify this via the OCC public registry before proceeding
+                    </p>
                   </div>
                 )}
 
@@ -440,10 +469,102 @@ export const AccountantApplicationForm: React.FC = () => {
               <div className="w-10 h-10 rounded-full bg-orange-500/20 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold">
                 4
               </div>
-              Availability & Pricing
+              Partnership Fit
             </h2>
 
-            <div className="space-y-4">
+            <p className="text-gray-400 mb-6">Help us understand your practice and how we can work together effectively.</p>
+
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  How many freelancer/independent professional clients do you currently serve? <span className="text-red-400">*</span>
+                </label>
+                <select
+                  value={formData.currentFreelancerClients}
+                  onChange={(e) => handleInputChange('currentFreelancerClients', e.target.value)}
+                  className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white border border-white/[0.08] focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors"
+                  required
+                >
+                  <option value="">Select range</option>
+                  <option value="0-10">0-10 clients</option>
+                  <option value="10-30">10-30 clients</option>
+                  <option value="30-50">30-50 clients</option>
+                  <option value="50+">50+ clients</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  What percentage of your current clients are foreign residents or digital nomads? <span className="text-red-400">*</span>
+                </label>
+                <select
+                  value={formData.foreignClientPercentage}
+                  onChange={(e) => handleInputChange('foreignClientPercentage', e.target.value)}
+                  className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white border border-white/[0.08] focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors"
+                  required
+                >
+                  <option value="">Select range</option>
+                  <option value="0-10%">0-10%</option>
+                  <option value="10-30%">10-30%</option>
+                  <option value="30-50%">30-50%</option>
+                  <option value="50%+">50%+</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  How do you prefer to communicate with clients during working hours? <span className="text-red-400">*</span>
+                </label>
+                <select
+                  value={formData.preferredCommunication}
+                  onChange={(e) => handleInputChange('preferredCommunication', e.target.value)}
+                  className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white border border-white/[0.08] focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors"
+                  required
+                >
+                  <option value="">Select preferred method</option>
+                  <option value="email">Email only</option>
+                  <option value="phone">Phone calls</option>
+                  <option value="whatsapp">WhatsApp/messaging apps</option>
+                  <option value="portal">Client portal</option>
+                  <option value="mixed">Mix of all methods</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  Are you comfortable with Worktugal handling client intake, diagnostics, and triage, with you focusing on filings and regulated compliance tasks? <span className="text-red-400">*</span>
+                </label>
+                <select
+                  value={formData.acceptsTriageRole}
+                  onChange={(e) => handleInputChange('acceptsTriageRole', e.target.value)}
+                  className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white border border-white/[0.08] focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors"
+                  required
+                >
+                  <option value="">Please select</option>
+                  <option value="yes">Yes, this model works for me</option>
+                  <option value="no">No, I prefer full client control</option>
+                  <option value="discuss">I'd like to discuss this further</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  Technical Scenario <span className="text-red-400">*</span>
+                </label>
+                <p className="text-sm text-gray-400 mb-3">
+                  A freelancer client earns €16,000 in their first 6 months of 2025. What happens to their VAT status?
+                </p>
+                <textarea
+                  value={formData.vatScenarioAnswer}
+                  onChange={(e) => handleInputChange('vatScenarioAnswer', e.target.value)}
+                  rows={3}
+                  placeholder="Briefly explain what actions the freelancer must take..."
+                  className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150 resize-none border border-white/[0.08]"
+                  required
+                />
+                <p className="text-xs text-gray-500 mt-2">Minimum 20 characters • {formData.vatScenarioAnswer.length} characters</p>
+              </div>
+
               <div>
                 <label className="block text-sm font-semibold text-gray-300 mb-2">
                   Weekly Availability <span className="text-red-400">*</span>
@@ -459,23 +580,6 @@ export const AccountantApplicationForm: React.FC = () => {
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
                   ))}
                 </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-2">
-                  What do you typically charge for a 60-minute consultation?
-                </label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">€</span>
-                  <Input
-                    type="number"
-                    value={formData.typicalHourlyRate}
-                    onChange={(e) => handleInputChange('typicalHourlyRate', e.target.value)}
-                    placeholder="150"
-                    className="pl-8"
-                  />
-                </div>
-                <p className="text-xs text-gray-500 mt-1">This helps us understand market rates and structure services appropriately</p>
               </div>
             </div>
           </div>
@@ -500,28 +604,81 @@ export const AccountantApplicationForm: React.FC = () => {
                 className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150 resize-none border border-white/[0.08]"
                 required
               />
-              <p className="text-xs text-gray-500 mt-2">Minimum 50 characters • {formData.whyWorktugal.length} characters</p>
+              <p className="text-xs text-gray-500 mt-2">Minimum 200 characters • {formData.whyWorktugal.length} characters</p>
             </div>
           </div>
 
           <div className="border-t border-white/[0.10] pt-10">
             <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-6 mb-6">
-              <h3 className="font-bold text-white mb-3 flex items-center gap-2">
+              <h3 className="font-bold text-white mb-4 flex items-center gap-2">
                 <CheckCircle className="w-5 h-5 text-blue-400" />
-                Professional Standards & Expectations
+                Partnership Terms
               </h3>
-              <div className="text-sm text-gray-300 space-y-2">
-                <p>By submitting this application, you confirm:</p>
-                <ul className="list-disc list-inside space-y-1 ml-4 text-gray-400">
-                  <li>You hold necessary certifications and licenses to practice accounting in Portugal (or are actively pursuing them)</li>
-                  <li>You carry professional liability insurance covering your services</li>
-                  <li>You will comply with Portuguese tax law, GDPR, and professional standards</li>
-                  <li>You understand Worktugal facilitates client connections but does not employ accountants - you operate as an independent professional</li>
-                  <li>The information provided in this application is accurate and complete</li>
-                </ul>
-                <p className="text-xs text-gray-500 mt-4">
-                  Note: False information may result in application rejection or termination of partnership.
-                </p>
+              <div className="space-y-3 mb-6">
+                <label className="flex items-start gap-3 text-gray-300 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.openToRevenueShare}
+                    onChange={(e) => handleInputChange('openToRevenueShare', e.target.checked)}
+                    className="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800/50 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                  />
+                  <span className="text-sm">
+                    I'm interested in discussing a revenue-share partnership model where Worktugal handles client intake and I focus on filings
+                  </span>
+                </label>
+
+                <label className="flex items-start gap-3 text-gray-300 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.canCommitCasesWeekly}
+                    onChange={(e) => handleInputChange('canCommitCasesWeekly', e.target.checked)}
+                    className="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800/50 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                  />
+                  <span className="text-sm">
+                    I can commit to handling 3-5 client cases per week if matched with Worktugal
+                  </span>
+                </label>
+
+                <label className="flex items-start gap-3 text-gray-300 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.comfortableEnglishClients}
+                    onChange={(e) => handleInputChange('comfortableEnglishClients', e.target.checked)}
+                    className="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800/50 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                  />
+                  <span className="text-sm">
+                    I am comfortable working with English-speaking clients
+                  </span>
+                </label>
+
+                <label className="flex items-start gap-3 text-gray-300 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.understandsRelationshipModel}
+                    onChange={(e) => handleInputChange('understandsRelationshipModel', e.target.checked)}
+                    className="mt-1 w-5 h-5 rounded border-gray-600 bg-gray-800/50 text-blue-500 focus:ring-blue-500 focus:ring-offset-0"
+                  />
+                  <span className="text-sm">
+                    I acknowledge Worktugal owns intake and client triage and I will focus on filings and regulated tasks
+                  </span>
+                </label>
+              </div>
+
+              <div className="border-t border-white/[0.08] pt-4">
+                <h4 className="font-semibold text-white mb-3">Professional Standards</h4>
+                <div className="text-sm text-gray-300 space-y-2">
+                  <p>By submitting this application, you confirm:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-4 text-gray-400">
+                    <li>You hold necessary certifications and licenses to practice accounting in Portugal (or are actively pursuing them)</li>
+                    <li>You carry professional liability insurance covering your services</li>
+                    <li>You will comply with Portuguese tax law, GDPR, and professional standards</li>
+                    <li>You understand Worktugal facilitates client connections but does not employ accountants - you operate as an independent professional</li>
+                    <li>The information provided in this application is accurate and complete</li>
+                  </ul>
+                  <p className="text-xs text-gray-500 mt-4">
+                    Note: False information may result in application rejection or termination of partnership.
+                  </p>
+                </div>
               </div>
             </div>
 

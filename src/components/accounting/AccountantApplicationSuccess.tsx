@@ -67,9 +67,9 @@ export const AccountantApplicationSuccess: React.FC = () => {
                   <span className="text-purple-400 font-bold text-sm">2</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white mb-1">Interview Invitation</h3>
+                  <h3 className="font-semibold text-white mb-1">Brief Intro Call</h3>
                   <p className="text-sm text-gray-400">
-                    If your application meets our criteria, we'll invite you for a brief 15-minute video interview to discuss the partnership opportunity.
+                    If your application aligns with our needs, we'll invite you for a 15-minute intro call to discuss the partnership model and answer your questions.
                   </p>
                 </div>
               </div>
