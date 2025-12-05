@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-11-15
+**Last Updated:** 2025-12-05
 
 ---
 
@@ -1947,6 +1947,52 @@ https://worktugal.com?debug=true
 ---
 
 ## Recent Updates
+
+**2025-12-05: Accountant Partnership Screening Enhancement**
+- Added 9 new partnership compatibility screening fields to accountant_applications table
+- New fields: current_freelancer_clients (text), foreign_client_percentage (text), preferred_communication (text), accepts_triage_role (text), vat_scenario_answer (text)
+- New boolean flags: open_to_revenue_share, can_commit_cases_weekly, comfortable_english_clients, understands_relationship_model
+- Partnership fit screening captures client base indicators (number of freelancer clients, percentage foreign/digital nomad clients)
+- Communication and operational fit assessment (preferred communication method during working hours, acceptance of Worktugal triage model)
+- Technical competency test (VAT threshold scenario question for skill validation)
+- Partnership terms acceptance tracking (revenue-share model willingness, 3-5 cases/week commitment capacity)
+- Added partnership_interest_level field as simplified interest signal (options: very_interested, interested_with_questions, uncertain)
+- Replaces 4 boolean checkboxes with single interest level field for better UX
+- All fields nullable for backward compatibility with existing applications
+- No RLS changes needed (existing policies cover new fields)
+- Dropped unused documentation table created in September but never integrated into application
+- Database cleanup reduces technical debt and improves maintainability
+- Migration files: 20251205152805_add_partnership_fit_fields.sql, 20251205155953_add_partnership_interest_level.sql, 20251205185408_drop_unused_documentation_table.sql
+- Note: Database Schema section (accountant_applications table extended with partnership screening capabilities)
+
+**2025-11-29: Comprehensive Security and Performance Optimization**
+- Fixed all identified security and performance issues across database layer
+- Added 12 missing foreign key indexes for improved join performance
+- Indexes added on: accounting_intakes.claimed_by, appointments.accountant_id, appointments.booking_id, appointments.consult_booking_id, disputes.accountant_id, disputes.appointment_id, documentation.created_by, partner_submissions.stripe_order_id, payouts.accountant_id, payouts.appointment_id, project_changelog.created_by, tax_checkup_leads.previous_submission_id
+- Optimized 15 RLS policies by replacing auth.uid() with (select auth.uid()) for 10-100x better query performance
+- RLS optimization applied to checkup_feedback, contact_requests, project_changelog, tax_checkup_leads, accounting_intakes policies
+- Dropped 11 unused indexes consuming disk space and slowing write operations
+- Removed redundant indexes: idx_tax_checkup_leads_status, idx_accounting_intakes_came_from_checkup_id, idx_accounting_intakes_previous_submission_id, idx_accounting_intakes_user_id, idx_checkup_feedback_is_accurate, idx_checkup_feedback_feedback_type, idx_checkup_feedback_status, idx_checkup_feedback_flag_id, idx_checkup_feedback_created_at, idx_project_changelog_date, idx_project_changelog_category, idx_project_changelog_created_at
+- Fixed 3 database functions with mutable search_path security vulnerabilities
+- Added SET search_path = public to get_lead_stats, handle_new_partner_submission, send_tax_checkup_lead_to_webhook functions
+- Expected improvements: faster queries on foreign key joins, reduced RLS evaluation overhead, lower database maintenance costs, prevention of search_path injection attacks
+- Migration file: 20251129182140_fix_all_security_performance_issues.sql
+- Note: Security & Privacy section (RLS policies optimized for 10-100x performance improvement)
+- Note: Database Schema section (comprehensive index optimization and security hardening applied)
+
+**2025-11-24: Tax Checkup Lead Interest Tracking and Accountant Website Field**
+- Added interested_in_accounting_services boolean field to tax_checkup_leads table
+- Default value: false (non-breaking change for existing records)
+- Tracks which leads express interest in getting expert accounting help without committing to pricing/timeline
+- Enables targeted outreach when accounting services launch (evergreen field independent of partner availability)
+- Segment warm leads who want professional compliance assistance
+- Added website_url text field to accountant_applications table
+- Optional field allows accountants to showcase personal or business website during application
+- Provides additional context for admin review and partnership evaluation
+- Both fields nullable for graceful handling and backward compatibility
+- No RLS changes needed (existing policies cover new fields)
+- Migration files: 20251124175550_add_accounting_services_interest_field.sql, 20251124182754_add_website_url_to_accountant_applications.sql
+- Note: Database Schema section (tax_checkup_leads and accountant_applications tables extended)
 
 **2025-11-15: Tax Checkup Test Scenarios Enhanced to 11 Comprehensive Scenarios**
 - Expanded Tax Checkup test scenarios from 3 to 11 comprehensive scenarios for 100% Phase 1+1.5 rule coverage
