@@ -487,7 +487,7 @@ export const AccountantApplicationForm: React.FC = () => {
             </motion.div>
           )}
 
-          <div className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-2xl backdrop-saturate-150 border border-white/[0.08] rounded-2xl p-4 md:p-6 shadow-xl shadow-black/20">
+          <div className="bg-slate-950/95 backdrop-blur-2xl backdrop-saturate-150 border border-white/[0.08] rounded-2xl p-4 md:p-6 shadow-xl shadow-black/20 mb-6">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-medium text-gray-300">
                 Step {currentStep} of 5
