@@ -824,10 +824,11 @@ export const AccountantApplicationForm: React.FC = () => {
                         focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60
                         transition-all duration-200 cursor-pointer
                       `}
+                      style={{ colorScheme: 'dark' }}
                     >
-                      <option value="">Select your experience level</option>
+                      <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Select your experience level</option>
                       {EXPERIENCE_OPTIONS.map(opt => (
-                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        <option key={opt.value} value={opt.value} style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>{opt.label}</option>
                       ))}
                     </select>
                     {fieldErrors.experienceYears && (
@@ -853,11 +854,12 @@ export const AccountantApplicationForm: React.FC = () => {
                           value={formData.englishFluency}
                           onChange={(e) => handleInputChange('englishFluency', e.target.value)}
                           className="w-full h-12 px-4 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white border border-white/[0.08] focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer"
+                          style={{ colorScheme: 'dark' }}
                         >
-                          <option value="fluent">Fluent (C1-C2)</option>
-                          <option value="advanced">Advanced (B2)</option>
-                          <option value="intermediate">Intermediate (B1)</option>
-                          <option value="basic">Basic (A1-A2)</option>
+                          <option value="fluent" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Fluent (C1-C2)</option>
+                          <option value="advanced" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Advanced (B2)</option>
+                          <option value="intermediate" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Intermediate (B1)</option>
+                          <option value="basic" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Basic (A1-A2)</option>
                         </select>
                       </div>
 
@@ -869,11 +871,12 @@ export const AccountantApplicationForm: React.FC = () => {
                           value={formData.portugueseFluency}
                           onChange={(e) => handleInputChange('portugueseFluency', e.target.value)}
                           className="w-full h-12 px-4 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white border border-white/[0.08] focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer"
+                          style={{ colorScheme: 'dark' }}
                         >
-                          <option value="native">Native</option>
-                          <option value="fluent">Fluent (C1-C2)</option>
-                          <option value="advanced">Advanced (B2)</option>
-                          <option value="intermediate">Intermediate (B1)</option>
+                          <option value="native" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Native</option>
+                          <option value="fluent" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Fluent (C1-C2)</option>
+                          <option value="advanced" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Advanced (B2)</option>
+                          <option value="intermediate" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Intermediate (B1)</option>
                         </select>
                       </div>
                     </div>
@@ -1016,12 +1019,13 @@ export const AccountantApplicationForm: React.FC = () => {
                         border ${fieldErrors.currentFreelancerClients ? 'border-red-500/50' : 'border-white/[0.08]'}
                         focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer
                       `}
+                      style={{ colorScheme: 'dark' }}
                     >
-                      <option value="">Select range</option>
-                      <option value="0-10">0-10 clients</option>
-                      <option value="10-30">10-30 clients</option>
-                      <option value="30-50">30-50 clients</option>
-                      <option value="50+">50+ clients</option>
+                      <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Select range</option>
+                      <option value="0-10" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>0-10 clients</option>
+                      <option value="10-30" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>10-30 clients</option>
+                      <option value="30-50" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>30-50 clients</option>
+                      <option value="50+" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>50+ clients</option>
                     </select>
                     {fieldErrors.currentFreelancerClients && (
                       <p className="text-red-400 text-xs mt-2 flex items-center gap-1">
@@ -1043,12 +1047,13 @@ export const AccountantApplicationForm: React.FC = () => {
                         border ${fieldErrors.foreignClientPercentage ? 'border-red-500/50' : 'border-white/[0.08]'}
                         focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer
                       `}
+                      style={{ colorScheme: 'dark' }}
                     >
-                      <option value="">Select range</option>
-                      <option value="0-10%">0-10%</option>
-                      <option value="10-30%">10-30%</option>
-                      <option value="30-50%">30-50%</option>
-                      <option value="50%+">50%+</option>
+                      <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Select range</option>
+                      <option value="0-10%" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>0-10%</option>
+                      <option value="10-30%" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>10-30%</option>
+                      <option value="30-50%" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>30-50%</option>
+                      <option value="50%+" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>50%+</option>
                     </select>
                     {fieldErrors.foreignClientPercentage && (
                       <p className="text-red-400 text-xs mt-2 flex items-center gap-1">
@@ -1070,13 +1075,14 @@ export const AccountantApplicationForm: React.FC = () => {
                         border ${fieldErrors.preferredCommunication ? 'border-red-500/50' : 'border-white/[0.08]'}
                         focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer
                       `}
+                      style={{ colorScheme: 'dark' }}
                     >
-                      <option value="">Select your preferred method</option>
-                      <option value="email">Email only</option>
-                      <option value="phone">Phone calls</option>
-                      <option value="whatsapp">WhatsApp/messaging apps</option>
-                      <option value="portal">Client portal</option>
-                      <option value="mixed">Mix of all methods</option>
+                      <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Select your preferred method</option>
+                      <option value="email" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Email only</option>
+                      <option value="phone" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Phone calls</option>
+                      <option value="whatsapp" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>WhatsApp/messaging apps</option>
+                      <option value="portal" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Client portal</option>
+                      <option value="mixed" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Mix of all methods</option>
                     </select>
                     {fieldErrors.preferredCommunication && (
                       <p className="text-red-400 text-xs mt-2 flex items-center gap-1">
@@ -1098,11 +1104,12 @@ export const AccountantApplicationForm: React.FC = () => {
                         border ${fieldErrors.acceptsTriageRole ? 'border-red-500/50' : 'border-white/[0.08]'}
                         focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer
                       `}
+                      style={{ colorScheme: 'dark' }}
                     >
-                      <option value="">Please select</option>
-                      <option value="yes">Yes, this model works for me</option>
-                      <option value="no">No, I prefer full client control</option>
-                      <option value="discuss">I'd like to discuss this further</option>
+                      <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Please select</option>
+                      <option value="yes" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Yes, this model works for me</option>
+                      <option value="no" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>No, I prefer full client control</option>
+                      <option value="discuss" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>I'd like to discuss this further</option>
                     </select>
                     {fieldErrors.acceptsTriageRole && (
                       <p className="text-red-400 text-xs mt-2 flex items-center gap-1">
@@ -1158,10 +1165,11 @@ export const AccountantApplicationForm: React.FC = () => {
                         border ${fieldErrors.availability ? 'border-red-500/50' : 'border-white/[0.08]'}
                         focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer
                       `}
+                      style={{ colorScheme: 'dark' }}
                     >
-                      <option value="">Select your availability</option>
+                      <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Select your availability</option>
                       {AVAILABILITY_OPTIONS.map(opt => (
-                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        <option key={opt.value} value={opt.value} style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>{opt.label}</option>
                       ))}
                     </select>
                     {fieldErrors.availability && (
@@ -1229,11 +1237,12 @@ export const AccountantApplicationForm: React.FC = () => {
                           border ${fieldErrors.partnershipInterestLevel ? 'border-red-500/50' : 'border-white/[0.08]'}
                           focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer
                         `}
+                        style={{ colorScheme: 'dark' }}
                       >
-                        <option value="">Please select</option>
-                        <option value="very_interested">Very interested, let's discuss details</option>
-                        <option value="interested_with_questions">Interested but have questions</option>
-                        <option value="uncertain">Uncertain, would need more information</option>
+                        <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Please select</option>
+                        <option value="very_interested" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Very interested, let's discuss details</option>
+                        <option value="interested_with_questions" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Interested but have questions</option>
+                        <option value="uncertain" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Uncertain, would need more information</option>
                       </select>
                       {fieldErrors.partnershipInterestLevel && (
                         <p className="text-red-400 text-xs mt-2 flex items-center gap-1">
