@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Award, Briefcase, Clock, Globe, Upload, CheckCircle, AlertCircle,
-  Linkedin, Link as LinkIcon, ArrowRight, ArrowLeft, FileText, X, User, Shield
+  Linkedin, Link as LinkIcon, ArrowRight, ArrowLeft, FileText, X, User, Shield, Sparkles
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
@@ -54,8 +54,43 @@ const STEPS = [
 
 const STORAGE_KEY = 'accountant_application_draft';
 
+const DEMO_DATA = {
+  fullName: 'Maria Silva',
+  email: 'maria.silva@example.com',
+  phone: '+351 912 345 678',
+  linkedinUrl: 'https://linkedin.com/in/mariasilva',
+  websiteUrl: 'https://mariasilva.pt',
+  occNumber: '12345',
+  hasOCC: true,
+  experienceYears: '5-10',
+  englishFluency: 'fluent',
+  portugueseFluency: 'native',
+  specializations: [
+    'Activity opening (Início de atividade) for freelancers',
+    'Social Security (NISS) first-year handling',
+    'Residency determination (183-day rule)',
+    'Simplified regime (Regime Simplificado) management',
+    'VAT exemption and threshold monitoring (€15,000 rule)',
+    'Quarterly VAT filings',
+    'Annual IRS Modelo 3 for freelancers (Categoria B)',
+  ],
+  bio: 'I have been working with freelancers and independent professionals for over 8 years, specializing in helping foreign residents navigate Portuguese taxation. I genuinely enjoy simplifying complex tax rules and making sure my clients feel confident and compliant.',
+  availability: '10-20',
+  whyWorktugal: 'I currently serve about 30 freelancer clients but I struggle with English-speaking clients who need more hand-holding. I would really value having structured intake support and being part of a specialized network focused on this niche. The revenue-share model sounds fair and the pre-qualified clients would save me a lot of time.',
+  resumeFile: null,
+  currentFreelancerClients: '30-50',
+  foreignClientPercentage: '30-50%',
+  preferredCommunication: 'mixed',
+  acceptsTriageRole: 'yes',
+  vatScenarioAnswer: 'Yes, you have crossed the €15,000 VAT exemption threshold. You need to register for VAT within 15 days and start charging VAT on your invoices going forward. I can help you with the registration and quarterly filings.',
+  partnershipInterestLevel: 'very_interested',
+  agreeToTerms: false,
+};
+
 export const AccountantApplicationForm: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isDemoMode = searchParams.get('demo') === 'true';
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -89,6 +124,13 @@ export const AccountantApplicationForm: React.FC = () => {
   });
 
   useEffect(() => {
+    if (isDemoMode) {
+      setFormData(DEMO_DATA);
+    }
+  }, [isDemoMode]);
+
+  useEffect(() => {
+    if (isDemoMode) return;
     const draft = localStorage.getItem(STORAGE_KEY);
     if (draft) {
       try {
@@ -108,6 +150,7 @@ export const AccountantApplicationForm: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (isDemoMode) return;
     if (formData.fullName || formData.email) {
       const dataToSave = {
         ...formData,
@@ -116,7 +159,7 @@ export const AccountantApplicationForm: React.FC = () => {
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
     }
-  }, [formData]);
+  }, [formData, isDemoMode]);
 
   const restoreDraft = () => {
     const draft = localStorage.getItem(STORAGE_KEY);
@@ -252,6 +295,15 @@ export const AccountantApplicationForm: React.FC = () => {
     const validationError = validateStep(5);
     if (validationError) {
       setError(validationError);
+      return;
+    }
+
+    if (isDemoMode) {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        navigate('/join-accountants/success');
+      }, 1000);
       return;
     }
 
@@ -419,6 +471,24 @@ export const AccountantApplicationForm: React.FC = () => {
             </p>
           </div>
 
+          {isDemoMode && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6"
+            >
+              <Alert className="bg-gradient-to-r from-orange-500/10 to-yellow-500/10 border-orange-500/30">
+                <Sparkles className="w-5 h-5 text-orange-400" />
+                <div className="flex-1">
+                  <p className="font-semibold text-white">Demo Mode Active</p>
+                  <p className="text-sm text-gray-300">
+                    All fields are pre-filled so you can quickly test the form flow. Feel free to edit any field.
+                  </p>
+                </div>
+              </Alert>
+            </motion.div>
+          )}
+
           <div className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-2xl backdrop-saturate-150 border border-white/[0.08] rounded-2xl p-4 md:p-6 shadow-xl shadow-black/20">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-medium text-gray-300">
@@ -478,7 +548,7 @@ export const AccountantApplicationForm: React.FC = () => {
             </div>
           </div>
 
-          {showRestoreBanner && (
+          {!isDemoMode && showRestoreBanner && (
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
