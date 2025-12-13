@@ -32,6 +32,11 @@ interface AccountantApplicationSubmission {
   partnership_interest_level: string;
 }
 
+function truncateText(text: string, maxLength: number): string {
+  if (!text || text.length <= maxLength) return text;
+  return text.substring(0, maxLength) + '...';
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, {
@@ -134,40 +139,44 @@ Deno.serve(async (req: Request) => {
 
     try {
       console.log('Sending to Make.com webhook...');
+      const makePayload = {
+        id: application.id,
+        created_at: application.created_at,
+        full_name: application.full_name,
+        email: application.email,
+        phone: application.phone || '',
+        linkedin_url: application.linkedin_url || '',
+        website_url: application.website_url || '',
+        has_occ: application.has_occ,
+        occ_number: application.occ_number || '',
+        experience_years: application.experience_years,
+        english_fluency: application.english_fluency || '',
+        portuguese_fluency: application.portuguese_fluency || '',
+        specializations: (application.specializations || []).join(', '),
+        specializations_count: (application.specializations || []).length,
+        availability: application.availability || '',
+        current_freelancer_clients: application.current_freelancer_clients || '',
+        foreign_client_percentage: application.foreign_client_percentage || '',
+        preferred_communication: application.preferred_communication || '',
+        accepts_triage_role: application.accepts_triage_role || '',
+        partnership_interest_level: application.partnership_interest_level || '',
+        vat_scenario_answer: truncateText(application.vat_scenario_answer || '', 500),
+        why_worktugal: truncateText(application.why_worktugal || '', 500),
+        bio: truncateText(application.bio || '', 500),
+        resume_url: application.resume_url || '',
+        status: application.status,
+        timestamp: new Date().toISOString(),
+        source: 'accountant_application_form',
+      };
+
+      console.log('Payload size estimate:', JSON.stringify(makePayload).length, 'bytes');
+
       const makeResponse = await fetch(makeWebhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          id: application.id,
-          created_at: application.created_at,
-          full_name: application.full_name,
-          email: application.email,
-          phone: application.phone || '',
-          linkedin_url: application.linkedin_url || '',
-          website_url: application.website_url || '',
-          has_occ: application.has_occ,
-          occ_number: application.occ_number || '',
-          experience_years: application.experience_years,
-          english_fluency: application.english_fluency || '',
-          portuguese_fluency: application.portuguese_fluency || '',
-          specializations: application.specializations || [],
-          specializations_count: (application.specializations || []).length,
-          availability: application.availability || '',
-          current_freelancer_clients: application.current_freelancer_clients || '',
-          foreign_client_percentage: application.foreign_client_percentage || '',
-          preferred_communication: application.preferred_communication || '',
-          accepts_triage_role: application.accepts_triage_role || '',
-          partnership_interest_level: application.partnership_interest_level || '',
-          vat_scenario_answer: application.vat_scenario_answer || '',
-          why_worktugal: application.why_worktugal || '',
-          bio: application.bio || '',
-          resume_url: application.resume_url || '',
-          status: application.status,
-          timestamp: new Date().toISOString(),
-          source: 'accountant_application_form',
-        }),
+        body: JSON.stringify(makePayload),
       });
 
       if (!makeResponse.ok) {
