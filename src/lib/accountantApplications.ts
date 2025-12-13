@@ -46,28 +46,25 @@ export const submitAccountantApplication = async (data: AccountantApplicationDat
       resumeUrl = uploadResult.data?.publicUrl || null;
     }
 
-    const certifications = data.occ_number ? [
-      {
-        name: 'OCC',
-        number: data.occ_number,
-        expiry: null,
-      }
-    ] : [];
+    const edgeFunctionUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-accountant-application`;
 
-    const applicationPayload = {
+    const payload = {
       full_name: data.full_name,
-      email: data.email.toLowerCase().trim(),
+      email: data.email,
       phone: data.phone,
       linkedin_url: data.linkedin_url,
       website_url: data.website_url,
-      bio: `${data.bio}\n\n---\nLanguages: English (${data.english_fluency}), Portuguese (${data.portuguese_fluency})\nAvailability: ${data.availability}\n\n---\nWhy Worktugal:\n${data.why_worktugal}`,
-      experience_years: parseInt(data.experience_years.replace('+', '')) || 0,
+      occ_number: data.occ_number,
+      has_occ: data.has_occ,
+      experience_years: data.experience_years,
+      english_fluency: data.english_fluency,
+      portuguese_fluency: data.portuguese_fluency,
       specializations: data.specializations,
-      certifications: certifications,
+      bio: data.bio,
+      availability: data.availability,
+      why_worktugal: data.why_worktugal,
       resume_url: resumeUrl,
       resume_path: resumePath,
-      status: 'pending',
-      // Partnership fit fields
       current_freelancer_clients: data.current_freelancer_clients,
       foreign_client_percentage: data.foreign_client_percentage,
       preferred_communication: data.preferred_communication,
@@ -76,18 +73,28 @@ export const submitAccountantApplication = async (data: AccountantApplicationDat
       partnership_interest_level: data.partnership_interest_level,
     };
 
-    const { data: application, error } = await supabase
-      .from('accountant_applications')
-      .insert([applicationPayload])
-      .select()
-      .single();
+    console.log('Submitting accountant application via Edge Function...');
+    const response = await fetch(edgeFunctionUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
 
-    if (error) {
-      console.error('Database insert error:', error);
-      throw new Error(`Failed to submit application: ${error.message}`);
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error('Edge Function error:', result);
+      throw new Error(result.error || 'Failed to submit application');
     }
 
-    return { data: application, error: null };
+    if (!result.success) {
+      throw new Error(result.error || 'Failed to submit application');
+    }
+
+    console.log('Application submitted successfully:', result.data.id);
+    return { data: result.data, error: null };
   } catch (err: any) {
     console.error('Error in submitAccountantApplication:', err);
     return { data: null, error: err.message || 'Failed to submit application' };
