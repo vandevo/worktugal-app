@@ -73,14 +73,6 @@ Deno.serve(async (req: Request) => {
     console.log('Initializing Supabase client...');
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const certifications = submission.occ_number ? [
-      {
-        name: 'OCC',
-        number: submission.occ_number,
-        expiry: null,
-      }
-    ] : [];
-
     const experienceYears = parseInt(submission.experience_years.replace('+', '')) || 0;
 
     const combinedBio = submission.bio
@@ -99,7 +91,6 @@ Deno.serve(async (req: Request) => {
         bio: combinedBio,
         experience_years: experienceYears,
         specializations: submission.specializations,
-        certifications: certifications,
         resume_url: submission.resume_url,
         resume_path: submission.resume_path,
         status: 'pending',

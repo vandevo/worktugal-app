@@ -242,16 +242,11 @@ export const AccountantApplicationReview: React.FC = () => {
                       </div>
                     </div>
 
-                    {application.certifications && application.certifications.length > 0 && (
+                    {application.has_occ && (
                       <div>
-                        <h4 className="text-sm font-semibold text-gray-300 mb-2">Certifications</h4>
-                        <div className="space-y-2">
-                          {application.certifications.map((cert, idx) => (
-                            <div key={idx} className="text-sm text-gray-400">
-                              <span className="font-medium text-white">{cert.name}</span> #{cert.number}
-                              {cert.expiry && ` • Expires: ${cert.expiry}`}
-                            </div>
-                          ))}
+                        <h4 className="text-sm font-semibold text-gray-300 mb-2">OCC Certification</h4>
+                        <div className="text-sm text-gray-400">
+                          <span className="font-medium text-white">OCC</span> #{application.occ_number || 'N/A'}
                         </div>
                       </div>
                     )}

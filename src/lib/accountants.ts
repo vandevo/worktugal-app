@@ -171,6 +171,10 @@ export const approveApplicationAndCreateAccount = async (
     }
 
     // 3. Create accountant_profiles record
+    const certifications = application.has_occ && application.occ_number
+      ? [{ name: 'OCC', number: application.occ_number, expiry: null }]
+      : [];
+
     const { error: accountantProfileError } = await supabase
       .from('accountant_profiles')
       .insert([{
@@ -181,10 +185,10 @@ export const approveApplicationAndCreateAccount = async (
         bio: application.bio,
         experience_years: application.experience_years,
         specializations: application.specializations,
-        certifications: application.certifications,
-        languages: application.languages || ['Portuguese', 'English'],
+        certifications: certifications,
+        languages: ['Portuguese', 'English'],
         status: 'active',
-        commission_rate: 0.65, // Default 65%
+        commission_rate: 0.65,
       }]);
 
     if (accountantProfileError) {
