@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-12-05
+**Last Updated:** 2025-12-16
 
 ---
 
@@ -1947,6 +1947,20 @@ https://worktugal.com?debug=true
 ---
 
 ## Recent Updates
+
+**2025-12-16: Tax Checkup Dynamic Stats Implementation**
+- Implemented dynamic stats feature for Tax Checkup edge function replacing hardcoded values
+- Edge function now queries live database stats at submission time for personalized insights
+- Uses hybrid approach: total submissions count (all records) plus percentage stats (unique users only via is_latest_submission flag)
+- Generates personalized "INSIGHTS FROM REAL USERS" section with real-time database data
+- Stats queried: % no activity opened, % no NIF, % no NISS, % no VAT, average red flags, income distribution by bracket
+- Dynamic insights compare user situation to community averages (e.g., "48.6% haven't opened activity yet")
+- Enhanced compliance report sent to Make.com webhook for email personalization
+- Raw live_stats object included in webhook payload for email template use (total_submissions, unique_users, pct_no_activity, pct_no_nif, pct_interested_in_services, avg_red_flags)
+- Frontend results page unchanged (shows base report), emails receive enhanced version with live community data
+- Graceful fallback: returns empty insights if database query fails (no user-facing errors)
+- Edge function deployed: supabase/functions/submit-tax-checkup/index.ts
+- Note: Edge Functions section (submit-tax-checkup now queries live stats and generates dynamic insights)
 
 **2025-12-05: Accountant Partnership Screening Enhancement**
 - Added 9 new partnership compatibility screening fields to accountant_applications table
