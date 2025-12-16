@@ -70,6 +70,14 @@ export const Footer: React.FC = () => {
                   Contact
                 </a>
               </li>
+              <li>
+                <a
+                  href="/join-accountants"
+                  className="text-slate-400 hover:text-white transition-colors duration-200"
+                >
+                  For Accountants
+                </a>
+              </li>
             </ul>
           </div>
 
