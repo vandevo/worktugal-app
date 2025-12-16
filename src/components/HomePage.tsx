@@ -7,7 +7,7 @@ import { CheckupCTA } from './accounting/CheckupCTA';
 import { CheckupFAQ } from './accounting/CheckupFAQ';
 import { supabase } from '../lib/supabase';
 import { motion } from 'framer-motion';
-import { Shield, MapPin, Globe, Instagram, ArrowRight, ExternalLink } from 'lucide-react';
+import { Shield, MapPin, Globe, Instagram, ArrowRight } from 'lucide-react';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 import { useAuth } from '../hooks/useAuth';
@@ -121,11 +121,15 @@ export const HomePage: React.FC = () => {
       <section className="py-16 md:py-20 bg-gradient-to-b from-gray-900 via-gray-850 to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-blue-500/10 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-4 border border-blue-500/20">
+              <Shield className="h-4 w-4" />
+              <span>Founding Partners</span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Built with Lisbon's trusted professionals
+              Trusted by Lisbon's best
             </h2>
             <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Our partner network includes accountants, lawyers, coworking spaces, and service providers who help remote professionals thrive in Portugal.
+              We work alongside established accountants, coworking spaces, and service providers who support remote professionals in Portugal.
             </p>
           </div>
 
@@ -226,62 +230,20 @@ export const HomePage: React.FC = () => {
 
               <div className="text-center">
                 <Button
-                  variant="outline"
-                  size="lg"
+                  variant="ghost"
+                  size="sm"
                   onClick={() => navigate('/partners')}
-                  className="mb-4"
+                  className="text-gray-400 hover:text-white"
                 >
-                  View All Partners
+                  See all partners
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-                <p className="text-sm text-gray-500">
-                  These are trusted service providers in our network. As a Worktugal member, you may receive special offers or priority access from our partners.
-                </p>
               </div>
             </>
           )}
         </div>
       </section>
 
-      {/* Partner CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Join our partner hub
-            </h2>
-            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
-              List your business as a trusted service provider. Help freelancers and remote workers in Portugal while growing your client base.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-              <div className="flex items-center justify-center gap-2 text-gray-300">
-                <Shield className="h-5 w-5 text-blue-400" />
-                <span className="text-sm">Featured alongside our services</span>
-              </div>
-              <div className="flex items-center justify-center gap-2 text-gray-300">
-                <ExternalLink className="h-5 w-5 text-blue-400" />
-                <span className="text-sm">€49 lifetime access</span>
-              </div>
-            </div>
-            <Button
-              size="lg"
-              onClick={() => navigate('/partners/join')}
-              className="px-8"
-            >
-              Become a Partner
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <p className="text-xs text-gray-500 mt-4">
-              Limited to maintain quality and trust
-            </p>
-          </motion.div>
-        </div>
-      </section>
     </>
   );
 };

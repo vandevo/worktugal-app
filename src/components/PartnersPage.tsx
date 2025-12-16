@@ -8,18 +8,18 @@ export const PartnersPage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Partner Hub - Trusted Service Providers in Lisbon"
-        description="Connect with OCC-certified accountants, lawyers, coworking spaces, and local businesses helping remote professionals thrive in Portugal. Verified partners, exclusive offers."
-        ogTitle="Worktugal Partner Hub - Trusted Services for Remote Professionals in Lisbon"
-        ogDescription="Our partner network includes established Lisbon professionals: accountants, lawyers, coworking spaces, and service providers. Get special offers and priority access."
+        title="Our Network - Founding Partners in Lisbon"
+        description="Established Lisbon professionals who've supported Worktugal since the beginning. Accountants, coworking spaces, and service providers helping remote workers in Portugal."
+        ogTitle="Worktugal Network - Founding Partners in Lisbon"
+        ogDescription="Our founding partner network includes established Lisbon professionals: accountants, coworking spaces, and service providers who've been with us since the start."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
         ogUrl="https://app.worktugal.com/partners"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "name": "Worktugal Partner Hub",
-          "description": "Directory of trusted service providers for remote professionals in Lisbon, Portugal",
+          "name": "Worktugal Network - Founding Partners",
+          "description": "Our founding partner network of established Lisbon professionals supporting remote workers in Portugal",
           "url": "https://app.worktugal.com/partners",
           "image": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
           "inLanguage": "en-US",
@@ -56,14 +56,15 @@ export const PartnersPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="mb-4 inline-block">
-              <span className="text-blue-300 text-sm font-semibold uppercase tracking-wider">Partner Hub</span>
+            <div className="mb-4 inline-flex items-center gap-2 bg-blue-500/10 text-blue-300 px-4 py-2 rounded-full text-sm font-semibold border border-blue-500/20">
+              <Shield className="w-4 h-4" />
+              <span>Founding Partners</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Trusted Service Providers
+              Our Network
             </h1>
             <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Our partner network includes established Lisbon professionals who help remote workers navigate Portugal. From accountants to coworking spaces, these trusted partners support the freelancer journey.
+              These established Lisbon professionals have been part of Worktugal since the beginning. From accountants to coworking spaces, they've helped shape how we support remote workers in Portugal.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-sm">
@@ -73,7 +74,7 @@ export const PartnersPage: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-5 h-5 text-green-400" />
-                <span className="text-gray-300">Exclusive Member Offers</span>
+                <span className="text-gray-300">Member Benefits Available</span>
               </div>
             </div>
           </motion.div>
