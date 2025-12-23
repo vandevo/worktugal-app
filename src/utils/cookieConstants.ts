@@ -4,25 +4,25 @@ export const COOKIE_CATEGORIES: CookieCategoryConfig[] = [
   {
     id: 'strictlyNecessary',
     name: 'Strictly Necessary',
-    description: 'Essential cookies required for basic website functionality and security.',
+    description: 'Essential cookies for authentication, security, and saving your cookie preferences. These cannot be disabled.',
     isEssential: true,
   },
   {
     id: 'analytics',
     name: 'Analytics',
-    description: 'Help us understand how visitors interact with our website to improve performance.',
+    description: 'We use Google Analytics (GA4) and Simple Analytics to understand how visitors use our site. Google Analytics data is anonymized and retained for 26 months.',
     isEssential: false,
   },
   {
     id: 'marketing',
     name: 'Marketing',
-    description: 'Used to track visitors across websites to display relevant advertisements.',
+    description: 'Used for advertising and retargeting. We currently do not use marketing cookies.',
     isEssential: false,
   },
   {
     id: 'functional',
     name: 'Functional',
-    description: 'Enable enhanced functionality and personalization, such as videos and live chats.',
+    description: 'Remember your preferences and saved form progress. Uses localStorage to save draft forms so you can continue where you left off.',
     isEssential: false,
   },
 ];

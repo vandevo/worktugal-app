@@ -58,7 +58,7 @@ export const TermsAndConditions: React.FC = () => {
             Your agreement for using Worktugal Pass services
           </p>
           <p className="text-sm text-gray-400 mt-4">
-            <strong>Effective Date:</strong> October 29, 2025
+            <strong>Effective Date:</strong> December 23, 2025
           </p>
         </motion.div>
 
@@ -127,7 +127,7 @@ export const TermsAndConditions: React.FC = () => {
             </h2>
             <div className="prose prose-invert max-w-none">
               <p className="text-gray-300 leading-relaxed mb-4">
-                Worktugal provides two core services:
+                Worktugal provides the following services:
               </p>
               <div className="space-y-4 mb-4">
                 <div className="p-4 bg-blue-600/10 border border-blue-600/20 rounded-xl">
@@ -148,6 +148,31 @@ export const TermsAndConditions: React.FC = () => {
                   </p>
                   <p className="text-green-300 font-medium text-sm mt-2">
                     Pricing: €49 (one-time, no subscription or renewal)
+                  </p>
+                </div>
+                <div className="p-4 bg-teal-600/10 border border-teal-600/20 rounded-xl">
+                  <h3 className="text-white font-semibold mb-2">3. Tax Compliance Checkup</h3>
+                  <p className="text-gray-300 text-sm">
+                    A free diagnostic tool that evaluates your tax compliance status in Portugal based on your inputs.
+                    The checkup provides informational guidance only and does not constitute professional tax, legal, or accounting advice.
+                  </p>
+                  <p className="text-teal-300 font-medium text-sm mt-2">
+                    Pricing: Free
+                  </p>
+                </div>
+                <div className="p-4 bg-gray-600/10 border border-gray-600/20 rounded-xl">
+                  <h3 className="text-white font-semibold mb-2">4. Accountant Partner Network</h3>
+                  <p className="text-gray-300 text-sm">
+                    An application system for OCC-certified accountants who wish to join our partner network.
+                    Applications are reviewed internally and acceptance is at our sole discretion.
+                    Successful applicants may be matched with clients seeking accounting services.
+                  </p>
+                </div>
+                <div className="p-4 bg-gray-600/10 border border-gray-600/20 rounded-xl">
+                  <h3 className="text-white font-semibold mb-2">5. Contact and Inquiries</h3>
+                  <p className="text-gray-300 text-sm">
+                    A contact system for accounting help requests, partnership proposals, job inquiries, and general information.
+                    We aim to respond to all inquiries within 5 business days.
                   </p>
                 </div>
               </div>
@@ -237,7 +262,7 @@ export const TermsAndConditions: React.FC = () => {
             </h2>
             <div className="prose prose-invert max-w-none">
               <p className="text-gray-300 leading-relaxed mb-4">
-                We do our best to maintain a secure and reliable service, but we can't guarantee uninterrupted 
+                We do our best to maintain a secure and reliable service, but we can't guarantee uninterrupted
                 access or platform availability.
               </p>
               <p className="text-gray-300 leading-relaxed mb-4">
@@ -246,24 +271,56 @@ export const TermsAndConditions: React.FC = () => {
               <ul className="space-y-2 text-gray-300">
                 <li>Loss of income or leads</li>
                 <li>Listing visibility fluctuations</li>
-                <li>Third-party service issues (e.g. Stripe, Cal.com, Supabase, Airtable)</li>
+                <li>Third-party service issues (e.g. Stripe, Cal.com, Supabase, Airtable, Make.com)</li>
                 <li>Quality or outcomes of accounting consultations (we connect you with professionals but don't provide the advice ourselves)</li>
-                <li>Mistakes caused by false info submitted by partners</li>
+                <li>Accuracy or completeness of tax compliance checkup results</li>
+                <li>Decisions made based on automated compliance scoring</li>
+                <li>Any reliance on informational content without verification by a qualified professional</li>
+                <li>Mistakes caused by false or incomplete info submitted by users</li>
+                <li>Outcomes of accountant partnership applications</li>
               </ul>
+              <div className="mt-4 p-4 bg-orange-600/10 border border-orange-600/20 rounded-xl">
+                <p className="text-orange-300 font-medium text-sm">
+                  <strong>Tax Checkup Disclaimer:</strong> The tax compliance checkup is for informational purposes only.
+                  Results should not be considered professional tax, legal, or accounting advice.
+                  Always consult a qualified professional before making financial decisions.
+                </p>
+              </div>
             </div>
           </Card>
 
-          {/* Section 8: Jurisdiction and Law */}
+          {/* Section 8: Data Retention */}
           <Card className="p-8">
-            <h2 className="text-2xl font-bold mb-6">8. Jurisdiction and Law</h2>
+            <h2 className="text-2xl font-bold mb-6">8. Data Retention</h2>
+            <div className="prose prose-invert max-w-none">
+              <p className="text-gray-300 leading-relaxed mb-4">
+                We retain your data as follows:
+              </p>
+              <ul className="space-y-2 text-gray-300">
+                <li><strong>Account data:</strong> Duration of account plus 7 years (for tax/legal records)</li>
+                <li><strong>Lead/waitlist data:</strong> 2 years from submission or until service enrollment</li>
+                <li><strong>Tax checkup results:</strong> 2 years from submission</li>
+                <li><strong>Contact requests:</strong> 1 year after resolution</li>
+                <li><strong>Accountant applications:</strong> 3 years (accepted) or 1 year (not accepted)</li>
+                <li><strong>Payment records:</strong> 7 years (legal requirement)</li>
+              </ul>
+              <p className="text-gray-300 leading-relaxed mt-4">
+                For full details, see our <a href="/privacy" className="text-blue-400 hover:text-blue-300 transition-colors underline">Privacy Policy</a>.
+              </p>
+            </div>
+          </Card>
+
+          {/* Section 9: Jurisdiction and Law */}
+          <Card className="p-8">
+            <h2 className="text-2xl font-bold mb-6">9. Jurisdiction and Law</h2>
             <div className="prose prose-invert max-w-none">
               <p className="text-gray-300 leading-relaxed mb-4">
                 These terms are governed by Estonian law (where Xolo Go OÜ is registered).
               </p>
               <p className="text-gray-300 leading-relaxed">
                 Any disputes should first be raised via email:{' '}
-                <a 
-                  href="mailto:hello@worktugal.com" 
+                <a
+                  href="mailto:hello@worktugal.com"
                   className="text-blue-400 hover:text-blue-300 transition-colors underline"
                 >
                   hello@worktugal.com
