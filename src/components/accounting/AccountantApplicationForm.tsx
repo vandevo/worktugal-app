@@ -597,15 +597,15 @@ export const AccountantApplicationForm: React.FC = () => {
               <Alert className="bg-blue-500/10 border-blue-500/30">
                 <div className="flex-1">
                   <p className="font-semibold text-white">Continue where you left off</p>
-                  <p className="text-sm text-gray-300">We found a saved draft from earlier.</p>
-                </div>
-                <div className="flex gap-2">
-                  <Button size="sm" onClick={restoreDraft} className="bg-blue-500 hover:bg-blue-600">
-                    Resume
-                  </Button>
-                  <Button size="sm" variant="ghost" onClick={clearDraft}>
-                    Start Fresh
-                  </Button>
+                  <p className="text-sm text-gray-300 mb-4">We found a saved draft from earlier.</p>
+                  <div className="flex gap-3">
+                    <Button size="sm" onClick={restoreDraft} className="bg-blue-500 hover:bg-blue-600">
+                      Resume
+                    </Button>
+                    <Button size="sm" variant="ghost" onClick={clearDraft}>
+                      Start Fresh
+                    </Button>
+                  </div>
                 </div>
               </Alert>
             </motion.div>
