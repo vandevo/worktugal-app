@@ -34,16 +34,12 @@ export const submitAccountantApplication = async (data: AccountantApplicationDat
     if (data.resume_file) {
       const timestamp = Date.now();
       const sanitizedEmail = data.email.replace(/[^a-zA-Z0-9]/g, '_');
-      const fileName = `accountant_resumes/${sanitizedEmail}_${timestamp}_${data.resume_file.name}`;
+      const folder = `${sanitizedEmail}_${timestamp}`;
 
-      const uploadResult = await uploadFile(data.resume_file, fileName, 'resumes');
+      const uploadResult = await uploadFile(data.resume_file, 'accountant-resumes', folder);
 
-      if (uploadResult.error) {
-        throw new Error(`Failed to upload resume: ${uploadResult.error}`);
-      }
-
-      resumePath = uploadResult.data?.path || null;
-      resumeUrl = uploadResult.data?.publicUrl || null;
+      resumePath = uploadResult.path;
+      resumeUrl = uploadResult.url;
     }
 
     const edgeFunctionUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-accountant-application`;
