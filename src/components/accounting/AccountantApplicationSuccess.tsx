@@ -136,8 +136,8 @@ export const AccountantApplicationSuccess: React.FC = () => {
           >
             <p className="text-sm text-gray-500">
               Questions? Contact us at{' '}
-              <a href="mailto:partners@worktugal.com" className="text-blue-400 hover:text-blue-300 underline">
-                partners@worktugal.com
+              <a href="mailto:hello@worktugal.com" className="text-blue-400 hover:text-blue-300 underline">
+                hello@worktugal.com
               </a>
             </p>
           </motion.div>

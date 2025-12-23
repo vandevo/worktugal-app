@@ -68,8 +68,8 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ onViewDirectory, o
       <div className="mt-8 p-4 bg-gray-800 rounded-xl max-w-md mx-auto">
         <p className="text-sm text-gray-400">
           Questions? Contact us at{' '}
-          <a href="mailto:partners@worktugal.com" className="text-blue-400 hover:underline">
-            partners@worktugal.com
+          <a href="mailto:hello@worktugal.com" className="text-blue-400 hover:underline">
+            hello@worktugal.com
           </a>
         </p>
       </div>
