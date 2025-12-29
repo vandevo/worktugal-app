@@ -255,15 +255,7 @@ export async function submitTaxCheckup(formData: TaxCheckupFormData) {
   const isResubmission = !!latestSubmission;
   const nextSequence = isResubmission ? (latestSubmission.submission_sequence || 1) + 1 : 1;
 
-  // Step 2: If resubmitting, mark previous submissions as not latest
-  if (isResubmission) {
-    await supabase
-      .from('tax_checkup_leads')
-      .update({ is_latest_submission: false })
-      .eq('email_hash', emailHash);
-  }
-
-  // Step 3: Submit via Edge Function (handles DB insert + webhook)
+  // Submit via Edge Function (handles deduplication atomically + DB insert + webhook)
   const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
   const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
   const edgeFunctionUrl = `${supabaseUrl}/functions/v1/submit-tax-checkup`;

@@ -277,6 +277,17 @@ Deno.serve(async (req: Request) => {
     console.log('Initializing Supabase client...');
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+    console.log('Handling deduplication for email_hash:', submission.email_hash);
+    const { error: dedupeError } = await supabase
+      .from('tax_checkup_leads')
+      .update({ is_latest_submission: false })
+      .eq('email_hash', submission.email_hash)
+      .eq('is_latest_submission', true);
+
+    if (dedupeError) {
+      console.log('Deduplication update (non-blocking):', dedupeError.message);
+    }
+
     console.log('Inserting tax checkup lead into database...');
     const { data: lead, error: dbError } = await supabase
       .from('tax_checkup_leads')
@@ -305,7 +316,7 @@ Deno.serve(async (req: Request) => {
         lead_quality_score: submission.lead_quality_score,
         status: 'new',
         email_hash: submission.email_hash,
-        is_latest_submission: submission.is_latest_submission ?? true,
+        is_latest_submission: true,
         submission_sequence: submission.submission_sequence ?? 1,
         previous_submission_id: submission.previous_submission_id || null,
         first_submission_at: submission.first_submission_at || new Date().toISOString(),
