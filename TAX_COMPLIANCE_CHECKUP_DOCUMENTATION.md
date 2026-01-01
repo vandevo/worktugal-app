@@ -1,8 +1,9 @@
 # Tax Compliance Checkup - Complete Documentation
 
-> **Last Updated:** November 14, 2025
-> **Version:** 1.2
+> **Last Updated:** January 1, 2026
+> **Version:** 1.3
 > **Purpose:** 3-minute lead generation quiz for Portuguese tax compliance with user feedback system
+> **Total Submissions:** 96 (as of Jan 1, 2026)
 
 ---
 
@@ -852,6 +853,17 @@ For technical questions or feature requests related to the Tax Compliance Checku
 ---
 
 ## Version History
+
+### v1.3 (January 1, 2026) - Data Update (96 Submissions)
+**Data Refresh:**
+- Updated all statistics with 96 real submissions
+- Accounting services interest: 38.5% (up from 28.8%)
+- Consultants grew to 21.9% (nearly doubled from 11.5%)
+- NHR users grew 5x to 9.4%
+- Activity compliance improved: 43.8% missing (down from 51.9%)
+- NISS gap widened: 25.0% missing (up from 21.2%)
+- Marketing consent rate: 54.2%
+- Lead quality score: 71.9 avg
 
 ### v1.2 (November 14, 2025) - User Feedback System
 **New Features:**
