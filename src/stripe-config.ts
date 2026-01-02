@@ -2,6 +2,16 @@ export const STRIPE_CONFIG = {
   publishableKey: import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY,
   products: [
     {
+      id: 'prod_TiIpH2ccZxbxLC',
+      priceId: 'price_REPLACE_WITH_ACTUAL_PRICE_ID',
+      name: 'Detailed Compliance Risk Review',
+      description: 'Structured compliance risk mapping based on your specific situation. Written review with evidence-backed findings delivered within 48 hours. Human-reviewed analysis with escalation flags for complex cases.',
+      price: 49.00,
+      currency: 'eur',
+      currencySymbol: '€',
+      mode: 'payment'
+    },
+    {
       id: 'prod_T9sKwM6QHJCWMl',
       priceId: 'price_1SDYZRBm1NepJXMzyS81QIE7',
       name: 'Annual Return Consult',

@@ -35,6 +35,8 @@ import { ContactSuccess } from './components/ContactSuccess';
 import { ContactSuccessDemo } from './components/ContactSuccessDemo';
 import { AccountantApplicationForm } from './components/accounting/AccountantApplicationForm';
 import { AccountantApplicationSuccess } from './components/accounting/AccountantApplicationSuccess';
+import { PaidReviewPage } from './components/accounting/PaidReviewPage';
+import { PaidReviewsAdmin } from './components/admin/PaidReviewsAdmin';
 import { type ProductName } from './stripe-config';
 
 function App() {
@@ -95,6 +97,9 @@ function App() {
           <Route path="/join-accountants" element={<AccountantApplicationForm />} />
           <Route path="/join-accountants/success" element={<AccountantApplicationSuccess />} />
 
+          {/* Paid Compliance Review */}
+          <Route path="/compliance-review" element={<PaidReviewPage />} />
+
           <Route
             path="/admin"
             element={
@@ -148,6 +153,14 @@ function App() {
             element={
               <AdminRoute>
                 <ChangelogManager />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/paid-reviews"
+            element={
+              <AdminRoute>
+                <PaidReviewsAdmin />
               </AdminRoute>
             }
           />
