@@ -2,58 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    @apply bg-gray-900;
-  }
-
-  body {
-    @apply bg-gray-900;
-  }
-
-  /* Only ensure form elements are white for readability */
-  input:not([class*="text-"]),
-  textarea:not([class*="text-"]),
-  select:not([class*="text-"]) {
-    @apply text-white;
-  }
-
-  /* Style datetime picker to blend with dark theme */
-  input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-    opacity: 0.6;
-    cursor: pointer;
-  }
-
-  input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
-    opacity: 0.8;
-  }
-
-  /* Firefox datetime styling */
-  input[type="datetime-local"]::-moz-calendar-picker-indicator {
-    filter: invert(1);
-    opacity: 0.6;
-  }
-
-  /* Webkit datetime text color */
-  input[type="datetime-local"]::-webkit-datetime-edit {
-    color: white;
-  }
-
-  input[type="datetime-local"]::-webkit-datetime-edit-fields-wrapper {
-    color: white;
-  }
-
-  input[type="datetime-local"]::-webkit-datetime-edit-text {
-    color: rgba(255, 255, 255, 0.6);
-  }
-
-  input[type="datetime-local"]::-webkit-datetime-edit-month-field,
-  input[type="datetime-local"]::-webkit-datetime-edit-day-field,
-  input[type="datetime-local"]::-webkit-datetime-edit-year-field,
-  input[type="datetime-local"]::-webkit-datetime-edit-hour-field,
-  input[type="datetime-local"]::-webkit-datetime-edit-minute-field,
-  input[type="datetime-local"]::-webkit-datetime-edit-ampm-field {
-    color: white;
-  }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

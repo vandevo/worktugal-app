@@ -1,82 +1,48 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
-import { useAuth } from './useAuth';
 
-export interface UserPurchase {
+interface Subscription {
   id: string;
-  productName: string;
-  amount: number;
-  currency: string;
   status: string;
-  purchaseDate: string;
+  plan_name: string;
 }
 
 export function useSubscription() {
   const { user } = useAuth();
-  const [purchases, setPurchases] = useState<UserPurchase[]>([]);
+  const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPurchases = async () => {
-      if (!user) {
-        setLoading(false);
-        return;
-      }
+    if (!user) {
+      setSubscription(null);
+      setLoading(false);
+      return;
+    }
 
+    async function fetchSubscription() {
       try {
-        // Get customer data first
-        const { data: customerData } = await supabase
-          .from('stripe_customers')
-          .select('customer_id')
+        const { data, error } = await supabase
+          .from('stripe_subscriptions')
+          .select('id, status, plan_name')
           .eq('user_id', user.id)
+          .eq('status', 'active')
           .single();
 
-        if (!customerData) {
-          setLoading(false);
-          return;
-        }
-
-        // Get all orders for this customer
-        const { data: orders } = await supabase
-          .from('stripe_orders')
-          .select('*')
-          .eq('customer_id', customerData.customer_id)
-          .eq('status', 'completed')
-          .order('created_at', { ascending: false });
-
-        if (orders) {
-          const formattedPurchases: UserPurchase[] = orders.map(order => ({
-            id: order.id.toString(),
-            productName: determineProductName(order.amount_total),
-            amount: order.amount_total / 100, // Convert from cents
-            currency: order.currency.toUpperCase(),
-            status: order.payment_status,
-            purchaseDate: new Date(order.created_at).toLocaleDateString()
-          }));
-
-          setPurchases(formattedPurchases);
+        if (error && error.code !== 'PGRST116') {
+          console.error('Error fetching subscription:', error);
+        } else {
+          setSubscription(data);
         }
       } catch (error) {
-        console.error('Error fetching purchases:', error);
+        console.error('Error fetching subscription:', error);
       } finally {
         setLoading(false);
       }
-    };
+    }
 
-    fetchPurchases();
+    fetchSubscription();
   }, [user]);
 
-  return { purchases, loading };
-}
-
-// Helper function to determine product name from amount
-function determineProductName(amountInCents: number): string {
-  // Match amount to known products
-  if (Math.abs(amountInCents - 5900) < 10) { // €59.00 (allow small variance)
-    return 'Tax Triage Consultation';
-  }
-  if (Math.abs(amountInCents - 4900) < 10) { // €49.00
-    return 'Partner Listing (Lifetime)';
-  }
-  return 'Purchase';
+  return { subscription, loading };
 }
