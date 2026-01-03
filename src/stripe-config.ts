@@ -1,12 +1,15 @@
 const isProduction = import.meta.env.PROD;
+const stripeMode = import.meta.env.VITE_STRIPE_MODE || 'test';
+const isStripeTestMode = stripeMode === 'test';
 
 export const STRIPE_CONFIG = {
   publishableKey: import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY,
+  mode: stripeMode as 'test' | 'live',
   products: [
     {
-      id: isProduction ? 'prod_TiIpH2ccZxbxLC' : 'prod_TiwWNMoSapgc7X',
-      priceId: 'price_1SlUdKBm1NepJXMzGA6BmwUo',
-      lookupKey: isProduction ? 'compliance_risk_review_49' : 'compliance_risk_review_49_test',
+      id: isStripeTestMode ? 'prod_TiwWNMoSapgc7X' : 'prod_TiIpH2ccZxbxLC',
+      priceId: isStripeTestMode ? 'price_1SlUdKBm1NepJXMzGA6BmwUo' : 'price_LIVE_COMPLIANCE_REVIEW',
+      lookupKey: isStripeTestMode ? 'compliance_risk_review_49_test' : 'compliance_risk_review_49',
       name: 'Detailed Compliance Risk Review',
       description: 'Structured compliance risk mapping based on your specific situation. Written review with evidence-backed findings delivered within 48 hours. Human-reviewed analysis with escalation flags for complex cases.',
       price: 49.00,
@@ -64,3 +67,5 @@ export const getProductByPriceId = (priceId: string) => {
 export const getProductById = (productId: string) => {
   return STRIPE_CONFIG.products.find(product => product.id === productId);
 };
+
+export const isTestMode = () => STRIPE_CONFIG.mode === 'test';

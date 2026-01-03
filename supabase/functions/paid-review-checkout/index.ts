@@ -13,7 +13,12 @@ const supabase = createClient(
   Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
 );
 
-const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY')!, {
+const stripeMode = Deno.env.get('STRIPE_MODE') || 'test';
+const stripeSecretKey = stripeMode === 'live'
+  ? Deno.env.get('STRIPE_SECRET_KEY_LIVE')!
+  : Deno.env.get('STRIPE_SECRET_KEY_TEST')!;
+
+const stripe = new Stripe(stripeSecretKey, {
   appInfo: { name: 'Worktugal Paid Review', version: '1.0.0' },
 });
 
@@ -50,7 +55,7 @@ Deno.serve(async (req: Request) => {
       },
     });
 
-    console.log(`Created guest checkout session ${session.id}`);
+    console.log(`Created guest checkout session ${session.id} (mode: ${stripeMode})`);
 
     return new Response(
       JSON.stringify({ sessionId: session.id, url: session.url }),

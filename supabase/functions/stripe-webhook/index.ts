@@ -2,9 +2,15 @@ import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
 import Stripe from 'npm:stripe@17.7.0';
 import { createClient } from 'npm:@supabase/supabase-js@2.49.1';
 
-const stripeSecret = Deno.env.get('STRIPE_SECRET_KEY')!;
-const stripeWebhookSecret = Deno.env.get('STRIPE_WEBHOOK_SECRET')!;
-const stripe = new Stripe(stripeSecret, {
+const stripeMode = Deno.env.get('STRIPE_MODE') || 'test';
+const stripeSecretKey = stripeMode === 'live'
+  ? Deno.env.get('STRIPE_SECRET_KEY_LIVE')!
+  : Deno.env.get('STRIPE_SECRET_KEY_TEST')!;
+const stripeWebhookSecret = stripeMode === 'live'
+  ? Deno.env.get('STRIPE_WEBHOOK_SECRET_LIVE')!
+  : Deno.env.get('STRIPE_WEBHOOK_SECRET_TEST')!;
+
+const stripe = new Stripe(stripeSecretKey, {
   appInfo: {
     name: 'Bolt Integration',
     version: '1.0.0',
@@ -15,7 +21,6 @@ const supabase = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPAB
 
 Deno.serve(async (req) => {
   try {
-    // Handle OPTIONS request for CORS preflight
     if (req.method === 'OPTIONS') {
       return new Response(null, { status: 204 });
     }
@@ -24,17 +29,14 @@ Deno.serve(async (req) => {
       return new Response('Method not allowed', { status: 405 });
     }
 
-    // get the signature from the header
     const signature = req.headers.get('stripe-signature');
 
     if (!signature) {
       return new Response('No signature found', { status: 400 });
     }
 
-    // get the raw body
     const body = await req.text();
 
-    // verify the webhook signature
     let event: Stripe.Event;
 
     try {
@@ -43,6 +45,8 @@ Deno.serve(async (req) => {
       console.error(`Webhook signature verification failed: ${error.message}`);
       return new Response(`Webhook signature verification failed: ${error.message}`, { status: 400 });
     }
+
+    console.log(`Received webhook event: ${event.type} (mode: ${stripeMode})`);
 
     EdgeRuntime.waitUntil(handleEvent(event));
 
@@ -64,7 +68,6 @@ async function handleEvent(event: Stripe.Event) {
     return;
   }
 
-  // for one time payments, we only listen for the checkout.session.completed event
   if (event.type === 'payment_intent.succeeded' && event.data.object.invoice === null) {
     return;
   }
@@ -91,7 +94,6 @@ async function handleEvent(event: Stripe.Event) {
       await syncCustomerFromStripe(customerId);
     } else if (mode === 'payment' && payment_status === 'paid') {
       try {
-        // Extract the necessary information from the session
         const {
           id: checkout_session_id,
           payment_intent,
@@ -101,7 +103,6 @@ async function handleEvent(event: Stripe.Event) {
           metadata,
         } = stripeData as Stripe.Checkout.Session;
 
-        // Insert the order into the stripe_orders table
         const { data: orderData, error: orderError } = await supabase.from('stripe_orders').insert({
           checkout_session_id,
           payment_intent_id: payment_intent,
@@ -110,7 +111,7 @@ async function handleEvent(event: Stripe.Event) {
           amount_total,
           currency,
           payment_status,
-          status: 'completed', // assuming we want to mark it as completed since payment is successful
+          status: 'completed',
         }).select('id').single();
 
         if (orderError) {
@@ -118,15 +119,13 @@ async function handleEvent(event: Stripe.Event) {
           return;
         }
 
-        // Determine payment type from metadata and update appropriate table
-        const paymentType = metadata?.payment_type || 'perk'; // Default to perk for backward compatibility
+        const paymentType = metadata?.payment_type || 'perk';
 
         if (metadata?.submission_id && orderData?.id) {
           const submissionId = parseInt(metadata.submission_id);
 
           if (!isNaN(submissionId)) {
             if (paymentType === 'consult') {
-              // Update consult booking status for Accounting Desk
               const { data: booking, error: consultError } = await supabase
                 .from('consult_bookings')
                 .update({
@@ -143,9 +142,7 @@ async function handleEvent(event: Stripe.Event) {
               } else {
                 console.info(`Successfully updated consult booking ${submissionId} to completed_payment`);
 
-                // Create appointment record for the paid consultation
                 if (booking) {
-                  // Determine duration based on service type
                   const durationMap: Record<string, number> = {
                     'triage': 30,
                     'start_pack': 90,
@@ -155,7 +152,6 @@ async function handleEvent(event: Stripe.Event) {
 
                   const duration = durationMap[booking.service_type] || 30;
 
-                  // Calculate platform fee (30%) and accountant payout (70%)
                   const priceMap: Record<string, number> = {
                     'triage': 59.00,
                     'start_pack': 349.00,
@@ -193,7 +189,6 @@ async function handleEvent(event: Stripe.Event) {
                 }
               }
             } else {
-              // Update partner submission status for Perk Marketplace
               const { error: submissionError } = await supabase
                 .from('partner_submissions')
                 .update({
@@ -208,9 +203,7 @@ async function handleEvent(event: Stripe.Event) {
               } else {
                 console.info(`Successfully updated partner submission ${submissionId} to completed_payment`);
 
-                // Update user role to 'partner' after successful perk marketplace payment
                 try {
-                  // Get the user_id from the stripe_customers table
                   const { data: customerData, error: customerError } = await supabase
                     .from('stripe_customers')
                     .select('user_id')
@@ -220,7 +213,6 @@ async function handleEvent(event: Stripe.Event) {
                   if (customerError) {
                     console.error('Error fetching user_id from stripe_customers:', customerError);
                   } else if (customerData?.user_id) {
-                    // Update the user's role to 'partner'
                     const { error: roleUpdateError } = await supabase
                       .from('user_profiles')
                       .update({ role: 'partner' })
@@ -234,7 +226,6 @@ async function handleEvent(event: Stripe.Event) {
                   }
                 } catch (roleError) {
                   console.error('Error in user role update process:', roleError);
-                  // Don't throw here - we don't want to fail the entire webhook for this
                 }
               }
             }
@@ -249,10 +240,8 @@ async function handleEvent(event: Stripe.Event) {
   }
 }
 
-// based on the excellent https://github.com/t3dotgg/stripe-recommendations
 async function syncCustomerFromStripe(customerId: string) {
   try {
-    // fetch latest subscription data from Stripe
     const subscriptions = await stripe.subscriptions.list({
       customer: customerId,
       limit: 1,
@@ -260,7 +249,6 @@ async function syncCustomerFromStripe(customerId: string) {
       expand: ['data.default_payment_method'],
     });
 
-    // TODO verify if needed
     if (subscriptions.data.length === 0) {
       console.info(`No active subscriptions found for customer: ${customerId}`);
       const { error: noSubError } = await supabase.from('stripe_subscriptions').upsert(
@@ -279,10 +267,8 @@ async function syncCustomerFromStripe(customerId: string) {
       }
     }
 
-    // assumes that a customer can only have a single subscription
     const subscription = subscriptions.data[0];
 
-    // store subscription state
     const { error: subError } = await supabase.from('stripe_subscriptions').upsert(
       {
         customer_id: customerId,

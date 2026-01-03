@@ -3,15 +3,19 @@ import Stripe from 'npm:stripe@17.7.0';
 import { createClient } from 'npm:@supabase/supabase-js@2.49.1';
 
 const supabase = createClient(Deno.env.get('SUPABASE_URL') ?? '', Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '');
-const stripeSecret = Deno.env.get('STRIPE_SECRET_KEY')!;
-const stripe = new Stripe(stripeSecret, {
+
+const stripeMode = Deno.env.get('STRIPE_MODE') || 'test';
+const stripeSecretKey = stripeMode === 'live'
+  ? Deno.env.get('STRIPE_SECRET_KEY_LIVE')!
+  : Deno.env.get('STRIPE_SECRET_KEY_TEST')!;
+
+const stripe = new Stripe(stripeSecretKey, {
   appInfo: {
     name: 'Bolt Integration',
     version: '1.0.0',
   },
 });
 
-// Helper function to create responses with CORS headers
 function corsResponse(body: string | object | null, status = 200) {
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -19,7 +23,6 @@ function corsResponse(body: string | object | null, status = 200) {
     'Access-Control-Allow-Headers': '*',
   };
 
-  // For 204 No Content, don't include Content-Type or body
   if (status === 204) {
     return new Response(null, { status, headers });
   }
@@ -90,9 +93,6 @@ Deno.serve(async (req) => {
 
     let customerId;
 
-    /**
-     * In case we don't have a mapping yet, the customer does not exist and we need to create one.
-     */
     if (!customer || !customer.customer_id) {
       const newCustomer = await stripe.customers.create({
         email: user.email,
@@ -111,7 +111,6 @@ Deno.serve(async (req) => {
       if (createCustomerError) {
         console.error('Failed to save customer information in the database', createCustomerError);
 
-        // Try to clean up both the Stripe customer and subscription record
         try {
           await stripe.customers.del(newCustomer.id);
           await supabase.from('stripe_subscriptions').delete().eq('customer_id', newCustomer.id);
@@ -131,7 +130,6 @@ Deno.serve(async (req) => {
         if (createSubscriptionError) {
           console.error('Failed to save subscription in the database', createSubscriptionError);
 
-          // Try to clean up the Stripe customer since we couldn't create the subscription
           try {
             await stripe.customers.del(newCustomer.id);
           } catch (deleteError) {
@@ -149,7 +147,6 @@ Deno.serve(async (req) => {
       customerId = customer.customer_id;
 
       if (mode === 'subscription') {
-        // Verify subscription exists for existing customer
         const { data: subscription, error: getSubscriptionError } = await supabase
           .from('stripe_subscriptions')
           .select('status')
@@ -163,7 +160,6 @@ Deno.serve(async (req) => {
         }
 
         if (!subscription) {
-          // Create subscription record for existing customer if missing
           const { error: createSubscriptionError } = await supabase.from('stripe_subscriptions').insert({
             customer_id: customerId,
             status: 'not_started',
@@ -178,7 +174,6 @@ Deno.serve(async (req) => {
       }
     }
 
-    // create Checkout Session
     const sessionConfig: any = {
       customer: customerId,
       payment_method_types: ['card'],
@@ -193,17 +188,16 @@ Deno.serve(async (req) => {
       cancel_url,
     };
 
-    // Add submission_id and payment_type to metadata if provided
     if (submission_id) {
       sessionConfig.metadata = {
         submission_id: submission_id.toString(),
-        payment_type: payment_type || 'perk', // Default to 'perk' for backward compatibility
+        payment_type: payment_type || 'perk',
       };
     }
 
     const session = await stripe.checkout.sessions.create(sessionConfig);
 
-    console.log(`Created checkout session ${session.id} for customer ${customerId}`);
+    console.log(`Created checkout session ${session.id} for customer ${customerId} (mode: ${stripeMode})`);
 
     return corsResponse({ sessionId: session.id, url: session.url });
   } catch (error: any) {
@@ -212,7 +206,6 @@ Deno.serve(async (req) => {
   }
 });
 
-type ExpectedType = 'string' | { values: string[] };
 type ExpectedType = 'string' | 'number' | { values: string[] };
 type Expectations<T> = { [K in keyof T]: ExpectedType };
 
