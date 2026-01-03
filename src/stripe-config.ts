@@ -5,7 +5,7 @@ export const STRIPE_CONFIG = {
   products: [
     {
       id: isProduction ? 'prod_TiIpH2ccZxbxLC' : 'prod_TiwWNMoSapgc7X',
-      priceId: isProduction ? 'price_1SksE3Bm1NepJXMzob4V7dzl' : 'price_1SlUdKBm1NepJXMzGA6BmwUo',
+      priceId: 'price_1SlUdKBm1NepJXMzGA6BmwUo',
       lookupKey: isProduction ? 'compliance_risk_review_49' : 'compliance_risk_review_49_test',
       name: 'Detailed Compliance Risk Review',
       description: 'Structured compliance risk mapping based on your specific situation. Written review with evidence-backed findings delivered within 48 hours. Human-reviewed analysis with escalation flags for complex cases.',
