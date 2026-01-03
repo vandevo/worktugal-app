@@ -1,26 +1,11 @@
 import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
 import Stripe from 'npm:stripe@17.7.0';
-import { createClient } from 'npm:@supabase/supabase-js@2.49.1';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Client-Info, Apikey',
 };
-
-const supabase = createClient(
-  Deno.env.get('SUPABASE_URL') ?? '',
-  Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
-);
-
-const stripeMode = Deno.env.get('STRIPE_MODE') || 'test';
-const stripeSecretKey = stripeMode === 'live'
-  ? Deno.env.get('STRIPE_SECRET_KEY_LIVE')!
-  : Deno.env.get('STRIPE_SECRET_KEY_TEST')!;
-
-const stripe = new Stripe(stripeSecretKey, {
-  appInfo: { name: 'Worktugal Paid Review', version: '1.0.0' },
-});
 
 Deno.serve(async (req: Request) => {
   try {
@@ -35,6 +20,23 @@ Deno.serve(async (req: Request) => {
       );
     }
 
+    const stripeMode = Deno.env.get('STRIPE_MODE') || 'test';
+    const stripeSecretKey = stripeMode === 'live'
+      ? Deno.env.get('STRIPE_SECRET_KEY_LIVE')
+      : Deno.env.get('STRIPE_SECRET_KEY_TEST');
+
+    if (!stripeSecretKey) {
+      console.error(`Missing Stripe secret key for mode: ${stripeMode}`);
+      return new Response(
+        JSON.stringify({ error: `Stripe not configured. Missing secret key for ${stripeMode} mode.` }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const stripe = new Stripe(stripeSecretKey, {
+      appInfo: { name: 'Worktugal Paid Review', version: '1.0.0' },
+    });
+
     const { price_id, success_url, cancel_url } = await req.json();
 
     if (!price_id || !success_url || !cancel_url) {
@@ -43,6 +45,8 @@ Deno.serve(async (req: Request) => {
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    console.log(`Creating checkout session for price: ${price_id} (mode: ${stripeMode})`);
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -55,7 +59,7 @@ Deno.serve(async (req: Request) => {
       },
     });
 
-    console.log(`Created guest checkout session ${session.id} (mode: ${stripeMode})`);
+    console.log(`Created checkout session ${session.id}`);
 
     return new Response(
       JSON.stringify({ sessionId: session.id, url: session.url }),
