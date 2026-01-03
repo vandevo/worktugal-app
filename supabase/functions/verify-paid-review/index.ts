@@ -91,27 +91,6 @@ Deno.serve(async (req: Request) => {
 
     console.log(`Created paid review record ${newReview.id} for session ${session_id}`);
 
-    const makecomWebhookUrl = Deno.env.get('MAKECOM_PAID_REVIEW_WEBHOOK_URL');
-    if (makecomWebhookUrl) {
-      try {
-        await fetch(makecomWebhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            event: 'paid_review_created',
-            review_id: newReview.id,
-            customer_email: newReview.customer_email,
-            customer_name: newReview.customer_name,
-            access_token: newReview.access_token,
-            created_at: newReview.created_at,
-          }),
-        });
-        console.log('Sent webhook to Make.com');
-      } catch (webhookError) {
-        console.error('Webhook error (non-blocking):', webhookError);
-      }
-    }
-
     return new Response(
       JSON.stringify({
         success: true,

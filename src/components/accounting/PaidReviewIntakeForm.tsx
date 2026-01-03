@@ -111,16 +111,29 @@ export const PaidReviewIntakeForm: React.FC<PaidReviewIntakeFormProps> = ({
     try {
       const escalationFlags = calculateEscalationFlags(formData);
       const ambiguityScore = calculateAmbiguityScore(formData);
-      const finalProgress = { sections_completed: SECTIONS.map(s => s.id) };
 
-      await updateReviewByToken(
-        accessToken,
-        formData,
-        finalProgress,
-        'submitted',
-        escalationFlags,
-        ambiguityScore
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-paid-review`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+          },
+          body: JSON.stringify({
+            access_token: accessToken,
+            form_data: formData,
+            escalation_flags: escalationFlags,
+            ambiguity_score: ambiguityScore,
+          }),
+        }
       );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit');
+      }
 
       onComplete();
     } catch (err) {

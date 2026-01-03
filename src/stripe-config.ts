@@ -3,7 +3,7 @@ export const STRIPE_CONFIG = {
   products: [
     {
       id: 'prod_TiIpH2ccZxbxLC',
-      priceId: 'price_REPLACE_WITH_ACTUAL_PRICE_ID',
+      priceId: 'price_1SksE3Bm1NepJXMzob4V7dzl',
       name: 'Detailed Compliance Risk Review',
       description: 'Structured compliance risk mapping based on your specific situation. Written review with evidence-backed findings delivered within 48 hours. Human-reviewed analysis with escalation flags for complex cases.',
       price: 49.00,
