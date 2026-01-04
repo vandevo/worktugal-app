@@ -13,10 +13,6 @@ const supabase = createClient(
   Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
 );
 
-const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY')!, {
-  appInfo: { name: 'Worktugal Paid Review', version: '1.0.0' },
-});
-
 Deno.serve(async (req: Request) => {
   try {
     if (req.method === 'OPTIONS') {
@@ -31,6 +27,23 @@ Deno.serve(async (req: Request) => {
     }
 
     const { session_id } = await req.json();
+
+    const stripeMode = Deno.env.get('STRIPE_MODE') || 'test';
+    const stripeSecretKey = stripeMode === 'live'
+      ? Deno.env.get('STRIPE_SECRET_KEY_LIVE')
+      : Deno.env.get('STRIPE_SECRET_KEY_TEST');
+
+    if (!stripeSecretKey) {
+      console.error(`Missing Stripe secret key for mode: ${stripeMode}`);
+      return new Response(
+        JSON.stringify({ error: `Stripe not configured for ${stripeMode} mode` }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const stripe = new Stripe(stripeSecretKey, {
+      appInfo: { name: 'Worktugal Paid Review', version: '1.0.0' },
+    });
 
     if (!session_id) {
       return new Response(
