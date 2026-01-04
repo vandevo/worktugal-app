@@ -84,6 +84,39 @@ export async function updateReviewByToken(
   return data;
 }
 
+export async function updateReviewById(
+  reviewId: string,
+  formData: Partial<ComplianceIntakeFormData>,
+  formProgress: { sections_completed: string[] },
+  status?: string,
+  escalationFlags?: string[],
+  ambiguityScore?: number
+): Promise<PaidComplianceReview | null> {
+  const updateData: Record<string, any> = {
+    form_data: formData,
+    form_progress: formProgress,
+    updated_at: new Date().toISOString(),
+  };
+
+  if (status) updateData.status = status;
+  if (escalationFlags) updateData.escalation_flags = escalationFlags;
+  if (ambiguityScore !== undefined) updateData.ambiguity_score = ambiguityScore;
+
+  const { data, error } = await supabase
+    .from('paid_compliance_reviews')
+    .update(updateData)
+    .eq('id', reviewId)
+    .select()
+    .maybeSingle();
+
+  if (error) {
+    console.error('Error updating review:', error);
+    throw new Error('Failed to save progress');
+  }
+
+  return data;
+}
+
 export function calculateEscalationFlags(formData: Partial<ComplianceIntakeFormData>): string[] {
   const flags: string[] = [];
 

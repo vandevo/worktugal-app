@@ -19,13 +19,14 @@ import {
 } from 'lucide-react';
 import {
   type ComplianceIntakeFormData,
-  updateReviewByToken,
+  updateReviewById,
   calculateEscalationFlags,
   calculateAmbiguityScore
 } from '../../lib/paidComplianceReviews';
 
 interface PaidReviewIntakeFormProps {
-  accessToken: string;
+  userId: string;
+  reviewId: string;
   initialData?: Partial<ComplianceIntakeFormData>;
   initialProgress?: { sections_completed: string[] };
   onComplete: () => void;
@@ -42,7 +43,8 @@ const SECTIONS = [
 ];
 
 export const PaidReviewIntakeForm: React.FC<PaidReviewIntakeFormProps> = ({
-  accessToken,
+  userId,
+  reviewId,
   initialData = {},
   initialProgress = { sections_completed: [] },
   onComplete
@@ -64,7 +66,7 @@ export const PaidReviewIntakeForm: React.FC<PaidReviewIntakeFormProps> = ({
     setIsSaving(true);
     try {
       const progressToSave = newProgress || progress;
-      await updateReviewByToken(accessToken, formData, progressToSave);
+      await updateReviewById(reviewId, formData, progressToSave);
       setLastSaved(new Date());
       if (newProgress) setProgress(newProgress);
     } catch (err) {
@@ -72,7 +74,7 @@ export const PaidReviewIntakeForm: React.FC<PaidReviewIntakeFormProps> = ({
     } finally {
       setIsSaving(false);
     }
-  }, [accessToken, formData, progress]);
+  }, [reviewId, formData, progress]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -121,7 +123,8 @@ export const PaidReviewIntakeForm: React.FC<PaidReviewIntakeFormProps> = ({
             'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
           },
           body: JSON.stringify({
-            access_token: accessToken,
+            review_id: reviewId,
+            user_id: userId,
             form_data: formData,
             escalation_flags: escalationFlags,
             ambiguity_score: ambiguityScore,
@@ -687,7 +690,7 @@ export const PaidReviewIntakeForm: React.FC<PaidReviewIntakeFormProps> = ({
         </motion.div>
 
         <p className="text-xs text-gray-500 text-center mt-6 max-w-2xl mx-auto">
-          Your progress is automatically saved. You can close this page and return anytime using the link in your email.
+          Your progress is automatically saved to your account. You can close this page and return anytime by logging in.
         </p>
       </div>
     </div>

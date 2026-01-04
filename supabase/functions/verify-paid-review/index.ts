@@ -26,7 +26,28 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    const { session_id } = await req.json();
+    const { user_id } = await req.json();
+
+    if (!user_id) {
+      return new Response(
+        JSON.stringify({ error: 'Missing user_id' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const { data: existingProfile } = await supabase
+      .from('user_profiles')
+      .select('has_paid_compliance_review, paid_compliance_review_id')
+      .eq('id', user_id)
+      .maybeSingle();
+
+    if (existingProfile?.has_paid_compliance_review && existingProfile?.paid_compliance_review_id) {
+      console.log(`User ${user_id} already has paid review ${existingProfile.paid_compliance_review_id}`);
+      return new Response(
+        JSON.stringify({ success: true, review_id: existingProfile.paid_compliance_review_id }),
+        { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
     const stripeMode = Deno.env.get('STRIPE_MODE') || 'test';
     const stripeSecretKey = stripeMode === 'live'
@@ -45,46 +66,37 @@ Deno.serve(async (req: Request) => {
       appInfo: { name: 'Worktugal Paid Review', version: '1.0.0' },
     });
 
-    if (!session_id) {
+    const sessions = await stripe.checkout.sessions.list({
+      limit: 10,
+    });
+
+    const paidSession = sessions.data.find(
+      s => s.metadata?.user_id === user_id &&
+           s.metadata?.payment_type === 'paid_compliance_review' &&
+           s.payment_status === 'paid'
+    );
+
+    if (!paidSession) {
+      console.log(`No paid session found for user ${user_id}`);
       return new Response(
-        JSON.stringify({ error: 'Missing session_id' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ success: false, error: 'No payment found' }),
+        { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    const { data: existingReview } = await supabase
-      .from('paid_compliance_reviews')
-      .select('*')
-      .eq('stripe_session_id', session_id)
-      .maybeSingle();
+    console.log(`Found paid session ${paidSession.id} for user ${user_id}`);
 
-    if (existingReview) {
-      return new Response(
-        JSON.stringify({
-          success: true,
-          review: existingReview,
-          access_token: existingReview.access_token,
-        }),
-        { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
-    const session = await stripe.checkout.sessions.retrieve(session_id);
-
-    if (session.payment_status !== 'paid') {
-      return new Response(
-        JSON.stringify({ error: 'Payment not completed', payment_status: session.payment_status }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
+    const { data: user } = await supabase.auth.admin.getUserById(user_id);
+    const customerEmail = paidSession.customer_details?.email || user?.user?.email || '';
 
     const { data: newReview, error: insertError } = await supabase
       .from('paid_compliance_reviews')
       .insert({
-        stripe_session_id: session_id,
-        stripe_payment_intent_id: session.payment_intent as string,
-        customer_email: session.customer_details?.email || '',
-        customer_name: session.customer_details?.name || null,
+        user_id: user_id,
+        stripe_session_id: paidSession.id,
+        stripe_payment_intent_id: paidSession.payment_intent as string,
+        customer_email: customerEmail,
+        customer_name: paidSession.customer_details?.name || null,
         status: 'form_pending',
         form_data: {},
         form_progress: { sections_completed: [] },
@@ -102,13 +114,46 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    console.log(`Created paid review record ${newReview.id} for session ${session_id}`);
+    const { error: profileError } = await supabase
+      .from('user_profiles')
+      .update({
+        has_paid_compliance_review: true,
+        paid_compliance_review_id: newReview.id,
+      })
+      .eq('id', user_id);
+
+    if (profileError) {
+      console.error('Error updating user profile:', profileError);
+    }
+
+    console.log(`Created paid review record ${newReview.id} for user ${user_id}`);
+
+    const makecomWebhookUrl = Deno.env.get('MAKECOM_PAID_REVIEW_PAYMENT_WEBHOOK_URL');
+    if (makecomWebhookUrl) {
+      try {
+        await fetch(makecomWebhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event: 'paid_review_purchased',
+            review_id: newReview.id,
+            user_id: user_id,
+            customer_email: customerEmail,
+            customer_name: paidSession.customer_details?.name,
+            payment_amount: paidSession.amount_total ? paidSession.amount_total / 100 : 49,
+            purchased_at: new Date().toISOString(),
+          }),
+        });
+        console.log('Payment webhook sent to Make.com');
+      } catch (webhookError) {
+        console.error('Webhook error (non-blocking):', webhookError);
+      }
+    }
 
     return new Response(
       JSON.stringify({
         success: true,
-        review: newReview,
-        access_token: newReview.access_token,
+        review_id: newReview.id,
       }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );

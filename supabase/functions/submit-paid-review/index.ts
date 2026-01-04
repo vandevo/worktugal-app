@@ -25,11 +25,11 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    const { access_token, form_data, escalation_flags, ambiguity_score } = await req.json();
+    const { review_id, user_id, form_data, escalation_flags, ambiguity_score } = await req.json();
 
-    if (!access_token) {
+    if (!review_id) {
       return new Response(
-        JSON.stringify({ error: 'Missing access_token' }),
+        JSON.stringify({ error: 'Missing review_id' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -37,13 +37,20 @@ Deno.serve(async (req: Request) => {
     const { data: review, error: fetchError } = await supabase
       .from('paid_compliance_reviews')
       .select('*')
-      .eq('access_token', access_token)
+      .eq('id', review_id)
       .maybeSingle();
 
     if (fetchError || !review) {
       return new Response(
         JSON.stringify({ error: 'Review not found' }),
         { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (user_id && review.user_id !== user_id) {
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
@@ -57,7 +64,7 @@ Deno.serve(async (req: Request) => {
         ambiguity_score: ambiguity_score || 0,
         updated_at: new Date().toISOString(),
       })
-      .eq('access_token', access_token);
+      .eq('id', review_id);
 
     if (updateError) {
       console.error('Error updating review:', updateError);
@@ -73,9 +80,9 @@ Deno.serve(async (req: Request) => {
         const webhookPayload = {
           event: 'paid_review_submitted',
           review_id: review.id,
+          user_id: review.user_id,
           customer_email: review.customer_email,
           customer_name: review.customer_name,
-          access_token: review.access_token,
           form_data: form_data || review.form_data,
           escalation_flags: escalation_flags || [],
           ambiguity_score: ambiguity_score || 0,

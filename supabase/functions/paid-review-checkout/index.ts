@@ -37,7 +37,7 @@ Deno.serve(async (req: Request) => {
       appInfo: { name: 'Worktugal Paid Review', version: '1.0.0' },
     });
 
-    const { price_id, success_url, cancel_url } = await req.json();
+    const { price_id, user_id, user_email, success_url, cancel_url } = await req.json();
 
     if (!price_id || !success_url || !cancel_url) {
       return new Response(
@@ -46,20 +46,34 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    console.log(`Creating checkout session for price: ${price_id} (mode: ${stripeMode})`);
+    if (!user_id) {
+      return new Response(
+        JSON.stringify({ error: 'Authentication required. Please sign in to continue.' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
-    const session = await stripe.checkout.sessions.create({
+    console.log(`Creating checkout session for user: ${user_id}, price: ${price_id} (mode: ${stripeMode})`);
+
+    const sessionParams: Stripe.Checkout.SessionCreateParams = {
       payment_method_types: ['card'],
       line_items: [{ price: price_id, quantity: 1 }],
       mode: 'payment',
-      success_url: `${success_url}?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${success_url}`,
       cancel_url,
       metadata: {
         payment_type: 'paid_compliance_review',
+        user_id: user_id,
       },
-    });
+    };
 
-    console.log(`Created checkout session ${session.id}`);
+    if (user_email) {
+      sessionParams.customer_email = user_email;
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionParams);
+
+    console.log(`Created checkout session ${session.id} for user ${user_id}`);
 
     return new Response(
       JSON.stringify({ sessionId: session.id, url: session.url }),

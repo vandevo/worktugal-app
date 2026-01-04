@@ -17,9 +17,18 @@ import {
 interface PaidReviewLandingProps {
   onCheckout: () => void;
   isLoading?: boolean;
+  isAuthenticated?: boolean;
+  onSignIn?: () => void;
+  onSignUp?: () => void;
 }
 
-export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({ onCheckout, isLoading }) => {
+export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
+  onCheckout,
+  isLoading,
+  isAuthenticated = false,
+  onSignIn,
+  onSignUp
+}) => {
   return (
     <div className="min-h-screen bg-gray-900">
       <Seo
@@ -145,30 +154,55 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({ onCheckout
                   </div>
                   <div className="flex items-center gap-3 text-gray-300">
                     <CheckCircle2 className="w-5 h-5 text-green-400" />
-                    <span>Email backup link (resume anytime)</span>
+                    <span>Progress saved to your account</span>
                   </div>
                 </div>
 
-                <Button
-                  onClick={onCheckout}
-                  disabled={isLoading}
-                  size="lg"
-                  className="w-full mb-4"
-                >
-                  {isLoading ? (
-                    <>Processing...</>
-                  ) : (
-                    <>
-                      Get your review
+                {isAuthenticated ? (
+                  <Button
+                    onClick={onCheckout}
+                    disabled={isLoading}
+                    size="lg"
+                    className="w-full mb-4"
+                  >
+                    {isLoading ? (
+                      <>Processing...</>
+                    ) : (
+                      <>
+                        Get your review
+                        <ArrowRight className="w-5 h-5 ml-2" />
+                      </>
+                    )}
+                  </Button>
+                ) : (
+                  <div className="space-y-3 mb-4">
+                    <Button
+                      onClick={onSignUp}
+                      size="lg"
+                      className="w-full"
+                    >
+                      Create account to get started
                       <ArrowRight className="w-5 h-5 ml-2" />
-                    </>
-                  )}
-                </Button>
+                    </Button>
+                    <button
+                      onClick={onSignIn}
+                      className="w-full text-center text-gray-400 hover:text-white text-sm transition-colors"
+                    >
+                      Already have an account? Sign in
+                    </button>
+                  </div>
+                )}
 
                 <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
                   <Lock className="w-4 h-4" />
                   <span>Secure payment via Stripe</span>
                 </div>
+
+                {!isAuthenticated && (
+                  <p className="text-xs text-gray-500 text-center mt-3">
+                    Your progress is saved to your account. Return anytime by logging in.
+                  </p>
+                )}
               </div>
             </motion.div>
           </div>
@@ -238,7 +272,7 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({ onCheckout
               <div>
                 <h3 className="text-white font-semibold mb-2">Can I save my progress?</h3>
                 <p className="text-gray-400 text-sm">
-                  Yes. After payment, you'll receive an email with a unique link. Your answers are auto-saved after each section. Close the browser, come back anytime.
+                  Yes. Your answers are auto-saved to your account after each section. Close the browser, come back anytime by logging in.
                 </p>
               </div>
               <div>
