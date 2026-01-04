@@ -128,7 +128,7 @@ Deno.serve(async (req: Request) => {
 
     console.log(`Created paid review record ${newReview.id} for user ${user_id}`);
 
-    const makecomWebhookUrl = Deno.env.get('MAKECOM_PAID_REVIEW_PAYMENT_WEBHOOK_URL');
+    const makecomWebhookUrl = Deno.env.get('MAKECOM_PAID_REVIEW_WEBHOOK_URL');
     if (makecomWebhookUrl) {
       try {
         await fetch(makecomWebhookUrl, {
