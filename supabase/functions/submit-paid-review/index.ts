@@ -74,11 +74,11 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    const makecomWebhookUrl = Deno.env.get('MAKECOM_PAID_REVIEW_WEBHOOK_URL');
-    if (makecomWebhookUrl) {
+    const formWebhookUrl = Deno.env.get('MAKECOM_WEBHOOK_PAID_REVIEW_FORM_SUBMITTED');
+    if (formWebhookUrl) {
       try {
         const webhookPayload = {
-          event: 'paid_review_submitted',
+          event: 'form_submitted',
           review_id: review.id,
           user_id: review.user_id,
           customer_email: review.customer_email,
@@ -89,14 +89,14 @@ Deno.serve(async (req: Request) => {
           submitted_at: new Date().toISOString(),
         };
 
-        await fetch(makecomWebhookUrl, {
+        await fetch(formWebhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(webhookPayload),
         });
-        console.log('Webhook sent to Make.com for review:', review.id);
+        console.log('Form submission webhook sent to Make.com for review:', review.id);
       } catch (webhookError) {
-        console.error('Webhook error (non-blocking):', webhookError);
+        console.error('Form webhook error (non-blocking):', webhookError);
       }
     }
 
