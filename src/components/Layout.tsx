@@ -118,7 +118,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                             className="w-full px-4 py-2.5 text-left text-slate-300 hover:text-white hover:bg-slate-800/50 transition-colors duration-200 flex items-center space-x-3 text-sm font-medium"
                           >
                             <ClipboardCheck className="h-4 w-4" />
-                            <span>My Compliance Review</span>
+                            <span>My Review</span>
                           </button>
                         )}
                         <button
