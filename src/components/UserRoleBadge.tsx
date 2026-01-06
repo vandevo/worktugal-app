@@ -1,12 +1,13 @@
 import React from 'react';
-import { Shield, Briefcase, User, Calculator } from 'lucide-react';
+import { Shield, Briefcase, User, Calculator, Star } from 'lucide-react';
 
 interface UserRoleBadgeProps {
   role: string;
+  hasPaidReview?: boolean;
   purchases?: Array<{ productName: string }>;
 }
 
-export function UserRoleBadge({ role, purchases = [] }: UserRoleBadgeProps) {
+export function UserRoleBadge({ role, hasPaidReview = false, purchases = [] }: UserRoleBadgeProps) {
   const getRoleInfo = () => {
     switch (role) {
       case 'admin':
@@ -28,10 +29,16 @@ export function UserRoleBadge({ role, purchases = [] }: UserRoleBadgeProps) {
           className: 'bg-blue-500/10 text-blue-400 border-blue-500/20 backdrop-blur-xl shadow-lg shadow-blue-500/5'
         };
       default:
-        // Check if user has made any purchases to show active status
+        if (hasPaidReview) {
+          return {
+            label: 'Client',
+            icon: Star,
+            className: 'bg-gradient-to-r from-amber-500/20 to-yellow-500/20 text-amber-300 border-amber-400/30 backdrop-blur-xl shadow-lg shadow-amber-500/10 ring-1 ring-amber-400/20'
+          };
+        }
         const hasActivePurchases = purchases.length > 0;
         return {
-          label: hasActivePurchases ? 'Active Member' : 'Member',
+          label: hasActivePurchases ? 'Active' : 'Member',
           icon: User,
           className: hasActivePurchases
             ? 'bg-teal-500/10 text-teal-400 border-teal-500/20 backdrop-blur-xl shadow-lg shadow-teal-500/5'

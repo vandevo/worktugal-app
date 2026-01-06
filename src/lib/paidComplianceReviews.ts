@@ -208,3 +208,68 @@ export async function updateReviewStatus(
     throw new Error('Failed to update status');
   }
 }
+
+export async function grantReviewAccessByEmail(email: string): Promise<{ userId: string; reviewId: string }> {
+  const { data: authData, error: authError } = await supabase.rpc('get_user_by_email', { user_email: email });
+
+  if (authError) {
+    console.error('Error looking up user:', authError);
+    throw new Error(authError.message || 'Failed to look up user');
+  }
+
+  if (!authData || authData.length === 0) {
+    throw new Error('User not found with that email');
+  }
+
+  const userId = authData[0].id;
+
+  const { data: existingProfile } = await supabase
+    .from('user_profiles')
+    .select('has_paid_compliance_review, paid_compliance_review_id')
+    .eq('id', userId)
+    .maybeSingle();
+
+  if (existingProfile?.has_paid_compliance_review && existingProfile?.paid_compliance_review_id) {
+    return { userId, reviewId: existingProfile.paid_compliance_review_id };
+  }
+
+  const accessToken = crypto.randomUUID();
+
+  const { data: review, error: reviewError } = await supabase
+    .from('paid_compliance_reviews')
+    .insert({
+      user_id: userId,
+      stripe_session_id: `test_session_${Date.now()}`,
+      stripe_payment_intent_id: `test_pi_${Date.now()}`,
+      customer_email: email,
+      customer_name: 'Test Grant',
+      access_token: accessToken,
+      status: 'form_pending',
+      form_data: {},
+      form_progress: { sections_completed: [] },
+      escalation_flags: [],
+      ambiguity_score: 0
+    })
+    .select()
+    .single();
+
+  if (reviewError) {
+    console.error('Error creating review:', reviewError);
+    throw new Error('Failed to create review record');
+  }
+
+  const { error: profileError } = await supabase
+    .from('user_profiles')
+    .update({
+      has_paid_compliance_review: true,
+      paid_compliance_review_id: review.id
+    })
+    .eq('id', userId);
+
+  if (profileError) {
+    console.error('Error updating profile:', profileError);
+    throw new Error('Failed to update user profile');
+  }
+
+  return { userId, reviewId: review.id };
+}

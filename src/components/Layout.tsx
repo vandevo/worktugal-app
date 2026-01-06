@@ -77,7 +77,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               {/* User Menu or Sign In */}
               {user ? (
                 <div className="flex items-center space-x-3 md:space-x-4">
-                  {profile && <UserRoleBadge role={profile.role} />}
+                  {profile && <UserRoleBadge role={profile.role} hasPaidReview={profile.has_paid_compliance_review} />}
                   <div className="relative" ref={userMenuRef}>
                     <button
                       onClick={() => setShowUserMenu(!showUserMenu)}

@@ -4,6 +4,8 @@ export interface UserProfile {
   id: string;
   display_name?: string;
   role: 'user' | 'partner' | 'admin';
+  has_paid_compliance_review: boolean;
+  paid_compliance_review_id: string | null;
   created_at: string;
   updated_at: string;
 }

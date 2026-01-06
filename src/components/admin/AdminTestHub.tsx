@@ -7,10 +7,12 @@ import { Alert } from '../ui/Alert';
 import {
   Briefcase, Users, BookOpen, MessageCircle,
   Send, CheckCircle, AlertTriangle, Loader, Copy, Check,
-  Database, Mail, MessageSquare, FileText, Eye, ExternalLink
+  Database, Mail, MessageSquare, FileText, Eye, ExternalLink,
+  Star, UserPlus
 } from 'lucide-react';
 import { submitContactRequest } from '../../lib/contacts';
 import { submitTaxCheckup } from '../../lib/taxCheckup';
+import { grantReviewAccessByEmail } from '../../lib/paidComplianceReviews';
 import type { ContactRequest } from '../../lib/contacts';
 import type { TaxCheckupFormData } from '../../lib/taxCheckup';
 
@@ -478,6 +480,9 @@ export const AdminTestHub: React.FC = () => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [quickPreviewId, setQuickPreviewId] = useState('');
   const [lastSubmittedId, setLastSubmittedId] = useState<string | null>(null);
+  const [grantEmail, setGrantEmail] = useState('');
+  const [isGranting, setIsGranting] = useState(false);
+  const [grantResult, setGrantResult] = useState<{ success: boolean; message: string } | null>(null);
 
   const getColorClasses = (color: string) => {
     const colors = {
@@ -564,6 +569,30 @@ export const AdminTestHub: React.FC = () => {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const handleGrantAccess = async () => {
+    if (!grantEmail) return;
+
+    setIsGranting(true);
+    setGrantResult(null);
+
+    try {
+      const { userId, reviewId } = await grantReviewAccessByEmail(grantEmail);
+      setGrantResult({
+        success: true,
+        message: `Review access granted! User can now access the intake form at /compliance-review. Review ID: ${reviewId.slice(0, 8)}...`
+      });
+      setGrantEmail('');
+    } catch (error) {
+      console.error('Grant access error:', error);
+      setGrantResult({
+        success: false,
+        message: error instanceof Error ? error.message : 'Failed to grant access'
+      });
+    } finally {
+      setIsGranting(false);
+    }
   };
 
   return (
@@ -884,7 +913,7 @@ export const AdminTestHub: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl border border-white/[0.08] p-6">
+          <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl border border-white/[0.08] p-6 mb-8">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <Database className="w-5 h-5" />
               What Gets Triggered?
@@ -919,6 +948,55 @@ export const AdminTestHub: React.FC = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-amber-500/10 to-yellow-500/5 backdrop-blur-xl rounded-2xl border border-amber-500/30 p-6">
+            <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+              <Star className="w-5 h-5 text-amber-400" />
+              Grant Paid Review Access
+            </h3>
+            <p className="text-sm text-gray-400 mb-4">
+              Bypass Stripe payment and grant a user access to the compliance review form. User must have an existing account.
+            </p>
+
+            {grantResult && (
+              <Alert
+                variant={grantResult.success ? 'success' : 'error'}
+                className="mb-4"
+              >
+                {grantResult.message}
+              </Alert>
+            )}
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Input
+                type="email"
+                value={grantEmail}
+                onChange={(e) => setGrantEmail(e.target.value)}
+                placeholder="user@example.com"
+                className="flex-1"
+              />
+              <Button
+                onClick={handleGrantAccess}
+                disabled={!grantEmail || isGranting}
+                className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-semibold"
+              >
+                {isGranting ? (
+                  <>
+                    <Loader className="w-4 h-4 mr-2 animate-spin" />
+                    Granting...
+                  </>
+                ) : (
+                  <>
+                    <UserPlus className="w-4 h-4 mr-2" />
+                    Grant Access
+                  </>
+                )}
+              </Button>
+            </div>
+            <p className="text-xs text-gray-500 mt-3">
+              This will create a paid_compliance_reviews record and update user_profiles. User will see "Client" badge and can access the form.
+            </p>
           </div>
         </motion.div>
       </div>
