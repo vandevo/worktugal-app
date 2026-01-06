@@ -95,7 +95,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                       <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="absolute right-0 mt-3 w-52 bg-slate-900/95 backdrop-blur-xl rounded-xl border border-slate-700/50 shadow-2xl shadow-slate-950/50 py-2"
+                        className="absolute right-0 mt-3 w-44 bg-slate-900/95 backdrop-blur-xl rounded-xl border border-slate-700/50 shadow-2xl shadow-slate-950/50 py-2"
                       >
                         {profile?.role === 'admin' && (
                           <button
