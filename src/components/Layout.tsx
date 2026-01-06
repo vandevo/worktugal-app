@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LogOut, Settings, LayoutDashboard } from 'lucide-react';
+import { LogOut, Settings, LayoutDashboard, ClipboardCheck } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useUserProfile } from '../hooks/useUserProfile';
 import { UserRoleBadge } from './UserRoleBadge';
@@ -107,6 +107,18 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                           >
                             <LayoutDashboard className="h-4 w-4" />
                             <span>Dashboard</span>
+                          </button>
+                        )}
+                        {profile?.has_paid_compliance_review && (
+                          <button
+                            onClick={() => {
+                              navigate('/compliance-review');
+                              setShowUserMenu(false);
+                            }}
+                            className="w-full px-4 py-2.5 text-left text-slate-300 hover:text-white hover:bg-slate-800/50 transition-colors duration-200 flex items-center space-x-3 text-sm font-medium"
+                          >
+                            <ClipboardCheck className="h-4 w-4" />
+                            <span>My Compliance Review</span>
                           </button>
                         )}
                         <button
