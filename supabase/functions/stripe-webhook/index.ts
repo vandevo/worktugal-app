@@ -57,7 +57,40 @@ Deno.serve(async (req) => {
   }
 });
 
+async function forwardToMakecom(event: Stripe.Event) {
+  const makecomWebhookUrl = Deno.env.get('MAKECOM_STRIPE_WEBHOOK_URL');
+
+  if (!makecomWebhookUrl) {
+    console.log('No MAKECOM_STRIPE_WEBHOOK_URL configured, skipping Make.com forwarding');
+    return;
+  }
+
+  try {
+    const response = await fetch(makecomWebhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event_id: event.id,
+        event_type: event.type,
+        created: event.created,
+        data: event.data.object,
+        livemode: event.livemode,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error(`Make.com webhook failed: ${response.status} ${await response.text()}`);
+    } else {
+      console.log(`Successfully forwarded ${event.type} to Make.com`);
+    }
+  } catch (error: any) {
+    console.error(`Error forwarding to Make.com: ${error.message}`);
+  }
+}
+
 async function handleEvent(event: Stripe.Event) {
+  await forwardToMakecom(event);
+
   const stripeData = event?.data?.object ?? {};
 
   if (!stripeData) {
