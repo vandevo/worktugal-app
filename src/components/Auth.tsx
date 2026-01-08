@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { LogIn, UserPlus, Loader2 } from 'lucide-react';
+import { LogIn, UserPlus, Loader as Loader2 } from 'lucide-react';
 
 export const Auth: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);

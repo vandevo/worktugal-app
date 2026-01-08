@@ -6,7 +6,7 @@ import { Header } from './components/Header';
 import { ProductCard } from './components/ProductCard';
 import { SuccessPage } from './components/SuccessPage';
 import { STRIPE_PRODUCTS } from './stripe-config';
-import { Loader2 } from 'lucide-react';
+import { Loader as Loader2 } from 'lucide-react';
 
 function App() {
   const { user, loading } = useAuth();

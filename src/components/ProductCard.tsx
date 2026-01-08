@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Product } from '../stripe-config';
-import { CheckCircle, Loader2 } from 'lucide-react';
+import { CircleCheck as CheckCircle, Loader as Loader2 } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
