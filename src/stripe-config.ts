@@ -29,3 +29,7 @@ export const getProductById = (id: string): Product | undefined => {
 export const getProductByPriceId = (priceId: string): Product | undefined => {
   return STRIPE_PRODUCTS.find(product => product.priceId === priceId);
 };
+
+export const STRIPE_CONFIG = {
+  products: STRIPE_PRODUCTS,
+};
