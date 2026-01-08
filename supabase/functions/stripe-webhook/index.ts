@@ -58,10 +58,10 @@ Deno.serve(async (req) => {
 });
 
 async function forwardToMakecom(event: Stripe.Event) {
-  const makecomWebhookUrl = Deno.env.get('MAKECOM_STRIPE_WEBHOOK_URL');
+  const makecomWebhookUrl = Deno.env.get('MAKECOM_WEBHOOK_PAID_REVIEW_PAYMENT_CONFIRMED');
 
   if (!makecomWebhookUrl) {
-    console.log('No MAKECOM_STRIPE_WEBHOOK_URL configured, skipping Make.com forwarding');
+    console.log('No MAKECOM_WEBHOOK_PAID_REVIEW_PAYMENT_CONFIRMED configured, skipping Make.com forwarding');
     return;
   }
 
