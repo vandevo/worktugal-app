@@ -84,7 +84,11 @@ async function forwardToMakecom(event: Stripe.Event) {
 }
 
 async function handleEvent(event: Stripe.Event) {
-  await forwardToMakecom(event);
+  if (event.type === 'checkout.session.completed') {
+    await forwardToMakecom(event);
+  } else {
+    console.log(`Skipping Make.com forward for event type: ${event.type} (only checkout.session.completed is forwarded)`);
+  }
 
   const stripeData = event?.data?.object ?? {};
 
