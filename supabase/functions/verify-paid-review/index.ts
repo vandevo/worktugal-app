@@ -128,29 +128,6 @@ Deno.serve(async (req: Request) => {
 
     console.log(`Created paid review record ${newReview.id} for user ${user_id}`);
 
-    const paymentWebhookUrl = Deno.env.get('MAKECOM_WEBHOOK_PAID_REVIEW_PAYMENT_CONFIRMED');
-    if (paymentWebhookUrl) {
-      try {
-        await fetch(paymentWebhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            event: 'payment_confirmed',
-            review_id: newReview.id,
-            user_id: user_id,
-            customer_email: customerEmail,
-            customer_name: paidSession.customer_details?.name,
-            payment_amount: paidSession.amount_total ? paidSession.amount_total / 100 : 49,
-            stripe_session_id: paidSession.id,
-            confirmed_at: new Date().toISOString(),
-          }),
-        });
-        console.log('Payment confirmation webhook sent to Make.com');
-      } catch (webhookError) {
-        console.error('Payment webhook error (non-blocking):', webhookError);
-      }
-    }
-
     return new Response(
       JSON.stringify({
         success: true,
