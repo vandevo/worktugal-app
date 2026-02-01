@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2025-12-16
+**Last Updated:** 2026-02-01
 
 ---
 
@@ -81,13 +81,13 @@ Contact details managed through Supabase profile system and displayed via authen
 - **Vite Plugin React 4.3.1**: Fast Refresh and JSX support
 
 ### Deployment & Hosting
-- **Netlify**: CDN, continuous deployment, serverless functions, form handling
+- **Cloudflare Pages**: CDN, continuous deployment from GitHub, global edge network
 - **Supabase Cloud**: Managed PostgreSQL, Auth, Storage, Edge Functions
 
 ### Analytics & Monitoring
 - **Google Analytics 4**: User behavior tracking (configured via cookie consent)
 - **Supabase Dashboard**: Database monitoring, query performance
-- **Netlify Analytics**: Traffic and deployment metrics
+- **Cloudflare Analytics**: Traffic, performance, and deployment metrics
 
 ### Automation
 - **Make.com**: Webhook orchestration for email notifications and partner updates
@@ -104,7 +104,7 @@ Contact details managed through Supabase profile system and displayed via authen
 │   ├── prompt                      # Original project prompt
 │   └── supabase_discarded_migrations/  # Old migration files (archived)
 ├── public/                         # Static assets served directly
-│   ├── _redirects                  # Netlify redirect rules
+│   ├── _redirects                  # SPA redirect rules (Cloudflare Pages compatible)
 │   ├── favicon-180x180.png         # iOS home screen icon
 │   ├── favicon-192x192.png         # Android home screen icon
 │   ├── favicon-512x512.png         # High-res app icon
@@ -245,9 +245,11 @@ Contact details managed through Supabase profile system and displayed via authen
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd project
+   git clone https://github.com/vandevo/worktugal-app.git
+   cd worktugal-app
    ```
+   
+   > **Important:** Clone to a local drive (e.g., `C:\Worktugal apps\`), NOT a cloud-synced folder like Google Drive. Cloud sync services interfere with `npm install` and cause file write errors.
 
 2. **Install dependencies**
    ```bash
@@ -281,7 +283,7 @@ Contact details managed through Supabase profile system and displayed via authen
    npm run build
    ```
    - Output in `dist/` directory
-   - Ready for Netlify deployment
+   - Ready for Cloudflare Pages deployment
 
 ### Example `.env` File
 
@@ -320,7 +322,7 @@ VITE_ENABLE_DEBUG=true
 **Important Notes:**
 - All `VITE_` prefixed variables are exposed to the frontend
 - Never commit `.env` file to version control
-- Use Netlify environment variables for production deployment
+- Use Cloudflare Pages environment variables for production deployment
 - Stripe webhook secret obtained after creating webhook endpoint
 - Make.com webhook URLs created in Make.com scenario settings
 
@@ -347,25 +349,29 @@ npm run preview      # Preview production build locally
 npm run build:sitemap  # Placeholder (sitemap exists in public/)
 ```
 
-### Netlify Deployment Configuration
+### Cloudflare Pages Deployment Configuration
 
-**Build Settings:**
+**Build Settings (Cloudflare Dashboard → Workers & Pages → Settings → Build):**
 - **Build Command:** `npm run build`
-- **Publish Directory:** `dist`
-- **Functions Directory:** (Not used, Supabase Edge Functions handle serverless)
-- **Node Version:** 18.x (set via `.nvmrc` or environment variable)
+- **Build Output Directory:** `dist`
+- **Production Branch:** `main`
+- **Node Version:** 18.x (automatically detected)
 
-**Environment Variables (Netlify Dashboard):**
+**Environment Variables (Cloudflare Dashboard → Settings → Variables and Secrets):**
 ```
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 VITE_STRIPE_PUBLISHABLE_KEY=pk_live_51...
 VITE_STRIPE_PRICE_ID=price_1234567890
-VITE_APP_URL=https://worktugal.com
-VITE_SUCCESS_URL=https://worktugal.com/success
-VITE_CANCEL_URL=https://worktugal.com
+VITE_APP_URL=https://app.worktugal.com
+VITE_SUCCESS_URL=https://app.worktugal.com/success
+VITE_CANCEL_URL=https://app.worktugal.com
 VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
+
+**Custom Domain:**
+- Domain: `app.worktugal.com`
+- DNS: CNAME pointing to `worktugal-apps.pages.dev` (DNS only, no proxy)
 
 **Redirects Configuration (`public/_redirects`):**
 ```
@@ -379,37 +385,28 @@ https://www.worktugal.com/*  https://worktugal.com/:splat  301!
 http://worktugal.com/*  https://worktugal.com/:splat  301!
 ```
 
-**Headers Configuration (Netlify `netlify.toml` or Dashboard):**
-```toml
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
-    X-XSS-Protection = "1; mode=block"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+**Headers Configuration (Cloudflare Pages `_headers` file or Transform Rules):**
+```
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
 
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
 
-[[headers]]
-  for = "/*.png"
-  [headers.values]
-    Cache-Control = "public, max-age=2592000"
+/*.png
+  Cache-Control: public, max-age=2592000
 
-[[headers]]
-  for = "/*.jpg"
-  [headers.values]
-    Cache-Control = "public, max-age=2592000"
+/*.jpg
+  Cache-Control: public, max-age=2592000
 ```
 
 **Custom Domains:**
-- Primary: `worktugal.com`
-- Alias: `www.worktugal.com` (redirects to primary)
-- SSL: Automatic via Let's Encrypt (managed by Netlify)
+- Primary: `app.worktugal.com`
+- SSL: Automatic via Cloudflare (managed by Cloudflare Pages)
 
 **Deploy Contexts:**
 - **Production:** `main` branch auto-deploys
@@ -1407,7 +1404,7 @@ z.string()
 **XSS Prevention:**
 - React automatically escapes JSX content
 - No `dangerouslySetInnerHTML` usage
-- Content Security Policy headers (Netlify config)
+- Content Security Policy headers (Cloudflare Pages `_headers` file)
 
 ---
 
@@ -1705,7 +1702,7 @@ z.string()
 
 ---
 
-### Netlify Analytics
+### Cloudflare Analytics
 
 **Traffic Metrics:**
 - Unique visitors per day/month
@@ -1722,7 +1719,7 @@ z.string()
 **Error Tracking:**
 - 4xx and 5xx error rates
 - Top error pages
-- Failed function invocations
+- Web Analytics dashboard
 
 ---
 
@@ -1756,7 +1753,7 @@ z.string()
 - SEO: 100
 
 **Monitoring Tools:**
-- Netlify Analytics built-in performance monitoring
+- Cloudflare Analytics built-in performance monitoring
 - Google PageSpeed Insights weekly audits
 - WebPageTest for detailed waterfall analysis
 - Chrome DevTools Lighthouse for local testing
@@ -1913,9 +1910,10 @@ https://worktugal.com?debug=true
 - Auth rate limiting: 10 login attempts per hour per email
 - Storage upload rate limiting: 10 files/minute per user
 
-**Netlify Firewall:**
-- DDoS protection enabled
+**Cloudflare Protection:**
+- DDoS protection enabled (automatic)
 - Bot detection and blocking
+- WAF rules (Web Application Firewall)
 - Geographic restrictions (optional)
 
 **Database Security:**
@@ -1929,7 +1927,7 @@ https://worktugal.com?debug=true
 
 **Environment Variables:**
 - Never committed to Git (in `.gitignore`)
-- Stored in Netlify environment variables dashboard
+- Stored in Cloudflare Pages environment variables (Workers & Pages > Settings > Variables)
 - Supabase secrets stored in Supabase Dashboard > Settings > API
 - Stripe keys stored in Stripe Dashboard > Developers > API Keys
 
@@ -1947,6 +1945,17 @@ https://worktugal.com?debug=true
 ---
 
 ## Recent Updates
+
+**2026-02-01: Migration to Cloudflare Pages**
+- Migrated hosting from Netlify to Cloudflare Pages for simplified infrastructure
+- All DNS and hosting now managed in single Cloudflare dashboard
+- Custom domain `app.worktugal.com` configured with automatic SSL
+- Build settings: `npm run build` with `dist` output directory
+- Environment variables configured in Cloudflare Pages dashboard
+- No changes to backend services (Supabase, Stripe, Make.com) - all continue working unchanged
+- Benefits: faster edge network, unified DNS/hosting management, better Cloudflare integration
+- Updated README documentation to reflect Cloudflare Pages deployment workflow
+- Note: Deployment section updated with Cloudflare Pages configuration
 
 **2025-12-16: Tax Checkup Dynamic Stats Implementation**
 - Implemented dynamic stats feature for Tax Checkup edge function replacing hardcoded values
