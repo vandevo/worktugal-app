@@ -48,7 +48,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
       trackLogin('email');
       onSuccess?.();
     } catch (err: any) {
-      setError(err.message || 'Failed to sign in');
+      // Make Supabase error messages friendlier
+      const message = err.message === 'Invalid login credentials'
+        ? 'Email or password incorrect. Please try again.'
+        : err.message || 'Failed to sign in';
+      setError(message);
     } finally {
       setLoading(false);
     }
