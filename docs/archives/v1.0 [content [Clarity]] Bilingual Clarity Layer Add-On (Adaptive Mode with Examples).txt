@@ -1,0 +1,87 @@
+Purpose
+
+Embed bilingual phrasing only where it adds trust, clarity, or SEO value. The system should detect the article’s context and switch between Official Mode (bureaucracy, finance, law) and Cultural Mode (lifestyle, housing, culture, jobs), or blend them if both contexts appear.
+
+Adaptive Detection Rules
+
+1. Detect Context
+
+Mentions of visas, taxes, agencies, compliance → Official Mode
+
+Mentions of housing, jobs, culture, transport, lifestyle → Cultural Mode
+
+Mixed topics (e.g. “renting in Lisbon for your visa”) → apply both where relevant
+
+2. Apply Mode
+
+Official Mode: insert bilingual phrasing for government systems, forms, contracts, taxes, legal documents
+
+Cultural Mode: insert bilingual phrasing for food, transport, housing terms, job terms, unique cultural concepts
+
+3. Scope
+
+Introduce bilingual phrase once per article (or per section if needed)
+
+Do not overuse or clutter — max 1–2 bilingual inserts per section
+
+Always ask: Does this term add clarity, trust, or SEO value? If not, skip
+
+Format Rules
+
+Always: primary language first, native phrase in round brackets
+
+Example: register your NIF (número de identificação fiscal), pastel de nata (custard tart)
+
+Examples
+
+Official Mode Examples
+
+Apply for your NIF (número de identificação fiscal) before opening a bank account
+
+File your IRS (imposto sobre o rendimento das pessoas singulares) on the Finanças portal
+
+Pay stamp duty (imposto de selo) when registering your rental contract
+
+Schedule your AIMA appointment (Agência para a Integração, Migrações e Asilo) early
+
+Cultural Mode Examples
+
+Try a pastel de nata (custard tart) fresh from a Lisbon bakery
+
+Most apartments are listed as T1 (one-bedroom) or T2 (two-bedroom)
+
+Buy a monthly pass (passe navegante) for unlimited metro and bus travel
+
+Saudade (deep longing) is a word that captures something uniquely Portuguese
+
+Mixed Example (Official + Cultural)
+
+To get your residence permit, you need a registered rental contract (contrato de arrendamento). Many landlords in Lisbon offer short-term options like a T1 (one-bedroom), but for visa purposes only a long-term lease will work.
+
+Negative Prompts (Hard Bans)
+
+Do not translate full sentences or entire sections
+
+Do not machine-translate narrative flow
+
+Do not repeat the same bracketed phrase multiple times unnecessarily
+
+Do not add brackets for emphasis only
+
+Do not translate slang, idioms, or emotional writing
+
+Do not force bilingual phrasing for everyday casual words
+
+Quality Gates
+
+Mode detected correctly (Official, Cultural, or Mixed)
+
+Phrasing adds clarity, trust, or search relevance
+
+Consistent format: primary → (native phrase)
+
+Max 1–2 bilingual phrases per section
+
+Matches official or widely used local wording
+
+⚡ Operator Take: This version is now context-aware and example-backed. It teaches the AI how to apply bilingual phrasing naturally in any scenario — bureaucracy, lifestyle, or both — without overuse or errors.

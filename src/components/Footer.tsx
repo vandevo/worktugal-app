@@ -148,7 +148,7 @@ export const Footer: React.FC = () => {
 
         <div className="border-t border-slate-800/50 mt-12 pt-8 text-center text-sm">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-slate-500">&copy; 2025 <a href="https://worktugal.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">Worktugal</a>. All rights reserved.</p>
+            <p className="text-slate-500">&copy; 2026 <a href="https://worktugal.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">Worktugal</a>. All rights reserved.</p>
             <div className="flex flex-col sm:flex-row items-center gap-4 text-sm">
               <button
                 onClick={openConsentBanner}

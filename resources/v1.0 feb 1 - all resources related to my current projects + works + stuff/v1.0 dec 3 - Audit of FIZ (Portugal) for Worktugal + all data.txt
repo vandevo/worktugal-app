@@ -1,0 +1,119 @@
+The uploaded content you provided maps out FIZ’s complete workflow—from user onboarding to invoicing, Social Security filings, VAT submissions and pricing plans. FIZ is a Portuguese SaaS platform that automates certified invoicing, quarterly Social Security declarations and VAT returns. It offers unlimited AT‑certified invoicing, automatic VAT and Social Security calculation and submission, and a “Tax Shield” that pays fines up to €500 or €1 500 per declaration depending on the plan
+fiz.co
+fiz.co
+. Users choose between self‑employed (NIF) or company (NIPC) profiles, configure AT communication (automatic or manual), upload logos and IBANs for invoice templates, and can import customers/items from the AT portal or CSV. Paid plans add scheduled invoicing, multi‑user access, an AI tax assistant and priority support. FIZ assumes the user already has NIF/NISS and an open activity; it does not check compliance or give cross‑border guidance
+fiz.co
+.
+
+Your complete audit report—including ICPs, detailed onboarding steps, pricing tiers and market gaps—is available in a Markdown file that can be shared directly with Claude AI:
+
+Audit of FIZ (Portugal) for Worktugal
+1. What FIZ Does
+
+FIZ is a Portuguese fintech positioned as a financial assistant for freelancers (“trabalhadores independentes”). Its platform automates three core tasks:
+
+Certified Invoicing – FIZ lets users issue unlimited, AT‑certified invoices via web, mobile app or WhatsApp. The invoices are automatically communicated to the Tax Authority, and the platform supports importing clients and items, exporting to SAF‑T/Excel, and customising templates and payment methods
+fiz.co
+. Paid plans add scheduled invoices, automatic VAT rate suggestions and multi‑user access
+fiz.co
+.
+
+Social Security Declaration (SegSoc) – FIZ calculates the quarterly contribution base for self‑employed workers, allows adjustments of ±25 % and files the declaration with a single click. It sends smart reminders before deadlines and claims expert verification
+fiz.co
+.
+
+Periodic VAT Declaration (IVA) – FIZ automatically calculates VAT from issued invoices, imports additional invoices from the AT portal, and submits the return electronically. It provides expert verification and smart reminders, emphasising error‑free compliance
+fiz.co
+.
+
+An optional Tax Shield guarantees payment of fines imposed by the Tax Authority or Social Security for declarations filed through FIZ. Coverage ranges from €500 to €1 500 per declaration depending on the plan
+fiz.co
+. This guarantee covers penalties but not additional taxes or interest
+fiz.co
+.
+
+Users can configure AT communication (automatic or manual), invite accountants to receive SAF‑T files, and customise invoice branding. Paid tiers also include an AI Tax Assistant and priority support. Pricing ranges from free (“FIZ Base”) to €24.99 per month for “Prime Pro,” which bundles all features and the maximum Tax Shield
+fiz.co
+fiz.co
+.
+
+2. Ideal Customer Profiles (ICPs) for FIZ
+
+FIZ targets Portuguese self‑employed professionals and micro‑businesses who already have:
+
+NIF/NISS and open activity – FIZ assumes the user is legally registered and ready to invoice; it does not check registration or residency status.
+
+Simplified or organised VAT regime – FIZ offers separate plans for VAT‑exempt and VAT‑registered freelancers.
+
+Low‑complexity operations – The platform focuses on domestic invoicing, VAT and Social Security filings; it does not address foreign income, cross‑border VAT, or double‑taxation rules.
+
+These ICPs include independent contractors (consultants, developers, creatives), individual entrepreneurs (ENI), and small LLCs (Lda) needing a lightweight accounting tool. FIZ promotes itself as replacing the need for an accountant for routine filings and appeals to users who value automation and price transparency
+fiz.co
+.
+
+3. Onboarding Steps and User Data Required
+
+The FIZ workflow asks users to provide:
+
+Profile type – Choose between Self‑employed (requires NIF) or Company (requires NIPC). This step also asks for activity type (TI vs. ENI) and employment status (e.g., self‑employed, salaried below/above certain thresholds).
+
+General information – Name, contact details, address and, optionally, website. Users select whether they provide services, sell goods or both.
+
+AT communication – Users decide if FIZ will submit data automatically or manually. For automatic submission, FIZ creates a limited‑access sub‑user on the AT portal using the user’s credentials; manual mode requires uploading SAF‑T files oneself. The user can also configure monthly automatic email delivery of SAF‑T files to their accountant.
+
+Invoice customisation – Upload logo (PNG/JPG), enter IBAN, choose document print size (A4 or 80 mm receipts), select accepted payment methods and, in paid plans, design custom PDF templates.
+
+Invoice creation – Choose document type (Invoice, Invoice‑receipt, Simplified invoice, Receipt, Commercial proposal). Fill issue date, due date, EAC/CIRS codes, customer details, items (service or goods with price and VAT), optional notes, and recurrence schedule (frequency, start/end dates, auto‑send to client). Subtotals and VAT totals are calculated automatically.
+
+Customer and item onboarding – Users can add customers manually (name, NIF/NIPC, email, address, phone) or import from the AT portal or CSV. Items require designation (service vs. goods), unit price, VAT (auto or manual), and optional withholding tax.
+
+Social Security and VAT filing – Users must link their NISS credentials for Social Security and create a secondary AT user (with ‘IVP’ permission) to prefill VAT forms. FIZ then calculates income, contribution base and VAT liabilities. Users can adjust income categories (service vs. product) and indicate salary ranges.
+
+These steps ensure FIZ has enough data to automate filings but may overwhelm users who are new to Portugal’s tax system.
+
+4. Market Gaps and Opportunities for Worktugal
+Gap in FIZ	Evidence	Opportunity for Worktugal
+No pre‑registration compliance check	FIZ expects users to have a NIF, NISS and open activity; it does not warn about missing registrations or VAT‑threshold crossings.	Worktugal can position itself as the entry point that diagnoses compliance risks (e.g., missing NIF/NISS, unreported income, residency traps) before any invoice is issued. This is valuable for foreigners and newcomers.
+No cross‑border or visa guidance	FIZ markets itself to domestic freelancers; its FAQ states a user does not need an accountant and encourages using FIZ for routine filings【720-L828-L840】. It does not cover NHR, D7/D8 visas or double‑tax treaties.	Worktugal can specialise in expats, digital nomads and remote workers, offering residency and cross‑border tax guidance and integrating NHR/D7/D8 rules into its risk engine.
+No timing intelligence	Although FIZ sends reminders for quarterly filings, it does not map Portugal’s administrative calendar or predict when penalties or audits are likely.	Use the Worktugal Fiscal Calendar to alert users to administrative dead zones, holiday shutdowns and penalty windows. This creates urgency and trust.
+Limited marketplace/ecosystem	FIZ handles filings in‑house with its own accountants; the FAQ suggests connecting to a partner accountant only if the user has a company【720-L828-L840】. There is no open marketplace or revenue‑sharing model.	Build a marketplace where vetted accountants offer services. Clients can choose an accountant or let Worktugal match them. Incentivise partners with revenue sharing and lead scoring (as described in your accountant research).
+Lack of multilingual or bilingual interface	FIZ’s primary language is Portuguese; the site offers an English version but may not cater to non‑Portuguese speakers.	Offer multilingual onboarding and support (English/Portuguese/Bilingual clarity layer) and ensure the user interface is accessible to foreigners.
+Data silos	FIZ keeps user data within its system. Users cannot easily export risk profiles or integrate with other platforms beyond SAF‑T.	Provide open API integration with Supabase/Airtable and allow users and accountants to export risk reports, deadlines and actions into other tools.
+5. Recommendations for Worktugal’s Onboarding and Dashboards
+Client Dashboard
+
+Unified intake – Combine profile, NIF/NISS verification and activity opening in a single wizard. Prefill data when possible (e.g., fetch NIF/NISS status via API) and flag missing registrations.
+
+Risk snapshot – After intake, present a risk score that highlights red flags (e.g., missing activity, VAT threshold proximity) with links to relevant modules (e.g., open activity, register VAT).
+
+Calendar view – Integrate the Fiscal Calendar to show upcoming deadlines, AT blackout dates and recommended actions. Add estimated penalty windows.
+
+Document management – Let users upload invoices, expenses, contracts and visas. Offer automatic classification and sync with cloud storage.
+
+Marketplace access – Provide a button to book a “Fix Session” or connect with an accountant partner. Display accountant reviews, expertise (e.g., foreign income, crypto), and SLA expectations.
+
+Accountant Dashboard
+
+Client overview – Show a list of clients with risk scores, pending tasks (e.g., filings due) and notes. Allow filtering by risk severity, revenue band, or visa status.
+
+Action manager – Provide tools to file VAT/SegSoc declarations, but also to review pre‑compliance flags. Include timeline of interactions, uploaded documents and chat history.
+
+Communication module – Built‑in secure chat with clients, with audit trails. Option to send guidance and request documents.
+
+Revenue tracking – Show earned fees from Fix Sessions and recurring retainers. Partner accountants can see their pipeline of leads from Worktugal and expected payouts.
+
+Onboarding Data Collection
+
+Simplify fields – Only request NIF/NISS if the user chooses self‑employed; for companies, require NIPC. Provide tooltips explaining why each field is needed. Avoid forcing manual EAC codes; auto‑suggest them based on the user’s business category.
+
+Enhance import options – Allow users to import customers and invoices from other accounting tools or spreadsheets. Pre‑check imported data for compliance (e.g., verify invoice date vs. activity date).
+
+Improve item creation – Instead of manual price & VAT entry, offer a library of common services/goods with default VAT rates. Let users save custom items for reuse.
+
+Credential handling – For AT and Social Security credentials, follow FIZ’s approach of creating limited‑access sub‑users but add clear instructions and privacy safeguards. Offer manual upload as a fallback.
+
+6. Final Assessment
+
+FIZ’s strength lies in automating routine invoicing and filings and offering a penalty guarantee. It is a polished product for Portuguese freelancers with basic tax needs, but it does not address the wider compliance journey that Worktugal aims to own. By delivering pre‑compliance diagnostics, cross‑border guidance, timing intelligence and an accountant marketplace, Worktugal can occupy a unique niche and attract users long before they reach the stage where FIZ becomes relevant.
+
+Key takeaways: FIZ’s ICPs are domestic freelancers and sole traders who need a simple invoicing and filing tool; it does not cater to foreigners or those needing pre‑registration advice. Significant gaps remain for Worktugal: no pre‑compliance diagnostics (no alerts for missing NIF/NISS, activity or VAT thresholds), no cross‑border or visa‑related rules, no behavioural timing intelligence, and no marketplace for accountants. For your platform you should streamline onboarding (auto‑fetch NIF/NISS where possible, minimise manual fields), deliver risk scores and fiscal‑calendar alerts, and give accountants a dashboard with client risk profiles and revenue tracking. These enhancements will differentiate Worktugal and capture users before FIZ becomes relevant.

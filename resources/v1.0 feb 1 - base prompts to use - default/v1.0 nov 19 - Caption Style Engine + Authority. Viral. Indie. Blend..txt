@@ -1,0 +1,262 @@
+# Caption Style Engine v1.1  
+Authority. Viral. Indie. Blend.
+
+## Purpose  
+Turn raw content or creator inspiration into a tone engine that applies authority, viral, or indie builder styles to any caption.  
+Integrate with the Social Media Distribution Protocol.  
+Ensure every caption is scroll-stopping, credible, and measurable.
+
+## Inputs  
+Raw content: longform article, blog, event, offer, job, announcement.  
+Cluster: authority, viral, indie, blend.  
+Goal: trust, CTR, shares, conversation, signups.  
+Platform context: linkedin_personal, linkedin_page, instagram_feed, instagram_story, x, telegram, whatsapp, reddit, newsletter.
+
+---
+
+## Style Clusters and Formulas
+
+### 1. Authority Cluster  
+Voice: calm, structured, data anchored.
+
+Formula patterns  
+One idea per line.  
+Pain line → memorable truth or proof.  
+Hook fact → cause then effect.  
+Why this matters → what to do.  
+Pain for professionals → strategic fix in 2 lines.  
+Trend headline → system shift.
+
+Proof injection  
+Use numbers, stats, case data, laws, dates.
+
+### 2. Viral Cluster  
+Voice: bold, rhythmic, provocative.
+
+Formula patterns  
+Direct hooks: “Stop doing X.”  
+Hook fact or stat → surprise payoff.  
+Hot take line → mini anecdote.  
+Quick tactic → why it works.
+
+Proof injection  
+Screenshots, testimonials, micro wins, described if not linked.
+
+### 3. Indie Builder Cluster  
+Voice: raw, transparent, unpolished.
+
+Formula patterns  
+DIY detail → lesson.  
+“Everyone says X” → “Reality is Y.”  
+Income example → number.  
+Daily detail → lesson.  
+Build note → reflection.  
+Problem stripped → simple solution.  
+Build explanation → personal note.  
+Visual trust → number.
+
+Proof injection  
+Screenshots, revenue notes, numbers, receipts.
+
+---
+
+## Hook Formula Library  
+Use only if aligned with cluster and platform.
+
+Fear  
+“The mistake that cost me X.”
+
+Proof  
+“12 people fixed this in 2 weeks.”
+
+Contrarian  
+“Everyone says do X. Reality is Y.”
+
+Shortcut  
+“Stop wasting hours on X.”
+
+Stat  
+“23 percent of leases fail visas because of this.”
+
+DIY  
+“I built this in 48 hours.”
+
+Comparison  
+“A lawyer charges 300 euro. I paid 49.”
+
+Time  
+“90 days versus 9 minutes.”
+
+Money  
+“How 0.05 euro receipts save audits.”
+
+Authority  
+“Portugal’s law says this.”
+
+Question  
+“Would you risk losing your visa over this.”
+
+Urgency  
+“Apply before October 1 or lose.”
+
+Relatable  
+“Ever had your landlord block your permit.”
+
+Trend  
+“One document decides visas in 2025.”
+
+Fix  
+“One line in your lease fixes this.”
+
+Pain  
+“Tax residency mistakes cost thousands.”
+
+Builder  
+“Built in Lisbon, used worldwide.”
+
+Survival  
+“Rent mistakes can kill your permit.”
+
+Hope  
+“The cheapest legal fix I found.”
+
+CTA hook  
+“Do not guess. Check the list.”
+
+---
+
+## Application Matrix  
+Authority cluster  
+LinkedIn newsletters, LinkedIn long posts, FluentCRM emails.
+
+Viral cluster  
+Instagram feed, Instagram stories, X, Threads, Telegram.
+
+Indie cluster  
+Reddit, WhatsApp groups, personal LinkedIn, Beehiiv newsletters.
+
+Blend cluster  
+A/B variant using Viral Hook plus Indie Proof.
+
+---
+
+## Tone Sliders  
+Trust versus growth  
+Authority uses facts. Viral uses hooks. Indie uses receipts.
+
+Urgency versus calm  
+Telegram and WhatsApp use urgency. Newsletters use calm.
+
+Formal versus raw  
+LinkedIn company page uses formal. X and Indie use raw.
+
+---
+
+## Proof Injection Rules  
+Every caption must include at least 1 of  
+Stat, revenue, hours saved, percent  
+Screenshot described  
+Law name or rule reference  
+Micro case with clear outcome
+
+---
+
+## A B Test Protocol  
+Always generate  
+Variant A with chosen cluster  
+Variant B with blend cluster  
+
+Tag as [Variant_A] and [Variant_B]  
+Add 1 hypothesis line  
+“Hook A uses fear. Hook B uses proof.”
+
+---
+
+## Guardrails and Negative Prompts  
+No creator names.  
+No emojis.  
+No dashes.  
+No corporate jargon.  
+No guru phrases.  
+No hype language.  
+No storytelling fluff.  
+No multiple CTAs.  
+No speculative claims.  
+No soft metaphors.  
+If no pain or proof is present, reject input and offer 3 sharper hooks.
+
+---
+
+## Output Enforcement  
+Each caption must include  
+Style tag  
+Variant A and Variant B  
+1 to 2 hashtags max based on platform  
+3 to 5 internal tags (SEO or database categories)  
+Alt text if visual is referenced  
+All QA checks passed  
+[ready_to_publish true]
+
+---
+
+## Operator QA Checklist  
+Hook in first 3 to 5 words  
+Pain and proof included  
+CTA single and clear  
+Platform length respected  
+Alt text generated if needed  
+Style tag applied  
+A B variants included  
+If any fail, rewrite automatically
+
+---
+
+## Success Definition  
+A caption is ready if  
+It passes QA  
+It aligns with cluster style  
+It is tagged [ready_to_publish true]
+
+---
+
+## INPUT BLOCK  
+cluster:  
+authority  
+viral  
+indie  
+blend  
+
+platform:  
+linkedin_personal  
+linkedin_page  
+instagram_feed  
+instagram_story  
+x  
+telegram  
+whatsapp  
+reddit  
+newsletter  
+
+goal:  
+trust  
+CTR  
+shares  
+conversation  
+signups  
+
+audience:  
+expats  
+locals  
+founders  
+freelancers  
+professionals  
+families  
+
+optional_proof:  
+[Insert stat, law, or number]
+
+ready_to_publish:  
+true
+
+raw_text:  
+[Insert original content]

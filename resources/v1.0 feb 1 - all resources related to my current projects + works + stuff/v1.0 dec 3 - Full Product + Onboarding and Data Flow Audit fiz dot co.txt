@@ -1,0 +1,602 @@
+FIZ Portugal
+Full Product, Onboarding and Data Flow Audit
+Version with Numbers, Fields, Flows and Gaps
+
+(Everything reconstructed from your uploaded FIZ scrape)
+
+1. FIZ High Level Summary
+1.1 What FIZ is
+
+A Portuguese SaaS for self-employed and micro-businesses offering:
+
+Certified invoicing (AT-certified, unlimited, real-time)
+
+Social Security quarterly declarations
+
+VAT periodic declarations
+
+Tax Shield penalty protection
+
+AI Tax Assistant (10 messages monthly for free plan)
+
+Accountant collaboration and multi-user access
+
+Automated SAF-T delivery
+
+1.2 Tech Position
+
+FIZ sits after compliance.
+They assume the user already has:
+
+NIF
+
+NISS
+
+Opened activity
+
+Correct regime
+
+Functional tax credentials
+
+1.3 ICPs (with specificity)
+Primary ICP: Portuguese freelancers (90 percent of user base)
+
+Traits seen in flows:
+
+Self employed in simplified regime
+
+Already active at Finanças
+
+Does not need “how to start freelancing” education
+
+Domestic clients, low complexity
+
+Wants invoices + VAT + SegSocial automated
+
+Portuguese, or foreigners already settled and compliant
+
+Limited digital literacy but enough trust to give AT credentials
+
+Secondary ICP: Micro-companies (Lda)
+
+Traits:
+
+Up to 10 employees
+
+Simple invoice flow
+
+Uses accountant for annual filing
+
+Wants SAF-T and invoice automation
+
+Excluded / NOT served
+
+Digital nomads
+
+D7 / D8 residents
+
+Cross-border income
+
+Foreign income
+
+Dual residency
+
+Immigration or tax registration complexity
+
+People who are not yet freelancers
+
+2. Full Onboarding Flow (Surgical Mode)
+
+This is the entire exact user journey from your scrape + UI observations.
+
+Step 1. Signup
+
+Data collected:
+
+Email
+
+Password or magic link (Unknown, not seen)
+
+Step 2. Profile Type
+
+User must select:
+
+Self employed
+
+Company
+
+If Self employed:
+Must choose income context:
+
+Self employed only
+
+Self employed + salary
+
+Unknown thresholds
+
+If Company:
+Works with NIPC and team permissions.
+
+Step 3. General Information
+
+Fields:
+
+Name
+
+Email
+
+Phone
+
+Fiscal Address
+
+Website (optional)
+
+Activity toggles (multi-select):
+
+Provides services
+
+Sells goods
+
+Both
+
+No auto-verification of tax regime or CAE.
+
+Step 4. AT Communication Setup
+
+This is a major required step for functionality.
+
+User chooses:
+
+Automatic submission
+
+Must give AT credentials
+
+FIZ creates AT sub-user
+
+Manual submission
+
+User manually uploads SAF-T or allows FIZ to generate file
+
+Accountant delivery
+
+Accountant email
+
+Autoforward monthly SAF-T
+
+No warnings for risk (missing activity, wrong regime).
+
+Step 5. Invoice Template Setup
+
+Fields & Data:
+
+Logo upload
+
+IBAN
+
+Payment Methods
+
+Transfer
+
+MBWay
+
+Cash
+
+Format
+
+A4
+
+80mm receipt
+
+Document customisation:
+
+Header
+
+Footer
+
+Long-form notes
+
+VAT Exemption codes
+
+AT numbering series (auto-generated)
+
+Step 6. Add Customers
+
+Fields:
+
+Customer type
+
+Individual
+
+Company
+
+Name
+
+NIF (Portugal only)
+
+Address
+
+Email
+
+Phone
+
+Import options
+
+AT Portal import
+
+CSV import
+
+No validation layer to detect if NIF belongs to domestic or foreign entity.
+
+Step 7. Add Items / Services
+
+Fields:
+
+Item name
+
+Type
+
+Goods
+
+Service
+
+Unit price
+
+VAT rate
+
+Suggested by FIZ or manual
+
+Withholding flag
+
+Description
+
+Category
+
+No coefficient warnings or regime conflict detection.
+
+Step 8. Invoice Creation
+
+Fields:
+
+Document type
+
+Invoice
+
+Invoice receipt
+
+Simplified invoice
+
+Receipt
+
+Proposal
+
+Customer
+
+Issue date
+
+Due date
+
+Items list
+
+Quantity
+
+Unit price
+
+VAT
+
+EAC / CIRS codes
+
+Notes
+
+Recurrence (Paid plan)
+
+Frequency
+
+Auto send
+
+Payment status
+
+System Actions:
+
+VAT totals calculated
+
+Certified invoice number assigned
+
+Automatic submission to AT if enabled
+
+Stored in database for VAT/SS
+
+3. Filing Modules (Social Security + VAT)
+Step 9. Social Security
+
+Requirements shown in your scrape:
+
+NISS credentials must be entered
+
+FIZ retrieves income from invoices
+
+Calculates base of contribuição
+
+User can adjust by −25 percent to +25 percent
+
+One click submission
+
+Smart reminders
+
+Tax Shield applies (paid plans)
+
+Missing:
+
+Verification of the freelancer’s official tax regime
+
+Warnings for missing quarterly contributions
+
+Risk detection
+
+Step 10. VAT
+
+Requirements shown:
+
+AT credentials with VAT permission
+
+VAT regime selection (exempt or not)
+
+Breakdown provided by FIZ:
+
+Sales of goods
+
+Sales of services
+
+VAT payable
+
+EU purchases table
+
+Pre-filled VAT declaration
+
+One click submission
+
+Tax Shield applies
+
+Missing:
+
+Warnings for threshold crossing
+
+Alerts for foreign platform income
+
+Warnings about errada periodicidade (monthly vs quarterly)
+
+4. Plans & Pricing (From your scrape)
+FIZ Base (Free)
+
+Unlimited certified invoices
+
+Support: 48 hours
+
+10 AI messages per month
+
+Accountant SAF-T forwarding
+
+Manual VAT/SS
+
+FIZ Auto Pro (€14.99 per month)
+
+Everything in Base
+
+Automatic VAT
+
+Automatic Social Security
+
+Tax Shield coverage: up to €500
+
+Multi-user
+
+Scheduled invoices
+
+Priority support
+
+FIZ Prime Pro (€24.99 per month)
+
+All Auto Pro
+
+Tax Shield coverage: up to €1500
+
+Accountant Marketplace listing
+
+Higher priority support
+
+These numbers were visible in the capture you uploaded.
+
+5. Accountant Side (Based on your scrape)
+Accountant Features Available
+
+Client invoice access
+
+Expense categorisation
+
+Central portal
+
+Multi-client switch
+
+Instant SAF-T
+
+Early listing in marketplace
+
+Marketplace early program
+
+Accountants can appear as trusted partners
+
+Clients can find accountants through FIZ
+
+No matching algorithm (pure listing)
+
+6. Gaps You Can Exploit (Very Clear)
+Gap 1. No pre-compliance risk engine
+
+FIZ assumes freelancer is already legit.
+Worktugal can own:
+
+NIF
+
+NISS
+
+Activity status
+
+Regime rules
+
+Residency traps
+
+Visa logic
+
+VAT threshold triggers
+
+Coefficient traps
+
+Social Security category errors
+
+Gap 2. No cross border logic
+
+Worktugal can serve:
+
+Digital nomads
+
+Remote income
+
+Foreign salary
+
+Migration
+
+Mixed residence
+
+“First year” coefficient reduction traps
+
+Gap 3. No tax season intelligence
+
+FIZ has no:
+
+Portugal fiscal clock
+
+Month by month trap avoidance
+
+Calendar with blackout periods
+
+Penalty prediction
+
+Gap 4. No diagnostic → accountant matching
+
+Use outputs like:
+
+“Has crypto income”
+
+“Has US employer”
+
+“Has EU multi country invoice”
+
+“D7 resident”
+
+Then match accountant who passed relevant stress tests.
+
+7. Should you copy FIZ’s steps?
+Yes, copy these (generic no-risk primitives)
+
+Profile type
+
+Branding step
+
+Customer creation
+
+Item creation
+
+Invoice builder
+
+SAF-T forwarding
+
+Accountant portal basics
+
+No, do NOT copy these — do better
+
+AT credential request
+
+Too trust heavy
+
+Lack of risk warnings
+
+Lack of onboarding clarity
+
+Lack of multi-language explanation
+
+Lack of pre-diagnostic screening
+
+No behavioral OS
+
+You should add
+
+Risk tags per step
+
+Residency logic
+
+Visa logic
+
+Threshold trackers
+
+Red flags
+
+Monthly timeline
+
+8. Missing Pieces Found in Your Scrape
+
+Here is what I noticed:
+
+Missing 1 – No onboarding for VAT periodicity
+
+VAT monthly vs quarterly is not captured.
+
+Missing 2 – No “open activity” verification
+
+FIZ does NOT check if your activity is actually open at Finanças.
+
+Missing 3 – No CAE validation
+
+FIZ does not see if you picked the correct CAE for services.
+
+Missing 4 – No income source classification
+
+Platforms, foreign employers, crypto, etc.
+
+Missing 5 – No first year reduction check
+
+Portugal’s 50 percent rule for first year is not applied.
+
+Missing 6 – No Social Security escalão warnings
+Missing 7 – No alerts for 12th month Social Security jump
+Missing 8 – No NHR / tax benefit analysis
+
+FIZ is 100 percent domestic oriented.
+
+9. Final Deliverable for Claude
+
+This entire document is ready to paste.
+
+If you want, I can now generate:
+
+A. Worktugal’s improved onboarding
+
+Step by step
+Field by field
+Database tables included
+
+B. Accountant dashboard blueprint
+
+Permissions
+Tables
+Automations
+Matching rules
+
+C. Client dashboard full UX
+
+Sections
+Buttons
+Flow logic
+Risk markers
+
+D. Bolt.new implementation scaffolding
+
+Just tell me which one to generate.

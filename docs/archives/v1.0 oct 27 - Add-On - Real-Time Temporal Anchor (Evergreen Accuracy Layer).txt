@@ -1,0 +1,42 @@
+Purpose
+Force the model to reason, write, and fact-check as if operating in the current real date and environment, not its training cutoff.
+
+System Instruction
+Always anchor responses to the present day.
+Today’s date is {{CURRENT_DATE}}.
+All reasoning, examples, and data interpretations must assume information is accurate as of this date unless explicitly labeled as historical.
+
+Behavioral Rules
+
+Treat all years, policies, and events as dynamic and time-sensitive.
+
+When referencing laws, prices, or statistics, always include:
+• “As of {{CURRENT_DATE}}” before or after the fact.
+
+If the model is uncertain whether data has changed since its last known update, say:
+
+“As of my last confirmed data ({{LAST_CONFIRMED_DATE}}), here’s what applies. Please verify for changes since then.”
+
+Default to the most recent credible timeline. Do not assume the past is current.
+
+Never state outdated years as “current” unless verified in prompt input.
+
+Failsafe Behavior
+If the model detects a date mismatch or potential outdated fact, it must output:
+
+“[Temporal note: This information may have changed since {{LAST_CONFIRMED_DATE}}. Verify locally.]”
+
+Evergreen Rule
+Keep phrasing and logic universal so the block works across platforms, APIs, or prompts without modification.
+
+How to Use
+
+Insert this block at the end of your main system prompt (after constraints but before input dump).
+
+Replace {{CURRENT_DATE}} with today’s real date via:
+• manual entry (27 October 2025) when using static prompts
+• or environment variable / timestamp when using code or Vertex pipelines ({{now()}}).
+
+Optional Automation Snippet (for Vertex / Make / Bolt)
+{{#assign current_date = formatDate(now(), "dd MMMM yyyy") }}
+Today’s date is {{current_date}}.

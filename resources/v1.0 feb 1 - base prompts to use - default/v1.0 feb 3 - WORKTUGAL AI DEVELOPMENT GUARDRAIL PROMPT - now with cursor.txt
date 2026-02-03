@@ -1,0 +1,208 @@
+Universal AI Development Protocol for Production-Grade Applications
+
+PROJECT CONTEXT
+Stack: React 18 + TypeScript 5 + Vite 5 + Supabase + Stripe + Tailwind CSS + Lucide React + Framer Motion + React Hook Form + Zod
+
+Deployment: Cloudflare Pages (CDN, continuous deployment, global edge network)
+
+Backend: Supabase Cloud (PostgreSQL, Auth, Storage, Edge Functions on Deno)
+
+Development Environment: Cursor IDE (Windows)
+
+MCP Servers Available:
+- user-supabase: migrations, Edge Functions, SQL execution, type generation, logs
+- user-cloudflare-builds: Workers builds management
+- user-cloudflare-observability: logs and monitoring
+- user-cloudflare-docs: documentation search
+- cursor-browser-extension: browser testing
+
+Philosophy: Clean, AI-native, non-bloated code that remains readable, fixable, and scalable as the project grows.
+
+CORE PRINCIPLES (Always Active)
+1. Scope Discipline
+
+Only modify files explicitly named by the developer
+If additional files need changes, ask first and explain why
+Never run repository-wide operations (global cleanups, import removals, codemods, bulk refactors)
+Maximum edit scope: 1 file and 30 lines per change unless explicitly approved
+
+2. Change Protocol
+
+Always show a full unified diff before applying any change
+Wait for explicit confirmation before executing
+Explain in plain English: what you are doing, why, and the impact
+If TypeScript compilation, dev server, or build fails after a change, rollback automatically and report
+
+3. File Safety
+
+Never delete or create files unless explicitly requested
+Protected zones (require explicit permission):
+- Environment files (.env, .env.example)
+- Database migrations (supabase/migrations/)
+- Edge Functions (supabase/functions/)
+- Deployment configs (public/_redirects, package.json scripts)
+- Documentation files (unless specifically asked to update)
+
+4. Code Quality Standards
+
+No formatting drift: do not change indentation, spacing, or style unless asked
+No UI polish drift: do not modify styling, colors, animations, or visual elements unless asked
+No optimization without request: do not refactor, DRY, or optimize unless explicitly told
+Security first: never hardcode secrets, API keys, or passwords. All sensitive data belongs in .env or Cloudflare Pages environment variables
+
+5. Documentation Requirements
+
+Update README.md or docs/ when business logic changes
+Add or update JSDoc comments for new functions or modified logic
+Keep documentation AI-readable and human-readable
+Never assume context not explicitly documented or instructed
+
+MANDATORY WORKFLOW
+Phase 1: Audit
+
+Read relevant files
+Report risks, dependencies, and potential side effects
+No edits during this phase
+
+Phase 2: Propose
+
+Show unified diff of proposed changes
+Explain what changes, why, and expected impact
+Include rollback steps
+Wait for confirmation
+
+Phase 3: Test
+
+Run TypeScript compiler (tsc)
+Verify dev server starts without errors (npm run dev)
+Confirm production build succeeds (npm run build)
+Check console for runtime errors
+
+Phase 4: Deploy Readiness (Only if requested)
+
+All tests must pass
+Developer must explicitly approve
+Never trigger auto-deploys without confirmation
+
+Phase 5: Document
+
+Update documentation if business logic changed
+Add inline JSDoc where appropriate
+Keep code AI-readable for future sessions
+
+MCP-POWERED VERIFICATION (Use When Available)
+
+Database Operations:
+- Use user-supabase MCP to execute SQL queries and verify data
+- Use user-supabase MCP to list/deploy Edge Functions
+- Use user-supabase MCP to apply migrations safely
+
+Deployment Verification:
+- Use user-cloudflare-builds MCP to check build status
+- Use user-cloudflare-observability MCP to check logs after deploy
+- Use user-cloudflare-docs MCP to verify Cloudflare best practices
+
+Browser Testing:
+- Use cursor-browser-extension MCP to test UI flows
+- Use cursor-browser-extension MCP to capture screenshots
+- Use cursor-browser-extension MCP to verify form submissions
+
+HARD BANS (Never Do These)
+Run global scripts or bulk operations across the repository
+Auto-optimize, refactor, or "improve" code without being asked
+Remove unused imports globally
+Create helper functions, utils, or constants unless requested
+Touch database migrations unless SQL is explicitly requested
+Modify deployment configurations without approval
+Auto-upgrade dependencies or libraries
+Modify Stripe or Supabase integrations without explicit request
+Summarize code vaguely (always reference exact paths and line ranges)
+Assume context not provided in documentation or instructions
+Change build commands, scripts, or CI/CD settings without approval
+Edit authentication, payment, or security-critical code without explicit permission
+
+INTEGRATION-SPECIFIC RULES
+Supabase
+
+Never modify migrations without explicit request
+Never touch Edge Functions without permission
+Always validate database schema changes against existing data
+Use Row Level Security (RLS) policies correctly
+Edge Functions require: CORS headers, service role key, proper error handling
+Public forms need verify_jwt: false in Edge Function config
+Use MCP tools to verify database state before and after changes
+
+Stripe
+
+Never hardcode API keys
+Always use test mode keys in development
+Verify webhook signatures
+Never modify payment flows without explicit approval
+
+Cloudflare Pages
+
+Never change public/_redirects or build settings without approval
+Respect environment variable configuration in Cloudflare dashboard
+Do not trigger deploys without confirmation
+Use MCP tools to monitor build status and logs
+
+Tailwind CSS
+
+Use existing design system tokens
+Do not add custom CSS unless necessary
+Follow established spacing and color conventions
+
+TypeScript
+
+Maintain strict type safety
+No use of 'any' type unless explicitly approved
+Export types for reusability
+
+SUCCESS CRITERIA
+Application loads without blank screens or crashes
+All interactive flows complete successfully
+Stripe test checkout processes and updates database correctly
+Console is clean (no errors, warnings acceptable if documented)
+Build passes with no errors
+Code remains lightweight, portable, and AI-readable
+No regression in existing functionality
+Cloudflare Pages deployment succeeds without errors
+
+COMMUNICATION STANDARDS
+Before Every Change:
+
+State which files will be modified
+Explain what will change and why
+Describe expected impact and any risks
+Show diff and wait for approval
+
+After Every Change:
+
+Confirm what was changed
+Report test results (tsc, build, dev server)
+Note any warnings or areas requiring attention
+Update documentation if business logic was touched
+
+Error Handling:
+
+If something breaks, rollback immediately
+Report what went wrong in plain English
+Propose alternative approaches
+Never leave code in a broken state
+
+SESSION INITIALIZATION
+At the start of each session, confirm:
+
+Current working directory and project structure
+Environment variables are properly configured
+Dependencies are installed
+No uncommitted breaking changes exist
+Documentation is up to date
+
+VERSION CONTROL ETIQUETTE
+Never modify .git configuration
+Never push to remote without permission
+Commit messages should be clear and descriptive
+Let developer handle git operations unless explicitly delegated
+
+This protocol ensures consistent, safe, and maintainable AI-assisted development across all sessions and environments.
