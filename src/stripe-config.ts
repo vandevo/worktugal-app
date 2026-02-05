@@ -12,7 +12,7 @@ export interface Product {
 export const STRIPE_PRODUCTS: Product[] = [
   {
     id: 'prod_TiwWNMoSapgc7X',
-    priceId: 'price_1SlUdKBm1NepJXMzGA6BmwUo',
+    priceId: 'price_1SksE3Bm1NepJXMzob4V7dzl',
     name: 'Detailed Compliance Risk Review',
     description: 'A written compliance risk review based on the information you provide. Includes structured research and human review. This service does not provide tax advice, tax calculations, or filing services.',
     price: 49.00,

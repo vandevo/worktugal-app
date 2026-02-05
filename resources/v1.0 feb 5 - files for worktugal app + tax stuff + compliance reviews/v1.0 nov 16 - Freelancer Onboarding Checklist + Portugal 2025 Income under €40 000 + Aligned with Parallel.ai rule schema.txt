@@ -1,0 +1,112 @@
+====================================================
+v2.0 Freelancer Onboarding Checklist
+Portugal 2025
+Income under €40 000
+Aligned with Parallel.ai rule schema
+1. Pre Setup
+
+Goal: complete all mandatory registrations before working or invoicing. All values and penalties verified for 2025.
+
+Step	Action	Why It Matters	Time	Verified Penalty
+1	Get a NIF	Required for all contracts, bank, activity, invoices, NISS	Same day in person or 5 to 10 days via representative	RGIT Art 124. €75 to €7500 for failures linked to tax registration
+2	Open a Portuguese bank account	Required for refunds, social security payments, SEPA debits	3 days in person or 2 to 4 weeks online	Refunds blocked and activity registration incomplete
+3	Obtain NISS	Mandatory for quarterly social security, benefits, and AIMA residence filing	2 to 4 weeks	AIMA applications rejected without NISS from Apr 28 2025
+4	Register freelance activity	Official declaration of self employment under Simplified Regime	10 minutes online	RGIT Art 117. €300 to €7500 for unregistered work
+
+Notes
+Parallel.ai confirms that NISS must be completed before any AIMA appointment.
+Activity registration must match the correct CAE and CIRS codes from the 2025 revision.
+
+====================================================
+
+2. Getting Paid and Staying Compliant
+
+Goal: issue valid receipts, monitor VAT exposure, and maintain correct filings.
+
+Step	Action	When	Notes	Verified Penalty
+5	Issue Recibos Verdes	From first client payment	Portal das Financas or certified invoicing software	€300 to €3750 per incorrect or missing receipt
+6	Monitor VAT thresholds	Monthly	Below €15000 stays exempt. Crossing €18750 mid year triggers immediate VAT. Non EU always VAT registered	€200 to €2500 for late VAT registration plus back VAT
+7	File Social Security quarterlies	Jan 20. Apr 20. Jul 20. Oct 20	Year 1 exempt from payments but reporting mandatory. Year 2 uses 21.4 percent on 70 percent of income	€50 to €300 per missed report plus interest
+8	Maintain basic records	Always	Keep receipts for 6 years. Required for audit and deductions	Up to €2500 plus interest for inadequate documentation
+
+Notes
+Parallel.ai confirms new July 2025 quarterly VAT return requirement for exempt workers.
+Non EU residents lose VAT exemption regardless of turnover.
+
+====================================================
+
+3. Annual Filing for 2025 income
+
+Goal: calculate taxable income correctly and file IRS without penalties.
+
+Step	Action	When	Notes
+9	Calculate taxable income using coefficient	After year end	Services use 75 percent. Some categories 15 percent. Apply reduced coefficients for Year 1 if eligible
+10	Apply deductions and IRS rates	Before filing	Standard deduction around €4104. Use updated tax brackets for 2025
+11	Account for social security contributions	Year 2 onward	21.4 percent on 70 percent relevant income. Payment plan visible on Seg Social
+12	File IRS Modelo 3	Apr 1 to Jun 30 2026	Includes worldwide income if tax resident. Attach Annex SS if self employed
+13	Settle payment or receive refund	After assessment	Late IRS filing: €200 to €2500 plus 4 percent interest
+
+Notes
+Parallel.ai confirms that revenue under €40000 in Simplified Regime follows the same coefficient matrix and deduction rules.
+Crypto income must be declared if applicable under the 365 day rule.
+
+====================================================
+
+4. Routine Maintenance
+
+Goal: avoid penalties and automate future compliance.
+
+Frequency	Task	Notes
+Monthly	Issue receipts and check VAT drift	Use income graph to track distance from €15000 and €18750 thresholds
+Quarterly	File Seg Social declaration	Adjust predicted contributions by up to 25 percent
+Annually	Prepare IRS documents and income proof	Keep invoices, receipts, and foreign income confirmations
+
+====================================================
+
+5. Common Pitfalls to Avoid
+
+All traps verified with Parallel.ai rule schema.
+
+Starting work before opening activity. Financas can retro fine based on first income date.
+
+Not updating address after residency. Can invalidate representative status and generate fines.
+
+Crossing €15000 without monitoring €18750. VAT can activate immediately mid year.
+
+Ignoring Seg Social reminders. Quarterlies are mandatory even in exemption year.
+
+Issuing foreign receipts without correct fields. Cannot cancel once issued.
+
+Assuming NISS is automatic. It is manual and required before AIMA.
+
+Forgetting Annex SS during IRS. Creates mismatches and penalties.
+
+====================================================
+
+6. Updated App Flow
+
+Fully aligned with the Checkup scoring file and schema.
+
+Identity. NIF and NISS.
+
+Registration. Activity status and correct codes.
+
+Invoicing. Recibos Verdes and VAT rules.
+
+Social Security. Quarterlies and contribution simulation.
+
+Annual cycle. IRS calendar and deadlines.
+
+Output. Score, penalty map, and verified next steps.
+
+====================================================
+Operator Take
+This v2.0 checklist is now structurally aligned with your Parallel.ai research, your Survival Map, your rule schema, and the Tax Compliance Checkup wizard. It becomes your canonical onboarding standard and the source document for UX, content hubs, and automation logic.
+
+Next Move
+Say:
+Create the NISS 2025 guide
+or
+Generate the six pillar homepage layout
+or
+Turn this checklist into a Bolt.new flow blueprint.
