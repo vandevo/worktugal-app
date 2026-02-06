@@ -304,7 +304,7 @@ export const AccountantApplicationForm: React.FC = () => {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        navigate('/join-accountants/success');
+        navigate('/accountants/apply/success');
       }, 1000);
       return;
     }
@@ -341,7 +341,7 @@ export const AccountantApplicationForm: React.FC = () => {
       }
 
       localStorage.removeItem(STORAGE_KEY);
-      navigate('/join-accountants/success');
+      navigate('/accountants/apply/success');
     } catch (err: any) {
       console.error('Error submitting application:', err);
       setError(err.message || 'Something went wrong. Please try again.');
@@ -454,7 +454,7 @@ export const AccountantApplicationForm: React.FC = () => {
         title="Join our accountant partner network | Worktugal"
         description="Partner with Worktugal to serve English-speaking freelancers and remote workers in Portugal. OCC-certified accountants wanted. Flexible hours, revenue share model, pre-qualified clients."
         ogType="website"
-        canonicalUrl="https://app.worktugal.com/join-accountants"
+        canonicalUrl="https://app.worktugal.com/accountants/apply"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "JobPosting",

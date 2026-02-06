@@ -35,7 +35,7 @@ export const AccountantRecruitmentBanner: React.FC = () => {
 
             <div className="flex-shrink-0">
               <Link
-                to="/join-accountants"
+                to="/accountants/apply"
                 className="inline-flex items-center gap-2 bg-gradient-to-br from-blue-500/90 to-blue-600/90 hover:from-blue-400/90 hover:to-blue-500/90 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-xl shadow-blue-500/40 hover:shadow-2xl border border-blue-400/30"
               >
                 Apply to Join

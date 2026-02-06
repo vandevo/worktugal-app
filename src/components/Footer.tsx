@@ -72,7 +72,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="/join-accountants"
+                  href="/accountants/apply"
                   className="text-slate-400 hover:text-white transition-colors duration-200"
                 >
                   For Accountants
