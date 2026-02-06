@@ -13,7 +13,9 @@ import {
   ThumbsUp,
   ThumbsDown,
   Users,
-  Flag
+  Flag,
+  MessageCircle,
+  Send
 } from 'lucide-react';
 import { getCheckupResults, submitCheckupFeedback } from '../../lib/taxCheckup';
 import { ComplianceDisclaimer } from '../ComplianceDisclaimer';
@@ -550,56 +552,40 @@ export const CheckupResults: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Facebook Community CTA */}
+          {/* Community CTA */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="bg-gradient-to-br from-blue-600/20 to-blue-500/10 backdrop-blur-3xl rounded-3xl border border-blue-500/30 shadow-2xl shadow-black/30 ring-1 ring-blue-500/[0.05] p-8 md:p-10"
+            className="bg-gradient-to-br from-blue-600/10 to-cyan-500/5 backdrop-blur-3xl rounded-3xl border border-blue-500/20 shadow-2xl shadow-black/30 ring-1 ring-blue-500/[0.05] p-8 md:p-10"
           >
             <div className="flex flex-col md:flex-row items-center gap-6">
               <div className="flex-shrink-0">
                 <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-                  <Users className="w-8 h-8 text-blue-400" />
+                  <Send className="w-8 h-8 text-blue-400" />
                 </div>
               </div>
               <div className="flex-1 text-center md:text-left">
-                <h3 className="text-2xl font-bold text-white mb-2">Discuss your results with 19,800+ remote professionals</h3>
+                <h3 className="text-2xl font-bold text-white mb-2">Have questions about your results?</h3>
                 <p className="text-gray-300 text-sm mb-4">
-                  Join our Facebook community to share your experience, ask questions, and learn from others who've been through the same tax compliance journey in Portugal.
+                  Join 1,300+ remote professionals in our Telegram community. Get quick answers, share experiences, and stay updated on Portuguese compliance changes.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
                   <Button
-                    onClick={() => window.open('https://www.facebook.com/groups/worktugal', '_blank')}
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                    onClick={() => window.open('https://t.me/worktugal', '_blank')}
+                    className="bg-blue-500 hover:bg-blue-600 text-white"
                   >
-                    <Users className="w-4 h-4 mr-2" />
-                    Join Worktugal Community
+                    <Send className="w-4 h-4 mr-2" />
+                    Join on Telegram
                   </Button>
                   <Button
-                    onClick={() => navigate('/partners')}
+                    onClick={() => window.open('https://www.facebook.com/groups/worktugal', '_blank')}
                     variant="secondary"
                     className="bg-white/10 hover:bg-white/20 text-white border-white/20"
                   >
-                    <ArrowRight className="w-4 h-4 mr-2" />
-                    Browse Partner Services
+                    <Users className="w-4 h-4 mr-2" />
+                    Facebook Group
                   </Button>
-                </div>
-              </div>
-            </div>
-            <div className="mt-6 pt-6 border-t border-blue-500/20">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-blue-300">19.8k</div>
-                  <div className="text-xs text-gray-400">Members</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-blue-300">Portugal</div>
-                  <div className="text-xs text-gray-400">Focused community</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-blue-300">Free</div>
-                  <div className="text-xs text-gray-400">Forever</div>
                 </div>
               </div>
             </div>
