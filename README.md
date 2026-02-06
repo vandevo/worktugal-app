@@ -8,7 +8,7 @@
 
 ### Purpose
 
-Worktugal is a **tax compliance enforcement layer** for foreign freelancers, remote workers, and expats in Portugal. The platform identifies compliance gaps before they become expensive problems and routes users to verified accountant partners.
+Worktugal is a **compliance readiness layer** for foreign freelancers, remote workers, and expats in Portugal. The platform identifies compliance gaps before they become expensive problems and routes users to verified accountant partners.
 
 ### Mission
 
@@ -35,7 +35,7 @@ Internal doctrine: *"If it does not enforce readiness or transfer responsibility
 | Product | Status | Revenue Model | Description |
 |---------|--------|---------------|-------------|
 | **Tax Checkup Tool** | Live | Lead generation (free) | 5-step diagnostic quiz producing compliance score (red/yellow/green flags) |
-| **Detailed Compliance Review** | Live | €49 one-time | In-depth paid review with personalized risk assessment |
+| **Detailed Compliance Review** | Live | €49 one-time | AI-assisted research + human-verified compliance readiness report |
 | **Accountant Application Portal** | Live | Partnership funnel | Intake system for accountant partners |
 
 ### Planned Products
@@ -307,6 +307,7 @@ CLOUDFLARE_API_TOKEN=...
 | `src/components/PaidReview/` | €49 review intake forms |
 | `src/components/AccountantApplication/` | Partner application form |
 | `src/components/Admin/` | Admin dashboard for lead management |
+| `src/components/ComplianceDisclaimer.tsx` | Shared disclaimer component (footer/inline/banner variants) |
 
 ### Configuration
 
@@ -362,6 +363,20 @@ We sell **permission to proceed**, not advice, execution, or software.
 ---
 
 ## Recent Updates
+
+### 2026-02-06: Pre-Launch Page Refresh — v1.2
+- Replaced disabled "Coming Soon" buttons on checkup results with active CTA to paid compliance review (49 EUR)
+- Added persistent sticky CTA banner on results page when issues are found
+- Refreshed PaidReviewLanding headline to risk-prevention framing: "Know Where You Stand Before Portugal Fines You"
+- Updated all copy to reflect AI-assisted research + human-verified report workflow
+- Added "What you avoid" section with specific penalty examples on landing page
+- Updated CheckupHero with dual CTA: free checkup + paid detailed review
+- Refreshed all homepage sub-components from "2025" to "2026"
+- Updated PaidReviewSuccess with visual status timeline (Submitted → Researching → Under Review → Delivered)
+- Created shared `ComplianceDisclaimer` component with 3 variants (footer/inline/banner), added to all user-facing pages
+- Seeded "compliance readiness" language across all new copy (no URL/product rename)
+- Removed "first version" language from feedback section
+- Added new FAQ entry for AI-assisted research process on landing page
 
 ### 2026-02-06: Parallel.ai Integration (Phase 1) — v1.1
 - Integrated Parallel.ai Search API for automated regulatory research on paid compliance reviews
