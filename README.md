@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2026-02-03
+**Last Updated:** 2026-02-06
 
 ---
 
@@ -88,7 +88,7 @@ Internal doctrine: *"If it does not enforce readiness or transfer responsibility
 ### Backend & Database
 - **Supabase 2.90.1**: PostgreSQL database, authentication, storage, Edge Functions
 - **PostgreSQL 17**: Relational database with Row Level Security (RLS)
-- **16 Edge Functions**: Serverless functions for Stripe, Make.com, form submissions
+- **17 Edge Functions**: Serverless functions for Stripe, Make.com, form submissions, AI research
 
 ### Payment Processing
 - **Stripe**: One-time payments (€49 Detailed Compliance Review)
@@ -99,8 +99,12 @@ Internal doctrine: *"If it does not enforce readiness or transfer responsibility
 - **Supabase Cloud**: Managed PostgreSQL, Auth, Storage, Edge Functions
 
 ### Automation
-- **Make.com**: Webhook orchestration for email notifications
+- **Make.com**: Webhook orchestration for email notifications and AI research delivery
 - **Supabase Webhooks**: Database triggers for lead processing
+
+### AI Research
+- **Parallel.ai Search API**: Real-time regulatory research for paid compliance reviews
+- **Integration**: Server-side only (Edge Function), human review mandatory before delivery
 
 ### Development Environment
 - **Cursor IDE**: Primary development environment (Windows)
@@ -135,9 +139,9 @@ Primary lead generation table from Tax Checkup Tool.
 | `submission_sequence` | integer | Engagement counter |
 | `created_at` | timestamptz | Submission timestamp |
 
-#### `paid_compliance_reviews` (4 rows)
+#### `paid_compliance_reviews` (6 rows)
 
-Paid €49 product purchases.
+Paid €49 product purchases with AI research enrichment.
 
 | Column | Type | Description |
 |--------|------|-------------|
@@ -147,7 +151,13 @@ Paid €49 product purchases.
 | `customer_name` | text | Buyer name |
 | `access_token` | text | Unique access token for form |
 | `status` | text | form_pending, submitted, in_review, completed |
-| `form_data` | jsonb | Detailed intake form responses |
+| `form_data` | jsonb | Detailed intake form responses (26 fields) |
+| `escalation_flags` | jsonb | Auto-calculated flags for professional review |
+| `ambiguity_score` | integer | Count of "Not sure" answers |
+| `ai_research_results` | jsonb | Raw Parallel.ai search results with citations |
+| `ai_draft_report` | text | Formatted AI draft report for owner review |
+| `ai_research_status` | text | pending, completed, failed |
+| `ai_researched_at` | timestamptz | When AI research completed |
 | `created_at` | timestamptz | Purchase timestamp |
 
 #### `accountant_applications` (7 rows)
@@ -186,8 +196,9 @@ Accountant partner applications.
 | `submit-tax-checkup` | Process Tax Checkup submissions, calculate scores, trigger Make.com |
 | `paid-review-checkout` | Create Stripe checkout for €49 review |
 | `paid-review-webhook` | Handle Stripe payment confirmation |
-| `submit-paid-review` | Process detailed intake form submissions |
+| `submit-paid-review` | Process detailed intake form submissions, trigger AI research |
 | `verify-paid-review` | Validate access tokens for paid review forms |
+| `research-compliance` | Parallel.ai-powered regulatory research per paid review |
 | `submit-contact-request` | Process contact form submissions |
 | `submit-accountant-application` | Process accountant partner applications |
 | `send-lead-to-makecom` | Trigger Make.com automation for new leads |
@@ -312,6 +323,7 @@ CLOUDFLARE_API_TOKEN=...
 | `supabase/functions/submit-tax-checkup/index.ts` | Core lead processing |
 | `supabase/functions/paid-review-checkout/index.ts` | Stripe payment initiation |
 | `supabase/functions/paid-review-webhook/index.ts` | Payment confirmation |
+| `supabase/functions/research-compliance/index.ts` | AI regulatory research via Parallel.ai |
 
 ---
 
@@ -350,6 +362,16 @@ We sell **permission to proceed**, not advice, execution, or software.
 ---
 
 ## Recent Updates
+
+### 2026-02-06: Parallel.ai Integration (Phase 1) — v1.1
+- Integrated Parallel.ai Search API for automated regulatory research on paid compliance reviews
+- New Edge Function `research-compliance` runs 2-6 targeted searches per review based on user form data
+- Added 4 columns to `paid_compliance_reviews`: `ai_research_results`, `ai_draft_report`, `ai_research_status`, `ai_researched_at`
+- Modified `submit-paid-review` to async-trigger AI research after form submission (non-blocking)
+- New Make.com webhook `MAKECOM_WEBHOOK_AI_RESEARCH_COMPLETE` sends AI draft to owner
+- Covers: tax residency, VAT, NISS, NHR/IFICI, cross-border exposure, cryptocurrency
+- Safety: AI drafts only, human review mandatory, fails silently to manual mode if Parallel.ai is down
+- Legal positioning: all outputs include disclaimers ("not legal or tax advice")
 
 ### 2026-02-03: README Overhaul
 - Complete rewrite to reflect current product state
@@ -396,7 +418,7 @@ We sell **permission to proceed**, not advice, execution, or software.
 - **No new features** until first paying customer
 - **No subscriptions** until one-time payments validated
 - **No dashboards** until core enforcement works
-- **No AI features** that reduce trust in compliance context
+- **No AI features** that bypass human review in compliance context (AI assists, human approves)
 - **No content expansion** until monetization proven
 
 ### Outreach Rules

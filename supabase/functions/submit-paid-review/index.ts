@@ -100,6 +100,21 @@ Deno.serve(async (req: Request) => {
       }
     }
 
+    // Trigger AI research via Parallel.ai (non-blocking, fire-and-forget)
+    // The research-compliance function runs independently and updates the review
+    // with ai_research_results and ai_draft_report when complete.
+    // If it fails, the review remains in 'submitted' status and works manually as before.
+    const researchUrl = `${Deno.env.get('SUPABASE_URL')}/functions/v1/research-compliance`;
+    fetch(researchUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')}`,
+      },
+      body: JSON.stringify({ review_id }),
+    }).catch(err => console.error('AI research trigger error (non-blocking):', err));
+    console.log('AI research triggered for review:', review_id);
+
     return new Response(
       JSON.stringify({ success: true, review_id: review.id }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
