@@ -8,19 +8,15 @@ import {
   AlertTriangle,
   AlertCircle,
   CheckCircle2,
-  Calendar,
   ArrowRight,
-  Download,
   FileText,
-  Sparkles,
-  Clock,
   ThumbsUp,
   ThumbsDown,
-  MessageCircle,
   Users,
   Flag
 } from 'lucide-react';
 import { getCheckupResults, submitCheckupFeedback } from '../../lib/taxCheckup';
+import { ComplianceDisclaimer } from '../ComplianceDisclaimer';
 
 export const CheckupResults: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -105,8 +101,8 @@ export const CheckupResults: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-900 py-12">
       <Seo
-        title="Your Tax Compliance Results"
-        description="View your personalized tax compliance score and action plan for staying compliant in Portugal."
+        title="Your Compliance Readiness Results"
+        description="View your personalized compliance readiness score and action plan for staying compliant in Portugal."
         noindex={true}
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -118,7 +114,7 @@ export const CheckupResults: React.FC = () => {
           {/* Header */}
           <div className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8 md:p-12">
             <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-white mb-4">Your Compliance Report</h1>
+              <h1 className="text-4xl font-bold text-white mb-4">Your Compliance Readiness Report</h1>
               <p className="text-gray-400 mb-3">
                 Based on your answers, here's your current compliance status
               </p>
@@ -177,17 +173,19 @@ export const CheckupResults: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-red-500/20 shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8"
+              className="bg-red-500/[0.03] backdrop-blur-3xl rounded-3xl border-2 border-red-500/30 shadow-2xl shadow-red-900/20 ring-1 ring-red-500/[0.08] p-8"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center relative">
                   <AlertTriangle className="w-5 h-5 text-red-400" />
+                  <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">Critical Issues</h2>
-                  <p className="text-sm text-gray-400">Fix these immediately to avoid penalties</p>
+                  <h2 className="text-2xl font-bold text-white">Critical Issues ({redFlags.length})</h2>
+                  <p className="text-sm text-red-300/80">Requires immediate attention to avoid penalties</p>
                 </div>
               </div>
+              <p className="text-xs text-gray-500 mb-6">These issues may result in fines from 500 to 5,000 EUR if left unresolved.</p>
               <div className="space-y-4">
                 {redFlags.map((flag, index) => {
                   const flagId = `red-${index}`;
@@ -383,85 +381,88 @@ export const CheckupResults: React.FC = () => {
             </motion.div>
           )}
 
-          {/* Next Steps */}
+          {/* Next Steps: Paid Review Upsell */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8"
+            className="bg-gradient-to-br from-blue-500/5 to-purple-500/5 backdrop-blur-3xl rounded-3xl border border-blue-500/20 shadow-2xl shadow-black/30 ring-1 ring-blue-500/[0.08] p-8 md:p-10"
           >
-            <h2 className="text-2xl font-bold text-white mb-6">What's next?</h2>
+            <h2 className="text-2xl font-bold text-white mb-2">Want the full picture?</h2>
+            <p className="text-gray-400 text-sm mb-6">
+              Your free checkup flagged{' '}
+              <span className="text-red-400 font-semibold">{results.compliance_score_red} critical</span>
+              {results.compliance_score_yellow > 0 && (
+                <> and <span className="text-yellow-400 font-semibold">{results.compliance_score_yellow} warning</span></>
+              )}
+              {' '}issue{(results.compliance_score_red + results.compliance_score_yellow) !== 1 ? 's' : ''}.
+              A detailed review digs deeper into each one.
+            </p>
 
-            <div className="space-y-4">
-              <motion.div
-                className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-xl p-6"
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between flex-wrap gap-3">
-                    <div className="flex items-center gap-3">
-                      <FileText className="w-6 h-6 text-blue-400" />
-                      <h3 className="text-white font-semibold text-lg">Complete your compliance profile</h3>
-                    </div>
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold rounded-full shadow-lg">
-                      <Sparkles className="w-3 h-3" />
-                      Coming Soon
-                    </span>
+            <motion.div
+              className="bg-white/[0.04] border border-blue-500/30 rounded-2xl p-6 md:p-8 mb-6"
+              whileHover={{ scale: 1.005 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div className="flex-1 space-y-4">
+                  <div className="flex items-center gap-3">
+                    <FileText className="w-7 h-7 text-blue-400" />
+                    <h3 className="text-white font-bold text-xl">Detailed Compliance Review</h3>
                   </div>
-                  <div>
-                    <p className="text-gray-300 text-sm mb-4">
-                      Submit our detailed intake form for a deeper analysis. We'll identify all compliance gaps, estimate penalties, and create a prioritized action plan. When we launch, you'll get priority access.
-                    </p>
-                    <Button
-                      disabled
-                      className="w-full sm:w-auto opacity-60 cursor-not-allowed"
-                    >
-                      <Clock className="w-4 h-4 mr-2" />
-                      Get early access (launching soon)
-                    </Button>
-                    <p className="text-blue-300 text-xs mt-3 font-medium">
-                      We'll notify you at {results.email} when it's ready
-                    </p>
-                  </div>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    Get a human-verified analysis of your specific situation. Your intake is cross-referenced against current Portuguese regulations using AI-assisted research from official sources. You receive escalation flags, source citations, and a prioritized action plan.
+                  </p>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2 text-gray-300 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
+                      26-question structured intake covering 7 compliance dimensions
+                    </li>
+                    <li className="flex items-center gap-2 text-gray-300 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
+                      AI-assisted research, human-verified report
+                    </li>
+                    <li className="flex items-center gap-2 text-gray-300 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
+                      Escalation flags for areas needing professional review
+                    </li>
+                    <li className="flex items-center gap-2 text-gray-300 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
+                      Delivered to your email within 48 hours
+                    </li>
+                  </ul>
                 </div>
-              </motion.div>
 
-              <motion.div
-                className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-xl p-6"
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between flex-wrap gap-3">
-                    <div className="flex items-center gap-3">
-                      <Calendar className="w-6 h-6 text-purple-400" />
-                      <h3 className="text-white font-semibold text-lg">Specialist consultations</h3>
+                <div className="flex flex-col items-center md:items-end gap-3 md:min-w-[180px]">
+                  <div className="text-center md:text-right">
+                    <div className="text-4xl font-bold text-white">
+                      49<span className="text-xl text-gray-400">.00 EUR</span>
                     </div>
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full shadow-lg">
-                      <Sparkles className="w-3 h-3" />
-                      Coming Soon
-                    </span>
+                    <p className="text-gray-500 text-xs mt-1">One-time payment. No subscription.</p>
                   </div>
-                  <div>
-                    <p className="text-gray-300 text-sm mb-3">
-                      We're building a network of verified Portuguese tax specialists. Book 30-minute consultations to get expert guidance tailored to your situation.
-                    </p>
-                    <p className="text-purple-300 text-xs font-medium">
-                      Launching in the next few weeks. You'll be first to know.
-                    </p>
-                  </div>
+                  <Button
+                    onClick={() => navigate('/compliance-review')}
+                    size="lg"
+                    className="w-full md:w-auto px-8"
+                  >
+                    Get Your Detailed Review
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
                 </div>
-              </motion.div>
-
-              <div className="text-center pt-4 border-t border-white/[0.05] mt-6">
-                <p className="text-gray-400 text-sm">
-                  We've sent a copy of this report to <span className="text-white font-medium">{results.email}</span>
-                </p>
-                <p className="text-gray-500 text-xs mt-2">
-                  Keep this report handy when talking to accountants or tax advisors
-                </p>
               </div>
+            </motion.div>
+
+            <p className="text-gray-500 text-xs text-center italic">
+              Your checkup results are saved. The detailed review builds on your existing data for a more comprehensive analysis.
+            </p>
+
+            <div className="text-center pt-6 border-t border-white/[0.05] mt-6">
+              <p className="text-gray-400 text-sm">
+                We've sent a copy of this report to <span className="text-white font-medium">{results.email}</span>
+              </p>
+              <p className="text-gray-500 text-xs mt-2">
+                Keep this report handy when talking to accountants or tax advisors
+              </p>
             </div>
           </motion.div>
 
@@ -476,7 +477,7 @@ export const CheckupResults: React.FC = () => {
               <Flag className="w-8 h-8 text-orange-400 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-white mb-2">Found an error or outdated info?</h3>
               <p className="text-gray-400 text-sm mb-6 max-w-2xl mx-auto">
-                This is our first version and we're continuously improving. Help us make this tool better for everyone.
+                We continuously update this tool with the latest Portuguese regulations. If something looks wrong, let us know.
               </p>
               {!showReportModal ? (
                 <Button
@@ -603,8 +604,31 @@ export const CheckupResults: React.FC = () => {
               </div>
             </div>
           </motion.div>
+
+          {/* Footer Disclaimer */}
+          <ComplianceDisclaimer variant="inline" className="text-center mt-8 pb-16" />
         </motion.div>
       </div>
+
+      {/* Persistent sticky CTA banner */}
+      {(results.compliance_score_red > 0 || results.compliance_score_yellow > 0) && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-xl border-t border-blue-500/20 py-3 px-4">
+          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-gray-300 text-sm text-center sm:text-left">
+              <span className="text-red-400 font-semibold">{results.compliance_score_red + results.compliance_score_yellow} issues found.</span>
+              {' '}Get a detailed review with source citations and escalation flags.
+            </p>
+            <Button
+              onClick={() => navigate('/compliance-review')}
+              size="sm"
+              className="whitespace-nowrap px-6"
+            >
+              Detailed Review -- 49 EUR
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

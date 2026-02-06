@@ -10,7 +10,7 @@ export const CheckupSocialProof: React.FC = () => {
       role: "Graphic designer, Lisbon"
     },
     {
-      quote: "Finally someone explained the NIF vs. opening activity confusion. I was about to pay €500 to an accountant just to get started.",
+      quote: "Finally someone explained the NIF vs. opening activity confusion. I was about to pay 500 EUR to an accountant just to get started.",
       author: "James K.",
       role: "Software developer, Porto"
     },

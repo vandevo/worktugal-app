@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/Button';
 import { Seo } from '../Seo';
@@ -8,11 +8,11 @@ import {
   Clock,
   CheckCircle2,
   AlertTriangle,
-  Users,
   ArrowRight,
   Lock,
-  Star
+  Search
 } from 'lucide-react';
+import { ComplianceDisclaimer } from '../ComplianceDisclaimer';
 
 interface PaidReviewLandingProps {
   onCheckout: () => void;
@@ -32,8 +32,8 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
   return (
     <div className="min-h-screen bg-gray-900">
       <Seo
-        title="Detailed Compliance Risk Review - Worktugal"
-        description="Get a structured compliance risk mapping based on your specific situation. Written review with evidence-backed findings delivered within 48 hours."
+        title="Know Where You Stand Before Portugal Fines You - Worktugal"
+        description="Avoid penalties, blocked permits, and surprise tax bills. Get a detailed compliance readiness review for your specific situation in Portugal. AI-assisted research, human-verified report delivered within 48 hours."
         canonicalUrl="https://app.worktugal.com/compliance-review"
       />
 
@@ -49,14 +49,17 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
           >
             <div className="mb-4 inline-block">
               <span className="bg-blue-500/20 text-blue-300 text-xs font-semibold px-4 py-2 rounded-full border border-blue-500/30">
-                For Remote Professionals in Portugal
+                For Remote Professionals & Freelancers in Portugal
               </span>
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
-              Detailed Compliance Risk Review
+              Know Where You Stand<br />Before Portugal Fines You
             </h1>
             <p className="text-xl text-gray-300 mb-4 max-w-3xl mx-auto">
-              Stop guessing. Get a structured analysis of your specific tax situation with clear escalation flags and evidence-backed findings.
+              Avoid penalties, blocked permits, and surprise tax bills. Get a detailed review of your specific compliance situation with escalation flags and evidence-backed findings.
+            </p>
+            <p className="text-sm text-gray-500 max-w-2xl mx-auto">
+              Based on analysis of 90+ freelancer compliance situations in Portugal
             </p>
           </motion.div>
 
@@ -76,16 +79,16 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
                     </div>
                     <div>
                       <h3 className="text-white font-semibold mb-1">Structured risk mapping</h3>
-                      <p className="text-gray-400 text-sm">26-question intake covering all 7 compliance dimensions identified by our research</p>
+                      <p className="text-gray-400 text-sm">26-question intake covering 7 compliance dimensions -- residency, VAT, social security, tax regime, cross-border exposure, and more</p>
                     </div>
                   </li>
                   <li className="flex gap-4">
                     <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                      <CheckCircle2 className="w-5 h-5 text-green-400" />
+                      <Search className="w-5 h-5 text-green-400" />
                     </div>
                     <div>
-                      <h3 className="text-white font-semibold mb-1">Human-reviewed analysis</h3>
-                      <p className="text-gray-400 text-sm">Manual review of your specific situation, not just automated scoring</p>
+                      <h3 className="text-white font-semibold mb-1">AI-assisted research, human-verified report</h3>
+                      <p className="text-gray-400 text-sm">Your intake is cross-referenced against current Portuguese regulations from official sources. A human reviewer verifies and finalizes every report.</p>
                     </div>
                   </li>
                   <li className="flex gap-4">
@@ -93,8 +96,8 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
                       <AlertTriangle className="w-5 h-5 text-yellow-400" />
                     </div>
                     <div>
-                      <h3 className="text-white font-semibold mb-1">Escalation flags</h3>
-                      <p className="text-gray-400 text-sm">Clear identification of areas requiring professional accountant review</p>
+                      <h3 className="text-white font-semibold mb-1">Escalation flags with source citations</h3>
+                      <p className="text-gray-400 text-sm">Clear identification of areas that need professional accountant review, with links to the relevant Portuguese authority pages</p>
                     </div>
                   </li>
                   <li className="flex gap-4">
@@ -103,19 +106,45 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
                     </div>
                     <div>
                       <h3 className="text-white font-semibold mb-1">Delivered within 48 hours</h3>
-                      <p className="text-gray-400 text-sm">Written report sent to your email with case reference</p>
+                      <p className="text-gray-400 text-sm">Written report sent to your email with your case reference number</p>
                     </div>
+                  </li>
+                </ul>
+              </div>
+
+              {/* What you avoid */}
+              <div className="bg-red-500/5 border border-red-500/20 rounded-2xl p-6">
+                <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-red-400" />
+                  What you avoid by knowing your status
+                </h3>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3 text-gray-300 text-sm">
+                    <span className="text-red-400 font-bold mt-0.5">-</span>
+                    Fines from 500 to 5,000 EUR for missing or late tax filings
+                  </li>
+                  <li className="flex items-start gap-3 text-gray-300 text-sm">
+                    <span className="text-red-400 font-bold mt-0.5">-</span>
+                    Blocked residence permit renewals due to outstanding tax obligations
+                  </li>
+                  <li className="flex items-start gap-3 text-gray-300 text-sm">
+                    <span className="text-red-400 font-bold mt-0.5">-</span>
+                    Surprise social security (NISS) contributions you didn't budget for
+                  </li>
+                  <li className="flex items-start gap-3 text-gray-300 text-sm">
+                    <span className="text-red-400 font-bold mt-0.5">-</span>
+                    Missing the NHR/IFICI window or misunderstanding your tax regime
                   </li>
                 </ul>
               </div>
 
               <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-5">
                 <div className="flex gap-3">
-                  <Shield className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                  <Shield className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-yellow-200/90 text-sm font-medium mb-1">Important disclaimer</p>
-                    <p className="text-yellow-200/70 text-xs">
-                      This review provides structured risk mapping and educational information only. It does not constitute legal or tax advice. Complex situations will be flagged for professional accountant review.
+                    <p className="text-yellow-200/70 text-xs leading-relaxed">
+                      Worktugal provides compliance readiness assessment and educational information only. This is not legal or tax advice. Information is sourced from official Portuguese authorities where available. Final decisions should be confirmed with a licensed professional (OCC-certified accountant or lawyer).
                     </p>
                   </div>
                 </div>
@@ -130,30 +159,30 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
               <div className="bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-white/[0.08] p-8 sticky top-8">
                 <div className="text-center mb-6">
                   <div className="text-5xl font-bold text-white mb-2">
-                    49<span className="text-2xl text-gray-400">.00</span>
+                    49<span className="text-2xl text-gray-400">.00 EUR</span>
                   </div>
-                  <div className="text-gray-400">One-time payment in EUR</div>
+                  <div className="text-gray-400">One-time payment. No subscription.</div>
                 </div>
 
                 <div className="space-y-4 mb-8">
                   <div className="flex items-center gap-3 text-gray-300">
-                    <CheckCircle2 className="w-5 h-5 text-green-400" />
+                    <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
                     <span>26-question structured intake</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300">
-                    <CheckCircle2 className="w-5 h-5 text-green-400" />
-                    <span>Human-reviewed by compliance specialist</span>
+                    <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+                    <span>AI-assisted research, human-verified report</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300">
-                    <CheckCircle2 className="w-5 h-5 text-green-400" />
+                    <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
                     <span>Written report within 48 hours</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300">
-                    <CheckCircle2 className="w-5 h-5 text-green-400" />
-                    <span>Clear escalation flags for complex cases</span>
+                    <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+                    <span>Escalation flags with source citations</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300">
-                    <CheckCircle2 className="w-5 h-5 text-green-400" />
+                    <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
                     <span>Progress saved to your account</span>
                   </div>
                 </div>
@@ -169,7 +198,7 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
                       <>Processing...</>
                     ) : (
                       <>
-                        Get your review
+                        Get your compliance review
                         <ArrowRight className="w-5 h-5 ml-2" />
                       </>
                     )}
@@ -223,10 +252,10 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
 
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { step: 1, title: 'Pay securely', desc: 'One-time payment of 49 EUR via Stripe' },
-              { step: 2, title: 'Complete intake', desc: '26 questions covering all risk dimensions (5-7 min)' },
-              { step: 3, title: 'We review', desc: 'Human analysis of your specific situation' },
-              { step: 4, title: 'Get your report', desc: 'Written review delivered within 48 hours' }
+              { step: 1, title: 'Pay securely', desc: 'One-time payment of 49 EUR via Stripe. No subscription.' },
+              { step: 2, title: 'Complete intake', desc: '26 questions covering all risk dimensions (5-7 min). Auto-saved.' },
+              { step: 3, title: 'AI research + human review', desc: 'Your intake is cross-referenced against current regulations, then verified by a human.' },
+              { step: 4, title: 'Get your report', desc: 'Written review with escalation flags delivered within 48 hours.' }
             ].map((item, index) => (
               <motion.div
                 key={item.step}
@@ -260,7 +289,13 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
               <div>
                 <h3 className="text-white font-semibold mb-2">Is this tax advice?</h3>
                 <p className="text-gray-400 text-sm">
-                  No. This is structured risk mapping and educational information. We identify potential compliance gaps and flag areas that require professional review. For tax advice, you need a licensed accountant (OCC).
+                  No. This is a compliance readiness assessment -- we identify potential gaps and flag areas that require professional review. Worktugal is not a tax firm, accountancy practice, or law office. For binding tax advice, you need a licensed OCC-certified accountant.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-white font-semibold mb-2">How does AI-assisted research work?</h3>
+                <p className="text-gray-400 text-sm">
+                  When you submit your intake, our system cross-references your answers against current Portuguese regulations from official sources (Autoridade Tributaria, Seguranca Social, etc.). A human reviewer then verifies the findings and finalizes your report. AI assists the research -- it does not write your report autonomously.
                 </p>
               </div>
               <div>
@@ -285,6 +320,9 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
           </motion.div>
         </div>
       </section>
+
+      {/* Bottom disclaimer */}
+      <ComplianceDisclaimer variant="footer" className="bg-gray-900" />
     </div>
   );
 };

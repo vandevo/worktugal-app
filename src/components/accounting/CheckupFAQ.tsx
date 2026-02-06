@@ -14,11 +14,11 @@ const faqData: FAQItem[] = [
   },
   {
     question: 'How accurate is the compliance score?',
-    answer: 'The checkup is based on current Portuguese tax law as of 2025 and enhanced with insights from real user data. It assigns severity levels (critical/high/medium/low) to each issue, provides specific penalty amounts, and compares your situation to similar freelancers. However, it\'s a screening tool, not legal advice. For complex situations, speak with an accountant.'
+    answer: 'The checkup is based on current Portuguese tax law as of 2026 and enhanced with insights from real user data. It assigns severity levels (critical/high/medium/low) to each issue, provides specific penalty amounts, and compares your situation to similar freelancers. However, it\'s a compliance readiness screening tool, not legal advice. For complex situations, speak with an accountant.'
   },
   {
     question: 'What makes this checkup "enhanced" and data-driven?',
-    answer: 'Updated for 2025 with 8 critical tax rules verified through expert research. Our system analyzes patterns from real freelancer submissions to provide contextual guidance. For example, if you\'re a tax resident without NIF, you\'ll see the exact penalty (€375+), the deadline (60 days from arrival), and comparison to similar freelancers. Includes NEW 2025 quarterly VAT return requirement and first-year tax discount detection.'
+    answer: 'Updated for 2026 with current tax rules verified through expert research. Our system analyzes patterns from real freelancer submissions to provide contextual guidance. For example, if you\'re a tax resident without NIF, you\'ll see the exact penalty (375 EUR+), the deadline (60 days from arrival), and comparison to similar freelancers. Includes the quarterly VAT return requirement and first-year tax discount detection.'
   },
   {
     question: 'What happens to my data?',
@@ -30,7 +30,7 @@ const faqData: FAQItem[] = [
   },
   {
     question: 'What if my situation is complicated?',
-    answer: 'The checkup handles most freelancer scenarios. If your situation is complex (multiple income streams, company structure, cross-border work), the results page will recommend speaking with an accountant and you can book a paid consultation.'
+    answer: 'The checkup handles most freelancer scenarios. If your situation is complex (multiple income streams, company structure, cross-border work), the results page will recommend speaking with an accountant. You can also get a detailed compliance review (49 EUR) for a deeper analysis with escalation flags and source citations.'
   },
   {
     question: 'Will I be spammed with emails?',
@@ -45,8 +45,8 @@ const faqData: FAQItem[] = [
     answer: 'Great! Use this checkup to verify that you\'re covering everything, or to prepare better questions for your accountant. Many freelancers discover gaps their current accountant missed.'
   },
   {
-    question: 'What\'s the NEW quarterly VAT return requirement in 2025?',
-    answer: 'Starting July 1, 2025, VAT-exempt freelancers (earning under €15,000) must file quarterly turnover declarations. This means even if you\'re not charging VAT, you need to report your quarterly income to Portuguese tax authorities. Deadlines: Oct 31, Jan 31, Apr 30, Jul 31. Our checkup identifies if this applies to you.'
+    question: 'What is the quarterly VAT return requirement?',
+    answer: 'VAT-exempt freelancers (earning under 15,000 EUR) must file quarterly turnover declarations. This means even if you\'re not charging VAT, you need to report your quarterly income to Portuguese tax authorities. Deadlines: Oct 31, Jan 31, Apr 30, Jul 31. Our compliance readiness checkup identifies if this applies to you.'
   },
   {
     question: 'Do first-year freelancers really get 50% tax reduction?',

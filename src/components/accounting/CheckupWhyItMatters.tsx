@@ -6,13 +6,13 @@ export const CheckupWhyItMatters: React.FC = () => {
   const risks = [
     {
       icon: AlertTriangle,
-      title: 'Avoid fines from €500 to €5,000',
-      description: 'Portuguese tax authorities (Finanças) can issue heavy penalties for missing declarations, late filings, or incorrect activity codes. NEW 2025: VAT-exempt freelancers must now file quarterly turnover returns'
+      title: 'Avoid fines from 500 to 5,000 EUR',
+      description: 'Portuguese tax authorities (Financas) can issue heavy penalties for missing declarations, late filings, or incorrect activity codes. Updated for 2026: VAT-exempt freelancers must file quarterly turnover returns'
     },
     {
       icon: FileX,
       title: 'Stop ignoring letters you can\'t read',
-      description: 'Those official envelopes from Finanças aren\'t going away. Most freelancers miss critical deadlines because they don\'t understand Portuguese tax notices'
+      description: 'Those official envelopes from Financas aren\'t going away. Most freelancers miss critical deadlines because they don\'t understand Portuguese tax notices'
     },
     {
       icon: Scale,
@@ -22,7 +22,7 @@ export const CheckupWhyItMatters: React.FC = () => {
     {
       icon: TrendingUp,
       title: 'Prepare for growth without panic',
-      description: 'When you cross the VAT threshold (€15,000 annual income) or approach €200k organized accounting regime, you need to know what changes. Get specific deadlines and action steps based on your income level'
+      description: 'When you cross the VAT threshold (15,000 EUR annual income) or approach the 200k organized accounting regime, you need to know what changes. Get specific deadlines and action steps based on your income level'
     }
   ];
 
@@ -82,7 +82,7 @@ export const CheckupWhyItMatters: React.FC = () => {
           className="mt-12 p-6 bg-gradient-to-br from-blue-500/10 to-purple-500/10 backdrop-blur-xl rounded-2xl border border-blue-400/20"
         >
           <p className="text-center text-gray-300 text-sm leading-relaxed">
-            <strong className="text-blue-300">The reality:</strong> Portugal's tax system is complex, especially for non-Portuguese speakers. Our enhanced checkup analyzes your situation against real freelancer data and provides specific guidance with penalty amounts, deadlines, and priority ranking. Covers 8 critical 2025 rules including the NEW quarterly VAT return requirement. Takes 3 minutes, could save you thousands.
+            <strong className="text-blue-300">The reality:</strong> Portugal's tax system is complex, especially for non-Portuguese speakers. Our compliance readiness checkup analyzes your situation against real freelancer data and provides specific guidance with penalty amounts, deadlines, and priority ranking. Updated for 2026 with current rules including the quarterly VAT return requirement. Takes 3 minutes, could save you thousands.
           </p>
         </motion.div>
       </div>

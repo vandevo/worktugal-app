@@ -13,6 +13,7 @@ import { Button } from './ui/Button';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { Seo } from './Seo';
+import { ComplianceDisclaimer } from './ComplianceDisclaimer';
 
 interface FeaturedPartner {
   id: string;
@@ -68,10 +69,10 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Worktugal Tools - Compliance resources for remote professionals in Portugal"
-        description="Free tax and legal compliance tools for freelancers and remote workers in Portugal. Check your status, understand your obligations, and find the right professionals. Informational purposes only."
-        ogTitle="Worktugal Tools - Free compliance resources for Portugal"
-        ogDescription="Tax compliance checker, visa guides, and resources for remote professionals in Portugal. Free tools to understand your obligations before consulting professionals."
+        title="Worktugal - Compliance readiness tools for remote professionals in Portugal"
+        description="Free compliance checkup and detailed compliance reviews for freelancers and remote workers in Portugal. Understand your tax obligations, identify risks, and get clarity before consulting professionals."
+        ogTitle="Worktugal - Compliance readiness for remote professionals in Portugal"
+        ogDescription="Free compliance checkup and paid detailed reviews for remote professionals in Portugal. Identify risks, get action plans, and know where you stand."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
         ogUrl="https://app.worktugal.com/"
@@ -79,7 +80,7 @@ export const HomePage: React.FC = () => {
           "@context": "https://schema.org",
           "@type": "WebApplication",
           "name": "Worktugal Tools",
-          "description": "Free compliance tools and resources for freelancers and remote professionals in Portugal. Tax compliance checker, guides, and informational resources.",
+          "description": "Free compliance readiness tools for freelancers and remote professionals in Portugal. Tax compliance checkup, detailed reviews, and informational resources.",
           "url": "https://app.worktugal.com/",
           "image": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
           "applicationCategory": "BusinessApplication",
@@ -244,6 +245,8 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
+      {/* Footer Disclaimer */}
+      <ComplianceDisclaimer variant="footer" />
     </>
   );
 };
