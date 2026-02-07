@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2026-02-06
+**Last Updated:** 2026-02-07
 
 ---
 
@@ -103,7 +103,8 @@ Internal doctrine: *"If it does not enforce readiness or transfer responsibility
 - **Supabase Webhooks**: Database triggers for lead processing
 
 ### AI Research
-- **Parallel.ai Search API**: Real-time regulatory research for paid compliance reviews
+- **Parallel.ai Search API**: Real-time regulatory research (facts & citations)
+- **Perplexity API (Sonar)**: Human-readable report drafting (tone & empathy)
 - **Integration**: Server-side only (Edge Function), human review mandatory before delivery
 
 ### Development Environment
@@ -363,6 +364,14 @@ We sell **permission to proceed**, not advice, execution, or software.
 ---
 
 ## Recent Updates
+
+### 2026-02-07: AI Drafting Enhancement — v1.2.1
+- **Dual-AI Architecture**: "Best of Both Worlds" approach implemented
+  - **Parallel.ai**: Used strictly for "institutional accuracy" (finding official tax/law sources)
+  - **Perplexity (Sonar)**: Used for "human empathy" (drafting the final client email/report)
+- Updated `research-compliance` Edge Function to pipe Parallel results into Perplexity context
+- Configured new `PERPLEXITY_API_KEY` in Supabase secrets
+- Fallback logic: If Perplexity fails/missing, reverts to standard template
 
 ### 2026-02-06: Pre-Launch Page Refresh — v1.2
 - Replaced disabled "Coming Soon" buttons on checkup results with active CTA to paid compliance review (49 EUR)

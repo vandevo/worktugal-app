@@ -15,6 +15,9 @@ const supabase = createClient(
 const PARALLEL_API_KEY = Deno.env.get('PARALLEL_API_KEY') ?? '';
 const PARALLEL_SEARCH_URL = 'https://api.parallel.ai/v1beta/search';
 
+const PERPLEXITY_API_KEY = Deno.env.get('PERPLEXITY_API_KEY') ?? '';
+const PERPLEXITY_CHAT_URL = 'https://api.perplexity.ai/chat/completions';
+
 // ============================================================================
 // TYPES
 // ============================================================================
@@ -310,7 +313,105 @@ function truncateExcerpt(text: string, maxLen: number = 500): string {
 }
 
 // ============================================================================
-// BUILD DRAFT REPORT
+// GENERATE HUMAN-READABLE REPORT WITH PERPLEXITY (SONAR)
+// ============================================================================
+
+async function generateHumanReport(
+  review: Record<string, any>,
+  formData: Record<string, any>,
+  researchResults: AreaResearchResult[]
+): Promise<string> {
+  const apiKey = Deno.env.get('PERPLEXITY_API_KEY');
+  const chatUrl = 'https://api.perplexity.ai/chat/completions';
+
+  // If no Perplexity key, fallback to the old template builder
+  if (!apiKey) {
+    console.log('No PERPLEXITY_API_KEY found, falling back to template report.');
+    return buildDraftReport(review, formData, researchResults);
+  }
+
+  // Filter out failed research
+  const validResearch = researchResults.filter(r => !r.error && r.results.length > 0);
+
+  if (validResearch.length === 0) {
+    return buildDraftReport(review, formData, researchResults);
+  }
+
+  // Construct context for the LLM
+  let researchContext = '';
+  for (const item of validResearch) {
+    researchContext += `\nTOPIC: ${item.area}\n`;
+    researchContext += `USER SITUATION: ${getUserSituation(item.area, formData)}\n`;
+    researchContext += `OFFICIAL FINDINGS:\n`;
+    for (const res of item.results.slice(0, 3)) {
+      const excerpt = res.excerpts?.[0] ? truncateExcerpt(res.excerpts[0], 300) : 'No excerpt';
+      researchContext += `- Source: ${res.title} (${res.url})\n  Excerpt: "${excerpt}"\n`;
+    }
+  }
+
+  const prompt = `
+You are "Worktugal AI", a helpful expert consultant for digital nomads and freelancers in Portugal.
+Your goal is to write a warm, clear, and professional email to the customer explaining their tax compliance situation based ONLY on the provided research findings.
+
+CUSTOMER DETAILS:
+Name: ${review.customer_name || 'Customer'}
+Work Type: ${WORK_TYPE_LABELS[formData.work_type] || formData.work_type}
+Arrival: ${formData.arrival_date || 'N/A'}
+
+RESEARCH FINDINGS (FACTS):
+${researchContext}
+
+INSTRUCTIONS:
+1. Write a cohesive email draft. Start with a friendly greeting using their name.
+2. Use "I" and "we" (representing the Worktugal team).
+3. Do NOT simply list the facts. Explain what they mean for the user's specific situation.
+4. Explain complex rules (like "183 days") simply.
+5. CITE SOURCES: When you state a rule, mention the source (e.g., "According to the Autoridade Tributária...").
+6. Be empathetic but accurate. Do not invent rules not present in the findings.
+7. End with a disclaimer that this is initial research and not binding legal advice.
+8. Sign off as "The Worktugal Team".
+
+TONE:
+- Human-to-human (not robotic)
+- Helpful and reassuring
+- Clear and direct
+`;
+
+  try {
+    const response = await fetch(chatUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: 'sonar-pro', // Using sonar-pro for better reasoning and writing
+        messages: [
+          { role: 'system', content: 'You are a helpful, empathetic tax consultant assistant.' },
+          { role: 'user', content: prompt }
+        ],
+        temperature: 0.2, // Lower temperature for more factual responses
+        max_tokens: 2000
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.text();
+      console.error('Perplexity API error:', err);
+      return buildDraftReport(review, formData, researchResults); // Fallback
+    }
+
+    const data = await response.json();
+    return data.choices?.[0]?.message?.content || buildDraftReport(review, formData, researchResults);
+
+  } catch (error) {
+    console.error('Error calling Perplexity:', error);
+    return buildDraftReport(review, formData, researchResults); // Fallback
+  }
+}
+
+// ============================================================================
+// BUILD DRAFT REPORT (FALLBACK TEMPLATE)
 // ============================================================================
 
 function buildDraftReport(
@@ -490,8 +591,9 @@ Deno.serve(async (req: Request) => {
     const failCount = researchResults.filter(r => r.error).length;
     console.log(`Research complete: ${successCount} succeeded, ${failCount} failed`);
 
-    // 5. Build draft report
-    const draftReport = buildDraftReport(review, formData, researchResults);
+    // 5. Build draft report (using Perplexity if available, otherwise template)
+    console.log('Generating human-readable draft report...');
+    const draftReport = await generateHumanReport(review, formData, researchResults);
 
     // 6. Prepare raw results for storage
     const rawResults = {
