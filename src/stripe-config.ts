@@ -13,8 +13,8 @@ export const STRIPE_PRODUCTS: Product[] = [
   {
     id: 'prod_TiwWNMoSapgc7X',
     priceId: 'price_1SksE3Bm1NepJXMzob4V7dzl',
-    name: 'Detailed Compliance Risk Review',
-    description: 'A written compliance risk review based on the information you provide. Includes structured research and human review. This service does not provide tax advice, tax calculations, or filing services.',
+    name: 'Compliance Readiness Review',
+    description: 'A detailed compliance readiness assessment based on your intake. Includes AI-assisted research cross-referenced against official sources, verified by a human reviewer. Educational only, not tax advice.',
     price: 49.00,
     currency: 'eur',
     currencySymbol: '€',

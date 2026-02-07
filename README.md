@@ -92,7 +92,7 @@ Internal doctrine: *"If it does not enforce readiness or transfer responsibility
 
 ### Payment Processing
 - **Stripe**: One-time payments (€49 Detailed Compliance Review)
-- **Stripe Products**: `Detailed Compliance Risk Review` configured in live mode
+- **Stripe Products**: `Compliance Readiness Review` configured in live mode
 
 ### Deployment
 - **Cloudflare Pages**: CDN, continuous deployment from GitHub `main` branch

@@ -106,7 +106,7 @@ export const PaidReviewPage: React.FC = () => {
 
     setIsCheckoutLoading(true);
     try {
-      const product = STRIPE_CONFIG.products.find(p => p.name === 'Detailed Compliance Risk Review');
+      const product = STRIPE_CONFIG.products.find(p => p.name === 'Compliance Readiness Review');
       if (!product) {
         throw new Error('Product not found');
       }
