@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "generate-readme": "node scripts/generate-readme.js",
-    "analyze-checkup-data": "node scripts/analyze-tax-checkup-data.js"
+    "analyze-checkup-data": "node scripts/analyze-tax-checkup-data.js",
+    "update:prompts": "git submodule update --remote prompts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
