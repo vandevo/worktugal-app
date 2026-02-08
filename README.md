@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2026-02-07
+**Last Updated:** 2026-02-08
 
 ---
 
@@ -109,7 +109,10 @@ Internal doctrine: *"If it does not enforce readiness or transfer responsibility
 
 ### Development Environment
 - **Cursor IDE**: Primary development environment (Windows)
-- **MCP Servers**: Direct Supabase and Cloudflare API access
+- **MCP Servers**: 
+  - **Supabase & Cloudflare**: Direct database and deployment access
+  - **Google Stitch**: AI-driven UI design generation and code extraction
+  - **Cal.com**: Real-time scheduling and expert booking management
 - **Local Path**: `C:\Worktugal apps\worktugal-app`
 
 ---
@@ -364,6 +367,14 @@ We sell **permission to proceed**, not advice, execution, or software.
 ---
 
 ## Recent Updates
+
+### 2026-02-08: Infrastructure Expansion & UI Polish — v1.2.2
+- **MCP Integration**: Connected **Google Stitch** (AI Design) and **Cal.com** (Expert Booking) to Cursor AI.
+- **Stripe Automation**: Built a dynamic environment switcher in `stripe-config.ts` to toggle between Test/Live modes via `.env` without manual code changes.
+- **UI/UX Refinements**: 
+  - Fixed "see-through" status timeline on `PaidReviewSuccess` using solid masking and `animate-ping` effects.
+  - Added "Copy to Clipboard" functionality for Case Reference numbers to improve user convenience.
+- **Strategic Pivot**: Project roadmap formally reoriented toward the **Readyfile Artifact** (Phase 2) and the **Expert Marketplace** (Phase 3).
 
 ### 2026-02-07: AI Drafting Enhancement — v1.2.1
 - **Dual-AI Architecture**: "Best of Both Worlds" approach implemented

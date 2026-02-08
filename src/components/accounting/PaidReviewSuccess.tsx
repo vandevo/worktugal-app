@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/Button';
-import { CheckCircle2, Clock, Mail, FileText, Users, ArrowRight, Search, Shield } from 'lucide-react';
+import { CheckCircle2, Clock, Mail, FileText, Users, ArrowRight, Search, Shield, Copy, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { ComplianceDisclaimer } from '../ComplianceDisclaimer';
 
@@ -15,6 +15,14 @@ export const PaidReviewSuccess: React.FC<PaidReviewSuccessProps> = ({
   reviewId
 }) => {
   const navigate = useNavigate();
+  const [copied, setCopied] = useState(false);
+
+  const copyToClipboard = () => {
+    const reference = reviewId.slice(0, 8).toUpperCase();
+    navigator.clipboard.writeText(reference);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const timelineSteps = [
     { label: 'Submitted', icon: CheckCircle2, status: 'complete' as const },
@@ -49,35 +57,48 @@ export const PaidReviewSuccess: React.FC<PaidReviewSuccessProps> = ({
 
           {/* Status Timeline */}
           <div className="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-6 mb-8">
-            <div className="flex items-center justify-between relative">
+            <div className="flex items-center justify-between relative px-2">
               {/* Connection line */}
-              <div className="absolute top-5 left-0 right-0 h-0.5 bg-white/[0.05]"></div>
-              <div className="absolute top-5 left-0 h-0.5 bg-blue-500/50" style={{ width: '12.5%' }}></div>
+              <div className="absolute top-5 left-0 right-0 h-0.5 bg-white/[0.05] mx-8"></div>
+              <div 
+                className="absolute top-5 left-0 h-0.5 bg-blue-500/50 transition-all duration-1000 mx-8" 
+                style={{ width: 'calc(33.33% - 8px)' }}
+              ></div>
 
               {timelineSteps.map((step, index) => {
                 const Icon = step.icon;
                 return (
                   <div key={step.label} className="flex flex-col items-center relative z-10 flex-1">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.3 + index * 0.15 }}
-                      className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${
-                        step.status === 'complete'
-                          ? 'bg-green-500/20 border-2 border-green-500/50'
-                          : step.status === 'active'
-                          ? 'bg-blue-500/20 border-2 border-blue-500/50 animate-pulse'
-                          : 'bg-white/[0.05] border border-white/[0.10]'
-                      }`}
-                    >
-                      <Icon className={`w-4 h-4 ${
-                        step.status === 'complete'
-                          ? 'text-green-400'
-                          : step.status === 'active'
-                          ? 'text-blue-400'
-                          : 'text-gray-600'
-                      }`} />
-                    </motion.div>
+                    <div className="relative mb-2">
+                      {/* Solid mask background */}
+                      <div className="absolute inset-0 bg-gray-900 rounded-full z-0"></div>
+                      
+                      {/* Pulse effect (only for active) */}
+                      {step.status === 'active' && (
+                        <div className="absolute inset-0 rounded-full bg-blue-500/20 animate-ping z-0"></div>
+                      )}
+
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.3 + index * 0.15 }}
+                        className={`w-10 h-10 rounded-full flex items-center justify-center relative z-10 border-2 transition-all duration-500 ${
+                          step.status === 'complete'
+                            ? 'bg-green-500/10 border-green-500/50 shadow-[0_0_15px_rgba(34,197,94,0.2)]'
+                            : step.status === 'active'
+                            ? 'bg-blue-500/20 border-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.3)]'
+                            : 'bg-white/[0.02] border-white/10'
+                        }`}
+                      >
+                        <Icon className={`w-4 h-4 ${
+                          step.status === 'complete'
+                            ? 'text-green-400'
+                            : step.status === 'active'
+                            ? 'text-blue-400'
+                            : 'text-gray-600'
+                        }`} />
+                      </motion.div>
+                    </div>
                     <span className={`text-xs font-medium text-center ${
                       step.status === 'complete'
                         ? 'text-green-300'
@@ -129,12 +150,25 @@ export const PaidReviewSuccess: React.FC<PaidReviewSuccessProps> = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-4 p-4 bg-white/[0.03] rounded-xl border border-white/[0.05]">
-              <FileText className="w-5 h-5 text-gray-400" />
-              <div>
-                <div className="text-sm text-gray-400">Case reference</div>
-                <div className="text-white font-mono text-sm">{reviewId.slice(0, 8).toUpperCase()}</div>
+            <div className="flex items-center justify-between p-4 bg-white/[0.03] rounded-xl border border-white/[0.05]">
+              <div className="flex items-center gap-4">
+                <FileText className="w-5 h-5 text-gray-400" />
+                <div>
+                  <div className="text-sm text-gray-400">Case reference</div>
+                  <div className="text-white font-mono text-sm">{reviewId.slice(0, 8).toUpperCase()}</div>
+                </div>
               </div>
+              <button
+                onClick={copyToClipboard}
+                className={`p-2 rounded-lg transition-all duration-200 ${
+                  copied 
+                    ? 'bg-green-500/20 text-green-400' 
+                    : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
+                }`}
+                title="Copy reference to clipboard"
+              >
+                {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              </button>
             </div>
 
             <div className="flex items-center gap-4 p-4 bg-white/[0.03] rounded-xl border border-white/[0.05]">

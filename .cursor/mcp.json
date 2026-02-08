@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "stitch": {
+      "url": "https://stitch.googleapis.com/mcp",
+      "headers": {
+        "X-Goog-Api-Key": "AQ.Ab8RN6KBaDxMVf-nbq7qWvbZC6b98i0QSyj-spr_PI5Yarq1sw"
+      }
+    },
+    "cal": {
+      "command": "npx",
+      "args": [
+        "@calcom/cal-mcp@latest"
+      ],
+      "env": {
+        "CAL_API_KEY": "cal_live_75e8168c86a2e80e28878ee53adb060d"
+      }
+    }
+  }
+}
