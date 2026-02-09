@@ -36,44 +36,44 @@ export const ConsultSuccess: React.FC = () => {
   const service = booking ? CONSULT_SERVICES.find(s => s.id === booking.service_type) : null;
 
   return (
-    <div className="min-h-screen bg-gray-900 py-20">
+    <div className="min-h-screen bg-obsidian py-24">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8 md:p-12"
+          className="bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 shadow-2xl shadow-black/30 p-8 md:p-12"
         >
-          <div className="text-center mb-8">
+          <div className="text-center mb-12">
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
               className="inline-block"
             >
-              <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-4" />
+              <CheckCircle className="w-20 h-20 text-emerald-500/50 mx-auto mb-6" />
             </motion.div>
-            <h1 className="text-4xl font-bold text-white mb-4">
-              Booking Confirmed!
+            <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">
+              Booking confirmed
             </h1>
-            <p className="text-xl text-gray-300">
+            <p className="text-lg text-gray-500 font-light">
               Your consult has been successfully booked and paid.
             </p>
           </div>
 
           {!loading && booking && service && (
-            <div className="space-y-6">
-              <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-6 border border-blue-400/20">
-                <h3 className="font-semibold text-white mb-2">Service Details</h3>
-                <p className="text-lg font-semibold text-blue-300">{service.name}</p>
-                <p className="text-gray-300">{service.duration} · €{service.price}</p>
+            <div className="space-y-8">
+              <div className="bg-white/[0.01] rounded-2xl p-6 border border-white/5">
+                <h3 className="text-xs font-bold text-gray-600 uppercase tracking-[0.2em] mb-4">Service Details</h3>
+                <p className="text-xl font-serif text-white mb-1">{service.name}</p>
+                <p className="text-xs text-gray-500 font-light uppercase tracking-widest">{service.duration} · €{service.price}</p>
               </div>
 
-              <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 backdrop-blur-xl rounded-2xl p-8 border border-blue-400/30 mb-6">
-                <div className="text-center mb-4">
-                  <Calendar className="w-12 h-12 text-blue-400 mx-auto mb-3" />
-                  <h3 className="text-2xl font-bold text-white mb-2">Schedule Your Appointment</h3>
-                  <p className="text-gray-300">
+              <div className="bg-white/[0.02] rounded-2xl p-8 border border-white/10 mb-6">
+                <div className="text-center mb-8">
+                  <Calendar className="w-12 h-12 text-blue-500/50 mx-auto mb-4" />
+                  <h3 className="text-2xl font-serif text-white mb-2">Schedule your appointment</h3>
+                  <p className="text-sm text-gray-500 font-light leading-relaxed">
                     Choose a time that works for you. Our accountants are available Monday-Friday.
                   </p>
                 </div>
@@ -81,56 +81,51 @@ export const ConsultSuccess: React.FC = () => {
                   href={service.calcomLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full bg-gradient-to-br from-blue-500/90 to-blue-600/90 hover:from-blue-400/90 hover:to-blue-500/90 text-white py-4 rounded-xl font-bold text-lg transition-all shadow-xl shadow-blue-500/40 hover:shadow-2xl border border-blue-400/30 text-center"
+                  className="block w-full bg-white text-black hover:bg-gray-200 py-4 rounded-xl text-xs uppercase tracking-widest font-bold transition-all shadow-xl shadow-black/20 text-center"
                 >
-                  Book Your {service.duration} Appointment
+                  Book your {service.duration} appointment
                 </a>
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-4 text-center border border-white/[0.08]">
-                  <FileText className="w-8 h-8 text-green-400 mx-auto mb-2" />
-                  <h4 className="font-semibold text-white mb-1">Written Outcome</h4>
-                  <p className="text-sm text-gray-300">
-                    Delivered within 48 hours of your consult
+                <div className="bg-white/[0.01] rounded-2xl p-6 text-center border border-white/5">
+                  <FileText className="w-6 h-6 text-emerald-500/50 mx-auto mb-3" />
+                  <h4 className="text-sm font-serif text-white mb-1">Written Outcome</h4>
+                  <p className="text-xs text-gray-500 font-light uppercase tracking-widest leading-relaxed">
+                    Delivered within 48 hours
                   </p>
                 </div>
 
-                <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-4 text-center border border-white/[0.08]">
-                  <Mail className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                  <h4 className="font-semibold text-white mb-1">Check Your Email</h4>
-                  <p className="text-sm text-gray-300">
+                <div className="bg-white/[0.01] rounded-2xl p-6 text-center border border-white/5">
+                  <Mail className="w-6 h-6 text-blue-500/50 mx-auto mb-3" />
+                  <h4 className="text-sm font-serif text-white mb-1">Check Your Email</h4>
+                  <p className="text-xs text-gray-500 font-light uppercase tracking-widest leading-relaxed">
                     Confirmation sent to {booking.email}
                   </p>
                 </div>
               </div>
 
-              <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-6 border border-white/[0.08]">
-                <h3 className="font-semibold text-white mb-3">What Happens Next?</h3>
-                <ol className="space-y-2 text-gray-300">
-                  <li className="flex items-start">
-                    <span className="font-semibold mr-2">1.</span>
-                    <span>Book your appointment using the button above</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="font-semibold mr-2">2.</span>
-                    <span>You'll receive calendar invites and reminders</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="font-semibold mr-2">3.</span>
-                    <span>Meet with your OCC-certified accountant via video call</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="font-semibold mr-2">4.</span>
-                    <span>Receive your written outcome note within 48 hours</span>
-                  </li>
+              <div className="bg-white/[0.01] rounded-2xl p-6 border border-white/5">
+                <h3 className="text-xs font-bold text-gray-600 uppercase tracking-[0.2em] mb-4">What happens next?</h3>
+                <ol className="space-y-4">
+                  {[
+                    "Book your appointment using the button above",
+                    "You'll receive calendar invites and reminders",
+                    "Meet with your certified accountant via video call",
+                    "Receive your written outcome note within 48 hours"
+                  ].map((step, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="text-[10px] font-bold text-blue-500/50 mt-0.5">{i + 1}.</span>
+                      <span className="text-xs text-gray-500 font-light uppercase tracking-widest leading-relaxed">{step}</span>
+                    </li>
+                  ))}
                 </ol>
               </div>
 
-              <div className="text-center pt-6">
+              <div className="text-center pt-8 border-t border-white/5">
                 <Link
                   to="/accounting"
-                  className="inline-block bg-white/[0.04] hover:bg-white/[0.08] text-white px-8 py-3 rounded-lg font-semibold transition-colors border border-white/[0.12] hover:border-white/[0.20]"
+                  className="inline-block bg-white/5 hover:bg-white/10 text-white px-8 py-3 rounded-xl text-xs uppercase tracking-widest font-bold transition-colors border border-white/10"
                 >
                   Back to Accounting Desk
                 </Link>

@@ -297,55 +297,55 @@ export const PerksDirectory: React.FC = () => {
     );
   };
   return (
-    <section id="directory" className="py-20 bg-gradient-to-b from-gray-800/30 to-gray-900/50 relative overflow-hidden">
+    <section id="directory" className="py-24 bg-obsidian-light relative overflow-hidden border-t border-white/5">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(147,51,234,0.05),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(147,51,234,0.03),transparent_50%)]" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">
-            Trusted Partner Benefits for Remote Professionals
+        <div className="text-center mb-20">
+          <h2 className="text-3xl md:text-5xl font-serif text-white mb-6">
+            Trusted Partner Benefits
           </h2>
-          <p className="text-lg md:text-xl text-gray-500 mb-6 max-w-4xl mx-auto leading-relaxed">
-            Quality services from established Lisbon professionals - coworking spaces, wellness experts, business services, and authentic experiences. These are curated partnerships, not generic coupon deals.
+          <p className="text-lg text-gray-500 mb-6 max-w-3xl mx-auto leading-relaxed font-light">
+            Quality services from established Lisbon professionals. Curated partnerships designed for high-performing remote professionals.
           </p>
         </div>
 
         {/* Filters */}
-        <div className="mb-8 space-y-4">
+        <div className="mb-12 space-y-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
                 <input
                   type="text"
                   placeholder="Search perks or businesses..."
-                  className="w-full pl-10 pr-4 py-4 bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:border-blue-400/40 hover:bg-white/[0.03] transition-all duration-300 shadow-lg"
+                  className="w-full pl-12 pr-4 py-4 bg-white/[0.02] border border-white/5 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:bg-white/[0.04] focus:border-blue-400/40 transition-all duration-300 font-light text-sm shadow-xl shadow-black/20"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
             </div>
             
-            <div className="md:w-64">
+            <div className="md:w-72">
               <Select
                 options={categoryOptions}
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
+                className="bg-white/[0.02] border-white/5 font-light text-sm"
               />
             </div>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <div className="flex items-center space-x-3">
+          <div className="flex items-center">
+            <div className="flex items-center space-x-4">
               <button
                 onClick={() => setShowPortugueseOnly(!showPortugueseOnly)}
                 aria-label="Toggle show only Portuguese-owned businesses"
-                className={`relative inline-flex h-6 w-11 flex-shrink-0 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/60 focus:ring-offset-2 focus:ring-offset-gray-900 shadow-lg backdrop-blur-xl border ${
+                className={`relative inline-flex h-6 w-11 flex-shrink-0 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 shadow-lg border ${
                   showPortugueseOnly
-                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 border-blue-400/20'
-                    : 'bg-white/[0.04] border-white/[0.08]'
+                    ? 'bg-blue-600 border-blue-400/20'
+                    : 'bg-white/5 border-white/10'
                 }`}
               >
                 <span
@@ -355,11 +355,11 @@ export const PerksDirectory: React.FC = () => {
                 />
               </button>
               <div>
-                <label className="text-sm text-gray-300 font-medium">
-                  Show only local Portuguese businesses
+                <label className="text-xs uppercase tracking-widest text-gray-400 font-medium cursor-pointer" onClick={() => setShowPortugueseOnly(!showPortugueseOnly)}>
+                  Show local businesses
                 </label>
-                <p className="text-xs text-gray-500 mt-0.5">
-                  Support authentic local businesses with deep community roots
+                <p className="text-[10px] text-gray-600 uppercase tracking-widest mt-1 font-medium">
+                  Support authentic Portuguese firms
                 </p>
               </div>
             </div>
@@ -398,147 +398,131 @@ export const PerksDirectory: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card variant="glass" className="p-6 h-full group" hover>
-                {/* Verified Partner Badge - now blue */}
-                <div className="mb-4">
-                  <div className="inline-flex items-center space-x-1.5 bg-blue-400/10 backdrop-blur-xl text-blue-300 px-3 py-2 rounded-full text-xs font-semibold tracking-wide border border-blue-400/20 shadow-lg">
-                    <Shield className="h-3 w-3" />
+              <Card variant="glass" className="p-6 h-full group flex flex-col" hover>
+                {/* Verified Partner Badge */}
+                <div className="mb-6">
+                  <div className="inline-flex items-center space-x-2 bg-white/5 text-gray-400 px-3 py-1.5 rounded-full text-[10px] font-medium uppercase tracking-widest border border-white/10 shadow-lg">
+                    <Shield className="h-3 w-3 text-blue-500/50" />
                     <span>Trusted Partner</span>
                   </div>
                 </div>
                 
-                <div className="flex items-start space-x-4 mb-6">
-                  <img
-                    src={perk.logo}
-                    alt={perk.business_name}
-                    width="56"
-                    height="56"
-                    className="w-14 h-14 rounded-2xl object-cover shadow-lg border border-white/[0.08] group-hover:scale-105 transition-transform duration-300"
-                    onError={(e) => {
-                      // Fallback to a default image or hide if image fails to load
-                      e.currentTarget.src = 'https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg?auto=compress&cs=tinysrgb&w=400';
-                    }}
-                  />
+                <div className="flex items-start space-x-4 mb-8">
+                  <div className="relative">
+                    <img
+                      src={perk.logo}
+                      alt={perk.business_name}
+                      width="56"
+                      height="56"
+                      className="w-14 h-14 rounded-xl object-cover border border-white/5 group-hover:border-white/10 transition-all duration-500 grayscale brightness-125 group-hover:grayscale-0"
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg?auto=compress&cs=tinysrgb&w=400';
+                      }}
+                    />
+                  </div>
                   <div className="flex-1 min-w-0">
                     <div className="mb-2">
                       <div className="flex items-start justify-between gap-2 mb-1">
-                        <h3 className="font-semibold text-lg text-white leading-tight flex-1">{perk.business_name}</h3>
+                        <h3 className="font-medium text-lg text-white leading-tight flex-1">{perk.business_name}</h3>
                         {perk.is_portuguese_owned && (
-                          <div className="bg-green-400/10 backdrop-blur-xl text-green-300 px-2.5 py-1 rounded-full text-xs font-medium flex-shrink-0 border border-green-400/20 shadow-sm">
+                          <div className="bg-emerald-500/5 text-emerald-500/60 px-2 py-0.5 rounded-full text-[9px] font-medium uppercase tracking-widest border border-emerald-500/10">
                             Local
                           </div>
                         )}
                       </div>
                       
-                      <div className="flex items-center space-x-1.5 text-sm text-gray-400">
-                        <MapPin className="h-3.5 w-3.5 flex-shrink-0" />
-                        <span className="text-gray-500">{perk.neighborhood}</span>
-                      </div>
-                      
-                      {/* Business Links */}
-                      <div className="flex items-center space-x-3 mt-2">
-                        {perk.business_website && (
-                          <a
-                            href={perk.business_website}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-all duration-300 hover:scale-105"
-                          >
-                            <Globe className="h-3.5 w-3.5" />
-                            <span className="text-xs">Website</span>
-                          </a>
-                        )}
-                        {perk.business_instagram && (
-                          <a
-                            href={perk.business_instagram.startsWith('@') 
-                              ? `https://www.instagram.com/${perk.business_instagram.slice(1)}`
-                              : perk.business_instagram.startsWith('http') 
-                                ? perk.business_instagram
-                                : `https://www.instagram.com/${perk.business_instagram}`
-                            }
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center space-x-1 text-pink-400 hover:text-pink-300 transition-all duration-300 hover:scale-105"
-                          >
-                            <Instagram className="h-3.5 w-3.5" />
-                            <span className="text-xs">Instagram</span>
-                          </a>
-                        )}
-                        {perk.business_linkedin && (
-                          <a
-                            href={perk.business_linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center space-x-1 text-blue-500 hover:text-blue-400 transition-all duration-300 hover:scale-105"
-                          >
-                            <Linkedin className="h-3.5 w-3.5" />
-                            <span className="text-xs">LinkedIn</span>
-                          </a>
-                        )}
+                      <div className="flex items-center space-x-1.5 text-[10px] uppercase tracking-widest text-gray-600 font-medium">
+                        <MapPin className="h-3 w-3" />
+                        <span>{perk.neighborhood}</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Category tagline above perk details */}
-                <div className="mb-3">
-                  <span className="text-xs text-gray-600 font-medium uppercase tracking-wider">
-                    {perk.category}
-                  </span>
-                </div>
+                <div className="flex-1">
+                  <div className="mb-4">
+                    <span className="text-[10px] text-gray-600 font-bold uppercase tracking-[0.2em]">
+                      {perk.category}
+                    </span>
+                  </div>
 
-                <div className="mb-6">
-                  <h4 className="font-semibold text-lg mb-3 leading-tight bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">{perk.title}</h4>
+                  <h4 className="font-serif text-xl text-gray-200 mb-4 leading-tight">{perk.title}</h4>
                   {renderDescription(perk)}
-                  
+                </div>
+                
+                <div className="mt-8 space-y-6">
                   {user ? (
-                    <div className="flex items-center space-x-3 text-sm bg-white/[0.02] backdrop-blur-xl rounded-2xl p-4 mb-6 border border-white/[0.06] shadow-lg">
-                      <div className="w-full">
-                        <div className="flex items-center space-x-3 font-medium text-green-400 text-xs uppercase tracking-wide mb-2">
-                          {getRedemptionIcon(perk.redemption_method)}
-                         <span className="text-green-400">How to redeem</span>
-                        </div>
-                        <span className="text-gray-300 leading-relaxed block">
-                          {(() => {
-                            // Extract URL and show only user-friendly text
-                            const urlMatch = perk.redemption_details.match(/(.*?)\s*(https?:\/\/[^\s]+)/);
-                            if (urlMatch && urlMatch[1]) {
-                              return urlMatch[1].trim();
-                            }
-                            return perk.redemption_details;
-                          })()}
-                        </span>
+                    <div className="bg-white/[0.01] rounded-xl p-4 border border-white/5">
+                      <div className="flex items-center space-x-2 text-[10px] uppercase tracking-widest font-bold text-emerald-500/60 mb-3">
+                        {getRedemptionIcon(perk.redemption_method)}
+                        <span>How to redeem</span>
                       </div>
+                      <p className="text-xs text-gray-400 leading-relaxed font-light">
+                        {(() => {
+                          const urlMatch = perk.redemption_details.match(/(.*?)\s*(https?:\/\/[^\s]+)/);
+                          if (urlMatch && urlMatch[1]) {
+                            return urlMatch[1].trim();
+                          }
+                          return perk.redemption_details;
+                        })()}
+                      </p>
                     </div>
                   ) : (
-                    <div className="flex items-center space-x-3 text-sm bg-blue-400/5 backdrop-blur-xl rounded-2xl p-4 mb-6 border border-blue-400/15 shadow-lg">
-                      <div className="w-full">
-                        <div className="flex items-center space-x-3 font-medium text-blue-400 text-xs uppercase tracking-wide mb-2">
-                          <Lock className="h-4 w-4" />
-                         <span className="text-blue-400">Redemption Details</span>
-                        </div>
-                        <span className="text-blue-200 leading-relaxed block">
-                          Create your free account to see how to redeem this perk
-                        </span>
+                    <div className="bg-blue-500/[0.02] rounded-xl p-4 border border-blue-500/10">
+                      <div className="flex items-center space-x-2 text-[10px] uppercase tracking-widest font-bold text-blue-500/50 mb-2">
+                        <Lock className="h-3 w-3" />
+                        <span>Redemption Details</span>
                       </div>
+                      <p className="text-[11px] text-gray-500 font-light leading-relaxed">
+                        Sign in to view redemption details and member-only rates.
+                      </p>
                     </div>
                   )}
 
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    className="w-full font-semibold py-4 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300"
-                    onClick={() => user ? handlePerkAction(perk) : handleUnlockAccess()}
-                  >
-                    {user ? (
-                      getActionButtonText(perk)
-                    ) : (
-                      <>
-                        <Lock className="mr-2 h-4 w-4" />
-                        Unlock perk access
-                      </>
-                    )}
-                  </Button>
+                  <div className="flex flex-col gap-3">
+                    <Button
+                      variant="primary"
+                      size="md"
+                      className="w-full text-xs uppercase tracking-widest font-bold py-4 rounded-xl"
+                      onClick={() => user ? handlePerkAction(perk) : handleUnlockAccess()}
+                    >
+                      {user ? (
+                        getActionButtonText(perk)
+                      ) : (
+                        <>
+                          <Lock className="mr-2 h-3 w-3" />
+                          Unlock Perk
+                        </>
+                      )}
+                    </Button>
+
+                    {/* Social Links */}
+                    <div className="flex items-center justify-center space-x-6 pt-2">
+                      {perk.business_website && (
+                        <a href={perk.business_website} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors">
+                          <Globe className="h-4 w-4" />
+                        </a>
+                      )}
+                      {perk.business_instagram && (
+                        <a 
+                          href={perk.business_instagram.startsWith('@') 
+                            ? `https://www.instagram.com/${perk.business_instagram.slice(1)}`
+                            : perk.business_instagram.startsWith('http') ? perk.business_instagram : `https://www.instagram.com/${perk.business_instagram}`
+                          }
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="text-gray-600 hover:text-white transition-colors"
+                        >
+                          <Instagram className="h-4 w-4" />
+                        </a>
+                      )}
+                      {perk.business_linkedin && (
+                        <a href={perk.business_linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors">
+                          <Linkedin className="h-4 w-4" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </Card>
             </motion.div>

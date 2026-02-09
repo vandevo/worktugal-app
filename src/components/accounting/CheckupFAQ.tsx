@@ -14,11 +14,11 @@ const faqData: FAQItem[] = [
   },
   {
     question: 'How accurate is the compliance score?',
-    answer: 'The checkup is based on current Portuguese tax law as of 2026 and enhanced with insights from real user data. It assigns severity levels (critical/high/medium/low) to each issue, provides specific penalty amounts, and compares your situation to similar freelancers. However, it\'s a compliance readiness screening tool, not legal advice. For complex situations, speak with an accountant.'
+    answer: 'The checkup is based on current Portuguese tax law as of 2025 and enhanced with insights from real user data. It assigns severity levels (critical/high/medium/low) to each issue, provides specific penalty amounts, and compares your situation to similar freelancers. However, it\'s a compliance readiness screening tool, not legal advice. For complex situations, speak with an accountant.'
   },
   {
     question: 'What makes this checkup "enhanced" and data-driven?',
-    answer: 'Updated for 2026 with current tax rules verified through expert research. Our system analyzes patterns from real freelancer submissions to provide contextual guidance. For example, if you\'re a tax resident without NIF, you\'ll see the exact penalty (375 EUR+), the deadline (60 days from arrival), and comparison to similar freelancers. Includes the quarterly VAT return requirement and first-year tax discount detection.'
+    answer: 'Updated for 2025 with current tax rules verified through expert research. Our system analyzes patterns from real freelancer submissions to provide contextual guidance. For example, if you\'re a tax resident without NIF, you\'ll see the exact penalty (375 EUR+), the deadline (60 days from arrival), and comparison to similar freelancers. Includes the quarterly VAT return requirement and first-year tax discount detection.'
   },
   {
     question: 'What happens to my data?',
@@ -62,20 +62,19 @@ export const CheckupFAQ: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-900">
+    <section className="py-24 bg-obsidian border-t border-white/5">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Questions about the checkup
+            <h2 className="text-3xl md:text-4xl font-serif text-white mb-4">
+              Questions about readiness
             </h2>
-            <p className="text-lg text-gray-400">
-              Everything you need to know before starting
+            <p className="text-lg text-gray-500 font-light">
+              Everything you need to know before you proceed.
             </p>
           </motion.div>
         </div>
@@ -88,17 +87,17 @@ export const CheckupFAQ: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden hover:border-blue-400/30 transition-all duration-300"
+              className="bg-white/[0.02] rounded-xl border border-white/5 overflow-hidden hover:border-white/10 transition-all duration-300"
             >
               <button
                 onClick={() => toggleFAQ(index)}
                 className="w-full flex items-center justify-between p-6 text-left hover:bg-white/[0.05] transition-colors"
               >
-                <span className="text-base md:text-lg font-semibold text-white pr-8">
+                <span className="text-base md:text-lg font-medium text-gray-200 pr-8">
                   {item.question}
                 </span>
                 <ChevronDown
-                  className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-200 ${
+                  className={`w-4 h-4 text-gray-500 flex-shrink-0 transition-transform duration-200 ${
                     openIndex === index ? 'rotate-180' : ''
                   }`}
                 />
@@ -113,7 +112,7 @@ export const CheckupFAQ: React.FC = () => {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 text-gray-300 leading-relaxed">
+                    <div className="px-6 pb-6 text-gray-400 font-light leading-relaxed text-sm">
                       {item.answer}
                     </div>
                   </motion.div>

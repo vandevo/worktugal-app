@@ -1,0 +1,46 @@
+---
+description: "Enforce the Obsidian Design System v1.2 for all UI/UX development."
+globs: ["src/components/**/*.tsx", "src/pages/**/*.tsx", "src/components/ui/*.tsx"]
+---
+
+# Obsidian Design System Rule
+
+This rule ensures all frontend development adheres to the **Obsidian v1.2** theme. Use this whenever the user refers to "obsidian theme", "obsidian default", or requests UI refinements.
+
+## Context
+The source of truth for this theme is stored in:
+- `prompts/prompts/knowledge/obsidian-theme.md`
+- `docs/DESIGN_SYSTEM.md`
+
+## Enforcement Guidelines
+
+### 1. Typography
+- **Headings**: ALWAYS use `font-serif`.
+- **Body**: ALWAYS use `font-light` or `font-medium`. Never heavy weights for body.
+- **Labels**: Use uppercase, tracking-widest, bold, and small font size (text-[10px]).
+
+### 2. Colors & Surfaces
+- **Canvas**: `#050505`.
+- **Surfaces**: Use `bg-[#121212]` or `bg-white/[0.01]` with `backdrop-blur-3xl`.
+- **Borders**: Subtle `border-white/5`.
+
+### 3. Interactive Elements
+- **Primary Buttons**: Solid white, black text, no gradients.
+- **Secondary/Outline**: Ghostly with thin borders (`border-white/10`).
+- **Icons**: Use `50%` opacity accents (e.g., `text-blue-500/50`).
+
+### 4. Component Patterns
+- Prefer reusing existing components from `src/components/ui/`.
+- Wrap complex forms in `bg-[#121212]` rounded containers.
+
+## Negative Constraints
+- NEVER use blue gradients for primary buttons or hero backgrounds.
+- NEVER use default Tailwind gray colors (gray-900, gray-800) for main obsidian surfaces; use exact hex codes or `bg-obsidian`.
+- NEVER use "Expat" or "Digital Nomad" in UI copy unless specifically requested; refer to `README.md` for proper terminology.
+
+## How to Apply
+When asked to "Apply obsidian theme" to a component:
+1. Replace light backgrounds with `bg-[#050505]`.
+2. Convert solid buttons to Obsidian primary/secondary styles.
+3. Update all headings to `font-serif`.
+4. Ensure all labels match the institutional smallcaps style.

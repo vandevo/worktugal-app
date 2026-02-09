@@ -122,28 +122,28 @@ export function ContactSuccess() {
   const Icon = content.icon;
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-obsidian flex items-center justify-center px-4 py-24">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-2xl w-full bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8 md:p-12"
+        className="max-w-2xl w-full bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 shadow-2xl shadow-black/30 p-8 md:p-12 text-center"
       >
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-green-400/10 rounded-full mb-4">
-            <Icon className="w-8 h-8 text-green-400" />
+        <div className="mb-12">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-emerald-500/5 border border-emerald-500/10 rounded-full mb-8">
+            <Icon className="w-10 h-10 text-emerald-500/50" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">{content.title}</h1>
-          <p className="text-lg text-gray-400">{content.message}</p>
+          <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">{content.title}</h1>
+          <p className="text-lg text-gray-500 font-light leading-relaxed">{content.message}</p>
         </div>
 
         {content.subMessage && (
-          <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-6 mb-6">
-            <p className="font-medium text-blue-400 mb-3">Quick context:</p>
-            <ul className="space-y-2">
+          <div className="bg-blue-500/[0.02] border border-blue-500/10 rounded-2xl p-8 mb-8 text-left">
+            <p className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] mb-6">Quick context</p>
+            <ul className="space-y-4">
               {content.subMessage.map((item, index) => (
-                <li key={index} className="text-gray-300 text-sm flex items-start gap-2">
-                  <span className="text-blue-400 mt-1">•</span>
-                  <span>{item}</span>
+                <li key={index} className="text-sm text-gray-500 font-light flex items-start gap-4">
+                  <span className="text-blue-500/50 mt-1 text-xs">•</span>
+                  <span className="leading-relaxed">{item}</span>
                 </li>
               ))}
             </ul>
@@ -151,11 +151,11 @@ export function ContactSuccess() {
         )}
 
         {content.footer && (
-          <p className="text-center text-gray-400 mb-6">{content.footer}</p>
+          <p className="text-xs text-gray-600 font-light uppercase tracking-widest mb-10">{content.footer}</p>
         )}
 
         {content.actions && content.actions.length > 0 && (
-          <div className="space-y-3 mb-8">
+          <div className="space-y-4 mb-12">
             {content.actions.map((action, index) =>
               action.external ? (
                 <a
@@ -163,7 +163,7 @@ export function ContactSuccess() {
                   href={action.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors duration-200 font-medium"
+                  className="flex items-center justify-center gap-3 w-full h-14 bg-white text-black hover:bg-gray-200 rounded-xl text-xs uppercase tracking-widest font-bold transition-all shadow-xl shadow-black/20"
                 >
                   {action.label}
                   <ExternalLink className="w-4 h-4" />
@@ -172,7 +172,7 @@ export function ContactSuccess() {
                 <Link
                   key={index}
                   to={action.href}
-                  className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors duration-200 font-medium"
+                  className="flex items-center justify-center gap-3 w-full h-14 bg-white text-black hover:bg-gray-200 rounded-xl text-xs uppercase tracking-widest font-bold transition-all shadow-xl shadow-black/20"
                 >
                   {action.label}
                 </Link>
@@ -181,9 +181,9 @@ export function ContactSuccess() {
           </div>
         )}
 
-        <div className="flex gap-4 justify-center pt-6 border-t border-white/[0.08]">
+        <div className="flex justify-center pt-8 border-t border-white/5">
           <Link to="/">
-            <Button variant="outline">Back to Home</Button>
+            <Button variant="outline" className="h-12 text-xs uppercase tracking-widest font-bold px-8">Back to Home</Button>
           </Link>
         </div>
       </motion.div>

@@ -747,95 +747,131 @@ const uploadFile = async (bucket: string, file: File, path: string) => {
 
 ---
 
-## Project Changelog
+## 9. ReadyFile VAT v1.0 Schema
 
-### 2026
+**Status:** Draft / Pending Validation
+**Product ID:** `readyfile_vat_v1`
+**Price Point:** €39 - €49
 
-**2026-02-03:**
+ReadyFile is a timestamped verification artifact that proves a freelancer's readiness for VAT registration or exemption.
+
+### Schema Definition
+
+```json
+{
+  "artifact_type": "readyfile_vat",
+  "version": "1.0",
+  "compliance_verified": {
+    "nif_status": "valid_active",
+    "activity_code_check": "cae_match_confirmed",
+    "vat_regime_eligibility": "isento_art_53 | regime_normal",
+    "threshold_validation": "below_15k | above_15k",
+    "niss_registration": "verified | missing",
+    "fiscal_rep_status": "not_required | active"
+  },
+  "readiness_score": 0-100,
+  "action_required": [
+    "register_vat_immediately",
+    "wait_until_threshold_reached",
+    "update_fiscal_representative"
+  ],
+  "professional_handoff_ready": true,
+  "timestamp": "ISO-8601",
+  "verification_id": "RF-VAT-XXXX-XXXX"
+}
+```
+
+---
+
+## 10. Project Changelog
+
+### 2025
+
+**2025-02-03:**
 - README completely rewritten to reflect current product state
 - Created TECHNICAL_REFERENCE.md for detailed documentation
 - Identified 7 HOT leads ready for outreach
 
-**2026-02-01:**
+**2025-02-01:**
 - Migrated hosting from Netlify to Cloudflare Pages
 - Established local development environment in Cursor IDE
 - Configured MCP servers for Supabase and Cloudflare API access
 - Updated AI Development Guardrail Prompt
 
-**2026-01-22:**
+**2025-01-22:**
 - Deployed €49 Detailed Compliance Risk Review product
 - Created paid-review-checkout and paid-review-webhook Edge Functions
 - Built multi-step intake form with access token verification
 
-**2026-01-xx:**
+**2025-01-xx:**
 - Added interested_in_accounting_services field to tax_checkup_leads
 - Enhanced lead deduplication with submission_sequence tracking
 
-### 2025
+### 2024
 
-**2025-12-xx:**
+**2024-12-xx:**
 - Tax Checkup Tool enhancements
 - Make.com webhook integration for lead notifications
 - Enhanced compliance scoring algorithm
 
-**2025-11-10:**
+**2024-11-10:**
 - Created checkup_feedback table for accuracy tracking
 - Added feedback collection UI to results page
 
-**2025-11-06:**
+**2024-11-06:**
 - Launched Tax Checkup Tool
 - Created tax_checkup_leads table with compliance scoring
 - Built 5-step diagnostic wizard
 - Implemented red/yellow/green flag system
 
-**2025-11-01:**
+**2024-11-01:**
 - Created contact_requests table
 - Purpose-based routing system
 - Budget/timeline qualification fields
 
-**2025-10-29:**
+**2024-10-29:**
 - Comprehensive RLS policy review and fixes
 - Performance optimization with strategic indexes
 
-**2025-10-26:**
+**2024-10-26:**
 - Created accounting_intakes table (30+ fields)
 - Comprehensive freelancer/expat compliance data collection
 - Status workflow: new → ready → missing_docs → in_review → claimed → completed
 
-**2025-10-04:**
+**2024-10-04:**
 - Major strategic pivot: Accounting Desk as primary product
 - Partner directory repositioned as secondary "Partner Hub"
 - SEO metadata overhaul for accounting focus
 
-**2025-10-01:**
+**2024-10-01:**
 - Created accountant_profiles, appointments, payouts, disputes tables
 - Cal.com integration infrastructure
 - Accountant role added to user_profiles
 
-**2025-10-03:**
+**2024-10-03:**
 - Created leads_accounting table for early access signups
 - Webhook trigger to Make.com
 
-**2025-10-02:**
+**2024-10-02:**
 - Created resume storage bucket
 - Fixed bucket policies for authenticated upload/download
 
-**2025-09-30:**
+**2024-09-30:**
 - Initial README documentation created
 
-**2025-08-27:**
+**2024-08-27:**
 - Partner notification webhook integration
 - Automatic email to partners on new member signup
 
-**2025-07-22:**
+**2024-07-22:**
 - Completed Stripe webhook integration
 - Subscription status auto-updates on payment
 
-**2025-07-21:**
+**2024-07-21:**
 - Cookie consent banner with GDPR compliance
 - Granular cookie preferences
 
-**2025-07-20:**
+**2024-07-20:**
 - Form wizard redesign with progress bar
 - Multi-step validation with Zod schemas
 

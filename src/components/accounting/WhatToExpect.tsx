@@ -43,13 +43,13 @@ export const WhatToExpect: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 md:py-20 bg-gray-900">
+    <section className="py-24 bg-obsidian border-t border-white/5">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3 md:mb-4">
-            What to Expect
+        <div className="text-center mb-16 md:mb-20">
+          <h2 className="text-4xl font-serif text-white mb-4">
+            What to expect
           </h2>
-          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto px-4">
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto px-4 font-light">
             Here's exactly how it works
           </p>
         </div>
@@ -62,22 +62,22 @@ export const WhatToExpect: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl md:rounded-3xl border border-white/[0.10] shadow-xl shadow-black/20 p-5 md:p-6 hover:border-blue-400/20 transition-all"
+              className="bg-[#121212] backdrop-blur-3xl rounded-2xl md:rounded-3xl border border-white/5 shadow-xl shadow-black/20 p-6 md:p-8 hover:border-white/10 transition-all"
             >
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                <div className="flex items-center gap-4 w-full sm:w-auto">
-                  <div className="flex-shrink-0 bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-xl rounded-2xl p-3 border border-blue-400/30 shadow-lg">
-                    <step.icon className="w-6 h-6 md:w-7 md:h-7 text-blue-400" />
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                <div className="flex items-center gap-6 w-full sm:w-auto">
+                  <div className="flex-shrink-0 bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <step.icon className="w-6 h-6 text-blue-500/50" />
                   </div>
                   <div className="flex-1 sm:flex-initial">
-                    <h3 className="text-lg md:text-xl font-bold text-white mb-1">{step.title}</h3>
-                    <span className="inline-block text-xs md:text-sm font-semibold text-blue-300 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-400/20">
+                    <h3 className="text-xl font-serif text-white mb-2">{step.title}</h3>
+                    <span className="inline-block text-[10px] font-bold text-blue-500/50 bg-blue-500/5 px-3 py-1 rounded-full border border-blue-500/10 uppercase tracking-widest">
                       {step.time}
                     </span>
                   </div>
                 </div>
               </div>
-              <p className="text-gray-300 text-sm md:text-base mt-3 leading-relaxed">
+              <p className="text-sm text-gray-500 mt-6 leading-relaxed font-light">
                 {step.description}
               </p>
             </motion.div>
@@ -89,29 +89,24 @@ export const WhatToExpect: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.7 }}
-          className="mt-8 md:mt-12 bg-white/[0.02] backdrop-blur-xl rounded-2xl md:rounded-3xl border border-blue-400/20 p-5 md:p-6"
+          className="mt-12 md:mt-16 bg-white/[0.01] rounded-2xl md:rounded-3xl border border-white/5 p-6 md:p-8"
         >
-          <h4 className="text-base md:text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <span className="text-blue-400">ℹ</span>
+          <h4 className="text-xs font-bold text-gray-600 uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
+            <span className="text-blue-500/50">ℹ</span>
             Important Notes
           </h4>
-          <ul className="space-y-3 text-gray-300 text-sm md:text-base">
-            <li className="flex items-start gap-3 leading-relaxed">
-              <span className="text-blue-400 mt-0.5 flex-shrink-0">•</span>
-              <span>You can reschedule your appointment up to 24 hours before the scheduled time via Cal.com</span>
-            </li>
-            <li className="flex items-start gap-3 leading-relaxed">
-              <span className="text-blue-400 mt-0.5 flex-shrink-0">•</span>
-              <span>Missed appointments without 24h notice cannot be refunded or rescheduled</span>
-            </li>
-            <li className="flex items-start gap-3 leading-relaxed">
-              <span className="text-blue-400 mt-0.5 flex-shrink-0">•</span>
-              <span>The €149 Annual Return Consult credit is automatically applied if you hire us for full filing</span>
-            </li>
-            <li className="flex items-start gap-3 leading-relaxed">
-              <span className="text-blue-400 mt-0.5 flex-shrink-0">•</span>
-              <span>Email support response times vary by service tier selected</span>
-            </li>
+          <ul className="space-y-4">
+            {[
+              "You can reschedule your appointment up to 24 hours before the scheduled time via Cal.com",
+              "Missed appointments without 24h notice cannot be refunded or rescheduled",
+              "The €149 Annual Return Consult credit is automatically applied if you hire us for full filing",
+              "Email support response times vary by service tier selected"
+            ].map((note, i) => (
+              <li key={i} className="flex items-start gap-4">
+                <span className="text-blue-500/50 mt-1 text-xs">•</span>
+                <span className="text-xs text-gray-500 font-light uppercase tracking-widest leading-relaxed">{note}</span>
+              </li>
+            ))}
           </ul>
         </motion.div>
       </div>

@@ -208,11 +208,11 @@ export const PaidReviewPage: React.FC = () => {
 
   if (authLoading || pageState === 'loading') {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-obsidian flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400 mx-auto mb-4"></div>
-          <p className="text-gray-400">
-            {authLoading ? 'Checking authentication...' : 'Loading your review...'}
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-6"></div>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-gray-500">
+            {authLoading ? 'Authenticating...' : 'Loading Review...'}
           </p>
         </div>
       </div>
@@ -221,9 +221,9 @@ export const PaidReviewPage: React.FC = () => {
 
   if (pageState === 'error') {
     return (
-      <div className="min-h-screen bg-gray-900 py-12">
+      <div className="min-h-screen bg-obsidian py-12">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Alert variant="error" className="mb-6">
+          <Alert variant="error" className="bg-red-500/5 border-red-500/10 text-red-400 mb-8">
             {error || 'Something went wrong'}
           </Alert>
           <div className="text-center">
@@ -232,7 +232,7 @@ export const PaidReviewPage: React.FC = () => {
                 setError(null);
                 loadUserReviewStatus();
               }}
-              className="text-blue-400 hover:underline"
+              className="text-xs font-medium uppercase tracking-widest text-gray-500 hover:text-white transition-colors"
             >
               Try again
             </button>

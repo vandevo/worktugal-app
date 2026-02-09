@@ -38,7 +38,7 @@ export const CheckupHowItWorks: React.FC = () => {
               How it works
             </h2>
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              Updated for 2026 with severity-based guidance and real user data
+              Updated for 2025 with severity-based guidance and real user data
             </p>
           </motion.div>
         </div>

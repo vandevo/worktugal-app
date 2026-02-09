@@ -10,13 +10,13 @@ interface ConsultPricingSectionProps {
 
 export const ConsultPricingSection: React.FC<ConsultPricingSectionProps> = ({ onSelectService }) => {
   return (
-    <section className="py-20 bg-gray-900">
+    <section className="py-24 bg-obsidian border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-white mb-4">
-            Clear Services. Clear Prices.
+          <h2 className="text-4xl md:text-5xl font-serif text-white mb-4">
+            Clear services. Clear prices.
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-500 max-w-3xl mx-auto font-light">
             Choose the service that matches your need. Every consult includes written documentation.
           </p>
         </div>
@@ -28,39 +28,39 @@ export const ConsultPricingSection: React.FC<ConsultPricingSectionProps> = ({ on
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`bg-white/[0.03] backdrop-blur-3xl rounded-3xl border shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] overflow-hidden hover:border-blue-400/50 hover:ring-blue-400/30 hover:shadow-blue-500/20 transition-all ${
-                service.id === 'start_pack' ? 'border-blue-400/50 ring-blue-400/30 relative' : 'border-white/[0.10]'
+              className={`bg-[#121212] backdrop-blur-3xl rounded-3xl border shadow-2xl shadow-black/30 overflow-hidden hover:border-white/10 transition-all ${
+                service.id === 'start_pack' ? 'border-white/10 relative' : 'border-white/5'
               }`}
             >
               {service.id === 'start_pack' && (
-                <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white text-center py-2 text-sm font-semibold shadow-lg">
+                <div className="bg-white/5 text-gray-400 text-center py-2 text-[10px] uppercase tracking-widest font-bold border-b border-white/5">
                   Most Popular
                 </div>
               )}
 
               <div className="p-8">
-                <h3 className="text-2xl font-bold text-white mb-2">{service.name}</h3>
+                <h3 className="text-2xl font-serif text-white mb-2">{service.name}</h3>
                 <div className="mb-4">
-                  <span className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">€{service.price}</span>
+                  <span className="text-4xl font-serif text-white">€{service.price}</span>
                 </div>
-                <p className="text-gray-300 mb-2 font-medium">{service.duration}</p>
-                <p className="text-gray-300 mb-6">{service.description}</p>
+                <p className="text-blue-500/60 font-medium text-xs uppercase tracking-widest mb-2">{service.duration}</p>
+                <p className="text-sm text-gray-500 mb-8 font-light leading-relaxed">{service.description}</p>
 
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-4 mb-8">
                   {service.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start">
-                      <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-200">{feature}</span>
+                      <Check className="w-4 h-4 text-emerald-500/50 mr-3 flex-shrink-0 mt-0.5" />
+                      <span className="text-xs text-gray-400 font-light leading-relaxed">{feature}</span>
                     </li>
                   ))}
                 </ul>
 
                 <button
                   onClick={() => onSelectService(service.id)}
-                  className={`w-full py-3 rounded-xl font-semibold transition-all ${
+                  className={`w-full py-4 rounded-xl text-xs uppercase tracking-widest font-bold transition-all ${
                     service.id === 'start_pack'
-                      ? 'bg-gradient-to-br from-blue-500/90 to-blue-600/90 hover:from-blue-400/90 hover:to-blue-500/90 text-white shadow-xl shadow-blue-500/40 hover:shadow-2xl border border-blue-400/30'
-                      : 'bg-white/[0.04] hover:bg-white/[0.08] text-white border border-white/[0.12] hover:border-white/[0.20] shadow-lg'
+                      ? 'bg-white text-black hover:bg-gray-200'
+                      : 'bg-white/5 hover:bg-white/10 text-white border border-white/10'
                   }`}
                 >
                   Book Now

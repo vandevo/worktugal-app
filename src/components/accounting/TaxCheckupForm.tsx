@@ -104,16 +104,16 @@ export const TaxCheckupForm: React.FC = () => {
   };
 
   const renderStep1 = () => (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h3 className="text-2xl font-bold text-white mb-2">Let's check your compliance status</h3>
-        <p className="text-gray-400 text-sm">
-          Answer a few quick questions about your work and residency
+        <h3 className="text-2xl font-serif text-white mb-2">Check your readiness</h3>
+        <p className="text-gray-500 font-light text-sm">
+          Answer a few quick questions about your work and residency.
         </p>
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-300 mb-3">
+        <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-4">
           What type of work do you do in Portugal?
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -124,15 +124,15 @@ export const TaxCheckupForm: React.FC = () => {
                 key={type.value}
                 type="button"
                 onClick={() => handleInputChange('work_type', type.value)}
-                className={`px-4 py-3 rounded-xl border-2 transition-all text-left ${
+                className={`px-4 py-4 rounded-xl border transition-all text-left group ${
                   formData.work_type === type.value
-                    ? 'border-blue-400 bg-blue-400/10 text-white'
-                    : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                    ? 'border-blue-500 bg-blue-500/10 text-white'
+                    : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <Icon className="w-5 h-5" />
-                  <span className="text-sm">{type.label}</span>
+                  <Icon className={`w-5 h-5 ${formData.work_type === type.value ? 'text-blue-400' : 'text-gray-500 group-hover:text-gray-400'}`} />
+                  <span className="text-sm font-light">{type.label}</span>
                 </div>
               </button>
             );
@@ -141,39 +141,42 @@ export const TaxCheckupForm: React.FC = () => {
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-300 mb-2">
+        <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-4">
           How many months per year are you in Portugal?
         </label>
-        <div className="space-y-2">
+        <div className="space-y-4">
           <input
             type="range"
             min="1"
             max="12"
             value={formData.months_in_portugal || 6}
             onChange={(e) => handleInputChange('months_in_portugal', parseInt(e.target.value))}
-            className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-400"
+            className="w-full h-1 bg-white/5 rounded-lg appearance-none cursor-pointer accent-blue-500"
           />
-          <div className="flex justify-between text-sm text-gray-400">
+          <div className="flex justify-between text-xs font-light text-gray-500">
             <span>1 month</span>
-            <span className="text-blue-400 font-semibold">{formData.months_in_portugal || 6} months</span>
+            <span className="text-blue-400 font-medium">{formData.months_in_portugal || 6} months</span>
             <span>12 months</span>
           </div>
           {(formData.months_in_portugal || 0) >= 6 && (
-            <p className="text-xs text-yellow-400 mt-2">
-              Note: 6+ months = tax resident (must file taxes in Portugal)
-            </p>
+            <div className="p-3 rounded-lg bg-blue-500/5 border border-blue-500/10">
+              <p className="text-[11px] text-blue-300 font-light">
+                <span className="font-medium">Note:</span> 6+ months typically triggers tax residency.
+              </p>
+            </div>
           )}
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-300 mb-2">
-          What's your residency status in Portugal?
+        <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-4">
+          Residency status
         </label>
         <Select
           value={formData.residency_status}
           onChange={(e) => handleInputChange('residency_status', e.target.value)}
           required
+          className="bg-white/[0.02] border-white/5 font-light text-sm"
         >
           <option value="">Select your status</option>
           <option value="tourist">Tourist / Short Stay</option>
@@ -188,17 +191,17 @@ export const TaxCheckupForm: React.FC = () => {
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-300 mb-3">
-          Do you have a Portuguese tax number (NIF - número de identificação fiscal)?
+        <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-4">
+          Do you have a Portuguese tax number (NIF)?
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             type="button"
             onClick={() => handleInputChange('has_nif', true)}
-            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
               formData.has_nif === true
-                ? 'border-blue-400 bg-blue-400/10 text-white'
-                : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                ? 'border-blue-500 bg-blue-500/10 text-white'
+                : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
             }`}
           >
             Yes
@@ -206,10 +209,10 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('has_nif', false)}
-            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
               formData.has_nif === false
-                ? 'border-blue-400 bg-blue-400/10 text-white'
-                : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                ? 'border-blue-500 bg-blue-500/10 text-white'
+                : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
             }`}
           >
             No
@@ -217,34 +220,36 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('has_nif', null)}
-            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
               formData.has_nif === null
-                ? 'border-blue-400 bg-blue-400/10 text-white'
-                : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                ? 'border-blue-500 bg-blue-500/10 text-white'
+                : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
             }`}
           >
             Not Sure
           </button>
         </div>
         {FEATURE_FLAGS.useConditionalHelpers && getConditionalHelperText('has_nif', formData) && (
-          <p className="text-xs mt-2 text-blue-300/90 bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2">
-            {getConditionalHelperText('has_nif', formData)}
-          </p>
+          <div className="mt-3 p-3 rounded-lg bg-blue-500/5 border border-blue-500/10">
+            <p className="text-[11px] text-blue-300 font-light leading-relaxed">
+              {getConditionalHelperText('has_nif', formData)}
+            </p>
+          </div>
         )}
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-300 mb-3">
-          Have you opened activity at Financas (abertura de atividade)?
+        <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-4">
+          Have you opened activity at Finanças?
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             type="button"
             onClick={() => handleInputChange('activity_opened', true)}
-            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
               formData.activity_opened === true
-                ? 'border-blue-400 bg-blue-400/10 text-white'
-                : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                ? 'border-blue-500 bg-blue-500/10 text-white'
+                : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
             }`}
           >
             Yes
@@ -252,10 +257,10 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('activity_opened', false)}
-            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
               formData.activity_opened === false
-                ? 'border-blue-400 bg-blue-400/10 text-white'
-                : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                ? 'border-blue-500 bg-blue-500/10 text-white'
+                : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
             }`}
           >
             No
@@ -263,44 +268,47 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('activity_opened', null)}
-            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
               formData.activity_opened === null
-                ? 'border-blue-400 bg-blue-400/10 text-white'
-                : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                ? 'border-blue-500 bg-blue-500/10 text-white'
+                : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
             }`}
           >
             Not Sure
           </button>
         </div>
-        <p className="text-xs text-gray-400 mt-2">
-          Required before you can legally issue invoices (faturas) to clients
+        <p className="text-[10px] text-gray-600 uppercase tracking-widest font-medium mt-3">
+          Required to issue legal invoices
         </p>
         {FEATURE_FLAGS.useConditionalHelpers && getConditionalHelperText('activity_opened', formData) && (
-          <p className="text-xs mt-2 text-yellow-300/90 bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-3 py-2">
-            {getConditionalHelperText('activity_opened', formData)}
-          </p>
+          <div className="mt-3 p-3 rounded-lg bg-yellow-500/5 border border-yellow-500/10">
+            <p className="text-[11px] text-yellow-300 font-light leading-relaxed">
+              {getConditionalHelperText('activity_opened', formData)}
+            </p>
+          </div>
         )}
       </div>
     </div>
   );
 
   const renderStep2 = () => (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h3 className="text-2xl font-bold text-white mb-2">Income and registration</h3>
-        <p className="text-gray-400 text-sm">
-          Help us understand your income and compliance status
+        <h3 className="text-2xl font-serif text-white mb-2">Income and registration</h3>
+        <p className="text-gray-500 font-light text-sm">
+          Help us understand your income and compliance status.
         </p>
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-300 mb-2">
-          Estimated annual income from Portuguese work
+        <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-4">
+          Estimated annual income from work
         </label>
         <Select
           value={formData.estimated_annual_income}
           onChange={(e) => handleInputChange('estimated_annual_income', e.target.value)}
           required
+          className="bg-white/[0.02] border-white/5 font-light text-sm"
         >
           <option value="">Select income range</option>
           <option value="under_10k">Under €10,000</option>
@@ -308,23 +316,23 @@ export const TaxCheckupForm: React.FC = () => {
           <option value="25k_50k">€25,000 - €50,000</option>
           <option value="over_50k">Over €50,000</option>
         </Select>
-        <p className="text-xs text-gray-400 mt-2">
-          Important: VAT registration is mandatory over €15,000 annual income
+        <p className="text-[10px] text-gray-600 uppercase tracking-widest font-medium mt-3">
+          VAT registration is mandatory over €15,000
         </p>
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-300 mb-3">
+        <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-4">
           Are you VAT registered in Portugal?
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             type="button"
             onClick={() => handleInputChange('has_vat_number', true)}
-            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
               formData.has_vat_number === true
-                ? 'border-blue-400 bg-blue-400/10 text-white'
-                : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                ? 'border-blue-500 bg-blue-500/10 text-white'
+                : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
             }`}
           >
             Yes
@@ -332,10 +340,10 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('has_vat_number', false)}
-            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
               formData.has_vat_number === false
-                ? 'border-blue-400 bg-blue-400/10 text-white'
-                : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                ? 'border-blue-500 bg-blue-500/10 text-white'
+                : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
             }`}
           >
             No
@@ -343,34 +351,36 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('has_vat_number', null)}
-            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
               formData.has_vat_number === null
-                ? 'border-blue-400 bg-blue-400/10 text-white'
-                : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                ? 'border-blue-500 bg-blue-500/10 text-white'
+                : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
             }`}
           >
             Not Sure
           </button>
         </div>
         {FEATURE_FLAGS.useConditionalHelpers && getConditionalHelperText('has_vat_number', formData) && (
-          <p className="text-xs mt-2 text-yellow-300/90 bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-3 py-2">
-            {getConditionalHelperText('has_vat_number', formData)}
-          </p>
+          <div className="mt-3 p-3 rounded-lg bg-yellow-500/5 border border-yellow-500/10">
+            <p className="text-[11px] text-yellow-300 font-light leading-relaxed">
+              {getConditionalHelperText('has_vat_number', formData)}
+            </p>
+          </div>
         )}
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-300 mb-3">
+        <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-4">
           Do you have Social Security (NISS) registration?
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             type="button"
             onClick={() => handleInputChange('has_niss', true)}
-            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
               formData.has_niss === true
-                ? 'border-blue-400 bg-blue-400/10 text-white'
-                : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                ? 'border-blue-500 bg-blue-500/10 text-white'
+                : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
             }`}
           >
             Yes
@@ -378,10 +388,10 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('has_niss', false)}
-            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
               formData.has_niss === false
-                ? 'border-blue-400 bg-blue-400/10 text-white'
-                : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                ? 'border-blue-500 bg-blue-500/10 text-white'
+                : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
             }`}
           >
             No
@@ -389,38 +399,40 @@ export const TaxCheckupForm: React.FC = () => {
           <button
             type="button"
             onClick={() => handleInputChange('has_niss', null)}
-            className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+            className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
               formData.has_niss === null
-                ? 'border-blue-400 bg-blue-400/10 text-white'
-                : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                ? 'border-blue-500 bg-blue-500/10 text-white'
+                : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
             }`}
           >
             Not Sure
           </button>
         </div>
-        <p className="text-xs text-gray-400 mt-2">
-          Required for self-employed work and AIMA residence permit renewal
+        <p className="text-[10px] text-gray-600 uppercase tracking-widest font-medium mt-3">
+          Required for residence permit renewal
         </p>
         {FEATURE_FLAGS.useConditionalHelpers && getConditionalHelperText('has_niss', formData) && (
-          <p className="text-xs mt-2 text-yellow-300/90 bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-3 py-2">
-            {getConditionalHelperText('has_niss', formData)}
-          </p>
+          <div className="mt-3 p-3 rounded-lg bg-yellow-500/5 border border-yellow-500/10">
+            <p className="text-[11px] text-yellow-300 font-light leading-relaxed">
+              {getConditionalHelperText('has_niss', formData)}
+            </p>
+          </div>
         )}
       </div>
 
       {(formData.residency_status === 'tourist' || formData.residency_status === 'digital_nomad_visa') && (
         <div>
-          <label className="block text-sm font-semibold text-gray-300 mb-3">
-            Do you have a fiscal representative in Portugal?
+          <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-4">
+            Do you have a fiscal representative?
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <button
               type="button"
               onClick={() => handleInputChange('has_fiscal_representative', true)}
-              className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+              className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
                 formData.has_fiscal_representative === true
-                  ? 'border-blue-400 bg-blue-400/10 text-white'
-                  : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                  ? 'border-blue-500 bg-blue-500/10 text-white'
+                  : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
               }`}
             >
               Yes
@@ -428,10 +440,10 @@ export const TaxCheckupForm: React.FC = () => {
             <button
               type="button"
               onClick={() => handleInputChange('has_fiscal_representative', false)}
-              className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+              className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
                 formData.has_fiscal_representative === false
-                  ? 'border-blue-400 bg-blue-400/10 text-white'
-                  : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                  ? 'border-blue-500 bg-blue-500/10 text-white'
+                  : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
               }`}
             >
               No
@@ -439,22 +451,24 @@ export const TaxCheckupForm: React.FC = () => {
             <button
               type="button"
               onClick={() => handleInputChange('has_fiscal_representative', null)}
-              className={`w-full px-4 py-3 rounded-xl border-2 transition-all ${
+              className={`w-full px-4 py-3 rounded-xl border transition-all text-sm font-light ${
                 formData.has_fiscal_representative === null
-                  ? 'border-blue-400 bg-blue-400/10 text-white'
-                  : 'border-white/[0.08] bg-white/[0.02] text-gray-300 hover:border-white/[0.15]'
+                  ? 'border-blue-500 bg-blue-500/10 text-white'
+                  : 'border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/[0.03]'
               }`}
             >
               Not Sure
             </button>
           </div>
-          <p className="text-xs text-gray-400 mt-2">
-            Required for non-residents earning Portuguese-source income
+          <p className="text-[10px] text-gray-600 uppercase tracking-widest font-medium mt-3">
+            Required for non-residents
           </p>
           {FEATURE_FLAGS.useConditionalHelpers && getConditionalHelperText('has_fiscal_representative', formData) && (
-            <p className="text-xs mt-2 text-blue-300/90 bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2">
-              {getConditionalHelperText('has_fiscal_representative', formData)}
-            </p>
+            <div className="mt-3 p-3 rounded-lg bg-blue-500/5 border border-blue-500/10">
+              <p className="text-[11px] text-blue-300 font-light leading-relaxed">
+                {getConditionalHelperText('has_fiscal_representative', formData)}
+              </p>
+            </div>
           )}
         </div>
       )}
@@ -462,104 +476,114 @@ export const TaxCheckupForm: React.FC = () => {
   );
 
   const renderStep3 = () => (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h3 className="text-2xl font-bold text-white mb-2">Get your compliance report</h3>
-        <p className="text-gray-400 text-sm">
-          You're 89% done - enter your email to see your personalized results
+        <h3 className="text-2xl font-serif text-white mb-2">Final Step</h3>
+        <p className="text-gray-500 font-light text-sm">
+          You're almost done. Enter your email to receive your report.
         </p>
       </div>
 
-      <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-5">
-        <div className="flex flex-col sm:flex-row sm:items-start gap-3">
-          <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0" />
+      <div className="bg-blue-500/5 border border-blue-500/10 rounded-xl p-6">
+        <div className="flex items-start gap-4">
+          <div className="p-2 bg-blue-500/10 rounded-lg">
+            <CheckCircle className="w-5 h-5 text-blue-400" />
+          </div>
           <div className="flex-1">
-            <h4 className="text-white font-semibold mb-3">What you'll get instantly</h4>
-            <ul className="text-sm text-gray-300 space-y-2">
-              <li>✓ Personalized compliance status report</li>
-              <li>✓ Specific action steps ranked by priority</li>
-              <li>✓ Timeline and penalty information</li>
-              <li>✓ Email copy of your full report</li>
+            <h4 className="text-white font-medium mb-3">Included in your report</h4>
+            <ul className="text-sm text-gray-500 space-y-3 font-light">
+              <li className="flex items-center gap-2">
+                <div className="w-1 h-1 rounded-full bg-blue-500/50" />
+                Personalized readiness assessment
+              </li>
+              <li className="flex items-center gap-2">
+                <div className="w-1 h-1 rounded-full bg-blue-500/50" />
+                Prioritized action steps
+              </li>
+              <li className="flex items-center gap-2">
+                <div className="w-1 h-1 rounded-full bg-blue-500/50" />
+                Penalty risk evaluation
+              </li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-semibold text-gray-300 mb-2">
-          Email Address *
-        </label>
-        <Input
-          type="email"
-          value={formData.email}
-          onChange={(e) => handleInputChange('email', e.target.value)}
-          placeholder="you@example.com"
-          required
-        />
-        <p className="text-xs text-gray-500 mt-1">
-          We'll send your compliance report here. No spam.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="space-y-6">
         <div>
-          <label className="block text-sm font-semibold text-gray-300 mb-2">
-            First Name (Optional)
+          <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-4">
+            Email Address *
           </label>
           <Input
-            value={formData.name}
-            onChange={(e) => handleInputChange('name', e.target.value)}
-            placeholder="John"
+            type="email"
+            value={formData.email}
+            onChange={(e) => handleInputChange('email', e.target.value)}
+            placeholder="you@example.com"
+            required
+            className="bg-white/[0.02] border-white/5 font-light text-sm h-12"
           />
-        </div>
-        <div>
-          <label className="block text-sm font-semibold text-gray-300 mb-2">
-            Phone (Optional)
-          </label>
-          <Input
-            type="tel"
-            value={formData.phone}
-            onChange={(e) => handleInputChange('phone', e.target.value)}
-            placeholder="+351 912 345 678"
-          />
-          <p className="text-xs text-gray-500 mt-1">
-            For priority callback if urgent
+          <p className="text-[10px] text-gray-600 uppercase tracking-widest font-medium mt-3">
+            We'll send your readiness report here
           </p>
         </div>
-      </div>
 
-      <div className="space-y-4">
-        <div className="flex items-start gap-3">
-          <input
-            type="checkbox"
-            id="email_consent"
-            checked={formData.email_marketing_consent}
-            onChange={(e) => handleInputChange('email_marketing_consent', e.target.checked)}
-            className="mt-1 w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-400 focus:ring-blue-400 focus:ring-offset-0 focus:ring-offset-gray-900 cursor-pointer transition-colors"
-          />
-          <label htmlFor="email_consent" className="text-sm text-gray-300 cursor-pointer select-none leading-relaxed">
-            Send me compliance updates and tax deadline reminders (unsubscribe anytime)
-          </label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-4">
+              First Name
+            </label>
+            <Input
+              value={formData.name}
+              onChange={(e) => handleInputChange('name', e.target.value)}
+              placeholder="John"
+              className="bg-white/[0.02] border-white/5 font-light text-sm h-12"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-4">
+              Phone
+            </label>
+            <Input
+              type="tel"
+              value={formData.phone}
+              onChange={(e) => handleInputChange('phone', e.target.value)}
+              placeholder="+351 9..."
+              className="bg-white/[0.02] border-white/5 font-light text-sm h-12"
+            />
+          </div>
         </div>
 
-        <div className="flex items-start gap-3">
-          <input
-            type="checkbox"
-            id="accounting_services_interest"
-            checked={formData.interested_in_accounting_services}
-            onChange={(e) => handleInputChange('interested_in_accounting_services', e.target.checked)}
-            className="mt-1 w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-400 focus:ring-blue-400 focus:ring-offset-0 focus:ring-offset-gray-900 cursor-pointer transition-colors"
-          />
-          <label htmlFor="accounting_services_interest" className="text-sm text-gray-300 cursor-pointer select-none leading-relaxed">
-            Keep me updated on accounting services
-          </label>
-        </div>
-      </div>
+        <div className="space-y-4 pt-4">
+          <div className="flex items-start gap-4">
+            <div className="relative flex items-center h-5">
+              <input
+                type="checkbox"
+                id="email_consent"
+                checked={formData.email_marketing_consent}
+                onChange={(e) => handleInputChange('email_marketing_consent', e.target.checked)}
+                className="w-4 h-4 rounded border-white/10 bg-white/5 text-blue-500 focus:ring-0 focus:ring-offset-0 cursor-pointer"
+              />
+            </div>
+            <label htmlFor="email_consent" className="text-xs text-gray-500 cursor-pointer select-none font-light leading-relaxed">
+              Send me compliance updates and tax deadline reminders.
+            </label>
+          </div>
 
-      <div className="text-center pt-4">
-        <p className="text-xs text-gray-500">
-          Join 200+ professionals who checked their compliance status this month
-        </p>
+          <div className="flex items-start gap-4">
+            <div className="relative flex items-center h-5">
+              <input
+                type="checkbox"
+                id="accounting_services_interest"
+                checked={formData.interested_in_accounting_services}
+                onChange={(e) => handleInputChange('interested_in_accounting_services', e.target.checked)}
+                className="w-4 h-4 rounded border-white/10 bg-white/5 text-blue-500 focus:ring-0 focus:ring-offset-0 cursor-pointer"
+              />
+            </div>
+            <label htmlFor="accounting_services_interest" className="text-xs text-gray-500 cursor-pointer select-none font-light leading-relaxed">
+              Keep me updated on available accounting partners.
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -584,36 +608,36 @@ export const TaxCheckupForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 py-12">
+    <div className="min-h-screen bg-obsidian py-12">
       <Seo
-        title="Free Tax Compliance Checkup for Freelancers in Portugal"
-        description="Take our free 3-minute tax compliance checkup. Get your score, see what you're missing, and receive a personalized action plan for staying compliant in Portugal."
+        title="Tax Compliance Readiness Checkup"
+        description="Take our free 3-minute tax compliance readiness checkup for foreign freelancers and remote workers in Portugal."
         canonicalUrl="https://app.worktugal.com/checkup"
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8 md:p-12"
+          className="bg-white/[0.02] backdrop-blur-3xl rounded-3xl border border-white/[0.05] shadow-2xl shadow-black/30 p-8 md:p-12"
         >
           <div className="mb-8">
             <div className="mb-4">
-              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Tax Compliance Checkup</h2>
-              <span className="text-sm text-gray-400">Step {step} of {totalSteps}</span>
+              <h2 className="text-2xl sm:text-3xl font-serif text-white mb-2">Compliance Readiness Checkup</h2>
+              <span className="text-xs font-light text-gray-500 uppercase tracking-widest">Step {step} of {totalSteps}</span>
             </div>
 
             <div className="flex gap-2">
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className={`flex-1 h-2 rounded-full transition-all duration-300 ${
-                    i <= step ? 'bg-blue-400' : 'bg-gray-700'
+                  className={`flex-1 h-1 rounded-full transition-all duration-300 ${
+                    i <= step ? 'bg-blue-500' : 'bg-white/5'
                   }`}
                 />
               ))}
             </div>
 
-            <div className="mt-4 text-sm text-gray-400">
+            <div className="mt-4 text-xs font-light text-gray-500 uppercase tracking-widest">
               {step === 1 && 'Work & Residency'}
               {step === 2 && 'Income & Registration'}
               {step === 3 && 'Get Your Report'}
@@ -638,16 +662,16 @@ export const TaxCheckupForm: React.FC = () => {
               {step === 3 && renderStep3()}
             </motion.div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-10">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-12">
               {step > 1 && (
                 <Button
                   type="button"
                   variant="outline"
                   onClick={handlePrevious}
-                  className="flex items-center justify-center w-full sm:w-auto order-2 sm:order-1"
+                  className="flex items-center justify-center w-full sm:w-auto order-2 sm:order-1 border-white/5 hover:bg-white/5 text-xs font-medium uppercase tracking-widest px-8"
                 >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Previous
+                  <ArrowLeft className="w-3 h-3 mr-2" />
+                  Back
                 </Button>
               )}
 
@@ -658,10 +682,10 @@ export const TaxCheckupForm: React.FC = () => {
                   type="button"
                   onClick={handleNext}
                   disabled={!isStepValid()}
-                  className="flex items-center justify-center w-full sm:w-auto order-1 sm:order-2"
+                  className="flex items-center justify-center w-full sm:w-auto order-1 sm:order-2 text-xs font-medium uppercase tracking-widest px-10"
                 >
-                  Next
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  Next Step
+                  <ArrowRight className="w-3 h-3 ml-2" />
                 </Button>
               ) : (
                 <Button
@@ -669,18 +693,17 @@ export const TaxCheckupForm: React.FC = () => {
                   onClick={handleSubmit}
                   disabled={!isStepValid() || isSubmitting}
                   size="lg"
-                  className="w-full sm:w-auto order-1 sm:order-2"
+                  className="w-full sm:w-auto order-1 sm:order-2 text-xs font-medium uppercase tracking-widest px-10"
                 >
-                  {isSubmitting ? 'Analyzing...' : 'Get My Compliance Report'}
+                  {isSubmitting ? 'Analyzing...' : 'Generate Report'}
                 </Button>
               )}
             </div>
           </form>
         </motion.div>
 
-        <p className="text-xs text-gray-500 text-center mt-6 max-w-2xl mx-auto">
-          Your information is securely stored and will only be used to provide compliance guidance.
-          We will never share your data without your consent.
+        <p className="text-[10px] text-gray-600 text-center mt-10 max-w-xl mx-auto uppercase tracking-[0.2em] font-medium leading-loose">
+          Secure readiness assessment. Data is handled according to our privacy policy and will only be used for compliance guidance.
         </p>
       </div>
     </div>

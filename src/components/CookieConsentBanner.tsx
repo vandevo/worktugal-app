@@ -66,18 +66,18 @@ export const CookieConsentBanner: React.FC = () => {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 500 }}
-            className="w-full bg-gray-800 rounded-t-2xl border-t border-gray-700 shadow-2xl max-h-[80vh] overflow-y-auto"
+            className="w-full bg-obsidian rounded-t-2xl border-t border-white/5 shadow-2xl max-h-[80vh] overflow-y-auto"
           >
             <div className="p-6">
               {/* Header with close button */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-3">
-                  <Settings className="h-6 w-6 text-blue-400 flex-shrink-0" />
-                  <h3 className="text-lg font-semibold text-white">Cookie Preferences</h3>
+                  <Settings className="h-6 w-6 text-blue-500/50 flex-shrink-0" />
+                  <h3 className="text-lg font-serif text-white">Cookie Preferences</h3>
                 </div>
                 <button
                   onClick={dismissBannerTemporarily}
-                  className="w-8 h-8 rounded-full bg-gray-700/50 hover:bg-gray-600/50 text-gray-400 hover:text-white transition-all duration-200 flex items-center justify-center"
+                  className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-200 flex items-center justify-center border border-white/5"
                   aria-label="Dismiss banner temporarily"
                 >
                   <X className="h-4 w-4" />
@@ -89,7 +89,7 @@ export const CookieConsentBanner: React.FC = () => {
                 {COOKIE_CATEGORIES.map((category) => (
                   <div
                     key={category.id}
-                    className="p-4 bg-gray-700/30 rounded-xl border border-gray-600/20"
+                    className="p-4 bg-white/[0.02] rounded-xl border border-white/5"
                   >
                     <div className="flex items-start justify-between mb-2">
                       <h4 className="font-medium text-white">{category.name}</h4>
@@ -97,8 +97,8 @@ export const CookieConsentBanner: React.FC = () => {
                         type="button"
                         disabled={category.isEssential}
                         onClick={() => !category.isEssential && toggleCategory(category.id)}
-                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 ${
-                          tempPreferences[category.id] ? 'bg-blue-600' : 'bg-gray-600'
+                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-obsidian ${
+                          tempPreferences[category.id] ? 'bg-blue-600' : 'bg-white/10'
                         } ${category.isEssential ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                         aria-label={`Toggle ${category.name} cookies`}
                       >
@@ -109,7 +109,7 @@ export const CookieConsentBanner: React.FC = () => {
                         />
                       </button>
                     </div>
-                    <p className="text-sm text-gray-400 leading-relaxed">
+                    <p className="text-xs text-gray-500 leading-relaxed font-light">
                       {category.description}
                     </p>
                   </div>
@@ -155,7 +155,7 @@ export const CookieConsentBanner: React.FC = () => {
             {/* Close button */}
             <button
               onClick={dismissBannerTemporarily}
-              className="absolute top-4 right-4 w-9 h-9 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-xl text-gray-400 hover:text-white transition-all duration-300 flex items-center justify-center border border-white/[0.06]"
+              className="absolute top-4 right-4 w-9 h-9 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] text-gray-400 hover:text-white transition-all duration-300 flex items-center justify-center border border-white/5"
               aria-label="Dismiss banner temporarily"
             >
               <X className="h-4 w-4" />
@@ -173,13 +173,13 @@ export const CookieConsentBanner: React.FC = () => {
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 pr-10">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-3">
-                        <Cookie className="h-6 w-6 text-blue-400 flex-shrink-0" />
-                        <h3 className="text-lg font-semibold text-white">We use cookies</h3>
+                        <Cookie className="h-6 w-6 text-blue-500/50 flex-shrink-0" />
+                        <h3 className="text-lg font-serif text-white">We use cookies</h3>
                       </div>
-                      <p className="text-sm text-gray-300 leading-relaxed">
-                        <span className="text-gray-400">We use cookies to enhance your experience, analyze site traffic, and personalize content. 
+                      <p className="text-sm text-gray-500 font-light leading-relaxed">
+                        We use cookies to enhance your experience, analyze site traffic, and personalize content. 
                         You can accept all cookies, reject non-essential ones, or customize your preferences. 
-                        Read our <a href="/privacy" className="text-blue-400 hover:text-blue-300 underline">Privacy Policy</a> for more details.</span>
+                        Read our <a href="/privacy" className="text-blue-400 hover:text-blue-300 underline">Privacy Policy</a> for more details.
                       </p>
                     </div>
                     
@@ -188,16 +188,16 @@ export const CookieConsentBanner: React.FC = () => {
                         variant="primary"
                         size="md"
                         onClick={acceptAllCookies}
-                        className="sm:min-w-[120px] rounded-2xl"
+                        className="sm:min-w-[120px] rounded-xl text-xs uppercase tracking-widest font-medium"
                       >
-                        <Check className="mr-2 h-4 w-4" />
+                        <Check className="mr-2 h-3 w-3" />
                         Accept All
                       </Button>
                       <Button
                         variant="outline"
                         size="md"
                         onClick={rejectAllCookies}
-                        className="sm:min-w-[120px] rounded-2xl"
+                        className="sm:min-w-[120px] rounded-xl text-xs uppercase tracking-widest font-medium border-white/5 hover:bg-white/5"
                       >
                         Reject All
                       </Button>
@@ -205,9 +205,9 @@ export const CookieConsentBanner: React.FC = () => {
                         variant="ghost"
                         size="md"
                         onClick={togglePreferences}
-                        className="sm:min-w-[140px] rounded-2xl"
+                        className="sm:min-w-[140px] rounded-xl text-xs uppercase tracking-widest font-medium hover:bg-white/5"
                       >
-                        <Settings className="mr-2 h-4 w-4" />
+                        <Settings className="mr-2 h-3 w-3" />
                         Preferences
                       </Button>
                     </div>
@@ -223,19 +223,19 @@ export const CookieConsentBanner: React.FC = () => {
                 >
                   <div className="pr-10">
                     <div className="flex items-center space-x-3 mb-6">
-                      <Settings className="h-6 w-6 text-blue-400 flex-shrink-0" />
-                      <h3 className="text-lg font-semibold text-white">Cookie Preferences</h3>
+                      <Settings className="h-6 w-6 text-blue-500/50 flex-shrink-0" />
+                      <h3 className="text-lg font-serif text-white">Cookie Preferences</h3>
                     </div>
                     
                     <div className="space-y-4 mb-6">
                       {COOKIE_CATEGORIES.map((category) => (
                         <div
                           key={category.id}
-                          className="flex items-start justify-between p-4 bg-gray-700/30 rounded-xl border border-gray-600/20"
+                          className="flex items-start justify-between p-4 bg-white/[0.02] rounded-xl border border-white/5"
                         >
                           <div className="flex-1 mr-4">
                             <h4 className="font-medium text-white mb-1">{category.name}</h4>
-                            <p className="text-sm text-gray-400 leading-relaxed">
+                            <p className="text-xs text-gray-500 leading-relaxed font-light">
                               {category.description}
                             </p>
                           </div>
@@ -245,8 +245,8 @@ export const CookieConsentBanner: React.FC = () => {
                               type="button"
                               disabled={category.isEssential}
                               onClick={() => !category.isEssential && toggleCategory(category.id)}
-                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 ${
-                                tempPreferences[category.id] ? 'bg-blue-600' : 'bg-gray-600'
+                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-obsidian ${
+                                tempPreferences[category.id] ? 'bg-blue-600' : 'bg-white/10'
                               } ${category.isEssential ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                               aria-label={`Toggle ${category.name} cookies`}
                             >
@@ -266,18 +266,18 @@ export const CookieConsentBanner: React.FC = () => {
                         variant="primary"
                         size="md"
                         onClick={handleSavePreferences}
-                        className="sm:min-w-[140px]"
+                        className="sm:min-w-[140px] rounded-xl text-xs uppercase tracking-widest font-medium"
                       >
-                        <Check className="mr-2 h-4 w-4" />
+                        <Check className="mr-2 h-3 w-3" />
                         Save Preferences
                       </Button>
                       <Button
                         variant="outline"
                         size="md"
                         onClick={togglePreferences}
-                        className="sm:min-w-[100px]"
+                        className="sm:min-w-[100px] rounded-xl text-xs uppercase tracking-widest font-medium border-white/5 hover:bg-white/5"
                       >
-                        <ChevronUp className="mr-2 h-4 w-4" />
+                        <ChevronUp className="mr-2 h-3 w-3" />
                         Back
                       </Button>
                     </div>
@@ -302,18 +302,18 @@ export const CookieConsentBanner: React.FC = () => {
             {/* Close button */}
             <button
               onClick={dismissBannerTemporarily}
-              className="absolute top-3 right-3 w-8 h-8 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-xl text-gray-400 hover:text-white transition-all duration-300 flex items-center justify-center border border-white/[0.06]"
+              className="absolute top-3 right-3 w-8 h-8 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] text-gray-400 hover:text-white transition-all duration-300 flex items-center justify-center border border-white/5"
               aria-label="Dismiss banner temporarily"
             >
               <X className="h-3.5 w-3.5" />
             </button>
             <div className="pr-8">
               <div className="flex items-center space-x-2 mb-3">
-                <Cookie className="h-5 w-5 text-blue-400 flex-shrink-0" />
-                <h3 className="text-base font-semibold text-white">We use cookies</h3>
+                <Cookie className="h-5 w-5 text-blue-500/50 flex-shrink-0" />
+                <h3 className="text-base font-serif text-white">We use cookies</h3>
               </div>
-              <p className="text-sm text-gray-300 leading-relaxed mb-4">
-                <span className="text-gray-400">We use cookies to enhance your experience and analyze site traffic. You can customize your preferences.</span>
+              <p className="text-xs text-gray-500 font-light leading-relaxed mb-4">
+                We use cookies to enhance your experience. You can customize your preferences.
               </p>
               
               <div className="space-y-2">
@@ -322,7 +322,7 @@ export const CookieConsentBanner: React.FC = () => {
                     variant="primary"
                     size="sm"
                     onClick={acceptAllCookies}
-                    className="flex-1 text-sm"
+                    className="flex-1 text-[10px] uppercase tracking-widest font-medium"
                   >
                     Accept All
                   </Button>
@@ -330,7 +330,7 @@ export const CookieConsentBanner: React.FC = () => {
                     variant="outline"
                     size="sm"
                     onClick={rejectAllCookies}
-                    className="flex-1 text-sm"
+                    className="flex-1 text-[10px] uppercase tracking-widest font-medium border-white/5 hover:bg-white/5"
                   >
                     Reject All
                   </Button>
@@ -339,9 +339,9 @@ export const CookieConsentBanner: React.FC = () => {
                   variant="ghost"
                   size="sm"
                   onClick={togglePreferences}
-                  className="w-full text-sm"
+                  className="w-full text-[10px] uppercase tracking-widest font-medium hover:bg-white/5"
                 >
-                  <Settings className="mr-2 h-4 w-4" />
+                  <Settings className="mr-2 h-3 w-3" />
                   Manage Preferences
                 </Button>
               </div>

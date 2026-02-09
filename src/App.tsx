@@ -33,6 +33,7 @@ import { AccountantApplicationReview } from './components/admin/AccountantApplic
 import { AppointmentManagement } from './components/admin/AppointmentManagement';
 import { PaidReviewsAdmin } from './components/admin/PaidReviewsAdmin';
 import { ChangelogManager } from './components/admin/ChangelogManager';
+import { Changelog } from './components/Changelog';
 import { AdminTestHub } from './components/admin/AdminTestHub';
 import { CheckoutSuccess } from './components/CheckoutSuccess';
 
@@ -71,6 +72,7 @@ function App() {
 
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsAndConditions />} />
+            <Route path="/changelog" element={<Changelog />} />
 
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
 

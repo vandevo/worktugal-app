@@ -18,9 +18,9 @@ export const Card: React.FC<CardProps> = ({ className, children, hover = false, 
     : {};
 
   const variants = {
-    default: 'bg-white/[0.02] backdrop-blur-2xl rounded-3xl border border-white/[0.08] shadow-2xl shadow-black/25',
-    glass: 'bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05]',
-    frosted: 'bg-white/[0.04] backdrop-blur-2xl rounded-2xl border border-white/[0.12] shadow-xl shadow-black/40 ring-1 ring-white/[0.03]',
+    default: 'bg-white/[0.01] backdrop-blur-2xl rounded-3xl border border-white/5 shadow-2xl shadow-black/25',
+    glass: 'bg-white/[0.02] backdrop-blur-3xl rounded-3xl border border-white/[0.05] shadow-2xl shadow-black/30',
+    frosted: 'bg-white/[0.03] backdrop-blur-2xl rounded-2xl border border-white/10 shadow-xl shadow-black/40',
   };
 
   return (

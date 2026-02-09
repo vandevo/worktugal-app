@@ -1,0 +1,397 @@
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Worktugal - Tax Compliance for Expats</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3B82F6", // Electric Blue
+                        "primary-hover": "#2563EB",
+                        "background-light": "#F3F4F6",
+                        "background-dark": "#0F1117", // Deep slate
+                        "surface-dark": "#1E293B",
+                        "accent-green": "#10B981", // Emerald Green
+                        "glass-border": "rgba(255, 255, 255, 0.08)",
+                        "glass-bg": "rgba(30, 41, 59, 0.4)",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                    backgroundImage: {
+                        'hero-glow': 'radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, rgba(15, 17, 23, 0) 50%)',
+                        'card-gradient': 'linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .search-glow:focus-within {
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3), 0 0 20px rgba(59, 130, 246, 0.1);
+        }::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F1117;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100 transition-colors duration-300 antialiased overflow-x-hidden">
+<nav class="fixed top-0 w-full z-50 border-b border-gray-200 dark:border-white/5 bg-white/80 dark:bg-[#0F1117]/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+<i class="fa-solid fa-shield-halved text-white text-sm"></i>
+</div>
+<span class="font-bold text-xl tracking-tight">Worktugal</span>
+<span class="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 border border-blue-200 dark:border-blue-800">BETA</span>
+</div>
+<div class="hidden md:block">
+<div class="ml-10 flex items-baseline space-x-8">
+<a class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors" href="#">How it works</a>
+<a class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors" href="#">Pricing</a>
+<a class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors" href="#">Partners</a>
+</div>
+</div>
+<div>
+<a class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all shadow-lg shadow-blue-500/20" href="#">
+                        Sign In
+                    </a>
+</div>
+</div>
+</div>
+</nav>
+<main class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden min-h-screen flex flex-col justify-center">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none opacity-40 mix-blend-screen"></div>
+<div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none opacity-30"></div>
+<div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-sm mb-8 animate-fade-in-up">
+<span class="w-2 h-2 rounded-full bg-accent-green animate-pulse"></span>
+<span class="text-xs font-medium text-gray-600 dark:text-gray-300">Updated for 2025 Regulations</span>
+</div>
+<h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
+                Are you tax compliant <br class="hidden md:block"/> in Portugal?
+            </h1>
+<p class="mt-4 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-400 mb-12">
+                Find out in 3 minutes with our free compliance checkup. No account required to start.
+            </p>
+<div class="max-w-2xl mx-auto relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative bg-white dark:bg-[#15171e] rounded-2xl border border-gray-200 dark:border-white/10 shadow-2xl shadow-black/50 search-glow transition-all duration-300">
+<div class="flex flex-col p-2">
+<textarea class="w-full bg-transparent border-0 text-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-0 resize-none p-4" placeholder="Check my NHR status..." rows="2"></textarea>
+<div class="flex items-center justify-between px-2 pb-1">
+<div class="flex items-center gap-2">
+<button class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-white/5" title="Upload document">
+<i class="fa-solid fa-paperclip"></i>
+</button>
+<button class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-white/5" title="Voice input">
+<i class="fa-solid fa-microphone"></i>
+</button>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-hover text-white rounded-lg font-medium transition-colors shadow-lg shadow-blue-500/30">
+<span>Check Status</span>
+<i class="fa-solid fa-arrow-right text-xs"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+<div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 dark:bg-white/5 border border-transparent dark:border-white/5">
+<i class="fa-regular fa-clock text-blue-500"></i> Takes 3 minutes
+                </div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 dark:bg-white/5 border border-transparent dark:border-white/5">
+<i class="fa-regular fa-file-lines text-green-500"></i> Instant PDF Report
+                </div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 dark:bg-white/5 border border-transparent dark:border-white/5">
+<i class="fa-solid fa-check-double text-purple-500"></i> Verified by Lawyers
+                </div>
+</div>
+</div>
+</main>
+<section class="py-20 bg-gray-50 dark:bg-[#0B0D12]">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Why compliance matters</h2>
+<p class="mt-4 text-lg text-gray-600 dark:text-gray-400">Most freelancers in Portugal are missing something. Here's what you're avoiding.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="glass-card bg-white dark:bg-card-gradient p-8 rounded-2xl border border-gray-200 dark:border-glass-border hover:border-red-500/50 dark:hover:border-red-500/50 transition-colors group">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-xl bg-red-100 dark:bg-red-500/10 flex items-center justify-center text-red-600 dark:text-red-400 group-hover:scale-110 transition-transform">
+<i class="fa-solid fa-triangle-exclamation text-xl"></i>
+</div>
+<div>
+<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Avoid fines from €500 to €5,000</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                Portuguese tax authorities (Finanças) can issue heavy penalties for missing declarations, late filings, or incorrect activity codes. Updated for 2025.
+                            </p>
+</div>
+</div>
+</div>
+<div class="glass-card bg-white dark:bg-card-gradient p-8 rounded-2xl border border-gray-200 dark:border-glass-border hover:border-orange-500/50 dark:hover:border-orange-500/50 transition-colors group">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-500/10 flex items-center justify-center text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform">
+<i class="fa-solid fa-envelope-open-text text-xl"></i>
+</div>
+<div>
+<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Stop ignoring letters you can't read</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                Those official envelopes from Finanças aren't going away. Most freelancers miss critical deadlines because they don't understand Portuguese tax notices.
+                            </p>
+</div>
+</div>
+</div>
+<div class="glass-card bg-white dark:bg-card-gradient p-8 rounded-2xl border border-gray-200 dark:border-glass-border hover:border-green-500/50 dark:hover:border-green-500/50 transition-colors group">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-100 dark:bg-green-500/10 flex items-center justify-center text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform">
+<i class="fa-solid fa-piggy-bank text-xl"></i>
+</div>
+<div>
+<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Discover first-year tax benefits</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                New freelancers under the Simplified Regime may qualify for a 50% coefficient reduction in year 1. Our checkup identifies if you qualify.
+                            </p>
+</div>
+</div>
+</div>
+<div class="glass-card bg-white dark:bg-card-gradient p-8 rounded-2xl border border-gray-200 dark:border-glass-border hover:border-purple-500/50 dark:hover:border-purple-500/50 transition-colors group">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform">
+<i class="fa-solid fa-chart-line text-xl"></i>
+</div>
+<div>
+<h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Prepare for growth without panic</h3>
+<p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                When you cross the VAT threshold (€15,000 EUR annual income), you need to change your accounting regime. We'll tell you exactly when.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 rounded-xl bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-800/30 flex items-start gap-3">
+<i class="fa-solid fa-circle-info text-blue-500 mt-1"></i>
+<p class="text-sm text-blue-800 dark:text-blue-300">
+<span class="font-semibold">The reality:</span> Portugal's tax system is complex, especially for non-Portuguese speakers. Our compliance readiness checkup analyzes your situation against real freelancer data.
+                </p>
+</div>
+</div>
+</section>
+<section class="py-20 border-t border-gray-200 dark:border-white/5 bg-white dark:bg-background-dark">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col items-center mb-12">
+<div class="px-3 py-1 rounded-full border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-900/20 mb-4">
+<span class="text-xs font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-2">
+<i class="fa-solid fa-gem"></i> Founding Partners
+                    </span>
+</div>
+<h2 class="text-3xl font-bold text-gray-900 dark:text-white text-center">Trusted by Lisbon's best</h2>
+<p class="mt-2 text-gray-600 dark:text-gray-400 text-center max-w-2xl">
+                    We work alongside established accountants, coworking spaces, and service providers who support remote professionals in Portugal.
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="group relative bg-gray-50 dark:bg-[#13161C] rounded-2xl border border-gray-200 dark:border-white/5 p-6 hover:bg-white dark:hover:bg-[#1A1D26] hover:shadow-xl dark:hover:shadow-2xl dark:hover:shadow-black/50 transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-lg">⛺</div>
+<div>
+<h4 class="font-semibold text-gray-900 dark:text-white text-sm">Outsite</h4>
+<p class="text-xs text-gray-500">Cais do Sodré</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded text-[10px] font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">Verified</span>
+</div>
+<h5 class="font-medium text-gray-800 dark:text-gray-200 text-sm mb-2">Last minute and long term Outsite deals</h5>
+<p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-3">
+                        Outsite is a global network of coliving spaces built for remote professionals. Members get access to...
+                    </p>
+<div class="pt-4 border-t border-gray-200 dark:border-white/5 flex gap-4 text-xs font-medium text-gray-400">
+<a class="hover:text-primary transition-colors" href="#"><i class="fa-solid fa-globe mr-1"></i> Website</a>
+<a class="hover:text-primary transition-colors" href="#"><i class="fa-brands fa-instagram mr-1"></i> Instagram</a>
+</div>
+</div>
+<div class="group relative bg-gray-50 dark:bg-[#13161C] rounded-2xl border border-gray-200 dark:border-white/5 p-6 hover:bg-white dark:hover:bg-[#1A1D26] hover:shadow-xl dark:hover:shadow-2xl dark:hover:shadow-black/50 transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-lg">🦁</div>
+<div>
+<h4 class="font-semibold text-gray-900 dark:text-white text-sm">Second Home</h4>
+<p class="text-xs text-gray-500">Mercado da Ribeira</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded text-[10px] font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">Verified</span>
+</div>
+<h5 class="font-medium text-gray-800 dark:text-gray-200 text-sm mb-2">Free day pass at Lisbon's most design-led workspace</h5>
+<p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-3">
+                        Second Home is Lisbon's iconic creative hub, known for its plant-filled architecture and global community.
+                    </p>
+<div class="pt-4 border-t border-gray-200 dark:border-white/5 flex gap-4 text-xs font-medium text-gray-400">
+<a class="hover:text-primary transition-colors" href="#"><i class="fa-solid fa-globe mr-1"></i> Website</a>
+<a class="hover:text-primary transition-colors" href="#"><i class="fa-brands fa-instagram mr-1"></i> Instagram</a>
+</div>
+</div>
+<div class="group relative bg-gray-50 dark:bg-[#13161C] rounded-2xl border border-gray-200 dark:border-white/5 p-6 hover:bg-white dark:hover:bg-[#1A1D26] hover:shadow-xl dark:hover:shadow-2xl dark:hover:shadow-black/50 transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center overflow-hidden">
+<img alt="Guilherme" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6lgEep0UdZxDXvjhb2TCai0K-Q67BqyLQ3mjz2NzFeMALtEmTJeEtSdXt9E6fkLvIg4H13eSFiLjauBbl_Rnf19QmKrmklF9H0rzQaAukaDQx3G300m1miRONuO434uGhP1NEJYFKpW1WWrt-getdcFIcsW_LHXoj_GPGINziV0N7Pxkq89IAAB8MqA-EI2tfpfvkBRtX5hElgMF7Xzl7dPDMcAuUKRTVpnQDN0Yu_FNgXTqkM7H_IhxBXSDJ8oBo4CJFQ8xhSb1x"/>
+</div>
+<div>
+<h4 class="font-semibold text-gray-900 dark:text-white text-sm">Guilherme (Relocate)</h4>
+<p class="text-xs text-gray-500">Legal Expert</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded text-[10px] font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">Verified</span>
+</div>
+<h5 class="font-medium text-gray-800 dark:text-gray-200 text-sm mb-2">Free 30-min visa, tax, or relocation call (Golden, D7)</h5>
+<p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-3">
+                        Nomad Relocate offers expert legal, tax, and relocation help for expats, nomads, investors, and remote workers.
+                    </p>
+<div class="pt-4 border-t border-gray-200 dark:border-white/5 flex gap-4 text-xs font-medium text-gray-400">
+<a class="hover:text-primary transition-colors" href="#"><i class="fa-solid fa-globe mr-1"></i> Website</a>
+</div>
+</div>
+</div>
+<div class="mt-10 text-center">
+<a class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white transition-colors" href="#">
+                    See all partners <i class="fa-solid fa-arrow-right text-xs"></i>
+</a>
+</div>
+</div>
+</section>
+<section class="py-20 bg-gray-50 dark:bg-[#0B0D12]">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+<h2 class="text-2xl font-bold text-gray-900 dark:text-white text-center mb-8">Questions about the checkup</h2>
+<div class="space-y-4">
+<details class="group bg-white dark:bg-[#13161C] rounded-xl border border-gray-200 dark:border-white/5 overflow-hidden">
+<summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-gray-800 dark:text-gray-200">
+<span>Is this checkup really free?</span>
+<span class="transition group-open:rotate-180">
+<i class="fa-solid fa-chevron-down text-sm text-gray-500"></i>
+</span>
+</summary>
+<div class="text-gray-600 dark:text-gray-400 mt-0 px-5 pb-5 text-sm leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
+                        Yes, the basic compliance checkup is completely free. We provide a summary of your potential tax obligations. If you need a detailed written report with specific action items and legal citations, we offer a paid upgrade.
+                    </div>
+</details>
+<details class="group bg-white dark:bg-[#13161C] rounded-xl border border-gray-200 dark:border-white/5 overflow-hidden">
+<summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-gray-800 dark:text-gray-200">
+<span>How accurate is the compliance score?</span>
+<span class="transition group-open:rotate-180">
+<i class="fa-solid fa-chevron-down text-sm text-gray-500"></i>
+</span>
+</summary>
+<div class="text-gray-600 dark:text-gray-400 mt-0 px-5 pb-5 text-sm leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
+                        Our scoring engine is based on the latest Portuguese tax laws (2025 updates) and reviewed by certified accountants. However, it is for informational purposes only and does not constitute official legal advice.
+                    </div>
+</details>
+<details class="group bg-white dark:bg-[#13161C] rounded-xl border border-gray-200 dark:border-white/5 overflow-hidden">
+<summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-gray-800 dark:text-gray-200">
+<span>Do I need a NIF to use this?</span>
+<span class="transition group-open:rotate-180">
+<i class="fa-solid fa-chevron-down text-sm text-gray-500"></i>
+</span>
+</summary>
+<div class="text-gray-600 dark:text-gray-400 mt-0 px-5 pb-5 text-sm leading-relaxed border-t border-gray-100 dark:border-white/5 pt-4">
+                        No, you don't need a NIF (Tax Identification Number) to check your compliance requirements, but getting one is usually the first step in the process we'll recommend.
+                    </div>
+</details>
+</div>
+</div>
+</section>
+<footer class="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-white/5 py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-2 mb-4">
+<div class="h-6 w-6 bg-blue-600 rounded flex items-center justify-center">
+<i class="fa-solid fa-shield-halved text-white text-xs"></i>
+</div>
+<span class="font-bold text-lg text-gray-900 dark:text-white">Worktugal</span>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-4">
+                        Worktugal provides compliance readiness assessment and educational information only. This is not legal or tax advice.
+                    </p>
+<div class="flex space-x-4">
+<a class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300" href="#">
+<i class="fa-brands fa-twitter"></i>
+</a>
+<a class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300" href="#">
+<i class="fa-brands fa-linkedin"></i>
+</a>
+<a class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300" href="#">
+<i class="fa-solid fa-envelope"></i>
+</a>
+</div>
+</div>
+<div>
+<h3 class="text-sm font-semibold text-gray-900 dark:text-gray-200 tracking-wider uppercase mb-4">Quick Links</h3>
+<ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+<li><a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Resources</a></li>
+<li><a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Jobs</a></li>
+<li><a class="hover:text-primary dark:hover:text-white transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold text-gray-900 dark:text-gray-200 tracking-wider uppercase mb-4">Legal</h3>
+<ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+<li><a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary dark:hover:text-white transition-colors" href="#">Cookie Policy</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold text-gray-900 dark:text-gray-200 tracking-wider uppercase mb-4">Contact</h3>
+<ul class="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+<li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-xs"></i> hello@worktugal.com</li>
+<li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-xs"></i> Lisbon, Portugal</li>
+</ul>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-gray-100 dark:border-white/5 text-center">
+<p class="text-xs text-gray-400 dark:text-gray-600">© 2025 Worktugal. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<div class="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 z-50 bg-white/90 dark:bg-[#1E293B]/90 backdrop-blur-lg border border-gray-200 dark:border-white/10 p-4 rounded-xl shadow-2xl flex flex-col gap-3">
+<div class="flex items-start gap-3">
+<i class="fa-solid fa-cookie-bite text-yellow-500 mt-1"></i>
+<div>
+<h4 class="text-sm font-semibold text-gray-900 dark:text-white">We use cookies</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                     To enhance your experience and analyze site traffic.
+                 </p>
+</div>
+</div>
+<div class="flex gap-2 mt-2">
+<button class="flex-1 px-3 py-1.5 bg-primary hover:bg-primary-hover text-white text-xs font-medium rounded-lg transition-colors">Accept All</button>
+<button class="flex-1 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-lg transition-colors">Reject</button>
+</div>
+</div>
+
+</body></html>

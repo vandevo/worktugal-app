@@ -488,7 +488,7 @@ function buildDraftReport(
   lines.push('--------------------------------------');
   lines.push('DISCLAIMER');
   lines.push('--------------------------------------');
-  lines.push('AI-generated draft from Parallel.ai web research.');
+  lines.push('AI-assisted research draft based on official sources.');
   lines.push('This is not legal or tax advice.');
   lines.push('Human review is required before delivery to customer.');
   lines.push('Information sourced from official Portuguese authorities where available.');

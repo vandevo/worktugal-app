@@ -47,8 +47,8 @@ export const PartnersPage: React.FC = () => {
       />
 
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIGZpbGw9IiMyMzY1YzQiIGZpbGwtb3BhY2l0eT0iMC4wMiIvPjwvZz48L3N2Zz4=')] opacity-20"></div>
+      <section className="relative py-24 bg-obsidian overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(59,130,246,0.05),transparent_50%)]"></div>
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
@@ -56,25 +56,29 @@ export const PartnersPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="mb-4 inline-flex items-center gap-2 bg-blue-500/10 text-blue-300 px-4 py-2 rounded-full text-sm font-semibold border border-blue-500/20">
-              <Shield className="w-4 h-4" />
+            <div className="mb-6 inline-flex items-center gap-2 bg-white/5 text-gray-400 px-4 py-2 rounded-full text-[10px] font-medium uppercase tracking-[0.2em] border border-white/10">
+              <Shield className="w-3.5 h-3.5 text-blue-500/50" />
               <span>Founding Partners</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-6xl font-serif text-white mb-8 leading-[1.1]">
               Our Network
             </h1>
-            <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed">
-              These established Lisbon professionals have been part of Worktugal since the beginning. From accountants to coworking spaces, they've helped shape how we support remote workers in Portugal.
+            <p className="text-lg text-gray-500 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+              These established Lisbon professionals have been part of Worktugal since the beginning. From accountants to coworking spaces, they've helped shape how we support remote professionals in Portugal.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-sm">
-              <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-blue-400" />
-                <span className="text-gray-300">Verified Businesses</span>
+            <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/5 border border-blue-500/10 flex items-center justify-center">
+                  <Shield className="w-4 h-4 text-blue-500/50" />
+                </div>
+                <span className="text-xs uppercase tracking-widest text-gray-500 font-medium">Verified Businesses</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-green-400" />
-                <span className="text-gray-300">Member Benefits Available</span>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-emerald-500/5 border border-emerald-500/10 flex items-center justify-center">
+                  <Users className="w-4 h-4 text-emerald-500/50" />
+                </div>
+                <span className="text-xs uppercase tracking-widest text-gray-500 font-medium">Member Benefits</span>
               </div>
             </div>
           </motion.div>

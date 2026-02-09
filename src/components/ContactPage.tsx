@@ -120,25 +120,28 @@ export function ContactPage() {
 
   if (showJobRedirect) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-obsidian flex items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-md w-full bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 p-8 md:p-12 text-center"
+          className="max-w-md w-full bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 shadow-2xl shadow-black/30 p-8 md:p-12 text-center"
         >
-          <Building className="w-16 h-16 text-blue-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-white mb-2">
+          <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-8">
+            <Building className="w-10 h-10 text-blue-500/50" />
+          </div>
+          <h2 className="text-3xl font-serif text-white mb-4">
             Redirecting to Jobs Board
           </h2>
-          <p className="text-gray-400 mb-6">
+          <p className="text-gray-500 font-light mb-10 leading-relaxed">
             We list all verified remote jobs at jobs.worktugal.com. Redirecting you now...
           </p>
-          <div className="flex justify-center mb-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
+          <div className="flex justify-center mb-10">
+            <div className="w-8 h-8 border-2 border-white/5 border-t-white/40 rounded-full animate-spin"></div>
           </div>
           <Button
             onClick={() => window.location.href = 'https://jobs.worktugal.com'}
-            className="w-full"
+            variant="primary"
+            className="w-full h-12 text-xs uppercase tracking-widest font-bold"
           >
             Go Now →
           </Button>
@@ -157,7 +160,7 @@ export function ContactPage() {
   const totalSteps = purpose === 'partnership' ? 3 : 2;
 
   return (
-    <div className="min-h-screen bg-gray-900 py-12 px-4">
+    <div className="min-h-screen bg-obsidian py-24 px-4">
       <Seo
         title="Contact Us - Get in Touch with Worktugal"
         description="Have questions about accounting services, partnerships, or work opportunities in Portugal? Contact Worktugal's team for personalized assistance."
@@ -168,21 +171,21 @@ export function ContactPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-white mb-2">Contact Us</h1>
-            <p className="text-lg text-gray-400">
-              Let us know how we can help you with your Portugal journey
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">Contact us</h1>
+            <p className="text-lg text-gray-500 font-light max-w-2xl mx-auto">
+              Let us know how we can help you with your Portugal journey.
             </p>
           </div>
 
-          <div className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] overflow-hidden">
+          <div className="bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 shadow-2xl shadow-black/30 overflow-hidden">
             {step !== 'purpose' && (
-              <div className="p-6 md:p-8 border-b border-white/[0.08]">
+              <div className="p-6 md:p-8 border-b border-white/5">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm text-gray-400">
+                  <span className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">
                     Step {getStepNumber()} of {totalSteps}
                   </span>
-                  <span className="text-sm text-gray-400">
+                  <span className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">
                     {step === 'details' && 'Your Details'}
                     {step === 'qualification' && 'Partnership Budget'}
                   </span>
@@ -191,8 +194,8 @@ export function ContactPage() {
                   {Array.from({ length: totalSteps }).map((_, i) => (
                     <div
                       key={i}
-                      className={`flex-1 h-2 rounded-full transition-all duration-300 ${
-                        i < getStepNumber() ? 'bg-blue-400' : 'bg-gray-700'
+                      className={`flex-1 h-1.5 rounded-full transition-all duration-300 ${
+                        i < getStepNumber() ? 'bg-white/20' : 'bg-white/5'
                       }`}
                     />
                   ))}
@@ -208,27 +211,27 @@ export function ContactPage() {
             >
               {step === 'purpose' && (
                 <div className="p-8 md:p-12">
-                  <h2 className="text-2xl font-bold text-white mb-6">
+                  <h2 className="text-2xl font-serif text-white mb-8">
                     What brings you here?
                   </h2>
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     {purposeOptions.map((option) => {
                       const Icon = option.icon;
                       return (
                         <button
                           key={option.value}
                           onClick={() => handlePurposeSelect(option.value)}
-                          className="w-full text-center md:text-left p-5 md:p-6 border-2 border-white/[0.08] bg-white/[0.02] rounded-xl hover:border-blue-400/50 hover:bg-white/[0.05] transition-all duration-200 group"
+                          className="w-full text-left p-6 border border-white/5 bg-white/[0.01] rounded-2xl hover:border-white/10 hover:bg-white/[0.02] transition-all duration-300 group"
                         >
-                          <div className="flex flex-col md:flex-row items-center md:items-start gap-3 md:gap-4">
-                            <div className="p-2.5 md:p-3 bg-blue-400/10 rounded-xl group-hover:bg-blue-400/20 transition-colors duration-200 shrink-0">
-                              <Icon className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
+                          <div className="flex items-center gap-6">
+                            <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                              <Icon className="w-5 h-5 text-blue-500/50 group-hover:text-blue-400 transition-colors" />
                             </div>
-                            <div className="flex-1 space-y-1">
-                              <h3 className="text-base md:text-lg font-semibold text-white">
+                            <div className="flex-1">
+                              <h3 className="text-lg font-serif text-white mb-1">
                                 {option.label}
                               </h3>
-                              <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
+                              <p className="text-gray-500 text-xs font-light leading-relaxed">
                                 {option.description}
                               </p>
                             </div>
@@ -243,31 +246,31 @@ export function ContactPage() {
               {step === 'details' && (
                 <div className="p-8 md:p-12">
                   {showInfoMessage && (
-                    <div className="mb-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-xl">
-                      <p className="text-blue-400 font-medium mb-2">
+                    <div className="mb-10 p-6 bg-blue-500/[0.02] border border-blue-500/10 rounded-2xl">
+                      <p className="text-blue-500/60 font-medium text-sm mb-2">
                         Most questions are answered in our free guides
                       </p>
                       <a
                         href="https://worktugal.com"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-400 hover:text-blue-300 underline text-sm"
+                        className="text-blue-500/50 hover:text-blue-400 transition-colors underline decoration-blue-500/20 text-sm font-light"
                       >
                         Browse Guides →
                       </a>
-                      <p className="text-gray-400 text-sm mt-2">
+                      <p className="text-gray-600 text-xs mt-4 font-light uppercase tracking-widest">
                         Still need help? Fill out the form below.
                       </p>
                     </div>
                   )}
 
-                  <h2 className="text-2xl font-bold text-white mb-6">
+                  <h2 className="text-2xl font-serif text-white mb-10">
                     Tell us about you
                   </h2>
 
-                  <div className="space-y-6">
+                  <div className="space-y-8">
                     <div>
-                      <label htmlFor="contact-full-name" className="block text-sm font-semibold text-gray-300 mb-2">
+                      <label htmlFor="contact-full-name" className="block text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4">
                         Full Name *
                       </label>
                       <Input
@@ -275,12 +278,13 @@ export function ContactPage() {
                         {...register('full_name')}
                         placeholder="John Doe"
                         autoComplete="name"
+                        className="bg-white/[0.02] border-white/5 font-light"
                         error={errors.full_name?.message}
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="contact-email" className="block text-sm font-semibold text-gray-300 mb-2">
+                      <label htmlFor="contact-email" className="block text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4">
                         Email *
                       </label>
                       <Input
@@ -289,6 +293,7 @@ export function ContactPage() {
                         type="email"
                         placeholder="john@example.com"
                         autoComplete="email"
+                        className="bg-white/[0.02] border-white/5 font-light"
                         error={errors.email?.message}
                       />
                     </div>
@@ -296,7 +301,7 @@ export function ContactPage() {
                     {(purpose === 'partnership' || purpose === 'accounting') && (
                       <>
                         <div>
-                          <label htmlFor="contact-company" className="block text-sm font-semibold text-gray-300 mb-2">
+                          <label htmlFor="contact-company" className="block text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4">
                             Company/Project
                           </label>
                           <Input
@@ -304,11 +309,12 @@ export function ContactPage() {
                             {...register('company_name')}
                             placeholder="Your company name"
                             autoComplete="organization"
+                            className="bg-white/[0.02] border-white/5 font-light"
                           />
                         </div>
 
                         <div>
-                          <label htmlFor="contact-website" className="block text-sm font-semibold text-gray-300 mb-2">
+                          <label htmlFor="contact-website" className="block text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4">
                             Website or LinkedIn
                           </label>
                           <Input
@@ -317,6 +323,7 @@ export function ContactPage() {
                             type="url"
                             placeholder="https://example.com"
                             autoComplete="url"
+                            className="bg-white/[0.02] border-white/5 font-light"
                             error={errors.website_url?.message}
                           />
                         </div>
@@ -324,11 +331,11 @@ export function ContactPage() {
                     )}
 
                     <div>
-                      <label htmlFor="contact-message" className="block text-sm font-semibold text-gray-300 mb-2">
+                      <label htmlFor="contact-message" className="block text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4">
                         {purpose === 'partnership'
                           ? 'What would you like to collaborate on? *'
                           : purpose === 'accounting'
-                          ? 'Briefly describe your accounting/tax situation *'
+                          ? 'Briefly describe your situation *'
                           : purpose === 'info'
                           ? 'What do you need help with? *'
                           : 'How can we help? *'}
@@ -337,17 +344,17 @@ export function ContactPage() {
                         id="contact-message"
                         {...register('message')}
                         rows={4}
-                        className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150 resize-none border border-white/[0.08]"
+                        className="w-full px-4 py-3 bg-white/[0.02] border border-white/5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-white/[0.06] hover:bg-white/[0.04] transition-all duration-200 resize-none font-light text-sm shadow-lg shadow-black/20"
                         placeholder="Tell us more about your needs..."
                         maxLength={500}
                       />
                       {errors.message && (
-                        <p className="mt-1 text-sm text-red-400">{errors.message.message}</p>
+                        <p className="mt-2 text-xs text-red-500/60 font-light uppercase tracking-widest">{errors.message.message}</p>
                       )}
                     </div>
                   </div>
 
-                  <div className="flex flex-col md:flex-row gap-3 md:gap-4 mt-8">
+                  <div className="flex flex-col md:flex-row gap-4 mt-12 pt-8 border-t border-white/5">
                     <Button
                       type="button"
                       variant="outline"
@@ -355,14 +362,15 @@ export function ContactPage() {
                         setStep('purpose');
                         setShowInfoMessage(false);
                       }}
-                      className="flex-1 w-full"
+                      className="flex-1 h-12 text-xs uppercase tracking-widest font-bold"
                     >
                       Back
                     </Button>
                     <Button
                       type="button"
                       onClick={handleDetailsNext}
-                      className="flex-1 w-full"
+                      variant="primary"
+                      className="flex-1 h-12 text-xs uppercase tracking-widest font-bold"
                       disabled={isSubmitting}
                     >
                       {purpose === 'partnership' ? 'Next' : 'Send Message'}
@@ -373,13 +381,13 @@ export function ContactPage() {
 
               {step === 'qualification' && purpose === 'partnership' && (
                 <div className="p-8 md:p-12">
-                  <h2 className="text-2xl font-bold text-white mb-6">
-                    Partnership Details
+                  <h2 className="text-2xl font-serif text-white mb-10">
+                    Partnership details
                   </h2>
 
-                  <div className="space-y-6">
+                  <div className="space-y-10">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-300 mb-3">
+                      <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-6">
                         Do you have a budget for this collaboration? *
                       </label>
                       <div className="space-y-3">
@@ -392,23 +400,23 @@ export function ContactPage() {
                           <label
                             key={option.value}
                             htmlFor={`budget-${option.value}`}
-                            className="flex items-center gap-3 p-4 border-2 border-white/[0.08] bg-white/[0.02] rounded-xl hover:border-blue-400/50 cursor-pointer transition-all duration-200"
+                            className="flex items-center gap-4 p-5 border border-white/5 bg-white/[0.01] rounded-2xl hover:border-white/10 cursor-pointer transition-all duration-300 group"
                           >
                             <input
                               id={`budget-${option.value}`}
                               type="radio"
                               {...register('budget_range')}
                               value={option.value}
-                              className="w-4 h-4 text-blue-400"
+                              className="w-4 h-4 bg-white/5 border-white/10 text-white focus:ring-0 focus:ring-offset-0"
                             />
-                            <span className="text-white">{option.label}</span>
+                            <span className="text-sm text-gray-400 font-light group-hover:text-white transition-colors">{option.label}</span>
                           </label>
                         ))}
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-300 mb-3">
+                      <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-6">
                         When would you like to start? *
                       </label>
                       <div className="space-y-3">
@@ -420,35 +428,36 @@ export function ContactPage() {
                           <label
                             key={option.value}
                             htmlFor={`timeline-${option.value}`}
-                            className="flex items-center gap-3 p-4 border-2 border-white/[0.08] bg-white/[0.02] rounded-xl hover:border-blue-400/50 cursor-pointer transition-all duration-200"
+                            className="flex items-center gap-4 p-5 border border-white/5 bg-white/[0.01] rounded-2xl hover:border-white/10 cursor-pointer transition-all duration-300 group"
                           >
                             <input
                               id={`timeline-${option.value}`}
                               type="radio"
                               {...register('timeline')}
                               value={option.value}
-                              className="w-4 h-4 text-blue-400"
+                              className="w-4 h-4 bg-white/5 border-white/10 text-white focus:ring-0 focus:ring-offset-0"
                             />
-                            <span className="text-white">{option.label}</span>
+                            <span className="text-sm text-gray-400 font-light group-hover:text-white transition-colors">{option.label}</span>
                           </label>
                         ))}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex flex-col md:flex-row gap-3 md:gap-4 mt-8">
+                  <div className="flex flex-col md:flex-row gap-4 mt-12 pt-8 border-t border-white/5">
                     <Button
                       type="button"
                       variant="outline"
                       onClick={() => setStep('details')}
-                      className="flex-1 w-full"
+                      className="flex-1 h-12 text-xs uppercase tracking-widest font-bold"
                     >
                       Back
                     </Button>
                     <Button
                       type="button"
                       onClick={handleSubmit(onSubmit)}
-                      className="flex-1 w-full"
+                      variant="primary"
+                      className="flex-1 h-12 text-xs uppercase tracking-widest font-bold"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? 'Sending...' : 'Send Request'}

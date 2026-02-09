@@ -36,10 +36,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
         name={inputName}
         type={type}
         className={cn(
-          'w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl rounded-xl text-white placeholder-gray-500',
-          'border border-white/[0.12] shadow-lg shadow-black/20',
+          'w-full px-4 py-3 bg-white/[0.02] backdrop-blur-xl rounded-xl text-white placeholder-gray-500',
+          'border border-white/5 shadow-lg shadow-black/20',
           'focus:outline-none focus:bg-white/[0.06] focus:border-blue-400/40 focus:ring-2 focus:ring-blue-400/20',
-          'hover:bg-white/[0.05] hover:border-white/[0.16]',
+          'hover:bg-white/[0.05] hover:border-white/10',
           'transition-all duration-200',
           isDateTimeInput && 'cursor-pointer',
           readOnly && 'bg-gray-700/50 cursor-not-allowed opacity-60 border-gray-600/30',

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, ArrowRight, Sparkles, ShieldCheck, UserCheck } from 'lucide-react';
+import { ArrowRight, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export const ModernHero: React.FC = () => {
@@ -26,10 +26,10 @@ export const ModernHero: React.FC = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-blue-200 mb-8 backdrop-blur-sm"
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-10"
         >
-          <Sparkles className="w-3 h-3 text-blue-400" />
-          <span>AI-Powered Compliance Engine</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
+          <span className="text-xs font-medium text-gray-400">Updated for 2025 Regulations</span>
         </motion.div>
 
         {/* Headline */}
@@ -37,10 +37,9 @@ export const ModernHero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl md:text-6xl font-medium text-white mb-6 tracking-tight"
+          className="text-5xl md:text-7xl font-serif font-medium tracking-tight mb-8 text-white leading-[1.1]"
         >
-          Verify your status.<br />
-          <span className="text-white/60">Find your expert.</span>
+          Are you tax compliant <br className="hidden md:block"/> in Portugal?
         </motion.h1>
 
         {/* Subheadline */}
@@ -48,61 +47,88 @@ export const ModernHero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-lg text-gray-400 mb-10 max-w-xl mx-auto"
+          className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-400 mb-12 font-light leading-relaxed"
         >
-          The operating system for Portugal expats. Check your tax compliance in 3 minutes.
+          Find out in 3 minutes with our free compliance checkup — or get a detailed review for full clarity.
         </motion.p>
+
+        {/* Primary CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+        >
+          <button
+            onClick={() => navigate('/checkup')}
+            className="px-8 py-4 bg-white text-black hover:bg-gray-200 rounded-xl text-xs uppercase tracking-widest font-bold transition-all shadow-xl shadow-black/20"
+          >
+            Free Checkup (3 min)
+          </button>
+          <button
+            onClick={() => navigate('/compliance-review')}
+            className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl text-xs uppercase tracking-widest font-bold transition-all"
+          >
+            Detailed Review (49 EUR)
+          </button>
+        </motion.div>
 
         {/* "Search" Input Container */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="relative group max-w-2xl mx-auto"
+          className="max-w-2xl mx-auto relative group search-container"
         >
+          <div className="search-aura"></div>
           <div 
             onClick={handleSearchClick}
             className={`
-              relative flex items-center w-full p-4 bg-[#1a1a1a] border rounded-2xl cursor-text transition-all duration-300 shadow-2xl
+              relative bg-[#0F0F0F] rounded-xl border shadow-2xl transition-all duration-300 overflow-hidden cursor-text
               ${isFocused ? 'border-blue-500/50 ring-1 ring-blue-500/20' : 'border-white/10 hover:border-white/20'}
             `}
             onMouseEnter={() => setIsFocused(true)}
             onMouseLeave={() => setIsFocused(false)}
           >
-            <div className="flex-shrink-0 mr-4 text-gray-500">
-              <Search className="w-6 h-6" />
-            </div>
-            
-            <div className="flex-grow text-left">
-              <span className="text-gray-400 text-lg">Check my tax residency status...</span>
-              {/* Animated cursor could go here */}
-              <span className="inline-block w-0.5 h-5 ml-1 align-middle bg-blue-400/50 animate-pulse" />
-            </div>
-
-            <div className="flex-shrink-0 ml-4">
-              <div className="bg-white/10 p-2 rounded-lg text-gray-400 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-200">
-                <ArrowRight className="w-5 h-5" />
+            <div className="flex flex-col p-1">
+              <div className="w-full bg-transparent border-0 text-xl text-white placeholder-gray-500 focus:ring-0 resize-none p-5 font-light text-left min-h-[80px] flex items-center">
+                Check my tax compliance status...
+                {/* Animated cursor */}
+                <span className="inline-block w-0.5 h-6 ml-1 bg-blue-500 animate-pulse"></span>
+              </div>
+              
+              <div className="flex items-center justify-between px-3 pb-3">
+                <div className="flex items-center gap-1">
+                  <div className="p-2 text-gray-500 hover:text-white transition-colors rounded-md hover:bg-white/5">
+                    {/* Paperclip Icon */}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                  </div>
+                  <div className="p-2 text-gray-500 hover:text-white transition-colors rounded-md hover:bg-white/5">
+                    {/* Mic Icon */}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                  </div>
+                </div>
+                <button className="h-8 w-8 flex items-center justify-center bg-white text-black rounded-lg hover:bg-gray-200 transition-colors">
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
           </div>
 
           {/* Quick Actions / Suggestions */}
-          <div className="flex flex-wrap justify-center gap-3 mt-6">
-            <QuickAction 
-              icon={<ShieldCheck className="w-4 h-4" />} 
-              label="Compliance Checkup" 
-              onClick={() => navigate('/checkup')} 
-            />
-            <QuickAction 
-              icon={<UserCheck className="w-4 h-4" />} 
-              label="Find an Accountant" 
-              onClick={() => navigate('/partners')} 
-            />
-            <QuickAction 
-              icon={<Sparkles className="w-4 h-4" />} 
-              label="NHR 2.0 Status" 
-              onClick={() => navigate('/checkup')} 
-            />
+          <div className="mt-16 flex flex-wrap justify-center gap-8 text-sm text-gray-500">
+            <div className="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Takes 3 minutes</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+              <span>Instant PDF Report</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-gray-600" />
+              <span>Compliance Readiness Layer</span>
+            </div>
           </div>
         </motion.div>
       </div>
@@ -112,16 +138,3 @@ export const ModernHero: React.FC = () => {
     </section>
   );
 };
-
-const QuickAction = ({ icon, label, onClick }: { icon: React.ReactNode, label: string, onClick: () => void }) => (
-  <button 
-    onClick={(e) => {
-      e.stopPropagation();
-      onClick();
-    }}
-    className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/20 text-sm text-gray-400 hover:text-white transition-all duration-200"
-  >
-    {icon}
-    <span>{label}</span>
-  </button>
-);

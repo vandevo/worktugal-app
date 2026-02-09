@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-obsidian text-gray-100 antialiased font-sans overflow-x-hidden min-h-screen selection:bg-blue-500/30;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] transition-all duration-300;
+  }
+  
+  .glass-card:hover {
+    @apply border-white/[0.15] bg-white/[0.06];
+  }
+
+  .search-container {
+    @apply relative;
+  }
+
+  .search-aura {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[120%] -z-10 pointer-events-none blur-[60px];
+    background: radial-gradient(ellipse at center, rgba(58, 82, 238, 0.15) 0%, rgba(217, 70, 239, 0.1) 40%, rgba(5, 5, 5, 0) 70%);
+  }
+}
+
+/* Custom Scrollbar for that "App" feel */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-obsidian;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-neutral-800 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-neutral-700;
+}

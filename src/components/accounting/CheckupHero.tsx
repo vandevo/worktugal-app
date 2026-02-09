@@ -31,7 +31,7 @@ export const CheckupHero: React.FC<CheckupHeroProps> = ({ onStartCheckup }) => {
             Find out in 3 minutes with our free compliance checkup -- or get a detailed review for full clarity
           </p>
           <p className="text-lg text-blue-200 mb-8 max-w-2xl mx-auto">
-            Updated for 2026 with current Portuguese tax rules. See your compliance score, discover risks, and get your action plan.
+            Updated for 2025 with current Portuguese tax rules. See your compliance score, discover risks, and get your action plan.
           </p>
 
           {/* Dual CTA */}

@@ -58,10 +58,10 @@ export const CheckupResults: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-obsidian flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400 mx-auto mb-4"></div>
-          <p className="text-gray-400">Analyzing your compliance status...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-6"></div>
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-gray-500">Evaluating Readiness...</p>
         </div>
       </div>
     );
@@ -69,11 +69,16 @@ export const CheckupResults: React.FC = () => {
 
   if (error || !results) {
     return (
-      <div className="min-h-screen bg-gray-900 py-12">
+      <div className="min-h-screen bg-obsidian py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Alert variant="error">{error || 'Results not found'}</Alert>
-          <div className="mt-6 text-center">
-            <Button onClick={() => navigate('/checkup')}>Start New Checkup</Button>
+          <Alert variant="error" className="bg-red-500/5 border-red-500/10 text-red-400">{error || 'Results not found'}</Alert>
+          <div className="mt-8 text-center">
+            <Button 
+              onClick={() => navigate('/checkup')}
+              className="text-xs font-medium uppercase tracking-widest px-8"
+            >
+              Start New Checkup
+            </Button>
           </div>
         </div>
       </div>
@@ -101,70 +106,71 @@ export const CheckupResults: React.FC = () => {
     .map((line: string) => line.replace(/^\d+\.\s*/, '')) || [];
 
   return (
-    <div className="min-h-screen bg-gray-900 py-12">
+    <div className="min-h-screen bg-obsidian py-12">
       <Seo
-        title="Your Compliance Readiness Results"
-        description="View your personalized compliance readiness score and action plan for staying compliant in Portugal."
+        title="Compliance Readiness Results"
+        description="View your personalized compliance readiness score and action plan."
         noindex={true}
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="space-y-6"
+          className="space-y-8"
         >
           {/* Header */}
-          <div className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8 md:p-12">
-            <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-white mb-4">Your Compliance Readiness Report</h1>
-              <p className="text-gray-400 mb-3">
-                Based on your answers, here's your current compliance status
+          <div className="bg-white/[0.02] backdrop-blur-3xl rounded-3xl border border-white/[0.05] p-8 md:p-12">
+            <div className="text-center mb-10">
+              <h1 className="text-4xl font-serif text-white mb-4">Readiness Report</h1>
+              <p className="text-gray-500 font-light mb-6">
+                Based on your answers, here's your current compliance status.
               </p>
-              <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 max-w-2xl mx-auto">
-                <p className="text-yellow-200/90 text-xs italic leading-relaxed">
-                  This report provides general information only and does not constitute legal or tax advice. Results are educational and should be verified with licensed tax professionals or accountants specific to your situation.
+              <div className="bg-blue-500/5 border border-blue-500/10 rounded-lg p-4 max-w-2xl mx-auto">
+                <p className="text-blue-300/80 text-[10px] uppercase tracking-widest font-medium leading-relaxed">
+                  Informational report only. Not legal or tax advice. Consult licensed professionals for execution.
                 </p>
               </div>
             </div>
 
             {/* Compliance Score */}
-            <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl p-8 mb-8">
+            <div className="bg-white/[0.01] border border-white/5 rounded-2xl p-10 mb-10">
               <div className="text-center">
                 <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
                   className="inline-block"
                 >
-                  <div className="text-6xl font-bold text-white mb-2">
+                  <div className="text-7xl font-serif text-white mb-2">
                     {compliancePercentage}%
                   </div>
                 </motion.div>
-                <p className="text-xl text-gray-300">Compliant</p>
-                <div className="mt-4 flex justify-center gap-6">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-red-400">{results.compliance_score_red}</div>
-                    <div className="text-xs text-gray-400">Critical</div>
+                <p className="text-xs font-medium uppercase tracking-[0.3em] text-gray-500 mb-8">Ready to Proceed</p>
+                
+                <div className="grid grid-cols-3 gap-4 max-w-sm mx-auto">
+                  <div className="p-4 rounded-xl bg-red-500/[0.03] border border-red-500/10">
+                    <div className="text-xl font-medium text-red-400">{results.compliance_score_red}</div>
+                    <div className="text-[9px] uppercase tracking-widest text-gray-600 font-bold mt-1">Critical</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-yellow-400">{results.compliance_score_yellow}</div>
-                    <div className="text-xs text-gray-400">Warnings</div>
+                  <div className="p-4 rounded-xl bg-yellow-500/[0.03] border border-yellow-500/10">
+                    <div className="text-xl font-medium text-yellow-400">{results.compliance_score_yellow}</div>
+                    <div className="text-[9px] uppercase tracking-widest text-gray-600 font-bold mt-1">Warnings</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-400">{results.compliance_score_green}</div>
-                    <div className="text-xs text-gray-400">Good</div>
+                  <div className="p-4 rounded-xl bg-green-500/[0.03] border border-green-500/10">
+                    <div className="text-xl font-medium text-green-400">{results.compliance_score_green}</div>
+                    <div className="text-[9px] uppercase tracking-widest text-gray-600 font-bold mt-1">Good</div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Comparison */}
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-5 mb-8">
-              <p className="text-gray-300 text-sm text-center">
-                Most freelancers in your situation have {Math.round(yellowWarnings.length * 1.2)} warnings on average.
+            <div className="bg-blue-500/[0.02] border border-blue-500/5 rounded-xl p-6">
+              <p className="text-gray-500 text-xs text-center font-light leading-relaxed">
+                Peer data: Most remote professionals in your situation have {Math.round(yellowWarnings.length * 1.2)} warnings on average.
                 {results.compliance_score_red === 0 && results.compliance_score_yellow === 0
-                  ? " You're doing better than most!"
-                  : " You have some areas to address."}
+                  ? " Your readiness is exceptional."
+                  : " Some gaps need resolution before professional engagement."}
               </p>
             </div>
           </div>
@@ -175,34 +181,33 @@ export const CheckupResults: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="bg-red-500/[0.03] backdrop-blur-3xl rounded-3xl border-2 border-red-500/30 shadow-2xl shadow-red-900/20 ring-1 ring-red-500/[0.08] p-8"
+              className="bg-red-500/[0.01] rounded-3xl border border-red-500/10 p-8"
             >
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center relative">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center relative">
                   <AlertTriangle className="w-5 h-5 text-red-400" />
-                  <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+                  <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">Critical Issues ({redFlags.length})</h2>
-                  <p className="text-sm text-red-300/80">Requires immediate attention to avoid penalties</p>
+                  <h2 className="text-xl font-medium text-white">Critical Issues</h2>
+                  <p className="text-xs text-red-400/60 uppercase tracking-widest font-medium mt-1">Requires immediate action</p>
                 </div>
               </div>
-              <p className="text-xs text-gray-500 mb-6">These issues may result in fines from 500 to 5,000 EUR if left unresolved.</p>
               <div className="space-y-4">
                 {redFlags.map((flag, index) => {
                   const flagId = `red-${index}`;
                   const hasVoted = feedbackSubmitted.has(flagId);
                   return (
-                    <div key={index} className="p-4 bg-red-500/10 rounded-xl border border-red-500/20">
-                      <div className="flex gap-4">
-                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-sm font-bold">
+                    <div key={index} className="p-6 bg-white/[0.01] rounded-2xl border border-white/5">
+                      <div className="flex gap-5">
+                        <div className="flex-shrink-0 w-6 h-6 rounded-lg bg-red-500/10 text-red-400 flex items-center justify-center text-xs font-bold border border-red-500/20">
                           {index + 1}
                         </div>
-                        <p className="text-gray-200 flex-1">{flag}</p>
+                        <p className="text-gray-300 text-sm font-light leading-relaxed flex-1">{flag}</p>
                       </div>
                       {/* Feedback Widget */}
-                      <div className="mt-3 flex items-center justify-end gap-2 pt-3 border-t border-red-500/10">
-                        <span className="text-xs text-gray-500 mr-2">Is this accurate?</span>
+                      <div className="mt-4 flex items-center justify-end gap-3 pt-4 border-t border-white/5">
+                        <span className="text-[10px] uppercase tracking-widest text-gray-600 font-bold mr-2">Accurate?</span>
                         <button
                           onClick={async () => {
                             if (hasVoted) return;
@@ -220,14 +225,14 @@ export const CheckupResults: React.FC = () => {
                             }
                           }}
                           disabled={hasVoted}
-                          className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[10px] font-medium transition-all ${
                             hasVoted
-                              ? 'bg-green-500/20 text-green-300 cursor-not-allowed'
-                              : 'bg-white/5 hover:bg-green-500/20 text-gray-400 hover:text-green-300'
+                              ? 'bg-blue-500/10 text-blue-400'
+                              : 'bg-white/[0.02] hover:bg-blue-500/10 text-gray-500 hover:text-blue-400'
                           }`}
                         >
-                          <ThumbsUp className="w-3.5 h-3.5" />
-                          {hasVoted ? 'Thanks!' : 'Yes'}
+                          <ThumbsUp className="w-3 h-3" />
+                          {hasVoted ? 'VERIFIED' : 'YES'}
                         </button>
                         <button
                           onClick={async () => {
@@ -246,14 +251,14 @@ export const CheckupResults: React.FC = () => {
                             }
                           }}
                           disabled={hasVoted}
-                          className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[10px] font-medium transition-all ${
                             hasVoted
-                              ? 'bg-gray-500/20 text-gray-500 cursor-not-allowed'
-                              : 'bg-white/5 hover:bg-red-500/20 text-gray-400 hover:text-red-300'
+                              ? 'bg-red-500/10 text-red-400'
+                              : 'bg-white/[0.02] hover:bg-red-500/10 text-gray-500 hover:text-red-400'
                           }`}
                         >
-                          <ThumbsDown className="w-3.5 h-3.5" />
-                          No
+                          <ThumbsDown className="w-3 h-3" />
+                          {hasVoted ? 'REPORTED' : 'NO'}
                         </button>
                       </div>
                     </div>
@@ -269,32 +274,32 @@ export const CheckupResults: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-yellow-500/20 shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8"
+              className="bg-white/[0.01] rounded-3xl border border-white/5 p-8"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-10 h-10 rounded-full bg-yellow-500/10 flex items-center justify-center">
                   <AlertCircle className="w-5 h-5 text-yellow-400" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">Areas to Review</h2>
-                  <p className="text-sm text-gray-400">Address these to ensure full compliance</p>
+                  <h2 className="text-xl font-medium text-white">Areas to Review</h2>
+                  <p className="text-xs text-gray-500 uppercase tracking-widest font-medium mt-1">Recommended adjustments</p>
                 </div>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {yellowWarnings.map((warning, index) => {
                   const flagId = `yellow-${index}`;
                   const hasVoted = feedbackSubmitted.has(flagId);
                   return (
-                    <div key={index} className="p-4 bg-yellow-500/10 rounded-xl border border-yellow-500/20">
-                      <div className="flex gap-4">
-                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-yellow-500 text-gray-900 flex items-center justify-center text-sm font-bold">
+                    <div key={index} className="p-6 bg-white/[0.01] rounded-2xl border border-white/5">
+                      <div className="flex gap-5">
+                        <div className="flex-shrink-0 w-6 h-6 rounded-lg bg-yellow-500/10 text-yellow-400 flex items-center justify-center text-xs font-bold border border-yellow-500/20">
                           {index + 1}
                         </div>
-                        <p className="text-gray-200 flex-1">{warning}</p>
+                        <p className="text-gray-300 text-sm font-light leading-relaxed flex-1">{warning}</p>
                       </div>
                       {/* Feedback Widget */}
-                      <div className="mt-3 flex items-center justify-end gap-2 pt-3 border-t border-yellow-500/10">
-                        <span className="text-xs text-gray-500 mr-2">Is this accurate?</span>
+                      <div className="mt-4 flex items-center justify-end gap-3 pt-4 border-t border-white/5">
+                        <span className="text-[10px] uppercase tracking-widest text-gray-600 font-bold mr-2">Accurate?</span>
                         <button
                           onClick={async () => {
                             if (hasVoted) return;
@@ -312,14 +317,14 @@ export const CheckupResults: React.FC = () => {
                             }
                           }}
                           disabled={hasVoted}
-                          className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[10px] font-medium transition-all ${
                             hasVoted
-                              ? 'bg-green-500/20 text-green-300 cursor-not-allowed'
-                              : 'bg-white/5 hover:bg-green-500/20 text-gray-400 hover:text-green-300'
+                              ? 'bg-blue-500/10 text-blue-400'
+                              : 'bg-white/[0.02] hover:bg-blue-500/10 text-gray-500 hover:text-blue-400'
                           }`}
                         >
-                          <ThumbsUp className="w-3.5 h-3.5" />
-                          {hasVoted ? 'Thanks!' : 'Yes'}
+                          <ThumbsUp className="w-3 h-3" />
+                          {hasVoted ? 'VERIFIED' : 'YES'}
                         </button>
                         <button
                           onClick={async () => {
@@ -338,14 +343,14 @@ export const CheckupResults: React.FC = () => {
                             }
                           }}
                           disabled={hasVoted}
-                          className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[10px] font-medium transition-all ${
                             hasVoted
-                              ? 'bg-gray-500/20 text-gray-500 cursor-not-allowed'
-                              : 'bg-white/5 hover:bg-yellow-500/20 text-gray-400 hover:text-yellow-300'
+                              ? 'bg-red-500/10 text-red-400'
+                              : 'bg-white/[0.02] hover:bg-red-500/10 text-gray-500 hover:text-red-400'
                           }`}
                         >
-                          <ThumbsDown className="w-3.5 h-3.5" />
-                          No
+                          <ThumbsDown className="w-3 h-3" />
+                          {hasVoted ? 'REPORTED' : 'NO'}
                         </button>
                       </div>
                     </div>
@@ -361,22 +366,22 @@ export const CheckupResults: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-green-500/20 shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8"
+              className="bg-white/[0.01] rounded-3xl border border-white/5 p-8"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                  <CheckCircle2 className="w-5 h-5 text-green-400" />
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">You're Compliant</h2>
-                  <p className="text-sm text-gray-400">Good work in these areas</p>
+                  <h2 className="text-xl font-medium text-white">Confirmed Ready</h2>
+                  <p className="text-xs text-gray-500 uppercase tracking-widest font-medium mt-1">Verified compliant areas</p>
                 </div>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {greenConfirmations.map((confirmation, index) => (
-                  <div key={index} className="flex gap-4 items-start">
-                    <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                    <p className="text-gray-300 flex-1">{confirmation}</p>
+                  <div key={index} className="flex gap-5 items-start p-4 bg-white/[0.01] rounded-xl border border-white/5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500/50 flex-shrink-0 mt-0.5" />
+                    <p className="text-gray-400 text-sm font-light leading-relaxed flex-1">{confirmation}</p>
                   </div>
                 ))}
               </div>
@@ -388,82 +393,54 @@ export const CheckupResults: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="bg-gradient-to-br from-blue-500/5 to-purple-500/5 backdrop-blur-3xl rounded-3xl border border-blue-500/20 shadow-2xl shadow-black/30 ring-1 ring-blue-500/[0.08] p-8 md:p-10"
+            className="bg-white/[0.02] rounded-3xl border border-blue-500/20 p-8 md:p-12 relative overflow-hidden"
           >
-            <h2 className="text-2xl font-bold text-white mb-2">Want the full picture?</h2>
-            <p className="text-gray-400 text-sm mb-6">
-              Your free checkup flagged{' '}
-              <span className="text-red-400 font-semibold">{results.compliance_score_red} critical</span>
-              {results.compliance_score_yellow > 0 && (
-                <> and <span className="text-yellow-400 font-semibold">{results.compliance_score_yellow} warning</span></>
-              )}
-              {' '}issue{(results.compliance_score_red + results.compliance_score_yellow) !== 1 ? 's' : ''}.
-              A detailed review digs deeper into each one.
-            </p>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 blur-[100px] -z-10" />
+            
+            <div className="max-w-2xl">
+              <h2 className="text-2xl font-serif text-white mb-4">Detailed Compliance Review</h2>
+              <p className="text-gray-500 font-light text-sm mb-10 leading-relaxed">
+                Your free checkup identified <span className="text-white font-medium">{results.compliance_score_red + results.compliance_score_yellow} points</span> requiring attention. A detailed review provides a human-verified artifact with source citations and a prioritized action plan.
+              </p>
 
-            <motion.div
-              className="bg-white/[0.04] border border-blue-500/30 rounded-2xl p-6 md:p-8 mb-6"
-              whileHover={{ scale: 1.005 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                <div className="flex-1 space-y-4">
-                  <div className="flex items-center gap-3">
-                    <FileText className="w-7 h-7 text-blue-400" />
-                    <h3 className="text-white font-bold text-xl">Detailed Compliance Review</h3>
-                  </div>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    Get a human-verified analysis of your specific situation. Your intake is cross-referenced against current Portuguese regulations using AI-assisted research from official sources. You receive escalation flags, source citations, and a prioritized action plan.
-                  </p>
-                  <ul className="space-y-2">
-                    <li className="flex items-center gap-2 text-gray-300 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
-                      26-question structured intake covering 7 compliance dimensions
-                    </li>
-                    <li className="flex items-center gap-2 text-gray-300 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
-                      AI-assisted research, human-verified report
-                    </li>
-                    <li className="flex items-center gap-2 text-gray-300 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
-                      Escalation flags for areas needing professional review
-                    </li>
-                    <li className="flex items-center gap-2 text-gray-300 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
-                      Delivered to your email within 48 hours
-                    </li>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
+                <div className="space-y-4">
+                  <h4 className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">What's included</h4>
+                  <ul className="space-y-3">
+                    {[
+                      '26-question diagnostic intake',
+                      'AI-assisted regulatory research',
+                      'Human-verified readiness report',
+                      'Source citations from official law',
+                      'Priority escalation flags'
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3 text-xs text-gray-400 font-light">
+                        <div className="w-1 h-1 rounded-full bg-blue-500" />
+                        {item}
+                      </li>
+                    ))}
                   </ul>
                 </div>
-
-                <div className="flex flex-col items-center md:items-end gap-3 md:min-w-[180px]">
-                  <div className="text-center md:text-right">
-                    <div className="text-4xl font-bold text-white">
-                      49<span className="text-xl text-gray-400">.00 EUR</span>
-                    </div>
-                    <p className="text-gray-500 text-xs mt-1">One-time payment. No subscription.</p>
+                <div className="flex flex-col justify-end">
+                  <div className="mb-6">
+                    <div className="text-3xl font-serif text-white">€49<span className="text-sm text-gray-500 ml-2 font-sans font-light">One-time</span></div>
+                    <p className="text-[10px] text-gray-600 uppercase tracking-widest mt-1">Delivered in 48 hours</p>
                   </div>
                   <Button
                     onClick={() => navigate('/compliance-review')}
                     size="lg"
-                    className="w-full md:w-auto px-8"
+                    className="w-full text-xs font-medium uppercase tracking-widest px-8"
                   >
-                    Get Your Detailed Review
-                    <ArrowRight className="w-5 h-5 ml-2" />
+                    Start Detailed Review
+                    <ArrowRight className="w-3 h-3 ml-2" />
                   </Button>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
-            <p className="text-gray-500 text-xs text-center italic">
-              Your checkup results are saved. The detailed review builds on your existing data for a more comprehensive analysis.
-            </p>
-
-            <div className="text-center pt-6 border-t border-white/[0.05] mt-6">
-              <p className="text-gray-400 text-sm">
-                We've sent a copy of this report to <span className="text-white font-medium">{results.email}</span>
-              </p>
-              <p className="text-gray-500 text-xs mt-2">
-                Keep this report handy when talking to accountants or tax advisors
+            <div className="pt-8 border-t border-white/5 text-center">
+              <p className="text-[10px] text-gray-600 uppercase tracking-widest font-medium">
+                Report sent to <span className="text-gray-400">{results.email}</span>
               </p>
             </div>
           </motion.div>
@@ -473,34 +450,35 @@ export const CheckupResults: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8"
+            className="bg-white/[0.01] rounded-3xl border border-white/5 p-10"
           >
-            <div className="text-center">
-              <Flag className="w-8 h-8 text-orange-400 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Found an error or outdated info?</h3>
-              <p className="text-gray-400 text-sm mb-6 max-w-2xl mx-auto">
-                We continuously update this tool with the latest Portuguese regulations. If something looks wrong, let us know.
+            <div className="text-center max-w-xl mx-auto">
+              <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center mx-auto mb-6">
+                <Flag className="w-5 h-5 text-gray-500" />
+              </div>
+              <h3 className="text-xl font-medium text-white mb-3">Notice an inconsistency?</h3>
+              <p className="text-gray-500 text-xs font-light mb-8 leading-relaxed">
+                We continuously monitor Portuguese regulations. If you identify outdated information or an error in your report, please let our team know.
               </p>
               {!showReportModal ? (
                 <Button
                   onClick={() => setShowReportModal(true)}
-                  className="bg-orange-500/20 hover:bg-orange-500/30 text-orange-300 border border-orange-500/30"
+                  className="bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border border-white/5 text-[10px] uppercase tracking-widest font-bold px-8"
                 >
-                  <Flag className="w-4 h-4 mr-2" />
-                  Report an Issue
+                  Report Inconsistency
                 </Button>
               ) : (
-                <div className="bg-white/[0.05] rounded-xl p-6 max-w-xl mx-auto">
+                <div className="bg-white/[0.02] rounded-2xl p-8">
                   {!reportSuccess ? (
                     <>
                       <textarea
                         value={reportComment}
                         onChange={(e) => setReportComment(e.target.value)}
-                        placeholder="What did you find? Which item is incorrect? What should it say instead?"
+                        placeholder="Describe the inconsistency..."
                         rows={4}
-                        className="w-full px-4 py-3 bg-white/[0.05] border border-white/[0.10] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500/50 mb-4"
+                        className="w-full px-4 py-4 bg-obsidian border border-white/5 rounded-xl text-white text-sm font-light placeholder-gray-600 focus:outline-none focus:border-blue-500/50 mb-6"
                       />
-                      <div className="flex gap-3 justify-center">
+                      <div className="flex gap-4 justify-center">
                         <Button
                           onClick={async () => {
                             setReportSubmitting(true);
@@ -525,16 +503,17 @@ export const CheckupResults: React.FC = () => {
                             }
                           }}
                           disabled={!reportComment.trim() || reportSubmitting}
-                          className="bg-orange-500 hover:bg-orange-600 text-white"
+                          className="text-[10px] uppercase tracking-widest px-6"
                         >
-                          {reportSubmitting ? 'Submitting...' : 'Submit Feedback'}
+                          {reportSubmitting ? 'Submitting...' : 'Send Report'}
                         </Button>
                         <Button
                           onClick={() => {
                             setShowReportModal(false);
                             setReportComment('');
                           }}
-                          variant="secondary"
+                          variant="outline"
+                          className="text-[10px] uppercase tracking-widest px-6 border-white/5"
                         >
                           Cancel
                         </Button>
@@ -542,9 +521,9 @@ export const CheckupResults: React.FC = () => {
                     </>
                   ) : (
                     <div className="text-center py-4">
-                      <CheckCircle2 className="w-12 h-12 text-green-400 mx-auto mb-3" />
-                      <p className="text-green-300 font-medium">Thank you for helping us improve!</p>
-                      <p className="text-gray-400 text-sm mt-1">We'll review your feedback shortly.</p>
+                      <CheckCircle2 className="w-10 h-10 text-emerald-500/50 mx-auto mb-4" />
+                      <p className="text-white text-sm font-medium">Thank you.</p>
+                      <p className="text-gray-500 text-xs mt-2 font-light">We will review this inconsistency immediately.</p>
                     </div>
                   )}
                 </div>
@@ -557,33 +536,33 @@ export const CheckupResults: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="bg-gradient-to-br from-blue-600/10 to-cyan-500/5 backdrop-blur-3xl rounded-3xl border border-blue-500/20 shadow-2xl shadow-black/30 ring-1 ring-blue-500/[0.05] p-8 md:p-10"
+            className="bg-white/[0.01] rounded-3xl border border-white/5 p-10"
           >
-            <div className="flex flex-col md:flex-row items-center gap-6">
+            <div className="flex flex-col md:flex-row items-center gap-10">
               <div className="flex-shrink-0">
-                <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-                  <Send className="w-8 h-8 text-blue-400" />
+                <div className="w-20 h-20 rounded-2xl bg-blue-500/5 border border-blue-500/10 flex items-center justify-center">
+                  <MessageCircle className="w-8 h-8 text-blue-500/50" />
                 </div>
               </div>
               <div className="flex-1 text-center md:text-left">
-                <h3 className="text-2xl font-bold text-white mb-2">Have questions about your results?</h3>
-                <p className="text-gray-300 text-sm mb-4">
-                  Join 1,300+ remote professionals in our Telegram community. Get quick answers, share experiences, and stay updated on Portuguese compliance changes.
+                <h3 className="text-2xl font-serif text-white mb-3">Community Support</h3>
+                <p className="text-gray-500 text-sm font-light mb-8 leading-relaxed max-w-xl">
+                  Join 1,300+ remote professionals in our Portuguese compliance community. Share experiences and stay updated on regulatory changes.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                   <Button
                     onClick={() => window.open('https://t.me/worktugal', '_blank')}
-                    className="bg-blue-500 hover:bg-blue-600 text-white"
+                    className="bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/20 text-[10px] uppercase tracking-widest font-bold px-8"
                   >
-                    <Send className="w-4 h-4 mr-2" />
-                    Join on Telegram
+                    <Send className="w-3 h-3 mr-2" />
+                    Telegram Community
                   </Button>
                   <Button
                     onClick={() => window.open('https://www.facebook.com/groups/worktugal', '_blank')}
-                    variant="secondary"
-                    className="bg-white/10 hover:bg-white/20 text-white border-white/20"
+                    variant="outline"
+                    className="border-white/5 hover:bg-white/5 text-gray-400 hover:text-white text-[10px] uppercase tracking-widest font-bold px-8"
                   >
-                    <Users className="w-4 h-4 mr-2" />
+                    <Users className="w-3 h-3 mr-2" />
                     Facebook Group
                   </Button>
                 </div>
@@ -592,25 +571,28 @@ export const CheckupResults: React.FC = () => {
           </motion.div>
 
           {/* Footer Disclaimer */}
-          <ComplianceDisclaimer variant="inline" className="text-center mt-8 pb-16" />
+          <ComplianceDisclaimer variant="inline" className="text-center mt-12 pb-24 text-[10px] opacity-50" />
         </motion.div>
       </div>
 
       {/* Persistent sticky CTA banner */}
       {(results.compliance_score_red > 0 || results.compliance_score_yellow > 0) && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-xl border-t border-blue-500/20 py-3 px-4">
-          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-gray-300 text-sm text-center sm:text-left">
-              <span className="text-red-400 font-semibold">{results.compliance_score_red + results.compliance_score_yellow} issues found.</span>
-              {' '}Get a detailed review with source citations and escalation flags.
-            </p>
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-obsidian/90 backdrop-blur-xl border-t border-white/5 py-4 px-6">
+          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              <p className="text-gray-400 text-xs font-light">
+                <span className="text-white font-medium">{results.compliance_score_red + results.compliance_score_yellow} gaps identified.</span>
+                {' '}Get a human-verified Readiness Artifact with law citations.
+              </p>
+            </div>
             <Button
               onClick={() => navigate('/compliance-review')}
               size="sm"
-              className="whitespace-nowrap px-6"
+              className="whitespace-nowrap px-8 text-[10px] uppercase tracking-widest font-bold"
             >
-              Detailed Review -- 49 EUR
-              <ArrowRight className="w-4 h-4 ml-2" />
+              Get Detailed Review — €49
+              <ArrowRight className="w-3 h-3 ml-2" />
             </Button>
           </div>
         </div>

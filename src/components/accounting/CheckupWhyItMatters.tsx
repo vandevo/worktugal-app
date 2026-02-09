@@ -7,7 +7,7 @@ export const CheckupWhyItMatters: React.FC = () => {
     {
       icon: AlertTriangle,
       title: 'Avoid fines from 500 to 5,000 EUR',
-      description: 'Portuguese tax authorities (Financas) can issue heavy penalties for missing declarations, late filings, or incorrect activity codes. Updated for 2026: VAT-exempt freelancers must file quarterly turnover returns'
+      description: 'Portuguese tax authorities (Financas) can issue heavy penalties for missing declarations, late filings, or incorrect activity codes. Updated for 2025: VAT-exempt freelancers must file quarterly turnover returns'
     },
     {
       icon: FileX,
@@ -27,7 +27,7 @@ export const CheckupWhyItMatters: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-850 to-gray-900">
+    <section className="py-24 bg-obsidian border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.div
@@ -36,11 +36,11 @@ export const CheckupWhyItMatters: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-4xl font-serif text-white mb-4">
               Why this matters
             </h2>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              Most freelancers in Portugal are missing something. Here's what you're avoiding
+            <p className="text-lg text-gray-500 max-w-2xl mx-auto font-light">
+              Most freelancers in Portugal are missing something. Here's what you're avoiding.
             </p>
           </motion.div>
         </div>
@@ -53,19 +53,19 @@ export const CheckupWhyItMatters: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white/[0.02] backdrop-blur-xl rounded-2xl border border-red-400/10 p-6 hover:border-red-400/30 transition-all duration-300"
+              className="bg-[#121212] backdrop-blur-xl rounded-2xl border border-white/5 p-8 hover:border-white/10 transition-all duration-300"
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-lg bg-red-500/10 border border-red-400/20 flex items-center justify-center">
-                    <risk.icon className="w-6 h-6 text-red-400" />
+                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                    <risk.icon className="w-5 h-5 text-gray-400" />
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-white mb-2">
+                  <h3 className="text-lg font-serif text-white mb-3">
                     {risk.title}
                   </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
+                  <p className="text-sm text-gray-500 font-light leading-relaxed">
                     {risk.description}
                   </p>
                 </div>
@@ -79,10 +79,10 @@ export const CheckupWhyItMatters: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 p-6 bg-gradient-to-br from-blue-500/10 to-purple-500/10 backdrop-blur-xl rounded-2xl border border-blue-400/20"
+          className="mt-12 p-8 bg-white/[0.01] rounded-2xl border border-white/5"
         >
-          <p className="text-center text-gray-300 text-sm leading-relaxed">
-            <strong className="text-blue-300">The reality:</strong> Portugal's tax system is complex, especially for non-Portuguese speakers. Our compliance readiness checkup analyzes your situation against real freelancer data and provides specific guidance with penalty amounts, deadlines, and priority ranking. Updated for 2026 with current rules including the quarterly VAT return requirement. Takes 3 minutes, could save you thousands.
+          <p className="text-center text-gray-500 text-xs font-light leading-relaxed uppercase tracking-widest">
+            <strong className="text-gray-400">The reality:</strong> Portugal's tax system is complex, especially for non-Portuguese speakers. Our compliance readiness checkup analyzes your situation against real freelancer data and provides specific guidance with penalty amounts, deadlines, and priority ranking. Updated for 2025. Takes 3 minutes.
           </p>
         </motion.div>
       </div>

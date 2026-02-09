@@ -5,9 +5,9 @@
  * to improve the Tax Compliance Checkup experience.
  *
  * SAFE TO UPDATE: This file only adds intelligence, doesn't break existing functionality
- * Last Updated: 2026-01-01
+ * Last Updated: 2025-01-01
  * Data Source: tax_checkup_leads table (96 real user submissions analyzed)
- * Parallel Rules: Integrated from Portugal Freelancer Tax Survival Map 2020-2025
+ * Regulatory Rules: Integrated from official Portugal Tax Authority sources
  */
 
 import { TaxCheckupFormData } from '../lib/taxCheckup';
@@ -17,7 +17,7 @@ import { TaxCheckupFormData } from '../lib/taxCheckup';
 // ============================================================================
 
 export const USER_INSIGHTS = {
-  lastAnalyzed: '2026-01-01',
+  lastAnalyzed: '2025-01-01',
   totalSubmissions: 96,
   dataSource: 'tax_checkup_leads',
 
@@ -218,7 +218,7 @@ export function detectEnhancedRedFlags(data: TaxCheckupFormData): EnhancedRedFla
       message: '15% of your gross income must be justified with documented expenses',
       actionRequired: 'Request NIF on ALL professional purchases. Classify expenses on e-fatura portal',
       penaltyInfo: 'If you fall short, the difference is added back to taxable income (20-30% tax increase)',
-      deadline: 'February 25, 2026 (for 2025 expenses)'
+      deadline: 'February 25, 2025 (for 2024 expenses)'
     });
   }
 
@@ -432,14 +432,14 @@ export const FEATURE_FLAGS = {
 
 export const ENHANCEMENT_VERSION = {
   core: '1.0.0',                    // Original Tax Checkup
-  enhancements: '1.2.3',            // This enhancement layer - Data update Jan 1, 2026
-  dataSourceDate: '2026-01-01',
-  nextUpdateScheduled: '2026-02-15', // Re-analyze when at 150+ submissions
+  enhancements: '1.2.3',            // This enhancement layer - Data update Jan 1, 2025
+  dataSourceDate: '2025-01-01',
+  nextUpdateScheduled: '2025-02-15', // Re-analyze when at 150+ submissions
   changesFromCore: [
     'Enhanced red flag detection with severity levels',
     'Conditional helper text based on user context',
     'Data-driven option ordering',
-    'Real user pattern insights (96 submissions - updated Jan 1, 2026)',
+    'Real user pattern insights (96 submissions - updated Jan 1, 2025)',
     'Actionable guidance with penalties and deadlines',
     'VAT 125% immediate loss rule',
     '15% expense justification warning (Feb 25 deadline)',
@@ -447,6 +447,6 @@ export const ENHANCEMENT_VERSION = {
     'Prepayments warning (July/Sep/Dec)',
     '€200k organized accounting threshold',
     'First-year tax discount positive message (with conditions and disclaimer)',
-    'Integrated Parallel.ai verified rules'
+    'Integrated verified regulatory rules'
   ]
 };

@@ -355,11 +355,11 @@ export const AccountantApplicationForm: React.FC = () => {
 
   const getStepColor = (step: number) => {
     const colors = {
-      1: { bg: 'bg-blue-500/20', border: 'border-blue-500/40', text: 'text-blue-400', gradient: 'from-blue-500/10 to-transparent' },
-      2: { bg: 'bg-green-500/20', border: 'border-green-500/40', text: 'text-green-400', gradient: 'from-green-500/10 to-transparent' },
-      3: { bg: 'bg-cyan-500/20', border: 'border-cyan-500/40', text: 'text-cyan-400', gradient: 'from-cyan-500/10 to-transparent' },
-      4: { bg: 'bg-orange-500/20', border: 'border-orange-500/40', text: 'text-orange-400', gradient: 'from-orange-500/10 to-transparent' },
-      5: { bg: 'bg-teal-500/20', border: 'border-teal-500/40', text: 'text-teal-400', gradient: 'from-teal-500/10 to-transparent' },
+      1: { bg: 'bg-white/5', border: 'border-white/10', text: 'text-gray-400', gradient: 'from-white/5 to-transparent' },
+      2: { bg: 'bg-white/5', border: 'border-white/10', text: 'text-gray-400', gradient: 'from-white/5 to-transparent' },
+      3: { bg: 'bg-white/5', border: 'border-white/10', text: 'text-gray-400', gradient: 'from-white/5 to-transparent' },
+      4: { bg: 'bg-white/5', border: 'border-white/10', text: 'text-gray-400', gradient: 'from-white/5 to-transparent' },
+      5: { bg: 'bg-white/5', border: 'border-white/10', text: 'text-gray-400', gradient: 'from-white/5 to-transparent' },
     };
     return colors[step as keyof typeof colors] || colors[1];
   };
@@ -459,7 +459,7 @@ export const AccountantApplicationForm: React.FC = () => {
           "@context": "https://schema.org",
           "@type": "JobPosting",
           "title": "Accountant Partner - Freelancer Tax Specialist",
-          "description": "Join Worktugal's partner network to serve English-speaking freelancers and digital nomads in Portugal. OCC certification required. Flexible hours with revenue share model.",
+          "description": "Join Worktugal's partner network to serve English-speaking freelancers and remote professionals in Portugal. OCC certification required. Flexible hours with revenue share model.",
           "datePosted": "2024-10-01",
           "hiringOrganization": {
             "@type": "Organization",
@@ -490,7 +490,7 @@ export const AccountantApplicationForm: React.FC = () => {
           "skills": "Portuguese taxation, freelancer compliance, cross-border tax planning, client communication"
         }}
       />
-      <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-8 md:py-12">
+      <div className="min-h-screen bg-obsidian py-8 md:py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -498,16 +498,16 @@ export const AccountantApplicationForm: React.FC = () => {
           className="mb-8 md:mb-12"
         >
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 md:px-6 py-2 mb-4 md:mb-6">
-              <Award className="w-4 h-4 md:w-5 md:h-5 text-blue-400" />
-              <span className="text-sm md:text-base text-blue-400 font-semibold">Founding partner opportunity</span>
+            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 md:px-6 py-2 mb-4 md:mb-6">
+              <Award className="w-4 h-4 md:w-5 md:h-5 text-blue-500/50" />
+              <span className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium">Founding partner opportunity</span>
             </div>
 
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6 px-4">
-              Join Worktugal's partner network
+            <h1 className="text-3xl md:text-5xl font-serif text-white mb-4 md:mb-6 px-4">
+              Join our partner network
             </h1>
 
-            <p className="text-lg md:text-xl text-gray-300 mb-4 max-w-3xl mx-auto px-4">
+            <p className="text-lg text-gray-500 mb-4 max-w-3xl mx-auto px-4 font-light leading-relaxed">
               Help freelancers and independent professionals navigate Portuguese taxation while growing your practice.
             </p>
           </div>
@@ -529,7 +529,7 @@ export const AccountantApplicationForm: React.FC = () => {
             </motion.div>
           )}
 
-          <div className="bg-slate-950/95 backdrop-blur-2xl backdrop-saturate-150 border border-white/[0.08] rounded-2xl p-4 md:p-6 shadow-xl shadow-black/20 mb-6">
+          <div className="bg-[#121212] backdrop-blur-2xl border border-white/5 rounded-2xl p-4 md:p-6 shadow-xl shadow-black/20 mb-6">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-medium text-gray-300">
                 Step {currentStep} of 5
@@ -539,9 +539,9 @@ export const AccountantApplicationForm: React.FC = () => {
               </span>
             </div>
 
-            <div className="relative h-2 bg-white/[0.05] rounded-full overflow-hidden mb-4">
+            <div className="relative h-1.5 bg-white/5 rounded-full overflow-hidden mb-4">
               <motion.div
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"
+                className="absolute top-0 left-0 h-full bg-white/20 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: `${progressPercentage}%` }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
@@ -639,7 +639,7 @@ export const AccountantApplicationForm: React.FC = () => {
                 handleNext();
               }
             }}
-            className="bg-white/[0.04] backdrop-blur-2xl backdrop-saturate-150 rounded-3xl border border-white/[0.10] p-6 md:p-12 shadow-xl shadow-black/10"
+            className="bg-[#121212] backdrop-blur-2xl rounded-3xl border border-white/5 p-6 md:p-12 shadow-xl shadow-black/10"
           >
             {currentStep === 1 && (
               <motion.div
@@ -880,7 +880,7 @@ export const AccountantApplicationForm: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="bg-gradient-to-br from-blue-500/5 to-transparent rounded-2xl p-6 border border-blue-500/10">
+                  <div className="bg-white/[0.01] rounded-2xl p-6 border border-white/5">
                     <h4 className="text-blue-300 font-semibold mb-4 flex items-center gap-2">
                       <Globe className="w-5 h-5" />
                       Language proficiency
@@ -1078,7 +1078,7 @@ export const AccountantApplicationForm: React.FC = () => {
 
                   <div>
                     <label className="block text-sm font-semibold text-gray-300 mb-2">
-                      What percentage are foreign residents or digital nomads? <span className="text-red-400">*</span>
+                      What percentage are foreign residents or remote workers? <span className="text-red-400">*</span>
                     </label>
                     <select
                       value={formData.foreignClientPercentage}
@@ -1367,15 +1367,15 @@ export const AccountantApplicationForm: React.FC = () => {
               </motion.div>
             )}
 
-            <div className="flex flex-col-reverse md:flex-row gap-4 mt-8 pt-6 border-t border-white/[0.10]">
+            <div className="flex flex-col-reverse md:flex-row gap-4 mt-8 pt-6 border-t border-white/5">
               {currentStep > 1 && (
                 <Button
                   type="button"
                   onClick={handleBack}
-                  variant="ghost"
-                  className="flex-1 h-12 md:h-14 text-base rounded-2xl"
+                  variant="outline"
+                  className="flex-1 h-12 md:h-14 text-xs uppercase tracking-widest font-bold rounded-xl"
                 >
-                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  <ArrowLeft className="w-4 h-4 mr-2" />
                   Back
                 </Button>
               )}
@@ -1383,28 +1383,26 @@ export const AccountantApplicationForm: React.FC = () => {
               <Button
                 type="submit"
                 disabled={loading}
+                variant="primary"
                 className={`
-                  flex-1 h-12 md:h-14 text-base md:text-lg rounded-2xl
-                  bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700
-                  shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40
-                  transition-all duration-200 active:scale-[0.98]
+                  flex-1 h-12 md:h-14 text-xs uppercase tracking-widest font-bold rounded-xl
                   ${currentStep === 1 ? 'w-full' : ''}
                 `}
               >
                 {loading ? (
                   <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2" />
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black mr-2" />
                     Submitting...
                   </>
                 ) : currentStep === 5 ? (
                   <>
-                    <Upload className="w-5 h-5 mr-2" />
+                    <Upload className="w-4 h-4 mr-2" />
                     Submit Application
                   </>
                 ) : (
                   <>
                     Continue
-                    <ArrowRight className="w-5 h-5 ml-2" />
+                    <ArrowRight className="w-4 h-4 ml-2" />
                   </>
                 )}
               </Button>

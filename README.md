@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2026-02-08
+**Last Updated:** 2026-02-09 (v1.3.1)
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### Purpose
 
-Worktugal is a **compliance readiness layer** for foreign freelancers, remote workers, and expats in Portugal. The platform identifies compliance gaps before they become expensive problems and routes users to verified accountant partners.
+Worktugal is a **compliance readiness layer** for foreign freelancers and remote professionals in Portugal. The platform identifies compliance gaps before they become expensive problems and prepares users for professional engagement.
 
 ### Mission
 
@@ -103,12 +103,13 @@ Internal doctrine: *"If it does not enforce readiness or transfer responsibility
 - **Supabase Webhooks**: Database triggers for lead processing
 
 ### AI Research
-- **Parallel.ai Search API**: Real-time regulatory research (facts & citations)
-- **Perplexity API (Sonar)**: Human-readable report drafting (tone & empathy)
+- **Regulatory Research Engine**: Real-time access to official tax laws and citations
+- **Automated Drafting System**: AI-assisted drafting for human-verified reports
 - **Integration**: Server-side only (Edge Function), human review mandatory before delivery
 
 ### Development Environment
 - **Cursor IDE**: Primary development environment (Windows)
+- **Obsidian Design System v1.2**: Formal design specification and Cursor rules for UI consistency
 - **MCP Servers**: 
   - **Supabase & Cloudflare**: Direct database and deployment access
   - **Google Stitch**: AI-driven UI design generation and code extraction
@@ -158,10 +159,10 @@ Paid €49 product purchases with AI research enrichment.
 | `form_data` | jsonb | Detailed intake form responses (26 fields) |
 | `escalation_flags` | jsonb | Auto-calculated flags for professional review |
 | `ambiguity_score` | integer | Count of "Not sure" answers |
-| `ai_research_results` | jsonb | Raw Parallel.ai search results with citations |
+| `ai_research_results` | jsonb | Raw high-precision research results with citations |
 | `ai_draft_report` | text | Formatted AI draft report for owner review |
 | `ai_research_status` | text | pending, completed, failed |
-| `ai_researched_at` | timestamptz | When AI research completed |
+| `ai_researched_at` | timestamptz | When research completed |
 | `created_at` | timestamptz | Purchase timestamp |
 
 #### `accountant_applications` (7 rows)
@@ -202,7 +203,7 @@ Accountant partner applications.
 | `paid-review-webhook` | Handle Stripe payment confirmation |
 | `submit-paid-review` | Process detailed intake form submissions, trigger AI research |
 | `verify-paid-review` | Validate access tokens for paid review forms |
-| `research-compliance` | Parallel.ai-powered regulatory research per paid review |
+| `research-compliance` | High-precision regulatory research per paid review |
 | `submit-contact-request` | Process contact form submissions |
 | `submit-accountant-application` | Process accountant partner applications |
 | `send-lead-to-makecom` | Trigger Make.com automation for new leads |
@@ -368,22 +369,40 @@ We sell **permission to proceed**, not advice, execution, or software.
 
 ## Recent Updates
 
-### 2026-02-08: Infrastructure Expansion & UI Polish — v1.2.2
-- **MCP Integration**: Connected **Google Stitch** (AI Design) and **Cal.com** (Expert Booking) to Cursor AI.
-- **Stripe Automation**: Built a dynamic environment switcher in `stripe-config.ts` to toggle between Test/Live modes via `.env` without manual code changes.
-- **UI/UX Refinements**: 
-  - Fixed "see-through" status timeline on `PaidReviewSuccess` using solid masking and `animate-ping` effects.
-  - Added "Copy to Clipboard" functionality for Case Reference numbers to improve user convenience.
-- **Strategic Pivot**: Project roadmap formally reoriented toward the **Readyfile Artifact** (Phase 2) and the **Expert Marketplace** (Phase 3).
+### 2026-02-09: Outreach & Transparency Push — v1.3.1
+- **Product Updates Page**: Launched `/changelog`, a consumer-facing portal for tracking platform evolution, new features, and tool releases.
+- **Theme Consistency**: Applied **Obsidian v1.2** design system to `PrivacyPolicy` and `TermsAndConditions` pages, ensuring full visual synchronization across the legal layer.
+- **Outreach Prep**: Created `docs/outreach/` with personalized scripts for 7 HOT leads and accountant partners.
+- **Objection Tracking**: Established `docs/OBJECTIONS.md` to capture market feedback and refine the €49 review value prop.
+
+### 2026-02-09: Obsidian Design System & Theme Standardization — v1.3.0
+- **Major UI/UX Overhaul**: Implemented the **Obsidian v1.2** design system across all core products.
+  - **Visual Identity**: Adopted "Absolute Black" (`#050505`) and "Obsidian Surface" (`#121212`) palettes with `font-serif` (Playfair Display) for authoritative typography.
+  - **Component Standardization**: Ported `ModernHero`, `ModernFeatures`, `PaidReviewLanding`, `ContactPage`, and all accounting modules to the new minimalist specification.
+  - **Button System**: Unified all interactive elements with a monochrome high-contrast system (Solid White primary, Ghostly Outline secondary).
+- **Theme Guardrails & Automation**:
+  - Established `.cursor/rules/obsidian-theme.mdc` as a persistent Cursor rule to enforce theme consistency in all future development.
+  - Created `prompts/prompts/knowledge/obsidian-theme.md` as the definitive design source of truth.
+- **Content Restoration & "Powerful" Messaging**:
+  - Reinstated high-conversion, risk-focused copy for the landing page and `/compliance-review` product.
+  - Created new `ModernComplianceReviewCTA` and `ModernTestimonials` components to drive social proof and conversion.
+  - Aligned terminology with "Foreign Freelancers" and "Remote Professionals" (removed generic expat/nomad phrasing).
+- **Integrity & Verification**: 
+  - Updated Hero features to **"Compliance Readiness Layer"** to accurately represent current project capabilities.
+  - Reverted "Remote Worker Visa" terminology back to **"Digital Nomad Visa"** per specific user preference.
+- **Infrastructure & Polish**:
+  - Integrated **Google Stitch** and **Cal.com** MCPs for enhanced AI-driven design and scheduling workflows.
+  - Built dynamic environment switcher in `stripe-config.ts` for automated Test/Live mode toggling.
+  - Fixed JSX syntax errors and status timeline transparency issues in results pages.
 
 ### 2026-02-07: AI Drafting Enhancement — v1.2.1
-- **Dual-AI Architecture**: "Best of Both Worlds" approach implemented
-  - **Parallel.ai**: Used strictly for "institutional accuracy" (finding official tax/law sources)
-  - **Perplexity (Sonar)**: Used for "human empathy" (drafting the final client email/report)
-- Updated `research-compliance` Edge Function to pipe Parallel results into Perplexity context
-- Configured new `PERPLEXITY_API_KEY` in Supabase secrets
-- Fallback logic: If Perplexity fails/missing, reverts to standard template
-
+- **Dual-Engine Architecture**: "Best of Both Worlds" approach implemented
+  - **Precision Layer**: Focused on institutional accuracy and verifying official tax/law sources.
+  - **Clarity Layer**: Focused on drafting clear, human-readable reports and communications.
+- Updated `research-compliance` Edge Function to pipe data between processing layers
+- Configured secure credentials in Supabase secrets
+- Fallback logic: If advanced drafting is unavailable, reverts to standard template
+-
 ### 2026-02-06: Pre-Launch Page Refresh — v1.2
 - Replaced disabled "Coming Soon" buttons on checkup results with active CTA to paid compliance review (49 EUR)
 - Added persistent sticky CTA banner on results page when issues are found
@@ -391,21 +410,21 @@ We sell **permission to proceed**, not advice, execution, or software.
 - Updated all copy to reflect AI-assisted research + human-verified report workflow
 - Added "What you avoid" section with specific penalty examples on landing page
 - Updated CheckupHero with dual CTA: free checkup + paid detailed review
-- Refreshed all homepage sub-components from "2025" to "2026"
+- Refreshed all homepage sub-components from "2024" to "2025"
 - Updated PaidReviewSuccess with visual status timeline (Submitted → Researching → Under Review → Delivered)
 - Created shared `ComplianceDisclaimer` component with 3 variants (footer/inline/banner), added to all user-facing pages
 - Seeded "compliance readiness" language across all new copy (no URL/product rename)
 - Removed "first version" language from feedback section
 - Added new FAQ entry for AI-assisted research process on landing page
 
-### 2026-02-06: Parallel.ai Integration (Phase 1) — v1.1
-- Integrated Parallel.ai Search API for automated regulatory research on paid compliance reviews
+### 2026-02-06: Intelligence Integration (Phase 1) — v1.1
+- Integrated advanced regulatory research system for automated deep-dives on paid compliance reviews.
 - New Edge Function `research-compliance` runs 2-6 targeted searches per review based on user form data
 - Added 4 columns to `paid_compliance_reviews`: `ai_research_results`, `ai_draft_report`, `ai_research_status`, `ai_researched_at`
-- Modified `submit-paid-review` to async-trigger AI research after form submission (non-blocking)
-- New Make.com webhook `MAKECOM_WEBHOOK_AI_RESEARCH_COMPLETE` sends AI draft to owner
+- Modified `submit-paid-review` to async-trigger research after form submission (non-blocking)
+- New Make.com webhook `MAKECOM_WEBHOOK_AI_RESEARCH_COMPLETE` sends draft to owner
 - Covers: tax residency, VAT, NISS, NHR/IFICI, cross-border exposure, cryptocurrency
-- Safety: AI drafts only, human review mandatory, fails silently to manual mode if Parallel.ai is down
+- Safety: AI drafts only, human review mandatory, fails silently to manual mode if research engine is unavailable
 - Legal positioning: all outputs include disclaimers ("not legal or tax advice")
 
 ### 2026-02-03: README Overhaul
@@ -414,7 +433,7 @@ We sell **permission to proceed**, not advice, execution, or software.
 - Added current metrics and roadmap
 - Aligned with ReadyFile strategic direction
 
-### 2026-02-01: Infrastructure Migration
+### 2025-02-01: Infrastructure Migration
 - Migrated hosting from Netlify to Cloudflare Pages
 - Established local development environment in Cursor IDE
 - Configured MCP servers for Supabase and Cloudflare API access

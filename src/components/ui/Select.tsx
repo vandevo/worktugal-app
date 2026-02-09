@@ -30,7 +30,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
     if (React.isValidElement(child) && child.type === 'option') {
       return React.cloneElement(child as React.ReactElement<any>, {
         style: {
-          backgroundColor: '#1f2937',
+          backgroundColor: '#121212',
           color: '#ffffff',
           ...(child.props.style || {})
         }
@@ -50,10 +50,10 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
         <select
           ref={ref}
           className={cn(
-            'w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl rounded-xl text-white appearance-none cursor-pointer',
-            'border border-white/[0.12] shadow-lg shadow-black/20',
+            'w-full px-4 py-3 bg-white/[0.02] backdrop-blur-xl rounded-xl text-white appearance-none cursor-pointer',
+            'border border-white/5 shadow-lg shadow-black/20',
             'focus:outline-none focus:bg-white/[0.06] focus:border-blue-400/40 focus:ring-2 focus:ring-blue-400/20',
-            'hover:bg-white/[0.05] hover:border-white/[0.16]',
+            'hover:bg-white/[0.05] hover:border-white/10',
             'transition-all duration-200',
             error && 'bg-red-900/20 border-red-500/40 focus:bg-red-900/30 focus:border-red-500/60 focus:ring-red-500/20',
             className
@@ -65,21 +65,21 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
         >
           {processedChildren || (
             <>
-              <option value="" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
+              <option value="" style={{ backgroundColor: '#121212', color: '#ffffff' }}>
                 {!label ? 'All Categories' : 'Select an option'}
               </option>
               {isGrouped
                 ? (options as SelectGroup[]).map((group) => (
                     <optgroup key={group.label} label={group.label}>
                       {group.options.map((option) => (
-                        <option key={option.value} value={option.value} style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
+                        <option key={option.value} value={option.value} style={{ backgroundColor: '#121212', color: '#ffffff' }}>
                           {option.label}
                         </option>
                       ))}
                     </optgroup>
                   ))
                 : (options as SelectOption[]).map((option) => (
-                    <option key={option.value} value={option.value} style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>
+                    <option key={option.value} value={option.value} style={{ backgroundColor: '#121212', color: '#ffffff' }}>
                       {option.label}
                     </option>
                   ))

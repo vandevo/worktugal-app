@@ -69,12 +69,12 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
     >
       <div className="text-center mb-6">
         <div className="flex items-center space-x-3 mb-4">
-          <div className="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center flex-shrink-0">
-            <UserPlus className="h-5 w-5 text-blue-400" />
+          <div className="w-10 h-10 bg-blue-500/10 border border-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+            <UserPlus className="h-5 w-5 text-blue-500/50" />
           </div>
           <div className="text-left flex-1">
-            <h2 className="text-lg font-bold leading-tight">Create your account</h2>
-            <p className="text-sm text-gray-500 leading-tight">Access accounting services and partner perks</p>
+            <h2 className="text-xl font-serif text-white leading-tight">Create your account</h2>
+            <p className="text-xs text-gray-500 font-light mt-1 uppercase tracking-widest">Access services and perks</p>
           </div>
         </div>
       </div>
@@ -101,14 +101,14 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
         />
 
         <div className="space-y-1">
-          <label className="block text-sm font-medium text-gray-300">
+          <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-2">
             Password
           </label>
           <div className="relative">
             <input
               type={showPassword ? 'text' : 'password'}
               placeholder="Create a password"
-              className="w-full px-4 py-3 pr-12 bg-gray-800/80 border border-gray-600/60 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/80 focus:border-blue-500/50 focus:bg-gray-750 hover:border-gray-500/60 transition-all duration-200 shadow-sm"
+              className="w-full px-4 py-3 pr-12 bg-white/[0.02] border border-white/5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-white/[0.06] focus:border-blue-400/40 focus:ring-2 focus:ring-blue-400/20 hover:bg-white/[0.04] transition-all duration-200 font-light text-sm shadow-lg shadow-black/20"
               {...register('password')}
             />
             <button
@@ -120,8 +120,8 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
               {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
           </div>
-          <p className="text-xs text-gray-500">
-            Must include: letters and numbers (minimum 8 characters)
+          <p className="text-[10px] text-gray-600 uppercase tracking-widest font-medium mt-2">
+            Letters and numbers (min 8 chars)
           </p>
           {errors.password && (
             <p className="text-xs text-red-400">{errors.password.message}</p>
@@ -129,14 +129,14 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
         </div>
 
         <div className="space-y-1">
-          <label className="block text-sm font-medium text-gray-300">
+          <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-2">
             Confirm Password
           </label>
           <div className="relative">
             <input
               type={showConfirmPassword ? 'text' : 'password'}
               placeholder="Confirm your password"
-              className="w-full px-4 py-3 pr-12 bg-gray-800/80 border border-gray-600/60 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/80 focus:border-blue-500/50 focus:bg-gray-750 hover:border-gray-500/60 transition-all duration-200 shadow-sm"
+              className="w-full px-4 py-3 pr-12 bg-white/[0.02] border border-white/5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-white/[0.06] focus:border-blue-400/40 focus:ring-2 focus:ring-blue-400/20 hover:bg-white/[0.04] transition-all duration-200 font-light text-sm shadow-lg shadow-black/20"
               {...register('confirmPassword')}
             />
             <button
@@ -165,13 +165,13 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSuccess, onSwitchToLog
       </form>
 
       {onSwitchToLogin && (
-        <div className="mt-6 text-center pt-4 border-t border-gray-700/50">
-          <p className="text-gray-500 text-sm">
+        <div className="mt-8 text-center pt-6 border-t border-white/5">
+          <p className="text-gray-500 text-xs font-light">
             Already have an account?{' '}
             <button
               type="button"
               onClick={onSwitchToLogin}
-              className="text-blue-400 hover:text-blue-300 font-medium hover:underline transition-all duration-200"
+              className="text-blue-400 hover:text-blue-300 font-medium transition-all duration-200"
             >
               Sign in
             </button>
