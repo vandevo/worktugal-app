@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { Layout } from './components/Layout';
-import { HomePage } from './components/HomePage';
+import { ModernHomePage as HomePage } from './components/ModernHomePage';
 import { Dashboard } from './components/Dashboard';
 import { ContactPage } from './components/ContactPage';
 import { ContactSuccess } from './components/ContactSuccess';
