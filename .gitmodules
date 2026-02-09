@@ -1,3 +1,0 @@
-[submodule "prompts"]
-	path = prompts
-	url = https://github.com/vandevo/prompt-secret-vault.git
