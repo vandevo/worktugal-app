@@ -72,8 +72,8 @@ export const ModernComplianceReviewCTA: React.FC = () => {
                       <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
                         <Sparkles className="w-5 h-5 text-purple-500/50" />
                       </div>
-                      <h3 className="text-white text-sm font-serif mb-2">Ready for professional review</h3>
-                      <p className="text-gray-600 text-[10px] font-light uppercase tracking-[0.2em]">AI-assisted triage</p>
+                      <h3 className="text-white text-sm font-serif mb-2">Protect your residence permit</h3>
+                      <p className="text-gray-600 text-[10px] font-light uppercase tracking-[0.2em]">Survival-focused artifact</p>
                     </div>
                   </div>
         </motion.div>
