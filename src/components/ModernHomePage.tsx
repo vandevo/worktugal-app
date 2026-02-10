@@ -11,10 +11,10 @@ export const ModernHomePage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Worktugal - Compliance Readiness for Remote Professionals"
-        description="Verify your compliance status in Portugal. The readiness layer for foreign freelancers and remote workers."
-        ogTitle="Worktugal - Compliance Readiness Layer"
-        ogDescription="Check your tax residency and compliance status in 3 minutes. Stop unverified decisions."
+        title="Worktugal: compliance readiness for remote professionals"
+        description="Verify your compliance status in Portugal. Avoid expensive penalty traps with a 3-minute diagnostic for foreign freelancers."
+        ogTitle="Worktugal: the compliance readiness layer"
+        ogDescription="Check your tax residency and compliance status in 3 minutes. Stop unverified decisions before Portugal fines you."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
         ogUrl="https://app.worktugal.com/"

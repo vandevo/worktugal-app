@@ -8,18 +8,18 @@ export const PartnersPage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Our Network - Founding Partners in Lisbon"
-        description="Established Lisbon professionals who've supported Worktugal since the beginning. Accountants, coworking spaces, and service providers helping remote workers in Portugal."
-        ogTitle="Worktugal Network - Founding Partners in Lisbon"
-        ogDescription="Our founding partner network includes established Lisbon professionals: accountants, coworking spaces, and service providers who've been with us since the start."
+        title="Our network: established partners in Lisbon"
+        description="Connect with established Lisbon professionals who support remote professionals. Verified accountants, coworking spaces, and legal experts."
+        ogTitle="Our network: established partners in Lisbon"
+        ogDescription="Connect with established Lisbon professionals who support remote professionals. Verified accountants, coworking spaces, and legal experts."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
         ogUrl="https://app.worktugal.com/partners"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "name": "Worktugal Network - Founding Partners",
-          "description": "Our founding partner network of established Lisbon professionals supporting remote workers in Portugal",
+          "name": "Our network: established partners in Lisbon",
+          "description": "Connect with established Lisbon professionals who support remote professionals. Verified accountants, coworking spaces, and legal experts.",
           "url": "https://app.worktugal.com/partners",
           "image": "https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png",
           "inLanguage": "en-US",

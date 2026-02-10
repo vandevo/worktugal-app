@@ -32,8 +32,8 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
   return (
     <div className="min-h-screen bg-obsidian">
       <Seo
-        title="Compliance Readiness Review - Worktugal"
-        description="Avoid penalties, blocked permits, and surprise tax bills. Get a detailed compliance readiness review for your specific situation in Portugal."
+        title="Compliance readiness review: know where you stand"
+        description="Avoid penalties, blocked permits, and surprise tax bills. Get a human-verified compliance review with evidence-backed legal citations."
         canonicalUrl="https://app.worktugal.com/compliance-review"
       />
 

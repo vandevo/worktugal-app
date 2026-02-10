@@ -48,13 +48,13 @@ export const AccountingDeskLanding: React.FC = () => {
   return (
     <>
       <Seo
-        title="Accounting Desk for Expats in Portugal | Worktugal"
-        description="Got your NIF, now what? Talk to an OCC-certified accountant and get a written action plan within 48 hours. Freelance in Portugal with confidence. From €59."
+        title="Accounting desk for remote professionals in Portugal"
+        description="Got your NIF, now what? Talk to an OCC-certified accountant and get a written action plan within 48 hours. Freelance in Portugal without the compliance anxiety."
         ogType="website"
         structuredData={{
           "@context": "https://schema.org",
           "@type": "ProfessionalService",
-          "name": "Worktugal Accounting Desk",
+          "name": "Worktugal accounting desk",
           "description": "Tax and accounting consults for remote professionals and freelancers in Portugal",
           "url": "https://app.worktugal.com/accounting",
           "priceRange": "€59-€349",

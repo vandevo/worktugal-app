@@ -610,8 +610,8 @@ export const TaxCheckupForm: React.FC = () => {
   return (
     <div className="min-h-screen bg-obsidian py-12">
       <Seo
-        title="Tax Compliance Readiness Checkup"
-        description="Take our free 3-minute tax compliance readiness checkup for foreign freelancers and remote workers in Portugal."
+        title="Free tax compliance checkup: identify your risks"
+        description="Check your tax compliance status in 3 minutes. Avoid surprise fines and protect your residence permit with our free diagnostic."
         canonicalUrl="https://app.worktugal.com/checkup"
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
