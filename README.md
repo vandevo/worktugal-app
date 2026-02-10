@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2026-02-09 (v1.3.1)
+**Last Updated:** 2026-02-09 (v1.3.2)
 
 ---
 
@@ -368,6 +368,12 @@ We sell **permission to proceed**, not advice, execution, or software.
 ---
 
 ## Recent Updates
+
+### 2026-02-09: Security Hardening & Ops Automation — v1.3.2
+- **Database Self-Healing**: Integrated **Supabase Cron (`pg_cron`)** with an automated health check (`check_stalled_ai_research`) to identify and resolve stalled intelligence tasks.
+- **Security Audit & Fixes**: Resolved Supabase security linter warnings by securing function search paths and tightening RLS policies across all primary lead tables.
+- **Proprietary Branding**: "Scrubbed" specific AI vendor names from all user-facing documentation and codebases to establish a proprietary **"Worktugal Intelligence"** brand identity.
+- **Infrastructure Stability**: Resolved Cloudflare build failures by de-coupling private submodule dependencies, ensuring 100% uptime for the deployment pipeline.
 
 ### 2026-02-09: Outreach & Transparency Push — v1.3.1
 - **Product Updates Page**: Launched `/changelog`, a consumer-facing portal for tracking platform evolution, new features, and tool releases.

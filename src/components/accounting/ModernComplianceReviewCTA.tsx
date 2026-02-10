@@ -53,29 +53,29 @@ export const ModernComplianceReviewCTA: React.FC = () => {
             </motion.button>
           </div>
 
-          <div className="mt-16 pt-16 border-t border-white/5 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center">
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
-                <ShieldCheck className="w-5 h-5 text-emerald-500/50" />
-              </div>
-              <h3 className="text-white text-sm font-serif mb-2">Verified Accuracy</h3>
-              <p className="text-gray-600 text-xs font-light uppercase tracking-widest">Cross-referenced results</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
-                <FileText className="w-5 h-5 text-blue-500/50" />
-              </div>
-              <h3 className="text-white text-sm font-serif mb-2">Detailed Artifacts</h3>
-              <p className="text-gray-600 text-xs font-light uppercase tracking-widest">Evidence-backed findings</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
-                <Sparkles className="w-5 h-5 text-purple-500/50" />
-              </div>
-              <h3 className="text-white text-sm font-serif mb-2">Smart Analysis</h3>
-              <p className="text-gray-600 text-xs font-light uppercase tracking-widest">AI-assisted research</p>
-            </div>
-          </div>
+                  <div className="mt-16 pt-16 border-t border-white/5 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="flex flex-col items-center">
+                      <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+                        <ShieldCheck className="w-5 h-5 text-emerald-500/50" />
+                      </div>
+                      <h3 className="text-white text-sm font-serif mb-2">Evidence-backed legal citations</h3>
+                      <p className="text-gray-600 text-[10px] font-light uppercase tracking-[0.2em]">Cross-referenced results</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+                        <FileText className="w-5 h-5 text-blue-500/50" />
+                      </div>
+                      <h3 className="text-white text-sm font-serif mb-2">Reveal hidden penalty risks</h3>
+                      <p className="text-gray-600 text-[10px] font-light uppercase tracking-[0.2em]">Evidence-backed findings</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+                        <Sparkles className="w-5 h-5 text-purple-500/50" />
+                      </div>
+                      <h3 className="text-white text-sm font-serif mb-2">Ready for professional review</h3>
+                      <p className="text-gray-600 text-[10px] font-light uppercase tracking-[0.2em]">AI-assisted triage</p>
+                    </div>
+                  </div>
         </motion.div>
       </div>
     </section>
