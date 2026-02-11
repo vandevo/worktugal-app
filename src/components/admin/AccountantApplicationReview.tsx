@@ -380,7 +380,7 @@ export const AccountantApplicationReview: React.FC = () => {
                         }))}
                         rows={3}
                         placeholder="Add notes about this application..."
-                        className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150 resize-none"
+                        className="w-full px-4 py-3 bg-surface-dark/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-colors duration-150 resize-none"
                       />
                     </div>
 
@@ -449,7 +449,7 @@ export const AccountantApplicationReview: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border border-green-500/30 shadow-2xl max-w-lg w-full p-8"
+            className="bg-gradient-to-br from-obsidian to-surface-dark rounded-2xl border border-green-500/30 shadow-2xl max-w-lg w-full p-8"
           >
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -463,7 +463,7 @@ export const AccountantApplicationReview: React.FC = () => {
               <div className="bg-white/[0.05] rounded-xl p-4 border border-white/[0.10]">
                 <label className="text-sm font-semibold text-gray-400 mb-2 block">Login URL</label>
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 text-white font-mono text-sm bg-gray-800/50 px-3 py-2 rounded-lg">
+                  <code className="flex-1 text-white font-mono text-sm bg-surface-dark/50 px-3 py-2 rounded-lg">
                     https://worktugal.com
                   </code>
                   <button
@@ -482,7 +482,7 @@ export const AccountantApplicationReview: React.FC = () => {
               <div className="bg-white/[0.05] rounded-xl p-4 border border-white/[0.10]">
                 <label className="text-sm font-semibold text-gray-400 mb-2 block">Email</label>
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 text-white font-mono text-sm bg-gray-800/50 px-3 py-2 rounded-lg break-all">
+                  <code className="flex-1 text-white font-mono text-sm bg-surface-dark/50 px-3 py-2 rounded-lg break-all">
                     {credentials.email}
                   </code>
                   <button
@@ -501,7 +501,7 @@ export const AccountantApplicationReview: React.FC = () => {
               <div className="bg-white/[0.05] rounded-xl p-4 border border-white/[0.10]">
                 <label className="text-sm font-semibold text-gray-400 mb-2 block">Password</label>
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 text-white font-mono text-sm bg-gray-800/50 px-3 py-2 rounded-lg">
+                  <code className="flex-1 text-white font-mono text-sm bg-surface-dark/50 px-3 py-2 rounded-lg">
                     {credentials.password}
                   </code>
                   <button

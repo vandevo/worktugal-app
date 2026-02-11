@@ -139,7 +139,7 @@ export function ChangelogManager() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Project Changelog</h2>
+          <h2 className="text-2xl font-bold text-white">Project Changelog</h2>
           <p className="text-gray-600 mt-1">
             Track changes for documentation generation
           </p>
@@ -317,7 +317,7 @@ export function ChangelogManager() {
                       </span>
                     )}
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-1">
+                  <h3 className="font-semibold text-white mb-1">
                     {entry.title}
                   </h3>
                   {entry.details && (

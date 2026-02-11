@@ -59,7 +59,7 @@ export const CookieConsentBanner: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="md:hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end"
+          className="md:hidden fixed inset-0 z-50 bg-obsidian/80 backdrop-blur-md flex items-end"
         >
           <motion.div
             initial={{ y: '100%' }}
@@ -68,7 +68,7 @@ export const CookieConsentBanner: React.FC = () => {
             transition={{ type: 'spring', damping: 25, stiffness: 500 }}
             className="w-full bg-obsidian rounded-t-2xl border-t border-white/5 shadow-2xl max-h-[80vh] overflow-y-auto"
           >
-            <div className="p-6">
+            <div className="p-6 bg-obsidian">
               {/* Header with close button */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-3">

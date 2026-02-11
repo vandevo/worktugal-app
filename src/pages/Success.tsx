@@ -41,7 +41,7 @@ export function Success() {
       <div className="bg-white rounded-lg shadow-md p-8 text-center">
         <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-6" />
         
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+        <h1 className="text-3xl font-bold text-white mb-4">
           Payment Successful!
         </h1>
         

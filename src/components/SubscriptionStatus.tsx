@@ -89,7 +89,7 @@ export function SubscriptionStatus() {
       case 'failed':
         return 'bg-red-100 text-red-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-100 text-surface-dark';
     }
   };
 
@@ -125,7 +125,7 @@ export function SubscriptionStatus() {
   if (subscriptions.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+        <h3 className="text-lg font-semibold text-white mb-2">
           Your Services
         </h3>
         <p className="text-gray-600 text-sm">
@@ -138,7 +138,7 @@ export function SubscriptionStatus() {
   return (
     <div className="bg-white rounded-lg shadow">
       <div className="p-6 border-b border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-lg font-semibold text-white">
           Your Services
         </h3>
       </div>
@@ -147,7 +147,7 @@ export function SubscriptionStatus() {
           {subscriptions.map((subscription, index) => (
             <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
               <div>
-                <h4 className="font-medium text-gray-900">
+                <h4 className="font-medium text-white">
                   {subscription.productName}
                 </h4>
                 <p className="text-sm text-gray-600">
@@ -155,7 +155,7 @@ export function SubscriptionStatus() {
                 </p>
               </div>
               <div className="text-right">
-                <div className="font-semibold text-gray-900">
+                <div className="font-semibold text-white">
                   {formatPrice(subscription.amount, subscription.currency)}
                 </div>
                 <Badge className={getStatusColor(subscription.status)}>

@@ -108,14 +108,14 @@ export const ClientDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 py-20 flex items-center justify-center">
+      <div className="min-h-screen bg-obsidian py-20 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 py-20">
+    <div className="min-h-screen bg-obsidian py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

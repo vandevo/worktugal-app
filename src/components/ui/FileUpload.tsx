@@ -134,7 +134,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             exit={{ opacity: 0, scale: 0.95 }}
             className="relative"
           >
-            <div className="relative rounded-xl overflow-hidden bg-gray-800 border border-gray-700 group">
+            <div className="relative rounded-xl overflow-hidden bg-surface-dark border border-gray-700 group">
               <img
                 src={value}
                 alt="Upload preview"
@@ -142,7 +142,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                   "w-full object-cover",
                   variant === 'logo' 
                     ? "max-h-32 sm:max-h-40 object-contain bg-white/5" 
-                    : "max-h-48 sm:max-h-64 object-contain bg-gray-900/20"
+                    : "max-h-48 sm:max-h-64 object-contain bg-obsidian/20"
                 )}
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />

@@ -22,7 +22,7 @@ export const CheckupSocialProof: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-850">
+    <section className="py-20 bg-gradient-to-b from-obsidian to-obsidian-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.div

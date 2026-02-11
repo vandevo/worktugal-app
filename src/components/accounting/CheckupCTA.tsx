@@ -12,7 +12,7 @@ export const CheckupCTA: React.FC<CheckupCTAProps> = ({ onStartCheckup }) => {
   const navigate = useNavigate();
 
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-gray-900">
+    <section className="py-20 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-obsidian">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

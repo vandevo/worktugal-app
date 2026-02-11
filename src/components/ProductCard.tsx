@@ -24,11 +24,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onCheckout })
   return (
     <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
       <div className="flex items-start justify-between mb-4">
-        <h3 className="text-xl font-semibold text-gray-900">
+        <h3 className="text-xl font-semibold text-white">
           {product.name}
         </h3>
         <div className="text-right">
-          <span className="text-2xl font-bold text-gray-900">
+          <span className="text-2xl font-bold text-white">
             {product.currencySymbol}{product.price.toFixed(2)}
           </span>
           <div className="text-sm text-gray-500 uppercase">

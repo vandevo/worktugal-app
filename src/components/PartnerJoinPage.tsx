@@ -51,9 +51,9 @@ export const PartnerJoinPage: React.FC = () => {
         }}
       />
 
-      <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-850 to-gray-900">
+      <div className="min-h-screen bg-gradient-to-b from-obsidian via-obsidian-light to-obsidian">
       {/* Hero Section with Back Button */}
-      <section className="relative py-12 md:py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900">
+      <section className="relative py-12 md:py-16 bg-gradient-to-br from-obsidian via-surface-dark to-blue-900">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIGZpbGw9IiMyMzY1YzQiIGZpbGwtb3BhY2l0eT0iMC4wMiIvPjwvZz48L3N2Zz4=')] opacity-20"></div>
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -124,7 +124,7 @@ export const PartnerJoinPage: React.FC = () => {
       {/* Bottom CTA - Alternative Exit */}
       <section className="pb-16 md:pb-20">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-gray-800/30 backdrop-blur-xl rounded-2xl border border-gray-700/50 p-8">
+          <div className="bg-surface-dark/30 backdrop-blur-xl rounded-2xl border border-gray-700/50 p-8">
             <p className="text-gray-400 text-sm mb-4">
               Need more information before applying?
             </p>

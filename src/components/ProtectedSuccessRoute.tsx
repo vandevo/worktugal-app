@@ -36,7 +36,7 @@ export const ProtectedSuccessRoute: React.FC<ProtectedSuccessRouteProps> = ({ ch
   // Show loading spinner while authentication or subscription data is being fetched
   if ((authLoading || subscriptionLoading) && !isDevBypass) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-obsidian flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
           <p className="text-gray-400">Verifying your access...</p>
@@ -49,7 +49,7 @@ export const ProtectedSuccessRoute: React.FC<ProtectedSuccessRouteProps> = ({ ch
   // (useEffect will handle the redirect)
   if ((!user || !hasActivePayment) && !isDevBypass) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-obsidian flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
           <p className="text-gray-400">Redirecting...</p>

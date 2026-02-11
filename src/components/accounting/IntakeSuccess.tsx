@@ -8,13 +8,13 @@ export const IntakeSuccess: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gray-900 py-20">
+    <div className="min-h-screen bg-obsidian py-20">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden"
+          className="bg-surface-dark/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden"
         >
           {/* Success Header */}
           <div className="bg-gradient-to-br from-green-600/20 via-blue-600/20 to-purple-600/20 p-8 text-center border-b border-white/10">
@@ -39,7 +39,7 @@ export const IntakeSuccess: React.FC = () => {
                 Check your email
               </h3>
 
-              <div className="bg-gray-900/50 rounded-xl p-5 space-y-4">
+              <div className="bg-obsidian/50 rounded-xl p-5 space-y-4">
                 <p className="text-gray-300">
                   We've sent a confirmation email with your intake summary. You'll hear from us within 48 hours with:
                 </p>

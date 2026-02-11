@@ -797,7 +797,7 @@ export const AccountantApplicationForm: React.FC = () => {
                         type="checkbox"
                         checked={formData.hasOCC}
                         onChange={(e) => handleInputChange('hasOCC', e.target.checked)}
-                        className="mt-1 w-6 h-6 rounded-lg border-gray-600 bg-gray-800/50 text-blue-500 focus:ring-blue-500 focus:ring-offset-0 transition-all"
+                        className="mt-1 w-6 h-6 rounded-lg border-gray-600 bg-surface-dark/50 text-blue-500 focus:ring-blue-500 focus:ring-offset-0 transition-all"
                       />
                       <div className="flex-1">
                         <span className="font-semibold text-white group-hover:text-blue-300 transition-colors">
@@ -860,9 +860,9 @@ export const AccountantApplicationForm: React.FC = () => {
                       value={formData.experienceYears}
                       onChange={(e) => handleInputChange('experienceYears', e.target.value)}
                       className={`
-                        w-full h-12 md:h-14 px-4 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white text-base
+                        w-full h-12 md:h-14 px-4 bg-surface-dark/50 backdrop-blur-xl rounded-2xl text-white text-base
                         border ${fieldErrors.experienceYears ? 'border-red-500/50' : 'border-white/[0.08]'}
-                        focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60
+                        focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60
                         transition-all duration-200 cursor-pointer
                       `}
                       style={{ colorScheme: 'dark' }}
@@ -894,7 +894,7 @@ export const AccountantApplicationForm: React.FC = () => {
                         <select
                           value={formData.englishFluency}
                           onChange={(e) => handleInputChange('englishFluency', e.target.value)}
-                          className="w-full h-12 px-4 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white border border-white/[0.08] focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer"
+                          className="w-full h-12 px-4 bg-surface-dark/50 backdrop-blur-xl rounded-2xl text-white border border-white/[0.08] focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-all cursor-pointer"
                           style={{ colorScheme: 'dark' }}
                         >
                           <option value="fluent" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Fluent (C1-C2)</option>
@@ -911,7 +911,7 @@ export const AccountantApplicationForm: React.FC = () => {
                         <select
                           value={formData.portugueseFluency}
                           onChange={(e) => handleInputChange('portugueseFluency', e.target.value)}
-                          className="w-full h-12 px-4 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white border border-white/[0.08] focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer"
+                          className="w-full h-12 px-4 bg-surface-dark/50 backdrop-blur-xl rounded-2xl text-white border border-white/[0.08] focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-all cursor-pointer"
                           style={{ colorScheme: 'dark' }}
                         >
                           <option value="native" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Native</option>
@@ -1026,7 +1026,7 @@ export const AccountantApplicationForm: React.FC = () => {
                       onChange={(e) => handleInputChange('bio', e.target.value)}
                       rows={4}
                       placeholder="Share your professional background, what you enjoy about working with freelancers, or anything that makes you unique..."
-                      className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all duration-200 resize-none border border-white/[0.08] focus:border-white/[0.15]"
+                      className="w-full px-4 py-3 bg-surface-dark/50 backdrop-blur-xl rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-all duration-200 resize-none border border-white/[0.08] focus:border-white/[0.15]"
                     />
                   </div>
                 </div>
@@ -1056,9 +1056,9 @@ export const AccountantApplicationForm: React.FC = () => {
                       value={formData.currentFreelancerClients}
                       onChange={(e) => handleInputChange('currentFreelancerClients', e.target.value)}
                       className={`
-                        w-full h-12 md:h-14 px-4 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white text-base
+                        w-full h-12 md:h-14 px-4 bg-surface-dark/50 backdrop-blur-xl rounded-2xl text-white text-base
                         border ${fieldErrors.currentFreelancerClients ? 'border-red-500/50' : 'border-white/[0.08]'}
-                        focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer
+                        focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-all cursor-pointer
                       `}
                       style={{ colorScheme: 'dark' }}
                     >
@@ -1084,9 +1084,9 @@ export const AccountantApplicationForm: React.FC = () => {
                       value={formData.foreignClientPercentage}
                       onChange={(e) => handleInputChange('foreignClientPercentage', e.target.value)}
                       className={`
-                        w-full h-12 md:h-14 px-4 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white text-base
+                        w-full h-12 md:h-14 px-4 bg-surface-dark/50 backdrop-blur-xl rounded-2xl text-white text-base
                         border ${fieldErrors.foreignClientPercentage ? 'border-red-500/50' : 'border-white/[0.08]'}
-                        focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer
+                        focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-all cursor-pointer
                       `}
                       style={{ colorScheme: 'dark' }}
                     >
@@ -1112,9 +1112,9 @@ export const AccountantApplicationForm: React.FC = () => {
                       value={formData.preferredCommunication}
                       onChange={(e) => handleInputChange('preferredCommunication', e.target.value)}
                       className={`
-                        w-full h-12 md:h-14 px-4 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white text-base
+                        w-full h-12 md:h-14 px-4 bg-surface-dark/50 backdrop-blur-xl rounded-2xl text-white text-base
                         border ${fieldErrors.preferredCommunication ? 'border-red-500/50' : 'border-white/[0.08]'}
-                        focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer
+                        focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-all cursor-pointer
                       `}
                       style={{ colorScheme: 'dark' }}
                     >
@@ -1141,9 +1141,9 @@ export const AccountantApplicationForm: React.FC = () => {
                       value={formData.acceptsTriageRole}
                       onChange={(e) => handleInputChange('acceptsTriageRole', e.target.value)}
                       className={`
-                        w-full h-12 md:h-14 px-4 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white text-base
+                        w-full h-12 md:h-14 px-4 bg-surface-dark/50 backdrop-blur-xl rounded-2xl text-white text-base
                         border ${fieldErrors.acceptsTriageRole ? 'border-red-500/50' : 'border-white/[0.08]'}
-                        focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer
+                        focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-all cursor-pointer
                       `}
                       style={{ colorScheme: 'dark' }}
                     >
@@ -1176,8 +1176,8 @@ export const AccountantApplicationForm: React.FC = () => {
                       rows={4}
                       placeholder="Example: 'Yes, you've crossed the VAT threshold. Here's what you need to do...'"
                       className={`
-                        w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white placeholder-gray-500
-                        focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all duration-200 resize-none
+                        w-full px-4 py-3 bg-surface-dark/50 backdrop-blur-xl rounded-2xl text-white placeholder-gray-500
+                        focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-all duration-200 resize-none
                         border ${fieldErrors.vatScenarioAnswer ? 'border-red-500/50' : 'border-white/[0.08]'}
                       `}
                     />
@@ -1202,9 +1202,9 @@ export const AccountantApplicationForm: React.FC = () => {
                       value={formData.availability}
                       onChange={(e) => handleInputChange('availability', e.target.value)}
                       className={`
-                        w-full h-12 md:h-14 px-4 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white text-base
+                        w-full h-12 md:h-14 px-4 bg-surface-dark/50 backdrop-blur-xl rounded-2xl text-white text-base
                         border ${fieldErrors.availability ? 'border-red-500/50' : 'border-white/[0.08]'}
-                        focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer
+                        focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-all cursor-pointer
                       `}
                       style={{ colorScheme: 'dark' }}
                     >
@@ -1274,9 +1274,9 @@ export const AccountantApplicationForm: React.FC = () => {
                         value={formData.partnershipInterestLevel}
                         onChange={(e) => handleInputChange('partnershipInterestLevel', e.target.value)}
                         className={`
-                          w-full h-12 px-4 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white
+                          w-full h-12 px-4 bg-surface-dark/50 backdrop-blur-xl rounded-xl text-white
                           border ${fieldErrors.partnershipInterestLevel ? 'border-red-500/50' : 'border-white/[0.08]'}
-                          focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all cursor-pointer
+                          focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-all cursor-pointer
                         `}
                         style={{ colorScheme: 'dark' }}
                       >
@@ -1304,8 +1304,8 @@ export const AccountantApplicationForm: React.FC = () => {
                       rows={5}
                       placeholder="Example: 'I serve 30 freelancers but struggle with English-speaking clients. I'd value structured intake support and being part of a specialized network...'"
                       className={`
-                        w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-2xl text-white placeholder-gray-500
-                        focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-all duration-200 resize-none
+                        w-full px-4 py-3 bg-surface-dark/50 backdrop-blur-xl rounded-2xl text-white placeholder-gray-500
+                        focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-all duration-200 resize-none
                         border ${fieldErrors.whyWorktugal ? 'border-red-500/50' : 'border-white/[0.08]'}
                       `}
                     />
@@ -1329,7 +1329,7 @@ export const AccountantApplicationForm: React.FC = () => {
                         checked={formData.agreeToTerms}
                         onChange={(e) => handleInputChange('agreeToTerms', e.target.checked)}
                         className={`
-                          mt-1 w-6 h-6 rounded-lg border-gray-600 bg-gray-800/50 text-blue-500
+                          mt-1 w-6 h-6 rounded-lg border-gray-600 bg-surface-dark/50 text-blue-500
                           focus:ring-blue-500 focus:ring-offset-0 transition-all
                           ${fieldErrors.agreeToTerms ? 'border-red-500' : ''}
                         `}

@@ -572,7 +572,7 @@ export const ComprehensiveIntakeForm: React.FC = () => {
           onChange={(e) => handleInputChange('biggest_worry', e.target.value)}
           rows={3}
           placeholder="e.g., Not sure if I'm paying enough Social Security, worried about a letter from Financas..."
-          className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150 resize-none"
+          className="w-full px-4 py-3 bg-surface-dark/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-colors duration-150 resize-none"
         />
       </div>
 
@@ -585,7 +585,7 @@ export const ComprehensiveIntakeForm: React.FC = () => {
           onChange={(e) => handleInputChange('special_notes', e.target.value)}
           rows={4}
           placeholder="Any other details you think we should know..."
-          className="w-full px-4 py-3 bg-gray-800/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-gray-800/70 hover:bg-gray-800/60 transition-colors duration-150 resize-none"
+          className="w-full px-4 py-3 bg-surface-dark/50 backdrop-blur-xl rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-surface-dark/70 hover:bg-surface-dark/60 transition-colors duration-150 resize-none"
         />
       </div>
 

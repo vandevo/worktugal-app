@@ -119,7 +119,7 @@ export const HomePage: React.FC = () => {
       <CheckupFAQ />
 
       {/* Secondary: Featured Partners Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-gray-900 via-gray-850 to-gray-900">
+      <section className="py-16 md:py-20 bg-gradient-to-b from-obsidian via-obsidian-light to-obsidian">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-blue-500/10 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-4 border border-blue-500/20">
@@ -149,7 +149,7 @@ export const HomePage: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <Card variant="glass" className="p-5 h-full hover:border-blue-400/30 transition-all duration-300 bg-gray-800/30">
+                    <Card variant="glass" className="p-5 h-full hover:border-blue-400/30 transition-all duration-300 bg-surface-dark/30">
                       {/* Trusted Partner Badge */}
                       <div className="mb-3">
                         <div className="inline-flex items-center space-x-1.5 bg-blue-400/10 text-blue-300 px-2.5 py-1.5 rounded-full text-xs font-semibold border border-blue-400/20">

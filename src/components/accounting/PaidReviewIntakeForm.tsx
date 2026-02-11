@@ -551,13 +551,13 @@ export const PaidReviewIntakeForm: React.FC<PaidReviewIntakeFormProps> = ({
           onChange={(e) => handleInputChange('additional_context', e.target.value)}
           placeholder="Any special circumstances, concerns, or questions..."
           rows={5}
-          className="w-full px-4 py-3 bg-white/[0.05] border border-white/[0.10] rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+          className="w-full px-4 py-3 bg-white/[0.02] border border-white/5 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all"
         />
         <p className="text-xs text-gray-500 mt-2">Optional but helpful for complex situations</p>
       </div>
 
-      <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-5">
-        <h4 className="text-white font-semibold mb-3">Review summary</h4>
+      <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-5">
+        <h4 className="text-white font-serif font-semibold mb-3">Review summary</h4>
         <p className="text-gray-300 text-sm mb-4">
           You've completed all sections. After submission:
         </p>
@@ -595,21 +595,21 @@ export const PaidReviewIntakeForm: React.FC<PaidReviewIntakeFormProps> = ({
   const SectionIcon = SECTIONS[currentSection].icon;
 
   return (
-    <div className="min-h-screen bg-gray-900 py-12">
+    <div className="min-h-screen bg-obsidian py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8 md:p-12"
+          className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.05] shadow-2xl shadow-black/30 ring-1 ring-white/[0.02] p-8 md:p-12"
         >
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-blue-500/5 flex items-center justify-center border border-blue-500/10">
                   <SectionIcon className="w-5 h-5 text-blue-400" />
                 </div>
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white">
+                  <h2 className="text-xl sm:text-2xl font-serif text-white">
                     {SECTIONS[currentSection].title}
                   </h2>
                   <span className="text-sm text-gray-400">
@@ -630,7 +630,7 @@ export const PaidReviewIntakeForm: React.FC<PaidReviewIntakeFormProps> = ({
                 <div
                   key={section.id}
                   className={`flex-1 h-2 rounded-full transition-all duration-300 ${
-                    i <= currentSection ? 'bg-blue-400' : 'bg-gray-700'
+                    i <= currentSection ? 'bg-blue-400' : 'bg-white/5'
                   }`}
                 />
               ))}
@@ -659,7 +659,7 @@ export const PaidReviewIntakeForm: React.FC<PaidReviewIntakeFormProps> = ({
                   type="button"
                   variant="outline"
                   onClick={handlePreviousSection}
-                  className="flex items-center justify-center w-full sm:w-auto order-2 sm:order-1"
+                  className="flex items-center justify-center w-full sm:w-auto order-2 sm:order-1 border-white/5 bg-white/[0.02] hover:bg-white/[0.05]"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Previous

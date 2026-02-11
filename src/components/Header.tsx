@@ -13,7 +13,7 @@ export const Header: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Shield className="w-8 h-8 text-indigo-600 mr-3" />
-            <h1 className="text-xl font-semibold text-gray-900">
+            <h1 className="text-xl font-semibold text-white">
               Compliance Review
             </h1>
           </div>

@@ -65,13 +65,13 @@ export const EarlyAccessForm: React.FC = () => {
 
   if (isSubmitted) {
     return (
-      <div className="bg-gray-900 py-24">
+      <div className="bg-obsidian py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden"
+            className="bg-surface-dark/50 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden"
           >
             {/* Success Header */}
             <div className="bg-gradient-to-br from-green-600/20 via-blue-600/20 to-purple-600/20 p-8 text-center border-b border-white/10">
@@ -96,7 +96,7 @@ export const EarlyAccessForm: React.FC = () => {
                   Check your email in the next 10 minutes
                 </h3>
 
-                <div className="bg-gray-900/50 rounded-xl p-5 space-y-4">
+                <div className="bg-obsidian/50 rounded-xl p-5 space-y-4">
                   <p className="text-gray-300">
                     You'll receive a confirmation email with simple next steps while you wait for booking slots to open.
                   </p>
@@ -174,7 +174,7 @@ export const EarlyAccessForm: React.FC = () => {
   }
 
   return (
-    <div className="bg-gray-900 py-24">
+    <div className="bg-obsidian py-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-white mb-4">Join the Early Access List</h2>
@@ -194,7 +194,7 @@ export const EarlyAccessForm: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-white/10 p-8 md:p-12">
+        <div className="bg-surface-dark/50 backdrop-blur-xl rounded-2xl border border-white/10 p-8 md:p-12">
           {error && (
             <Alert variant="error" className="mb-6">
               {error}
@@ -296,7 +296,7 @@ export const EarlyAccessForm: React.FC = () => {
                 checked={formData.consent}
                 onChange={(e) => handleInputChange('consent', e.target.checked)}
                 disabled={isSubmitting}
-                className="mt-1 w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-500 focus:ring-2 focus:ring-blue-500"
+                className="mt-1 w-4 h-4 rounded border-gray-600 bg-surface-dark text-blue-500 focus:ring-2 focus:ring-blue-500"
               />
               <label htmlFor="consent" className="text-sm text-gray-300">
                 I agree to receive updates about Worktugal Accounting Desk Early Access. You can unsubscribe anytime. *

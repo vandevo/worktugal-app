@@ -104,7 +104,7 @@ export const ConsultCheckout: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-obsidian flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-blue-400" />
       </div>
     );
@@ -112,7 +112,7 @@ export const ConsultCheckout: React.FC = () => {
 
   if (!booking) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-obsidian flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8 text-center">
           <h2 className="text-2xl font-bold text-white mb-4">Booking Not Found</h2>
           <p className="text-gray-300 mb-6">
@@ -129,7 +129,7 @@ export const ConsultCheckout: React.FC = () => {
   const service = CONSULT_SERVICES.find(s => s.id === booking.service_type);
 
   return (
-    <div className="min-h-screen bg-gray-900 py-20">
+    <div className="min-h-screen bg-obsidian py-20">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl shadow-black/30 ring-1 ring-white/[0.05] p-8">
           <h1 className="text-3xl font-bold text-white mb-8">Complete Your Booking</h1>

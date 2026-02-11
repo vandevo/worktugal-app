@@ -119,7 +119,7 @@ export function CheckoutSuccess() {
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl font-bold text-white mb-4">
             Payment Successful!
           </h1>
 
@@ -128,7 +128,7 @@ export function CheckoutSuccess() {
           </p>
 
           <div className="bg-gray-50 rounded-lg p-6 mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <h2 className="text-lg font-semibold text-white mb-4">
               Order Summary
             </h2>
             <div className="space-y-2 text-left">

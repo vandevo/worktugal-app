@@ -110,7 +110,7 @@ export function ContactSuccessDemo() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 py-12 px-4">
+    <div className="min-h-screen bg-obsidian py-12 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4 mb-8 text-center">
           <p className="text-yellow-300 font-semibold">
@@ -162,7 +162,7 @@ export function ContactSuccessDemo() {
                     </div>
                   </div>
 
-                  <div className="bg-gray-800/40 rounded-lg p-3 mb-4 border border-white/[0.05]">
+                  <div className="bg-surface-dark/40 rounded-lg p-3 mb-4 border border-white/[0.05]">
                     <p className="text-xs text-gray-500 mb-1">Query Parameters:</p>
                     <code className="text-xs text-gray-300 break-all">
                       purpose={scenario.purpose}
