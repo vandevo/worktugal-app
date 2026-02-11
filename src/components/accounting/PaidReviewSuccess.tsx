@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/Button';
-import { CheckCircle2, Clock, Mail, FileText, Users, ArrowRight, Search, Shield, Copy, Check } from 'lucide-react';
+import { CheckCircle2, Clock, Mail, FileText, Users, ArrowRight, Search, Shield, Copy, Check, MessageCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { ComplianceDisclaimer } from '../ComplianceDisclaimer';
 
