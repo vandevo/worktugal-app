@@ -28,7 +28,7 @@ export const STRIPE_PRODUCTS: Product[] = [
     priceId: getPriceId(),
     name: 'Compliance Readiness Review',
     description: 'A detailed compliance readiness assessment based on your intake. Includes AI-assisted research cross-referenced against official sources, verified by a human reviewer. Educational only, not tax advice.',
-    price: 49.00,
+    price: import.meta.env.VITE_STRIPE_PRICE_ID_INTERNAL_TEST ? 1.00 : 49.00,
     currency: 'eur',
     currencySymbol: '€',
     mode: 'payment'
