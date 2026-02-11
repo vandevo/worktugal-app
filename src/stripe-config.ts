@@ -13,7 +13,7 @@ const STRIPE_MODE = import.meta.env.VITE_STRIPE_MODE || 'test';
 
 const getPriceId = () => {
   if (STRIPE_MODE === 'live') {
-    // Check for internal test override first
+    // Check for internal test override first (e.g. for €1 validation)
     const testPriceId = import.meta.env.VITE_STRIPE_PRICE_ID_INTERNAL_TEST;
     if (testPriceId) return testPriceId;
 
