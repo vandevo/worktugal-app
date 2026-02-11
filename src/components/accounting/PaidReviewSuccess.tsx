@@ -56,26 +56,29 @@ export const PaidReviewSuccess: React.FC<PaidReviewSuccessProps> = ({
           </div>
 
           {/* Status Timeline */}
-          <div className="bg-white/[0.01] border border-white/5 rounded-2xl p-8 mb-12">
-            <div className="flex items-center justify-between relative px-2">
-              {/* Connection line */}
-              <div className="absolute top-5 left-0 right-0 h-px bg-white/5 mx-8"></div>
+          <div className="bg-white/[0.01] border border-white/5 rounded-2xl p-6 md:p-8 mb-12">
+            <div className="flex flex-col md:flex-row md:items-center justify-between relative gap-8 md:gap-2 px-2">
+              {/* Connection line (Desktop only) */}
+              <div className="hidden md:block absolute top-5 left-0 right-0 h-px bg-white/5 mx-8"></div>
               <div 
-                className="absolute top-5 left-0 h-px bg-blue-500/30 transition-all duration-1000 mx-8" 
+                className="hidden md:block absolute top-5 left-0 h-px bg-blue-500/30 transition-all duration-1000 mx-8" 
                 style={{ width: 'calc(33.33% - 8px)' }}
               ></div>
+
+              {/* Connection line (Mobile only - vertical) */}
+              <div className="md:hidden absolute left-7 top-0 bottom-0 w-px bg-white/5 my-4"></div>
 
               {timelineSteps.map((step, index) => {
                 const Icon = step.icon;
                 return (
-                  <div key={step.label} className="flex flex-col items-center relative z-10 flex-1">
-                    <div className="relative mb-4">
+                  <div key={step.label} className="flex flex-row md:flex-col items-center relative z-10 md:flex-1 gap-4 md:gap-0">
+                    <div className="relative md:mb-4 flex-shrink-0">
                       {/* Solid mask background */}
-                      <div className="absolute inset-0 bg-obsidian rounded-full z-0"></div>
+                      <div className="absolute inset-0 bg-[#0d0d0d] rounded-xl z-0"></div>
                       
-                      {/* Pulse effect (only for active) */}
+                      {/* Pulse effect */}
                       {step.status === 'active' && (
-                        <div className="absolute inset-0 rounded-full bg-blue-500/10 animate-ping z-0"></div>
+                        <div className="absolute inset-0 rounded-xl bg-blue-500/20 animate-pulse z-0"></div>
                       )}
 
                       <motion.div
@@ -84,49 +87,55 @@ export const PaidReviewSuccess: React.FC<PaidReviewSuccessProps> = ({
                         transition={{ delay: 0.3 + index * 0.15 }}
                         className={`w-10 h-10 rounded-xl flex items-center justify-center relative z-10 border transition-all duration-500 ${
                           step.status === 'complete'
-                            ? 'bg-emerald-500/10 border-emerald-500/30'
+                            ? 'bg-emerald-500/10 border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.1)]'
                             : step.status === 'active'
-                            ? 'bg-blue-500/10 border-blue-500/30'
+                            ? 'bg-blue-500/10 border-blue-500/40 shadow-[0_0_15px_rgba(59,130,246,0.1)]'
                             : 'bg-white/[0.02] border-white/5'
                         }`}
                       >
                         <Icon className={`w-4 h-4 ${
                           step.status === 'complete'
-                            ? 'text-emerald-500/50'
+                            ? 'text-emerald-400'
                             : step.status === 'active'
-                            ? 'text-blue-500/50'
+                            ? 'text-blue-400'
                             : 'text-gray-700'
                         }`} />
                       </motion.div>
                     </div>
-                    <span className={`text-[10px] uppercase tracking-widest font-bold text-center ${
-                      step.status === 'complete'
-                        ? 'text-emerald-500/50'
-                        : step.status === 'active'
-                        ? 'text-blue-500/50'
-                        : 'text-gray-700'
-                    }`}>
-                      {step.label}
-                    </span>
+                    <div className="flex flex-col md:items-center">
+                      <span className={`text-[10px] md:text-[10px] uppercase tracking-widest font-bold md:text-center transition-colors duration-500 ${
+                        step.status === 'complete'
+                          ? 'text-emerald-400'
+                          : step.status === 'active'
+                          ? 'text-blue-400'
+                          : 'text-gray-700'
+                      }`}>
+                        {step.label}
+                      </span>
+                      {/* Sub-label for mobile context if needed */}
+                      {step.status === 'active' && (
+                        <span className="md:hidden text-[9px] text-blue-500/50 uppercase tracking-tighter">In Progress</span>
+                      )}
+                    </div>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          <div className="bg-blue-500/[0.02] border border-blue-500/5 rounded-xl p-8 mb-12">
-            <div className="flex items-start gap-6">
+          <div className="bg-blue-500/[0.02] border border-blue-500/5 rounded-xl p-6 md:p-8 mb-12">
+            <div className="flex items-start gap-4 md:gap-6">
               <Search className="w-5 h-5 text-blue-500/50 flex-shrink-0 mt-1" />
               <div>
                 <h3 className="text-white text-sm font-medium mb-4">What happens next</h3>
-                <div className="space-y-6">
+                <div className="space-y-4 md:space-y-6">
                   {[
                     'Your intake is cross-referenced against official law using AI-assisted research.',
                     'A human reviewer verifies research findings and finalizes your report.',
                     'Escalation flags are added for areas requiring professional review.',
                     'Your Readiness Artifact is delivered to your email with source citations.'
                   ].map((text, i) => (
-                    <div key={i} className="flex items-start gap-4">
+                    <div key={i} className="flex items-start gap-3 md:gap-4">
                       <div className="w-5 h-5 rounded-lg bg-blue-500/5 text-blue-500/50 text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5 border border-blue-500/10 font-bold">
                         {i + 1}
                       </div>
