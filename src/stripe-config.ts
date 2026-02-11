@@ -13,6 +13,10 @@ const STRIPE_MODE = import.meta.env.VITE_STRIPE_MODE || 'test';
 
 const getPriceId = () => {
   if (STRIPE_MODE === 'live') {
+    // Check for internal test override first
+    const testPriceId = import.meta.env.VITE_STRIPE_PRICE_ID_INTERNAL_TEST;
+    if (testPriceId) return testPriceId;
+
     return import.meta.env.VITE_STRIPE_PRICE_ID_LIVE || 'price_1SksE3Bm1NepJXMzob4V7dzl';
   }
   return import.meta.env.VITE_STRIPE_PRICE_ID_TEST || 'price_1SlUdKBm1NepJXMzGA6BmwUo';
