@@ -53,7 +53,7 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
               </span>
             </div>
             <h1 className="text-4xl sm:text-6xl font-serif text-white mb-8 leading-[1.1]">
-              Know Where You Stand<br />Before Portugal Fines You
+              Know where you stand<br />before Portugal fines you
             </h1>
             <p className="text-lg text-gray-500 font-light mb-4 max-w-3xl mx-auto leading-relaxed">
               Avoid penalties, blocked permits, and surprise tax bills. Get a detailed review of your specific compliance situation with escalation flags and evidence-backed findings.
