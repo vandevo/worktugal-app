@@ -13,10 +13,6 @@ const STRIPE_MODE = import.meta.env.VITE_STRIPE_MODE || 'test';
 
 const getPriceId = () => {
   if (STRIPE_MODE === 'live') {
-    // Check for internal test override first (e.g. for €1 validation)
-    const testPriceId = import.meta.env.VITE_STRIPE_PRICE_ID_INTERNAL_TEST;
-    if (testPriceId) return testPriceId;
-
     return import.meta.env.VITE_STRIPE_PRICE_ID_LIVE || 'price_1SksE3Bm1NepJXMzob4V7dzl';
   }
   return import.meta.env.VITE_STRIPE_PRICE_ID_TEST || 'price_1SlUdKBm1NepJXMzGA6BmwUo';
@@ -28,7 +24,7 @@ export const STRIPE_PRODUCTS: Product[] = [
     priceId: getPriceId(),
     name: 'Compliance Readiness Review',
     description: 'A detailed compliance readiness assessment based on your intake. Includes AI-assisted research cross-referenced against official sources, verified by a human reviewer. Educational only, not tax advice.',
-    price: import.meta.env.VITE_STRIPE_PRICE_ID_INTERNAL_TEST ? 1.00 : 49.00,
+    price: 49.00,
     currency: 'eur',
     currencySymbol: '€',
     mode: 'payment'
