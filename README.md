@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2026-02-09 (v1.3.2)
+**Last Updated:** 2026-02-11 (v1.3.3)
 
 ---
 
@@ -55,7 +55,7 @@ Internal doctrine: *"If it does not enforce readiness or transfer responsibility
 
 ---
 
-## Current Metrics (as of 2026-02-03)
+## Current Metrics (as of 2026-02-11)
 
 | Metric | Count | Notes |
 |--------|-------|-------|
@@ -65,8 +65,8 @@ Internal doctrine: *"If it does not enforce readiness or transfer responsibility
 | **HOT Leads** (high risk + interested) | 7 | Ready to buy |
 | **Email Marketing Consent** | 49 | Can legally email them |
 | **Accountant Applications** | 7 | Pending review |
-| **Paid Compliance Reviews** | 4 | All test transactions |
-| **Revenue from Customers** | €0 | Outreach not yet executed |
+| **Paid Compliance Reviews** | 5 | 4 test + 1 internal pipeline validation |
+| **Revenue from Customers** | €0 | Outreach execution starting now |
 
 ---
 
@@ -80,41 +80,32 @@ Internal doctrine: *"If it does not enforce readiness or transfer responsibility
 - **React Hook Form 7.60.0**: Form state management
 - **Zod 4.0.5**: Runtime type validation
 
-### Styling
+### Styling & UI/UX
 - **Tailwind CSS 3.4.17**: Utility-first CSS framework
 - **Framer Motion 12.23.6**: Animation library
 - **Lucide React 0.562.0**: Icon library
+- **Obsidian Design System v1.3**: Authoritative dark theme with serif typography
+- **Sentence Case Protocol**: Global UI editorial standard for professional tone
 
 ### Backend & Database
 - **Supabase 2.90.1**: PostgreSQL database, authentication, storage, Edge Functions
 - **PostgreSQL 17**: Relational database with Row Level Security (RLS)
+- **Performance Optimized**: Missing FK indexes added and RLS query evaluation optimized
 - **17 Edge Functions**: Serverless functions for Stripe, Make.com, form submissions, AI research
 
 ### Payment Processing
 - **Stripe**: One-time payments (€49 Detailed Compliance Review)
+- **Pipeline Validated**: End-to-end €1.00 internal test successful (Feb 11)
 - **Stripe Products**: `Compliance Readiness Review` configured in live mode
 
 ### Deployment
 - **Cloudflare Pages**: CDN, continuous deployment from GitHub `main` branch
+- **Public Submodules**: Submodule dependency (`prompts`) transition to public for CI/CD reliability
 - **Supabase Cloud**: Managed PostgreSQL, Auth, Storage, Edge Functions
 
 ### Automation
-- **Make.com**: Webhook orchestration for email notifications and AI research delivery
+- **Make.com**: Webhook orchestration for email notifications, Airtable logging, and AI research delivery
 - **Supabase Webhooks**: Database triggers for lead processing
-
-### AI Research
-- **Regulatory Research Engine**: Real-time access to official tax laws and citations
-- **Automated Drafting System**: AI-assisted drafting for human-verified reports
-- **Integration**: Server-side only (Edge Function), human review mandatory before delivery
-
-### Development Environment
-- **Cursor IDE**: Primary development environment (Windows)
-- **Obsidian Design System v1.2**: Formal design specification and Cursor rules for UI consistency
-- **MCP Servers**: 
-  - **Supabase & Cloudflare**: Direct database and deployment access
-  - **Google Stitch**: AI-driven UI design generation and code extraction
-  - **Cal.com**: Real-time scheduling and expert booking management
-- **Local Path**: `C:\Worktugal apps\worktugal-app`
 
 ---
 
@@ -369,6 +360,13 @@ We sell **permission to proceed**, not advice, execution, or software.
 
 ## Recent Updates
 
+### 2026-02-11: Pipeline Validation & UX Refinement — v1.3.3
+- **Stripe Pipeline Validation**: Successfully executed a full end-to-end €1.00 internal test, verifying Stripe -> Edge Function -> Make.com automation path (including Airtable and Telegram alerts).
+- **Editorial Standardization**: Implemented the **"Sentence Case Enforcement Protocol"** across all core landing pages and intake forms to ensure a high-fidelity, professional tone.
+- **Performance Optimization**: Added missing foreign key indexes and optimized Row Level Security (RLS) policies in Supabase for better query performance.
+- **Mobile UX/UI**: Refactored the compliance review success page and timeline for better mobile responsiveness, removing visual artifacts and improving accessibility.
+- **Submodule Resilience**: Resolved Cloudflare deployment issues by transitioning the `prompts` submodule to a public repository, ensuring stable CI/CD.
+
 ### 2026-02-09: Security Hardening & Ops Automation — v1.3.2
 - **Database Self-Healing**: Integrated **Supabase Cron (`pg_cron`)** with an automated health check (`check_stalled_ai_research`) to identify and resolve stalled intelligence tasks.
 - **Security Audit & Fixes**: Resolved Supabase security linter warnings by securing function search paths and tightening RLS policies across all primary lead tables.
@@ -408,7 +406,7 @@ We sell **permission to proceed**, not advice, execution, or software.
 - Updated `research-compliance` Edge Function to pipe data between processing layers
 - Configured secure credentials in Supabase secrets
 - Fallback logic: If advanced drafting is unavailable, reverts to standard template
--
+
 ### 2026-02-06: Pre-Launch Page Refresh — v1.2
 - Replaced disabled "Coming Soon" buttons on checkup results with active CTA to paid compliance review (49 EUR)
 - Added persistent sticky CTA banner on results page when issues are found

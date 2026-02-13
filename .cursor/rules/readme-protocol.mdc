@@ -1,0 +1,36 @@
+---
+description: Protocol for maintaining and updating the project README.md to ensure consistency, high-fidelity documentation, and zero accidental deletions.
+globs: ["README.md"]
+---
+
+# README Update Protocol
+
+This rule ensures that the `README.md` remains the high-fidelity source of truth for the Worktugal project. It prevents accidental data loss and enforces a consistent "building on top" philosophy.
+
+## Critical Guardrails
+
+- **NO DELETIONS**: Never remove existing sections (e.g., Database Schema, Edge Functions, Strategic Context) unless explicitly instructed or if the system has been retired.
+- **READ BEFORE WRITE**: You MUST read the entire `README.md` file before attempting any update to ensure you have full context of the existing content.
+- **INCREMENTAL HISTORY**: New updates in the "Recent Updates" section must be prepended (added to the top) of the list. Do not overwrite or delete historical update logs.
+- **METRICS SYNC**: When updating "Recent Updates", you must also review and update the "Current Metrics" and "Last Updated" date at the top of the file.
+
+## Execution Workflow
+
+1.  **Read**: Call `read_file` on `README.md`.
+2.  **Audit**: Identify the specific sections needing update (e.g., version number, metrics, roadmap, recent updates).
+3.  **Update Strategy**:
+    - **Prefer `StrReplace`**: For targeted changes (metrics, date, small roadmap tweaks).
+    - **Full `Write` (High Caution)**: Only use if major restructuring is required. You MUST verify the final content contains 100% of the original sections.
+4.  **Verification**: After writing, check the total line count or read the file again to ensure no truncation occurred.
+
+## Versioning & Metadata
+
+- Follow the semantic versioning logic established in the file (e.g., v1.3.3).
+- Always use the ISO date format (YYYY-MM-DD) for the "Last Updated" field.
+- Ensure the "Strategic Context" section remains aligned with the Gatekeeper identity.
+
+## Prohibited Actions
+
+- DO NOT use the `Write` tool with partial content.
+- DO NOT remove "Legacy" sections—they provide critical context for the project's evolution.
+- DO NOT simplify or "clean up" detailed technical tables (Database Schema, Edge Functions) unless those systems have changed.
