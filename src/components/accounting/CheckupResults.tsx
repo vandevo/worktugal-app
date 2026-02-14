@@ -121,6 +121,10 @@ export const CheckupResults: React.FC = () => {
           {/* Header */}
           <div className="bg-white/[0.02] backdrop-blur-3xl rounded-3xl border border-white/[0.05] p-8 md:p-12">
             <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/5 border border-blue-500/10 mb-6">
+                <span className="w-1 h-1 rounded-full bg-blue-500 animate-pulse" />
+                <span className="text-[9px] uppercase tracking-[0.2em] text-blue-400/80 font-bold">Regulatory Pulse: February 2026</span>
+              </div>
               <h1 className="text-4xl font-serif text-white mb-4">Readiness Report</h1>
               <p className="text-gray-500 font-light mb-6">
                 Based on your answers, here's your current compliance status.

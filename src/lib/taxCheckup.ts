@@ -49,7 +49,7 @@ export function calculateComplianceScore(data: TaxCheckupFormData): ComplianceSc
 
     // Convert enhanced flags to display strings (with additional context)
     enhancedFlags.forEach(flag => {
-      const displayMessage = `${flag.message}${flag.penaltyInfo ? ` - ${flag.penaltyInfo}` : ''}${flag.deadline ? ` (Deadline: ${flag.deadline})` : ''}`;
+      const displayMessage = `${flag.message}${flag.penaltyInfo ? ` - ${flag.penaltyInfo}` : ''}${flag.deadline ? ` (Deadline: ${flag.deadline})` : ''}${flag.legalSource ? ` [Source: ${flag.legalSource}]` : ''}`;
 
       if (flag.severity === 'critical' || flag.severity === 'high') {
         redFlags.push(displayMessage);

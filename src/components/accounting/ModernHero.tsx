@@ -29,7 +29,7 @@ export const ModernHero: React.FC = () => {
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-10"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
-          <span className="text-xs font-medium text-gray-400">Updated for 2025 Regulations</span>
+          <span className="text-xs font-medium text-gray-400">Updated for 2026 Regulations</span>
         </motion.div>
 
         {/* Headline */}

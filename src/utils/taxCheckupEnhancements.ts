@@ -5,8 +5,8 @@
  * to improve the Tax Compliance Checkup experience.
  *
  * SAFE TO UPDATE: This file only adds intelligence, doesn't break existing functionality
- * Last Updated: 2025-01-01
- * Data Source: tax_checkup_leads table (96 real user submissions analyzed)
+ * Last Updated: 2026-02-11
+ * Data Source: tax_checkup_leads table (92 real user submissions analyzed)
  * Regulatory Rules: Integrated from official Portugal Tax Authority sources
  */
 
@@ -17,8 +17,8 @@ import { TaxCheckupFormData } from '../lib/taxCheckup';
 // ============================================================================
 
 export const USER_INSIGHTS = {
-  lastAnalyzed: '2025-01-01',
-  totalSubmissions: 96,
+  lastAnalyzed: '2026-02-11',
+  totalSubmissions: 92,
   dataSource: 'tax_checkup_leads',
 
   // Real patterns from users
@@ -104,6 +104,8 @@ export interface EnhancedRedFlag {
   actionRequired: string;
   penaltyInfo?: string;
   deadline?: string;
+  legalSource?: string; // e.g., "Artigo 53.º do CIVA"
+  sourceUrl?: string;   // Link to official Diário da República or AT portal
 }
 
 /**
@@ -150,7 +152,9 @@ export function detectEnhancedRedFlags(data: TaxCheckupFormData): EnhancedRedFla
       message: 'Annual income over €15,000 requires mandatory VAT registration',
       actionRequired: 'Register for VAT at Finanças Portal',
       penaltyInfo: 'Late registration penalties + 10% fine on unreported transactions',
-      deadline: 'Before next quarterly filing'
+      deadline: 'Before next quarterly filing',
+      legalSource: 'Artigo 53.º do CIVA',
+      sourceUrl: 'https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/civa_rep/Pages/iva53.aspx'
     });
   }
 
@@ -212,31 +216,29 @@ export function detectEnhancedRedFlags(data: TaxCheckupFormData): EnhancedRedFla
 
   // MEDIUM: 15% Expense Justification Rule (applies to 0.75 coefficient users)
   if (data.activity_opened === true && hasHighIncome) {
+    const currentYear = new Date().getFullYear();
     flags.push({
       id: 'expense_justification_15pct',
       severity: 'medium',
       message: '15% of your gross income must be justified with documented expenses',
       actionRequired: 'Request NIF on ALL professional purchases. Classify expenses on e-fatura portal',
       penaltyInfo: 'If you fall short, the difference is added back to taxable income (20-30% tax increase)',
-      deadline: 'February 25, 2025 (for 2024 expenses)'
+      deadline: `February 25, ${currentYear} (for ${currentYear - 1} expenses)`,
+      legalSource: 'Artigo 31.º, n.º 2 do CIRS',
+      sourceUrl: 'https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs31.aspx'
     });
   }
 
-  // MEDIUM: Quarterly VAT Return (NEW July 2025 requirement)
+  // MEDIUM: Quarterly VAT Return (Mandatory requirement)
   if (data.activity_opened === true && data.has_vat_number === false) {
-    const today = new Date();
-    const july2025 = new Date('2025-07-01');
-
-    if (today >= july2025) {
-      flags.push({
-        id: 'quarterly_vat_return_2025',
-        severity: 'medium',
-        message: 'NEW 2025: VAT-exempt freelancers must file quarterly turnover returns',
-        actionRequired: 'Declare your quarterly turnover in Portugal and EU (even if VAT-exempt)',
-        penaltyInfo: 'Mandatory starting July 1, 2025',
-        deadline: 'End of month following each quarter (Oct 31, Jan 31, Apr 30, Jul 31)'
-      });
-    }
+    flags.push({
+      id: 'quarterly_vat_return_standard',
+      severity: 'medium',
+      message: 'VAT-exempt freelancers must file quarterly turnover returns',
+      actionRequired: 'Declare your quarterly turnover in Portugal and EU (even if VAT-exempt)',
+      penaltyInfo: 'Mandatory reporting requirement for all opened activities',
+      deadline: 'End of month following each quarter (Jan 31, Apr 30, Jul 31, Oct 31)'
+    });
   }
 
   // MEDIUM: Organized Accounting Requirement (€200k+ income)
@@ -432,14 +434,15 @@ export const FEATURE_FLAGS = {
 
 export const ENHANCEMENT_VERSION = {
   core: '1.0.0',                    // Original Tax Checkup
-  enhancements: '1.2.3',            // This enhancement layer - Data update Jan 1, 2025
-  dataSourceDate: '2025-01-01',
-  nextUpdateScheduled: '2025-02-15', // Re-analyze when at 150+ submissions
+  enhancements: '1.3.0',            // Dynamic dates + Feb 2026 update
+  dataSourceDate: '2026-02-11',
+  nextUpdateScheduled: '2026-03-15', // Monthly re-analysis
   changesFromCore: [
+    'Dynamic year-based deadline generation',
     'Enhanced red flag detection with severity levels',
     'Conditional helper text based on user context',
     'Data-driven option ordering',
-    'Real user pattern insights (96 submissions - updated Jan 1, 2025)',
+    'Real user pattern insights (92 submissions - updated Feb 11, 2026)',
     'Actionable guidance with penalties and deadlines',
     'VAT 125% immediate loss rule',
     '15% expense justification warning (Feb 25 deadline)',
