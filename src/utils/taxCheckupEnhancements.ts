@@ -17,9 +17,9 @@ import { TaxCheckupFormData } from '../lib/taxCheckup';
 // ============================================================================
 
 export const USER_INSIGHTS = {
-  lastAnalyzed: '2026-02-11',
+  lastAnalyzed: '2026-02-14',
   lastVerifiedAt: '2026-02-14', // Official source verification date
-  totalSubmissions: 92,
+  totalSubmissions: 130, // Updated from live database count
   dataSource: 'tax_checkup_leads',
 
   // Real patterns from users

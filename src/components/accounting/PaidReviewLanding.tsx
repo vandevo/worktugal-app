@@ -13,6 +13,7 @@ import {
   Search
 } from 'lucide-react';
 import { ComplianceDisclaimer } from '../ComplianceDisclaimer';
+import { USER_INSIGHTS } from '../../utils/taxCheckupEnhancements';
 
 interface PaidReviewLandingProps {
   onCheckout: () => void;
@@ -58,8 +59,8 @@ export const PaidReviewLanding: React.FC<PaidReviewLandingProps> = ({
             <p className="text-lg text-gray-500 font-light mb-4 max-w-3xl mx-auto leading-relaxed">
               Avoid penalties, blocked permits, and surprise tax bills. Get a detailed review of your specific compliance situation with escalation flags and evidence-backed findings.
             </p>
-            <p className="text-xs text-gray-600 uppercase tracking-widest font-bold mt-8">
-              Based on analysis of 90+ freelancer compliance situations in Portugal
+            <p className="text-xs text-gray-600 tracking-widest font-bold mt-8">
+              Based on analysis of {USER_INSIGHTS.totalSubmissions}+ freelancer compliance situations in Portugal
             </p>
           </motion.div>
 
