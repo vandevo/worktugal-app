@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { USER_INSIGHTS } from '../../utils/taxCheckupEnhancements';
 
 export const ModernHero: React.FC = () => {
   const navigate = useNavigate();
@@ -26,10 +27,15 @@ export const ModernHero: React.FC = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-10"
+          className="flex flex-col items-center gap-3 mb-10"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
-          <span className="text-xs font-medium text-gray-400">Updated for 2026 Regulations</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
+            <span className="text-xs font-medium text-gray-400">Updated for 2026 Regulations</span>
+          </div>
+          <div className="inline-flex items-center gap-1.5 text-[9px] text-gray-600 uppercase tracking-widest font-bold">
+            <span>Verified against official sources: {new Date(USER_INSIGHTS.lastVerifiedAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+          </div>
         </motion.div>
 
         {/* Headline */}

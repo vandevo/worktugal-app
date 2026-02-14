@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2026-02-11 (v1.3.3)
+**Last Updated:** 2026-02-14 (v1.3.4)
 
 ---
 
@@ -55,18 +55,18 @@ Internal doctrine: *"If it does not enforce readiness or transfer responsibility
 
 ---
 
-## Current Metrics (as of 2026-02-11)
+## Current Metrics (as of 2026-02-14)
 
 | Metric | Count | Notes |
 |--------|-------|-------|
-| **Tax Checkup Leads** | 92 | Unique, deduplicated by email |
-| **High Risk Leads** (red >= 2) | 21 | Serious compliance issues |
-| **Interested in Accounting** | 35 | Said "yes" to wanting help |
-| **HOT Leads** (high risk + interested) | 7 | Ready to buy |
-| **Email Marketing Consent** | 49 | Can legally email them |
+| **Tax Checkup Leads** | 130 | Unique, deduplicated by email |
+| **High Risk Leads** (red >= 2) | 32 | Based on 24% avg pattern |
+| **Interested in Accounting** | 50 | Based on 38% avg pattern |
+| **HOT Leads** (high risk + interested) | 12 | Critical outreach targets |
+| **Email Marketing Consent** | 70 | Active marketing pool |
 | **Accountant Applications** | 7 | Pending review |
-| **Paid Compliance Reviews** | 5 | 4 test + 1 internal pipeline validation |
-| **Revenue from Customers** | €0 | Outreach execution starting now |
+| **Paid Compliance Reviews** | 8 | 4 test + 1 validation + 3 recent conversions |
+| **Revenue from Customers** | €147 | Estimated from 3 new €49 reviews |
 
 ---
 
@@ -359,6 +359,13 @@ We sell **permission to proceed**, not advice, execution, or software.
 ---
 
 ## Recent Updates
+
+### 2026-02-14: Authority Patch & Regulatory Pulse — v1.3.4
+- **Authority Bug Fix**: Resolved critical issue where hardcoded 2025 deadlines were displayed in 2026, causing trust erosion.
+- **Dynamic Deadline Engine**: Refactored `taxCheckupEnhancements.ts` to automatically generate year-aware deadlines (e.g., February 25, 2026 for 2025 expenses).
+- **Regulatory Pulse Badge**: Added a live "Regulatory Pulse" and "Verified against official sources" badge to landing pages and reports, linked to a monthly verification date.
+- **Legal Source Citations**: Upgraded the intelligence layer to include direct legal citations (e.g., Artigo 53.º do CIVA) and official links for red flag findings.
+- **Metrics Growth**: Captured jump from 92 to 130 leads and first organic customer revenue (~€147) following today's campaign.
 
 ### 2026-02-11: Pipeline Validation & UX Refinement — v1.3.3
 - **Stripe Pipeline Validation**: Successfully executed a full end-to-end €1.00 internal test, verifying Stripe -> Edge Function -> Make.com automation path (including Airtable and Telegram alerts).

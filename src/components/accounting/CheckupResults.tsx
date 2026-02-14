@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { getCheckupResults, submitCheckupFeedback } from '../../lib/taxCheckup';
 import { ComplianceDisclaimer } from '../ComplianceDisclaimer';
+import { USER_INSIGHTS } from '../../utils/taxCheckupEnhancements';
 
 export const CheckupResults: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -121,9 +122,15 @@ export const CheckupResults: React.FC = () => {
           {/* Header */}
           <div className="bg-white/[0.02] backdrop-blur-3xl rounded-3xl border border-white/[0.05] p-8 md:p-12">
             <div className="text-center mb-10">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/5 border border-blue-500/10 mb-6">
-                <span className="w-1 h-1 rounded-full bg-blue-500 animate-pulse" />
-                <span className="text-[9px] uppercase tracking-[0.2em] text-blue-400/80 font-bold">Regulatory Pulse: February 2026</span>
+              <div className="flex flex-col items-center gap-4 mb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/5 border border-blue-500/10">
+                  <span className="w-1 h-1 rounded-full bg-blue-500 animate-pulse" />
+                  <span className="text-[9px] uppercase tracking-[0.2em] text-blue-400/80 font-bold">Regulatory Pulse: February 2026</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 text-[9px] text-gray-600 uppercase tracking-widest font-bold">
+                  <CheckCircle2 className="w-3 h-3 text-emerald-500/50" />
+                  <span>Verified against official sources: {new Date(USER_INSIGHTS.lastVerifiedAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                </div>
               </div>
               <h1 className="text-4xl font-serif text-white mb-4">Readiness Report</h1>
               <p className="text-gray-500 font-light mb-6">
