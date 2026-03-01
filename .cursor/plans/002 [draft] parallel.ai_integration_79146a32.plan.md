@@ -114,7 +114,7 @@ sequenceDiagram
 
 **What it does:** When a paid review is submitted, a new Edge Function calls Parallel.ai to research the specific regulations that apply to that user's situation. The result is stored in the database so the owner just validates instead of researching from scratch.
 
-**New Edge Function: `research-compliance/index.ts**`
+**New Edge Function: `research-compliance/index.ts`**
 
 - Triggered by `submit-paid-review` after form submission (async, does not block the user)
 - Reads `form_data` from `paid_compliance_reviews`
@@ -154,7 +154,7 @@ sequenceDiagram
 
 **What it does:** Replaces hardcoded rules in `taxCheckupEnhancements.ts` with a database-driven rules engine that Parallel.ai keeps current.
 
-**New database table: `regulatory_rules**`
+**New database table: `regulatory_rules`**
 
 ```
 id, rule_category, rule_id, title, description,
@@ -164,7 +164,7 @@ effective_from, effective_until, is_active,
 created_at, updated_at
 ```
 
-**New Edge Function: `update-regulatory-rules/index.ts**`
+**New Edge Function: `update-regulatory-rules/index.ts`**
 
 - Triggered on a schedule (weekly via pg_cron or external cron)
 - For each rule category (VAT, NISS, NIF, NHR/IFICI, crypto, cross-border):

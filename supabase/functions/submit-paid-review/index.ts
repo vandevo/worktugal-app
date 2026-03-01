@@ -100,20 +100,39 @@ Deno.serve(async (req: Request) => {
       }
     }
 
-    // Trigger AI research via Parallel.ai (non-blocking, fire-and-forget)
-    // The research-compliance function runs independently and updates the review
-    // with ai_research_results and ai_draft_report when complete.
-    // If it fails, the review remains in 'submitted' status and works manually as before.
+    // Trigger AI research via Parallel.ai (managed non-blocking)
+    // We use EdgeRuntime.waitUntil to ensure the fetch completes even after the response is sent.
     const researchUrl = `${Deno.env.get('SUPABASE_URL')}/functions/v1/research-compliance`;
-    fetch(researchUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')}`,
-      },
-      body: JSON.stringify({ review_id }),
-    }).catch(err => console.error('AI research trigger error (non-blocking):', err));
-    console.log('AI research triggered for review:', review_id);
+    const triggerResearch = async () => {
+      try {
+        const res = await fetch(researchUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')}`,
+          },
+          body: JSON.stringify({ review_id }),
+        });
+        if (!res.ok) {
+          const text = await res.text();
+          console.error(`AI research trigger failed with status ${res.status}: ${text}`);
+        } else {
+          console.log('AI research trigger successful for review:', review_id);
+        }
+      } catch (err) {
+        console.error('AI research trigger connection error:', err);
+      }
+    };
+
+    // @ts-ignore: EdgeRuntime is available in Supabase environment
+    if (typeof EdgeRuntime !== 'undefined') {
+      // @ts-ignore
+      EdgeRuntime.waitUntil(triggerResearch());
+    } else {
+      // Fallback for local development or if global is missing
+      triggerResearch().catch(err => console.error('AI research trigger error (fallback):', err));
+    }
+    console.log('AI research trigger queued for review:', review_id);
 
     return new Response(
       JSON.stringify({ success: true, review_id: review.id }),

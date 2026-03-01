@@ -39,25 +39,33 @@ Deno.serve(async (req: Request) => {
       user_id: payload.user_id,
     };
 
-    console.log("Firing webhook to Make.com (non-blocking):", webhookPayload);
-
-    // Fire-and-forget: Send to Make.com in background without waiting for response
-    // This prevents Make.com's text/plain response from breaking our signup flow
-    fetch(MAKECOM_WEBHOOK_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(webhookPayload),
-    }).then(response => {
-      if (response.ok) {
-        console.log("Make.com webhook delivered successfully");
-      } else {
-        console.error("Make.com webhook failed with status:", response.status);
+    const sendWebhook = async () => {
+      try {
+        console.log("Firing webhook to Make.com:", webhookPayload);
+        const res = await fetch(MAKECOM_WEBHOOK_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(webhookPayload),
+        });
+        if (res.ok) {
+          console.log("Make.com webhook delivered successfully");
+        } else {
+          console.error("Make.com webhook failed with status:", res.status);
+        }
+      } catch (err) {
+        console.error("Make.com webhook error:", err);
       }
-    }).catch(error => {
-      console.error("Make.com webhook error:", error);
-    });
+    };
+
+    // @ts-ignore: EdgeRuntime is available in Supabase environment
+    if (typeof EdgeRuntime !== "undefined") {
+      // @ts-ignore
+      EdgeRuntime.waitUntil(sendWebhook());
+    } else {
+      sendWebhook().catch(err => console.error("Make.com webhook error (fallback):", err));
+    }
 
     // Return success immediately without waiting for Make.com
     return new Response(
