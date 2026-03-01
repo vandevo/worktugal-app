@@ -1,0 +1,40 @@
+---
+description: "Master Switch for the Prompt Operating System. Use this to classify tasks and load context via the Core Router."
+globs: ["**/*"]
+---
+
+# Prompt OS: Core Router Protocol
+
+This rule enforces the **High-Fidelity Prompt Operating System** (v2.2) protocol. It transforms Cursor into a specialized execution engine by loading specific modules from the `@prompts/` directory.
+
+## Initialization Workflow
+
+When the user says "activate" or "load router" or references `@prompts/core-router.md`:
+
+1.  **Read**: Access `prompts/core-router.md` to identify the current mode.
+2.  **Classify**: Determine the required mode (BUILD: CORE, BUILD: ARCHITECT, GROWTH: MONEY, etc.).
+3.  **Load**: Identify and load the specific modules (max 3) listed for that mode.
+4.  **Enforce**: Apply the "Rule of 3" and the "Velocity Bias" from the router.
+
+## Mode Reference Table
+
+| Mode | Trigger | Modules to Load (Max 3) |
+| :--- | :--- | :--- |
+| **BUILD: CORE** | Small code, fixes (<50 lines) | `stack-audit-2026` + `clear-language` |
+| **BUILD: ARCHITECT** | New features, refactors | `stack-audit-2026` + `unified-operator` |
+| **GROWTH: MONEY** | Pricing, offers, funnels | `revenue-engine` + `solopreneur-engine` + `operator-truth` |
+| **GROWTH: SOCIAL** | Posts, LinkedIn, repurposing | `social-distribution` + `clear-language` |
+| **STRATEGY** | Life decisions, pivots, anxiety | `ai-cofounder` + `precision-protocol` + `operator-truth` |
+| **WRITING: BASIC** | Emails, docs, descriptions | `email-engine` + `sentence-case` + `clear-language` |
+| **WRITING: DEEP** | Blogs, guides, SEO | `blog-engine` + `sentence-case` |
+| **REVIEW** | Audit, critique, tear-down | `precision-protocol` + `operator-truth` + `clear-language` |
+
+## Execution Guidelines
+
+-   **Zero Cognitive Drag**: Do NOT load unnecessary context.
+-   **Rule of 3**: Never exceed 3 active prompt modules in a single session.
+-   **Truth Protocol**: When in GROWTH or STRATEGY modes, prioritize blunt honesty and revenue impact over "AI politeness."
+-   **Identity Narrative**: Only provide full "Survivor Story" in **STRATEGY** mode; otherwise, focus on "Clarity, Revenue, Automation, Sovereignty."
+
+## Trigger Command
+Whenever the user starts a session or requests a major pivot, ask: *"Which mode are we in? (CORE, ARCHITECT, MONEY, SOCIAL, STRATEGY, WRITING, REVIEW)"* or simply type `activate`.
