@@ -11,6 +11,86 @@
  */
 
 import { TaxCheckupFormData } from '../lib/taxCheckup';
+import { supabase } from '../lib/supabase';
+
+// ============================================================================
+// DYNAMIC RULES (Phase 2 - Regulatory Rules Database)
+// ============================================================================
+
+export interface RegulatoryRule {
+  rule_id: string;
+  rule_category: string;
+  title: string;
+  threshold_value: number;
+  threshold_currency: string;
+  source_name: string;
+  source_url: string;
+  penalty_info: string;
+  deadline_info: string;
+}
+
+/**
+ * Fallback rules (Hardcoded sources of truth if DB is unavailable)
+ * Matches seeding in migration 20260301022411
+ */
+const HARDCODED_FALLBACK_RULES: Record<string, RegulatoryRule> = {
+  vat_exemption_threshold: {
+    rule_id: 'vat_exemption_threshold',
+    rule_category: 'vat',
+    title: 'VAT Exemption Threshold (Article 53)',
+    threshold_value: 15000,
+    threshold_currency: 'EUR',
+    source_name: 'Autoridade Tributária (AT)',
+    source_url: 'https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/civa_rep/Pages/iva53.aspx',
+    penalty_info: 'Late registration penalties + 10% fine on unreported transactions.',
+    deadline_info: 'Registration required before reaching €15,000 annual turnover.'
+  },
+  vat_immediate_loss_threshold: {
+    rule_id: 'vat_immediate_loss_threshold',
+    rule_category: 'vat',
+    title: 'VAT Immediate Loss Threshold (125%)',
+    threshold_value: 18750,
+    threshold_currency: 'EUR',
+    source_name: 'Autoridade Tributária (AT)',
+    source_url: 'https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/civa_rep/Pages/iva53.aspx',
+    penalty_info: 'Liable for all uncharged VAT retroactively + penalties + interest.',
+    deadline_info: 'Immediate registration required upon crossing threshold.'
+  },
+  expense_justification_percentage: {
+    rule_id: 'expense_justification_percentage',
+    rule_category: 'income_tax',
+    title: 'Expense Justification Requirement',
+    threshold_value: 15,
+    threshold_currency: 'PERCENT',
+    source_name: 'Autoridade Tributária (AT)',
+    source_url: 'https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs31.aspx',
+    penalty_info: 'Difference added back to taxable income (20-30% tax increase).',
+    deadline_info: 'Expenses must be classified by February 25th.'
+  }
+};
+
+/**
+ * Fetch a specific regulatory rule from Supabase with fallback
+ */
+export async function getRegulatoryRule(ruleId: string): Promise<RegulatoryRule> {
+  try {
+    const { data, error } = await supabase
+      .from('regulatory_rules')
+      .select('*')
+      .eq('rule_id', ruleId)
+      .eq('is_active', true)
+      .maybeSingle();
+
+    if (error || !data) {
+      return HARDCODED_FALLBACK_RULES[ruleId] || { rule_id: ruleId } as RegulatoryRule;
+    }
+
+    return data as RegulatoryRule;
+  } catch (err) {
+    console.error(`Error fetching rule ${ruleId}:`, err);
+    return HARDCODED_FALLBACK_RULES[ruleId] || { rule_id: ruleId } as RegulatoryRule;
+  }
+}
 
 // ============================================================================
 // REAL USER INSIGHTS (Based on Actual Data)
