@@ -1,0 +1,151 @@
+Answer: Your 865 quiz completions are real demand, but you captured almost zero acquisition intelligence, so you cannot do channel level research from this file without fixing tracking.
+
+The Cost: You spent attention to generate 865 completions and got no user identity, no email, and no UTM data, so you cannot retarget, attribute, or convert. If you repeat this, you will burn another cycle for the same outcome.
+
+Next Move: Lock instrumentation first, then rerun the quiz for 7 days with email gate and UTMs, otherwise stop and do not publish more traffic.
+
+Full audit of quiz_completions_rows.csv
+
+Dataset integrity, verified
+[Verified] Rows: 865
+[Verified] Columns: 10 core fields plus 1 parsed helper
+[Verified] Date range: 2025 06 06 to 2026 03 03
+[Verified] user_id is 100 percent null. Every row has user_id empty. This means you have no identity linkage.
+[Verified] utm_source is direct for 865 of 865, utm_medium is none for 865 of 865, utm_campaign is none for 865 of 865. This means attribution is effectively zero.
+
+Score distribution, verified
+[Verified] Score min: 10
+[Verified] Score max: 97
+[Verified] Score mean: 72.58
+[Verified] Median score: 76
+[Verified] Most users are not random, the median is high enough to indicate serious self selection.
+
+Completion time behavior, verified
+[Verified] completion_time numeric range: 13 to 7223
+[Verified] Median completion_time: 78
+[Verified] 75th percentile: 106
+[Inference] Units look like seconds for most users. 78 seconds median is plausible for a short quiz. The 7223 value is a long session outlier, likely tab left open.
+
+Answers schema, verified
+[Verified] The answers JSON contains 12 consistent keys:
+nif, employment, visa_status, bank_account, overstay_risk, tax_residency, monthly_income, social_security, aima_appointment, health_insurance, time_in_portugal, time_lived_in_portugal
+
+This is good, it means the quiz was structurally consistent.
+
+Dominant visa cohorts, verified
+Counts by visa_status:
+[Verified] eu_citizen: 256
+[Verified] d7_visa: 135
+[Verified] d8_visa: 96
+[Verified] temp_residence: 93
+[Verified] tourist: 50
+[Verified] permanent: 40
+[Verified] none: 38
+[Verified] family_reunion: 30
+[Verified] hqa_tech: 30
+[Verified] golden_visa: 25
+
+Interpretation:
+[Verified] Your audience was not “people outside Portugal only”. A large share are already EU citizens or already in some residency status.
+
+Highest intent cohorts by score, verified
+Mean score by visa_status:
+[Verified] hqa_tech: 82.17
+[Verified] temp_residence: 81.48
+[Verified] permanent: 80.33
+[Verified] d7_visa: 78.55
+[Verified] d8_visa: 75.40
+[Verified] eu_citizen: 74.09
+[Verified] tourist: 45.98
+[Verified] none: 39.66
+
+This is a clean signal:
+[Verified] Tourists and “none” are low intent, low readiness.
+[Verified] HQA tech and temp residence are high readiness and likely higher ability to pay.
+
+Income composition, verified
+monthly_income distribution:
+[Verified] 3480_plus: 423
+[Verified] 820_to_3479: 175
+[Verified] 870_to_3479: 144
+[Verified] below_820: 66
+[Verified] below_870: 57
+
+Interpretation:
+[Verified] This skew is relatively high income. That supports paid diagnostics.
+[Inference] Your ICP is not primarily low budget nomads.
+
+AIMA and tax residency signals, verified
+aima_appointment:
+[Verified] yes: 304
+[Verified] no: 259
+[Verified] null: 253
+[Verified] unsure: 49
+Mean score:
+[Verified] yes: 82.46
+[Verified] no: 63.09
+
+tax_residency:
+[Verified] yes: 523
+[Verified] no: 236
+[Verified] unsure: 106
+Mean score:
+[Verified] yes: 82.19
+[Verified] no: 55.43
+
+Interpretation:
+[Verified] People who already have AIMA appointment and are tax resident are far higher readiness.
+[Inference] Your best buyer segment is already inside Portugal’s system, trying to avoid mistakes, not just dreaming abroad.
+
+Time in Portugal, verified
+time_lived_in_portugal:
+[Verified] more_than_183: 446
+[Verified] not_yet: 194
+[Verified] less_than_90: 142
+[Verified] 90_to_183: 83
+Mean score:
+[Verified] more_than_183: 79.92
+[Verified] not_yet: 59.72
+
+Interpretation:
+[Verified] Over half the dataset are already living in Portugal over 183 days.
+This is not a pure relocation abroad audience. It is an in country compliance audience.
+
+Best combined segments, verified
+Segments with at least 15 records, ranked by mean score and stability:
+[Verified] temp_residence plus 820_to_3479, n 34, mean_score 83.65
+[Verified] hqa_tech plus 3480_plus, n 22, mean_score 83.23
+[Verified] d7_visa plus 3480_plus, n 72, mean_score 79.83
+[Verified] eu_citizen plus 820_to_3479, n 57, mean_score 78.18
+[Verified] d8_visa plus 3480_plus, n 85, mean_score 76.09
+
+This gives you 2 clear ICP lanes to research next:
+Lane 1: In country, temp residence, tax resident, AIMA appointment, mid to high income
+Lane 2: Tech pathway, HQA tech, high income
+
+What you cannot learn from this file
+[Verified] You cannot tell where they came from, all UTMs are blank.
+[Verified] You cannot contact them, no email, user_id is blank.
+[Verified] You cannot run cohort retention, no identity.
+
+What to research next, based on real signals in this dataset
+
+In country compliance buyers, already in Portugal, tax resident, AIMA appointment status varies, want mistake prevention
+
+HQA tech and high income applicants, Portugal as strategic base, high readiness, likely willing to pay for speed and correctness
+
+D8 high income remote earners, but treat as secondary until tracking works, because you cannot prove acquisition source here
+
+Instrumentation fixes you must implement before more research
+
+Add email capture, required, before results
+
+Store email in Supabase tied to the diagnostic row
+
+Store utm_source, utm_medium, utm_campaign from URL parameters correctly
+
+Generate a stable anonymous_id cookie to link multiple sessions before signup
+
+Write 1 conversion event to Stripe if user buys the paid report, store payment_status
+
+If you want, I can produce the exact Supabase table schema and the Cloudflare Pages form capture pattern to implement this cleanly in your stack.
