@@ -1,18 +1,5 @@
 {
   "mcpServers": {
-    "stitch": {
-      "command": "C:\\google-cloud-sdk\\google-cloud-sdk\\bin\\gcloud.cmd",
-      "args": [
-        "beta",
-        "services",
-        "mcp",
-        "run",
-        "stitch.googleapis.com"
-      ],
-      "env": {
-        "STITCH_API_KEY": "AQ.Ab8RN6KBaDxMVf-nbq7qWvbZC6b98i0QSyj-spr_PI5Yarq1sw"
-      }
-    },
     "cal": {
       "command": "npx",
       "args": [
