@@ -24,4 +24,7 @@ dist-ssr
 *.sw?
 .env
 
+# Windows/OS Metadata
+*:Zone.Identifier
+
 # prompts/
