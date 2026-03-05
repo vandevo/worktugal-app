@@ -48,10 +48,17 @@ export interface DiagnosticResult {
   recommendations: string[];
 }
 
+export interface DiagnosticContactInfo {
+  name?: string;
+  phone?: string;
+  marketing_consent?: boolean;
+  accounting_interest?: boolean;
+}
+
 export interface DiagnosticSubmission {
   email: string;
   country_target: string;
-  raw_answers: DiagnosticAnswers;
+  raw_answers: DiagnosticAnswers & { _contact?: DiagnosticContactInfo };
   setup_score: number;
   exposure_index: number;
   segment: DiagnosticSegment;

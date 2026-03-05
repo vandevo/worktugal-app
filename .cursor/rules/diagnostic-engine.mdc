@@ -1,0 +1,83 @@
+---
+description: "Architecture contract for the Diagnostic Engine v2. Enforces frozen names, scoring contracts, trap rule structure, and schema invariants."
+globs: ["src/lib/diagnostic/**/*", "src/components/diagnostic/**/*"]
+---
+
+# Diagnostic Engine Architecture Contract
+
+This rule governs all code inside `src/lib/diagnostic/` and `src/components/diagnostic/`. These modules were designed and built by Opus 4.6. Treat them as frozen architecture unless Van explicitly approves changes.
+
+## Frozen Names
+
+- Supabase table: `compliance_diagnostics`. Never `diagnostics`, never `diagnostic_results`, never anything else.
+- Barrel export: `src/lib/diagnostic/index.ts`. All external consumers import from here.
+- Components import from the barrel, never from internal module files directly.
+
+## File Map
+
+| File | Purpose | Exports |
+| :--- | :--- | :--- |
+| `engine.ts` | Scoring and classification | `calculateSetupScore`, `calculateExposureIndex`, `classifySegment`, `getTriggeredTraps`, `getRecommendations`, `runDiagnostic`, `getRulesetVersion`, `SEGMENT_MESSAGES` |
+| `questions.ts` | Question definitions and skip logic | `diagnosticQuestions`, `getActiveQuestions`, `DIAGNOSTIC_VERSION` |
+| `rules/portugal.ts` | Portugal-specific trap rules | `PortugalTrapRules`, `RULESET_VERSION` |
+| `submit.ts` | Supabase persistence | `submitDiagnostic`, `getDiagnosticResult`, `linkDiagnosticToUser` |
+| `types.ts` | All TypeScript interfaces | `DiagnosticQuestion`, `DiagnosticAnswers`, `DiagnosticResult`, `DiagnosticSegment`, `DiagnosticSubmission`, `TrapRule`, `TriggeredTrap`, `TrapSeverity` |
+| `index.ts` | Barrel re-exports | Everything above |
+
+Do NOT create new files in this directory without explicit instruction. Do NOT rename or move existing files.
+
+## Scoring Contract
+
+- `calculateSetupScore(answers, country)` returns 0-100 (integer). Higher = better setup.
+- `calculateExposureIndex(answers, country)` returns 0-100 (integer). Higher = more exposed.
+- `classifySegment(setupScore, exposureIndex)` returns one of exactly 4 segments:
+  - `low_setup_low_exposure`
+  - `low_setup_high_exposure`
+  - `high_setup_high_exposure`
+  - `high_setup_low_exposure`
+- `getTriggeredTraps(answers, country)` returns `TriggeredTrap[]` with severity, fix, legal_basis, source_url, penalty_range, exposureScore.
+- `runDiagnostic(answers, country)` is the top-level orchestrator that calls all of the above and returns a `DiagnosticResult`.
+
+Do NOT change these function signatures or return types. Do NOT add new scoring dimensions without a plan update.
+
+## Trap Rule Structure
+
+Every trap rule is a declarative config object, not a function. Structure:
+
+```
+{
+  id: string,
+  conditions: Record<string, string | string[]>,  // AND between fields, OR within array values
+  exposureScore: number,
+  severity: "high" | "medium" | "low",
+  fix: string,
+  legal_basis: string,
+  source_url: string,
+  penalty_range: string | null,
+  last_verified: string  // ISO date
+}
+```
+
+- Conditions use AND logic between fields. Array values for a single field use OR logic.
+- The engine evaluates conditions dynamically. Do not embed evaluation logic inside rule objects.
+- Every numeric claim, deadline, or penalty range must trace to a `source_url`.
+
+## Country Modularity
+
+- Trap rules live in `rules/{country}.ts` (currently only `rules/portugal.ts`).
+- The engine takes `country_target` as input and loads the corresponding ruleset.
+- Portugal is the only active module. Do NOT create other country modules without explicit instruction.
+
+## Schema Invariants
+
+- `raw_answers` is a single jsonb column. Never add individual answer columns to the table.
+- Every record stores `diagnostic_version` (from `DIAGNOSTIC_VERSION` constant) and `ruleset_version` (from `RULESET_VERSION` constant).
+- `user_id` is nullable. Records are created anonymously. User linking happens retroactively via `linkDiagnosticToUser`.
+- `payment_status` defaults to `'free'`. Updated to `'paid'` after Stripe confirmation.
+
+## UI Contract
+
+- `DiagnosticForm.tsx`: Multi-step form with question pagination, email gate, UTM capture. Calls `runDiagnostic` then `submitDiagnostic`, then navigates to `/diagnostic/results?id={id}`.
+- `DiagnosticResults.tsx`: Fetches result by ID from URL params. Shows dual scores (Setup Score + Exposure Index), segment classification, triggered traps (free: first 2 only, paid: all), and 29 EUR upsell CTA.
+- Email gate is mandatory. Results never render without email capture first.
+- Routes: `/diagnostic` (form) and `/diagnostic/results` (results). Defined in `App.tsx`.

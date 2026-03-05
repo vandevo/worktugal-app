@@ -113,9 +113,9 @@ export const AccountantApplicationSuccess: React.FC = () => {
                   Back to Home
                 </Button>
               </Link>
-              <Link to="/checkup" className="w-full sm:w-auto">
+              <Link to="/diagnostic" className="w-full sm:w-auto">
                 <Button variant="primary" className="w-full text-xs uppercase tracking-widest font-bold h-12">
-                  Try Tax Checkup
+                  Try Risk Diagnostic
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>

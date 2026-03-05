@@ -7,7 +7,20 @@ globs: ["**/*"]
 
 This rule enforces the **High-Fidelity Prompt Operating System** (v2.2) protocol. It transforms Cursor into a specialized execution engine by loading specific modules from the `@prompts/` directory.
 
-## Initialization Workflow
+## Auto-Loading Governance Layer
+
+The following `.cursor/rules/` files load automatically based on file globs. They require NO manual activation and apply to every AI model and every session:
+
+- **`project-governance.mdc`** -- Project state, model hierarchy, plan coordination. Active on all files.
+- **`diagnostic-engine.mdc`** -- Architecture contract for diagnostic engine modules. Active on `src/lib/diagnostic/**` and `src/components/diagnostic/**`.
+- **`code-standards.mdc`** -- Import conventions, UI patterns, TypeScript rules. Active on all `src/**` files.
+- **`guardrails.mdc`** -- Protective constraints (read before write, no mass refactors, frozen files). Active on all files.
+- **`obsidian-theme.mdc`** -- Design system enforcement. Active on component files.
+- **`readme-protocol.mdc`** -- README update safety. Active on README.md.
+
+For daily coding and small tasks, these auto-loaded rules provide sufficient context. The manual Core Router below is supplementary and should be activated for deep sessions, strategy work, or when you need the full `@prompts/` module system.
+
+## Manual Initialization (Supplementary)
 
 When the user says "activate" or "load router" or references `@prompts/core-router.md`:
 

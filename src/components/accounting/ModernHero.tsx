@@ -9,8 +9,7 @@ export const ModernHero: React.FC = () => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleSearchClick = () => {
-    // Navigate to the checkup form as the primary "search" action
-    navigate('/checkup');
+    navigate('/diagnostic');
   };
 
   return (
@@ -45,7 +44,7 @@ export const ModernHero: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-5xl md:text-7xl font-serif font-medium tracking-tight mb-8 text-white leading-[1.1]"
         >
-          Are you tax compliant <br className="hidden md:block"/> in Portugal?
+          You might look compliant. <br className="hidden md:block"/> But are you exposed?
         </motion.h1>
 
         {/* Subheadline */}
@@ -55,10 +54,10 @@ export const ModernHero: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-400 mb-12 font-light leading-relaxed"
         >
-          Stop unverified decisions. Verify your compliance status in 3 minutes before engaging with systems that punish mistakes later.
+          Discover hidden compliance risks that cost freelancers 150 to 3,750 EUR in penalties. Free diagnostic in 3 minutes.
         </motion.p>
 
-        {/* Primary CTAs */}
+        {/* Primary CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -66,16 +65,10 @@ export const ModernHero: React.FC = () => {
           className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
         >
           <button
-            onClick={() => navigate('/checkup')}
+            onClick={() => navigate('/diagnostic')}
             className="px-8 py-4 bg-white text-black hover:bg-gray-200 rounded-xl text-xs uppercase tracking-widest font-bold transition-all shadow-xl shadow-black/20"
           >
-            Free Checkup (3 min)
-          </button>
-          <button
-            onClick={() => navigate('/compliance-review')}
-            className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl text-xs uppercase tracking-widest font-bold transition-all"
-          >
-            Detailed Review (49 EUR)
+            Free Risk Diagnostic (3 min)
           </button>
         </motion.div>
 
@@ -98,8 +91,7 @@ export const ModernHero: React.FC = () => {
           >
             <div className="flex flex-col p-1">
               <div className="w-full bg-transparent border-0 text-xl text-white placeholder-gray-500 focus:ring-0 resize-none p-5 font-light text-left min-h-[80px] flex items-center">
-                Check my tax compliance status...
-                {/* Animated cursor */}
+                Find my hidden compliance risks...
                 <span className="inline-block w-0.5 h-6 ml-1 bg-blue-500 animate-pulse"></span>
               </div>
               

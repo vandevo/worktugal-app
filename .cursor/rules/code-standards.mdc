@@ -1,0 +1,63 @@
+---
+description: "Code patterns and stack rules for all source files. Enforces import conventions, UI component reuse, TypeScript strictness, and Supabase patterns."
+globs: ["src/**/*.ts", "src/**/*.tsx"]
+---
+
+# Worktugal Code Standards
+
+## Stack
+
+React + TypeScript + Vite + Supabase + Cloudflare Pages. No other backends, no other frameworks. If a task seems to require something outside this stack, ask Van first.
+
+## Import Conventions
+
+- Diagnostic engine: always import from `src/lib/diagnostic` (the barrel at `src/lib/diagnostic/index.ts`). Never import directly from `engine.ts`, `questions.ts`, `submit.ts`, `types.ts`, or `rules/portugal.ts` in component code.
+- Supabase client: import from `src/lib/supabase`. The singleton is `supabase` (uses anon key).
+- Analytics: import `trackFormSubmission` from `src/lib/analytics` for conversion event tracking.
+
+## UI Components
+
+- Reuse existing components from `src/components/ui/` (Button, Input, Alert, etc.) before creating new ones.
+- Follow the Obsidian theme system defined in `obsidian-theme.mdc`.
+- Key theme rules: `bg-[#050505]` canvas, `bg-[#121212]` surfaces, `border-white/5` borders, `font-serif` headings, `font-light` body text, solid white primary buttons with black text.
+- No blue gradients for primary buttons or hero backgrounds.
+- No default Tailwind grays (gray-900, gray-800) for main surfaces. Use exact hex codes or `bg-obsidian`.
+
+## Animations
+
+- Framer Motion for page transitions, element reveals, and interactive animations.
+- No CSS `@keyframes` or `transition` for structural motion (page enters, component mounts). CSS transitions are fine for hover/focus micro-interactions.
+- Use `AnimatePresence` for mount/unmount transitions.
+- Standard reveal pattern: `initial={{ opacity: 0, y: 20 }}` with `whileInView` or `animate`.
+
+## Routing
+
+- All routes defined in `App.tsx`. Do not create route definitions elsewhere.
+- Current active routes include `/diagnostic` (DiagnosticForm) and `/diagnostic/results` (DiagnosticResults).
+- Use `react-router-dom` for navigation. Use `useNavigate` for programmatic navigation, `useSearchParams` for query parameters.
+
+## Supabase Patterns
+
+- Anonymous diagnostic submissions use the Supabase client with RLS policies that allow anonymous inserts.
+- User-scoped reads and updates require the user to be authenticated.
+- Table name is `compliance_diagnostics` (frozen). See `diagnostic-engine.mdc` for schema details.
+- All Supabase operations for diagnostics go through `src/lib/diagnostic/submit.ts`. Do not write raw Supabase queries in components.
+
+## TypeScript
+
+- All function parameters and return types must be explicitly typed.
+- No `any` unless wrapping external API responses that have no type definition.
+- Interfaces and types for the diagnostic module live in `src/lib/diagnostic/types.ts`.
+- Use `type` imports when importing only types: `import type { DiagnosticResult } from '...'`.
+
+## No Destructive Changes
+
+- Never delete existing components or modules. New features go alongside existing code.
+- Old code is retired only after the replacement is validated in production.
+- When replacing a component, create the new version with a distinct name. Do not overwrite the original.
+
+## Copy and Terminology
+
+- Never use "Expat" or "Digital Nomad" in user-facing copy unless Van explicitly requests it.
+- The product narrative is "hidden compliance risk detection", not "tax compliance" or "readiness checkup".
+- Refer to the diagnostic as "Compliance Risk Diagnostic" or "Risk Scan" in UI copy.

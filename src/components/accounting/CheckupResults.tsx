@@ -75,7 +75,7 @@ export const CheckupResults: React.FC = () => {
           <Alert variant="error" className="bg-red-500/5 border-red-500/10 text-red-400">{error || 'Results not found'}</Alert>
           <div className="mt-8 text-center">
             <Button 
-              onClick={() => navigate('/checkup')}
+              onClick={() => navigate('/diagnostic')}
               className="text-xs font-medium uppercase tracking-widest px-8"
             >
               Start New Checkup
@@ -438,11 +438,11 @@ export const CheckupResults: React.FC = () => {
                     <p className="text-[10px] text-gray-600 uppercase tracking-widest mt-1">Delivered in 48 hours</p>
                   </div>
                   <Button
-                    onClick={() => navigate('/compliance-review')}
+                    onClick={() => navigate('/diagnostic')}
                     size="lg"
                     className="w-full text-xs font-medium uppercase tracking-widest px-8"
                   >
-                    Start Detailed Review
+                    Start Risk Diagnostic
                     <ArrowRight className="w-3 h-3 ml-2" />
                   </Button>
                 </div>
@@ -598,11 +598,11 @@ export const CheckupResults: React.FC = () => {
               </p>
             </div>
             <Button
-              onClick={() => navigate('/compliance-review')}
+              onClick={() => navigate('/diagnostic')}
               size="sm"
               className="whitespace-nowrap px-8 text-[10px] uppercase tracking-widest font-bold"
             >
-              Get Detailed Review — €49
+              Run Risk Diagnostic
               <ArrowRight className="w-3 h-3 ml-2" />
             </Button>
           </div>

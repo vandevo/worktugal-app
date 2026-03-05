@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { Layout } from './components/Layout';
 import { ModernHomePage as HomePage } from './components/ModernHomePage';
@@ -17,16 +17,15 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminRoute } from './components/AdminRoute';
 import { RouteTracker } from './components/RouteTracker';
 import { CookieConsentBanner } from './components/CookieConsentBanner';
-import { TaxCheckupForm } from './components/accounting/TaxCheckupForm';
-import { CheckupResults } from './components/accounting/CheckupResults';
 import { CheckupResultsDemo } from './components/accounting/CheckupResultsDemo';
-import { PaidReviewPage } from './components/accounting/PaidReviewPage';
 import { AccountingDeskLanding } from './components/accounting/AccountingDeskLanding';
 import { ComprehensiveIntakeForm } from './components/accounting/ComprehensiveIntakeForm';
 import { IntakeSuccess } from './components/accounting/IntakeSuccess';
 import { ConsultCheckout } from './components/accounting/ConsultCheckout';
 import { ConsultSuccess } from './components/accounting/ConsultSuccess';
 import { ConsultSuccessDemo } from './components/accounting/ConsultSuccessDemo';
+import { DiagnosticForm } from './components/diagnostic/DiagnosticForm';
+import { DiagnosticResults } from './components/diagnostic/DiagnosticResults';
 import { AccountantApplicationForm } from './components/accounting/AccountantApplicationForm';
 import { AccountantApplicationSuccess } from './components/accounting/AccountantApplicationSuccess';
 import { ContactRequestsManager } from './components/admin/ContactRequestsManager';
@@ -49,11 +48,14 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
 
-            <Route path="/checkup" element={<TaxCheckupForm />} />
-            <Route path="/checkup/results" element={<CheckupResults />} />
+            <Route path="/checkup" element={<Navigate to="/diagnostic" replace />} />
+            <Route path="/checkup/results" element={<Navigate to="/diagnostic" replace />} />
             <Route path="/checkup/demo" element={<CheckupResultsDemo />} />
 
-            <Route path="/compliance-review" element={<PaidReviewPage />} />
+            <Route path="/diagnostic" element={<DiagnosticForm />} />
+            <Route path="/diagnostic/results" element={<DiagnosticResults />} />
+
+            <Route path="/compliance-review" element={<Navigate to="/diagnostic" replace />} />
 
             <Route path="/accounting" element={<AccountingDeskLanding />} />
             <Route path="/accounting/intake" element={<ComprehensiveIntakeForm />} />

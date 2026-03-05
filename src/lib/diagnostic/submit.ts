@@ -1,5 +1,5 @@
 import { supabase } from '../supabase';
-import type { DiagnosticAnswers, DiagnosticResult, DiagnosticSubmission } from './types';
+import type { DiagnosticAnswers, DiagnosticContactInfo, DiagnosticResult, DiagnosticSubmission } from './types';
 import { DIAGNOSTIC_VERSION } from './questions';
 import { getRulesetVersion } from './engine';
 
@@ -11,6 +11,7 @@ interface SubmitDiagnosticParams {
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
+  contact?: DiagnosticContactInfo;
 }
 
 interface SubmitDiagnosticResponse {
@@ -24,10 +25,15 @@ interface SubmitDiagnosticResponse {
 export async function submitDiagnostic(
   params: SubmitDiagnosticParams
 ): Promise<SubmitDiagnosticResponse> {
+  const rawAnswers: DiagnosticSubmission['raw_answers'] = {
+    ...params.answers,
+    ...(params.contact ? { _contact: params.contact } : {}),
+  };
+
   const submission: DiagnosticSubmission = {
     email: params.email,
     country_target: params.country,
-    raw_answers: params.answers,
+    raw_answers: rawAnswers,
     setup_score: params.result.setupScore,
     exposure_index: params.result.exposureIndex,
     segment: params.result.segment,

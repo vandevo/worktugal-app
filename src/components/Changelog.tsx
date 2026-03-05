@@ -67,7 +67,7 @@ export const Changelog: React.FC = () => {
     <div className="min-h-screen bg-[#050505] py-20 px-4">
       <Seo 
         title="Changelog & Updates - Worktugal"
-        description="Stay updated with the latest features, improvements, and releases for Worktugal and ReadyFile."
+        description="Product updates, new features, and compliance intelligence improvements for Worktugal."
       />
 
       <div className="max-w-4xl mx-auto">
@@ -82,8 +82,8 @@ export const Changelog: React.FC = () => {
               Product Updates
             </h1>
             <p className="text-xl text-gray-400 font-light max-w-2xl mx-auto">
-              Tracking our journey towards making Portuguese tax compliance 
-              effortless for foreign freelancers.
+              Tracking our journey building compliance risk intelligence 
+              for freelancers in Portugal.
             </p>
           </motion.div>
         </header>
@@ -182,12 +182,12 @@ export const Changelog: React.FC = () => {
               Ready for your own compliance check?
             </h3>
             <p className="text-gray-400 font-light mb-10 max-w-xl mx-auto leading-relaxed">
-              Experience the platform updates firsthand. Run our 2-minute diagnostic 
-              and see where you stand with Portuguese tax laws.
+              Experience the latest updates firsthand. Run our free 3-minute diagnostic 
+              and see where you stand with Portuguese compliance law.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button onClick={() => navigate('/checkup')} className="w-full sm:w-auto">
-                Start Free Checkup
+              <Button onClick={() => navigate('/diagnostic')} className="w-full sm:w-auto">
+                Start Free Diagnostic
               </Button>
               <Button onClick={() => navigate('/contact')} variant="outline" className="w-full sm:w-auto">
                 Talk to Us

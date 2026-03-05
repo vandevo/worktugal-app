@@ -1,25 +1,44 @@
 ---
 name: Diagnostic Engine V2 Rebuild
+version: "2.3"
+created: "2026-03-05"
+last_updated: "2026-03-05"
 overview: Rebuild the compliance diagnostic as a dual-scoring engine (Setup Score + Exposure Index) inside app.worktugal.com with email gate, country-modular architecture, 3-layer monetization ladder (29 EUR risk scan, 99-149 EUR clarity call, B2B infrastructure licensing), and Parallel.ai data freshness monitoring. Non-destructive, incremental implementation.
+revision_history:
+  - date: "2026-03-05"
+    version: "2.0"
+    changes: "Plan created. Phase 1 completed (engine, trap rules, questions, schema, types, submit, barrel export, Supabase migration applied to production)."
+  - date: "2026-03-05"
+    version: "2.1"
+    changes: "Phase 2 UI complete. DiagnosticForm.tsx (paginated questions, email gate, UTM capture), DiagnosticResults.tsx (dual scores, traps free/paid split, 29 EUR upsell CTA, sticky banner), routes wired at /diagnostic and /diagnostic/results. Phase 1 todos marked completed."
+  - date: "2026-03-05"
+    version: "2.2"
+    changes: "Governance rules layer created (project-governance.mdc, diagnostic-engine.mdc, code-standards.mdc, guardrails.mdc). Auto-loading .cursor/rules/ for multi-model consistency. prompt-os.mdc updated to document governance layer."
+  - date: "2026-03-05"
+    version: "2.3"
+    changes: "Platform route consolidation. /checkup and /compliance-review redirect to /diagnostic. Optional contact fields (name, phone, consents) added to DiagnosticForm email gate, stored in raw_answers._contact jsonb. Footer, nav, FAQ, homepage SEO, Seo.tsx defaults all updated to risk-detection narrative. Changelog entry v2.0 added to project_changelog. Nav badge updated to V2.0. Phase 2.5 and Phase 4 (homepage-reposition) todos effectively complete."
 todos:
   - id: engine-core
     content: Create diagnostic engine module (calculateSetupScore, calculateExposureIndex, classifySegment, getTriggeredTraps) in src/lib/diagnostic/engine.ts
-    status: in_progress
+    status: completed
   - id: trap-rules-portugal
     content: Create Portugal trap rule module with 6 declarative trap rules (condition objects + evaluator) in src/lib/diagnostic/rules/portugal.ts
-    status: pending
+    status: completed
   - id: question-set
     content: "Phase 1: Reuse original Setup Check 12 questions exactly in src/lib/diagnostic/questions.ts. Phase 2: Add 6 exposure questions separately."
-    status: pending
+    status: completed
   - id: supabase-schema
     content: "Create Supabase migration for compliance_diagnostics table: id, user_id (nullable FK to auth.users), email, country_target, setup_score, exposure_index, segment, raw_answers jsonb, trap_flags jsonb, UTMs, payment_status, diagnostic_version, ruleset_version, created_at"
-    status: pending
+    status: completed
+  - id: source-citations
+    content: Add source_url, legal_basis, penalty_range, and last_verified fields to every trap rule in portugal.ts
+    status: completed
   - id: diagnostic-form-ui
     content: Build 4-step DiagnosticForm component with email gate before results
-    status: pending
+    status: completed
   - id: diagnostic-results-ui
     content: Build DiagnosticResults component with dual scores, segment messaging, trap display, and paid upsell CTA
-    status: pending
+    status: completed
   - id: stripe-risk-scan
     content: Wire Stripe checkout for 29 EUR Compliance Risk Scan product
     status: pending
@@ -31,15 +50,12 @@ todos:
     status: pending
   - id: homepage-reposition
     content: Update ModernHero.tsx messaging and CTAs, kill dead 49 EUR review route
-    status: pending
+    status: completed
   - id: subdomain-redirect
     content: Set up 301 redirect from setup.apps.worktugal.com to app.worktugal.com/checkup
     status: pending
   - id: parallel-monitors
     content: Set up Parallel.ai Monitor API watches on 5-8 key government source URLs referenced in trap rules. Webhook handler sends notification on change.
-    status: pending
-  - id: source-citations
-    content: Add source_url, legal_basis, penalty_range, and last_verified fields to every trap rule in portugal.ts
     status: pending
   - id: quarterly-sweep
     content: Build a quarterly Parallel.ai Search API sweep script that checks current regulations against trap rule claims

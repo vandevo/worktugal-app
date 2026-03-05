@@ -1,0 +1,73 @@
+---
+description: "Hard protective constraints. Prevents known failure modes including the Gemini codebase destruction incident. Active for all files."
+globs: ["**/*"]
+---
+
+# Protective Guardrails
+
+These rules exist because a previous AI model (Gemini) destroyed the codebase by making unsupervised mass changes. That required a full revert to v1.3.5 and a ground-up rebuild with Opus. These guardrails prevent that from happening again.
+
+## Read Before Write
+
+You MUST read any file before editing it. No blind writes. No writing a file based on assumptions about its current content. Read first, then edit with targeted replacements.
+
+## No Mass Refactors Without a Plan
+
+If a change touches more than 3 files, STOP. Outline the full change set (which files, what changes, why) and get Van's confirmation before proceeding. This applies to renames, restructures, import path changes, and any cross-cutting concern.
+
+## Frozen Files
+
+Files in these directories have frozen names and structure. Do not rename, move, delete, or restructure them without explicit instruction from Van:
+
+- `src/lib/diagnostic/` (engine, questions, rules, submit, types, index)
+- `src/components/diagnostic/` (DiagnosticForm, DiagnosticResults)
+
+## Frozen Schema
+
+The `compliance_diagnostics` Supabase table schema is frozen. Any column additions, renames, or type changes require:
+1. A new migration file in `supabase/migrations/`
+2. An update to the active plan's revision_history
+3. Van's explicit approval
+
+Do not modify the table schema as a side effect of another task.
+
+## No Dependency Additions Without Justification
+
+Do not add new npm packages without stating:
+1. What the package does
+2. Why existing tools in the stack cannot do the job
+3. The package name and approximate size
+
+Van approves dependency additions. Do not auto-install.
+
+## Git Discipline
+
+- Always check `git status` before making changes to understand the current state.
+- Never force push (`git push --force` or `git push -f`).
+- Commit messages follow `type: description` format (e.g., `feat: add clarity call CTA`, `fix: correct exposure score calculation`, `docs: update plans README`).
+- Do not commit `.env`, credentials, or secret files.
+
+## Plan Awareness
+
+Before starting any task:
+1. Check if it relates to an active plan in `.cursor/plans/active/`.
+2. If it does, follow the plan's instructions and phase ordering.
+3. If it contradicts the plan, flag the conflict to Van. Do not override the plan.
+4. If no plan covers the task, proceed normally but document what you did.
+
+## When in Doubt, Ask
+
+If a task is ambiguous, seems to require architecture changes, or could have unintended side effects:
+- Ask Van for clarification with a specific question.
+- Do not guess or improvise on structural decisions.
+- One clarifying question costs nothing. A broken codebase costs a day.
+
+## Incident Reference
+
+The archived plan `[archived-gemini-broke-codebase] diagnostic_engine_v2_migration.plan.md` documents what went wrong. The root causes were:
+- Blind writes without reading existing files
+- Renaming and restructuring established modules
+- Changing import paths across the entire codebase in one pass
+- Not following the plan's phase ordering
+
+Every rule above directly addresses one of these root causes.

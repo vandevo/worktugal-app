@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
               <span className="text-xl font-medium tracking-tight text-white">Worktugal</span>
             </a>
             <p className="text-gray-500 text-sm leading-relaxed font-light">
-              The compliance readiness layer for foreign freelancers and remote workers in Portugal.
+              Compliance risk intelligence for freelancers and remote professionals in Portugal.
             </p>
             <div className="pt-4">
               <p className="text-[10px] text-gray-600 leading-relaxed uppercase tracking-widest font-medium mb-3">
@@ -39,18 +39,10 @@ export const Footer: React.FC = () => {
             <ul className="space-y-4 text-sm font-light">
               <li>
                 <a
-                  href="/checkup"
+                  href="/diagnostic"
                   className="text-gray-500 hover:text-white transition-colors duration-200"
                 >
-                  Tax Checkup
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/compliance-review"
-                  className="text-gray-500 hover:text-white transition-colors duration-200"
-                >
-                  Detailed Review
+                  Risk Diagnostic
                 </a>
               </li>
               <li>
@@ -147,7 +139,7 @@ export const Footer: React.FC = () => {
 
         <div className="border-t border-white/5 mt-16 pt-8 text-xs font-light">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <p className="text-gray-600">&copy; 2025 Worktugal. Built for readiness.</p>
+            <p className="text-gray-600">&copy; 2026 Worktugal. Built for clarity.</p>
             <div className="flex items-center gap-8">
               <button
                 onClick={openConsentBanner}

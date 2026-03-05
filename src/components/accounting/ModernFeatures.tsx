@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, MailOpen, PiggyBank, TrendingUp, Info } from 'lucide-react';
+import { AlertTriangle, PiggyBank, TrendingUp, Info } from 'lucide-react';
 
 export const ModernFeatures: React.FC = () => {
   return (
@@ -13,7 +13,7 @@ export const ModernFeatures: React.FC = () => {
             viewport={{ once: true }}
             className="text-3xl font-serif text-white sm:text-4xl mb-4"
           >
-            Compliance Readiness
+            Hidden Risks Most Freelancers Miss
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -22,7 +22,7 @@ export const ModernFeatures: React.FC = () => {
             transition={{ delay: 0.1 }}
             className="text-gray-400 font-light text-lg"
           >
-            Identify compliance gaps before they become expensive problems.
+            Our diagnostic checks your setup against 6 known compliance traps in Portuguese law.
           </motion.p>
         </div>
 
@@ -30,29 +30,29 @@ export const ModernFeatures: React.FC = () => {
           <FeatureCard 
             icon={<AlertTriangle className="w-5 h-5 text-red-400" />}
             iconBg="bg-red-500/10 border-red-500/20"
-            title="Stop unverified decisions"
-            description="Don't let mistakes enter systems that punish you later. We verify your readiness before you engage with professionals."
+            title="Dual tax residency exposure"
+            description="If you registered as a tax resident in Portugal but never deregistered abroad, you may owe taxes in both countries. CIRS Art. 16 defines the 183-day rule."
             delay={0}
           />
           <FeatureCard 
-            icon={<MailOpen className="w-5 h-5 text-orange-400" />}
+            icon={<AlertTriangle className="w-5 h-5 text-orange-400" />}
             iconBg="bg-orange-500/10 border-orange-500/20"
-            title="Clear the path"
-            description="We exist upstream of accountants and lawyers to ensure you are ready to proceed without bureaucratic friction."
+            title="VAT misclassification"
+            description="Freelancers exceeding the annual threshold must register for IVA. Backdated penalties apply if you missed it. CIVA Art. 29 defines the obligation."
             delay={0.1}
           />
           <FeatureCard 
             icon={<PiggyBank className="w-5 h-5 text-green-400" />}
             iconBg="bg-green-500/10 border-green-500/20"
-            title="First-year tax benefits"
-            description="New freelancers under the Simplified Regime may qualify for a 50% coefficient reduction in year 1. Our checkup identifies if you qualify."
+            title="Unfiled IRS returns"
+            description="Tax residents must file Modelo 3 including Annex J for foreign income. Late filing penalties range from 150 to 3,750 EUR."
             delay={0.2}
           />
           <FeatureCard 
             icon={<TrendingUp className="w-5 h-5 text-purple-400" />}
             iconBg="bg-purple-500/10 border-purple-500/20"
-            title="Prepare for growth"
-            description="When you cross the VAT threshold (€15,000 EUR annual income), you need to change your accounting regime. We'll tell you exactly when."
+            title="Social security gaps"
+            description="Freelancers must register for NISS and pay contributions monthly. Missing payments trigger arrears, interest, and suspended benefits."
             delay={0.3}
           />
         </div>
@@ -66,7 +66,7 @@ export const ModernFeatures: React.FC = () => {
         >
           <Info className="w-4 h-4 text-blue-400 flex-shrink-0" />
           <p className="text-sm text-blue-200 font-light">
-            <span className="font-medium text-blue-100">The reality:</span> Portugal's tax system is complex. Our AI analyzes your situation against real data.
+            <span className="font-medium text-blue-100">Every risk is source-cited.</span> Legal basis and official source URLs included in your results.
           </p>
         </motion.div>
       </div>
