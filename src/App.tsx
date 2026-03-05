@@ -11,6 +11,8 @@ import { PartnerJoinPage } from './components/PartnerJoinPage';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsAndConditions } from './components/TermsAndConditions';
 import { PerksDirectory } from './components/PerksDirectory';
+import { BlogPage } from './components/BlogPage';
+import { BlogPost } from './components/BlogPost';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminRoute } from './components/AdminRoute';
 import { RouteTracker } from './components/RouteTracker';
@@ -33,6 +35,7 @@ import { AccountantApplicationReview } from './components/admin/AccountantApplic
 import { AppointmentManagement } from './components/admin/AppointmentManagement';
 import { PaidReviewsAdmin } from './components/admin/PaidReviewsAdmin';
 import { ChangelogManager } from './components/admin/ChangelogManager';
+import { CmsManager } from './components/admin/CmsManager';
 import { Changelog } from './components/Changelog';
 import { AdminTestHub } from './components/admin/AdminTestHub';
 import { CheckoutSuccess } from './components/CheckoutSuccess';
@@ -69,6 +72,9 @@ function App() {
             <Route path="/partners/join" element={<PartnerJoinPage />} />
 
             <Route path="/perks" element={<PerksDirectory />} />
+
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
 
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsAndConditions />} />
@@ -130,6 +136,14 @@ function App() {
               element={
                 <AdminRoute>
                   <ChangelogManager />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/admin/cms"
+              element={
+                <AdminRoute>
+                  <CmsManager />
                 </AdminRoute>
               }
             />

@@ -99,49 +99,30 @@ export const AdminOverview: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-12">
+    <div className="min-h-screen bg-obsidian py-24 selection:bg-blue-500/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
+          transition={{ duration: 0.8 }}
+          className="mb-16"
         >
-          <h1 className="text-4xl font-bold text-white mb-3">Admin Dashboard</h1>
-          <p className="text-xl text-slate-400">
-            Manage platform operations and monitor activity
+          <h1 className="font-serif text-5xl text-white mb-4 tracking-tight">Admin Dashboard</h1>
+          <p className="font-light text-gray-500 text-xl leading-relaxed max-w-2xl">
+            Manage platform operations and monitor activity through our sovereign control center.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {adminSections.map((section, index) => {
             const Icon = section.icon;
 
-            const colorClasses = {
-              blue: {
-                card: 'from-blue-500/10 to-blue-600/5 border-blue-500/20 hover:border-blue-400/40 hover:shadow-blue-500/20',
-                icon: 'bg-gradient-to-br from-blue-500 to-blue-600',
-                badge: 'bg-blue-500',
-              },
-              emerald: {
-                card: 'from-emerald-500/10 to-emerald-600/5 border-emerald-500/20 hover:border-emerald-400/40 hover:shadow-emerald-500/20',
-                icon: 'bg-gradient-to-br from-emerald-500 to-emerald-600',
-                badge: 'bg-emerald-500',
-              },
-              purple: {
-                card: 'from-purple-500/10 to-purple-600/5 border-purple-500/20 hover:border-purple-400/40 hover:shadow-purple-500/20',
-                icon: 'bg-gradient-to-br from-purple-500 to-purple-600',
-                badge: 'bg-purple-500',
-              },
-              orange: {
-                card: 'from-orange-500/10 to-orange-600/5 border-orange-500/20 hover:border-orange-400/40 hover:shadow-orange-500/20',
-                icon: 'bg-gradient-to-br from-orange-500 to-orange-600',
-                badge: 'bg-orange-500',
-              },
-              slate: {
-                card: 'from-slate-500/10 to-slate-600/5 border-slate-500/20 hover:border-slate-400/40 hover:shadow-slate-500/20',
-                icon: 'bg-gradient-to-br from-slate-500 to-slate-600',
-                badge: 'bg-slate-500',
-              },
+            const accentColors = {
+              blue: 'text-blue-400/50',
+              emerald: 'text-emerald-400/50',
+              purple: 'text-purple-400/50',
+              orange: 'text-orange-400/50',
+              slate: 'text-slate-400/50',
             }[section.color];
 
             return (
@@ -149,31 +130,31 @@ export const AdminOverview: React.FC = () => {
                 key={section.path}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
                 onClick={() => navigate(section.path)}
-                className={`relative bg-gradient-to-br ${colorClasses.card} border rounded-2xl p-8 text-left transition-all duration-300 hover:scale-105 hover:shadow-2xl group`}
+                className="group relative bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 shadow-2xl shadow-black/30 p-8 text-left transition-all duration-300 hover:border-white/10 hover:-translate-y-1"
               >
-                <div className="flex items-start justify-between mb-6">
-                  <div className={`p-3 ${colorClasses.icon} rounded-xl shadow-lg`}>
-                    <Icon className="h-7 w-7 text-white" />
+                <div className="flex items-start justify-between mb-8">
+                  <div className={`p-4 bg-white/5 border border-white/5 rounded-2xl transition-colors group-hover:bg-white/10`}>
+                    <Icon className={`h-6 w-6 ${accentColors}`} />
                   </div>
                   {section.badge > 0 && (
-                    <span className={`px-3 py-1 ${colorClasses.badge} text-white text-sm font-bold rounded-full`}>
+                    <span className="bg-white/5 text-gray-400 px-3 py-1.5 rounded-full text-[10px] font-medium uppercase tracking-widest border border-white/10">
                       {section.badge}
                     </span>
                   )}
                 </div>
 
-                <h2 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+                <h2 className="font-serif text-2xl text-white mb-3 group-hover:text-blue-400/80 transition-colors">
                   {section.title}
                 </h2>
-                <p className="text-slate-400 mb-6">
+                <p className="font-light text-gray-500 text-sm leading-relaxed mb-8">
                   {section.description}
                 </p>
 
-                <div className="flex items-center text-blue-400 font-semibold group-hover:translate-x-2 transition-transform">
-                  <span>Open</span>
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                <div className="flex items-center text-xs uppercase tracking-[0.2em] font-bold text-gray-400 group-hover:text-white transition-all">
+                  <span>Open Console</span>
+                  <ArrowRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
                 </div>
               </motion.button>
             );

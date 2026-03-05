@@ -87,73 +87,73 @@ export const PaidReviewsAdmin: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-obsidian flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white/20"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-obsidian py-8">
+    <div className="min-h-screen bg-obsidian py-24 selection:bg-blue-500/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-16">
           <div>
-            <h1 className="text-3xl font-bold text-white">Paid Compliance Reviews</h1>
-            <p className="text-gray-400 mt-1">Manage and review submitted intake forms</p>
+            <h1 className="font-serif text-5xl text-white mb-4 tracking-tight">Paid Compliance Reviews</h1>
+            <p className="font-light text-gray-500 text-xl leading-relaxed">Systematic audit of submitted intake protocols.</p>
           </div>
-          <Button onClick={loadReviews} variant="outline">
+          <Button onClick={loadReviews} variant="secondary" className="px-6 py-2 bg-white/5 border-white/10 text-gray-400 hover:text-white">
             <RefreshCw className="w-4 h-4 mr-2" />
-            Refresh
+            Refresh Queue
           </Button>
         </div>
 
         {error && (
-          <Alert variant="error" className="mb-6">
+          <Alert variant="error" className="mb-8">
             {error}
           </Alert>
         )}
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
           {[
-            { label: 'Total', value: stats.total, color: 'bg-gray-700' },
-            { label: 'Form Pending', value: stats.pending, color: 'bg-gray-600' },
-            { label: 'Submitted', value: stats.submitted, color: 'bg-blue-600' },
-            { label: 'In Review', value: stats.inReview, color: 'bg-yellow-600' },
-            { label: 'Completed', value: stats.completed, color: 'bg-green-600' },
-            { label: 'Escalated', value: stats.escalated, color: 'bg-red-600' }
+            { label: 'Total', value: stats.total, color: 'border-white/5' },
+            { label: 'Form Pending', value: stats.pending, color: 'border-gray-500/10' },
+            { label: 'Submitted', value: stats.submitted, color: 'border-blue-500/10' },
+            { label: 'In Review', value: stats.inReview, color: 'border-yellow-500/10' },
+            { label: 'Completed', value: stats.completed, color: 'border-emerald-500/10' },
+            { label: 'Escalated', value: stats.escalated, color: 'border-red-500/10' }
           ].map(stat => (
             <div
               key={stat.label}
-              className={`${stat.color} rounded-xl p-4 text-center`}
+              className={`bg-[#121212] border ${stat.color} rounded-2xl p-6 transition-all hover:border-white/10`}
             >
-              <div className="text-2xl font-bold text-white">{stat.value}</div>
-              <div className="text-sm text-white/70">{stat.label}</div>
+              <div className="text-3xl font-serif text-white mb-1">{stat.value}</div>
+              <div className="text-[10px] uppercase tracking-widest text-gray-600 font-bold">{stat.label}</div>
             </div>
           ))}
         </div>
 
-        <div className="mb-6">
-          <div className="flex flex-wrap gap-2">
+        <div className="mb-8">
+          <div className="flex flex-wrap gap-3">
             {['all', 'form_pending', 'submitted', 'in_review', 'completed', 'escalated'].map(status => (
               <button
                 key={status}
                 onClick={() => setStatusFilter(status)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-6 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold border transition-all ${
                   statusFilter === status
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                    ? 'bg-white text-black border-white'
+                    : 'bg-white/5 text-gray-500 border-white/5 hover:border-white/10 hover:text-white'
                 }`}
               >
-                {status === 'all' ? 'All' : STATUS_CONFIG[status as keyof typeof STATUS_CONFIG]?.label || status}
+                {status === 'all' ? 'All Reviews' : STATUS_CONFIG[status as keyof typeof STATUS_CONFIG]?.label || status}
               </button>
             ))}
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 gap-4">
           {filteredReviews.length === 0 ? (
-            <div className="bg-white/[0.03] rounded-xl border border-white/[0.08] p-12 text-center">
-              <FileText className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-              <p className="text-gray-400">No reviews found</p>
+            <div className="p-16 text-center bg-[#121212] rounded-3xl border border-white/5 border-dashed">
+              <FileText className="w-12 h-12 text-gray-600 mx-auto mb-4 opacity-20" />
+              <p className="font-light text-gray-500 italic">No reviews detected in this filter sequence.</p>
             </div>
           ) : (
             filteredReviews.map(review => {
@@ -165,76 +165,74 @@ export const PaidReviewsAdmin: React.FC = () => {
                   key={review.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-white/[0.03] rounded-xl border border-white/[0.08] overflow-hidden"
+                  className="bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 shadow-2xl overflow-hidden transition-all hover:border-white/10"
                 >
                   <div
-                    className="p-6 cursor-pointer hover:bg-white/[0.02] transition-colors"
+                    className="p-8 cursor-pointer group"
                     onClick={() => setExpandedReview(isExpanded ? null : review.id)}
                   >
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className={`w-10 h-10 rounded-full ${STATUS_CONFIG[review.status]?.color} flex items-center justify-center`}>
-                          <StatusIcon className="w-5 h-5 text-white" />
+                      <div className="flex items-center gap-6">
+                        <div className="p-4 bg-white/5 border border-white/5 rounded-2xl group-hover:bg-white/10 transition-colors">
+                          <StatusIcon className="w-6 h-6 text-blue-400/50" />
                         </div>
                         <div>
-                          <div className="flex items-center gap-3">
-                            <span className="text-white font-medium">
+                          <div className="flex items-center gap-4 mb-2">
+                            <span className="font-serif text-2xl text-white group-hover:text-blue-400/80 transition-colors">
                               {review.customer_name || review.customer_email}
                             </span>
-                            <span className={`px-2 py-1 rounded-full text-xs ${STATUS_CONFIG[review.status]?.color} text-white`}>
+                            <span className="bg-white/5 text-gray-400 px-3 py-1.5 rounded-full text-[10px] font-medium uppercase tracking-widest border border-white/10">
                               {STATUS_CONFIG[review.status]?.label}
                             </span>
                             {review.escalation_flags.length > 0 && (
-                              <span className="px-2 py-1 rounded-full text-xs bg-red-500/20 text-red-300 border border-red-500/30">
-                                {review.escalation_flags.length} flags
+                              <span className="bg-red-500/5 text-red-400/60 px-3 py-1.5 rounded-full text-[10px] font-medium uppercase tracking-widest border border-red-500/10">
+                                {review.escalation_flags.length} Breach Flags
                               </span>
                             )}
                           </div>
-                          <div className="flex items-center gap-4 text-sm text-gray-400 mt-1">
-                            <span className="flex items-center gap-1">
-                              <Mail className="w-3 h-3" />
+                          <div className="flex items-center gap-6 text-[10px] uppercase tracking-widest text-gray-600 font-bold">
+                            <span className="flex items-center gap-2">
+                              <Mail className="w-3 h-3 opacity-50" />
                               {review.customer_email}
                             </span>
-                            <span className="flex items-center gap-1">
-                              <Calendar className="w-3 h-3" />
-                              {new Date(review.created_at).toLocaleDateString()}
+                            <span className="flex items-center gap-2">
+                              <Calendar className="w-3 h-3 opacity-50" />
+                              Logged: {new Date(review.created_at).toLocaleDateString()}
                             </span>
                           </div>
                         </div>
                       </div>
-                      {isExpanded ? (
-                        <ChevronUp className="w-5 h-5 text-gray-400" />
-                      ) : (
-                        <ChevronDown className="w-5 h-5 text-gray-400" />
-                      )}
+                      <div className="text-gray-600 group-hover:text-white transition-colors ml-8">
+                        {isExpanded ? 'Collapse' : 'Expand'}
+                      </div>
                     </div>
                   </div>
 
                   {isExpanded && (
-                    <div className="px-6 pb-6 border-t border-white/[0.05] pt-6">
-                      <div className="grid lg:grid-cols-2 gap-6">
+                    <div className="p-8 bg-white/[0.01] border-t border-white/5 space-y-12">
+                      <div className="grid lg:grid-cols-2 gap-12">
                         <div>
-                          <h4 className="text-white font-semibold mb-3">Review Info</h4>
-                          <div className="space-y-2 text-sm">
-                            <div className="flex justify-between">
-                              <span className="text-gray-400">ID</span>
+                          <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-6">Review Intelligence</h4>
+                          <div className="space-y-4 text-sm font-light">
+                            <div className="flex justify-between py-2 border-b border-white/5">
+                              <span className="text-gray-600 uppercase tracking-widest text-[10px] font-bold">Protocol ID</span>
                               <span className="text-white font-mono">{review.id.slice(0, 8)}</span>
                             </div>
-                            <div className="flex justify-between">
-                              <span className="text-gray-400">Ambiguity Score</span>
-                              <span className="text-white">{review.ambiguity_score} "Not sure" answers</span>
+                            <div className="flex justify-between py-2 border-b border-white/5">
+                              <span className="text-gray-600 uppercase tracking-widest text-[10px] font-bold">Ambiguity Score</span>
+                              <span className={`font-bold ${review.ambiguity_score > 3 ? 'text-red-400/60' : 'text-emerald-400/60'}`}>{review.ambiguity_score} Uncertainties</span>
                             </div>
-                            <div className="flex justify-between">
-                              <span className="text-gray-400">Sections Completed</span>
-                              <span className="text-white">{review.form_progress.sections_completed.length}/7</span>
+                            <div className="flex justify-between py-2 border-b border-white/5">
+                              <span className="text-gray-600 uppercase tracking-widest text-[10px] font-bold">System Progress</span>
+                              <span className="text-white">{review.form_progress.sections_completed.length}/7 Nodes</span>
                             </div>
-                            <div className="flex justify-between">
-                              <span className="text-gray-400">Created</span>
+                            <div className="flex justify-between py-2 border-b border-white/5">
+                              <span className="text-gray-600 uppercase tracking-widest text-[10px] font-bold">Initial Log</span>
                               <span className="text-white">{new Date(review.created_at).toLocaleString()}</span>
                             </div>
                             {review.review_delivered_at && (
-                              <div className="flex justify-between">
-                                <span className="text-gray-400">Delivered</span>
+                              <div className="flex justify-between py-2 border-b border-white/5">
+                                <span className="text-gray-600 uppercase tracking-widest text-[10px] font-bold">Delivery Timestamp</span>
                                 <span className="text-white">{new Date(review.review_delivered_at).toLocaleString()}</span>
                               </div>
                             )}
@@ -242,15 +240,15 @@ export const PaidReviewsAdmin: React.FC = () => {
                         </div>
 
                         <div>
-                          <h4 className="text-white font-semibold mb-3">Escalation Flags</h4>
+                          <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-6">Escalation Matrix</h4>
                           {review.escalation_flags.length === 0 ? (
-                            <p className="text-gray-400 text-sm">No escalation flags</p>
+                            <p className="text-gray-500 text-sm font-light italic">No protocol breaches detected.</p>
                           ) : (
-                            <div className="space-y-2">
+                            <div className="space-y-3">
                               {review.escalation_flags.map((flag, i) => (
                                 <div
                                   key={i}
-                                  className="px-3 py-2 bg-red-500/10 border border-red-500/20 rounded-lg text-red-300 text-sm"
+                                  className="px-4 py-3 bg-red-500/5 border border-red-500/10 rounded-xl text-red-400/60 text-[10px] uppercase tracking-widest font-bold"
                                 >
                                   {flag.replace(/_/g, ' ')}
                                 </div>
@@ -261,29 +259,33 @@ export const PaidReviewsAdmin: React.FC = () => {
                       </div>
 
                       {Object.keys(review.form_data).length > 0 && (
-                        <div className="mt-6">
-                          <h4 className="text-white font-semibold mb-3">Form Responses</h4>
-                          <div className="bg-black/20 rounded-lg p-4 max-h-96 overflow-y-auto">
-                            <pre className="text-xs text-gray-300 whitespace-pre-wrap">
+                        <div>
+                          <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-6">Data Payload</h4>
+                          <div className="bg-black/40 rounded-2xl border border-white/5 p-8 max-h-[500px] overflow-y-auto custom-scrollbar">
+                            <pre className="text-xs text-gray-400 whitespace-pre-wrap font-mono leading-relaxed">
                               {JSON.stringify(review.form_data, null, 2)}
                             </pre>
                           </div>
                         </div>
                       )}
 
-                      <div className="mt-6 flex flex-wrap gap-3">
-                        <h4 className="text-white font-semibold w-full mb-1">Update Status</h4>
-                        {['submitted', 'in_review', 'completed', 'escalated'].map(status => (
-                          <Button
-                            key={status}
-                            onClick={() => handleStatusUpdate(review.id, status as PaidComplianceReview['status'])}
-                            disabled={review.status === status || updatingStatus === review.id}
-                            variant={review.status === status ? 'primary' : 'outline'}
-                            size="sm"
-                          >
-                            {updatingStatus === review.id ? 'Updating...' : STATUS_CONFIG[status as keyof typeof STATUS_CONFIG]?.label}
-                          </Button>
-                        ))}
+                      <div className="pt-8 border-t border-white/5">
+                        <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 mb-6">Update Protocol State</h4>
+                        <div className="flex flex-wrap gap-4">
+                          {['submitted', 'in_review', 'completed', 'escalated'].map(status => (
+                            <Button
+                              key={status}
+                              onClick={() => handleStatusUpdate(review.id, status as PaidComplianceReview['status'])}
+                              disabled={review.status === status || updatingStatus === review.id}
+                              variant={review.status === status ? 'primary' : 'secondary'}
+                              className={`px-6 py-3 text-[10px] uppercase tracking-widest font-bold ${
+                                review.status === status ? 'bg-white text-black' : 'bg-white/5 border-white/5 text-gray-500'
+                              }`}
+                            >
+                              {updatingStatus === review.id ? 'Syncing...' : STATUS_CONFIG[status as keyof typeof STATUS_CONFIG]?.label}
+                            </Button>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   )}

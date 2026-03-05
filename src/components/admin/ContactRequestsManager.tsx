@@ -116,110 +116,114 @@ export function ContactRequestsManager() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+      <div className="min-h-screen bg-obsidian flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white/20"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-12">
+    <div className="min-h-screen bg-obsidian py-24 selection:bg-blue-500/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          transition={{ duration: 0.8 }}
+          className="mb-16"
         >
           <Button
-            variant="outline"
+            variant="secondary"
             onClick={() => navigate('/dashboard')}
-            className="mb-6 text-slate-400 hover:text-white border-slate-700/50 hover:border-slate-600 bg-slate-800/30 backdrop-blur-sm"
+            className="mb-8 px-6 py-2 bg-white/5 border-white/10 text-gray-400 hover:text-white"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Overview
           </Button>
-          <h1 className="text-4xl font-bold text-white mb-3">Contact Requests</h1>
-          <p className="text-xl text-slate-400">Manage incoming contact requests and inquiries</p>
+          <h1 className="font-serif text-5xl text-white mb-4 tracking-tight">Contact Requests</h1>
+          <p className="font-light text-gray-500 text-xl leading-relaxed">Intelligence gathering and relationship management.</p>
         </motion.div>
 
-        <div className="space-y-6">
+        <div className="space-y-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
             className="grid grid-cols-1 md:grid-cols-5 gap-4"
           >
-            <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-xl p-6 rounded-2xl border border-slate-700/50 shadow-xl">
-              <p className="text-sm text-slate-400 mb-1">Total</p>
-              <p className="text-3xl font-bold text-white">{stats.total}</p>
+            <div className="bg-[#121212] border border-white/5 rounded-2xl p-6 transition-all hover:border-white/10">
+              <p className="text-[10px] uppercase tracking-widest text-gray-600 mb-1 font-bold">Total</p>
+              <p className="text-3xl font-serif text-white">{stats.total}</p>
             </div>
-            <div className="bg-gradient-to-br from-green-500/10 to-green-600/5 backdrop-blur-xl p-6 rounded-2xl border border-green-500/20 shadow-xl">
-              <p className="text-sm text-slate-400 mb-1">New</p>
-              <p className="text-3xl font-bold text-green-400">{stats.new}</p>
+            <div className="bg-[#121212] border border-emerald-500/10 rounded-2xl p-6 transition-all hover:border-emerald-500/20">
+              <p className="text-[10px] uppercase tracking-widest text-emerald-600/60 mb-1 font-bold">New</p>
+              <p className="text-3xl font-serif text-emerald-400/60">{stats.new}</p>
             </div>
-            <div className="bg-gradient-to-br from-red-500/10 to-red-600/5 backdrop-blur-xl p-6 rounded-2xl border border-red-500/20 shadow-xl">
-              <p className="text-sm text-slate-400 mb-1">High Priority</p>
-              <p className="text-3xl font-bold text-red-400">{stats.highPriority}</p>
+            <div className="bg-[#121212] border border-red-500/10 rounded-2xl p-6 transition-all hover:border-red-500/20">
+              <p className="text-[10px] uppercase tracking-widest text-red-600/60 mb-1 font-bold">High Priority</p>
+              <p className="text-3xl font-serif text-red-400/60">{stats.highPriority}</p>
             </div>
-            <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 backdrop-blur-xl p-6 rounded-2xl border border-blue-500/20 shadow-xl">
-              <p className="text-sm text-slate-400 mb-1">This Month</p>
-              <p className="text-3xl font-bold text-blue-400">{stats.thisMonth}</p>
+            <div className="bg-[#121212] border border-blue-500/10 rounded-2xl p-6 transition-all hover:border-blue-500/20">
+              <p className="text-[10px] uppercase tracking-widest text-blue-600/60 mb-1 font-bold">This Month</p>
+              <p className="text-3xl font-serif text-blue-400/60">{stats.thisMonth}</p>
             </div>
-            <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 backdrop-blur-xl p-6 rounded-2xl border border-emerald-500/20 shadow-xl">
-              <p className="text-sm text-slate-400 mb-1">Converted</p>
-              <p className="text-3xl font-bold text-emerald-400">{stats.converted}</p>
+            <div className="bg-[#121212] border border-emerald-500/10 rounded-2xl p-6 transition-all hover:border-emerald-500/20">
+              <p className="text-[10px] uppercase tracking-widest text-emerald-600/60 mb-1 font-bold">Converted</p>
+              <p className="text-3xl font-serif text-emerald-400/60">{stats.converted}</p>
             </div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-slate-700/50 p-6 shadow-xl"
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 shadow-2xl p-8"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <Filter className="w-5 h-5 text-blue-400" />
-              <h3 className="text-lg font-semibold text-white">Filters</h3>
+            <div className="flex items-center gap-3 mb-8">
+              <Filter className="w-5 h-5 text-blue-400/50" />
+              <h3 className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">Signal Filters</h3>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div>
-                <label className="block text-sm text-slate-400 mb-2">Status</label>
+                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4 block">Status</label>
                 <Select
                   value={filters.status}
                   onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+                  className="bg-white/[0.02] border-white/5 text-white"
                 >
-                  <option value="">All</option>
-                  <option value="new">New</option>
-                  <option value="reviewed">Reviewed</option>
-                  <option value="replied">Replied</option>
-                  <option value="converted">Converted</option>
-                  <option value="archived">Archived</option>
+                  <option value="" className="bg-obsidian">All Signals</option>
+                  <option value="new" className="bg-obsidian">New</option>
+                  <option value="reviewed" className="bg-obsidian">Reviewed</option>
+                  <option value="replied" className="bg-obsidian">Replied</option>
+                  <option value="converted" className="bg-obsidian">Converted</option>
+                  <option value="archived" className="bg-obsidian">Archived</option>
                 </Select>
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-2">Purpose</label>
+                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4 block">Purpose</label>
                 <Select
                   value={filters.purpose}
                   onChange={(e) => setFilters({ ...filters, purpose: e.target.value })}
+                  className="bg-white/[0.02] border-white/5 text-white"
                 >
-                  <option value="">All</option>
-                  <option value="accounting">Accounting</option>
-                  <option value="partnership">Partnership</option>
-                  <option value="job">Job</option>
-                  <option value="info">Info</option>
-                  <option value="other">Other</option>
+                  <option value="" className="bg-obsidian">All Objectives</option>
+                  <option value="accounting" className="bg-obsidian">Accounting</option>
+                  <option value="partnership" className="bg-obsidian">Partnership</option>
+                  <option value="job" className="bg-obsidian">Job</option>
+                  <option value="info" className="bg-obsidian">Info</option>
+                  <option value="other" className="bg-obsidian">Other</option>
                 </Select>
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-2">Priority</label>
+                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4 block">Priority</label>
                 <Select
                   value={filters.priority}
                   onChange={(e) => setFilters({ ...filters, priority: e.target.value })}
+                  className="bg-white/[0.02] border-white/5 text-white"
                 >
-                  <option value="">All</option>
-                  <option value="high">High</option>
-                  <option value="normal">Normal</option>
-                  <option value="low">Low</option>
+                  <option value="" className="bg-obsidian">All Priorities</option>
+                  <option value="high" className="bg-obsidian">High</option>
+                  <option value="normal" className="bg-obsidian">Normal</option>
+                  <option value="low" className="bg-obsidian">Low</option>
                 </Select>
               </div>
             </div>
@@ -228,100 +232,101 @@ export function ContactRequestsManager() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="bg-slate-800/50 backdrop-blur-xl rounded-2xl border border-slate-700/50 overflow-hidden shadow-xl"
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 shadow-2xl overflow-hidden mb-12"
           >
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-slate-900/50 border-b border-slate-700/50">
+                <thead className="bg-white/[0.02] border-b border-white/5 text-left">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-slate-300">Date</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-slate-300">Name</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-slate-300">Email</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-slate-300">Purpose</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-slate-300">Budget</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-slate-300">Priority</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-slate-300">Status</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-slate-300">Actions</th>
+                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500">Chronology</th>
+                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500">Identity</th>
+                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500">Channel</th>
+                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500">Objective</th>
+                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500">Value</th>
+                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500">Priority</th>
+                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500">Phase</th>
+                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500">Protocol</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-700/50">
+                <tbody className="divide-y divide-white/5">
                   {requests.map((request) => (
-                    <tr key={request.id} className="hover:bg-slate-700/30 transition-colors">
-                      <td className="px-6 py-4 text-sm text-slate-400">
+                    <tr key={request.id} className="hover:bg-white/[0.01] transition-colors group">
+                      <td className="px-8 py-6 text-xs text-gray-500 font-light">
                         <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4" />
+                          <Calendar className="w-3 h-3 opacity-50" />
                           {new Date(request.created_at!).toLocaleDateString()}
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-sm font-medium text-white">
-                        {request.full_name}
+                      <td className="px-8 py-6">
+                        <div className="font-serif text-white group-hover:text-blue-400/80 transition-colors">
+                          {request.full_name}
+                        </div>
                       </td>
-                      <td className="px-6 py-4 text-sm">
+                      <td className="px-8 py-6 text-xs font-light">
                         <a
                           href={`mailto:${request.email}`}
-                          className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
+                          className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
                         >
-                          <Mail className="w-4 h-4" />
+                          <Mail className="w-3 h-3 opacity-50" />
                           {request.email}
                         </a>
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-8 py-6">
                         <span
-                          className={`inline-flex px-3 py-1 text-xs font-medium rounded-full border ${getPurposeBadgeColor(
+                          className={`bg-white/5 text-gray-400 px-3 py-1.5 rounded-full text-[10px] font-medium uppercase tracking-widest border border-white/10 ${getPurposeBadgeColor(
                             request.purpose
                           )}`}
                         >
                           {request.purpose}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-slate-400">
+                      <td className="px-8 py-6 text-xs text-gray-500 font-light">
                         {request.budget_range ? (
                           <div className="flex items-center gap-1">
-                            <DollarSign className="w-4 h-4" />
+                            <DollarSign className="w-3 h-3 opacity-50" />
                             €{request.budget_range}
                           </div>
                         ) : (
-                          <span className="text-slate-500">-</span>
+                          <span className="opacity-20">-</span>
                         )}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-8 py-6">
                         <span
-                          className={`inline-flex px-3 py-1 text-xs font-medium rounded-full border ${getPriorityBadgeColor(
+                          className={`bg-white/5 text-gray-400 px-3 py-1.5 rounded-full text-[10px] font-medium uppercase tracking-widest border border-white/10 ${getPriorityBadgeColor(
                             request.priority || 'normal'
                           )}`}
                         >
                           {request.priority || 'normal'}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-8 py-6">
                         <span
-                          className={`inline-flex px-3 py-1 text-xs font-medium rounded-full border ${getStatusBadgeColor(
+                          className={`bg-white/5 text-gray-400 px-3 py-1.5 rounded-full text-[10px] font-medium uppercase tracking-widest border border-white/10 ${getStatusBadgeColor(
                             request.status || 'new'
                           )}`}
                         >
                           {request.status || 'new'}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-2">
+                      <td className="px-8 py-6">
+                        <div className="flex items-center gap-4">
                           <button
                             onClick={() => setSelectedRequest(request)}
-                            className="text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors"
+                            className="text-[10px] uppercase tracking-widest font-bold text-blue-400/60 hover:text-blue-400 transition-colors"
                           >
-                            View
+                            Inspect
                           </button>
                           <select
                             value={request.status || 'new'}
                             onChange={(e) => handleStatusChange(request.id!, e.target.value)}
-                            className="text-sm bg-white/[0.03] backdrop-blur-xl border border-white/[0.12] rounded-lg px-3 py-1.5 text-white focus:outline-none focus:bg-white/[0.06] focus:border-blue-400/40 focus:ring-2 focus:ring-blue-400/20 hover:bg-white/[0.05] hover:border-white/[0.16] transition-all cursor-pointer appearance-none pr-8"
-                            style={{ colorScheme: 'dark' }}
+                            className="text-[10px] uppercase tracking-widest bg-white/[0.02] border border-white/5 rounded px-2 py-1 text-gray-500 focus:outline-none focus:bg-white/[0.06] transition-all cursor-pointer"
                           >
-                            <option value="new" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>New</option>
-                            <option value="reviewed" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Reviewed</option>
-                            <option value="replied" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Replied</option>
-                            <option value="converted" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Converted</option>
-                            <option value="archived" style={{ backgroundColor: '#1f2937', color: '#ffffff' }}>Archived</option>
+                            <option value="new" className="bg-obsidian">New</option>
+                            <option value="reviewed" className="bg-obsidian">Reviewed</option>
+                            <option value="replied" className="bg-obsidian">Replied</option>
+                            <option value="converted" className="bg-obsidian">Converted</option>
+                            <option value="archived" className="bg-obsidian">Archived</option>
                           </select>
                         </div>
                       </td>
@@ -335,120 +340,126 @@ export function ContactRequestsManager() {
       </div>
 
       {selectedRequest && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-slate-800/95 backdrop-blur-xl rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-700/50 shadow-2xl"
+            className="bg-[#121212] backdrop-blur-3xl rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-white/5 shadow-2xl"
           >
-            <div className="sticky top-0 bg-slate-900/95 backdrop-blur-xl border-b border-slate-700/50 px-6 py-4 flex items-center justify-between">
-              <h3 className="text-2xl font-bold text-white">Request Details</h3>
+            <div className="sticky top-0 bg-obsidian/95 backdrop-blur-xl border-b border-white/5 px-8 py-6 flex items-center justify-between">
+              <h3 className="font-serif text-2xl text-white">Request Intelligence</h3>
               <button
                 onClick={() => setSelectedRequest(null)}
-                className="text-slate-400 hover:text-white transition-colors p-2 hover:bg-slate-700/50 rounded-lg"
+                className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/5 rounded-lg"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="p-6 space-y-6">
-              <div>
-                <label className="text-sm font-medium text-slate-400 block mb-1">Name</label>
-                <p className="text-white text-lg">{selectedRequest.full_name}</p>
-              </div>
+            <div className="p-8 space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-2 block">Name</label>
+                  <p className="font-serif text-xl text-white">{selectedRequest.full_name}</p>
+                </div>
 
-              <div>
-                <label className="text-sm font-medium text-slate-400 block mb-1">Email</label>
-                <p className="text-white">{selectedRequest.email}</p>
+                <div>
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-2 block">Email</label>
+                  <p className="font-light text-gray-400">{selectedRequest.email}</p>
+                </div>
               </div>
 
               {selectedRequest.company_name && (
                 <div>
-                  <label className="text-sm font-medium text-slate-400 block mb-1">Company</label>
-                  <p className="text-white">{selectedRequest.company_name}</p>
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-2 block">Company</label>
+                  <p className="font-light text-gray-400">{selectedRequest.company_name}</p>
                 </div>
               )}
 
               {selectedRequest.website_url && (
                 <div>
-                  <label className="text-sm font-medium text-slate-400 block mb-1">Website</label>
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-2 block">Website</label>
                   <a
                     href={selectedRequest.website_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-400 hover:text-blue-300 flex items-center gap-2 transition-colors"
+                    className="text-blue-400/60 hover:text-blue-400 flex items-center gap-2 transition-colors font-light"
                   >
                     {selectedRequest.website_url}
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="w-4 h-4 opacity-50" />
                   </a>
                 </div>
               )}
 
               <div>
-                <label className="text-sm font-medium text-slate-400 block mb-1">Purpose</label>
-                <p className="text-white capitalize">{selectedRequest.purpose}</p>
+                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-2 block">Objective</label>
+                <p className="font-light text-gray-400 capitalize">{selectedRequest.purpose}</p>
               </div>
 
               <div>
-                <label className="text-sm font-medium text-slate-400 block mb-1">Message</label>
-                <div className="bg-slate-900/50 rounded-xl p-4 border border-slate-700/50">
-                  <p className="text-slate-200 whitespace-pre-wrap">{selectedRequest.message}</p>
+                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-2 block">Message Body</label>
+                <div className="bg-white/[0.01] rounded-2xl p-6 border border-white/5">
+                  <p className="text-gray-300 font-light leading-relaxed whitespace-pre-wrap italic">"{selectedRequest.message}"</p>
                 </div>
               </div>
 
-              {selectedRequest.budget_range && (
-                <div>
-                  <label className="text-sm font-medium text-slate-400 block mb-1">Budget Range</label>
-                  <p className="text-white">€{selectedRequest.budget_range}</p>
-                </div>
-              )}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {selectedRequest.budget_range && (
+                  <div>
+                    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-2 block">Budget Profile</label>
+                    <p className="font-light text-gray-400">€{selectedRequest.budget_range}</p>
+                  </div>
+                )}
 
-              {selectedRequest.timeline && (
-                <div>
-                  <label className="text-sm font-medium text-slate-400 block mb-1">Timeline</label>
-                  <p className="text-white capitalize">
-                    {selectedRequest.timeline.replace('_', ' ')}
-                  </p>
-                </div>
-              )}
+                {selectedRequest.timeline && (
+                  <div>
+                    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-2 block">Strategic Timeline</label>
+                    <p className="font-light text-gray-400 capitalize">
+                      {selectedRequest.timeline.replace('_', ' ')}
+                    </p>
+                  </div>
+                )}
+              </div>
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-8 pt-8 border-t border-white/5">
                 <div>
-                  <label className="text-sm font-medium text-slate-400 block mb-1">Priority</label>
-                  <p className="text-white capitalize">
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-2 block">System Priority</label>
+                  <span className={`bg-white/5 text-gray-400 px-3 py-1.5 rounded-full text-[10px] font-medium uppercase tracking-widest border border-white/10 ${getPriorityBadgeColor(selectedRequest.priority || 'normal')}`}>
                     {selectedRequest.priority || 'normal'}
-                  </p>
+                  </span>
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-slate-400 block mb-1">Status</label>
-                  <p className="text-white capitalize">{selectedRequest.status || 'new'}</p>
+                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-2 block">Current Phase</label>
+                  <span className={`bg-white/5 text-gray-400 px-3 py-1.5 rounded-full text-[10px] font-medium uppercase tracking-widest border border-white/10 ${getStatusBadgeColor(selectedRequest.status || 'new')}`}>
+                    {selectedRequest.status || 'new'}
+                  </span>
                 </div>
               </div>
 
               <div>
-                <label className="text-sm font-medium text-slate-400 block mb-1">Submitted</label>
-                <p className="text-white">
+                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-2 block">Entry Registered</label>
+                <p className="text-[10px] uppercase tracking-widest text-gray-600 font-bold">
                   {new Date(selectedRequest.created_at!).toLocaleString()}
                 </p>
               </div>
             </div>
 
-            <div className="sticky bottom-0 bg-slate-900/95 backdrop-blur-xl border-t border-slate-700/50 px-6 py-4 flex gap-4">
+            <div className="sticky bottom-0 bg-obsidian/95 backdrop-blur-xl border-t border-white/5 px-8 py-6 flex gap-4">
               <Button
-                variant="outline"
+                variant="secondary"
                 onClick={() => setSelectedRequest(null)}
-                className="flex-1 border-slate-700 hover:border-slate-600 bg-slate-800/50 hover:bg-slate-700/50"
+                className="flex-1"
               >
-                Close
+                Dismiss
               </Button>
               <a
                 href={`mailto:${selectedRequest.email}`}
                 className="flex-1"
               >
-                <Button className="w-full bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600">
+                <Button className="w-full bg-white text-black hover:bg-gray-200">
                   <Mail className="w-4 h-4 mr-2" />
-                  Reply
+                  Initiate Reply
                 </Button>
               </a>
             </div>

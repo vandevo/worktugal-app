@@ -136,12 +136,12 @@ export function ChangelogManager() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-white">Project Changelog</h2>
-          <p className="text-gray-600 mt-1">
-            Track changes for documentation generation
+          <h2 className="font-serif text-3xl text-white mb-2">Project Changelog</h2>
+          <p className="font-light text-gray-500">
+            Track sovereign evolution and system updates.
           </p>
         </div>
         <Button onClick={() => setShowForm(!showForm)}>
@@ -163,11 +163,11 @@ export function ChangelogManager() {
       )}
 
       {showForm && (
-        <Card className="p-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card className="bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 shadow-2xl p-8">
+          <form onSubmit={handleSubmit} className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4 block">
                   Date
                 </label>
                 <Input
@@ -176,12 +176,13 @@ export function ChangelogManager() {
                   onChange={(e) =>
                     setFormData({ ...formData, date: e.target.value })
                   }
+                  className="bg-white/[0.02] border-white/5 text-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4 block">
                   Category
                 </label>
                 <select
@@ -192,11 +193,11 @@ export function ChangelogManager() {
                       category: e.target.value as typeof CATEGORIES[number]
                     })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-white/[0.02] border border-white/5 rounded-xl text-white focus:outline-none focus:bg-white/[0.06] transition-all duration-200"
                   required
                 >
                   {CATEGORIES.map((cat) => (
-                    <option key={cat} value={cat}>
+                    <option key={cat} value={cat} className="bg-obsidian">
                       {cat.charAt(0).toUpperCase() + cat.slice(1)}
                     </option>
                   ))}
@@ -205,7 +206,7 @@ export function ChangelogManager() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4 block">
                 Title (required)
               </label>
               <Input
@@ -214,12 +215,13 @@ export function ChangelogManager() {
                   setFormData({ ...formData, title: e.target.value })
                 }
                 placeholder="Brief one-line description"
+                className="bg-white/[0.02] border-white/5 text-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4 block">
                 Details
               </label>
               <textarea
@@ -228,14 +230,14 @@ export function ChangelogManager() {
                   setFormData({ ...formData, details: e.target.value })
                 }
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Detailed explanation of changes, technical specifics, why this change was made..."
+                className="w-full px-4 py-3 bg-white/[0.02] border border-white/5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-white/[0.06] hover:bg-white/[0.04] transition-all duration-200 font-light text-sm shadow-lg shadow-black/20"
+                placeholder="Detailed explanation of changes..."
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4 block">
                   Affected Files (one per line)
                 </label>
                 <textarea
@@ -244,13 +246,13 @@ export function ChangelogManager() {
                     setFormData({ ...formData, affected_files: e.target.value })
                   }
                   rows={3}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
-                  placeholder="src/components/Example.tsx&#10;src/lib/helper.ts"
+                  className="w-full px-4 py-3 bg-white/[0.02] border border-white/5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-white/[0.06] hover:bg-white/[0.04] transition-all duration-200 font-light text-sm shadow-lg font-mono"
+                  placeholder="src/components/Example.tsx"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4 block">
                   Migration Files (one per line)
                 </label>
                 <textarea
@@ -259,101 +261,114 @@ export function ChangelogManager() {
                     setFormData({ ...formData, migration_files: e.target.value })
                   }
                   rows={3}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
+                  className="w-full px-4 py-3 bg-white/[0.02] border border-white/5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-white/[0.06] hover:bg-white/[0.04] transition-all duration-200 font-light text-sm shadow-lg font-mono"
                   placeholder="20251106_create_table.sql"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Version (optional)
-              </label>
-              <Input
-                value={formData.version}
-                onChange={(e) =>
-                  setFormData({ ...formData, version: e.target.value })
-                }
-                placeholder="v1.2.0"
-              />
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+              <div>
+                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4 block">
+                  Version (optional)
+                </label>
+                <Input
+                  value={formData.version}
+                  onChange={(e) =>
+                    setFormData({ ...formData, version: e.target.value })
+                  }
+                  placeholder="v1.2.0"
+                  className="bg-white/[0.02] border-white/5 text-white"
+                />
+              </div>
 
-            <div className="flex gap-2">
-              <Button type="submit">
-                <Save className="w-4 h-4 mr-2" />
-                Save Change
-              </Button>
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => setShowForm(false)}
-              >
-                Cancel
-              </Button>
+              <div className="flex gap-3">
+                <Button type="submit">
+                  <Save className="w-4 h-4 mr-2" />
+                  Save Change
+                </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => setShowForm(false)}
+                >
+                  Cancel
+                </Button>
+              </div>
             </div>
           </form>
         </Card>
       )}
 
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 gap-4">
         {entries.length === 0 ? (
-          <Card className="p-8 text-center text-gray-500">
-            No changelog entries yet. Click "Log Change" to add one.
-          </Card>
+          <div className="p-12 text-center bg-[#121212] rounded-3xl border border-white/5 border-dashed">
+            <p className="font-light text-gray-500 italic">No changelog entries yet. Click "Log Change" to add one.</p>
+          </div>
         ) : (
           entries.map((entry) => (
-            <Card key={entry.id} className="p-4">
+            <Card key={entry.id} className="bg-[#121212] border-white/5 p-6 hover:border-white/10 transition-all group">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Calendar className="w-4 h-4 text-gray-400" />
-                    <span className="text-sm text-gray-600">{entry.date}</span>
-                    <span className="px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-2 bg-white/5 border border-white/5 rounded-lg">
+                      <Calendar className="w-4 h-4 text-blue-400/50" />
+                    </div>
+                    <span className="text-[10px] uppercase tracking-widest text-gray-600">{entry.date}</span>
+                    <span className="bg-white/5 text-gray-400 px-3 py-1.5 rounded-full text-[10px] font-medium uppercase tracking-widest border border-white/10">
                       {entry.category}
                     </span>
                     {entry.version && (
-                      <span className="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-800 rounded">
+                      <span className="bg-emerald-500/5 text-emerald-400/60 px-3 py-1.5 rounded-full text-[10px] font-medium uppercase tracking-widest border border-emerald-500/10">
                         {entry.version}
                       </span>
                     )}
                   </div>
-                  <h3 className="font-semibold text-white mb-1">
+                  <h3 className="font-serif text-xl text-white mb-2 group-hover:text-blue-400/80 transition-colors">
                     {entry.title}
                   </h3>
                   {entry.details && (
-                    <p className="text-sm text-gray-600 whitespace-pre-wrap mb-2">
+                    <p className="font-light text-gray-500 text-sm leading-relaxed mb-4">
                       {entry.details}
                     </p>
                   )}
-                  {entry.affected_files && entry.affected_files.length > 0 && (
-                    <div className="mt-2">
-                      <span className="text-xs font-medium text-gray-500">
-                        Files changed:
-                      </span>
-                      <ul className="text-xs text-gray-600 font-mono mt-1">
-                        {entry.affected_files.map((file, i) => (
-                          <li key={i}>• {file}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  {entry.migration_files && entry.migration_files.length > 0 && (
-                    <div className="mt-2">
-                      <span className="text-xs font-medium text-gray-500">
-                        Migrations:
-                      </span>
-                      <ul className="text-xs text-gray-600 font-mono mt-1">
-                        {entry.migration_files.map((file, i) => (
-                          <li key={i}>• {file}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {entry.affected_files && entry.affected_files.length > 0 && (
+                      <div>
+                        <span className="text-[10px] uppercase tracking-widest text-gray-600 block mb-2">
+                          Files affected:
+                        </span>
+                        <ul className="text-xs text-gray-500 font-mono space-y-1">
+                          {entry.affected_files.map((file, i) => (
+                            <li key={i} className="flex items-center gap-2">
+                              <span className="w-1 h-1 bg-white/20 rounded-full" />
+                              {file}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    {entry.migration_files && entry.migration_files.length > 0 && (
+                      <div>
+                        <span className="text-[10px] uppercase tracking-widest text-gray-600 block mb-2">
+                          Migrations:
+                        </span>
+                        <ul className="text-xs text-gray-500 font-mono space-y-1">
+                          {entry.migration_files.map((file, i) => (
+                            <li key={i} className="flex items-center gap-2">
+                              <span className="w-1 h-1 bg-emerald-500/20 rounded-full" />
+                              {file}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <Button
                   variant="secondary"
                   onClick={() => handleDelete(entry.id)}
-                  className="ml-4"
+                  className="ml-6 px-4 py-2 text-red-400/60 hover:text-red-400"
                 >
                   <Trash2 className="w-4 h-4" />
                 </Button>

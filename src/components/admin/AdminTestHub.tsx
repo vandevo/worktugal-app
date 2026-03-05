@@ -3,12 +3,11 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
-import { Alert } from '../ui/Alert';
 import {
   Briefcase, Users, BookOpen, MessageCircle,
-  Send, CheckCircle, AlertTriangle, Loader, Copy, Check,
+  CheckCircle, AlertTriangle, Copy, Check,
   Database, Mail, MessageSquare, FileText, Eye, ExternalLink,
-  Star, UserPlus
+  Star, ArrowLeft
 } from 'lucide-react';
 import { submitContactRequest } from '../../lib/contacts';
 import { submitTaxCheckup } from '../../lib/taxCheckup';
@@ -473,7 +472,6 @@ const TEST_SCENARIOS: TestScenario[] = [
 
 export const AdminTestHub: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedScenario, setSelectedScenario] = useState<TestScenario | null>(null);
   const [testEmail, setTestEmail] = useState('vandevo.com@gmail.com');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<{ success: boolean; message: string; id?: any; category?: string } | null>(null);
@@ -596,17 +594,17 @@ export const AdminTestHub: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-obsidian py-20">
+    <div className="min-h-screen bg-obsidian py-24 selection:bg-blue-500/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4 mb-8">
-          <div className="flex items-center gap-3">
-            <AlertTriangle className="w-5 h-5 text-yellow-400" />
+        <div className="bg-yellow-500/5 border border-yellow-500/10 rounded-2xl p-6 mb-12">
+          <div className="flex items-center gap-4">
+            <AlertTriangle className="w-6 h-6 text-yellow-400/60" />
             <div>
-              <p className="text-yellow-300 font-semibold">
-                TEST MODE - Creates Real Database Records & Triggers Automations
+              <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-yellow-400/60 mb-1">
+                Protocol: Terminal Test Mode
               </p>
-              <p className="text-yellow-400/80 text-sm mt-1">
-                All submissions will trigger Make.com workflows, send emails via Amazon SES, create Airtable records, and send Telegram notifications
+              <p className="font-light text-yellow-300/60 text-sm leading-relaxed">
+                Caution: This environment triggers live database mutations and production automation sequences (SES, Make.com, Telegram).
               </p>
             </div>
           </div>
@@ -615,64 +613,71 @@ export const AdminTestHub: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">
-              Test Automation Hub
-            </h1>
-            <p className="text-gray-400">
-              Quick access to test all form submission scenarios with real automation triggers
-            </p>
+          <div className="mb-16">
+            <Button
+              variant="secondary"
+              onClick={() => navigate('/dashboard')}
+              className="mb-8 px-6 py-2 bg-white/5 border-white/10 text-gray-400 hover:text-white"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Overview
+            </Button>
+            <h1 className="font-serif text-5xl text-white mb-4 tracking-tight">Automation Terminal</h1>
+            <p className="font-light text-gray-500 text-xl leading-relaxed">Systematic validation of sovereign triggers and data integrity.</p>
           </div>
 
-          <div className="bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-white/[0.10] p-6 mb-8">
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Test Email Address
+          <div className="bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 shadow-2xl p-8 mb-12">
+            <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-600 mb-4 block">
+              Target Test Email Protocol
             </label>
-            <Input
-              type="email"
-              value={testEmail}
-              onChange={(e) => setTestEmail(e.target.value)}
-              placeholder="vandevo.com@gmail.com"
-              className="max-w-md"
-            />
-            <p className="text-xs text-gray-500 mt-2">
-              All test submissions will use this email. Default is your Gmail for testing.
-            </p>
+            <div className="max-w-md">
+              <Input
+                type="email"
+                value={testEmail}
+                onChange={(e) => setTestEmail(e.target.value)}
+                placeholder="test@worktugal.com"
+                className="bg-white/[0.02] border-white/5 text-white py-4 px-6 rounded-xl"
+              />
+              <p className="text-[10px] uppercase tracking-widest text-gray-700 font-bold mt-4">
+                Routing: All intelligence will be dispatched to this address.
+              </p>
+            </div>
           </div>
 
           {result && (
-            <Alert
-              variant={result.success ? 'success' : 'error'}
-              className="mb-8"
-            >
-              <div className="flex items-center justify-between gap-4">
+            <div className={`mb-12 p-8 rounded-3xl border shadow-2xl ${result.success ? 'bg-emerald-500/5 border-emerald-500/10' : 'bg-red-500/5 border-red-500/10'}`}>
+              <div className="flex items-center justify-between gap-8">
                 <div className="flex-1">
-                  {result.message}
+                  <p className={`text-sm font-light leading-relaxed ${result.success ? 'text-emerald-400/80' : 'text-red-400/80'}`}>
+                    {result.message}
+                  </p>
                   {result.id && (
-                    <div className="text-xs mt-2 opacity-70">
-                      Record ID: {result.id}
+                    <div className="text-[10px] uppercase tracking-widest text-gray-600 font-bold mt-4">
+                      Protocol Log ID: <span className="text-white font-mono">{result.id}</span>
                     </div>
                   )}
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4">
                   {result.id && result.category === 'tax_checkup' && (
                     <Button
+                      variant="secondary"
                       size="sm"
                       onClick={() => handleViewResults(String(result.id))}
                       className="whitespace-nowrap"
                     >
                       <Eye className="w-3 h-3 mr-1" />
-                      View Results
+                      View Output
                     </Button>
                   )}
                   {result.id && (
                     <button
                       onClick={() => copyToClipboard(String(result.id), 'result')}
-                      className="ml-2 p-2 hover:bg-white/10 rounded transition-colors"
+                      className="p-3 bg-white/5 border border-white/10 rounded-xl text-gray-400 hover:text-white transition-all"
                     >
                       {copiedId === 'result' ? (
-                        <Check className="w-4 h-4 text-green-400" />
+                        <Check className="w-4 h-4 text-emerald-400" />
                       ) : (
                         <Copy className="w-4 h-4" />
                       )}
@@ -680,40 +685,40 @@ export const AdminTestHub: React.FC = () => {
                   )}
                 </div>
               </div>
-            </Alert>
+            </div>
           )}
 
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-white mb-4">Contact Form Scenarios</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="mb-16">
+            <h2 className="font-serif text-2xl text-white mb-8">Contact Sequence Scenarios</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {TEST_SCENARIOS.filter(s => s.category === 'contact').map((scenario) => {
                 const Icon = scenario.icon;
                 return (
                   <motion.div
                     key={scenario.id}
-                    initial={{ opacity: 0, scale: 0.95 }}
+                    initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="bg-white/[0.03] backdrop-blur-3xl rounded-xl border border-white/[0.10] p-5 hover:border-white/[0.15] transition-all"
+                    className="bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 p-8 hover:border-white/10 transition-all group"
                   >
-                    <div className="flex items-start gap-3 mb-3">
-                      <div className={`p-2 rounded-lg ${getColorClasses(scenario.color)}`}>
-                        <Icon className="w-4 h-4" />
+                    <div className="flex items-start gap-6 mb-6">
+                      <div className={`p-4 rounded-2xl bg-white/5 border border-white/5 group-hover:bg-white/10 transition-colors`}>
+                        <Icon className="w-6 h-6 opacity-50" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-bold text-white text-sm mb-1">
+                        <h3 className="font-serif text-lg text-white mb-1">
                           {scenario.title}
                         </h3>
-                        <p className="text-xs text-gray-400">
+                        <p className="font-light text-gray-500 text-xs leading-relaxed">
                           {scenario.description}
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-1 mb-3">
+                    <div className="flex flex-wrap gap-2 mb-8">
                       {scenario.triggers.map(trigger => (
                         <span
                           key={trigger}
-                          className="text-xs px-2 py-0.5 bg-white/[0.05] border border-white/[0.08] rounded text-gray-400"
+                          className="text-[8px] px-2 py-1 bg-white/5 border border-white/5 rounded text-gray-600 font-bold uppercase tracking-widest"
                         >
                           {trigger}
                         </span>
@@ -723,20 +728,9 @@ export const AdminTestHub: React.FC = () => {
                     <Button
                       onClick={() => handleSubmitTest(scenario)}
                       disabled={isSubmitting}
-                      className="w-full text-sm py-2"
-                      size="sm"
+                      className="w-full"
                     >
-                      {isSubmitting ? (
-                        <>
-                          <Loader className="w-3 h-3 mr-2 animate-spin" />
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="w-3 h-3 mr-2" />
-                          Send Test
-                        </>
-                      )}
+                      {isSubmitting ? 'Syncing...' : 'Dispatch Signal'}
                     </Button>
                   </motion.div>
                 );
@@ -745,133 +739,90 @@ export const AdminTestHub: React.FC = () => {
           </div>
 
           {lastSubmittedId && (
-            <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 mb-8">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Eye className="w-5 h-5 text-blue-400" />
-                  <div>
-                    <p className="text-blue-300 font-semibold">
-                      Last Submitted Tax Checkup
-                    </p>
-                    <p className="text-blue-400/80 text-xs mt-1">
-                      ID: {lastSubmittedId}
-                    </p>
-                  </div>
+            <div className="bg-blue-500/5 border border-blue-500/10 rounded-3xl p-8 mb-16 flex items-center justify-between">
+              <div className="flex items-center gap-6">
+                <div className="p-4 bg-blue-500/10 rounded-2xl">
+                  <Eye className="w-6 h-6 text-blue-400/60" />
                 </div>
-                <Button
-                  size="sm"
-                  onClick={() => handleViewResults(lastSubmittedId)}
-                >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  View Results
-                </Button>
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-blue-400/60 mb-1">
+                    Last Logged Intelligence
+                  </p>
+                  <p className="font-serif text-xl text-white">
+                    Protocol ID: <span className="font-mono">{lastSubmittedId}</span>
+                  </p>
+                </div>
               </div>
+              <Button
+                variant="secondary"
+                onClick={() => handleViewResults(lastSubmittedId)}
+                className="px-8"
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Inspect Results
+              </Button>
             </div>
           )}
 
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-white mb-4">Tax Checkup Scenarios</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="mb-16">
+            <h2 className="font-serif text-2xl text-white mb-8">Tax Checkup Intelligence Scenarios</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {TEST_SCENARIOS.filter(s => s.category === 'tax_checkup').map((scenario) => {
                 const Icon = scenario.icon;
                 return (
                   <motion.div
                     key={scenario.id}
-                    initial={{ opacity: 0, scale: 0.95 }}
+                    initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="bg-white/[0.03] backdrop-blur-3xl rounded-xl border border-white/[0.10] p-5 hover:border-white/[0.15] transition-all"
+                    className="bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 p-8 hover:border-white/10 transition-all group"
                   >
-                    <div className="flex items-start gap-3 mb-3">
-                      <div className={`p-2 rounded-lg ${getColorClasses(scenario.color)}`}>
-                        <Icon className="w-4 h-4" />
+                    <div className="flex items-start gap-6 mb-6">
+                      <div className={`p-4 rounded-2xl bg-white/5 border border-white/5 group-hover:bg-white/10 transition-colors`}>
+                        <Icon className="w-6 h-6 opacity-50" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-bold text-white text-sm mb-1">
+                        <h3 className="font-serif text-lg text-white mb-1">
                           {scenario.title}
                         </h3>
-                        <p className="text-xs text-gray-400">
+                        <p className="font-light text-gray-500 text-xs leading-relaxed">
                           {scenario.description}
                         </p>
                       </div>
                     </div>
 
                     {scenario.expectedWarnings && (
-                      <div className="flex items-center gap-2 mb-3 text-xs">
-                        <span className="flex items-center gap-1 text-red-400">
-                          <span className="w-2 h-2 rounded-full bg-red-400"></span>
-                          {scenario.expectedWarnings.red}
-                        </span>
-                        <span className="flex items-center gap-1 text-yellow-400">
-                          <span className="w-2 h-2 rounded-full bg-yellow-400"></span>
-                          {scenario.expectedWarnings.yellow}
-                        </span>
-                        <span className="flex items-center gap-1 text-green-400">
-                          <span className="w-2 h-2 rounded-full bg-green-400"></span>
-                          {scenario.expectedWarnings.green}
-                        </span>
-                      </div>
-                    )}
-
-                    {scenario.testsRules && scenario.testsRules.length > 0 && (
-                      <div className="mb-3">
-                        <p className="text-xs text-gray-500 mb-1">Tests:</p>
-                        <div className="flex flex-wrap gap-1">
-                          {scenario.testsRules.slice(0, 2).map((rule, idx) => (
-                            <span
-                              key={idx}
-                              className="text-xs px-2 py-0.5 bg-blue-500/10 border border-blue-500/20 rounded text-blue-400"
-                            >
-                              {rule}
-                            </span>
-                          ))}
-                          {scenario.testsRules.length > 2 && (
-                            <span className="text-xs px-2 py-0.5 text-gray-500">
-                              +{scenario.testsRules.length - 2} more
-                            </span>
-                          )}
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-red-400/60 shadow-[0_0_8px_rgba(248,113,113,0.4)]"></span>
+                          <span className="text-[10px] font-bold text-gray-600">{scenario.expectedWarnings.red}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-yellow-400/60 shadow-[0_0_8px_rgba(250,204,21,0.4)]"></span>
+                          <span className="text-[10px] font-bold text-gray-600">{scenario.expectedWarnings.yellow}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-emerald-400/60 shadow-[0_0_8px_rgba(52,211,153,0.4)]"></span>
+                          <span className="text-[10px] font-bold text-gray-600">{scenario.expectedWarnings.green}</span>
                         </div>
                       </div>
                     )}
 
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {scenario.triggers.map(trigger => (
-                        <span
-                          key={trigger}
-                          className="text-xs px-2 py-0.5 bg-white/[0.05] border border-white/[0.08] rounded text-gray-400"
-                        >
-                          {trigger}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex gap-2">
+                    <div className="flex gap-3">
                       <Button
                         onClick={() => handleSubmitTest(scenario)}
                         disabled={isSubmitting}
-                        className="flex-1 text-sm py-2"
-                        size="sm"
+                        className="flex-1"
                       >
-                        {isSubmitting ? (
-                          <>
-                            <Loader className="w-3 h-3 mr-2 animate-spin" />
-                            Sending...
-                          </>
-                        ) : (
-                          <>
-                            <Send className="w-3 h-3 mr-2" />
-                            Send Test
-                          </>
-                        )}
+                        {isSubmitting ? '...' : 'Log'}
                       </Button>
                       <Button
                         onClick={() => handleSubmitAndViewResults(scenario)}
                         disabled={isSubmitting}
-                        variant="outline"
-                        className="text-sm py-2 px-3"
-                        size="sm"
-                        title="Submit and view results page"
+                        variant="secondary"
+                        className="px-4 opacity-60 hover:opacity-100"
+                        title="Dispatch and Inspect"
                       >
-                        <Eye className="w-3 h-3" />
+                        <Eye className="w-4 h-4" />
                       </Button>
                     </div>
                   </motion.div>
@@ -880,122 +831,99 @@ export const AdminTestHub: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-white/[0.10] p-6 mb-8">
-            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-              <Eye className="w-5 h-5" />
-              Quick Preview - View Results
-            </h3>
-            <p className="text-sm text-gray-400 mb-4">
-              Enter any existing intake ID to view its results page directly, or view the demo page
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Input
-                type="text"
-                value={quickPreviewId}
-                onChange={(e) => setQuickPreviewId(e.target.value)}
-                placeholder="Enter intake ID (e.g., 123)"
-                className="flex-1"
-              />
-              <Button
-                onClick={() => quickPreviewId && handleViewResults(quickPreviewId)}
-                disabled={!quickPreviewId}
-              >
-                <ExternalLink className="w-4 h-4 mr-2" />
-                View Results
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => navigate('/checkup/results/demo')}
-              >
-                <Eye className="w-4 h-4 mr-2" />
-                View Demo
-              </Button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div className="bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 p-8 shadow-2xl">
+              <h3 className="font-serif text-xl text-white mb-6 flex items-center gap-3">
+                <Eye className="w-5 h-5 text-blue-400/50" />
+                Intelligence Lookup
+              </h3>
+              <p className="font-light text-gray-500 text-sm mb-8 leading-relaxed">
+                Manually retrieve results for an existing protocol ID or access the demonstration interface.
+              </p>
+              <div className="space-y-4">
+                <Input
+                  type="text"
+                  value={quickPreviewId}
+                  onChange={(e) => setQuickPreviewId(e.target.value)}
+                  placeholder="Intelligence ID"
+                  className="bg-white/[0.02] border-white/5 text-white"
+                />
+                <div className="flex gap-3">
+                  <Button
+                    onClick={() => quickPreviewId && handleViewResults(quickPreviewId)}
+                    disabled={!quickPreviewId}
+                    className="flex-1"
+                  >
+                    Inspect
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    onClick={() => navigate('/checkup/results/demo')}
+                    className="px-8"
+                  >
+                    Demo
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl border border-white/[0.08] p-6 mb-8">
-            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-              <Database className="w-5 h-5" />
-              What Gets Triggered?
-            </h3>
-            <div className="space-y-3 text-sm text-gray-300">
-              <div className="flex items-start gap-3">
-                <Database className="w-4 h-4 mt-0.5 text-blue-400" />
-                <div>
-                  <p className="font-medium">Supabase Database</p>
-                  <p className="text-xs text-gray-400">Creates real records in contact_requests or accounting_intakes tables</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Mail className="w-4 h-4 mt-0.5 text-green-400" />
-                <div>
-                  <p className="font-medium">Amazon SES Emails</p>
-                  <p className="text-xs text-gray-400">Sends confirmation emails via FluentCRM integration</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <FileText className="w-4 h-4 mt-0.5 text-purple-400" />
-                <div>
-                  <p className="font-medium">Airtable Records</p>
-                  <p className="text-xs text-gray-400">Creates or updates records in your Airtable base via Make.com</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <MessageSquare className="w-4 h-4 mt-0.5 text-yellow-400" />
-                <div>
-                  <p className="font-medium">Telegram Notifications</p>
-                  <p className="text-xs text-gray-400">Sends alerts to your Worktugal bot</p>
-                </div>
+            <div className="bg-[#121212] backdrop-blur-3xl rounded-3xl border border-white/5 p-8 shadow-2xl">
+              <h3 className="font-serif text-xl text-white mb-6 flex items-center gap-3">
+                <Database className="w-5 h-5 text-emerald-400/50" />
+                Trigger Schema
+              </h3>
+              <div className="space-y-4">
+                {[
+                  { icon: Database, label: 'Supabase Store', desc: 'Immutable record generation', color: 'text-blue-400/50' },
+                  { icon: Mail, label: 'Amazon SES Dispatch', desc: 'Production email routing', color: 'text-emerald-400/50' },
+                  { icon: FileText, label: 'Airtable Bridge', desc: 'Make.com CRM integration', color: 'text-purple-400/50' },
+                  { icon: MessageSquare, label: 'Telegram Alert', desc: 'Secure bot notification', color: 'text-yellow-400/50' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <item.icon className={`w-4 h-4 mt-1 ${item.color}`} />
+                    <div>
+                      <p className="text-[10px] uppercase tracking-widest text-white font-bold">{item.label}</p>
+                      <p className="text-xs text-gray-600 font-light">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-amber-500/10 to-yellow-500/5 backdrop-blur-xl rounded-2xl border border-amber-500/30 p-6">
-            <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
-              <Star className="w-5 h-5 text-amber-400" />
-              Grant Paid Review Access
+          <div className="bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent backdrop-blur-3xl rounded-3xl border border-amber-500/20 p-8 shadow-2xl">
+            <h3 className="font-serif text-2xl text-white mb-2 flex items-center gap-3">
+              <Star className="w-6 h-6 text-amber-400/60" />
+              Administrative Authorization Bypass
             </h3>
-            <p className="text-sm text-gray-400 mb-4">
-              Bypass Stripe payment and grant a user access to the compliance review form. User must have an existing account.
+            <p className="font-light text-gray-500 text-sm mb-8 max-w-2xl leading-relaxed">
+              Manually grant "Paid Client" status to an existing entity, bypassing Stripe protocols for testing or high-priority onboarding.
             </p>
 
             {grantResult && (
-              <Alert
-                variant={grantResult.success ? 'success' : 'error'}
-                className="mb-4"
-              >
+              <div className={`mb-8 p-6 rounded-2xl border ${grantResult.success ? 'bg-emerald-500/5 border-emerald-500/10 text-emerald-400/80' : 'bg-red-500/5 border-red-500/10 text-red-400/80'} text-sm font-light`}>
                 {grantResult.message}
-              </Alert>
+              </div>
             )}
 
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Input
                 type="email"
                 value={grantEmail}
                 onChange={(e) => setGrantEmail(e.target.value)}
-                placeholder="user@example.com"
-                className="flex-1"
+                placeholder="identity@ecosystem.com"
+                className="flex-1 bg-white/[0.02] border-white/5 text-white"
               />
               <Button
                 onClick={handleGrantAccess}
                 disabled={!grantEmail || isGranting}
-                className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-semibold"
+                className="px-12 bg-amber-500/20 text-amber-400 border border-amber-500/30 hover:bg-amber-500/30"
               >
-                {isGranting ? (
-                  <>
-                    <Loader className="w-4 h-4 mr-2 animate-spin" />
-                    Granting...
-                  </>
-                ) : (
-                  <>
-                    <UserPlus className="w-4 h-4 mr-2" />
-                    Grant Access
-                  </>
-                )}
+                {isGranting ? 'Authorizing...' : 'Grant Privilege'}
               </Button>
             </div>
-            <p className="text-xs text-gray-500 mt-3">
-              This will create a paid_compliance_reviews record and update user_profiles. User will see "Client" badge and can access the form.
+            <p className="text-[10px] uppercase tracking-[0.2em] text-gray-700 font-bold mt-6">
+              Logic: Mutations occur in `paid_compliance_reviews` and `user_profiles`.
             </p>
           </div>
         </motion.div>

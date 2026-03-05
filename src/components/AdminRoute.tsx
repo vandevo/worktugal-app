@@ -36,8 +36,8 @@ export const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
 
   if (authLoading || checking) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+      <div className="min-h-screen bg-obsidian flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white/20"></div>
       </div>
     );
   }
