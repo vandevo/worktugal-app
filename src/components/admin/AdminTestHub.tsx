@@ -482,18 +482,6 @@ export const AdminTestHub: React.FC = () => {
   const [isGranting, setIsGranting] = useState(false);
   const [grantResult, setGrantResult] = useState<{ success: boolean; message: string } | null>(null);
 
-  const getColorClasses = (color: string) => {
-    const colors = {
-      blue: 'bg-blue-500/10 border-blue-500/30 text-blue-400',
-      green: 'bg-green-500/10 border-green-500/30 text-green-400',
-      yellow: 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400',
-      purple: 'bg-purple-500/10 border-purple-500/30 text-purple-400',
-      red: 'bg-red-500/10 border-red-500/30 text-red-400',
-      gray: 'bg-gray-500/10 border-gray-500/30 text-gray-400',
-    };
-    return colors[color as keyof typeof colors] || colors.gray;
-  };
-
   useEffect(() => {
     const stored = localStorage.getItem('last_tax_checkup_id');
     if (stored) {
@@ -576,7 +564,7 @@ export const AdminTestHub: React.FC = () => {
     setGrantResult(null);
 
     try {
-      const { userId, reviewId } = await grantReviewAccessByEmail(grantEmail);
+      const { reviewId } = await grantReviewAccessByEmail(grantEmail);
       setGrantResult({
         success: true,
         message: `Review access granted! User can now access the intake form at /compliance-review. Review ID: ${reviewId.slice(0, 8)}...`
