@@ -795,3 +795,436 @@ You do not build a Portugal product.
 You build a Compliance Engine.
 
 Portugal is just version 1.
+
+I checked the current tool and your plan makes sense. Here is the briefing you can give the Cursor agent so it understands the context and what must change.
+
+First, what the current tool is doing.
+
+Your existing tool at Portugal Setup Check v2.0
+ is a quick compliance diagnostic for freelancers and remote workers in Portugal. It asks around 12 questions and returns a compliance score in about 2 minutes.
+
+Core characteristics of the current version.
+
+Fast diagnostic
+User answers a small set of questions about visa, tax residence, NIF, social security, etc.
+
+Score output
+The tool calculates a setup score that indicates whether the user is legally set up.
+
+Checklist result
+It identifies missing steps such as opening activity, registering NISS, or filing tax.
+
+No login required
+The earlier version allowed usage without login and only suggested paid help after the result.
+
+Demand signal
+Your tool already collected hundreds of completions, which confirms real user pain.
+
+The bigger context of the product.
+
+Portugal relocation and freelancer setup is complex because multiple systems connect.
+
+Tax authority
+Social security
+Immigration
+Banking
+
+Missing one step can create fines or application rejection.
+
+Examples.
+
+Freelancers must register activity before starting work or risk fines up to 7500 euros.
+
+Freelancers exceeding 15000 euros annual income must register VAT.
+
+Many expats misunderstand these connections.
+
+That is why your diagnostic wedge is strong.
+
+Now the key architectural move you proposed.
+
+You want to migrate the diagnostic from
+
+setup.apps.worktugal.com
+
+into
+
+app.worktugal.com
+
+This is the correct move because it turns the diagnostic from a separate tool into a core product module.
+
+This enables.
+
+Single Supabase database
+Single user system
+Unified analytics
+Future compliance tools inside one environment
+
+Now the Cursor agent briefing.
+
+You can paste this into Cursor.
+
+Cursor Agent Brief
+
+Project context
+
+We are rebuilding the Worktugal Setup Diagnostic inside the main application.
+
+Current tool
+setup.apps.worktugal.com
+
+Target environment
+app.worktugal.com
+
+Stack
+
+Cloudflare Pages frontend
+Supabase database
+Stripe for paid upgrades
+Make.com for automation
+
+Goal
+
+Replace the standalone quiz with a new diagnostic engine inside the app.
+
+Diagnostic Engine v2 will include:
+
+1 Setup Score
+Measures compliance completeness.
+
+2 Exposure Index
+Detects hidden regulatory risks.
+
+This engine must support future expansion to other countries.
+
+Architecture requirements
+
+Country modular system
+
+Add field
+
+country_target
+
+Example values
+
+portugal
+spain
+italy
+uae
+
+Trap rules must be stored as country modules.
+
+Example
+
+trap_rules_portugal
+trap_rules_spain
+
+The engine loads traps based on selected country.
+
+Question structure
+
+Existing fields remain:
+
+visa_status
+tax_residence
+nif
+business_structure
+social_security
+banking
+aima_appointment
+health_insurance
+monthly_income
+time_in_portugal
+
+Additional exposure detection questions must be added.
+
+Examples
+
+foreign_tax_deregistration
+eu_clients
+permit_expiry_tracking
+accountant_status
+first_irs_filing
+schengen_day_tracking
+
+Scoring engine
+
+Two outputs
+
+setup_score
+exposure_index
+
+Exposure index is calculated using trap rules.
+
+Example trap rule
+
+If
+
+tax_residence yes
+and foreign_tax_deregistration no
+
+then
+
+exposure_score plus 15
+
+Database schema
+
+Create table
+
+diagnostics
+
+Fields
+
+id
+email
+country_target
+all question fields
+setup_score
+exposure_index
+trap_flags jsonb
+created_at
+
+Result segmentation
+
+Users fall into 4 segments
+
+Low Setup Low Exposure
+Low Setup High Exposure
+High Setup High Exposure
+High Setup Low Exposure
+
+Segment 3 is highest monetization.
+
+Monetization
+
+Free diagnostic result
+
+Paid risk audit upgrade
+
+Deliverables for this phase
+
+Refactor existing quiz logic
+
+Implement Exposure Index scoring
+
+Store results in Supabase
+
+Return result object to UI
+
+Future phases
+
+Country expansion modules
+Spain diagnostic
+Tax compliance engine
+Document checklist generator
+
+Important design constraint
+
+Do not hardcode Portugal logic in the engine.
+
+Portugal must be implemented as the first trap rule module.
+
+The engine must remain country agnostic.
+
+End brief.
+
+My feedback on your direction.
+
+This is the correct wedge.
+
+You are not building a quiz.
+
+You are building a compliance intelligence engine.
+
+The quiz is just the interface.
+
+Portugal is simply the first dataset.
+
+Spain, Italy, and UAE become rule modules later.
+
+If you want, I can also show you the 3 biggest UX mistakes the current setup checker likely has and how to fix them in the new version so conversion and email capture increase.
+
+Answer: The current Setup Check is good but has 3 structural UX problems that limit conversion, data capture, and monetization.
+
+Why it matters: Fixing these will turn the diagnostic from a “quiz tool” into a lead engine and compliance intelligence product.
+
+Next Move: Implement the 3 upgrades below when rebuilding the diagnostic inside app.worktugal.com.
+
+Problem: The tool reveals the value too early
+
+Current behavior
+The quiz immediately shows the score after the last question.
+
+Effect
+User gets value before giving email.
+
+Result
+You lose the lead.
+
+Your current version was intentionally no login and free, which helped adoption. Reddit feedback confirms people used it quickly because it required “no login required” and only 12 questions for a compliance score.
+
+But now you already validated demand.
+
+Upgrade
+
+Gate the result.
+
+New flow
+
+Step 1
+Answer questions
+
+Step 2
+“Analyzing your setup…”
+
+Step 3
+Email capture
+
+Step 4
+Reveal result
+
+Example copy
+
+"We found 3 potential compliance risks in your setup."
+
+"Enter your email to see your full report."
+
+This alone can increase conversion 3x.
+
+Problem: The tool measures setup but not risk
+
+Current version
+
+Only measures completeness.
+
+Example:
+
+Do you have NIF
+Do you have social security
+Do you have visa
+
+But many expats who check these boxes still get into trouble.
+
+Example traps
+
+Tax residency confusion
+Freelancers forgetting social security
+Thinking NHR still applies
+Misunderstanding VAT thresholds
+
+These mistakes repeatedly appear in expat communities.
+
+Upgrade
+
+Add Exposure Index.
+
+Two scores
+
+Setup Score
+Exposure Index
+
+Example
+
+User result
+
+Setup Score
+82 percent
+
+Exposure Index
+46 percent risk
+
+This creates urgency.
+
+Problem: The result page is too generic
+
+Typical diagnostic output
+
+“You are mostly compliant”
+
+That is weak.
+
+Users want specificity.
+
+Upgrade
+
+Return a risk narrative.
+
+Example result
+
+"Your setup looks correct, but we detected 2 hidden compliance risks."
+
+Risk 1
+You are a Portuguese tax resident but did not confirm deregistration in your previous country.
+
+Risk 2
+Your income may trigger VAT registration.
+
+This makes the tool feel like intelligence, not a quiz.
+
+Add behavioral triggers
+
+Use psychological hooks.
+
+Example
+
+Progress bar
+
+Question 4 of 12
+
+Estimated completion
+
+1 minute remaining
+
+Micro insights
+
+Example after answering tax question
+
+"Most freelancers get this wrong."
+
+This increases completion rate.
+
+Turn results into a monetization ladder
+
+Free result
+
+Setup Score
+Exposure Index
+Top 2 risks
+
+Paid report
+
+Full risk map
+Action checklist
+Document checklist
+
+Optional clarity call.
+
+Add share loop
+
+End screen
+
+"Compare your score with other expats."
+
+Example
+
+Average Setup Score
+
+64 percent
+
+Your score
+
+82 percent
+
+This creates viral curiosity.
+
+Operator take
+
+Your diagnostic wedge is strong because Portugal relocation is full of hidden traps involving visas, tax residency, social security, and freelancer registration that many expats misunderstand.
+
+But the real product is not the quiz.
+
+It is a compliance intelligence engine.
+
+The quiz is just the interface.
+
+If you want, I can also show you the single most powerful question you can add that will instantly segment high value users from low value ones, which will massively improve monetization of the tool.
