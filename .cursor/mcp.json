@@ -8,6 +8,9 @@
       "env": {
         "CAL_API_KEY": "cal_live_75e8168c86a2e80e28878ee53adb060d"
       }
+    },
+    "make": {
+      "url": "https://mcp.make.com/sse"
     }
   }
 }

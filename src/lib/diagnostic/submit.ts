@@ -55,6 +55,38 @@ export async function submitDiagnostic(
     throw new Error(`Failed to save diagnostic: ${error.message}`);
   }
 
+  const webhookUrl = import.meta.env.VITE_MAKE_DIAGNOSTIC_WEBHOOK_URL;
+  if (webhookUrl && data) {
+    const contact = params.contact || {};
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: data.id,
+        email: data.email,
+        name: contact.name || '',
+        phone: contact.phone || '',
+        setup_score: data.setup_score,
+        exposure_index: data.exposure_index,
+        segment: data.segment,
+        trap_count: params.result.triggeredTraps.length,
+        trap_summary: params.result.triggeredTraps
+          .map(t => `${t.id} (${t.severity})`).join(', '),
+        country_target: params.country,
+        marketing_consent: contact.marketing_consent ?? false,
+        accounting_interest: contact.accounting_interest ?? false,
+        utm_source: params.utmSource || '',
+        utm_medium: params.utmMedium || '',
+        utm_campaign: params.utmCampaign || '',
+        diagnostic_version: DIAGNOSTIC_VERSION,
+        ruleset_version: getRulesetVersion(params.country),
+        created_at: new Date().toISOString(),
+        source: 'compliance_diagnostic',
+        results_url: `https://app.worktugal.com/diagnostic/results?id=${data.id}`,
+      }),
+    }).catch(err => console.error('Diagnostic webhook failed:', err));
+  }
+
   return data;
 }
 
