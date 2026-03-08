@@ -11,6 +11,8 @@ import {
   MessageCircle,
   Send,
   Users,
+  Phone,
+  Calendar,
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
@@ -159,7 +161,7 @@ export const DiagnosticResults: React.FC = () => {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/5 border border-blue-500/10 mb-6">
                 <Shield className="w-3 h-3 text-blue-400" />
                 <span className="text-[9px] uppercase tracking-[0.2em] text-blue-400/80 font-bold">
-                  Compliance Risk Diagnostic v{data.id ? '2.0' : '1.0'}
+                  Compliance Risk Diagnostic v2.0
                 </span>
               </div>
               <h1 className="text-3xl sm:text-4xl font-serif text-white mb-4">
@@ -352,8 +354,8 @@ export const DiagnosticResults: React.FC = () => {
             </motion.div>
           )}
 
-          {/* Paid Upsell CTA */}
-          {!isPaid && traps.length > 0 && (
+          {/* Clarity Call CTA */}
+          {traps.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -363,30 +365,38 @@ export const DiagnosticResults: React.FC = () => {
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 blur-[100px] -z-10" />
 
               <div className="max-w-2xl">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/5 border border-emerald-500/10 mb-6">
+                  <Phone className="w-3 h-3 text-emerald-400" />
+                  <span className="text-[9px] uppercase tracking-[0.2em] text-emerald-400/80 font-bold">
+                    Expert Review
+                  </span>
+                </div>
+
                 <h2 className="text-2xl font-serif text-white mb-4">
-                  Unlock Your Full Risk Scan
+                  Walk Through Your Risks With an Expert
                 </h2>
                 <p className="text-gray-500 font-light text-sm mb-10 leading-relaxed">
-                  Your free diagnostic found{' '}
+                  Your diagnostic found{' '}
                   <span className="text-white font-medium">
                     {traps.length} compliance {traps.length === 1 ? 'risk' : 'risks'}
                   </span>
-                  . The full scan includes every risk with step-by-step corrective actions,
-                  document checklists, and official source citations.
+                  . In a 30-minute clarity call, we review your specific situation,
+                  explain exactly what each risk means for you, and give you a
+                  prioritized action plan.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
                   <div className="space-y-4">
                     <h4 className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">
-                      Full scan includes
+                      What you get
                     </h4>
                     <ul className="space-y-3">
                       {[
-                        'All triggered risks with severity ratings',
-                        'Step-by-step corrective actions',
-                        'Required document checklists',
-                        'Official law citations and source links',
-                        'Penalty ranges for each risk',
+                        'Pre-briefed expert who already knows your risk profile',
+                        'Plain-language explanation of each triggered risk',
+                        'Prioritized action steps specific to your situation',
+                        'Referral to a vetted tax advisor or lawyer if needed',
+                        'Full trap breakdown with legal citations',
                       ].map((item, i) => (
                         <li
                           key={i}
@@ -401,25 +411,30 @@ export const DiagnosticResults: React.FC = () => {
                   <div className="flex flex-col justify-end">
                     <div className="mb-6">
                       <div className="text-3xl font-serif text-white">
-                        €29
+                        €149
                         <span className="text-sm text-gray-500 ml-2 font-sans font-light">
-                          One-time
+                          30 minutes
                         </span>
                       </div>
                       <p className="text-[10px] text-gray-600 uppercase tracking-widest mt-1">
-                        Instant access after payment
+                        Video call via Google Meet or Zoom
                       </p>
                     </div>
                     <Button
                       size="lg"
                       className="w-full text-xs font-medium uppercase tracking-widest px-8"
-                      disabled
+                      onClick={() => {
+                        const calUrl = import.meta.env.VITE_CLARITY_CALL_URL;
+                        if (calUrl) {
+                          window.open(calUrl, '_blank');
+                        }
+                      }}
                     >
-                      Coming Soon
-                      <ArrowRight className="w-3 h-3 ml-2" />
+                      <Calendar className="w-3 h-3 mr-2" />
+                      Book Clarity Call
                     </Button>
                     <p className="text-[10px] text-gray-600 mt-3 text-center">
-                      Stripe checkout available in Phase 3
+                      Powered by Cal.com. Cancel or reschedule anytime.
                     </p>
                   </div>
                 </div>
@@ -477,8 +492,8 @@ export const DiagnosticResults: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Sticky bottom CTA for free users with traps */}
-      {!isPaid && traps.length > 0 && (
+      {/* Sticky bottom CTA for users with traps */}
+      {traps.length > 0 && (
         <div className="fixed bottom-0 left-0 right-0 z-50 bg-obsidian/90 backdrop-blur-xl border-t border-white/5 py-4 px-6">
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
@@ -487,15 +502,20 @@ export const DiagnosticResults: React.FC = () => {
                 <span className="text-white font-medium">
                   {traps.length} {traps.length === 1 ? 'risk' : 'risks'} found.
                 </span>{' '}
-                Get the full breakdown with corrective actions and source citations.
+                Get expert help understanding what these mean for your situation.
               </p>
             </div>
             <Button
               size="sm"
               className="whitespace-nowrap px-8 text-[10px] uppercase tracking-widest font-bold"
-              disabled
+              onClick={() => {
+                const calUrl = import.meta.env.VITE_CLARITY_CALL_URL;
+                if (calUrl) {
+                  window.open(calUrl, '_blank');
+                }
+              }}
             >
-              Full Risk Scan — €29
+              Book Clarity Call — €149
               <ArrowRight className="w-3 h-3 ml-2" />
             </Button>
           </div>

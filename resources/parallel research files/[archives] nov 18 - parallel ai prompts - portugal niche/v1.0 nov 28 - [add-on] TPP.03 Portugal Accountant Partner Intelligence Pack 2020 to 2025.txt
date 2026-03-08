@@ -1,0 +1,260 @@
+Purpose
+Produce a complete intelligence file on Portugal accountants so Worktugal can identify, filter, and recruit one OCC certified accountant partner. The output must map pricing, services, risks, behavior patterns, delivery models, seasonal dynamics, foreigner handling, intake requirements, red flags, business models, and partnership suitability.
+
+Scope
+Portugal, freelancers, remote workers, digital nomads, foreign residents, simplified regime, organized accounting, VAT exempt regime, Art 151 code, activity opening, Modelo 3, Social Security, VAT, IRS, and cross border cases involving EU and non EU nationals.
+
+Time Frame
+2020 to 2025, with priority on rules and market behavior in 2023 to 2025.
+
+Do Not Include
+No speculation.
+No unrelated countries.
+No hypothetical tax reforms not already announced.
+No general accounting theory.
+No advice intended to replace certified accountants.
+Only market intelligence, patterns, factual rules, and verifiable trends.
+
+Deliverables
+
+Organize output into the following sections.
+
+1. Executive Summary
+
+Three lines summarizing the Portugal accountant ecosystem for freelancers and foreigners.
+
+2. Market Landscape Map
+
+Detailed taxonomy of Portugal accountant profiles including:
+
+• OCC certified accountants
+• non certified accountants
+• boutique firms
+• mid tier firms
+• large agencies
+• digital accounting startups
+• “backstreet” accountants
+• typical client profiles each category serves
+• strengths and weaknesses of each category
+• ideal partner category for Worktugal
+• categories to avoid
+
+3. Pricing Intelligence Matrix
+
+Provide accurate ranges and insights for:
+
+• freelancer monthly packages
+• per hour consultation rates
+• VAT return costs
+• IRS Modelo 3 filing costs
+• Social Security handling fees
+• bookkeeping add ons
+• crypto reporting fees
+• foreign income classification fees
+• activity opening fees
+• business incorporation fees
+• digital nomad premium pricing
+• hidden fees charged by firms
+• practices that overcharge foreigners
+• price differences between Lisbon, Porto, Algarve, and interior regions
+
+Output as a table with columns:
+service, price_low, price_median, price_high, who_charges_this, reliability_score
+
+4. Red Flag and Reliability Matrix
+
+Identify:
+
+• common signs of unreliable accountants
+• “backstreet accountant” patterns
+• client abandonment behaviors
+• high risk communication styles
+• refusal to use software
+• refusal to work in English
+• failure to provide SLAs
+• how to verify OCC registration
+• differences between OCC certified and uncertified
+• penalties for incorrect filings and whose liability it is
+• red flags foreigners often miss
+• red flags Portuguese often miss
+
+Output as a table with three columns:
+red_flag, why_it_matters, impact_on_client
+
+5. Services Map
+
+Map services into three categories.
+
+A. Services most accountants provide
+
+IRS filing, VAT returns, Social Security declaration, bookkeeping, activity opening, company incorporation, withholding tax guidance.
+
+B. Services only good accountants provide
+
+VAT threshold tracking, cross border analysis, freelancer coefficient guidance, crypto reporting, residency and tax coordination, model 3 complexity resolution, prepayment optimization, expense classification audits.
+
+C. Services most accountants refuse
+
+Crypto heavy cases, foreign income classification, UAE or offshore coordination, Airbnb income, NHR complexity, IFICI regime, multiple visa categories.
+
+6. Seasonal and Behavioral Dynamics
+
+Explain how seasonality affects accountant service levels:
+
+• summer judicial holidays
+• Christmas shutdown
+• January peak panic month
+• April to June IRS overload
+• October to December filing window
+• foreigner onboarding months
+• periods accountants reject new clients
+• when SLAs slow down
+• when communication becomes irregular
+
+Map this to Portugal’s Annual Behavior Calendar and Annual Fiscal Clock.
+
+7. Business Model and Revenue Structure
+
+Explain:
+
+• how accountants make money
+• margin structure
+• typical number of clients
+• cost per client
+• high margin services
+• low margin services
+• upsells
+• what clients they avoid
+• what clients they prefer
+• foreigner profitability
+• how remote workers impact workload
+• which partnership models accountants accept
+• whether a 65 to 35 split is realistic
+• what partnership risks they fear most
+• which tasks they outsource
+
+8. Foreigner Handling Patterns
+
+Identify:
+
+• what foreigners misunderstand
+• common mistakes digital nomads make
+• what adds work for accountants
+• nationalities that tend to send incomplete documentation
+• expectations around communication channels
+• WhatsApp vs email vs portal behaviors
+• documentation quality issues
+• how foreigners create liabilities
+• why some accountants avoid foreigner clients
+• how to design intake to reduce friction
+
+9. Legal Boundaries and Liability
+
+Identify:
+
+• what advice requires OCC certification
+• what tasks uncertified accountants cannot legally do
+• who is liable for incorrect filings
+• what requires a digital signature
+• what cannot be delegated
+• which rules apply to simplified regime vs organized accounting
+• how crypto and foreign income classification increases liability
+• which partnership setups reduce legal exposure
+
+10. Intake Requirements Checklist
+
+List all documents accountants require to onboard a freelancer:
+
+• NIF
+• NISS
+• activity status
+• turnover proof
+• bank statements
+• invoice exports
+• residency proof
+• foreign income details
+• documentation for social security base
+• expenses list
+• VAT status
+• crypto transaction reports
+• withholding documents
+• previous filings
+
+Include a checklist for foreign clients specifically.
+
+11. Partner Compatibility Framework
+
+Define the ideal accountant partner for Worktugal:
+
+• English capable
+• OCC certified
+• freelancer focused
+• digital friendly
+• responsive
+• willing to review checkup results
+• comfortable with AI summaries
+• open to fixed price products
+• open to SLAs
+• able to scale
+• low bureaucratic rigidity
+• capacity for monthly clients
+• interest in foreign clientele
+
+Include the negative profile to avoid.
+
+12. Suggested Filtering Questions for Worktugal Partner Form
+
+Provide 10 to 14 candidate filtering questions that select only the ideal partner.
+
+Questions should cover:
+
+• certification
+• capacity
+• comfort with freelancers
+• comfort with foreigners
+• software usage
+• turnaround times
+• communication style
+• willingness to follow SLAs
+• willingness to use dashboards
+• interest in revenue sharing
+• knowledge of simplified regime
+• experience with expats
+• crypto comfort
+• cross border comfort
+
+13. Final Selection Matrix
+
+Produce a scoring matrix Worktugal can use to rank accountant applicants on:
+
+• reliability
+• communication
+• capacity
+• pricing fairness
+• service depth
+• digital friendliness
+• willingness to collaborate
+• willingness to adopt AI tools
+• experience with foreigners
+• OCC certification
+• fraud risk
+• legal compliance
+• responsiveness
+• alignment with Worktugal’s model
+
+Output a table with row accountant_type and columns above.
+
+Output Style
+
+• Clear.
+• Structured.
+• No filler.
+• No storytelling.
+• No assumptions.
+• Draw only from verifiable Portuguese tax and accounting behavior patterns 2020 to 2025.
+• Use tables where beneficial.
+• Ensure every insight is actionable for partner selection and form design.
+
+Operator Take
+
+Generate this research as a single deliverable. The output will be used to build the accountant partner form, selection matrix, onboarding workflow, and outreach pitch.

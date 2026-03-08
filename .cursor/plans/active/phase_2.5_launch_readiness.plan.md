@@ -1,6 +1,6 @@
 ---
 name: Phase 2.5 Launch Readiness
-overview: Test the diagnostic flow end-to-end before Stripe, reposition the homepage to point at the new engine, archive the dead 49 EUR product, and defer Stripe until the first diagnostic submissions prove the funnel works.
+overview: "EFFECTIVELY COMPLETE as of v2.5 (March 8). All homepage repositioning done. Stripe deferred to Layer 2. Clarity call CTA (149 EUR) is now the primary revenue mechanism on results page. Deploy pending."
 todos:
   - id: test-e2e
     content: Manually test /diagnostic flow end-to-end, verify Supabase record creation and results page rendering
@@ -18,8 +18,8 @@ todos:
     content: Remove /compliance-review visibility from homepage, keep route alive but retired
     status: completed
   - id: defer-stripe
-    content: Phase 3 Stripe wiring -- only after first diagnostic submissions prove funnel works
-    status: pending
+    content: "Stripe deferred to Layer 2. Clarity call at 149 EUR via Cal.com is Layer 1 revenue. Stripe wiring starts after 5+ clarity calls booked."
+    status: completed
 isProject: false
 ---
 

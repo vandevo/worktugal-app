@@ -1,0 +1,89 @@
+Objective  
+Map the real annual behavior calendar of Portugal between 2020 and 2026, with focus on how national holidays, school breaks, judicial vacations, tourism peaks and cultural rituals change the way people work, travel, respond and make decisions. The output must explain how each month “behaves” in practice for Lisbon and for Portugal as a whole, including patterns that most foreigners and expats do not see.
+
+Research lane  
+History and society, plus Digital nomad behavior, plus Portugal tax and compliance.
+
+Scope and entities  
+For each month from January to December, and for Portugal as a whole with a special focus on Lisbon, identify and document  
+1) National holidays and official observances that materially affect work or services  
+2) Municipal holidays in Lisbon that change opening hours or behavior  
+3) School calendar breaks and exam periods that change family availability  
+4) Judicial vacations (férias judiciais) and any other state slow periods  
+5) Tourism demand level (very low, low, medium, high, very high) and main drivers for that month  
+6) Typical behavior patterns of residents (when they take holidays, go to the village, spend weekends away, focus on study or work, protest, etc)  
+7) Typical availability of service providers and bureaucracy (Finanças, Segurança Social, notaries, lawyers, immigration, banks)  
+8) Any recurring strike patterns, major political events or budget cycles that affect responsiveness  
+9) How foreigners and expats usually misread that month, with examples from communities and media  
+10) Opportunities and risks for remote workers or foreign founders in that month.
+
+For each month include structured fields  
+month_number  
+month_name  
+tourism_intensity_level (very low, low, medium, high, very high)  
+tourism_key_drivers  
+main_national_holidays  
+lisbon_municipal_holidays_or_events  
+school_breaks_and_exam_periods  
+judicial_vacation_status  
+bureaucracy_slowdown_level (none, mild, moderate, severe)  
+typical_resident_holiday_patterns  
+internal_migration_patterns (village returns, Algarve, islands, etc)  
+weather_summary_effect_on_behavior  
+foreigners_common_misconceptions  
+expat_and_nomad_behavior_patterns  
+remote_work_and_business_opportunities  
+relocation_and_immigration_opportunities  
+relocation_and_immigration_risks  
+best_time_for_product_launches_and_campaigns  
+worst_time_for_launches_or_heavy_bureaucracy  
+last_confirmed_change_date.
+
+Time window  
+Use data from 2020 to 2026.  
+For 2026, use all confirmed national holidays, published school calendar structures, judicial vacation rules, and stable year over year tourism and social behavior patterns.  
+Flag any 2026 elements not officially announced and base forward inferences on structural rules such as Easter based holidays, fixed national holidays, “pontes”, tourism cycles, weather, and judicial vacation law.  
+Flag any structural changes that make pre 2023 patterns less reliable, such as pandemic effects, the end of NHR, inflation waves or visa policy shifts.
+
+Priority sources  
+Use evidence based results only. Prioritise  
+Instituto Nacional de Estatística (INE)  
+Banco de Portugal and Turismo de Portugal (TravelBI and official reports)  
+Direção Geral de Estatísticas da Educação e Ciência and official school calendar publications  
+Direção Geral da Administração da Justiça and Diário da República for férias judiciais  
+Official national and municipal holiday calendars  
+Reputable Portuguese media such as Público, Expresso, Observador, Jornal de Notícias, ECO, Jornal de Negócios  
+Academic or government studies on tourism seasonality and internal migration  
+Lisbon municipality and tourism boards  
+When mapping behavior and misconceptions, include community evidence from Reddit r portugal and r portugalexpats, expat forums and digital nomad communities, but treat them as secondary and non primary sources.
+
+Evidence and language  
+Require dates and citations for every rule or pattern. Quote specific calendar rules for school breaks and judicial vacations. Always include the year and source for each claim about seasonality or behavior shifts.  
+Language English with key Portuguese terms preserved such as “férias judiciais”, “interrupções letivas”, “ponte”, “época alta”, “época baixa”.
+
+Output format  
+Deliver an editorial ready Markdown report with  
+1) A three line executive summary explaining how the Portuguese year behaves and why this matters for foreigners and remote workers  
+2) A table with one row per month using the structured fields above  
+3) A narrative section that walks through the year month by month with concrete examples and citations  
+4) A section on “hidden rules and unspoken norms” for Portuguese behavior by month, especially around bridges, village returns, and when not to expect replies or decisions  
+5) A section “Playbook for foreign founders and remote workers in Portugal” that explains the best and worst timing for  
+   a) launching digital products or campaigns  
+   b) pushing bureaucracy  
+   c) organising events  
+   d) running relocation offers  
+6) A short writing brief for a public facing guide for Worktugal, including title tag, meta description, H1 to H3 structure, and three call to action options to app.worktugal.com or pass.worktugal.com.
+
+Geography  
+Portugal as a whole with explicit call outs for Lisbon, Porto, Algarve and the islands when their behavior diverges.
+
+Exclusions  
+Ignore generic travel blogs and listicle sites with no original data.  
+Ignore AI generated content farms.  
+Ignore generic “best time to visit” posts unless they reference official data or credible interviews.
+
+Freshness  
+Give extra weight to 2023, 2024 and 2025 to capture current behavioral patterns, inflation effects and post NHR behavior shifts.  
+Clearly label anything that only held true during the pandemic or that was temporary.
+
+Return Markdown only, not JSON.

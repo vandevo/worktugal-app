@@ -1,0 +1,156 @@
+Research lane
+Portugal tax and compliance. Simplified regime. Freelancer enforcement logic.
+
+Objective
+Map and verify the 15 percent expense obligation under Portugal’s simplified regime and explain how it silently increases taxable income for freelancers and remote workers when not met. This research will be used to write an evidence based article exposing this trap and to power automated checks inside the Worktugal Tax Checkup.
+
+Scope and entities
+Focus on freelancers and independent workers under regime simplificado, categoria B, between 2020 and 2025.
+
+The research must fully explain
+
+What the 15 percent expense obligation is
+
+The legal basis in CIRS Article 31 and related annexes
+
+How Finanças calculates compliance or non compliance
+
+What types of expenses count and which do not
+
+What happens when the threshold is not met
+
+How this interacts with coefficients, year 1 and year 2 reductions, and Social Security calculations
+
+Why most foreigners and first year freelancers miss this rule
+
+Core rules to verify
+The requirement to justify at least 15 percent of gross income with qualifying expenses
+Which expenses are automatically accepted by AT
+Which expenses require manual validation in e Fatura
+Which expenses are excluded entirely
+How the shortfall is added back to taxable income
+Whether the rule applies every year or only after reductions
+How mixed income or partial year activity affects the calculation
+
+For each rule or mechanic include
+rule_description
+legal_article_and_number
+applies_to_which_profiles
+calculation_formula
+practical_example_at_10000, 20000, 40000, and 80000 annual income
+last_confirmed_change_date
+
+Expense classification section
+Map all expense categories relevant to the 15 percent rule, including
+Automatically accepted expenses
+Expenses requiring validation
+Expenses capped or partially accepted
+Expenses excluded even if invoiced
+
+For each expense type include
+expense_category
+counts_toward_15_percent yes or no
+acceptance_method automatic or manual
+common rejection reasons
+typical freelancer mistakes
+citation
+
+Timing and enforcement logic
+Explain how and when AT verifies the 15 percent rule, including
+February 25 e Fatura deadline interaction
+Modelo 3 processing timing
+Automatic assessments
+When corrections are no longer possible
+Whether enforcement is immediate or delayed
+
+Map this against the fiscal calendar from 2020 to 2025.
+
+Penalties and consequences
+Identify all consequences of failing the 15 percent expense obligation, including
+Increase in taxable income
+Loss of coefficient benefit
+Indirect tax increase effect
+Potential penalties or corrections
+
+For each consequence include
+trigger_condition
+legal_basis
+financial_impact_range
+whether penalty is fixed or proportional
+citation
+
+Edge cases to research
+First year and second year activity reductions and how they interact with the 15 percent rule
+Partial year activity
+Low income freelancers
+Foreign sourced income
+Digital nomads invoicing foreign clients
+Interaction with VAT exemption
+Interaction with IFICI or legacy NHR where relevant
+
+Community evidence and real world traps
+Cluster recurring mistakes documented by
+Portuguese accountants
+Ordem dos Contabilistas Certificados guidance
+Reputable Portuguese accounting blogs
+Reddit Portugal and PortugalExpats
+
+Tie every trap back to a verified rule or official clarification.
+
+Change timeline
+Provide a clear timeline from 2020 to 2025 showing
+Any changes to the 15 percent rule
+Clarifications or enforcement shifts
+Digital controls such as e Fatura tightening
+Any post 2023 enforcement patterns affecting foreigners
+
+Evidence requirements
+Use primary Portuguese sources only for rules and calculations, including
+CIRS
+Diario da Republica
+Portal das Financas
+AT circulars
+Ordem dos Contabilistas Certificados
+
+Secondary sources may be used only to illustrate common mistakes and must be clearly labeled.
+
+Language
+English, preserving key Portuguese legal terms such as
+regime simplificado
+categoria B
+coeficientes
+despesas
+e Fatura
+Modelo 3
+
+Output format
+Deliver an editorial ready Markdown report including
+
+Three line executive summary
+
+Clear explanation of the 15 percent expense rule
+
+Calculation formula section with examples
+
+Expense eligibility table
+
+Timing and enforcement section
+
+Penalties and consequences table
+
+Common traps section
+
+2020 to 2025 change timeline
+
+Writing brief for a Worktugal article titled
+“The 15 Percent Expense Rule in Portugal. The Simplified Regime Trap That Raises Your Tax Without Warning”
+
+Include title tag, meta description, H1 to H3 structure, internal links to the Tax Checkup, and CTA to app.worktugal.com.
+
+Exclusions
+No generic expat blogs.
+No SEO filler.
+No speculation.
+No advice outside verified law.
+
+Return Markdown only, not JSON.

@@ -1,0 +1,156 @@
+Research lane
+Portugal tax and compliance. Special tax regimes. Foreign residents.
+
+Objective
+Map and compare the former Non Habitual Resident regime (NHR) and the current IFICI regime in Portugal, with the goal of explaining who qualifies, who is excluded, what income types benefit, and how the change affects freelancers, remote workers, employees, and foreign founders. This research will be used to publish a Worktugal decision firewall article that prevents irreversible tax mistakes.
+
+Scope and profiles
+Focus on
+• Former NHR beneficiaries
+• New foreign tax residents after NHR closure
+• Freelancers under simplified regime
+• Employees
+• Remote workers
+• Digital nomads
+• Foreign founders and consultants
+
+Time window
+NHR rules from 2018 to closure
+IFICI rules from introduction to confirmed 2026 applicability
+No speculative future reforms
+
+Core questions to answer
+
+What NHR allowed in practice
+
+Why NHR was closed
+
+What IFICI replaced and what it did not
+
+Who is eligible for IFICI
+
+Who is explicitly excluded
+
+Which income categories benefit
+
+Which income categories lost advantages
+
+Why most freelancers do not qualify
+
+What mistakes are irreversible
+
+How Finanças applies these regimes in practice
+
+Legal basis to map
+Cross reference all findings against
+• CIRS articles governing NHR
+• State Budget laws closing NHR
+• Legal basis creating IFICI
+• Diário da República publications
+• Autoridade Tributária guidance and circulars
+
+For each regime include
+regime_name
+legal_basis
+eligibility_criteria
+application_deadline
+duration
+covered_income_types
+excluded_income_types
+tax_rates_or_exemptions
+interaction_with_social_security
+interaction_with_simplified_regime
+interaction_with_crypto_and_capital_gains
+last_confirmed_change_date
+
+Eligibility and exclusion matrix
+Produce a table comparing NHR and IFICI across
+• Residency requirements
+• Activity type requirements
+• Profession requirements
+• Income source requirements
+• Freelancer eligibility
+• Employee eligibility
+• Foreign income treatment
+• Portuguese source income treatment
+
+Real world impact analysis
+Explain with examples how
+• A freelancer invoicing foreign clients is treated under IFICI
+• A consultant with mixed income is treated
+• An employee in Portugal is treated
+• A digital nomad is treated
+• A crypto holder is treated
+
+Include numeric examples where possible.
+
+Penalties and irreversible traps
+Identify mistakes that cannot be undone, including
+• Registering residency before understanding eligibility
+• Opening activity under wrong assumptions
+• Missing application deadlines
+• Misclassifying income
+• Trusting agency promises
+
+For each trap include
+trigger
+legal_basis
+consequence
+whether reversible
+citation
+
+Community and market evidence
+Cluster recurring misconceptions from
+• Law firms
+• Relocation agencies
+• Accountant commentary
+• Expat communities
+
+Tie each misconception to verified law.
+
+Evidence requirements
+Use primary Portuguese sources only for rules, including
+• Diário da República
+• CIRS
+• State Budget laws
+• Autoridade Tributária
+
+Secondary sources only to illustrate misinformation patterns.
+
+Language
+English, preserving key Portuguese terms such as
+NHR
+IFICI
+residência fiscal
+categoria B
+IRS
+regime especial
+
+Output format
+Deliver an editorial ready Markdown report including
+
+Three line executive summary
+
+NHR explained in practice
+
+IFICI explained in practice
+
+Side by side comparison table
+
+Eligibility and exclusion matrix
+
+Real world examples
+
+Irreversible traps section
+
+Writing brief for a Worktugal article titled
+“IFICI versus NHR. Who Still Benefits and Who Is Locked Out in Portugal”
+
+Include title tag, meta description, H1 to H3 structure, internal links to the Tax Checkup, and CTA to app.worktugal.com.
+
+Exclusions
+No speculation.
+No optimization promises.
+No agency marketing language.
+
+Return Markdown only, not JSON.

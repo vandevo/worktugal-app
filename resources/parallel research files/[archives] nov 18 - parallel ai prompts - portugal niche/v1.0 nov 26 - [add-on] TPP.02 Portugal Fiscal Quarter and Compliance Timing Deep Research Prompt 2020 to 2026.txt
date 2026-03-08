@@ -1,0 +1,127 @@
+Objective  
+Map the real fiscal and compliance calendar of Portugal between 2020 and 2026, with focus on how tax deadlines, VAT quarters, Social Security rules, immigration conditions, banking and enforcement cycles affect freelancers, remote professionals and foreigners who earn income or hold residency in Portugal. The output must show, quarter by quarter and month by month, what actually happens in practice, including risks and timing traps that most foreigners, digital nomads and solo founders do not see.
+
+Research lane  
+Portugal tax and compliance, plus Social Security, plus immigration and banking enforcement, plus self employed and freelancer regimes, plus digital nomad and foreign resident obligations.
+
+Scope and entities  
+Focus on the following profiles  
+1) Portuguese citizens working as freelancers or self employed under the simplified regime  
+2) Foreign residents with NIF and tax residency, including NHR and other special regimes  
+3) Digital nomad visa holders and temporary residents who invoice from Portugal  
+4) Third country nationals with AIMA processes and renewals  
+5) Tourists who accidentally become tax resident by staying more than 183 days  
+6) Remote workers who invoice foreign clients but live in Portugal  
+7) Small business owners and independent consultants below and above the normal VAT threshold
+
+For each group, identify how fiscal quarters and calendar months affect  
+1) When they must register NIF, open activity and register NISS  
+2) When VAT registration becomes mandatory and when exemption is lost  
+3) When quarterly or monthly VAT returns are due and how they align with the civil calendar  
+4) When the new VAT exempt quarterly turnover reporting rules apply, including start date 1 July 2025 and deadlines  
+5) When IRS prepayments are due and who is affected  
+6) When annual IRS returns are due and how this interacts with previous year activity and residency status  
+7) When Social Security contributions begin, when they can be deferred, and when arrears trigger enforcement  
+8) When fiscal representative is required, and how this links to tax residency and presence in Portugal  
+9) How AIMA and residence permit renewals depend on tax and NISS compliance  
+10) When banks perform KYC and tax checks, and how this interacts with AT and CRS reporting  
+11) When enforcement activity from the tax authority increases, such as fines, automatic assessments and bank account seizures  
+12) How these obligations change or are relaxed during férias judiciais, public holidays and bridges.
+
+Quarter and month structure  
+For each year from 2020 to 2026, and for each quarter Q1, Q2, Q3 and Q4, map the following  
+1) Quarter_number  
+2) Year  
+3) Months_covered  
+4) Key_AT_deadlines_for_freelancers_and_self_employed  
+5) VAT_return_deadlines (standard and special regimes, quarterly and monthly)  
+6) VAT_exemption_threshold_rules_and_any_changes  
+7) New_rules_for_VAT_exempt_quarterly_turnover_reporting (including start date 1 July 2025 and exact deadlines per quarter)  
+8) IRS_annual_return_periods and their usual opening and closing dates  
+9) IRS_prepayment_deadlines (number of prepayments, normal due dates, exceptions)  
+10) Social_Security_contribution_rules_for_self_employed (start date, first year exemptions, contribution base, and changes across the period)  
+11) NIF_registration_deadlines for new tax residents and penalties for delay  
+12) Activity_opening_rules at Finanças and timing implications by quarter  
+13) Fiscal_representative_requirements and when they become mandatory or can be removed  
+14) AIMA_or_SEF_residence_renewal_windows that depend on tax and NISS compliance  
+15) Bank_and_KYC_reporting_cycles that affect freelancers and remote workers  
+16) Typical_enforcement_patterns_by_quarter (for example, increased fines, audits or notifications)  
+17) Interaction_with_férias_judiciais and other known slow periods, including how deadlines are suspended or maintained  
+18) Typical_processing_times for key actions such as NISS registration, activity opening changes, VAT registration, and residence renewals  
+19) Main_risks_for_freelancers_and_remote_workers in that quarter  
+20) Main_opportunities_to_regularise_or_optimize in that quarter  
+21) last_confirmed_change_date for any important rule in that quarter.
+
+Time window  
+Use data from 2020 to 2026.  
+1) For 2020 to 2022, clearly mark any temporary rules that were specific to the pandemic and no longer apply.  
+2) For 2023 and 2024, give extra weight to permanent structural changes such as end or mutation of NHR, tightening of visa rules, and inflation driven tax bracket updates.  
+3) For 2025 and 2026, pay special attention to  
+   a) new VAT exempt quarterly turnover reporting rules  
+   b) changes in Social Security contribution rules for self employed  
+   c) updated enforcement practices from Autoridade Tributária  
+   d) any new digital systems that affect filing and deadlines.  
+4) For 2026, use confirmed official calendars, legal provisions and structural rules for VAT, IRS, NISS and judicial vacations. Flag any elements that are still proposed or not fully confirmed, and explain the basis for forward inference.
+
+Priority sources  
+Use evidence based results only. Prioritise  
+1) Autoridade Tributária e Aduaneira official guidance, portal das finanças, binding rulings and circulars  
+2) Diário da República for primary legislation and regulatory changes  
+3) Segurança Social official pages for self employed contribution rules and deadlines  
+4) AIMA and former SEF official communications and legal bases regarding residence renewal and tax or NISS requirements  
+5) Official information from Ordem dos Contabilistas Certificados when they summarise practical deadlines and changes  
+6) Banco de Portugal and banking association guidance on KYC, CRS and enforcement procedures that affect freelancers and residents  
+7) Reputable Portuguese media such as Público, Expresso, Observador, Jornal de Notícias, ECO, Jornal de Negócios for applied explanations of tax changes and enforcement trends  
+8) Academic or government studies on Portugal tax compliance and freelancer regimes  
+9) When mapping common mistakes or timing traps, use secondary evidence from accountant blogs, Ordem discussions, and expat or freelancer communities, but treat them as secondary and always tie to primary law or official clarifications.
+
+Evidence and language  
+1) Require dates and citations for every rule or pattern.  
+2) Quote specific legal provisions or official guidance when describing  
+   a) VAT thresholds and registration rules  
+   b) deadlines for quarterly and monthly VAT  
+   c) deadlines for IRS annual returns and prepayments  
+   d) deadlines and conditions for NISS registration and contributions  
+   e) first year simplified regime coefficient reductions  
+   f) AIMA or SEF requirements that link tax and residence.  
+3) Always include the year and source for each claim about rule changes, threshold updates or enforcement trends.  
+4) Language English with key Portuguese legal terms preserved such as  
+   “abertura de atividade”, “regime simplificado”, “IVA”, “retenções na fonte”, “pagamento por conta”, “NIF”, “NISS”, “férias judiciais”, “representante fiscal”.
+
+Output format  
+Deliver an editorial ready Markdown report with  
+1) A three line executive summary that explains how the Portuguese fiscal year works in practice for freelancers and foreign residents, and why quarter timing matters more than in other countries.  
+2) A table with one row per quarter from Q1 2020 to Q4 2026 using the structured fields above.  
+3) A month by month overlay that aligns the fiscal obligations with the behavioral calendar of Portugal, including references to slow periods such as August, Christmas breaks, bridges and férias judiciais.  
+4) A narrative section “Quarter by quarter survival map” that walks through the year in order, explaining what a freelancer or foreign remote worker should focus on in each quarter, with concrete examples and citations.  
+5) A section “Common timing traps and fines” that lists the most frequent mistakes by foreigners and freelancers, such as  
+   a) earning income without opened activity  
+   b) crossing the VAT exemption threshold without registering  
+   c) failing to register NISS as tax resident  
+   d) missing new VAT exempt quarterly turnover reports  
+   e) missing IRS or prepayment deadlines  
+   f) assuming deadlines move just because offices are slow during holidays.  
+6) A section “Playbook for foreign freelancers and remote professionals in Portugal” that explains, for each quarter  
+   a) what to do before the quarter starts  
+   b) what to do during the quarter  
+   c) what to avoid or never leave to the last week  
+   d) what to check at the end of the quarter.  
+7) A short writing brief for a public facing Worktugal guide titled “Portugal Fiscal Quarter OS for Freelancers and Remote Workers”, including title tag, meta description, H1 to H3 structure, and three call to action options that link to the Worktugal tax checkup app and related services.
+
+Geography  
+Portugal as a whole, with explicit notes when regional or autonomous region rules differ, and with special focus on Lisbon and Porto where most foreign knowledge workers cluster.
+
+Exclusions  
+1) Ignore generic travel or expat blogs that describe only high level concepts without citing law or official guidance.  
+2) Ignore AI generated content farms and scraped content that repeat the same text without verifiable sources.  
+3) Ignore forums and social media claims that conflict with law or official practice unless you use them only as examples of common misunderstanding.
+
+Freshness  
+1) Give extra weight to 2023, 2024 and 2025 to capture current structural patterns, especially  
+   a) end or transformation of NHR  
+   b) 2025 changes for VAT exempt quarterly reporting  
+   c) any new enforcement practices by AT or Social Security.  
+2) Clearly label any rules that only applied in pandemic years or were temporary crisis measures.  
+3) For 2026, be explicit about which obligations are structurally stable and which are based on proposed or recently approved changes.
+
+Return Markdown only, not JSON.

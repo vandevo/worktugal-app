@@ -1,9 +1,9 @@
 ---
 name: Diagnostic Engine V2 Rebuild
-version: "2.3"
+version: "2.5"
 created: "2026-03-05"
-last_updated: "2026-03-05"
-overview: Rebuild the compliance diagnostic as a dual-scoring engine (Setup Score + Exposure Index) inside app.worktugal.com with email gate, country-modular architecture, 3-layer monetization ladder (29 EUR risk scan, 99-149 EUR clarity call, B2B infrastructure licensing), and Parallel.ai data freshness monitoring. Non-destructive, incremental implementation.
+last_updated: "2026-03-08"
+overview: "Compliance diagnostic engine with dual scoring (Setup Score + Exposure Index), email gate, 13 questions (12 setup + 1 exposure), 6 Portugal trap rules, Make.com automation pipeline, and Cal.com clarity call monetization. Monetization ladder resequenced: clarity call (149 EUR) is Layer 1 revenue, Stripe 29 EUR paid scan is Layer 2 (deferred until funnel validates). Distribution via Luma community (1,253 subs), monthly IRL events, and Reddit."
 revision_history:
   - date: "2026-03-05"
     version: "2.0"
@@ -17,6 +17,12 @@ revision_history:
   - date: "2026-03-05"
     version: "2.3"
     changes: "Platform route consolidation. /checkup and /compliance-review redirect to /diagnostic. Optional contact fields (name, phone, consents) added to DiagnosticForm email gate, stored in raw_answers._contact jsonb. Footer, nav, FAQ, homepage SEO, Seo.tsx defaults all updated to risk-detection narrative. Changelog entry v2.0 added to project_changelog. Nav badge updated to V2.0. Phase 2.5 and Phase 4 (homepage-reposition) todos effectively complete."
+  - date: "2026-03-06"
+    version: "2.4"
+    changes: "Make.com automation rewired from tax_checkup to compliance_diagnostic v2 payload (20 fields). Webhook fires from submitDiagnostic(). SES emails, Telegram, EmailOctopus all updated to v2 copy with 29 EUR CTA. Airtable route deleted. Cloudflare Pages env var VITE_MAKE_DIAGNOSTIC_WEBHOOK_URL set. Make.com MCP added to Cursor."
+  - date: "2026-03-08"
+    version: "2.5"
+    changes: "Strategic pivot based on brainstorming session. Monetization ladder resequenced: clarity call at 149 EUR via Cal.com is now Layer 1 (immediate revenue, Van does the call pre-briefed by diagnostic data). 29 EUR Stripe paid scan deferred to Layer 2 (after funnel validation). Added foreign_tax_deregistration question (Q13) to fix dead dual_tax_residency trap rule. Replaced disabled 29 EUR Coming Soon button with live 149 EUR clarity call CTA on results page and sticky bar. Version display fixed. Distribution plan: Luma community blast, monthly IRL event (compliance risk format), Reddit posts targeting US expats."
 todos:
   - id: engine-core
     content: Create diagnostic engine module (calculateSetupScore, calculateExposureIndex, classifySegment, getTriggeredTraps) in src/lib/diagnostic/engine.ts
@@ -25,46 +31,61 @@ todos:
     content: Create Portugal trap rule module with 6 declarative trap rules (condition objects + evaluator) in src/lib/diagnostic/rules/portugal.ts
     status: completed
   - id: question-set
-    content: "Phase 1: Reuse original Setup Check 12 questions exactly in src/lib/diagnostic/questions.ts. Phase 2: Add 6 exposure questions separately."
+    content: "13 questions total: 12 original setup questions + foreign_tax_deregistration exposure question added v2.5"
     status: completed
   - id: supabase-schema
-    content: "Create Supabase migration for compliance_diagnostics table: id, user_id (nullable FK to auth.users), email, country_target, setup_score, exposure_index, segment, raw_answers jsonb, trap_flags jsonb, UTMs, payment_status, diagnostic_version, ruleset_version, created_at"
+    content: "compliance_diagnostics table live in production Supabase"
     status: completed
   - id: source-citations
     content: Add source_url, legal_basis, penalty_range, and last_verified fields to every trap rule in portugal.ts
     status: completed
   - id: diagnostic-form-ui
-    content: Build 4-step DiagnosticForm component with email gate before results
+    content: Build DiagnosticForm component with paginated questions, email gate, contact fields, UTM capture
     status: completed
   - id: diagnostic-results-ui
-    content: Build DiagnosticResults component with dual scores, segment messaging, trap display, and paid upsell CTA
+    content: "DiagnosticResults with dual scores, segment messaging, trap display, clarity call CTA (149 EUR), sticky bottom bar"
     status: completed
+  - id: make-automation
+    content: "Make.com scenario 7985938 rewired: webhook fires v2 payload, SES lead + internal emails, Telegram, EmailOctopus all updated"
+    status: completed
+  - id: homepage-reposition
+    content: Update ModernHero.tsx messaging and CTAs, kill dead 49 EUR review route, risk-detection narrative
+    status: completed
+  - id: clarity-call-cta
+    content: "149 EUR clarity call CTA on results page linking to Cal.com. Replaced dead 29 EUR Stripe button. VITE_CLARITY_CALL_URL env var."
+    status: completed
+  - id: deploy-production
+    content: "Push to Cloudflare Pages production. Set VITE_CLARITY_CALL_URL in Cloudflare env vars. Redetermine Make.com webhook data structure."
+    status: pending
+  - id: cal-com-setup
+    content: "Create Cal.com event type: Portugal Compliance Clarity Call, 30min, 149 EUR, Google Meet/Zoom. Add URL to .env and Cloudflare."
+    status: pending
+  - id: luma-blast
+    content: "Send Luma email to 1,253 subscribers announcing the free diagnostic. Link to /diagnostic."
+    status: pending
+  - id: reddit-post
+    content: "Post diagnostic link in r/PortugalExpats, r/digitalnomad, or r/USExpatTaxes with compliance trap angle."
+    status: pending
+  - id: monthly-event
+    content: "Schedule first monthly Portugal Compliance Risk Night on Luma. Kube or Tribe venue. Mid-April target."
+    status: pending
   - id: stripe-risk-scan
-    content: Wire Stripe checkout for 29 EUR Compliance Risk Scan product
+    content: "Wire Stripe checkout for 29 EUR Compliance Risk Scan. DEFERRED until clarity call proves revenue (5+ bookings)."
     status: pending
   - id: admin-panel
     content: Build or extend admin panel for diagnostic leads with segment filtering
     status: pending
-  - id: utm-instrumentation
-    content: Implement UTM capture, anonymous_id cookie, and conversion event tracking
-    status: pending
-  - id: homepage-reposition
-    content: Update ModernHero.tsx messaging and CTAs, kill dead 49 EUR review route
-    status: completed
   - id: subdomain-redirect
-    content: Set up 301 redirect from setup.apps.worktugal.com to app.worktugal.com/checkup
+    content: Set up 301 redirect from setup.apps.worktugal.com to app.worktugal.com/diagnostic
     status: pending
   - id: parallel-monitors
-    content: Set up Parallel.ai Monitor API watches on 5-8 key government source URLs referenced in trap rules. Webhook handler sends notification on change.
+    content: Set up Parallel.ai Monitor API watches on key government source URLs. DEFERRED to Month 2.
     status: pending
   - id: quarterly-sweep
-    content: Build a quarterly Parallel.ai Search API sweep script that checks current regulations against trap rule claims
-    status: pending
-  - id: clarity-call-booking
-    content: "Phase 6: Add clarity call upsell (99-149 EUR) on paid scan results page. Booking form or Calendly/Cal.com embed. Partner accountant/advisor referral pipeline."
+    content: Build quarterly Parallel.ai Search API sweep script. DEFERRED to Month 2.
     status: pending
   - id: b2b-infrastructure
-    content: "Phase 7 (Month 3+): Package diagnostic engine as embeddable/white-label for relocation firms. Per-assessment or monthly license model. Only after retail validation proves conversion."
+    content: "Phase 7 (Month 3+): Package diagnostic engine for relocation firms. Only after 200 completions + 10 clarity calls."
     status: pending
 isProject: false
 ---
@@ -308,56 +329,57 @@ Key source URLs to monitor (derived from the [002 Compliance Traps research](res
 - The homepage badge "Verified against official sources: [date]" is computed from the minimum `last_verified` date across all active trap rules
 - The diagnostic results page shows per-trap source citations for the paid tier (adds credibility and justifies the 29 EUR)
 
-## Monetization Ladder
+## Monetization Ladder (Resequenced v2.5 — March 8, 2026)
 
-Three layers, ordered by speed to revenue. Each layer validates the next.
+Three layers, resequenced based on what actually made money historically. The clarity call is Layer 1 because Van has proven people pay for his time on a call. The 29 EUR paid scan is Layer 2 because it requires Stripe integration and has never converted. Each layer validates the next.
 
 ```mermaid
 flowchart LR
-    subgraph layer1 [Layer 1: Week 1-2]
-        FreeDiag["Free Diagnostic"]
-        PaidScan["Paid Risk Scan - 29 EUR"]
+    subgraph layer1 [Layer 1: Now]
+        FreeDiag["Free Diagnostic (lead gen)"]
+        ClarityCall["Clarity Call - 149 EUR via Cal.com"]
     end
 
-    subgraph layer2 [Layer 2: Week 3-4]
-        ClarityCall["Clarity Call - 99-149 EUR"]
+    subgraph layer2 [Layer 2: After 5+ calls booked]
+        PaidScan["Paid Risk Scan - 29 EUR via Stripe"]
     end
 
     subgraph layer3 [Layer 3: Month 3+]
         B2BLicense["B2B Engine License - 1K-5K EUR/mo"]
     end
 
-    FreeDiag -->|"email gate"| PaidScan
-    PaidScan -->|"20% of buyers"| ClarityCall
+    FreeDiag -->|"results page CTA"| ClarityCall
+    ClarityCall -->|"revenue proof"| PaidScan
     PaidScan -->|"conversion proof"| B2BLicense
 ```
 
 
 
-### Layer 1: Paid Compliance Risk Scan (29 EUR) -- Phases 1-4
+### Layer 1: Clarity Call (149 EUR) -- NOW
 
-- Free result shows Setup Score + Exposure Index + top 2-3 traps with severity labels (creates anxiety)
-- Paid result unlocks: full trap breakdown, step-by-step corrective actions, document checklist, source citations (resolves anxiety)
-- 29 EUR is impulse price for someone who just discovered they may face 3,750 EUR fine
-- Revenue math: 5-10% conversion on 100 completions/month = 145-290 EUR/month. At 500 completions/month = 725-1,450 EUR/month
-- This is validation money, not retirement money. Proves the engine converts.
+- Free diagnostic captures email + full risk profile (scores, traps, segment)
+- Results page shows top 2 traps, locked traps teaser, and CTA: "Book a Clarity Call -- 149 EUR"
+- Van walks into the call pre-briefed by the diagnostic data (no manual research needed)
+- Call is 30 minutes via Google Meet or Zoom. No Notion report afterward. Diagnostic results page IS the report.
+- After the call: warm referral to vetted tax advisor or lawyer if needed (referral fee 200-500 EUR per qualified lead)
+- Make.com fires Telegram + email notification on every new submission so Van can personally follow up with high-risk profiles
+- Revenue math: 3 calls/month = 447 EUR. 6 calls/month = 894 EUR. Plus referral fees.
+- Distribution: Luma blast to 1,253 subs, monthly IRL event, Reddit posts, direct email follow-up to high-risk submissions
 
-### Layer 2: Clarity Call Upsell (99-149 EUR) -- Phase 6
+### Layer 2: Paid Compliance Risk Scan (29 EUR) -- AFTER clarity call revenue validates
 
-- After paid scan results page, offer: "Walk through your risks with a compliance specialist in 30 minutes"
-- Booking via Cal.com embed or simple form that Van reviews
-- Van does NOT need to be the specialist. Partner with an accountant or immigration advisor who takes referrals
-- Revenue model: booking fee (Van keeps 99-149 EUR, pays partner separately) or revenue share
-- Qualification is automatic: the user already paid 29 EUR and has a High Setup / High Exposure profile
-- Revenue math: 20% of paid scan buyers book = 2-10 calls/month = 198-1,490 EUR/month
+- DEFERRED until at least 5 clarity calls are booked, proving the funnel converts
+- Unlocks: full trap breakdown, step-by-step corrective actions, document checklists, source citations
+- Stripe checkout wired on DiagnosticResults page. Existing ConsultCheckout Edge Function pattern.
+- 29 EUR is impulse price for someone who just discovered they may face 3,750 EUR fine but doesn't want a call
+- Revenue math: 5-10% conversion on 100 completions/month = 145-290 EUR/month
+- This runs alongside the clarity call, not instead of it
 
-### Layer 3: B2B Infrastructure Licensing (1,000-5,000 EUR/month) -- Phase 7
+### Layer 3: B2B Infrastructure Licensing (1,000-5,000 EUR/month) -- Month 3+
 
-- Package the diagnostic engine as embeddable tool for relocation firms identified in the [Parallel research 001](resources/parallel%20research%20files/001%20Portugal%E2%80%99s%20Expat%20Immigration%20Providers%202020%E2%80%932025_%20Who%20to%20Trust%2C%20What%20to%20Watch.md)
-- Target firms: AnchorLess (600+ D8 clients), D7Visa.com (1000+ clients), Global Citizen Solutions, Fresh Portugal
-- Offer: "Embed our compliance diagnostic in your client onboarding. Structured risk data before first consultation."
-- Pricing: per-assessment fee (5-15 EUR/client) or monthly license (500-2,000 EUR/month) or revenue share on paid upgrades
-- Proof required before pitching: X completions, Y% paid conversion, source-verified trap rules
+- Package the diagnostic engine as embeddable tool for relocation firms
+- Target firms from Parallel research: AnchorLess, D7Visa.com, Global Citizen Solutions, Fresh Portugal
+- Proof required: 200+ completions, 10+ clarity calls, source-verified trap rules
 - This is the Capital Operator CDN play. The retail wedge IS the proof.
 
 ### What does NOT work for monetization
@@ -366,27 +388,37 @@ flowchart LR
 - Selling the 865 dataset (no emails, no identity, zero resale value)
 - Affiliate commissions from accountants/lawyers (destroys trust, turns product into an ad)
 - Charging for the quiz itself (nobody pays to take a quiz, value is in the result)
+- 10 EUR clarity kits (proven to fail -- sold only 13 units historically)
+- 49 EUR calls without pre-qualification (proven to produce one-time clients who never return)
 
-## Phase 6: Clarity Call Pipeline (Week 3-4, after first paid scan)
+## Phase 6: Clarity Call Pipeline (NOW -- Layer 1 revenue)
 
-### 6.1 Call booking system
+Moved from Week 3-4 to immediate. The clarity call is the first revenue layer, not a post-Stripe upsell.
 
-- Add upsell CTA to the paid scan results page: "Get a 30-minute clarity call to walk through your specific situation"
-- Pricing: 99 EUR (standard) or 149 EUR (urgent/priority within 48h)
-- Booking via Cal.com embed (you already have this MCP available) or simple intake form
-- Store booking status in Supabase (new column `call_status` on `compliance_diagnostics` or separate `bookings` table)
+### 6.1 Call booking system (DONE in v2.5)
 
-### 6.2 Partner advisor pipeline
+- 149 EUR clarity call CTA on DiagnosticResults page, links to Cal.com via VITE_CLARITY_CALL_URL env var
+- Sticky bottom bar also links to Cal.com
+- Cal.com handles scheduling, Stripe payment, confirmation, reminders
+- Van reviews diagnostic data before each call (pre-briefed by setup_score, exposure_index, segment, triggered traps)
+
+### 6.2 Call workflow
+
+- Before call: Van opens the diagnostic record in Supabase or admin panel, reviews risk profile
+- During call: 30 minutes, Google Meet or Zoom. Walk through triggered traps, explain what each means, give prioritized action steps
+- After call: NO Notion report. The diagnostic results page is the report. If they need a tax advisor or lawyer, Van makes a warm referral.
+- Referral fee: 200-500 EUR per qualified lead sent to a vetted advisor (negotiate after first 5 referrals)
+
+### 6.3 Partner advisor pipeline (after 10 calls)
 
 - Identify 1-2 accountants or immigration advisors willing to take referrals
-- Use your [Parallel research 001](resources/parallel%20research%20files/001%20Portugal%E2%80%99s%20Expat%20Immigration%20Providers%202020%E2%80%932025_%20Who%20to%20Trust%2C%20What%20to%20Watch.md) to find potential partners: firms with strong Trustpilot, D7/D8 specialization, willingness to work with referral partners
+- Use Parallel research 001 to find potential partners: firms with strong Trustpilot, D7/D8 specialization
 - Revenue share or flat referral fee per booked call
 - Pre-populate the partner with the user's diagnostic results so the call is immediately productive
 
-### 6.3 Call prep automation
+### 6.4 Call prep automation (Month 2)
 
 - On booking confirmation: send user an email with their diagnostic summary and what to prepare
-- Send partner the user's full risk report (paid tier data) so they can prepare
 - After call: follow-up email asking for NPS + referral ("Know someone else in Portugal?")
 
 ## Phase 7: B2B Infrastructure Play (Month 3+, after retail validation)
@@ -424,9 +456,11 @@ Do NOT start Phase 7 until:
 ## Constraints
 
 - **No parallel upstream expansions** (Capital Operator doctrine). Portugal only for the first 90-day cycle.
-- **Revenue Validation Clock**: 1 paid proof-of-value within 21 days, or redesign.
+- **Revenue Validation Clock**: 1 clarity call booked within 21 days of deploy (March 29 deadline), or redesign distribution.
 - **Intensity Ceiling**: This project gets max 70% energy in its first 60 days.
-- **30% ownership preservation**: Continue maintaining existing owned assets (domain, blog, email list infrastructure).
+- **30% ownership preservation**: Continue maintaining existing owned assets (domain, blog, email list, Luma community).
+- **No CMS build**: Content and SEO deferred until 10 paid calls prove the funnel. Distribution via Luma, Reddit, and IRL events only.
+- **No new features before deploy**: Ship what exists. Iterate based on real submission data.
 
 ## What this does NOT include (deferred beyond Phase 7)
 

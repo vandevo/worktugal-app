@@ -159,6 +159,20 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
     ],
     weight: 20,
   },
+  {
+    id: 'foreign_tax_deregistration',
+    text: 'Have you formally deregistered as a tax resident in your previous country?',
+    description:
+      'If you moved to Portugal but never notified your previous country\'s tax authority, you may still be considered a tax resident there — creating dual taxation on worldwide income.',
+    type: 'select',
+    options: [
+      { value: 'yes', label: 'Yes, I deregistered' },
+      { value: 'no', label: 'No, I haven\'t' },
+      { value: 'unsure', label: 'I\'m not sure' },
+      { value: 'not_applicable', label: 'Not applicable (EU citizen, no prior residency)' },
+    ],
+    weight: 10,
+  },
 ];
 
 export function getActiveQuestions(answers: DiagnosticAnswers): DiagnosticQuestion[] {
