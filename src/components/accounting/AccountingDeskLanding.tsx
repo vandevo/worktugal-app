@@ -7,7 +7,6 @@ import { WhatToExpect } from './WhatToExpect';
 import { HowItWorks } from './HowItWorks';
 import { MeetAccountants } from './MeetAccountants';
 import { ConsultFAQ } from './ConsultFAQ';
-import { AccountantRecruitmentBanner } from './AccountantRecruitmentBanner';
 import { EarlyAccessForm } from './EarlyAccessForm';
 import { ConsultBookingForm } from './ConsultBookingForm';
 import { useNavigate } from 'react-router-dom';
@@ -88,7 +87,6 @@ export const AccountingDeskLanding: React.FC = () => {
             <HowItWorks />
             <MeetAccountants />
             <ConsultFAQ />
-            <AccountantRecruitmentBanner />
           </div>
         ) : (
           <div key="booking" className="min-h-screen bg-obsidian py-20">
