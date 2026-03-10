@@ -17,7 +17,7 @@ import { trackFormSubmission } from '../../lib/analytics';
 
 type FormStep = 'questions' | 'email' | 'analyzing';
 
-const QUESTIONS_PER_PAGE = 4;
+const QUESTIONS_PER_PAGE = 1;
 
 export const DiagnosticForm: React.FC = () => {
   const navigate = useNavigate();
@@ -262,11 +262,11 @@ export const DiagnosticForm: React.FC = () => {
                 >
                   {currentPageQuestions.map((question) => (
                     <div key={question.id}>
-                      <label className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-2">
+                      <h3 className="text-xl sm:text-2xl font-serif text-white mb-3 leading-snug">
                         {question.text}
-                      </label>
+                      </h3>
                       {question.description && (
-                        <p className="text-[11px] text-gray-600 font-light mb-4 leading-relaxed">
+                        <p className="text-[11px] text-gray-600 font-light mb-5 leading-relaxed">
                           {question.description}
                         </p>
                       )}
@@ -308,15 +308,15 @@ export const DiagnosticForm: React.FC = () => {
                           </li>
                           <li className="flex items-center gap-2">
                             <div className="w-1 h-1 rounded-full bg-blue-500/50" />
-                            Top compliance risks identified
+                            All compliance risks detected, including severity
                           </li>
                           <li className="flex items-center gap-2">
                             <div className="w-1 h-1 rounded-full bg-blue-500/50" />
-                            Risk severity classification
+                            Legal basis and penalty ranges for each risk
                           </li>
                           <li className="flex items-center gap-2">
                             <div className="w-1 h-1 rounded-full bg-blue-500/50" />
-                            Personalized action steps
+                            Official source citations you can verify yourself
                           </li>
                         </ul>
                       </div>
