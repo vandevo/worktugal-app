@@ -6,7 +6,6 @@ import {
   CheckCircle2,
   Shield,
   ArrowRight,
-  Lock,
   ExternalLink,
   MessageCircle,
   Send,
@@ -45,8 +44,6 @@ const SEVERITY_CONFIG = {
     label: 'Low Risk',
   },
 } as const;
-
-const FREE_TRAP_LIMIT = 2;
 
 export const DiagnosticResults: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -131,15 +128,12 @@ export const DiagnosticResults: React.FC = () => {
     );
   }
 
-  const isPaid = data.payment_status === 'paid';
   const segment = data.segment as DiagnosticSegment;
   const segmentMessage = SEGMENT_MESSAGES[segment] ?? '';
   const traps = data.trap_flags ?? [];
   const highTraps = traps.filter((t) => t.severity === 'high');
   const mediumTraps = traps.filter((t) => t.severity === 'medium');
   const lowTraps = traps.filter((t) => t.severity === 'low');
-  const visibleTraps = isPaid ? traps : traps.slice(0, FREE_TRAP_LIMIT);
-  const hiddenTrapCount = isPaid ? 0 : Math.max(traps.length - FREE_TRAP_LIMIT, 0);
 
   const setupColor =
     data.setup_score >= 70 ? 'text-emerald-400' : data.setup_score >= 40 ? 'text-yellow-400' : 'text-red-400';
@@ -262,13 +256,13 @@ export const DiagnosticResults: React.FC = () => {
                     {traps.length} Compliance {traps.length === 1 ? 'Risk' : 'Risks'} Detected
                   </h2>
                   <p className="text-xs text-gray-500 uppercase tracking-widest font-medium mt-1">
-                    {isPaid ? 'Full breakdown with source citations' : `Showing ${visibleTraps.length} of ${traps.length}`}
+                    Full breakdown with source citations
                   </p>
                 </div>
               </div>
 
               <div className="space-y-4">
-                {visibleTraps.map((trap, index) => {
+                {traps.map((trap, index) => {
                   const config = SEVERITY_CONFIG[trap.severity];
                   return (
                     <motion.div
@@ -288,53 +282,31 @@ export const DiagnosticResults: React.FC = () => {
                       <p className="text-gray-300 text-sm font-light leading-relaxed mb-3">
                         {trap.fix}
                       </p>
-
-                      {isPaid && (
-                        <div className="pt-3 border-t border-white/5 space-y-2">
+                      <div className="pt-3 border-t border-white/5 space-y-2">
+                        <p className="text-[10px] text-gray-500 font-light">
+                          <span className="text-gray-400 font-medium">Legal basis:</span>{' '}
+                          {trap.legal_basis}
+                        </p>
+                        {trap.penalty_range && (
                           <p className="text-[10px] text-gray-500 font-light">
-                            <span className="text-gray-400 font-medium">Legal basis:</span>{' '}
-                            {trap.legal_basis}
+                            <span className="text-gray-400 font-medium">Penalty range:</span>{' '}
+                            {trap.penalty_range}
                           </p>
-                          {trap.penalty_range && (
-                            <p className="text-[10px] text-gray-500 font-light">
-                              <span className="text-gray-400 font-medium">Penalty range:</span>{' '}
-                              {trap.penalty_range}
-                            </p>
-                          )}
-                          <a
-                            href={trap.source_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-[10px] text-blue-400 hover:text-blue-300 font-medium transition-colors"
-                          >
-                            View official source
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        </div>
-                      )}
+                        )}
+                        <a
+                          href={trap.source_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-[10px] text-blue-400 hover:text-blue-300 font-medium transition-colors"
+                        >
+                          View official source
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
                     </motion.div>
                   );
                 })}
               </div>
-
-              {/* Locked traps teaser */}
-              {hiddenTrapCount > 0 && (
-                <div className="mt-6 p-6 rounded-2xl border border-white/5 bg-white/[0.01] relative overflow-hidden">
-                  <div className="absolute inset-0 backdrop-blur-[2px] bg-obsidian/40 z-10 flex items-center justify-center">
-                    <div className="text-center">
-                      <Lock className="w-6 h-6 text-gray-500 mx-auto mb-3" />
-                      <p className="text-sm text-gray-400 font-light">
-                        {hiddenTrapCount} more {hiddenTrapCount === 1 ? 'risk' : 'risks'} detected
-                      </p>
-                    </div>
-                  </div>
-                  <div className="space-y-3 opacity-30">
-                    {traps.slice(FREE_TRAP_LIMIT, FREE_TRAP_LIMIT + 2).map((trap) => (
-                      <div key={trap.id} className="h-16 rounded-xl bg-white/[0.02] border border-white/5" />
-                    ))}
-                  </div>
-                </div>
-              )}
             </motion.div>
           )}
 
@@ -373,16 +345,13 @@ export const DiagnosticResults: React.FC = () => {
                 </div>
 
                 <h2 className="text-2xl font-serif text-white mb-4">
-                  Walk Through Your Risks With an Expert
+                  Know What to Do About Your Specific Situation
                 </h2>
                 <p className="text-gray-500 font-light text-sm mb-10 leading-relaxed">
-                  Your diagnostic found{' '}
-                  <span className="text-white font-medium">
-                    {traps.length} compliance {traps.length === 1 ? 'risk' : 'risks'}
-                  </span>
-                  . In a 30-minute clarity call, we review your specific situation,
-                  explain exactly what each risk means for you, and give you a
-                  prioritized action plan.
+                  You have seen your risks. Now you need to know exactly what to do, in
+                  what order, given your specific visa, income, and residency setup. In a
+                  30-minute call, I walk through your diagnostic results with you and give
+                  you a clear, prioritized action plan.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
@@ -392,11 +361,11 @@ export const DiagnosticResults: React.FC = () => {
                     </h4>
                     <ul className="space-y-3">
                       {[
-                        'Pre-briefed expert who already knows your risk profile',
-                        'Plain-language explanation of each triggered risk',
-                        'Prioritized action steps specific to your situation',
-                        'Referral to a vetted tax advisor or lawyer if needed',
-                        'Full trap breakdown with legal citations',
+                        'I already know your risk profile before the call starts',
+                        'Plain-language explanation of what each risk means for your setup',
+                        'Prioritized action steps in the right order for your situation',
+                        'Warm referral to a vetted tax advisor or immigration lawyer if needed',
+                        'Honest advice on what you can fix yourself vs. what needs a professional',
                       ].map((item, i) => (
                         <li
                           key={i}

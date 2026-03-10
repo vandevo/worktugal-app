@@ -1,9 +1,9 @@
 ---
 name: Diagnostic Engine V2 Rebuild
-version: "2.5"
+version: "2.6"
 created: "2026-03-05"
-last_updated: "2026-03-08"
-overview: "Compliance diagnostic engine with dual scoring (Setup Score + Exposure Index), email gate, 13 questions (12 setup + 1 exposure), 6 Portugal trap rules, Make.com automation pipeline, and Cal.com clarity call monetization. Monetization ladder resequenced: clarity call (149 EUR) is Layer 1 revenue, Stripe 29 EUR paid scan is Layer 2 (deferred until funnel validates). Distribution via Luma community (1,253 subs), monthly IRL events, and Reddit."
+last_updated: "2026-03-10"
+overview: "Compliance diagnostic engine with dual scoring (Setup Score + Exposure Index), email gate, 13 questions (12 setup + 1 exposure), 6 Portugal trap rules, Make.com automation pipeline, and Cal.com clarity call monetization. All trap results (legal basis, penalty ranges, source citations) now shown free. Clarity call at 149 EUR is positioned as personalized action plan, not content unlock. Monetization ladder: clarity call (149 EUR) is Layer 1 revenue, Stripe 29 EUR paid scan is Layer 2 (deferred until funnel validates). Distribution via Luma community (1,253 subs), monthly IRL events, and Reddit."
 revision_history:
   - date: "2026-03-05"
     version: "2.0"
@@ -23,6 +23,9 @@ revision_history:
   - date: "2026-03-08"
     version: "2.5"
     changes: "Strategic pivot based on brainstorming session. Monetization ladder resequenced: clarity call at 149 EUR via Cal.com is now Layer 1 (immediate revenue, Van does the call pre-briefed by diagnostic data). 29 EUR Stripe paid scan deferred to Layer 2 (after funnel validation). Added foreign_tax_deregistration question (Q13) to fix dead dual_tax_residency trap rule. Replaced disabled 29 EUR Coming Soon button with live 149 EUR clarity call CTA on results page and sticky bar. Version display fixed. Distribution plan: Luma community blast, monthly IRL event (compliance risk format), Reddit posts targeting US expats."
+  - date: "2026-03-10"
+    version: "2.6"
+    changes: "Trust-first paywall removal. All triggered traps now shown for free including legal basis, penalty ranges, and source citations. FREE_TRAP_LIMIT and locked blur teaser removed from DiagnosticResults.tsx. Clarity call CTA repositioned: headline changed from 'Walk Through Your Risks With an Expert' to 'Know What to Do About Your Specific Situation'. What you get list updated to reflect call = personalized action plan, not content unlock. Rationale: users who see their full risk profile are more likely to book than users facing a blur wall. Trust converts better than friction at this funnel stage."
 todos:
   - id: engine-core
     content: Create diagnostic engine module (calculateSetupScore, calculateExposureIndex, classifySegment, getTriggeredTraps) in src/lib/diagnostic/engine.ts
