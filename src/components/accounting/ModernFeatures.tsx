@@ -1,97 +1,107 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, PiggyBank, TrendingUp, Info } from 'lucide-react';
+import { Info } from 'lucide-react';
+
+const risks = [
+  {
+    penalty: 'Up to €3,750',
+    title: 'Unfiled IRS returns',
+    description:
+      'Lived in Portugal over 183 days and never filed Modelo 3? You are required to declare worldwide income. Penalties for late filing start at €150 and climb to €3,750.',
+    color: 'text-red-400',
+    border: 'border-red-500/15',
+    bg: 'bg-red-500/[0.03]',
+  },
+  {
+    penalty: 'Backdated VAT',
+    title: 'VAT misclassification',
+    description:
+      'Crossed the annual income threshold and never registered for IVA? Backdated VAT plus penalties apply from the month you exceeded the limit — not from when you discovered it.',
+    color: 'text-orange-400',
+    border: 'border-orange-500/15',
+    bg: 'bg-orange-500/[0.03]',
+  },
+  {
+    penalty: 'Double taxation',
+    title: 'Dual tax residency trap',
+    description:
+      'Registered as a Portuguese tax resident but never formally deregistered in your home country? You may owe taxes in both simultaneously under CIRS Art. 16.',
+    color: 'text-yellow-400',
+    border: 'border-yellow-500/15',
+    bg: 'bg-yellow-500/[0.03]',
+  },
+  {
+    penalty: 'Arrears + lost benefits',
+    title: 'Social security gaps',
+    description:
+      'Freelancers must register for NISS and pay monthly contributions. Missed payments accrue interest, build debt, and suspend your access to public healthcare and future benefits.',
+    color: 'text-purple-400',
+    border: 'border-purple-500/15',
+    bg: 'bg-purple-500/[0.03]',
+  },
+];
 
 export const ModernFeatures: React.FC = () => {
   return (
     <section className="py-24 bg-obsidian border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-20">
-          <motion.h2 
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div className="text-center mb-16">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-3xl font-serif text-white sm:text-4xl mb-4"
           >
-            Hidden Risks Most Freelancers Miss
+            The risks that cost people the most
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-gray-400 font-light text-lg"
+            className="text-gray-500 font-light text-base max-w-xl mx-auto"
           >
             Our diagnostic checks your setup against 6 known compliance traps in Portuguese law.
+            Most people discover them too late.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FeatureCard 
-            icon={<AlertTriangle className="w-5 h-5 text-red-400" />}
-            iconBg="bg-red-500/10 border-red-500/20"
-            title="Dual tax residency exposure"
-            description="If you registered as a tax resident in Portugal but never deregistered abroad, you may owe taxes in both countries. CIRS Art. 16 defines the 183-day rule."
-            delay={0}
-          />
-          <FeatureCard 
-            icon={<AlertTriangle className="w-5 h-5 text-orange-400" />}
-            iconBg="bg-orange-500/10 border-orange-500/20"
-            title="VAT misclassification"
-            description="Freelancers exceeding the annual threshold must register for IVA. Backdated penalties apply if you missed it. CIVA Art. 29 defines the obligation."
-            delay={0.1}
-          />
-          <FeatureCard 
-            icon={<PiggyBank className="w-5 h-5 text-green-400" />}
-            iconBg="bg-green-500/10 border-green-500/20"
-            title="Unfiled IRS returns"
-            description="Tax residents must file Modelo 3 including Annex J for foreign income. Late filing penalties range from 150 to 3,750 EUR."
-            delay={0.2}
-          />
-          <FeatureCard 
-            icon={<TrendingUp className="w-5 h-5 text-purple-400" />}
-            iconBg="bg-purple-500/10 border-purple-500/20"
-            title="Social security gaps"
-            description="Freelancers must register for NISS and pay contributions monthly. Missing payments trigger arrears, interest, and suspended benefits."
-            delay={0.3}
-          />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {risks.map((risk, i) => (
+            <motion.div
+              key={risk.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className={`rounded-2xl border ${risk.border} ${risk.bg} p-7`}
+            >
+              <div className={`text-2xl font-serif font-medium mb-2 ${risk.color}`}>
+                {risk.penalty}
+              </div>
+              <h3 className="text-white text-base font-medium mb-2">{risk.title}</h3>
+              <p className="text-gray-500 text-sm font-light leading-relaxed">
+                {risk.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-8 p-4 rounded-lg bg-blue-900/10 border border-blue-500/20 flex items-center justify-center gap-3 text-center"
+          transition={{ delay: 0.35 }}
+          className="mt-8 p-4 rounded-xl bg-blue-900/10 border border-blue-500/15 flex items-center justify-center gap-3 text-center"
         >
           <Info className="w-4 h-4 text-blue-400 flex-shrink-0" />
           <p className="text-sm text-blue-200 font-light">
-            <span className="font-medium text-blue-100">Every risk is source-cited.</span> Legal basis and official source URLs included in your results.
+            <span className="font-medium text-blue-100">Every risk is source-cited.</span>{' '}
+            Legal basis, penalty ranges, and official source URLs are included in your free results.
           </p>
         </motion.div>
       </div>
     </section>
   );
 };
-
-const FeatureCard = ({ icon, iconBg, title, description, delay }: { icon: React.ReactNode, iconBg: string, title: string, description: string, delay: number }) => (
-  <motion.div 
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay }}
-    className="glass-card p-8 rounded-xl group hover:-translate-y-1"
-  >
-    <div className="flex items-start gap-5">
-      <div className={`flex-shrink-0 w-10 h-10 rounded-full border flex items-center justify-center ${iconBg}`}>
-        {icon}
-      </div>
-      <div>
-        <h3 className="text-lg font-medium text-white mb-2">{title}</h3>
-        <p className="text-gray-400 text-sm leading-relaxed font-light">
-          {description}
-        </p>
-      </div>
-    </div>
-  </motion.div>
-);
