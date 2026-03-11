@@ -82,11 +82,11 @@ todos:
     content: Set up 301 redirect from setup.apps.worktugal.com to app.worktugal.com/diagnostic
     status: pending
   - id: parallel-monitors
-    content: Set up Parallel.ai Monitor API watches on key government source URLs. DEFERRED to Month 2.
-    status: pending
+    content: "Set up Parallel.ai Monitor API watches on key government source URLs. (ACCELERATED - See parallel_ai_live_integration.plan.md)"
+    status: in_progress
   - id: quarterly-sweep
-    content: Build quarterly Parallel.ai Search API sweep script. DEFERRED to Month 2.
-    status: pending
+    content: "Build quarterly Parallel.ai Search API sweep script. (ACCELERATED - See parallel_ai_live_integration.plan.md)"
+    status: in_progress
   - id: b2b-infrastructure
     content: "Phase 7 (Month 3+): Package diagnostic engine for relocation firms. Only after 200 completions + 10 clarity calls."
     status: pending

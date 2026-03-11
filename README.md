@@ -74,6 +74,19 @@ Surface the compliance mistakes that cost expats thousands before they happen. W
 | Permit expiry risk | Medium | AIMA appointment booked + non-EU visa holder |
 | Schengen overstay | Medium | Short-term stay + overstay risk flagged |
 
+### AI Research & Monitoring (Parallel.ai)
+
+The diagnostic engine is powered by **Parallel.ai** for real-time compliance research and automated regulatory monitoring.
+
+- **Real-time Research**: The `research-compliance` Edge Function uses Parallel Search API to verify current tax thresholds and immigration rules based on specific user data.
+- **Regulatory Monitoring**: Automated watches on official Portuguese government sources (CIRS, CIVA, Diário da República) to detect changes in laws or deadlines.
+- **Local Building & Research**: We use the `parallel-cli` for deep research during development and to build new compliance modules.
+
+**CLI Usage:**
+```bash
+./bin/parallel-cli/parallel-cli search "Portugal NHR 2026 update"
+```
+
 ### Key Files
 
 | File | Purpose |
