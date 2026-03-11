@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2026-03-08 (v2.5)
+**Last Updated:** 2026-03-10 (v2.6)
 
 ---
 
@@ -17,8 +17,8 @@ Surface the compliance mistakes that cost expats thousands before they happen. W
 ### Audience
 
 - **Primary**: US remote workers, freelancers, and expats in Portugal with cross-border tax complexity (PFIC, FATCA, FBAR, worldwide taxation)
-- **Secondary**: Gulf entrepreneurs and D7/D8 visa holders diversifying residency to Portugal
-- **Tertiary**: Relocation firms and accountants who need structured risk data before first consultation
+- **Secondary**: Gulf entrepreneurs, high-net-worth individuals, and D7/D8 visa holders diversifying residency to Portugal — accelerated by ongoing geopolitical instability in the Middle East region
+- **Tertiary**: Relocation firms and vetted professionals (tax advisors, immigration lawyers) who need structured risk data before first consultation
 
 ---
 
@@ -44,7 +44,7 @@ Surface the compliance mistakes that cost expats thousands before they happen. W
 | :--- | :--- | :--- |
 | Tax Checkup Tool | Retired | 865 completions, zero contact data. Replaced by compliance diagnostic v2. Route `/checkup` redirects to `/diagnostic`. |
 | Detailed Compliance Review (49 EUR) | Retired | Zero organic conversions. Route `/compliance-review` redirects to `/diagnostic`. |
-| Accountant Application Portal | Archived | 7 applications, no active partners |
+| Accountant Application Portal | Hidden (route alive) | Public entry points removed. Form at `/accountants/apply` preserved for month 2 partner recruitment once referral demand is proven. |
 | Subscription Marketplace | Deprecated | Original 29 EUR/month membership model |
 | Partner Directory | Maintenance only | Searchable catalog of Portuguese service providers |
 
@@ -58,7 +58,7 @@ Surface the compliance mistakes that cost expats thousands before they happen. W
 2. Engine calculates **Setup Score** (0-100, structural compliance completeness) and **Exposure Index** (0-100, trap rule accumulation)
 3. Engine classifies user into one of 4 segments (high/low setup x high/low exposure)
 4. **Email gate** captures contact before results are shown
-5. Results page shows dual scores, top triggered traps (free tier: 2 visible, rest locked), and clarity call CTA
+5. Results page shows dual scores, **all triggered traps with full legal basis, penalty ranges, and source citations** (free, no paywall), and clarity call CTA
 6. Make.com webhook fires on every submission (SES emails, Telegram alert, EmailOctopus)
 
 ### Trap Rules (Portugal)
@@ -161,6 +161,18 @@ npm run dev
 
 ## Recent Updates
 
+### 2026-03-10: Trust-First Results + Homepage Rebuild + UX Fixes -- v2.6
+
+- **Paywall removed (trust-first)**: All diagnostic results now shown for free — full trap breakdown, legal basis (CIRS/CIVA articles), penalty ranges, and official source citations. Nothing locked. Clarity call repositioned as a personalized action plan, not a content unlock.
+- **Homepage rebuilt (mobile-first)**: Fake search bar removed. Subheadline broadened to remote workers, freelancers, and expats. Primary CTA updated to `"Check My Risk — Free (3 min)"`. Trust signals simplified to inline text spans (no credit card, legal citations, 865 completions count).
+- **Features section**: Section title changed to `"The risks that cost people the most"`. Penalty amounts lead each card (e.g. "Up to €3,750"). Language broadened beyond freelancers.
+- **Testimonials → Stats bar**: Section replaced with four concrete metrics: 865 diagnostics completed, 6 compliance traps checked, €3,750 max penalty caught, 3 min avg completion.
+- **FAQ tightened**: Reduced from 11 to 6 questions. "Is the diagnostic really free?" answer updated to explicitly state nothing is locked.
+- **ModernPartners section removed** from homepage composer.
+- **DiagnosticForm UX**: Switched from 4 questions per page to 1 question per page (reduced cognitive load on mobile). Question label restyled as `<h3>` serif heading. Email gate copy updated to reflect full free results.
+- **Partner form hidden**: "For Accountants" footer link removed. `AccountantRecruitmentBanner` removed from AccountingDeskLanding. Route and component preserved for month 2.
+- **Plan management**: Completed plans moved to `.cursor/plans/completed/`. `phase_2.5_launch_readiness` archived.
+
 ### 2026-03-08: Strategic Pivot + Clarity Call Integration -- v2.5
 
 - **Monetization resequenced**: Clarity call (149 EUR) is now Layer 1 revenue. Stripe 29 EUR deferred.
@@ -178,7 +190,7 @@ npm run dev
 
 - **Engine built**: Dual scoring (Setup Score + Exposure Index), 4-segment classification, trap rule evaluator.
 - **6 Portugal trap rules**: Declarative config with source citations, legal basis, penalty ranges.
-- **UI shipped**: DiagnosticForm (paginated, email gate, contact fields), DiagnosticResults (dual scores, trap cards, locked traps teaser).
+- **UI shipped**: DiagnosticForm (paginated, email gate, contact fields), DiagnosticResults (dual scores, trap cards).
 - **Homepage repositioned**: Risk-detection narrative. 49 EUR product archived. Routes consolidated to `/diagnostic`.
 - **Supabase schema**: `compliance_diagnostics` table live in production.
 - **Governance layer**: `.cursor/rules/` auto-loading for multi-model consistency.
@@ -203,6 +215,11 @@ Worktugal owns the **discovery moment** -- the instant someone realizes they mig
 | Monthly IRL event | 30-50 attendees | Trust building, live diagnostic demos |
 | Reddit | r/PortugalExpats, r/digitalnomad, r/USExpatTaxes | Target US expats with compliance trap content |
 | Make.com automation | Per-submission | Telegram alerts, email follow-up for high-risk profiles |
+| Gulf corridor (emerging) | Middle East expats fleeing instability | Geopolitical tailwind — wealthy individuals relocating from UAE, Qatar, Saudi Arabia seeking EU residency, wealth preservation, and banking access |
+
+### Partner Network (Month 2)
+
+The professional referral layer (immigration lawyers, tax advisors, relocation specialists) is **deferred until clarity call volume is proven**. The `/accountants/apply` route is kept alive but unpromoted. Once 3+ clarity call clients need a referral, direct outreach to 2-3 Lisbon-based professionals begins — broadened beyond accountants to include lawyers and relocation specialists.
 
 ---
 
