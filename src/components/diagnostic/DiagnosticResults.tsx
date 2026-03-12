@@ -350,10 +350,10 @@ export const DiagnosticResults: React.FC = () => {
                 </span>
               </div>
               <h3 className="text-xl font-serif text-white mb-3">
-                Stay current on Portugal compliance changes.
+                Join the Worktugal community.
               </h3>
               <p className="text-gray-500 text-sm font-light mb-8 max-w-sm mx-auto">
-                Law updates, trap alerts, and regulatory news — direct to Telegram.
+                Ask questions, share your experience, and follow along as we build.
               </p>
               <Button
                 onClick={() => window.open('https://t.me/worktugal', '_blank')}
