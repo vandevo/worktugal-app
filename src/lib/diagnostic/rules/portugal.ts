@@ -1,6 +1,6 @@
 import type { TrapRule } from '../types';
 
-export const RULESET_VERSION = 'portugal_v1';
+export const RULESET_VERSION = 'portugal_v2';
 
 export const PortugalTrapRules: TrapRule[] = [
   {
@@ -11,12 +11,27 @@ export const PortugalTrapRules: TrapRule[] = [
     },
     exposureScore: 15,
     severity: 'high',
-    fix: 'Verify your tax residency status in your previous country. If you have not formally deregistered, you may face dual taxation on worldwide income.',
+    fix: 'You are registered as a Portuguese tax resident but may still be considered a tax resident in your previous country. Formally deregister from your previous country\'s tax authority to avoid dual taxation on worldwide income.',
     legal_basis: 'CIRS Art. 16 — 183-day rule plus habitual abode test',
     source_url:
       'https://www.oecd.org/content/dam/oecd/en/topics/policy-issue-focus/aeoi/portugal-tax-residency.pdf',
     penalty_range: null,
-    last_verified: '2026-03-05',
+    last_verified: '2026-03-12',
+  },
+  {
+    id: 'dual_tax_residency_unregistered',
+    conditions: {
+      time_lived_in_portugal: 'more_than_183',
+      foreign_tax_deregistration: ['no', 'unsure'],
+    },
+    exposureScore: 15,
+    severity: 'high',
+    fix: 'You have lived in Portugal over 183 days, which makes you a tax resident under Portuguese law (CIRS Art. 16) regardless of whether you have registered. If you have not formally deregistered from your previous country, you may face dual taxation on your worldwide income.',
+    legal_basis: 'CIRS Art. 16 — 183-day presence triggers automatic tax residency',
+    source_url:
+      'https://www.oecd.org/content/dam/oecd/en/topics/policy-issue-focus/aeoi/portugal-tax-residency.pdf',
+    penalty_range: null,
+    last_verified: '2026-03-12',
   },
   {
     id: 'vat_misclassification',
@@ -36,17 +51,16 @@ export const PortugalTrapRules: TrapRule[] = [
   {
     id: 'unfiled_irs',
     conditions: {
-      tax_residence: 'yes',
       time_lived_in_portugal: ['more_than_183'],
     },
     exposureScore: 20,
     severity: 'high',
-    fix: 'File your IRS Modelo 3 including Annex J for foreign income and bank accounts. The filing window is April 1 to June 30.',
-    legal_basis: 'IRS Modelo 3, Annex J — worldwide income declaration for residents',
+    fix: 'You have lived in Portugal over 183 days. Under CIRS Art. 16 you are a tax resident by law and must file IRS Modelo 3 including Annex J for foreign income and overseas bank accounts. The filing window is April 1 to June 30 each year. Penalty for late or missing filing: 150 to 3,750 EUR.',
+    legal_basis: 'CIRS Art. 16 + IRS Modelo 3, Annex J — worldwide income declaration for residents',
     source_url:
       'https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/Folhetos_informativos/Documents/IRS_Modelo3_Instrucoes.pdf',
     penalty_range: '150–3,750 EUR for late filing',
-    last_verified: '2026-03-05',
+    last_verified: '2026-03-12',
   },
   {
     id: 'permit_expiry_risk',
@@ -61,6 +75,20 @@ export const PortugalTrapRules: TrapRule[] = [
     source_url: 'https://files.dre.pt/StaticContent/Lei_23_2007_EN.pdf',
     penalty_range: '75–300 EUR',
     last_verified: '2026-03-05',
+  },
+  {
+    id: 'permit_no_aima',
+    conditions: {
+      aima_appointment: ['no', 'unsure'],
+      visa_status: ['d7_visa', 'd8_visa', 'd2_visa', 'd1_visa', 'family_reunion', 'hqa_tech', 'temp_residence'],
+    },
+    exposureScore: 20,
+    severity: 'high',
+    fix: 'Your visa type requires an AIMA appointment to convert to a residence permit. Without scheduling this, you may be staying illegally once your visa entry period expires. AIMA appointments must be booked through the official AIMA portal. Fines for illegal stay: 80 to 700 EUR under Law 23/2007 Art. 192.',
+    legal_basis: 'Law 23/2007 Art. 192 — illegal stay; AIMA residence permit conversion requirement',
+    source_url: 'https://files.dre.pt/StaticContent/Lei_23_2007_EN.pdf',
+    penalty_range: '80–700 EUR',
+    last_verified: '2026-03-12',
   },
   {
     id: 'schengen_overstay',
