@@ -38,8 +38,11 @@ The 29 EUR paid risk scan is the revenue target. The 49 EUR compliance review pr
 
 | Role | Model | When to use |
 | :--- | :--- | :--- |
-| Executor (daily coding) | Gemini Flash 3.1 | Small fixes, copy changes, simple features, daily tasks |
-| Architect / Senior | Claude Opus 4.6 | New systems, complex refactors, strategic decisions, multi-file features |
+| Volume / Drafts | Gemini Flash 3 | First-pass code, basic questions, low-risk edits (saving Claude credits) |
+| Strategy / Ops | Gemini Pro 3 | Systems thinking, prompt tuning, architecture, operations planning |
+| Executor (Premium) | Claude 3.7 Sonnet | UI/UX, complex logic, feature execution, nuanced bugs |
+| Architect / Senior | Claude Opus | New systems, major refactors, strategic decisions, high-risk code |
+| Terminal Automation | Claude Code (CLI) | Autonomous environment checks, terminal execution, local file ops |
 | Analyst | GPT-5.3 Deep Research | Market reports, competitor analysis, regulatory research |
 
 If you are not Opus and the task requires:

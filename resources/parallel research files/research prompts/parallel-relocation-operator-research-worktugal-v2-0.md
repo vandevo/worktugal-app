@@ -205,7 +205,7 @@ the best entry point product to capture this market
 Return the answer in three parts
 
 market wedge
-diagnostic product idea
+diagnostic product idea  
 recommended pricing range
 
 Expected output
