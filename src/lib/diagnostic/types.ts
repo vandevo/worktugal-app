@@ -32,6 +32,7 @@ export interface TriggeredTrap {
   source_url: string;
   penalty_range: string | null;
   exposureScore: number;
+  last_verified: string;
 }
 
 export type DiagnosticSegment =

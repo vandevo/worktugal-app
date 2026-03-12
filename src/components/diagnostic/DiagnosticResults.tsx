@@ -300,6 +300,16 @@ export const DiagnosticResults: React.FC = () => {
                           View official source
                           <ExternalLink className="w-3 h-3" />
                         </a>
+                        {trap.last_verified && (
+                          <p className="text-[10px] text-gray-600 font-light">
+                            <span className="text-gray-500 font-medium">Verified:</span>{' '}
+                            {new Date(trap.last_verified).toLocaleDateString('en-GB', {
+                              day: 'numeric',
+                              month: 'short',
+                              year: 'numeric',
+                            })}
+                          </p>
+                        )}
                       </div>
                     </motion.div>
                   );

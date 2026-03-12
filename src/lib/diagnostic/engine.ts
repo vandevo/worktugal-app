@@ -143,6 +143,7 @@ export function getTriggeredTraps(
         source_url: rule.source_url,
         penalty_range: rule.penalty_range,
         exposureScore: rule.exposureScore,
+        last_verified: rule.last_verified,
       });
     }
   }

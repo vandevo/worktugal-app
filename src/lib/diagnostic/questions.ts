@@ -138,7 +138,7 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
     id: 'monthly_income',
     text: 'What is your average monthly income?',
     description:
-      "Important for visa requirements and tax obligations. Portugal's legal minimum wage is €870/month (mainland), paid over 14 months.",
+      "Important for visa requirements and tax obligations. Portugal's legal minimum wage is €1,020/month (mainland) as of January 2026, paid over 14 months.",
     type: 'select',
     options: [
       { value: 'below_870', label: 'Below €870' },
