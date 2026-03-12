@@ -5,13 +5,8 @@ import {
   AlertTriangle,
   CheckCircle2,
   Shield,
-  ArrowRight,
   ExternalLink,
-  MessageCircle,
   Send,
-  Users,
-  Phone,
-  Calendar,
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
@@ -234,6 +229,9 @@ export const DiagnosticResults: React.FC = () => {
                   : ' Your setup is below average — review the risks below.'}
               </p>
             </div>
+            <p className="text-[10px] text-gray-600 text-center mt-4">
+              Rules verified against official sources. Last updated: Feb 14, 2026.
+            </p>
           </div>
 
           {/* Triggered Traps */}
@@ -326,90 +324,6 @@ export const DiagnosticResults: React.FC = () => {
             </motion.div>
           )}
 
-          {/* Clarity Call CTA */}
-          {traps.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="bg-white/[0.02] rounded-3xl border border-blue-500/20 p-8 md:p-12 relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 blur-[100px] -z-10" />
-
-              <div className="max-w-2xl">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/5 border border-emerald-500/10 mb-6">
-                  <Phone className="w-3 h-3 text-emerald-400" />
-                  <span className="text-[9px] uppercase tracking-[0.2em] text-emerald-400/80 font-bold">
-                    Expert Review
-                  </span>
-                </div>
-
-                <h2 className="text-2xl font-serif text-white mb-4">
-                  Know What to Do About Your Specific Situation
-                </h2>
-                <p className="text-gray-500 font-light text-sm mb-10 leading-relaxed">
-                  You have seen your risks. Now you need to know exactly what to do, in
-                  what order, given your specific visa, income, and residency setup. In a
-                  30-minute call, I walk through your diagnostic results with you and give
-                  you a clear, prioritized action plan.
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
-                  <div className="space-y-4">
-                    <h4 className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-bold">
-                      What you get
-                    </h4>
-                    <ul className="space-y-3">
-                      {[
-                        'I already know your risk profile before the call starts',
-                        'Plain-language explanation of what each risk means for your setup',
-                        'Prioritized action steps in the right order for your situation',
-                        'Warm referral to a vetted tax advisor or immigration lawyer if needed',
-                        'Honest advice on what you can fix yourself vs. what needs a professional',
-                      ].map((item, i) => (
-                        <li
-                          key={i}
-                          className="flex items-center gap-3 text-xs text-gray-400 font-light"
-                        >
-                          <div className="w-1 h-1 rounded-full bg-blue-500" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="flex flex-col justify-end">
-                    <div className="mb-6">
-                      <div className="text-3xl font-serif text-white">
-                        €149
-                        <span className="text-sm text-gray-500 ml-2 font-sans font-light">
-                          30 minutes
-                        </span>
-                      </div>
-                      <p className="text-[10px] text-gray-600 uppercase tracking-widest mt-1">
-                        Video call via Google Meet or Zoom
-                      </p>
-                    </div>
-                    <Button
-                      size="lg"
-                      className="w-full text-xs font-medium uppercase tracking-widest px-8"
-                      onClick={() => {
-                        const calUrl = import.meta.env.VITE_CLARITY_CALL_URL;
-                        if (calUrl) {
-                          window.open(calUrl, '_blank');
-                        }
-                      }}
-                    >
-                      <Calendar className="w-3 h-3 mr-2" />
-                      Book Clarity Call
-                    </Button>
-                    <p className="text-[10px] text-gray-600 mt-3 text-center">
-                      Powered by Cal.com. Cancel or reschedule anytime.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
 
           {/* Community CTA */}
           <motion.div
@@ -418,38 +332,26 @@ export const DiagnosticResults: React.FC = () => {
             transition={{ delay: 0.4 }}
             className="bg-white/[0.01] rounded-3xl border border-white/5 p-10"
           >
-            <div className="flex flex-col md:flex-row items-center gap-10">
-              <div className="flex-shrink-0">
-                <div className="w-20 h-20 rounded-2xl bg-blue-500/5 border border-blue-500/10 flex items-center justify-center">
-                  <MessageCircle className="w-8 h-8 text-blue-500/50" />
-                </div>
+            <div className="text-center">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/5 mb-6">
+                <Send className="w-3 h-3 text-gray-400" />
+                <span className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold">
+                  Community
+                </span>
               </div>
-              <div className="flex-1 text-center md:text-left">
-                <h3 className="text-2xl font-serif text-white mb-3">Community Support</h3>
-                <p className="text-gray-500 text-sm font-light mb-8 leading-relaxed max-w-xl">
-                  Join 1,300+ remote professionals navigating Portugal compliance. Share
-                  experiences and stay updated on regulatory changes.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                  <Button
-                    onClick={() => window.open('https://t.me/worktugal', '_blank')}
-                    className="bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/20 text-[10px] uppercase tracking-widest font-bold px-8"
-                  >
-                    <Send className="w-3 h-3 mr-2" />
-                    Telegram Community
-                  </Button>
-                  <Button
-                    onClick={() =>
-                      window.open('https://www.facebook.com/groups/worktugal', '_blank')
-                    }
-                    variant="outline"
-                    className="border-white/5 hover:bg-white/5 text-gray-400 hover:text-white text-[10px] uppercase tracking-widest font-bold px-8"
-                  >
-                    <Users className="w-3 h-3 mr-2" />
-                    Facebook Group
-                  </Button>
-                </div>
-              </div>
+              <h3 className="text-xl font-serif text-white mb-3">
+                Stay current on Portugal compliance changes.
+              </h3>
+              <p className="text-gray-500 text-sm font-light mb-8 max-w-sm mx-auto">
+                Law updates, trap alerts, and regulatory news — direct to Telegram.
+              </p>
+              <Button
+                onClick={() => window.open('https://t.me/worktugal', '_blank')}
+                className="bg-white/[0.03] hover:bg-white/[0.06] text-gray-300 border border-white/5 text-[10px] uppercase tracking-widest font-bold px-8"
+              >
+                <Send className="w-3 h-3 mr-2" />
+                Join Telegram
+              </Button>
             </div>
           </motion.div>
 
@@ -461,35 +363,6 @@ export const DiagnosticResults: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Sticky bottom CTA for users with traps */}
-      {traps.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-obsidian/90 backdrop-blur-xl border-t border-white/5 py-4 px-6">
-          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
-              <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              <p className="text-gray-400 text-xs font-light">
-                <span className="text-white font-medium">
-                  {traps.length} {traps.length === 1 ? 'risk' : 'risks'} found.
-                </span>{' '}
-                Get expert help understanding what these mean for your situation.
-              </p>
-            </div>
-            <Button
-              size="sm"
-              className="whitespace-nowrap px-8 text-[10px] uppercase tracking-widest font-bold"
-              onClick={() => {
-                const calUrl = import.meta.env.VITE_CLARITY_CALL_URL;
-                if (calUrl) {
-                  window.open(calUrl, '_blank');
-                }
-              }}
-            >
-              Book Clarity Call — €149
-              <ArrowRight className="w-3 h-3 ml-2" />
-            </Button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

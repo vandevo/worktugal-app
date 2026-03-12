@@ -26,6 +26,9 @@ revision_history:
   - date: "2026-03-10"
     version: "2.6"
     changes: "Trust-first paywall removal. All triggered traps now shown for free including legal basis, penalty ranges, and source citations. FREE_TRAP_LIMIT and locked blur teaser removed from DiagnosticResults.tsx. Clarity call CTA repositioned: headline changed from 'Walk Through Your Risks With an Expert' to 'Know What to Do About Your Specific Situation'. What you get list updated to reflect call = personalized action plan, not content unlock. Rationale: users who see their full risk profile are more likely to book than users facing a blur wall. Trust converts better than friction at this funnel stage."
+  - date: "2026-03-11"
+    version: "2.7"
+    changes: "Lead magnet pivot. Removed 149 EUR clarity call CTA and sticky bottom bar from DiagnosticResults.tsx entirely. Call offer moves to email sequence delivery only (not on-page). Community section replaced: Facebook Group button removed, Telegram-only minimal CTA added with evergreen copy. Freshness signal added to results page below score card ('Rules verified against official sources. Last updated: Feb 14, 2026.'). Rationale: results page is now pure value — no selling at point of discovery. Email sequence converts from a warmer position after user has absorbed their risk profile."
 todos:
   - id: engine-core
     content: Create diagnostic engine module (calculateSetupScore, calculateExposureIndex, classifySegment, getTriggeredTraps) in src/lib/diagnostic/engine.ts
