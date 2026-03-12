@@ -73,6 +73,47 @@ flowchart TD
 
 ---
 
+## Agentic Workflows & Use Cases (Playbook)
+
+Since the `parallel-cli` is installed in `./bin/parallel-cli/parallel-cli` and the native Cursor Marketplace Parallel skills are active, you can prompt the AI agent to execute these workflows directly:
+
+### 1. Generating & Updating Tax Trap Rules (Building)
+
+Keep `src/lib/diagnostic/rules/portugal.ts` accurate as laws change.
+
+- **Prompt Example:** *"Use Parallel Deep Research to find out if the VAT exemption threshold in Portugal (Article 53) has changed for 2026. If it has, update the `portugal.ts` rule with the new threshold, the legal basis, and the official source URL."*
+- **Agent Action:** Triggers `parallel-deep-research`, reads official Autoridade Tributária documentation on the live web, and rewrites the code to match the new laws.
+
+### 2. Expanding to New Countries (Scaling)
+
+When ready to expand beyond Portugal, use the modular architecture to instantly generate new country matrices.
+
+- **Prompt Example:** *"We are ready to launch the Spain diagnostic module. Use Parallel AI to research the Beckham Law and Spanish digital nomad visa tax traps. Then, generate a `src/lib/diagnostic/rules/spain.ts` file formatted exactly like `portugal.ts`."*
+- **Agent Action:** Runs a `parallel-web-search` for Spanish tax law, structures the data into the exact `conditions`, `severity`, `legal_basis`, and `penalty_range` schema, and creates the new file.
+
+### 3. Vetting Partners for the B2B Play (Data Enrichment)
+
+Support Phase 6.3 and Phase 7 partner outreach (immigration lawyers, accountants, relocation firms).
+
+- **Prompt Example:** *"I have a CSV of 50 Portugal relocation firms. Use the Parallel data enrichment skill to find their CEO names, their primary contact emails, and whether they mention 'D7 Visa' on their website."*
+- **Agent Action:** Uses `parallel-data-enrichment` to crawl websites simultaneously and outputs a clean, enriched dataset for cold outreach.
+
+### 4. Setting up Regulatory Monitors (Live Monitoring)
+
+Support Phase 5.2 by automating watches on official government URLs (CIRS, Diário da República).
+
+- **Prompt Example:** *"Use the Parallel CLI to create a weekly monitor on the Portuguese Social Security site. Set it to trigger a webhook to our Make.com URL when the contribution rates change."*
+- **Agent Action:** Executes `./bin/parallel-cli/parallel-cli monitor create` in the terminal, passing the URL and webhook from `.env` to trigger Telegram alerts via Make.com.
+
+### 5. Reviewing a Specific Customer's Edge Case (Ad-hoc Research)
+
+Prep for 149 EUR Clarity Calls (Phase 6.2) when a user submits a complex combination of factors.
+
+- **Prompt Example:** *"Look at the recent diagnostic submission for user X. Use Parallel to search for the specific tax implications of active crypto trading under the grandfathered NHR regime in Madeira for 2026. Give me a summary I can use on the call."*
+- **Agent Action:** Reads the user's `raw_answers` from Supabase, passes specific variables into a targeted `parallel-web-search`, and provides a tailored briefing document.
+
+---
+
 ## Task Progress
 
 
