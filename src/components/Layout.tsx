@@ -70,7 +70,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   to="/changelog"
                   className="hidden sm:inline-flex items-center bg-white/5 text-gray-400 px-3 py-1 rounded-full border border-white/10 text-[10px] font-medium tracking-widest uppercase hover:bg-white/10 hover:border-white/20 transition-all duration-300"
                 >
-                  V2.0
+                  V2.7
                 </Link>
               </div>
             </a>
