@@ -37,7 +37,7 @@ export const PortugalTrapRules: TrapRule[] = [
     id: 'vat_misclassification',
     conditions: {
       business_structure: ['freelancer', 'unipessoal'],
-      monthly_income: ['870_to_3479', '3480_plus'],
+      monthly_income: ['1020_to_4079', '4080_plus'],
     },
     exposureScore: 20,
     severity: 'high',

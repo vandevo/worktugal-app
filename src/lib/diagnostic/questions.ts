@@ -138,12 +138,12 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
     id: 'monthly_income',
     text: 'What is your average monthly income?',
     description:
-      "Important for visa requirements and tax obligations. Portugal's legal minimum wage is €1,020/month (mainland) as of January 2026, paid over 14 months.",
+      "Important for visa requirements and tax obligations. Portugal's legal minimum wage is €1,020/month (mainland) as of January 2026 (Portaria 35/2026). D8 Digital Nomad visa requires at least 4× minimum wage (€4,080/month).",
     type: 'select',
     options: [
-      { value: 'below_870', label: 'Below €870' },
-      { value: '870_to_3479', label: '€870 to €3,479' },
-      { value: '3480_plus', label: '€3,480 or more' },
+      { value: 'below_1020', label: 'Below €1,020' },
+      { value: '1020_to_4079', label: '€1,020 to €4,079' },
+      { value: '4080_plus', label: '€4,080 or more' },
     ],
     weight: 10,
   },

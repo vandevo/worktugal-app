@@ -7,14 +7,16 @@ import {
   Shield,
   ExternalLink,
   Send,
+  ListChecks,
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Alert } from '../ui/Alert';
 import { Seo } from '../Seo';
 import { ComplianceDisclaimer } from '../ComplianceDisclaimer';
 import { getDiagnosticResult } from '../../lib/diagnostic/submit';
-import { SEGMENT_MESSAGES } from '../../lib/diagnostic';
-import type { DiagnosticSegment, TriggeredTrap } from '../../lib/diagnostic';
+import { SEGMENT_MESSAGES, getRecommendations } from '../../lib/diagnostic';
+import type { DiagnosticSegment, TriggeredTrap, DiagnosticAnswers } from '../../lib/diagnostic';
+
 
 const SEVERITY_CONFIG = {
   high: {
@@ -40,10 +42,66 @@ const SEVERITY_CONFIG = {
   },
 } as const;
 
+const DEMO_DATA = {
+  id: 'demo',
+  email: 'demo@worktugal.com',
+  setup_score: 42,
+  exposure_index: 55,
+  segment: 'low_setup_high_exposure',
+  payment_status: 'unpaid',
+  trap_flags: [
+    {
+      id: 'permit_no_aima',
+      severity: 'high' as const,
+      fix: 'Your visa type requires an AIMA appointment to convert to a residence permit. Without scheduling this, you may be staying illegally once your visa entry period expires. AIMA appointments must be booked through the official AIMA portal. Fines for illegal stay: 80 to 700 EUR under Law 23/2007 Art. 192.',
+      legal_basis: 'Law 23/2007 Art. 192 — illegal stay; AIMA residence permit conversion requirement',
+      source_url: 'https://files.dre.pt/StaticContent/Lei_23_2007_EN.pdf',
+      penalty_range: '80–700 EUR',
+      exposureScore: 20,
+      last_verified: '2026-03-12',
+    },
+    {
+      id: 'unfiled_irs',
+      severity: 'high' as const,
+      fix: 'You have lived in Portugal over 183 days. Under CIRS Art. 16 you are a tax resident by law and must file IRS Modelo 3 including Annex J for foreign income and overseas bank accounts. The filing window is April 1 to June 30 each year. Penalty for late or missing filing: 150 to 3,750 EUR.',
+      legal_basis: 'CIRS Art. 16 + IRS Modelo 3, Annex J — worldwide income declaration for residents',
+      source_url: 'https://info.portaldasfinancas.gov.pt/pt/apoio_ao_contribuinte/Cidadaos/Rendimentos/Declaracao/Modelo_3/Paginas/default.aspx',
+      penalty_range: '150–3,750 EUR for late filing',
+      exposureScore: 20,
+      last_verified: '2026-03-12',
+    },
+    {
+      id: 'social_security_misalignment',
+      severity: 'medium' as const,
+      fix: 'Register for NISS (Social Security Identification Number). Freelancers must pay contributions between the 10th and 20th of each month. Missing payments result in debt accrual and benefit suspension.',
+      legal_basis: 'Código Contributivo — freelancer contribution obligations',
+      source_url: 'https://www2.gov.pt/pt/servicos/obter-informacoes-sobre-as-contribuicoes-para-a-seguranca-social-pagamento-de-trabalhador-independente',
+      penalty_range: 'Arrears plus interest plus suspended benefits',
+      exposureScore: 15,
+      last_verified: '2026-03-05',
+    },
+  ],
+  raw_answers: {
+    visa_status: 'd7_visa',
+    tax_residence: 'no',
+    nif: 'yes',
+    business_structure: 'freelancer_remote',
+    social_security: 'no',
+    banking: 'yes',
+    time_in_portugal: 'more_than_183',
+    aima_appointment: 'no',
+    time_lived_in_portugal: 'more_than_183',
+    monthly_income: '1020_to_4079',
+    overstay_risk: 'no',
+    foreign_tax_deregistration: 'unsure',
+  },
+};
+
 export const DiagnosticResults: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const diagnosticId = searchParams.get('id');
+  const isDemo = searchParams.get('demo') === 'true';
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -55,9 +113,16 @@ export const DiagnosticResults: React.FC = () => {
     segment: string;
     trap_flags: TriggeredTrap[];
     payment_status: string;
+    raw_answers: DiagnosticAnswers;
   } | null>(null);
 
   useEffect(() => {
+    if (isDemo) {
+      setData(DEMO_DATA);
+      setLoading(false);
+      return;
+    }
+
     if (!diagnosticId) {
       setError('No diagnostic ID provided.');
       setLoading(false);
@@ -80,6 +145,7 @@ export const DiagnosticResults: React.FC = () => {
           segment: result.segment,
           trap_flags: result.trap_flags as TriggeredTrap[],
           payment_status: result.payment_status,
+          raw_answers: result.raw_answers,
         });
         setLoading(false);
       } catch (err) {
@@ -129,6 +195,7 @@ export const DiagnosticResults: React.FC = () => {
   const highTraps = traps.filter((t) => t.severity === 'high');
   const mediumTraps = traps.filter((t) => t.severity === 'medium');
   const lowTraps = traps.filter((t) => t.severity === 'low');
+  const recommendations = getRecommendations(data.raw_answers ?? {});
 
   const setupColor =
     data.setup_score >= 70 ? 'text-emerald-400' : data.setup_score >= 40 ? 'text-yellow-400' : 'text-red-400';
@@ -335,6 +402,36 @@ export const DiagnosticResults: React.FC = () => {
           )}
 
 
+          {/* Recommendations */}
+          {recommendations.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="bg-white/[0.01] rounded-3xl border border-white/5 p-8"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                  <ListChecks className="w-5 h-5 text-blue-400" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-medium text-white">Next steps for your setup</h2>
+                  <p className="text-xs text-gray-500 uppercase tracking-widest font-medium mt-1">
+                    Based on your answers
+                  </p>
+                </div>
+              </div>
+              <ul className="space-y-3">
+                {recommendations.map((rec, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-gray-400 font-light leading-relaxed">
+                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500/50 shrink-0" />
+                    {rec}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+
           {/* Community CTA */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -353,7 +450,7 @@ export const DiagnosticResults: React.FC = () => {
                 Join the Worktugal community.
               </h3>
               <p className="text-gray-500 text-sm font-light mb-8 max-w-sm mx-auto">
-                Ask questions, share your experience, and follow along as we build.
+                Ask questions, share your experience, and get monthly compliance updates for Portugal.
               </p>
               <Button
                 onClick={() => window.open('https://t.me/worktugal', '_blank')}

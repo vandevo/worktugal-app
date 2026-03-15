@@ -77,9 +77,9 @@ export function calculateSetupScore(answers: DiagnosticAnswers): number {
         break;
       }
       case 'monthly_income': {
-        if (answer === '3480_plus') totalScore += question.weight;
-        else if (answer === '870_to_3479') totalScore += question.weight * 0.8;
-        else if (answer === 'below_870') totalScore += question.weight * 0.5;
+        if (answer === '4080_plus') totalScore += question.weight;
+        else if (answer === '1020_to_4079') totalScore += question.weight * 0.8;
+        else if (answer === 'below_1020') totalScore += question.weight * 0.5;
         break;
       }
       case 'overstay_risk': {
@@ -241,8 +241,8 @@ export function getRecommendations(answers: DiagnosticAnswers): string[] {
     recs.push('Obtain health insurance covering at least €30,000 in medical costs');
   }
 
-  if (answers.monthly_income === 'below_870') {
-    recs.push('Ensure your income meets minimum requirements for your visa type (typically €870+ for D7/D8)');
+  if (answers.monthly_income === 'below_1020') {
+    recs.push('Ensure your income meets minimum requirements for your visa type. Portugal minimum wage is €1,020/month (2026). D8 Digital Nomad visa requires €4,080/month (4× minimum wage).');
   }
 
   if (answers.overstay_risk === 'yes' || answers.overstay_risk === 'not_sure') {
