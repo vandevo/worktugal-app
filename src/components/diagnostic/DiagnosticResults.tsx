@@ -16,6 +16,7 @@ import { ComplianceDisclaimer } from '../ComplianceDisclaimer';
 import { getDiagnosticResult } from '../../lib/diagnostic/submit';
 import { SEGMENT_MESSAGES, getRecommendations } from '../../lib/diagnostic';
 import type { DiagnosticSegment, TriggeredTrap, DiagnosticAnswers } from '../../lib/diagnostic';
+import { ShareCard } from './ShareCard';
 
 
 const SEVERITY_CONFIG = {
@@ -300,6 +301,16 @@ export const DiagnosticResults: React.FC = () => {
               Rules verified against official sources. Last updated: Feb 14, 2026.
             </p>
           </div>
+
+          {/* Share Card */}
+          <ShareCard
+            setupScore={data.setup_score}
+            exposureIndex={data.exposure_index}
+            highCount={highTraps.length}
+            mediumCount={mediumTraps.length}
+            lowCount={lowTraps.length}
+            diagnosticId={data.id}
+          />
 
           {/* Triggered Traps */}
           {traps.length > 0 && (
