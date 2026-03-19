@@ -1,0 +1,8 @@
+id,created_at,purpose,full_name,email,company_name,website_url,message,budget_range,timeline,status,priority,notes,webhook_sent,webhook_sent_at,replied_at
+550e8400-e29b-41d4-a716-446655440000,2025-11-01T15:30:00Z,partnership,John Smith,john@example.com,Example Co,https://example.com,We would like to collaborate on content marketing and sponsor some events in Lisbon,1000+,this_month,new,high,,true,2025-11-01T15:30:05Z,
+550e8400-e29b-41d4-a716-446655440001,2025-11-01T14:20:00Z,partnership,Sarah Johnson,sarah@startup.io,StartupIO,https://startup.io,Interested in co-hosting a digital nomad event,500-999,3_months,reviewed,high,Follow up next week,true,2025-11-01T14:20:03Z,
+550e8400-e29b-41d4-a716-446655440002,2025-11-01T13:15:00Z,partnership,Mike Chen,mike@agency.com,Creative Agency,https://agency.com,Would love to discuss partnership opportunities,200-499,later,new,normal,,true,2025-11-01T13:15:07Z,
+550e8400-e29b-41d4-a716-446655440003,2025-11-01T12:00:00Z,partnership,Emma Wilson,emma@blog.com,Travel Blog,https://blog.com,Exploring content collaboration options,not_yet,flexible,new,low,,true,2025-11-01T12:00:04Z,
+550e8400-e29b-41d4-a716-446655440004,2025-11-01T11:45:00Z,accounting,David Brown,david@freelance.com,Freelance Designer,,Need help with Portuguese tax filing,,,new,high,,true,2025-11-01T11:45:02Z,
+550e8400-e29b-41d4-a716-446655440005,2025-11-01T10:30:00Z,info,Lisa Anderson,lisa@gmail.com,,,Questions about D7 visa requirements,,,new,normal,,true,2025-11-01T10:30:06Z,
+550e8400-e29b-41d4-a716-446655440006,2025-11-01T09:15:00Z,other,Tom Garcia,tom@email.com,,,General inquiry about your services,,,new,normal,,true,2025-11-01T09:15:03Z,

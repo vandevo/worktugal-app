@@ -1,0 +1,52 @@
+Prompt A, Accountant Intake as a Service, deep research
+
+You are my senior market analyst. Objective, validate and spec a B2B product called Accountant Intake as a Service for Portugal focused on freelancers and remote workers. Deliver a concise, source-linked brief with tables.
+
+Scope and constraints
+
+Timeline window, 2024 to today. Prioritize Portugal content in Portuguese and English.
+
+Trust sources, OCC and TOConline docs, Contabilista.pt directory, Finanças portal, AIMA updates, reputable firms with price pages, Reddit PortugalFinance, r/expats, Google reviews with dates.
+
+Exclude vague blogs that do not cite law or show prices. Flag any claim that lacks a source.
+
+Tasks
+A. Market map
+• List 12 small to mid Portuguese accounting firms and 3 immigration boutiques that serve expats or freelancers. Provide website, price ranges for consults or onboarding, time to first consult, languages, and whether they show an intake form.
+• Note their bottlenecks that intake could fix, missing docs, language barrier, response time, invoice errors, Finanças portal access.
+
+B. Demand signals
+• Extract 20 pains from real user posts and dated reviews that mention accountant ghosting, missing invoices, e-fatura confusion, NIF or fiscal representative timing, NISS, AIMA requirements, VAT number setup, IRS Category B starts. Quote short excerpts with dates and links.
+• Identify any willingness to pay for short paid consults or intake services. Capture price points.
+
+C. Compliance backbone
+• Summarize the minimum facts an intake must capture to hand off a clean file. Fields for identity, residence, tax status, NIF, NISS, IBAN, activity code, invoicing platform, e-fatura usage, prior IRS year, VAT regime, fiscal representative status, electronic notifications. Cite legal or institutional references where available.
+
+D. Existing substitutes
+• Compare 10 services that overlap intake, examples, Fresh Portugal consults, GoalSeek, Migrun, E-Residence, Novomove, Rauva, GetNIF, boutique accountants. Table fields, product focus, price, delivery time, refund, languages, what intake they already do, and gaps.
+
+E. Pricing and unit economics
+• Find concrete prices for consults, onboarding, or document preparation. Propose two B2B pricing models for intake only.
+Model 1 subscription, 149 per month for up to 10 intakes then 15 per extra.
+Model 2 pay per qualified intake, 39 per completed handoff package.
+• Estimate hours saved for a firm per client if intake removes two back-and-forth cycles. Support with any source or a conservative assumption clearly labeled.
+
+F. Delivery design and risks
+• Define the minimum credible backbone, intake form fields, file checklist, 48-hour SLA, weekly handoff report schema.
+• List five failure modes and preventions, identity mismatch, incomplete tax history, IBAN verification, language misread, VAT regime errors.
+
+G. Pilot and outreach plan
+• Draft a 14-day pilot with pass or fail gates. Success metric, at least 6 of 10 intakes delivered within SLA and one renewal signal.
+• Provide a 7-day outreach plan, where to find targets on Contabilista.pt, what to say, and two email scripts of three lines each with a prepaid Stripe link and a 15 minute kickoff booking.
+
+Output format
+
+Executive summary, 5 lines.
+
+Tables, competitors and prices, accountant targets, substitute services.
+
+Compliance checklist, bullet list of fields and links.
+
+Pilot design and outreach scripts.
+
+Sources, numbered with dates.

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Worktugal Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#FAFAF9",
+                        "error": "#EF4444",
+                        "surface-container": "#EDEEEB",
+                        "on-error-container": "#991B1B",
+                        "surface-dim": "#E5E5E4",
+                        "primary-fixed": "#BDE6D7",
+                        "on-error": "#FFFFFF",
+                        "tertiary-fixed": "#FDE68A",
+                        "surface-container-highest": "#E2E3E0",
+                        "outline-variant": "#CBD5E1",
+                        "on-tertiary-container": "#D97706",
+                        "secondary": "#64748B",
+                        "on-tertiary": "#FFFFFF",
+                        "secondary-container": "#F1F5F9",
+                        "surface-variant": "#F1F5F9",
+                        "error-container": "#FEE2E2",
+                        "tertiary": "#F59E0B",
+                        "surface-container-high": "#E8E8E5",
+                        "on-primary": "#FFFFFF",
+                        "primary-fixed-dim": "#8BC6B0",
+                        "on-surface": "#0F172A",
+                        "on-primary-fixed-variant": "#0F3E2E",
+                        "inverse-primary": "#A2D1BA",
+                        "on-secondary-fixed": "#111827",
+                        "outline": "#E2E8F0",
+                        "inverse-surface": "#1E293B",
+                        "on-background": "#0F172A",
+                        "on-primary-container": "#FFFFFF",
+                        "surface-tint": "#0F3E2E",
+                        "secondary-fixed-dim": "#9CA3AF",
+                        "inverse-on-surface": "#F8FAFC",
+                        "tertiary-fixed-dim": "#FCD34D",
+                        "surface-bright": "#FFFFFF",
+                        "surface-container-lowest": "#FFFFFF",
+                        "surface-container-low": "#F3F4F1",
+                        "on-secondary": "#FFFFFF",
+                        "primary": "#0F3E2E",
+                        "on-secondary-container": "#475569",
+                        "on-surface-variant": "#64748B",
+                        "on-primary-fixed": "#002116",
+                        "on-tertiary-fixed": "#451A03",
+                        "secondary-fixed": "#D1D5DB",
+                        "primary-container": "#10B981",
+                        "on-tertiary-fixed-variant": "#92400E",
+                        "background": "#FAFAF9",
+                        "tertiary-container": "#FEF3C7",
+                        "on-secondary-fixed-variant": "#374151"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #FAFAF9; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .staccato-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; }
+        .editorial-shadow { box-shadow: 0 8px 30px rgb(0,0,0,0.04); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background antialiased pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<h1 class="font-['Inter'] font-bold text-[20px] tracking-tight text-emerald-900">Good morning, Van</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-stone-500" data-icon="notifications">notifications</span>
+<div class="h-10 w-10 rounded-full bg-surface-container overflow-hidden">
+<img alt="Van's profile" class="h-full w-full object-cover" data-alt="User profile photo of Van" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaYBcjwRl2Lp-TTzzf-srHAKDvpbSaO1djHq6Y9VuMoKV_3vRiJjnV7YEZCt2Q1hs59Fqb0HNxnA3FgOXkILtNsMAWKBhgMTFk6m69tq2r-WXvNgQL61Fw1B_b3PXhXsLghvB6LYT7nK5YGZYQSHIq4wbZnzVeW_63RUJSacl1DXTANckj_Kciia_L75K-aYnNTJFP3ZvWCHnS_ymrnisH4i3XNUlshenYvCNtUYFc1_cvLYUDJ4xEpItKl9Tagov2gcysJvlM_gdN"/>
+</div>
+</div>
+</header>
+<main class="pt-24 px-6 space-y-8">
+<!-- Last Scan Summary Card -->
+<section class="relative">
+<div class="bg-surface-container-lowest rounded-[20px] p-6 editorial-shadow border-l-[4px] border-tertiary">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="staccato-label text-on-surface-variant block mb-1">Your last scan</span>
+<p class="text-[14px] font-medium text-on-surface">March 19, 2026</p>
+</div>
+<span class="bg-tertiary/10 text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider">MEDIUM RISK</span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="space-y-1">
+<span class="staccato-label text-on-surface-variant">Setup Score</span>
+<div class="flex items-baseline gap-1">
+<span class="text-[30px] font-extrabold text-primary-container leading-none">74</span>
+<span class="text-[14px] text-on-surface-variant">/100</span>
+</div>
+</div>
+<div class="space-y-1">
+<span class="staccato-label text-on-surface-variant">Exposure Index</span>
+<div class="flex items-baseline gap-1">
+<span class="text-[30px] font-extrabold text-tertiary leading-none">31</span>
+<span class="text-[14px] text-on-surface-variant">%</span>
+</div>
+</div>
+</div>
+<a class="inline-flex items-center text-primary-container font-bold text-[14px] hover:opacity-80 transition-opacity" href="#">
+                    View full results 
+                    <span class="material-symbols-outlined ml-1 text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</section>
+<!-- Action Items Section -->
+<section class="space-y-4">
+<h2 class="staccato-label text-on-surface-variant px-1">Your Action Items</h2>
+<div class="space-y-3">
+<!-- Action Item 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between shadow-sm border-l-[4px] border-error">
+<div class="flex items-center gap-4">
+<div class="h-6 w-6 border-2 border-outline rounded flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-transparent text-[18px]" data-icon="check">check</span>
+</div>
+<span class="text-[14px] font-semibold text-on-surface">Update NIF address details</span>
+</div>
+<span class="bg-error/10 text-on-error-container px-2 py-0.5 rounded text-[10px] font-bold">HIGH</span>
+</div>
+<!-- Action Item 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between shadow-sm border-l-[4px] border-tertiary">
+<div class="flex items-center gap-4">
+<div class="h-6 w-6 border-2 border-outline rounded flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-transparent text-[18px]" data-icon="check">check</span>
+</div>
+<span class="text-[14px] font-semibold text-on-surface">Review Social Security links</span>
+</div>
+<span class="bg-tertiary/10 text-on-tertiary-fixed-variant px-2 py-0.5 rounded text-[10px] font-bold">MED</span>
+</div>
+<!-- Action Item 3 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between shadow-sm border-l-[4px] border-primary-container">
+<div class="flex items-center gap-4">
+<div class="h-6 w-6 border-2 border-outline rounded flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-transparent text-[18px]" data-icon="check">check</span>
+</div>
+<span class="text-[14px] font-semibold text-on-surface">Upload 2025 tax clearance</span>
+</div>
+<span class="bg-primary-container/10 text-primary-container px-2 py-0.5 rounded text-[10px] font-bold">LOW</span>
+</div>
+</div>
+<button class="w-full bg-primary-container text-white py-4 rounded-lg font-bold text-[14px] active:scale-[0.98] transition-all editorial-shadow flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="biotech">biotech</span>
+                Run new diagnostic
+            </button>
+</section>
+<!-- Resources Section -->
+<section class="space-y-4">
+<h2 class="staccato-label text-on-surface-variant px-1">Resources</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-primary p-5 rounded-xl flex flex-col justify-between aspect-square active:scale-95 transition-transform duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-primary-fixed text-[32px]" data-icon="send">send</span>
+<span class="text-white font-bold text-[16px] leading-tight">Join Telegram<br/>Community</span>
+</div>
+<div class="bg-[#062A1F] p-5 rounded-xl flex flex-col justify-between aspect-square active:scale-95 transition-transform duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-primary-container text-[32px]" data-icon="account_balance">account_balance</span>
+<span class="text-white font-bold text-[16px] leading-tight">Find Certified<br/>Accountant</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-white/80 backdrop-blur-md border-t border-stone-100 shadow-[0_-1px_2px_0_rgba(0,0,0,0.05)] flex justify-around items-center px-4 pb-safe pt-2">
+<!-- Active: Home -->
+<div class="flex flex-col items-center justify-center text-emerald-600 bg-emerald-50 rounded-2xl px-4 py-1 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.15em] font-bold">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 hover:text-emerald-700 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.15em] font-bold">Results</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 hover:text-emerald-700 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.15em] font-bold">Community</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 hover:text-emerald-700 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.15em] font-bold">Profile</span>
+</div>
+</nav>
+</body></html>

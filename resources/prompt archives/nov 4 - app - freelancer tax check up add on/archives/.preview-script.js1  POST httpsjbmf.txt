@@ -1,0 +1,225 @@
+.preview-script.js:1  POST https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/rpc/get_all_appointments 404 (Not Found)
+window.fetch @ .preview-script.js:1
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.webcontainer@runtime.cf284e50.js:26 Error loading stats: {code: 'PGRST202', details: 'Searched for the function public.get_all_appointme…r, but no matches were found in the schema cache.', hint: null, message: 'Could not find the function public.get_all_appointments without parameters in the schema cache'}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+loadStats @ AdminOverview.tsx?t=1762359577060:58
+await in loadStats
+(anonymous) @ AdminOverview.tsx?t=1762359577060:37
+commitHookEffectListMount @ chunk-3IHV7RO6.js?v=e58cba53:16915
+commitPassiveMountOnFiber @ chunk-3IHV7RO6.js?v=e58cba53:18156
+commitPassiveMountEffects_complete @ chunk-3IHV7RO6.js?v=e58cba53:18129
+commitPassiveMountEffects_begin @ chunk-3IHV7RO6.js?v=e58cba53:18119
+commitPassiveMountEffects @ chunk-3IHV7RO6.js?v=e58cba53:18109
+flushPassiveEffectsImpl @ chunk-3IHV7RO6.js?v=e58cba53:19490
+flushPassiveEffects @ chunk-3IHV7RO6.js?v=e58cba53:19447
+(anonymous) @ chunk-3IHV7RO6.js?v=e58cba53:19328
+workLoop @ chunk-3IHV7RO6.js?v=e58cba53:197
+flushWork @ chunk-3IHV7RO6.js?v=e58cba53:176
+performWorkUntilDeadline @ chunk-3IHV7RO6.js?v=e58cba53:384Understand this error
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed {url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/rpc/get_all_appointments', status: 404, body: '{"code":"PGRST202","details":"Searched for the fun…intments without parameters in the schema cache"}'}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl @ .preview-script.js:1
+Promise.then
+window.fetch @ .preview-script.js:1
+await in window.fetch
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.preview-script.js:1  POST https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/rpc/get_all_applications 404 (Not Found)
+window.fetch @ .preview-script.js:1
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.preview-script.js:1  POST https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/rpc/get_all_applications 404 (Not Found)
+window.fetch @ .preview-script.js:1
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.webcontainer@runtime.cf284e50.js:26 Error loading stats: {code: 'PGRST202', details: 'Searched for the function public.get_all_applicati…r, but no matches were found in the schema cache.', hint: null, message: 'Could not find the function public.get_all_applications without parameters in the schema cache'}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+loadStats @ AdminOverview.tsx?t=1762359577060:58
+await in loadStats
+(anonymous) @ AdminOverview.tsx?t=1762359577060:37
+commitHookEffectListMount @ chunk-3IHV7RO6.js?v=e58cba53:16915
+invokePassiveEffectMountInDEV @ chunk-3IHV7RO6.js?v=e58cba53:18324
+invokeEffectsInDev @ chunk-3IHV7RO6.js?v=e58cba53:19701
+commitDoubleInvokeEffectsInDEV @ chunk-3IHV7RO6.js?v=e58cba53:19686
+flushPassiveEffectsImpl @ chunk-3IHV7RO6.js?v=e58cba53:19503
+flushPassiveEffects @ chunk-3IHV7RO6.js?v=e58cba53:19447
+(anonymous) @ chunk-3IHV7RO6.js?v=e58cba53:19328
+workLoop @ chunk-3IHV7RO6.js?v=e58cba53:197
+flushWork @ chunk-3IHV7RO6.js?v=e58cba53:176
+performWorkUntilDeadline @ chunk-3IHV7RO6.js?v=e58cba53:384Understand this error
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed {url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/rpc/get_all_applications', status: 404, body: '{"code":"PGRST202","details":"Searched for the fun…ications without parameters in the schema cache"}'}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl @ .preview-script.js:1
+Promise.then
+window.fetch @ .preview-script.js:1
+await in window.fetch
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.preview-script.js:1  POST https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/rpc/get_all_contact_requests 404 (Not Found)
+window.fetch @ .preview-script.js:1
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed {url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/rpc/get_all_applications', status: 404, body: '{"code":"PGRST202","details":"Searched for the fun…ications without parameters in the schema cache"}'}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl @ .preview-script.js:1
+Promise.then
+window.fetch @ .preview-script.js:1
+await in window.fetch
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.preview-script.js:1  POST https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/rpc/get_all_appointments 404 (Not Found)
+window.fetch @ .preview-script.js:1
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.preview-script.js:1  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+window.fetch @ .preview-script.js:1
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.preview-script.js:1  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+window.fetch @ .preview-script.js:1
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.preview-script.js:1  POST https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/rpc/get_all_contact_requests 404 (Not Found)
+window.fetch @ .preview-script.js:1
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed {url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/rpc/get_all_contact_requests', status: 404, body: '{"code":"PGRST202","details":"Searched for the fun…requests without parameters in the schema cache"}'}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl @ .preview-script.js:1
+Promise.then
+window.fetch @ .preview-script.js:1
+await in window.fetch
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed {url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/a…ting_intakes?select=id&source_type=eq.tax_checkup', status: 403, body: ''}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl @ .preview-script.js:1
+Promise.then
+window.fetch @ .preview-script.js:1
+await in window.fetch
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed {url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/a…ting_intakes?select=id&source_type=eq.tax_checkup', status: 403, body: ''}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl @ .preview-script.js:1
+Promise.then
+window.fetch @ .preview-script.js:1
+await in window.fetch
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed {url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/rpc/get_all_appointments', status: 404, body: '{"code":"PGRST202","details":"Searched for the fun…intments without parameters in the schema cache"}'}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl @ .preview-script.js:1
+Promise.then
+window.fetch @ .preview-script.js:1
+await in window.fetch
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed {url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/rpc/get_all_contact_requests', status: 404, body: '{"code":"PGRST202","details":"Searched for the fun…requests without parameters in the schema cache"}'}

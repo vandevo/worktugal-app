@@ -1,0 +1,580 @@
+Interface TOConlineLogotipo TOConline
+Contabilidade, Faturação e Gestão
+Tudo num só sítio. 100% digital.
+O TOConline é o programa de contabilidade online totalmente integrado que facilita o trabalho em colaboração e a partilha de informação entre o Empresário, os colaboradores da empresa e o Contabilista.
+
+Experimente Agora!
+Saiba mais em toconline.pt
+Simplifique as operações
+Integração com o SAFT-PT e e-fatura
+Obtenha toda a informação contabilística processada de forma rápida e rigorosa! Evite lançamentos manuais, utilizando os lançamentos sugeridos a partir da informação das faturas de venda, SAFT-PT e compras importadas do e-fatura para o TOConline.
+
+Destaque faturação
+Destaque integração
+Aumente a produtividade do seu Gabinete
+Total integração com os módulos TOConline
+A informação processada nos módulos de Vendas, Compras e despesas, Stocks e Salários é descarregada no módulo Contabilidade Assistida através do processo de importação / reconciliação, dando origem a lançamentos automáticos assistidos para confirmação do Contabilista Certificado, poupando assim o trabalho de lançamento manual de documentos.
+
+Um novo paradigma de trabalho
+Não necessita de instalação nem atualizações
+Todas as operações podem ser realizadas via Web, sem necessidade de instalação de software, de forma descentralizada, permitindo assim uma maior flexibilidade na organização de trabalho, em particular nos gabinetes de contabilidade.
+
+Destaque instalações
+Principais Vantagens do TOConline
+Contabilista Certificado
+✅ Importação do plano e de todos os lançamentos a partir do SAFT-PT
+✅ Gestão e parametrização inteligente do plano de contas, por recurso a uma estrutura de variáveis
+✅ Geração, validação e submissão da Declaração Periódica do IVA e da Declaração Recapitulativa do IVA
+✅ Geração e exportação simplificada das Demonstrações Financeiras: Demonstração de Resultados e Balanço
+✅ Integração com os módulos da Gestão Comercial e geração automática de sugestões de lançamentos para a contabilidade
+✅ Ecrã de lançamentos manuais simplificado e navegável, permitindo pré-definir o preenchimento de campos, a aplicação de filtros e a pesquisa dinâmica
+✅ Contabilidade Analítica e de Gestão e Demonstração dos Fluxos de Caixa
+✅ Geração e exportação simplificada de Extratos, Balancetes e Mapas de Exploração
+Principais Vantagens do TOConline
+Empresas
+✅ Sistema rápido, acessível e fácil de usar
+✅ Faturação certificada pela Autoridade Tributária
+✅ Faturação Eletrónica
+✅ Importação de todas as compras do e-fatura
+✅ Emissão e comunicação de documentos de transporte
+✅ Controlo integrado de todos os custos
+✅ Multi-moeda e multi-língua
+✅ Controlo de retenção na fonte
+✅ Impressoras de talão
+✅ Orçamentos
+✅ Avenças (faturação programada)
+✅ Contas Correntes
+✅ Salários
+✅ Gestão de Stocks
+✅ Gestão de Colaboradores
+Conheça todos os Módulos do TOConline
+Contabilidade
+Contabilidade
+Com integração com o SAFT-PT e-fatura, a Contabilidade Assistida TOConline permite simplificar as operações e responder a todas as imposições legais e fiscais de forma automatizada.
+
+Obtenha toda a informação contabilística processada de forma rápida e rigorosa! Evite lançamentos manuais, utilizando os lançamentos sugeridos a partir da informação das faturas de venda, SAFT-PT e compras importadas doe-fatura para o TOConline.
+
+Veja todas as funcionalidades deste módulo
+Interface do Módulo contabilidade
+Salários
+Gestão de Ativos
+Faturação
+Gestão de Stocks
+Compras
+⭐ ⭐ ⭐ ⭐ ⭐
+“A simplicidade e o modo intuitivo com que o TOConline está desenhado faz-nos poupar imensas horas de trabalho”
+
+João Ramos (CC)
+FiscoSol Contabilidade e Serviços, Lda
+⭐ ⭐ ⭐ ⭐ ⭐
+“O TOConline é uma ferramenta fundamental”
+
+Cristina Pinto (CC)
+Pinheiro Pinto – Consultadoria, Lda
+⭐ ⭐ ⭐ ⭐ ⭐
+“O programa de facturação da OCC é simples, intuitivo e funcional.”
+
+Sérgio Oliveira (CC)
+Lagoa dos Pastorinhos Hotel
+Licenças TOConline
+Combine as licenças necessárias para melhor gerir o seu negócio e o das suas empresas.
+
+Licença Gestão Comercial
+GC+ Gestão Comercial
+Emita documentos fiscalmente válidos e faça a gestão de forma integrada
+
+✓ Venda
+✓ Compras
+✓ Stocks
+✓ Assinatura qualificado
+✓ QR-Code Séries de documentos
+✓ Faturação eletrónica EDI
+✓ Geração de recebimentos e pagamentos a partir dos extratos e conciliação automática
+✓ OSS
+✓ Licença ACT incluída
+✓ Acesso a Arquivo Digital
+Obter Licença
+Licença Gestão Administrativa
+GA+ Gestão Administrativa
+Centralize a gestão de Recursos Humanos e a Contabilidade da Empresa
+
+✓ Contabilidade
+✓ Salários
+✓ Gestão de Ativos
+✓ Integração e conciliação automática
+✓ Reconciliação Bancária
+✓ Gestão de Gabinetes
+✓ Licença ACT incluída
+✓ 1GB no Arquivo Digital por empresa
+Obter Licença
+Licença ACTNOVO
+ACT
+Evite coimas e reúna todos os documentos exigidos pela ACT
+
+✓ Gratuito para todas as empresas
+✓ Lista de documentos requeridos pela ACT
+✓ Upload de documentos
+✓ Gestão de documentos
+✓ Modelos e minutas de documentos
+✓ 200MB no Arquivo Digital por empresa
+Obter Licença Grátis
+Licença Arquivo Digital
+Arquivo Digital
+Adquira espaço extra nas licenças GA+ ou ACT para os seus documentos
+
+✓ Gestão de ficheiros
+✓ Espaço em disco de acordo com as necessidades da sua empresa
+✓ Compatível com Licença GA+ e ACT
+Aumentar Arquivo Digital
+Poupe tempo e esforço, experimente já o TOConline!
+Experimente Agora!
+Saiba Mais em toconline.pt
+Ainda tem dúvidas? Entre em contacto com suporte@toconline.pt ou consulte o nosso Centro de Ajuda.
+
+Skip to contentOpen toolbar
+Acessibilidade
+
+Aumentar Texto
+Diminuir Texto
+Escala de Cinzas
+Alto Contraste
+Contraste Negativo
+Ambiente Claro
+Links Sublinhados
+Tipo de Letra Legível
+ Reset
+Skip to content
+TOConline
+Funcionalidades
+Contabilista
+Empresário
+Ajuda e Novidades
+Planos e Preços
+Para o Contabilista Certificado
+Estar atualizado, gerir uma carteira de clientes com necessidades muito diversas e responder a todas as solicitações da AT pode ser muito complexo.
+
+Planos e Licenças
+Gestão Administrativa
+A Gestão Administrativa TOConline é um programa completo, com os módulos de Contabilidade Assistida, Salários e Gestão de ativos, que permite gerir de forma integrada e simplificada todas as tarefas do Contabilista Certificado. Pode ainda disponibilizar aos seus clientes uma solução de Gestão Comercial, conseguindo assim automatizar todas as tarefas de lançamento de vendas e compras importando a informação do e-fatura.
+
+
+Contabilidade
+Com integração com o SAFT-PT e 
+e-fatura, a Contabilidade Assistida TOConline permite simplificar as operações e responder a todas as imposições legais e fiscais de forma automatizada.
+
+
+Salários
+Utilizando o módulo de salários do TOConline conseguirá aumentar significativamente a produtividade da sua empresa ou Gabinete de Contabilidade.
+
+
+Gestão de Ativos
+Controlo operacional, registo contabilístico e preenchimento dos mapas fiscais.
+
+Segurança
+Informação Protegida
+A base de dados do TOConline fica alojada sob o controlo da Ordem dos Contabilistas Certificados e assim pode garantir ao seu cliente a preservação, integridade e confidencialidade de informação.
+
+
+Contabilidade
+Códigos
+
+Planos Base, ME, PE e ESNL
+Configuração do plano através de variáveis
+Códigos de IVA automáticos
+Fluxos de caixa
+Lançamentos Assistidos
+
+Vendas (pelo TOConline ou SAFT-PT)
+Compras (importação do e-fatura com o módulo de compras)
+Gestão de ativos
+Pagamentos e recebimentos
+Contabilidade Analítica
+
+Rubricas
+Centros de custo
+Relatórios
+
+Demonstrações financeiras
+Mapa de exploração
+Declarações fiscais automáticas
+Salários
+Organização
+
+Ficha do colaborador
+Importação de colaboradores em lote
+Organograma físico e funcional
+Mapa de férias
+Arquivo de recibos de vencimento
+Processamento
+
+Alterações ao processamento
+Processamento e recibos
+Envio de recibos por e-mail
+Ficheiro SEPA para pagamentos
+Gestão de cartões refeição
+Declarações (AT e Segurança Social) automáticas
+Configurações
+
+Empresa
+Abonos e descontos
+Ligação à contabilidade
+Consulta de tabelas auxiliares do RUAS
+Consulta das tabelas de retenção na fonte de IRS
+Relatórios
+
+Folhas de férias
+Encargos da entidade patronal
+Folha de férias (seguradoras)
+Mapa de absentismo
+Declaração anual de rendimentos
+Gestão de Ativos
+Fichas dos Ativos
+
+Identificação
+Dados gerais
+Informação contabilística
+Informação fiscal
+Histórico de alterações
+Operações
+
+Depreciação (em lote)
+Revalorizações
+Imparidades
+Desreconhecimento
+Ligação automática à contabilidade
+Relatórios
+
+Modelo 31
+Modelo 32
+Resumo para a contabilidade
+Preparação do modelo 22
+O que dizem os Contabilistas
+Mais de 13.000 Contabilistas Certificados confiam no TOConline
+
+O TOConline é uma ferramenta fundamental.
+
+Cristina Pinto (CC)
+Pinheiro Pinto – Consultadoria, Lda
+
+A simplicidade e o modo intuitivo com que o TOConline está desenhado faz-nos poupar imensas horas de trabalho.
+
+João Ramos (CC)
+FiscoSol Contabilidade e Serviços, Lda
+
+O programa de facturação da OCC é simples, intuitivo e funcional.
+
+Sérgio Oliveira (CC)
+Lagoa dos Pastorinhos Hotel
+
+Uma ferramenta com uma mais-valia inequívoca.
+
+Nuno Silva (CC)
+FGS - Contabilidade e Gestão
+
+É Contabilista Certificado?
+O TOConline apenas está disponível para subscrição por contabilistas certificados.​
+
+Se é Empresário solicite uma licença ou acesso à empresa de demonstração ao seu contabilista.
+
+
+
+O TOConline é um software da Ordem dos Contabilistas Certificados que integra Contabilidade, Faturação e Gestão de Empresa. O futuro da contabilidade inteligente.
+
+TOConline no Facebook
+TOConline no YouTube
+TOConline no LinkedIn
+Instagram
+TOConline
+OCC
+Contactos
+Planos e Preços
+Subscrever
+Trabalhar no TOConline
+Produto
+Empresário
+Contabilista
+Aplicação Móvel
+Extensão Google Chrome
+Add-in Excel
+Plugin WooCommerce
+App Shopify
+App Zapier
+API
+Funcionalidades
+Contabilidade
+Salários
+Gestão de Ativos
+Faturação
+Gestão de Stocks
+Compras
+Open Banking
+Gestão de Ausências
+Centro de Ajuda
+Suporte
+Ajuda
+FAQs
+Reuniões Livres
+Blog
+Novidades
+© OCC - Todos os direitos reservados
+
+Política de Privacidade
+Termos e Condições
+Cookies
+Avenida Barbosa du Bocage, 45 - 1049-013 Lisboa | 217 999 700 | suporte@toconline.pt
+
+🚀 Ligação entre Compras e Ativos
+Já é possível ligar diretamente as faturas de compra aos ativos da empresa, quer associando a um ativo existente, quer criando automaticamente um novo ativo a partir da fatura.
+
+
+
+👉 Leia a novidade completa »
+
+✕Launch login modalLaunch register modal
+Conheça todos os Módulos do TOConline
+Contabilidade
+Salários
+Salários
+Com integração com o SAFT-PT ee-fatura, a Contabilidade Assistida TOConline permite simplificar as operações e responder a todas as imposições legais e fiscais de forma automatizada.
+
+De forma simplificada conseguirá processar, em segundos, todos os vencimentos da empresa, controlar os custos com o pessoal, gerar movimentos contabilísticos, emitir os recibos e disponibilizar de imediato a todos os colaboradores, enviar ou imprimir a DMR e DRI sem instalar qualquer programa adicional e emitir vários mapas resumo por colaborador ou por rubrica de processamento.
+
+Veja todas as funcionalidades deste móduloConheça todos os Módulos do TOConline
+Contabilidade
+Salários
+Gestão de Ativos
+Gestão de Ativos
+Controlo operacional, registo contabilístico e preenchimento dos mapas fiscais.
+
+Realize todas as operações de depreciação, revalorização, imparidade ou abate de forma simplificada e assistida.
+
+Possibilidade de realização de operações de depreciação, revalorização e/ou imparidade projetadas no tempo, com vista à análise e apoio à tomada de decisão, à luz das perspetivas contabilística e fiscal.
+
+Veja todas as funcionalidades deste móduloConheça todos os Módulos do TOConline
+Contabilidade
+Salários
+Gestão de Ativos
+Faturação
+Faturação
+Controlo operacional, registo contabilístico e preenchimento dos mapas fiscais.O TOConline é um sistema de faturação electrónica certificado pela Autoridade Tributária que permite acompanhar a rentabilidade em tempo real, representando de forma integrada os custos de pessoal e os custos operacionais, apresentando de forma sempre atualizada o imposto a pagar.
+
+Acompanhe em tempo real todos os seus custos, importando de forma simplificada todas as faturas de compra do e-fatura e tenha sempre uma previsão do imposto a pagar.
+Conheça todos os Módulos do TOConline
+Contabilidade
+Salários
+Gestão de Ativos
+Faturação
+Gestão de Stocks
+Gestão de Stocks
+Otimize a gestão de stocks da sua empresa.
+
+Controle, com rigor, as existências em armazém e a movimentação dos seus produtos.
+
+Com o TOConline pode mportar de forma simplificada as existências de todos os seus produtos a partir de um documento Excel, obter o cálculo automático do preço médio de custo e valorização de stock ou comunicar online o inventário final no ficheiro normalizado definido pela Autoridade Tributária e Aduaneira.
+
+Veja todas as funcionalidades deste módulo
+Conheça todos os Módulos do TOConline
+Contabilidade
+Salários
+Gestão de Ativos
+Faturação
+Gestão de Stocks
+Compras
+Compras
+Registo rápido e simplificado de despesas da empresa e colaboradores, aprovação de despesas e deslocações ou controlo de contas correntes do colaborador são algumas da funcionalidades que pode encontra no TOConline.
+
+Controle totalmente as despesas correntes e custos de deslocação de colaboradores, registe e aprove mapas de deslocações com cálculo automático de ajudas de custo e Kms. Registe as Guias de receção de mercadoria e possibilidade de emissão de Guias de devolução aos fornecedores com comunicação automática à Autoridade Tributária e Aduaneira.
+
+Veja todas as funcionalidades deste módulo
+Veja todas as funcionalidades deste módulo
+
+
+Skip to main content
+Versão anterior do portal >
+Versão anterior do portal >
+Início
+A Ordem
+Contabilista Certificado
+Inscrição
+Formação
+Área reservada
+
+User menu
+Registar-se
+Iniciar Sessão
+Acessos Rápidos
+Pasta CC
+SICC
+CCLEX
+TOCOnline
+Licenças TOCOnline
+CCCLIX
+Agenda CC
+Fechar
+Início
+A profissão e a instituição
+A profissão de Contabilista conheceu um grande impulso e reconhecimento especialmente a partir da década de 90. Contudo, o caminho até aqui não foi fácil. Apresentamos, em seguida, uma cronologia com algumas das datas-chave para a profissão: da primeira escola de contabilidade, passando pelo Código da Contribuição Industrial, a criação da ATOC, a alteração de estatutos que permitiu a transição da Câmara a Ordem e a eleição do primeiro bastonário da Instituição. A entidade reguladora da profissão é, neste momento, uma das maiores ordens do país com cerca de 68 mil membros.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Notícias &Comunicados
+Ver todos
+ 
+1
+2
+3
+Notícias &Comunicados
+Ver todos
+ 
+1
+2
+3
+Acessos rápidos
+Agenda CC
+Revistas e Publicações
+Emprego
+Merchandising
++CC +Vantagens
+Simuladores
+OCC Logo White Text
+
+Ordem dos Contabilistas Certificados
+Auditórios
+Contactos
+FAQs
+Ligações úteis
+Contacte-nos
+Sede - Lisboa
+Horário
+09h00 - 17h00 (Presencial)
+
+Morada
+Avenida Barbosa du Bocage, 45
+1049-013 Lisboa
+Mapa
+Telefone (9h - 17h)
+217 999 700
+
+Email
+geral@occ.pt
+
+ 
+
+ATENDIMENTO TÉCNICO PRESENCIAL
+
+Lisboa (todos os dias úteis): 9 às 17.30 horas
+
+Porto (todos os dias úteis): 9-12.30 horas/13.30-17.30 horas
+
+Coimbra (terças e quintas-feiras - encerra em agosto): 9-12.30 horas/13.30-17.30 horas
+
+Braga (quartas e sextas-feiras - encerra em agosto): 9-12.30 horas/13.30-17.30 horas
+
+Leiria (terças e quintas-feiras - encerra em agosto e primeira semana de setembro): 9-12.30 horas/13.30-17.30 horas
+
+Viana do Castelo (segundas e quartas quartas-feiras de cada mês - encerra em agosto): 9-12.30 horas/13.30-17.30 horas
+
+ 
+
+ 
+
+Facebook
+Youtube
+Instagram
+Twitter
+Linkedin
+Flick
+Soundcloud
+Rodapé Secundário
+Termos e Condições
+Política de Privacidade
+Copyright OCC © 2023

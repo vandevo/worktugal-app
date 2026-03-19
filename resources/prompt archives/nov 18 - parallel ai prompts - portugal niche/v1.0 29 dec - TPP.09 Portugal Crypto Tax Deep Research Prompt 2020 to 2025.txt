@@ -1,0 +1,191 @@
+Research lane
+Portugal tax and compliance. Crypto assets. Capital gains. Reporting and enforcement.
+
+Objective
+Map and verify how cryptocurrency is taxed in Portugal between 2020 and 2025, with special focus on the 365 day holding rule, capital gains taxation, reporting obligations under IRS Modelo 3, and enforcement risks for freelancers, remote workers, and foreign residents. This research will power a Worktugal article and automated crypto risk checks inside the Tax Checkup.
+
+Scope and profiles
+Focus on the following profiles
+• Portuguese tax residents
+• Foreign tax residents
+• Freelancers under simplified regime
+• Employees holding crypto
+• Digital nomads and remote workers
+• Individuals with foreign exchanges or wallets
+
+Time window
+2020 to 2025, with priority on post 2023 permanent rules.
+
+Core questions to answer
+
+When crypto is tax free in Portugal
+
+When crypto is taxable
+
+How the 365 day rule works in practice
+
+Which crypto activities are treated as capital gains
+
+Which activities are treated as professional or business income
+
+What must be reported even if no tax is due
+
+How Finanças detects crypto activity
+
+What penalties apply for non reporting or misclassification
+
+Legal basis to map
+Cross reference all findings against
+• CIRS Article 10 (capital gains)
+• CIRS Article 3 and 31 (professional income where applicable)
+• Law 24 B 2022 and subsequent amendments
+• Diario da Republica publications
+• Autoridade Tributaria guidance and circulars
+
+For each rule include
+rule_description
+legal_article_and_number
+applies_to_which_profiles
+effective_date
+last_confirmed_change_date
+
+Crypto activity classification section
+Map each crypto activity into its tax treatment category, including
+• Buying and selling crypto
+• Holding crypto longer than 365 days
+• Holding crypto less than 365 days
+• Crypto to crypto trades
+• Stablecoins
+• NFTs
+• Staking rewards
+• Mining
+• Airdrops
+• Forks
+• Crypto used as payment
+• Crypto received as income
+• DeFi activities if addressed by AT
+
+For each activity include
+tax_category (capital gain, professional income, other income, exempt)
+tax_rate_or_rule
+holding_period_logic
+reporting_required yes or no
+Modelo_3_annex_and_fields
+common_misclassification_errors
+citation
+
+365 day rule deep dive
+Explain in detail
+• When the holding period starts
+• How the holding period resets
+• Whether crypto to crypto swaps reset the clock
+• How FIFO or other valuation methods are applied
+• Edge cases such as partial sales
+• Interaction with foreign exchanges
+• Interaction with wallet transfers
+
+Include numeric examples at
+1000, 10000, 50000, and 100000 euro gains.
+
+Reporting obligations
+Map all reporting duties including
+• When gains must be reported
+• When holdings must be declared even if not taxed
+• Which annexes of Modelo 3 apply
+• Reporting of foreign accounts or platforms
+• Deadlines and timing traps
+
+Include February 25 e Fatura relevance where applicable and annual IRS calendar positioning.
+
+Penalties and enforcement
+Identify penalties for
+• Failure to report crypto gains
+• Misclassifying crypto income
+• Omitting foreign exchange accounts
+• Late or incorrect Modelo 3 filing
+
+For each penalty include
+trigger_condition
+legal_basis
+penalty_range
+fixed_or_proportional
+audit_risk_level
+citation
+
+Timing and enforcement patterns
+Map how crypto enforcement has evolved from 2020 to 2025, including
+• Pre 2023 enforcement posture
+• Post 2023 rule tightening
+• Increased data sharing via CRS and EU mechanisms
+• Exchange reporting obligations
+• Patterns affecting foreigners and digital nomads
+
+Edge cases
+Include special analysis for
+• Freelancers paid in crypto
+• Crypto used to pay expenses
+• Crypto gains combined with simplified regime income
+• IFICI or legacy NHR interaction if applicable
+• Foreign source crypto income
+• Partial year tax residency
+
+Community evidence
+Cluster recurring mistakes from
+• Portuguese accountants
+• Ordem dos Contabilistas Certificados
+• Reputable Portuguese tax firms
+• Reddit Portugal and PortugalExpats
+
+Tie every mistake to a verified rule or official clarification.
+
+Evidence requirements
+Use primary Portuguese sources only for rules, including
+• Diario da Republica
+• CIRS
+• Autoridade Tributaria
+• AT binding rulings
+• OCC guidance
+
+Secondary sources only to illustrate real world traps. No speculation.
+
+Language
+English, preserving key Portuguese legal terms such as
+mais valias
+criptoativos
+categoria B
+Modelo 3
+Anexo G
+Anexo J
+residência fiscal
+
+Output format
+Deliver an editorial ready Markdown report including
+
+Three line executive summary
+
+Clear explanation of Portugal crypto tax system
+
+365 day rule deep dive with examples
+
+Activity classification table
+
+Reporting obligations table
+
+Penalties and enforcement section
+
+Common traps and misconceptions
+
+2020 to 2025 rule change timeline
+
+Writing brief for a Worktugal article titled
+“Crypto Tax in Portugal 2025. The 365 Day Rule, Reporting Duties, and Audit Traps”
+
+Include title tag, meta description, H1 to H3 structure, internal links to the Tax Checkup, and CTA to app.worktugal.com.
+
+Exclusions
+No generic crypto blogs.
+No influencer opinions.
+No international tax advice.
+No speculation.
+
+Return Markdown only, not JSON.

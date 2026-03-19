@@ -1,0 +1,1510 @@
+when you wanna add new profile it asks these [Add new profile
+Type of activity
+
+
+Self-employed
+Self-employed or individual entrepreneur who works on his own account
+Your NIF
+NIF
+
+Company
+Limited liability company, public limited company, etc.
+Company NIPC
+ 
+NIPC
+
+
+
+Add]
+
+my general settings 
+
+[Settings
+General
+AT Communication
+InvoicingNEW
+Team Members
+IntegrationsNEWBETA
+General info
+Van Toan Quoc Vo
+Name
+Enter your short name
+
+Providing Services
+
+Selling Goods
+Contacts
+vandevo.com@gmail.com
+Email
++351 912 345 678
+https://example.com
+Address
+Rua Sabino de Sousa
+Address
+LISBOA
+City
+1900-399
+Postal code
+Danger zone
+
+Delete Account
+
+] [AT Communication
+
+Start issuing certified invoices
+✅ FIZ is certified by AT. Certificate AT N 3041.
+✅ Your data is 100% secure.
+1. Choose how data will be sent to AT
+
+Automatic — recommended
+All documents will be sent to AT automatically. You can still download the SAF-T PT file if needed.
+
+Manual
+Only ATCUD series will be created. You will need to upload the SAF-T PT file to AT yourself.
+2. Choose how to connect to AT
+
+Automatic — recommended
+Let FIZ securely create a limited-access sub-user for you using your AT login. Your password is never stored.
+
+Manual
+Create a sub-user manually on the AT website, then paste the details here. Read [How to create a sub-user on AT]
+
+Continue
+Auto-send to Accountant
+Never miss a deadline again! Automatically send SAF-T PT files to your accountant every month.
+
+📧
+Automatic Email Delivery
+SAF-T PT files sent directly to your accountant's inbox
+📅
+Customizable Schedule
+Choose which day of the month to send files automatically
+
+Upgrade Plan
+Join 1,000+ professionals using FIZ Premium features]
+
+[InvoicingNEW
+
+
+Customise invoice
+Upload your logo and add IBAN to personalise your invoices
+Logo
+PNG, JPG, max 5MB
+No file chosen
+
+Click here or drag to upload a file
+IBAN
+Enter your IBAN
+Custom PDF Templates
+Create professional, branded invoices with our custom PDF template designer
+
+🎨
+Custom Design
+Design your invoices exactly how you want them
+📄
+Professional Look
+Stand out with unique, branded documents
+⚡
+Easy to Use
+Drag-and-drop builder with live preview
+
+Upgrade Plan
+Used by thousands of businesses to create stunning invoices
+
+Document print size
+Choose the default format for documents. You can select a different format before downloading PDF for each document.
+
+A4 (Standard document)
+
+80mm (POS/Receipt printers)
+Accepted payment methods
+Select the payment methods you accept. The logos of the selected methods will be displayed on your invoices.
+
+MB way
+
+SPIN]
+
+[
+Team Members
+
+Team Management Requires Upgrade
+Collaborate with your team by inviting members and managing their permissions. Upgrade your plan to unlock team features.
+
+What you'll get:
+Invite unlimited team members
+Manage access permissions
+No limits on team size
+
+Upgrade Plan
+Need help? Contact our support team.]
+
+on the invoice tab it has [Invoices
+
+Add new
+
+Import
+
+Current month
+
+Export SAF-T PT
+0
+Paid
+0,00 €
+Total Value w/o Taxes
+0,00 €
+Total VAT
+0,00 €
+0
+Unpaid
+0,00 €
+Total Value w/o Taxes
+0,00 €
+Total VAT
+0,00 €
+0
+Overdue
+0,00 €
+0
+Drafts
+0,00 €
+Your invoices will be here
+Add your first invoice to see it here
+
+Add new invoice
+
+] when you click on "add new invoice" it shows [Add new
+
+Invoice
+
+Invoice-receipt
+
+Simplified invoice
+
+Receipt
+
+Commercial Proposal]
+
+new invoice tab has [New invoice
+
+View PDF
+
+Invoice
+Type
+3 December 2025
+Issue date
+ 
+Due date
+EAC or CIRS
+
+Add EAC codes
+Bill to
+
+Add customer
+Items
+
+Add item
+Notes
+ 
+Notes (optional)
+Recurring
+Create a schedule to automatically send this invoice at regular intervals
+Make recurring
+
+
+
+Frequency
+Daily
+
+10
+How often
+
+Time of day
+
+
+Start date
+
+Due date
+7 days
+
+
+End date (optional)
+Auto-send to client after issue
+
+
+Subtotal
+0,00 €
+VAT
+0,00 €
+Total to Pay
+0,00 €
+
+Create recurring] [New invoice
+
+View PDF
+
+Invoice-receipt
+Type
+3 December 2025
+Payment date
+Select payment method
+
+EAC or CIRS
+
+Add EAC codes
+Bill to
+
+Add customer
+Items
+
+Add item
+Notes
+ 
+Notes (optional)
+Recurring
+Create a schedule to automatically send this invoice at regular intervals
+Make recurring
+
+
+
+Frequency
+Daily
+
+10
+How often
+
+Time of day
+
+
+Start date
+
+End date (optional)
+Auto-send to client after issue
+
+
+Subtotal
+0,00 €
+VAT
+0,00 €
+Total Paid
+0,00 €
+
+Create recurring]
+
+when i click "add customer" tab, it shows [New customer
+Country
+Portugal
+ 
+NIF / NIPC (optional)
+ 
+Name
+ 
+Email (optional)
+ 
+City (optional)
+ 
+Address (optional)
+ 
+Postal code (optional)
+ 
+Phone (optional)
+Hide advanced fields
+
+Add]
+
+can also import customers [Choose Import Type
+
+Import from AT automatically
+
+Import Manual from CSV]
+
+when i click on "new item" tab it shows [New item
+
+Service
+
+Goods
+ 
+Service name
+ 
+Notes (optional)
+Price without VAT
+Price with VAT
+0,00
+Unit Price without VAT
+Unit of measurement
+Unit
+
+Auto VAT
+Manual VAT
+VAT
+
+Withholding Tax
+0,00
+
+Add]
+
+when i click on "segSoc quarterly" it shows [Social Security Declaration
+🔐
+Credentials not configured
+Configure your credentials to monitor activity
+
+Configure
+Submitted declarations
+
+📋
+No information
+Amounts to pay
+🧾
+No information
+To see updated data, link your NISS
+
+3º quarter 2025
+
+Show current quarter
+
+Activity Type
+TI - Independent Worker
+
+Employment Status
+Self-employed / unemployed
+Calculation based on the data from the documents you created or imported in FIZ. If not all invoices were issued using FIZ, you can import invoices.
+
+Income Type	Total
+Service Provision
+0,00 €
+Product Sales
+0,00 €
+Total income for the quarter: 0,00 €
+Relevant Income: 0,00 €
+Rate: 21,4%
+Contribution amount
+20,00 €/month
+You need to connect your Social Security credentials to submit declarations]
+
+
+activity type has 2 options when you click on the dropdown [TI - indepent worker ] and [ENI - sole proprietor] when i click on "employment status" it shows 4 options [
+
+option 1 - self employed / unemployed
+option 2 - monthly salary below 522.5 euros
+optoon 3 - monthly salary ffrom 522.5 euros to 2090 euros
+optoon 4 - monthly salary above 2090 euros
+]
+
+when i click on VAT quarterly tab it shows this [Periodic VAT Declaration
+Period:
+
+Q4 2025
+Deadline: 20th February 2026
+Assessment period: 1st October 2025 to 31st December 2025 (Q4 2025)
+Supply of goods and services based on your invoices issued with FIZ
+Calculation based on your invoices. Import documents.
+
+Sales subject to	Base without VAT	VAT	Total
+••••••••••••
+••••••••••••••••••
+€ •••	€ •••	€ •••
+••••••••••••
+••••••••••••••••••
+€ •••	€ •••	€ •••
+••••••••••••
+••••••••••••••••••
+€ •••	€ •••	€ •••
+Unlock Full VAT Declaration Details
+
+Upgrade to VAT Plan
+Total	0,00 €	0,00 €	0,00 €
+
+Purchases in the EU (Reverse Charge)
+Click to add EU goods or services purchases
+
+💡 When you make business purchases in other EU countries using your NIF/NIPC, you are responsible for calculating the VAT in Portugal. This VAT is added to your payable tax, but can also be deducted in Deductible Tax if the purchases are used for your business.
+
+Products bought in the EU
+Example: goods, equipment, or materials.
+
+Field 12, 13
+
+Amount (excl. VAT)
+0
+€
+VAT (calculated)
+0
+€
+Services received from the EU
+Example: consulting, marketing, software, or IT.
+
+Field 16, 17
+
+Amount (excl. VAT)
+0
+€
+VAT (calculated)
+0
+€
+
+Deductible tax
+VAT from your business purchases, made with your NIF/NIPC during the filing period, in Portugal or abroad. This VAT reduces what you have to pay or is kept to use next period.
+
+Non-current assets (Fixed assets):
+Things you buy in the filing period to run your business and use for more than one year — like equipment, computer, or tools — not something you sell.
+
+Field 20
+
+VAT to deduct
+0
+€
+
+Inventories (Stocks)
+Goods and materials bought in the filing period for resale.
+
+Value of goods at 6% VAT
+Field 21
+
+0
+€
+Value of goods at 23% VAT
+Field 23
+
+0
+€
+Value of goods at 13% VAT
+Field 22
+
+0
+€
+Other goods and services
+Expenses used in your business — not for resale or long-term assets (e.g. rent, accounting, internet, fuel)
+
+Field 24
+
+VAT to deduct
+0
+€
+
+Did you have money to receive from last quarter?
+We'll check automatically
+
+AT credentials required
+If the government owed you money last quarter, we'll fetch that amount automatically and discount it from what you need to pay now.
+
+Configure an AT user
+
+To automatically check if you had money to receive from the previous quarter, create a secondary user in the Tax Portal with the 'IVP - Preparação de declarações periódicas do IVA' permission and configure it in FIZ.
+
+Create a new secondary user in the Tax Portal
+When creating, make sure to activate the 'IVP - Preparação de declarações periódicas do IVA' permission
+Return here and configure that user's credentials
+Create or manage AT users →
+
+Configure AT credentials
+Money to receive from last quarter
+Amount the government owed you from last quarter
+
+Field 61
+
+Enter the amount
+0
+€
+
+How to check the credit from the previous quarter?
+Access the Tax Portal
+Navigate to VAT > Periodic VAT Declaration
+Select the previous quarter (3º quarter 2025)
+Check Field 61 - Credit from previous period
+Enter the amount above
+Open Tax Portal →
+Tax Calculation
+VAT Collected
+
+0,00 €
+
+Normal Rate: 0,00 €
+
+Intermediate Rate: 0,00 €
+
+Reduced Rate: 0,00 €
+
+Zero Declaration
+
+0,00 €
+
+There is no amount to pay or receive for this period
+
+
+Validate and Submit
+Filing opens on 1 de January de 2026]
+
+this is their pricing plans [Three simple plans
+VAT Exempt
+Subject to VAT
+Ideal for TI/ENI under the normal VAT regime
+
+Current Plan
+FIZ Base
+0€
+forever
+
+Tax Shield
+
+Not included
+
+
+Get started
+Certified Invoicing
+AT Certificate Nº 3041
+Unlimited invoices
+Web & mobile app (iOS/Android)
+Learn more about FIZ Invoicing
+Customer support
+Guaranteed response within 48 hours
+] [FIZ Auto Pro
+Most Popular
+14,99 €
+0€
+per month, includes VAT
+
+Tax Shield
+
+Protection up to 500€ guaranteed per declaration
+
+
+Try 1 month free (no card)
+• Cancel anytime •
+Certified Invoicing
+AT Certificate Nº 3041
+Unlimited invoices
+Web & mobile app (iOS/Android)
+Invoicing without FIZ branding
+Auto-suggested VAT
+Scheduled invoices
+Access for multiple users
+Invoicing via WhatsApp (voice & text)
+Invoicing via Public API
+Custom PDF invoice templates
+Auto-send SAF-T PT to accountant
+Learn more about FIZ Invoicing
+Social Security Declaration
+Auto-calculate contribution amount
+Declaration submission in one click
+Certified accountant verified
+Deadline alerts
+Learn more about FIZ Social Security
+Periodic VAT Declaration
+Auto-calculate VAT due
+Declaration submission in one click
+Certified accountant verified
+Deadline alerts
+Learn more about IVA
+Customer support
+AI Tax Assistant
+Guaranteed response within 24 hours]
+
+and [FIZ Prime Pro
+24,99 €
+Save 25% annually
+per month, includes VAT
+
+Tax Shield
+
+Protection up to 1,500€ guaranteed per declaration
+
+
+Get
+• Cancel anytime •
+Certified Invoicing
+AT Certificate Nº 3041
+Unlimited invoices
+Web & mobile app (iOS/Android)
+Invoicing without FIZ branding
+Scheduled invoices
+Access for multiple users
+Invoicing via WhatsApp (voice & text)
+Invoicing via Public API
+Custom PDF invoice templates
+Auto-send SAF-T PT to accountant
+Learn more about FIZ Invoicing
+Social Security Declaration
+Auto-calculate contribution amount
+Declaration submission in one click
+Certified accountant verified
+Deadline alerts
+Learn more about FIZ Social Security
+Periodic VAT Declaration
+Auto-calculate VAT due
+Declaration submission in one click
+Certified accountant verified
+Deadline alerts
+Learn more about IVA
+Customer support
+AI Tax Assistant
+Guaranteed response within 2 business hours]
+
+this is their landing page [
+Faturação
+
+Para TI / ENI
+
+Para Empresas
+
+Para Contabilistas
+
+Ajuda
+
+Iniciar sessão
+
+Criar conta
+
+
+
+O primeiro em portugal
+Assistente financeiro para trabalhadores independentes
+Faturação certificada e declarações de IVA e Segurança Social entregues automaticamente — com Escudo Fiscal incluído
+AT № 3041
+Certificada pela Autoridade Tributária
+24/7
+Apoio 
+ao Cliente
+10.000+
+CLIENTES
+satisfeitos
+4,8 ★
+Avaliação na App Store e Google Play
+Menos papelada. Mais vida.
+Tudo o que precisa — 
+num só lugar
+Uma única plataforma para emitir faturas certificadas, calcular e submeter automaticamente as declarações da Segurança Social e do IVA, mantendo controlo total sobre as suas finanças.
+
+Fature em segundos
+IVA e SegSoc automáticos
+Respostas imediatas no chat
+Cartão Inteligente de Negócios
+Receba e envie pagamentos
+
+
+Escudo Fiscal
+E aqui está o que o torna ainda mais forte: cada declaração que submete através da FIZ é protegida pela nossa garantia. Se algum dia enfrentar uma multa, cobrimos até 1.500€. Isso significa confiança total. Risco zero.
+
+E mais — nunca estará sozinho. Com o seu contabilista, advogado e consultor fiscal dedicados, a nossa equipa intervém de imediato sempre que precisar de apoio.
+
+Saber mais
+Parceiros de confiança
+Certificado e integrado com instituições oficiais
+Certificada pela 
+AT №3041
+
+Certificada pela 
+AT №3041
+
+Certificada pela 
+AT №3041
+
+Certificada pela 
+AT №3041
+
+Certificada pela 
+AT №3041
+
+Três planos simples
+TI / ENI
+Isento de IVA
+
+TI / ENI
+Sujeito a IVA
+
+Ideal para TI/ENI, no regime de isenção de IVA (art.53º / art.9º)
+
+FIZ Base
+Para quem quer experimentar o FIZ e emitir faturas certificadas — grátis para sempre.
+
+0
+€
+para sempre
+
+Escudo Fiscal
+
+Não incluída
+
+FIZ Auto
+Esquece a burocracia e deixa o FIZ tratar de tudo por ti.
+
+9
+,99 
+€
+por mês, IVA incluído
+
+Escudo Fiscal
+
+Até 500 € de proteção garantida por declaração
+
+FIZ Prime
+Tranquilidade total com assistente fiscal AI, apoio prioritário e proteção máxima.
+
+14
+,99 
+€
+por mês, IVA incluído
+
+Escudo Fiscal
+
+Até 1.500 € de proteção garantida por declaração
+
+Saber mais
+Classificação ★ 4,8
+Descarregar na App Store
+Obter na Google Play
+Katherine P
+Fácil e prático de usar ! Gosto muito!
+
+Rui Fernandes
+Aplicação bastante intuitiva, utilização simples e resultado excelente e acima de tudo é grátis! Parabéns aos criadores da mesma, votos de um excelente trabalho
+
+Renato
+Prático e intuitivo, mais fácil emitir fatura do que a AT. O suporte é eficiente
+
+António Sequeira
+Muito facil de utilizar e uma APP que ajuda muito. Valeu a pena a troca para o FIZ
+
+Well Cardoso
+Excelente! Sistema de faturação muito completo e gratuito. Recomendo!
+
+Perguntas Frequentes
+O FIZ submete mesmo à Segurança Social e ao IVA?
+Sim. Totalmente integrado com a AT e Segurança Social, certificado pela AT Nº3041. As submissões são eletrónicas, seguras e sempre dentro do prazo.
+
+Preciso de calcular valores manualmente?
+Não. O FIZ calcula automaticamente o IVA e a base da Segurança Social a partir das suas faturas. Pode rever e ajustar antes de confirmar.
+
+Posso ajustar a minha base de rendimento da Segurança Social?
+Sim, entre -25% e +25% do valor calculado.
+
+Vou receber lembretes?
+Sim. Notificações automáticas antes de cada prazo de IVA e Segurança Social.
+
+Preciso mesmo de um contabilista?
+Não, não é necessário um contabilista. A FIZ trata de tudo para profissionais independentes — desde faturas e IVA até à Segurança Social. Se tiver questões mais complexas que exijam uma análise personalizada, teremos todo o gosto em pô-lo em contacto com um dos nossos contabilistas parceiros de confiança. Se tiver uma empresa, iremos ligá-lo a um contabilista parceiro. Prefere o seu? Basta conceder acesso e colaborar diretamente através da FIZ.
+
+Posso cancelar quando quiser?
+Sim. Sem contratos de longo prazo. Cancele quando quiser, sem custos extra.
+
+O que preciso para começar?
+Crie uma conta, ligue à AT e comece a faturar com o FIZ.
+
+O FIZ é seguro?
+Sim. Toda a comunicação é encriptada e os dados são guardados em servidores seguros na UE.
+
+O FIZ paga automaticamente os meus impostos?
+Não. O FIZ submete as declarações, mas o pagamento é feito por si via banco ou Multibanco. 
+
+Como funciona o suporte?
+O suporte básico está incluído em todos os planos. Com o plano Prime tem apoio prioritário — respostas mais rápidas e acompanhamento dedicado.
+
+Os preços são finais ou acresce IVA?
+Todos os preços apresentados já incluem IVA.
+
+O seu assistente financeiro está pronto
+Comece hoje — faturas e declarações automáticas, zero stress
+Comece agora
+★★★★★ 4.8/5 
+Avaliação na App Store e Google Play
+
+
+
+Certificado AT Nº 3041
+
+NIPC 517696835
+
+1200-082, Lisboa, Cais do Tojo 24
+
+Faturação
+
+Declaração da Seg. Social
+
+Declaração de IVA
+
+Escudo fiscal
+
+Planos
+
+Por Empresas
+
+Por Contabilistas
+
+Termos e Condições
+
+Política de Privacidade
+
+Resolucao de litigios
+
+Contacte-nos
+
+Livro de reclamações
+
+Ajuda
+
+© 2025 FIZ
+
+Instagram
+
+Facebook
+
+LinkedIn
+
+Escudo Fiscal
+
+Planos
+
+Declaração da Seg. Social
+
+Declaração de IVA
+
+
+FIZ — Assistente financeiro para profissionais independentes]
+
+landing page 2 [Declaração Periódica de IVA — valor devido autocalculado e entrega num clique
+Revisto por contabilistas, entregue sem erros e com proteção fiscal até 1.500 € por declaração.
+Comece Agora
+Feito para trabalhadores independentes e empresários em nome individual que prestam serviços em Portugal.
+
+
+№ 3041
+Certificada pela Autoridade Tributária
+10.000+
+Profissionais independentes satisfeitos
+24/7
+Apoio Imediato
+Declaração Periódica de IVA com o FIZ
+Valor devido autocalculado a partir de faturas emitidas no FIZ ou importadas
+
+Entrega da declaração num clique
+
+Submissão direta à Autoridade Tributária
+
+Escudo fiscal — até 1.500 € por declaração
+
+Importação de faturas diretamente do Portal das Finanças, se necessário
+
+Revisão por contabilista
+
+Lembretes antes do prazo
+
+Reduz erros e coimas por atraso
+
+
+Nunca perca 
+um prazo
+O FIZ acompanha todos os seus prazos fiscais, envia lembretes inteligentes e notifica-o sobre o que importa. Sem surpresas, sem coimas, sem stress.
+Experimente agora
+Planos
+FIZ Base
+Para quem quer experimentar o FIZ e emitir faturas certificadas — grátis para sempre.
+
+0
+€
+para sempre
+
+Escudo Fiscal
+
+Não incluída
+
+FIZ Auto Pro
+Esquece a burocracia e deixa o FIZ tratar de tudo por ti.
+
+14
+,99 
+€
+por mês, IVA incluído
+
+Escudo Fiscal
+
+Até 500 € de proteção garantida por declaração
+
+FIZ Prime Pro
+Tranquilidade total com assistente fiscal AI, apoio prioritário e proteção máxima.
+
+24
+,99 
+€
+por mês, IVA incluído
+
+Escudo Fiscal
+
+Até 1.500 € de proteção garantida por declaração
+
+Saber mais
+
+Escudo Fiscal
+Precisão garantida com dinheiro real
+O nosso motor fiscal automático foi desenvolvido para garantir precisão total — e é apoiado por uma garantia monetária real. Cada declaração está protegida até 1.500€, dependendo do seu plano. Confiança total. Zero preocupações.
+
+Saber mais]
+
+
+landing page 3 [Declaração da Segurança Social — contribuição autocalculada e entrega num clique
+Revisto por contabilistas, entregue sem erros e com proteção fiscal até 1.500 € por declaração.
+Comece agora
+Feito para trabalhadores independentes e empresários em nome individual que prestam serviços em Portugal.
+
+
+№ 3041
+Certificada pela Autoridade Tributária
+10.000+
+Profissionais independentes satisfeitos
+24/7
+Apoio Imediato
+Declaração da Segurança Social com o FIZ
+Contribuição autocalculada a partir de faturas emitidas no FIZ ou importadas
+
+Ajuste da base (−25%/+25%)
+
+Entrega a declaração num clique
+
+Revisão por contabilista
+
+Ligação automática à Segurança Social Direta
+
+Reduz erros e coimas por atraso
+
+Escudo fiscal — até 1.500 € por declaração
+
+Lembretes antes do prazo
+
+
+Nunca perca 
+um prazo
+O FIZ acompanha todos os seus prazos fiscais, envia lembretes inteligentes e avisa-o do que importa. Sem surpresas, sem coimas, sem stresse.
+Comece agora
+Planos
+FIZ Base
+Para quem quer experimentar o FIZ e emitir faturas certificadas — grátis para sempre.
+
+0
+€
+para sempre
+
+Escudo Fiscal
+
+Não incluída
+
+FIZ Auto
+Esquece a burocracia e deixa o FIZ tratar de tudo por ti.
+
+9
+,99 
+€
+por mês, IVA incluído
+
+Escudo Fiscal
+
+Até 500 € de proteção garantida por declaração
+
+FIZ Prime
+Tranquilidade total com assistente fiscal AI, apoio prioritário e proteção máxima.
+
+14
+,99 
+€
+por mês, IVA incluído
+
+Escudo Fiscal
+
+Até 1.500 € de proteção garantida por declaração
+
+Saber mais
+
+Escudo Fiscal
+Precisão garantida com dinheiro real
+O nosso motor fiscal automático foi desenvolvido para garantir precisão total — e é apoiado por uma garantia monetária real. Cada declaração está protegida até 1.500€, dependendo do seu plano. Confiança total. Zero preocupações.
+
+Saber mais]
+
+landing page 4 [Escudo Fiscal — 
+a primeira proteção fiscal em Portugal
+Tranquilidade garantida: se alguma vez receber uma multa da AT ou da Segurança Social por uma declaração submetida com o FIZ, nós pagamos.
+Ver planos em detalhe
+Cada declaração é verificada por um contabilista certificado
+
+Resposta em menos de 24h para pedidos urgentes
+
+Cobertura completa da legislação fiscal portuguesa.
+
+Garantia Fiscal — 
+
+até 1.500€ cobertos por declaração
+
+
+A FIZ é o primeiro serviço em Portugal a oferecer uma garantia fiscal
+Com a FIZ, entregar impostos é mais do que calcular e submeter. Significa proteção em cada declaração — porque segurança não é opcional, é a nossa promessa.
+Design 
+sem erros
+ Os enganos são evitados antes de acontecerem
+
+Documentos
+inteligentes
+Faturas e despesas são sempre verificadas para garantir conformidade
+
+Verificações
+automáticas
+Cada declaração é revista e validada de imediato
+
+O Escudo Fiscal é mais do que uma funcionalidade. É a nossa missão: apoiar e proteger você, o seu tempo e a sua tranquilidade.
+Como funciona o Escudo Fiscal
+ Receba uma notificação da AT ou da Segurança Social → envie-a para a FIZ
+Verificamos a elegibilidade e tratamos do caso com os nossos especialistas
+Pagamos a multa abrangida (dentro do limite do seu plano) e acompanhamos até estar resolvido
+O que está abrangido
+Multas/penalidades impostas pela Autoridade Tributária (AT) ou pela Segurança Social que resultem de um erro ou omissão numa declaração submetida através da FIZ.
+
+Aplica-se mesmo que o erro tenha sido seu — desde que não tenha sido fraude intencional e os critérios de elegibilidade tenham sido cumpridos.
+
+Limites de cobertura
+Por declaração
+
+Até 500 €
+nos nossos planos Auto e Auto Pro
+
+Até 1.500 €
+nos nossos planos Prime e Prime Pro
+
+Ver planos em detalhe
+
+O que não está abrangido
+Impostos adicionais / recalculados (apenas a multa / penalidadeestá abrangida).
+
+Juros sobre impostos em atraso.
+
+Fraude ou evasão fiscal deliberada, conforme determinado pelas autoridades.
+
+Falta de entrega ou entregas repetidamente fora de prazo das declarações.
+
+Declarações não submetidas pela FIZ ou alteradas fora da FIZ após a submissão.
+
+Casos fora do período de validade (ex: multas emitidas mais de 365 dias após a submissão).
+
+Não cumprimento dos critérios de elegibilidade mostrados na aplicação (ex.: ignorar revisões obrigatórias ou avisos críticos).
+
+Para além da automatização: 
+especialistas da FIZ ao seu lado
+E ainda mais: com a FIZ, nunca enfrenta o sistema sozinho — a nossa equipa de especialistas está consigo em cada passo do caminho.
+
+Contabilista
+
+Prepara e ajusta relatórios no momento.
+
+
+Especialista fiscal
+
+Interpreta pedidos da AT ou da Segurança Social, garantindo conformidade sem pagar em excesso.
+
+
+Advogado
+
+Redige pedidos e cartas oficiais.
+
+Contacto prioritário
+
+Cada caso respondido
+em 24h.
+
+Gestão completa do processo
+
+Estamos consigo até 
+a questão ser resolvida.
+
+Tranquilidade
+
+Сonhecemos as regras, 
+as armadilhas e os atalhos.
+
+Antes & Depois
+Antes / Depois — sem Escudo Fiscal vs. com o Escudo Fiscal
+Pedido inesperado da AT
+Antes
+Depois
+Pedido inesperado da AT
+O João recebeu uma carta inesperada da AT e não sabia por onde começar.
+
+A equipa Tax Shield resolveu tudo em 48 horas — sem multas, sem stress.
+
+Multa da Segurança Social
+A Segurança Social calculou a contribuição de forma incorreta e emitiu uma coima.
+
+A nossa equipa preparou uma resposta formal comprovando que a declaração foi entregue dentro do prazo. A coima foi imediatamente anulada.
+
+Questão de compliance da AT
+A Sofia recebeu uma questão complexa de conformidade da AT e não sabia a resposta legal.
+
+O nosso advogado redigiu a resposta oficial e o caso foi encerrado em 3 dias.
+
+Escudo Fiscal FIZ — tranquilidade garantida.
+Mais do que automatização: confiança real. O Escudo Fiscal protege-o do risco — com uma garantia até 1.500€ por declaração e o apoio de contabilistas, fiscalistas e advogados sempre ao seu lado.
+
+Juntar-se agora
+€
+
+Perguntas Frequentes
+O que cobre o Escudo Fiscal FIZ?
+Se alguma vez receber uma coima da AT ou da Segurança Social por erro ou omissão numa declaração entregue através do FIZ, nós tratamos disso.
+
+Até 500 € por declaração no Auto
+
+Até 1.500 € por declaração no Prime 
+
+Mesmo que o erro tenha sido seu, cobrimos a coima.
+
+O que não está incluído?
+Estamos consigo em todos os erros honestos — mas não em casos de fraude ou de declarações não entregues. 
+
+O Escudo Fiscal não cobre:
+
+Casos de fraude ou evasão fiscal
+
+Declarações não submetidas ou em falta
+
+Juros sobre impostos por pagar
+
+Coimas emitidas mais de 365 dias após a submissão
+
+Quem está coberto?
+Todos os utilizadores com plano Auto ou Prime que submetam declarações através da app/web FIZ.
+
+Se eu cometer um erro, ainda estou coberto?
+Sim. Desde que não seja considerado fraude intencional pela AT, nós cobrimos a coima.
+
+O Escudo Fiscal paga também os impostos em falta?
+Não. Nós cobrimos apenas a coima. O imposto devido continua a ser responsabilidade do utilizador.]
+
+landing page 5 [Faturação + Gestão de Despesas
+Feito para Portugal.
+Envie faturas certificadas e mantenha as suas despesas organizadas — numa única plataforma simples e bonita. Ideal para colaborar com o seu contabilista.
+Começar agora
+Ver demonstração
+№ 3041
+Certificada pela Autoridade Tributária
+24/7
+Apoio Imediato
+10.000+
+Profissionais independentes satisfeitos
+4,8 ★
+Classificação Média App Store & Google Play
+Por que as empresas
+adoram o FIZ
+Tudo-em-um
+Faturação e gestão de despesas
+num só lugar.
+
+Amigo do contabilista
+Partilhe relatórios em tempo real com o seu contabilista.
+
+100% legal
+Faturação certificada pela AT, em conformidade com as regras portuguesas.
+
+Feito para poupar tempo
+Automatizações que reduzem horas de trabalho todos os meses.
+
+FIZ Base
+Para quem quer começar simples, com faturação certificada ilimitada.
+
+0
+€
+para sempre
+
+Faturação certificada
+Certificado AT Nº 3041
+
+Faturas ilimitadas
+
+App web e móvel (iOS/Android)
+
+Saber mais...
+
+Apoio ao cliente
+Resposta garantida em 48 h
+
+FIZ Pro
+Mais do que faturação: automação avançada para poupar tempo.
+
+9
+,99 
+€
+por mês, IVA incluído
+
+Faturação certificada
+Certificado AT Nº 3041
+
+Faturas ilimitadas
+
+App web e móvel (iOS/Android)
+
+Faturas sem marca FIZ
+
+IVA sugerido automaticamente
+
+Faturas agendadas
+
+Acesso para vários utilizadores
+
+Faturação pelo WhatsApp
+(a partir de outubro)
+
+Saber mais...
+
+Apoio ao cliente
+Assistente Fiscal de IA
+
+Resposta garantida em 24 h
+
+Perguntas Frequentes
+Posso usar o FIZ com o meu contabilista?
+Claro. Convide o seu contabilista para aceder aos relatórios a qualquer momento.
+
+O IVA está incluído no preço?
+Sim, todos os preços incluem IVA.
+
+E se o meu cartão não tiver saldo?
+Tentamos novamente alguns dias depois — a sua conta mantém-se ativa.]
+
+ landing page 6 [No FIZ acreditamos e confiamos nos contabilistas — são parceiros essenciais para as empresas em Portugal
+A nossa faturação e gestão de despesas tornam simples colaborar com os seus clientes, sempre 100% em conformidade com a AT e as regras portuguesas.
+Junte-se agora
+Torne-se nosso parceiro
+
+Por que os contabilistas
+escolhem o FIZ
+Faturação certificada gratuita para sempre (AT № 3041)
+Sem custos ocultos, 
+sem limites
+
+Gestão de despesas feita para Portugal
+Ligada automaticamente à AT e ao e-fatura.
+
+Colaboração multiutilizador
+Trabalhe em tempo real com os seus clientes.
+
+Pensado para contabilistas
+Acesso imediato a todos os relatórios, exportações e documentos.
+
+Uma verdadeira parceria em duas vias
+Totalmente certificado, encriptado e sempre atualizado com a legislação fiscal.
+
+Conformidade 
+e segurança total
+Totalmente certificado, encriptado e sempre atualizado com a legislação fiscal.
+
+Em breve
+Rede de contabilistas parceiros
+Em breve, os clientes empresariais da FIZ poderão encontrar e contactar diretamente consigo através da nossa rede de contabilistas — dando-lhe visibilidade junto de milhares de potenciais clientes que já confiam em nós.
+
+Porque deve aderir já
+Destaque imediato
+O seu perfil visível para todos os clientes empresariais do FIZ.
+
+Acesso antecipado
+Seja dos primeiros contabilistas listados.
+
+Selo de parceiro de confiança
+Mostrado no seu perfil e em todo o marketing.
+
+Leads diretos
+Os clientes contactam-no sem intermediários.
+
+Não perca o arranque da Rede de Parceiros FIZ
+Seja um dos primeiros contabilistas de referência a juntar-se à nossa rede exclusiva. Ganhe visibilidade, leads diretos e o selo oficial de parceiro de confiança.
+
+Beatriz Soeiro
+beatriz@gmail.com
+
+
+]
+
+page faturçºao [Faturação certificada — ilimitada e gratuita. Para sempre.
+Crie e envie faturas para a Autoridade Tributária (AT) em segundos — através da web, da app ou do WhatsApp (por voz ou texto).
+Experimente agora
+Ver Demonstração
+Criado para profissionais independentes (Trabalhador Independente e Empresário em Nome Individual) que prestam serviços em Portugal.
+
+
+
+
+AT № 3041
+Certificada pela Autoridade Tributária
+24/7
+Apoio
+Imediato
+10.000+
+CLIENTES
+satisfeitos
++7M €
+Faturados com o FIZ (por mês)
+4,8 ★
+Classificação Média App Store & Google Play
+Para sempre gratuito
+Sem subscrições, sem limites, sem truques. Apenas faturação fiável e certificada — sempre gratuita para si.
+Agora até no chat!
+Crie e envie faturas no chat que já usa. Escreva ou fale — a fatura fica pronta.
+Personalize as suas faturas
+Carregue o seu logótipo, personalize os documentos para refletir a identidade da sua marca e adicione o seu IBAN para transações sem complicações.
+Receba pagamentos mais rapidamente Em breve
+Permita que os clientes paguem através de Mastercard, Visa, MBWay ou Multibanco com o link de pagamento da FIZ.
+Parceiros de confiança
+Certificado e totalmente integrado com instituições oficiais
+Certificada pela 
+AT №3041
+
+Certificada pela 
+AT №3041
+
+Certificada pela 
+AT №3041
+
+Certificada pela 
+AT №3041
+
+Faturação
+Fature sem complicações — rápido, simples e profissional. Faturação com submissão automática à AT é grátis para sempre.
+
+Acesso via web e aplicação (Android e iOS)
+
+Número de faturas Ilimitadas
+
+Número de clientes Ilimitados
+
+Comunicação automática à AT (séries e faturas)
+
+Importação de clientes e artigos
+
+Repetição de faturas
+
+Importação de faturas anteriores do portal das Finanças
+
+ATCUD & QR nos documentos
+
+O seu logotipo nas faturas
+
+Envio de faturas por E-mail
+
+Impressão em A4 e Talão
+
+Exportação para SAF-T e Excel
+
+Painel de Controlo
+
+Várias contas ao mesmo login
+
+Arquivo digital de documentos
+
+Adicionalmente
+Descubra funcionalidades avançadas nos planos pagos.
+
+Emissão de faturas via WhatsApp (voz e texto)
+
+Faturas agendadas
+
+Sugestão automática da taxa de IVA na fatura
+
+Acesso para vários utilizadores
+
+Seja pago
+Permita que os clientes paguem as faturas através de um link de pagamento gerado automaticamente pelo FIZ. 
+
+Em breve disponível.
+
+Mastercard & Visa
+
+MBWay
+
+Multibanco
+
+Três planos simples
+TI / ENI
+Isento de IVA
+
+TI / ENI
+Sujeito a IVA
+
+Ideal para TI/ENI, no regime de isenção de IVA (art.53º / art.9º)
+
+FIZ Base
+Para quem quer experimentar o FIZ e emitir faturas certificadas — grátis para sempre.
+
+0
+€
+para sempre
+
+Escudo Fiscal
+
+Não incluída
+
+FIZ Auto
+Esquece a burocracia e deixa o FIZ tratar de tudo por ti.
+
+9
+,99 
+€
+por mês, IVA incluído
+
+Escudo Fiscal
+
+Até 500 € de proteção garantida por declaração
+
+FIZ Prime
+Tranquilidade total com assistente fiscal AI, apoio prioritário e proteção máxima.
+
+14
+,99 
+€
+por mês, IVA incluído
+
+Escudo Fiscal
+
+Até 1.500 € de proteção garantida por declaração
+
+Saber mais
+Classificação ★ 4,8
+Descarregar na App Store
+Obter na Google Play
+Katherine P
+Fácil e prático de usar ! Gosto muito!
+
+Rui Fernandes
+Aplicação bastante intuitiva, utilização simples e resultado excelente e acima de tudo é grátis! Parabéns aos criadores da mesma, votos de um excelente trabalho
+
+Renato
+Prático e intuitivo, mais fácil emitir fatura do que a AT. O suporte é eficiente
+
+António Sequeira
+Muito facil de utilizar e uma APP que ajuda muito. Valeu a pena a troca para o FIZ
+
+Well Cardoso
+Excelente! Sistema de faturação muito completo e gratuito. Recomendo!
+
+Perguntas Frequentes
+Tudo o que precisa de saber sobre o FIZ
+Por que escolher o FIZ para a sua faturação?
+Totalmente ilimitado e gratuito: Utilize o FIZ sem restrições e sem custos.
+
+Simplifique o seu processo de faturação: Facilite a gestão e emissão de faturas de forma intuitiva e eficiente.
+
+Cálculo automático do IVA: Garanta precisão e conformidade fiscal com o cálculo automático do IVA. 
+
+Envio automático de faturas para a AT: Automatize a entrega de faturas à Autoridade Tributária sem complicações adicionais ou trabalho manual no portal fiscal.
+
+Links de pagamento integrados para pagamentos mais rápidos: Proporcione uma experiência de pagamento mais ágil e prática aos seus clientes.
+
+Faturas com um design atrativo: Impressione os seus clientes com faturas de design profissional e elegante.
+
+O FIZ é realmente gratuito?
+Absolutamente verdadeiro. Disponibilizar a Faturação FIZ de forma gratuita é a nossa missão para impulsionar o empreendedorismo e apoiar o crescimento dos negócios em Portugal.
+
+Quem pode utilizar o FIZ?
+O FIZ foi especialmente concebido para micro-empresas. empresários em nome individual e trabalhadores independentes.
+
+As faturas FIZ são certificadas pelos padrões da AT?
+Todas as faturas emitidas pelo sistema de faturação FIZ são certificadas pela AT (Cert. nº 3041), possuindo vínculo legal e estando em conformidade com as normas de faturação da legislação portuguesa.
+
+É possível personalizar as faturas?
+Com certeza! Você pode facilmente inserir o seu logotipo e personalizar a fatura para refletir o estilo da sua marca, conferindo a cada documento o seu toque pessoal.
+
+O que necessito para começar a utilizar o FIZ?
+Apenas precisa de preencher o formulário de registo. Em apenas 15 segundos, o seu sistema estará pronto! Se tiver alguma pergunta, sinta-se à vontade para enviar-nos um email.
+
+Preciso de ter um contabilista para utilizar o FIZ?
+O FIZ foi feito para que qualquer empresário possa emitir faturas facilmente, mesmo sem experiência ou formação especializada.]

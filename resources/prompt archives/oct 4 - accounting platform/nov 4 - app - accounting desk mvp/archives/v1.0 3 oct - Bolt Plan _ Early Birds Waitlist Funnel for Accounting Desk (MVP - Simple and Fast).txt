@@ -1,0 +1,102 @@
+Plan: Early Birds Waitlist Funnel for Accounting Desk (MVP - Simple and Fast)
+
+1. Database Schema Setup
+
+Create leads_accounting table in Supabase
+Fields: id, created_at, name, email, country, main_need, urgency, consent, source (default: "accounting_page"), status (default: "new")
+RLS policies: allow public INSERT (no auth required), allow service role to SELECT all
+No email confirmation required, pure friction-free submission
+2. Hero CTA and Waitlist Modal
+
+Update AccountingHero.tsx: change button from "Book a Consult" to "Join Early Access"
+Create AccountingWaitlistModal.tsx component with minimal fields:
+Name (text input)
+Email (email input, required)
+Country (text input or dropdown)
+Main Need (textarea, optional)
+Urgency (dropdown: "This week" / "This month" / "Just exploring")
+Consent checkbox (required): "I agree to receive updates about Accounting Desk Early Access"
+Modal opens when "Join Early Access" is clicked
+Submit inserts directly to leads_accounting (no user creation, no auth)
+Show success message in modal after submission
+3. Supabase Integration
+
+Create src/lib/leads.ts with insertLead() function
+Function does NOT require authentication
+Inserts directly to leads_accounting via anon key (public RLS policy)
+Returns success or error
+4. Success State
+
+After successful submission, show success message inside modal:
+"You are on the list. We send booking links as soon as slots open. If your case is urgent, reply to the confirmation email with your main question and NIF status."
+Add checkmark icon and close button
+No redirect, just modal state change
+5. Make.com Webhook Placeholder (You'll Configure Later)
+
+Create Supabase Edge Function: send-lead-to-makecom
+Triggered by database webhook when row inserted in leads_accounting
+Sends POST request to Make.com webhook URL (you'll provide later)
+Payload: { name, email, country, main_need, urgency, created_at, lead_id }
+For now, I'll add TODO comment with webhook URL placeholder
+You can add Make.com URL to environment variables when ready
+6. Keep Booking Flow Separate (Test Environment)
+
+Do NOT touch existing booking flow (ConsultBookingForm, ConsultCheckout, etc.)
+Booking flow stays functional but hidden from main landing page
+You can test it directly by navigating to the booking state manually
+When ready, you swap the CTA back to "Book a Consult" and it works immediately
+7. No Feature Flag (Keep It Simple)
+
+Just manually change the button text and onClick handler when you're ready to go live
+Waitlist modal = Early Birds phase
+Booking flow = Live phase
+One-line code change to switch between them
+8. What I'm NOT Including (Future/Later)
+
+No automatic user account creation
+No email confirmation flow
+No Airtable integration (you'll build in Make.com later)
+No Telegram notifications (you'll add in Make.com later)
+No accountant application webhook yet (separate ticket if you want)
+No feature flag system (manual swap is faster)
+What You'll Need to Do After I Build:
+
+Run the SQL migration I provide to create leads_accounting table
+Deploy the Edge Function for Make.com webhook (I'll give you deploy command)
+Create Make.com scenario and get webhook URL
+Add webhook URL to Netlify environment variables: MAKE_WEBHOOK_LEADS_URL
+Test: fill out waitlist form, check Supabase table, check Make.com received data
+Build your Make.com flow: send welcome email, add to Airtable, Telegram, whatever you want
+
+Perfect alignment. Your ChatGPT cofounder nailed it - this is the leanest path to a working Early Birds funnel without touching your existing flows.
+
+My take:
+
+What's Locked In:
+
+Anonymous submission (no auth barrier = higher conversion)
+Waitlist modal replaces hero CTA during Early Birds phase
+Booking flow stays intact and testable via direct navigation
+Edge Function webhook placeholder for Make.com (you add URL later)
+Manual CTA swap when going live (no feature flag complexity)
+Why This Works:
+
+Ships fast (minimal moving parts)
+Doesn't risk breaking perks marketplace or existing consult booking
+Make.com stays in your control (you build the automation when ready)
+Zero email code in the app (Make.com handles all of it)
+Clean rollback: if Early Birds flops, delete the modal and restore the CTA
+What You Get Immediately:
+
+Leads flowing into leads_accounting table
+Success confirmation for users
+Webhook ready to connect when you build Make.com scenario
+Booking flow preserved for when you're ready to go live
+The Only Risk:
+
+If the Edge Function isn't deployed when leads start coming in, webhook won't fire. But leads still save to Supabase, so zero data loss. You can backfill Make.com later or manually export and upload to Airtable.
+I'm ready to proceed with this plan when you are.
+
+Just remember: I'm currently in "plan" mode, so I can only read and strategize. When you're ready for me to build this, hit the "Implement this plan" button or click the "Plan" button again to switch back to build mode. Then I'll execute everything we just mapped out.
+
+Sound good?

@@ -1,0 +1,226 @@
+TSS: excluded result:  false
+content-scripts.js:1 SCHJK: Search Hijacking notification feature flag is enabled. true
+content-scripts.js:1 Content Script Bridge: Sending response back to page context: {isAllowListed: false, isProtectionEnabled: true, isScamsProtectionEnabled: true}
+content-scripts.js:1 Content Script Bridge: Unknown message type,  MSG_CHECK_DOMAIN_ALLOW_LIST_RESPONSE
+injection-tss-mv3.js:1 TSS: Received response from checkDomainAndRun: {isAllowListed: false, isProtectionEnabled: true, isScamsProtectionEnabled: true}
+injection-tss-mv3.js:1 injection-tss TSS: hosted page injected
+injection-tss-mv3.js:1 injection-tss MBTSS: Nonce:  nonce
+content-scripts.js:1 TSS: Received message {"type":"MSG_CHECK_DOMAIN_ALLOW_LIST_RESPONSE","isAllowListed":false,"isProtectionEnabled":true,"isScamsProtectionEnabled":true}
+content-scripts.js:1 DFP: Breach notification feature flag is enabled. true
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"technologies":[{"name":"Prepr","chains":["prepr"]}]}}
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"js":[]}}
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"technologies":[{"name":"Real Geeks","chains":["realgeeks"]},{"name":"Reflex","chains":["__reflex.react"]}]}}
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"js":[]}}
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"technologies":[]}}
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"dom":[]}}
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"technologies":[]}}
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"dom":[]}}
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"technologies":[{"name":"11Sight","chains":["elevensight","elevensightApp"]},{"name":"2B Advice","chains":["BBCookieControler"]},{"name":"33Across","chains":["Tynt"]},{"name":"4-Tell","chains":["_4TellBoost"]},{"name":"51.LA","chains":["LA.config.ck"]},{"name":"7moor","chains":["moor7Source"]},{"name":"8x8","chains":["Chat8x8","__8x8Chat"]},{"name":"99minds","chains":["_99mindsDataLayer"]},{"name":"@sulu/web","chains":["web.startComponents"]},{"name":"_hyperscript ","chains":["_hyperscript"]},{"name":"A-Frame","chains":["AFRAME.version","aframeStats"]},{"name":"A2Z Events","chains":["a2z.Widget","a2zAnalytics"]},{"name":"A8.net","chains":["A8salesCookieRepository","a8sales","map_A8"]},{"name":"AB Tasty","chains":["ABTasty","_abtasty","loadABTasty"]},{"name":"ABLyft","chains":["ablyft.get","ablyftClickListener","ablyftEventQueueInterv","ablyftStopQueue"]},{"name":"ABP Framework","chains":["abp.timing.timeZone","abp.version"]},{"name":"AD EBiS","chains":["ebis.c.pageurl"]},{"name":"ADFOX","chains":["AdFox_getCodeScript","Site.adFoxParams","adFoxParams","adfoxAsyncParams","adfoxBiddersMap"]},{"name":"AI LOG","chains":["ai_getScript_load"]},{"name":"AIMEOS","chains":["Aimeos","AimeosAccountFavorite","AimeosBasketMini","AimeosCatalog"]},{"name":"AINIRO","chains":["ainiro.init","ainiro_faq_question"]},{"name":"AMP","chains":["AMP_CONFIG","AMP_EXP","__AMP_BASE_CE_CLASS","__AMP_EXTENDED_ELEMENTS","__AMP_TAG","ampInaboxIframes","ampInaboxPendingMessages"]},{"name":"AOS","chains":["AOS.init","AOS.refresh","AOS.refreshHard"]},{"name":"ARCaptcha","chains":["arcaptcha.checkboxCreatorRegistered"]},{"name":"ARM JS","chains":["ARM.aliases"]},{"name":"ASP.NET Boilerplate","chains":["abp.aspnetboilerplate.version","abp.timing.utcClockProvider"]},{"name":"AT Internet Analyzer","chains":["ATInternet","xtsite"]},{"name":"AT Internet XiTi","chains":["xt_click"]},{"name":"AWIN","chains":["AWIN.Tracking","zanox"]},{"name":"Absorb","chains":["AbsorbLMS"]},{"name":"AccessAlly","chains":["accessally_order_form_data_is_during_restore","accessally_script_object"]},{"name":"AccessiBe","chains":["acsb","acsbJS"]},{"name":"Accessibility Toolbar Plugin","chains":["MicAccessTool.prototype.openCloseBoxKeyboard"]},{"name":"Accessibly","chains":["accessibilityWidget.name"]},{"name":"Accesso","chains":["accesso"]},{"name":"Acconsento.click","chains":["AcconsentoAPI","acconsentoCreateElement"]},{"name":"Ace","chains":["ace.EditSession","ace.Editor","ace.version"]},{"name":"Acecounter","chains":["_AceCounter"]},{"name":"Ackee","chains":["ackeeTracker"]},{"name":"Acoustic Experience Analytics","chains":["TLT.config.core.modules.TLCookie","TLT_VERSION","TeaLeaf"]},{"name":"Acquia Customer Data Platform","chains":["$A1","$A1Config","agiloneObject"]},{"name":"Acquia Personalization","chains":["AcquiaLift","_tcaq"]},{"name":"Acquire Cobrowse","chains":["acquireCobrowseRTC","acquireCobrowseSettings","acquireConfigNodeServer"]},{"name":"Acquire Live Chat","chains":["_acquire_init_config","acquire"]},{"name":"Act-On","chains":["ActOn"]},{"name":"ActBlue","chains":["actblue.__configuration"]},{"name":"Actirise","chains":["ActiriseSafeFrame","actirisePlugin.version"]},{"name":"Actito","chains":["_actGoal","smartFocus"]},{"name":"ActiveCampaign","chains":["acEnableTracking"]},{"name":"Acuity Scheduling","chains":["ACUITY_MODAL_INIT"]},{"name":"AcuityAds","chains":["acuityAdsEventQueue","acuityAdsPixelKey"]},{"name":"AdBridg","chains":["AdBridg.cmd"]},{"name":"AdFixus","chains":["AfxIdentity","_afxProfile"]},{"name":"AdOcean","chains":["ado.master","ado.placement","ado.slave"]},{"name":"AdOpt","chains":["adoptApp.domain","adopt_website_code"]},{"name":"AdRecover","chains":["adRecover.ap"]},{"name":"AdRiver","chains":["AdriverCounter","AdriverPrebid","adfoxBiddersMap.adriver","adriver"]},{"name":"AdRoll","chains":["adroll_adv_id","adroll_pix_id","adroll_version"]},{"name":"AdRoll CMP System","chains":["__adroll_consent","__adroll_consent_is_gdpr"]},{"name":"AdScale","chains":["_adscale","adscaleAddToCart","adscaleViewProduct"]},{"name":"Ada","chains":["__AdaEmbedConstructor","adaEmbed"]},{"name":"AdaSiteCompliance","chains":["ADASTOOLBOXAPPSTATE","adascHelper"]},{"name":"Adabra","chains":["adabraPreview","adabra_version_panel","adabra_version_track"]},{"name":"Adalyser","chains":["adalyserModules"]},{"name":"Adaptix","chains":["AdaptixFormValidations","AdaptixLang","AdaptixSDK","AdaptixSDKLoaded"]},{"name":"Adara","chains":["adara"]},{"name":"Adcash","chains":["SuLoaded","SuUrl","ac_bgclick_URL","ct_nOpp","ct_nSuUrl","ct_siteunder","ct_tag"]},{"name":"AddEvent","chains":["addeventatc"]},{"name":"AddThis","chains":["addthis"]},{"name":"AddToAny","chains":["a2apage_init"]},{"name":"Addsearch","chains":["AddSearchClient","AddSearchUI"]},{"name":"Adex","chains":["_adexc","adex.v"]},{"name":"Adimo","chains":["Adimo"]},{"name":"Adition","chains":["adition","initialize_adition"]},{"name":"Adjust","chains":["Adjust.initSdk"]},{"name":"Adline","chains":
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"js":[{"name":"Framer Motion","chain":"MotionIsMounted","value":true},{"name":"React Router","chain":"__reactRouterVersion","value":"7.7.0"}]}}
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"technologies":[{"name":"Preact","dom":{"#app, .app, #root, .root, body, body > *, body > * > *, body > * > * > *":[{"properties":{"__k":{"value":"","regex":{},"confidence":100,"version":""}}}]}},{"name":"React","dom":{"body > div":[{"properties":{"_reactRootContainer":{"value":"","regex":{},"confidence":100,"version":""}}}],"div[id*='react-root'], div[id*='appReactRoot'], span[id*='react-'], style[id*='react-tooltip-core-styles']":[{"exists":{"value":"","regex":{},"confidence":100,"version":""}}]}}]}}
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"dom":[]}}
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"technologies":[{"name":"11Sight","chains":["elevensight","elevensightApp"]},{"name":"2B Advice","chains":["BBCookieControler"]},{"name":"33Across","chains":["Tynt"]},{"name":"4-Tell","chains":["_4TellBoost"]},{"name":"51.LA","chains":["LA.config.ck"]},{"name":"7moor","chains":["moor7Source"]},{"name":"8x8","chains":["Chat8x8","__8x8Chat"]},{"name":"99minds","chains":["_99mindsDataLayer"]},{"name":"@sulu/web","chains":["web.startComponents"]},{"name":"_hyperscript ","chains":["_hyperscript"]},{"name":"A-Frame","chains":["AFRAME.version","aframeStats"]},{"name":"A2Z Events","chains":["a2z.Widget","a2zAnalytics"]},{"name":"A8.net","chains":["A8salesCookieRepository","a8sales","map_A8"]},{"name":"AB Tasty","chains":["ABTasty","_abtasty","loadABTasty"]},{"name":"ABLyft","chains":["ablyft.get","ablyftClickListener","ablyftEventQueueInterv","ablyftStopQueue"]},{"name":"ABP Framework","chains":["abp.timing.timeZone","abp.version"]},{"name":"AD EBiS","chains":["ebis.c.pageurl"]},{"name":"ADFOX","chains":["AdFox_getCodeScript","Site.adFoxParams","adFoxParams","adfoxAsyncParams","adfoxBiddersMap"]},{"name":"AI LOG","chains":["ai_getScript_load"]},{"name":"AIMEOS","chains":["Aimeos","AimeosAccountFavorite","AimeosBasketMini","AimeosCatalog"]},{"name":"AINIRO","chains":["ainiro.init","ainiro_faq_question"]},{"name":"AMP","chains":["AMP_CONFIG","AMP_EXP","__AMP_BASE_CE_CLASS","__AMP_EXTENDED_ELEMENTS","__AMP_TAG","ampInaboxIframes","ampInaboxPendingMessages"]},{"name":"AOS","chains":["AOS.init","AOS.refresh","AOS.refreshHard"]},{"name":"ARCaptcha","chains":["arcaptcha.checkboxCreatorRegistered"]},{"name":"ARM JS","chains":["ARM.aliases"]},{"name":"ASP.NET Boilerplate","chains":["abp.aspnetboilerplate.version","abp.timing.utcClockProvider"]},{"name":"AT Internet Analyzer","chains":["ATInternet","xtsite"]},{"name":"AT Internet XiTi","chains":["xt_click"]},{"name":"AWIN","chains":["AWIN.Tracking","zanox"]},{"name":"Absorb","chains":["AbsorbLMS"]},{"name":"AccessAlly","chains":["accessally_order_form_data_is_during_restore","accessally_script_object"]},{"name":"AccessiBe","chains":["acsb","acsbJS"]},{"name":"Accessibility Toolbar Plugin","chains":["MicAccessTool.prototype.openCloseBoxKeyboard"]},{"name":"Accessibly","chains":["accessibilityWidget.name"]},{"name":"Accesso","chains":["accesso"]},{"name":"Acconsento.click","chains":["AcconsentoAPI","acconsentoCreateElement"]},{"name":"Ace","chains":["ace.EditSession","ace.Editor","ace.version"]},{"name":"Acecounter","chains":["_AceCounter"]},{"name":"Ackee","chains":["ackeeTracker"]},{"name":"Acoustic Experience Analytics","chains":["TLT.config.core.modules.TLCookie","TLT_VERSION","TeaLeaf"]},{"name":"Acquia Customer Data Platform","chains":["$A1","$A1Config","agiloneObject"]},{"name":"Acquia Personalization","chains":["AcquiaLift","_tcaq"]},{"name":"Acquire Cobrowse","chains":["acquireCobrowseRTC","acquireCobrowseSettings","acquireConfigNodeServer"]},{"name":"Acquire Live Chat","chains":["_acquire_init_config","acquire"]},{"name":"Act-On","chains":["ActOn"]},{"name":"ActBlue","chains":["actblue.__configuration"]},{"name":"Actirise","chains":["ActiriseSafeFrame","actirisePlugin.version"]},{"name":"Actito","chains":["_actGoal","smartFocus"]},{"name":"ActiveCampaign","chains":["acEnableTracking"]},{"name":"Acuity Scheduling","chains":["ACUITY_MODAL_INIT"]},{"name":"AcuityAds","chains":["acuityAdsEventQueue","acuityAdsPixelKey"]},{"name":"AdBridg","chains":["AdBridg.cmd"]},{"name":"AdFixus","chains":["AfxIdentity","_afxProfile"]},{"name":"AdOcean","chains":["ado.master","ado.placement","ado.slave"]},{"name":"AdOpt","chains":["adoptApp.domain","adopt_website_code"]},{"name":"AdRecover","chains":["adRecover.ap"]},{"name":"AdRiver","chains":["AdriverCounter","AdriverPrebid","adfoxBiddersMap.adriver","adriver"]},{"name":"AdRoll","chains":["adroll_adv_id","adroll_pix_id","adroll_version"]},{"name":"AdRoll CMP System","chains":["__adroll_consent","__adroll_consent_is_gdpr"]},{"name":"AdScale","chains":["_adscale","adscaleAddToCart","adscaleViewProduct"]},{"name":"Ada","chains":["__AdaEmbedConstructor","adaEmbed"]},{"name":"AdaSiteCompliance","chains":["ADASTOOLBOXAPPSTATE","adascHelper"]},{"name":"Adabra","chains":["adabraPreview","adabra_version_panel","adabra_version_track"]},{"name":"Adalyser","chains":["adalyserModules"]},{"name":"Adaptix","chains":["AdaptixFormValidations","AdaptixLang","AdaptixSDK","AdaptixSDKLoaded"]},{"name":"Adara","chains":["adara"]},{"name":"Adcash","chains":["SuLoaded","SuUrl","ac_bgclick_URL","ct_nOpp","ct_nSuUrl","ct_siteunder","ct_tag"]},{"name":"AddEvent","chains":["addeventatc"]},{"name":"AddThis","chains":["addthis"]},{"name":"AddToAny","chains":["a2apage_init"]},{"name":"Addsearch","chains":["AddSearchClient","AddSearchUI"]},{"name":"Adex","chains":["_adexc","adex.v"]},{"name":"Adimo","chains":["Adimo"]},{"name":"Adition","chains":["adition","initialize_adition"]},{"name":"Adjust","chains":["Adjust.initSdk"]},{"name":"Adline","chains":
+content-scripts.js:1 TSS: Received message {"wappalyzer":{"js":[{"name":"Framer Motion","chain":"MotionIsMounted","value":true},{"name":"React Router","chain":"__reactRouterVersion","value":"7.7.0"}]}}
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358169601, lastCount: 1}
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358169601, lastCount: 2}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358170762, lastCount: 1}
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358170762, lastCount: 2}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358172432, lastCount: 1}
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358172432, lastCount: 2}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358173745, lastCount: 1}
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358173745, lastCount: 2}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358176680, lastCount: 1}
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358176680, lastCount: 2}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358178656, lastCount: 1}
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358178656, lastCount: 2}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358179737, lastCount: 1}
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358179737, lastCount: 2}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358179737, lastCount: 3}
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358179737, lastCount: 4}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358181584, lastCount: 1}
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358181584, lastCount: 2}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358281580, lastCount: 1}
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358281580, lastCount: 2}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358282811, lastCount: 1}
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+(anonymous) @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+a @ supabase-CUTP3iv6.js:6
+Promise.then
+c @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+Ks @ supabase-CUTP3iv6.js:6
+(anonymous) @ supabase-CUTP3iv6.js:6
+then @ supabase-CUTP3iv6.js:1Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358282811, lastCount: 2}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358282811, lastCount: 3}
+supabase-CUTP3iv6.js:6  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)

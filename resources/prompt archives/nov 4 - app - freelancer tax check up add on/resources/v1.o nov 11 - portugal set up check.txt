@@ -1,0 +1,836 @@
+# Portugal Setup Check – Worktugal
+
+This tool is part of the Worktugal Toolkit — a growing set of mobile-first, AI-powered tools built for remote professionals living in or moving to Portugal. Each app solves a specific legal, tax, compliance, or setup challenge in under 2 minutes. Built for speed, trust, and monetization.
+
+---
+
+## 📌 General Info
+
+*   **App Name:** Portugal Setup Check – Worktugal
+*   **One-sentence Purpose:** This application helps individuals quickly assess their legal and tax compliance for living and working in Portugal through an interactive quiz, providing a personalized score and actionable recommendations.
+*   **Target User Segment:** Freelancers, remote workers, and founders.
+*   **Real-world Pain Point This Tool Solves:** Navigating the complexities of Portuguese immigration, tax, and business regulations to ensure legal compliance and avoid potential issues.
+*   **Version Number:** v2.0
+*   **Public URL:** `https://setup.apps.worktugal.com/`
+*   **Current Status:** Live
+*   **Author or Builder Name:** Worktugal
+*   **Last Updated Date:** 2025-01-15
+
+---
+
+## ⚙️ Core Features
+
+*   **Smart Conditional Logic:** Questions are dynamically filtered based on user's visa status. EU citizens, Golden Visa holders, and EU family members skip health insurance requirements, permanent residents skip AIMA appointments.
+*   **Enhanced Quiz Logic:** An interactive, multi-step quiz (`src/pages/Quiz.tsx`) with 12 comprehensive questions covering visa/residency status, tax residency, NIF, business structure, social security, banking, time spent in Portugal, health insurance, income requirements, and overstay risks. Questions are defined in `src/utils/quizQuestions.ts`.
+*   **Expanded Visa Support:** Added D1 Work Visa, Temporary Protection for refugees, and EU family member status to cover more user scenarios.
+*   **Critical Red Flag Detection:** Advanced system to identify overstay fines, VAT registration requirements, and false compliance scenarios with severity levels (high, medium, low).
+*   **First 30 Days Checklist:** Essential guidance for new arrivals to Portugal.
+*   **Passive Income Structure:** D7 visa holders can now select passive income as their employment structure with appropriate scoring logic.
+*   **Advanced Scoring System:** A "Portugal Setup Score" (0-100%) calculated using expert-informed rules with specific penalties for high-risk situations. Score only includes relevant questions based on user's status.
+*   **Improved Mobile UX:** Fixed scrolling issues with automatic scroll-to-top on question changes for better mobile experience.
+*   **Enhanced CTA Logic:** Urgent call-to-action triggers automatically for scores below 70% OR when red flags are detected with stronger messaging.
+*   **Stripe Checkout Flow:** Users can book a "Clarity Call" via Stripe checkout with dynamic urgency based on risk level.
+*   **Enhanced Make.com Integration:** Quiz results include all user data sent to webhook with red flags data and v1.8 tagging.
+*   **Enhanced Helper Texts (v1.8):** Added Portuguese terminology explanations for NIF and NISS questions with cleaner, non-repetitive content.
+*   **Enhanced UX Elements:** 
+    *   Critical red flag warnings for compliance issues
+    *   First 30 days checklist for new arrivals
+    *   "Why your score isn't 100%" explanatory section
+    *   "Questions Not Required" section for skipped questions
+    *   Tooltip for score methodology
+    *   Legal disclaimer footer
+    *   Enhanced recommendations based on conditional logic
+
+---
+
+## 🔧 Quiz Form Wizard - Complete Technical Documentation
+
+### Quiz Architecture Overview
+
+The quiz system is built with React and consists of multiple interconnected components:
+
+**Core Files:**
+- `src/pages/Quiz.tsx` - Main quiz component with navigation and state management
+- `src/utils/quizQuestions.ts` - Question definitions, scoring logic, and recommendation engine
+- `src/utils/detectRedFlags.ts` - Red flag detection system with severity levels
+- `src/components/ProgressBar.tsx` - Visual progress indicator
+- `src/utils/supabase.ts` - Database integration for completion tracking
+
+### Question Structure (`QuizQuestion` Interface)
+
+```typescript
+interface QuizQuestion {
+  id: string;                    // Unique identifier
+  text: string;                  // Main question text
+  description?: string;          // Optional helper description
+  type: 'multiple-choice' | 'yes-no' | 'select';
+  options?: { value: string; label: string }[];
+  weight: number;                // Scoring weight (0-20)
+  skipConditions?: (answers: Record<string, any>) => boolean;
+}
+```
+
+### Complete Question Set (12 Questions)
+
+1. **Visa Status** (weight: 20)
+   - Options: EU Citizen, D1 Work, D7 Passive Income, D2 Entrepreneur, D8 Digital Nomad, Golden Visa, Family Reunion, HQA Tech, Temporary Residence, Temporary Protection, Permanent, EU Family Member, Tourist, None
+   - Critical for determining which other questions apply
+
+2. **Tax Residence** (weight: 15)
+   - Options: Yes, No, Unsure
+   - Determines tax obligations and compliance
+
+3. **NIF (Tax Number)** (weight: 10)
+   - Type: Yes/No
+   - Helper text explains: "NIF (Número de Identificação Fiscal) - Portugal's tax ID number. Required for banking, leases, utilities, and work permits."
+
+4. **Business Structure** (weight: 15)
+   - Options: Employed PT, Employed Foreign, Freelancer Remote, Foreign Company, Trabalhador Independente (Recibo Verde), Portuguese Company (Unipessoal Lda), Passive Income, None
+   - Includes Recibo Verde explanation modal
+
+5. **Social Security (NISS)** (weight: 10)
+   - Type: Yes/No
+   - Helper text explains: "NISS (Número de Identificação da Segurança Social) - Required for all workers, freelancers, and company owners to contribute legally."
+
+6. **Banking** (weight: 5)
+   - Type: Yes/No
+   - Portuguese bank account requirement
+
+7. **Time in Portugal (Intent)** (weight: 10)
+   - Options: <90 days, 90-183 days, >183 days, Full-time
+   - Determines tax residency obligations
+
+8. **AIMA Appointment** (weight: 10)
+   - Options: Yes, No, Unsure
+   - Skip conditions: EU citizens, Golden Visa, Permanent, EU family members
+   - AIMA = Portugal's immigration authority
+
+9. **Time Lived in Portugal** (weight: 5)
+   - Options: <90 days, 90-183 days, >183 days, Not yet
+   - Historical tracking for compliance
+
+10. **Health Insurance** (weight: 15)
+    - Options: Yes (€30k+ coverage), No
+    - Skip conditions: EU citizens, Golden Visa, Permanent, EU family members
+    - Schengen requirement
+
+11. **Monthly Income** (weight: 10)
+    - Options: Below €870, €870-€3,479, €3,480+
+    - Based on Portuguese minimum wage thresholds
+
+12. **Overstay Risk** (weight: 20)
+    - Options: No, Yes, Not sure
+    - Critical for legal compliance
+
+### Conditional Logic System
+
+**Skip Conditions Implementation:**
+```typescript
+skipConditions: (answers) => {
+  const visaStatus = answers.visa_status;
+  return ['eu_citizen', 'golden_visa', 'permanent', 'eu_family_member'].includes(visaStatus);
+}
+```
+
+**Questions Skipped by Visa Type:**
+- **EU Citizens/Golden Visa/Permanent/EU Family**: Skip health insurance and AIMA appointment
+- **Conditional filtering**: Applied in real-time as user answers questions
+
+### Scoring Algorithm
+
+**Score Calculation Logic:**
+```typescript
+// Only count questions that weren't skipped
+const shouldSkip = question.skipConditions && question.skipConditions(answers);
+if (!shouldSkip) {
+  maxPossibleScore += question.weight;
+  // Apply specific scoring rules per question...
+}
+```
+
+**Scoring Rules by Question:**
+- **Visa Status**: Full points for valid visas, 30% for tourist, 0% for none
+- **Business Structure**: Full points for PT structures, 50% for foreign, conditional for passive income
+- **Yes/No Questions**: 100% for yes, 0% for no
+- **Time/Income**: Graduated scoring based on thresholds
+- **Tax Residence**: 100% for yes, 30% for unsure, 0% for no
+
+### Red Flag Detection System
+
+**Red Flag Interface:**
+```typescript
+interface RedFlag {
+  id: string;
+  message: string;
+  severity: 'high' | 'medium' | 'low';
+}
+```
+
+**8 Critical Red Flags Detected:**
+1. **Overstay Risk** (High): Tourist/none + >183 days + no NIF + no AIMA
+2. **Early NIF Registration** (Medium): Missing NIF after 60+ days with valid visa
+3. **Missing Insurance** (High): Required health insurance missing for visa holders
+4. **VAT Registration** (High): Freelancers with €3,480+ income need IVA registration
+5. **Late NISS Registration** (High): Freelancers without NISS after 30+ days
+6. **False Compliance** (Medium): Valid visa but missing key registrations
+7. **Tourist Working Illegally** (High): Working on tourist visa
+8. **Income Violation** (High): Income below visa requirements
+
+### Database Integration
+
+**Supabase Table: `quiz_completions`**
+```sql
+CREATE TABLE quiz_completions (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid REFERENCES users(id) ON DELETE SET NULL,
+  score integer NOT NULL CHECK (score >= 0 AND score <= 100),
+  answers jsonb NOT NULL DEFAULT '{}'::jsonb,
+  completion_time integer DEFAULT 0,
+  utm_source text DEFAULT 'direct',
+  utm_medium text DEFAULT 'none',
+  utm_campaign text DEFAULT 'none',
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
+```
+
+**Real-time Features:**
+- Dynamic user counter with live updates
+- Real-time completion tracking
+- UTM parameter capture for analytics
+
+### Webhook Integration (Make.com)
+
+**Endpoint:** `https://hook.eu2.make.com/55hqywgfqrlet9bz7ynep5tn3ix6xw8u`
+
+**Payload Schema (v1.8):**
+```json
+{
+  "score": "number",
+  "red_flags": "array",
+  "tag": "setup_checker_v1.8",
+  "timestamp": "string (ISO format)",
+  "completionTime": "number",
+  "answers": {
+    "visa_status": "string",
+    "time_in_portugal": "string",
+    "time_lived_in_portugal": "string",
+    "aima_appointment": "string",
+    "tax_residency": "string",
+    "nif": "string",
+    "bank_account": "string",
+    "employment": "string",
+    "social_security": "string",
+    "health_insurance": "string",
+    "monthly_income": "string",
+    "overstay_risk": "string"
+  },
+  "utm": {
+    "source": "string",
+    "medium": "string",
+    "campaign": "string"
+  },
+  "source": "string ('quiz_completion')"
+}
+```
+
+### UI/UX Implementation Details
+
+**Mobile-First Design:**
+- Automatic scroll-to-top on question changes
+- Sticky progress bar
+- Touch-optimized button sizes
+- Responsive card layouts
+
+**Interactive Elements:**
+- Animated progress bar with segments
+- Color-coded question options
+- Hover states and micro-interactions
+- Loading states for form submission
+
+**Helper Features:**
+- Recibo Verde information modal
+- Portuguese terminology explanations
+- Skip condition explanations
+- Score methodology tooltip
+
+### Results Page Architecture
+
+**Key Components:**
+- Compliance score visualization with animated circular progress
+- Red flag warnings with severity indicators
+- Personalized recommendations engine
+- First 30 days checklist (conditional)
+- Skipped questions explanation
+- Score breakdown with penalties
+- Email signup with PDF download placeholder
+- Multiple CTAs with urgency logic
+
+**CTA Logic:**
+- Urgent CTA triggers: Score < 70% OR red flags present
+- Dynamic messaging based on risk level
+- Multiple conversion paths (DIY toolkit, expert call, email signup)
+
+---
+
+## 🧠 Intelligence and AI Integrations
+
+*   **Expert-Informed Scoring:** Scoring logic based on real Portuguese legal and tax requirements with specific thresholds (€870 minimum income, €30,000 health insurance coverage, 90-day overstay limits).
+*   **Conditional Question Logic:** Smart filtering of questions based on user's visa status to avoid irrelevant requirements.
+*   **Dynamic Risk Assessment:** Real-time risk categorization with targeted recommendations based on user's specific compliance gaps.
+*   **Critical Red Flag Detection:** Automatic identification of critical risks like overstaying, VAT registration requirements, illegal work scenarios, and false compliance situations.
+*   **AI Placeholder Components:** The `AIUpdates` component (`src/components/AIUpdates.tsx`) displays static expert-verified content with placeholder for future AI integration.
+
+---
+
+## 🖼️ UI, UX, and Design Rules
+
+*   **Mobile-first Layout:** Yes, with improved scrolling behavior and automatic scroll-to-top
+*   **CSS Framework:** Tailwind CSS
+*   **Icons:** Lucide React
+*   **Font:** System default
+*   **Enhanced Color Palette:**
+    *   **Primary:** Blue (`blue-600`, `blue-700`, `blue-50`, `blue-100`)
+    *   **Accent/Success:** Green (`green-500`, `green-600`, `green-50`)
+    *   **Warning/Risk:** Yellow (`yellow-500`, `yellow-50`, `yellow-200`), Red (`red-500`, `red-600`, `red-700`, `red-50`)
+    *   **Text/Background:** Slate (`slate-50` through `slate-900`)
+    *   **General Tone:** Clean, modern, professional with enhanced trust signals.
+*   **Component Structure:** Organized into `src/components/` for reusable UI elements, `src/pages/` for distinct application views, and `src/utils/` for utility functions and data.
+*   **Animation Style:** Minimal with enhanced score animation and hover states.
+
+---
+
+## 🧰 Frontend and Dev Stack
+
+*   **Framework:** React (with TypeScript)
+*   **Build Tool:** Vite
+*   **Routing:** React Router DOM
+*   **Hosting Target:** Netlify
+*   **Supabase Usage:**
+    *   **Database:** Used for `quiz_completions` table with real-time counter functionality and RLS policies.
+    *   **Authentication:** Schema includes `user_id` in `quiz_completions` table with RLS policies referencing `uid()`, indicating potential for user authentication integration.
+*   **Enhanced Make.com Webhook:**
+    *   **Destination:** `https://hook.eu2.make.com/55hqywgfqrlet9bz7ynep5tn3ix6xw8u`
+    *   **Updated Field Schema (Quiz Completion v1.8):**
+        ```json
+        {
+          "score": "number",
+          "red_flags": "array",
+          "tag": "setup_checker_v1.8",
+          "timestamp": "string (ISO format)",
+          "completionTime": "number",
+          "answers": {
+            "visa_status": "string",
+            "time_in_portugal": "string",
+            "time_lived_in_portugal": "string",
+            "aima_appointment": "string",
+            "tax_residency": "string",
+            "nif": "string",
+            "bank_account": "string",
+            "employment": "string",
+            "social_security": "string",
+            "health_insurance": "string",
+            "monthly_income": "string",
+            "overstay_risk": "string"
+          },
+          "utm": {
+            "source": "string",
+            "medium": "string",
+            "campaign": "string"
+          },
+          "source": "string ('quiz_completion')"
+        }
+        ```
+
+---
+
+## 🗃️ Data and Integrations
+
+*   **Enhanced Data Collection:**
+    *   **New Visa Types:** D1 Work Visa, Temporary Protection, EU Family Member
+    *   **Passive Income Option:** For D7 visa holders
+    *   **Conditional Logic:** Questions skipped based on visa status
+    *   **Risk Thresholds:** €870 minimum income, €30,000 health coverage, 90-day stay limits
+    *   **Critical Red Flag Detection:** Overstaying, VAT registration, illegal work, false compliance warnings
+*   **UTM Capture:** Yes, comprehensive tracking of traffic sources
+*   **PDF Download:** Placeholder with "Coming soon!" message
+*   **Support CTAs:** WhatsApp and Telegram integration maintained
+*   **Dynamic User Counter:** Real-time quiz completion tracking with Supabase integration
+
+---
+
+## 🎯 Quiz Form Wizard - Complete Rebuild Guide
+
+### 1. Question Flow Architecture
+
+**File Structure:**
+```
+src/
+├── pages/Quiz.tsx              # Main quiz component
+├── utils/quizQuestions.ts      # Questions + scoring logic
+├── utils/detectRedFlags.ts     # Red flag detection
+├── components/ProgressBar.tsx  # Progress visualization
+└── utils/supabase.ts          # Database integration
+```
+
+### 2. State Management Pattern
+
+**Quiz Component State:**
+```typescript
+const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+const [answers, setAnswers] = useState<Record<string, any>>({});
+const [filteredQuestions, setFilteredQuestions] = useState<QuizQuestion[]>(quizQuestions);
+const [startTime] = useState(Date.now());
+const [questionStartTime, setQuestionStartTime] = useState(Date.now());
+```
+
+**Answer Handling:**
+```typescript
+const handleAnswer = (questionId: string, answer: any) => {
+  setAnswers(prev => ({
+    ...prev,
+    [questionId]: answer
+  }));
+};
+```
+
+### 3. Navigation Logic
+
+**Auto-scroll Implementation:**
+```typescript
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+useEffect(() => {
+  setQuestionStartTime(Date.now());
+  scrollToTop();
+}, [currentQuestionIndex]);
+```
+
+**Question Filtering:**
+```typescript
+useEffect(() => {
+  const filtered = quizQuestions.filter(question => {
+    if (question.skipConditions) {
+      return !question.skipConditions(answers);
+    }
+    return true;
+  });
+  setFilteredQuestions(filtered);
+}, [answers]);
+```
+
+### 4. Question Rendering System
+
+**Yes/No Questions:**
+```typescript
+case 'yes-no':
+  return (
+    <div className="space-y-3">
+      {['yes', 'no'].map((option) => (
+        <button
+          key={option}
+          className={`group w-full text-left flex items-center px-6 py-4 rounded-xl border-2 transition-all duration-200 ${
+            answers[question.id] === option
+              ? 'bg-blue-50 border-blue-300 text-blue-700 shadow-md scale-[1.02]'
+              : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm'
+          }`}
+          onClick={() => handleAnswer(question.id, option)}
+        >
+          {/* Radio button indicator */}
+          <div className={`w-5 h-5 rounded-full border-2 mr-4 flex items-center justify-center transition-all ${
+            answers[question.id] === option
+              ? 'border-blue-600 bg-blue-600'
+              : 'border-slate-300 group-hover:border-slate-400'
+          }`}>
+            {answers[question.id] === option && (
+              <CheckCircle className="h-3 w-3 text-white" />
+            )}
+          </div>
+          <span className="font-medium capitalize">{option}</span>
+        </button>
+      ))}
+    </div>
+  );
+```
+
+**Select Questions with Helper Text:**
+```typescript
+case 'select':
+  return (
+    <div className="space-y-3">
+      {question.options?.map(option => (
+        <button
+          key={option.value}
+          className={/* styling classes */}
+          onClick={() => handleAnswer(question.id, option.value)}
+        >
+          <div className={/* radio indicator styling */}>
+            {/* Check icon for selected */}
+          </div>
+          <div className="flex-1 flex items-center justify-between">
+            <div className="flex-1">
+              <span className="font-medium leading-relaxed">{option.label}</span>
+              {/* Conditional helper text based on option value */}
+              {option.value === 'd8_visa' && (
+                <div className="mt-1 text-xs text-slate-400 leading-relaxed">
+                  You work remotely and applied for Portugal's D8 visa...
+                </div>
+              )}
+            </div>
+            {/* Conditional help icon for complex options */}
+            {option.value === 'freelancer' && (
+              <button onClick={/* show modal */} className="ml-2 p-1 text-blue-500...">
+                <HelpCircle className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+        </button>
+      ))}
+    </div>
+  );
+```
+
+### 5. Scoring Engine Implementation
+
+**Core Scoring Function:**
+```typescript
+export const calculateScore = (answers: Record<string, any>): number => {
+  let totalScore = 0;
+  let maxPossibleScore = 0;
+  
+  quizQuestions.forEach(question => {
+    const shouldSkip = question.skipConditions && question.skipConditions(answers);
+    
+    if (!shouldSkip) {
+      maxPossibleScore += question.weight;
+      
+      if (question.id in answers) {
+        // Apply question-specific scoring rules
+        totalScore += calculateQuestionScore(question, answers[question.id], answers);
+      }
+    }
+  });
+  
+  return maxPossibleScore > 0 ? Math.round((totalScore / maxPossibleScore) * 100) : 0;
+};
+```
+
+**Special Scoring Rules:**
+- **Passive Income**: Only scores if user has D7 visa
+- **Business Structure**: Portuguese structures score higher than foreign
+- **Income Thresholds**: Graduated scoring based on Portuguese minimums
+- **Visa Compliance**: Tourist status gets partial credit, none gets zero
+
+### 6. Red Flag Detection Engine
+
+**Detection Logic:**
+```typescript
+export const detectRedFlags = (answers: Record<string, any>): RedFlag[] => {
+  const redFlags: RedFlag[] = [];
+  
+  // Example: Overstay detection
+  const isOverstaying = (
+    ['tourist', 'none'].includes(answers.visa_status) &&
+    ['more_than_183', 'full_time'].includes(answers.time_in_portugal) &&
+    ['more_than_183', 'full_time'].includes(answers.time_lived_in_portugal)
+  );
+
+  if (isOverstaying) {
+    redFlags.push({
+      id: 'overstay_fine_risk',
+      message: 'You may be overstaying without a valid permit...',
+      severity: 'high'
+    });
+  }
+  
+  // 7 more red flag checks...
+  return redFlags;
+};
+```
+
+### 7. Form Validation & UX
+
+**Navigation Controls:**
+```typescript
+const goToNextQuestion = () => {
+  if (currentQuestionIndex < totalQuestions - 1) {
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+    scrollToTop();
+  } else {
+    submitQuiz();
+  }
+};
+
+// Disable next button until question is answered
+disabled={!answers[currentQuestion.id] || isSubmitting}
+```
+
+**Progress Visualization:**
+- Animated progress bar with segments
+- Current step indicator
+- Completion percentage
+- Visual step dots
+
+### 8. Results Processing
+
+**Quiz Submission Flow:**
+1. Calculate final score using `calculateScore()`
+2. Detect red flags using `detectRedFlags()`
+3. Save to Supabase database
+4. Send to Make.com webhook
+5. Navigate to results page with data
+
+**Results Page Features:**
+- Animated score circle
+- Red flag warnings with severity colors
+- Personalized recommendations
+- First 30 days checklist (conditional)
+- Skipped questions explanation
+- Score methodology tooltip
+- Multiple conversion CTAs
+
+### 9. Mobile UX Optimizations
+
+**Scroll Management:**
+```typescript
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+useEffect(() => {
+  scrollToTop();
+}, [currentQuestionIndex]);
+```
+
+**Touch-Friendly Design:**
+- 44px minimum touch targets
+- Generous padding and spacing
+- Clear visual feedback
+- Accessible color contrast
+
+### 10. Performance & Analytics
+
+**UTM Parameter Capture:**
+```typescript
+const getUTMParameters = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return {
+    source: urlParams.get('utm_source') || 'direct',
+    medium: urlParams.get('utm_medium') || 'none',
+    campaign: urlParams.get('utm_campaign') || 'none'
+  };
+};
+```
+
+**Real-time Counter:**
+- Supabase real-time subscriptions
+- Dynamic count updates
+- Base count + database increments
+
+---
+
+## ⚙️ Environment Variables (.env file)
+
+*   `VITE_STRIPE_PUBLIC_KEY=`
+*   `VITE_STRIPE_PRICE_ID=`
+*   `VITE_SUPABASE_URL=`
+*   `VITE_SUPABASE_ANON_KEY=`
+
+---
+
+## 🧩 Code and Component Conventions
+
+*   **Component Naming Pattern:** `Quiz.tsx`, `ComplianceScore.tsx`, `AIUpdates.tsx`, `DynamicUserCounter.tsx`
+*   **Logic File Convention:** `quizQuestions.ts`, `detectRedFlags.ts`, `stripe.ts`, `supabase.ts`
+*   **Page Structure:** `Dashboard.tsx`, `Quiz.tsx`, `Results.tsx`, `BookCall.tsx`
+*   **Utility Functions:** Organized in `src/utils/` with clear separation of concerns
+
+---
+
+## 🚀 Deployment and Versioning
+
+*   **Deployment Status:** Live
+*   **Current Version:** v1.8
+*   **GitHub Commit Message:** `feat: v1.8 enhanced helper texts, Portuguese terminology explanations, cleaner interface`
+*   **GitHub Commit Message:** `feat: v2.0 dark theme redesign, Migrun partnership integration, streamlined navigation`
+*   **Key v1.8 Improvements:**
+    *   ✅ Enhanced helper texts for NIF and NISS questions with Portuguese terminology
+    *   ✅ Cleaner interface with reduced repetitive content
+    *   ✅ Consistent styling across all helper texts
+    *   ✅ Improved educational value for understanding Portuguese bureaucracy
+    *   ✅ Better user experience with simplified content
+    *   ✅ Updated versioning across all components
+*   **Suggested Updates for Next Version (v1.9):**
+    *   Implement full PDF report generation functionality
+    *   Add user authentication for progress saving
+    *   Integrate real-time legal updates via AI
+    *   Add analytics dashboard for admin users
+    *   Expand red flag detection rules
+    *   Add multi-language support (Portuguese)
+*   **Clone-Ready:** Yes
+
+---
+
+## 🎨 Design Tokens
+
+*   **Font:** System default (`font-sans`)
+*   **Font Size Classes:** `text-sm`, `text-base`, `text-lg`, `text-xl`, `text-2xl`, `text-3xl`
+*   **Radius Size:** `rounded-lg`, `rounded-xl`, `rounded-2xl`
+*   **Primary Color:** `blue-600` (#2563eb)
+*   **Secondary Color:** `slate-700` (#334155)
+*   **Success Color:** `green-600` (#16a34a)
+*   **Warning Color:** `yellow-500` (#eab308)
+*   **Error Color:** `red-600` (#dc2626)
+*   **Base Spacing Scale:** `p-4`, `p-6`, `p-8`, `gap-3`, `gap-4`, `gap-6`
+*   **Shadow Treatment:** `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-xl`
+
+---
+
+## ✅ QA Checklist for v1.8
+
+*   **Enhanced Helper Texts Working:** ✅ NIF and NISS questions include Portuguese terminology
+*   **Cleaner Interface:** ✅ Removed repetitive content and streamlined descriptions
+*   **Consistent Styling:** ✅ Unified helper text design across all questions
+*   **Portuguese Terms Integration:** ✅ Full Portuguese names added for better understanding
+*   **Educational Value Enhanced:** ✅ Better explanations of Portuguese bureaucracy
+*   **User Experience Improved:** ✅ Simplified content reduces cognitive load
+*   **Critical Red Flag Detection Working:** ✅ Red flags display correctly with severity levels
+*   **Enhanced CTA Logic Working:** ✅ Urgent CTAs trigger for scores < 70% OR red flags present
+*   **First 30 Days Checklist:** ✅ Shows for users with less than 90 days in Portugal
+*   **Conditional Logic Working:** ✅ Questions properly skipped based on visa status
+*   **New Visa Types Added:** ✅ D1, Temporary Protection, and EU Family Member options available
+*   **Passive Income Option:** ✅ Available for D7 visa holders with correct scoring
+*   **Mobile UX Improved:** ✅ Scroll-to-top working on question changes
+*   **Scoring Logic Refined:** ✅ Only relevant questions included in score calculation
+*   **Score Explanations Enhanced:** ✅ Shows skip reasons and penalty explanations
+*   **Enhanced Mobile Layout:** ✅ Verified with new conditional components
+*   **Stripe Checkout Works:** ✅ Tested with urgent CTA logic
+*   **Make.com Webhook Updated:** ✅ Confirmed firing with v1.8 field schema including red flags
+*   **Questions Not Required Section:** ✅ Displays skipped questions with explanations
+*   **PDF Download Placeholder:** ✅ Visible with "Coming Soon" indicator
+*   **Real-time User Counter:** ✅ Dynamic counting with Supabase integration
+
+---
+
+## 📈 SEO and Metadata
+
+*   **Meta Title:** "Portugal Setup Check v1.8 – Worktugal"
+*   **Meta Description:** "Check if you're legally allowed to live and work in Portugal. For freelancers, remote workers, and founders. Built by local experts with real-time updates on immigration and tax requirements."
+*   **OG Tags:** Comprehensive Open Graph tags for social sharing
+*   **Favicon:** Custom Worktugal logo
+
+---
+
+## 📝 Content and Copy Rules
+
+*   **Tone:** Clear, plain, warm
+*   **Avoid:** Jargon or marketing speak
+*   **CTAs:** Direct and action-oriented ("Fix My Setup Now", "Book Expert Help", "Get Updates")
+*   **Structure:** Hook (problem identification), Pain (consequences), Clarity (solution)
+*   **Red Flag Messaging:** Urgent but not alarmist, focused on actionable solutions
+
+---
+
+## 📜 Changelog
+
+*   **v1.0:** Initial MVP with basic quiz, score calculation, Stripe integration, and Make.com webhook
+*   **v1.1:** Updated quiz questions for clarity, implemented UTM parameter capture, refined results page CTAs
+*   **v1.2:** Enhanced legal accuracy with 3 new questions, expert-informed scoring penalties, smart urgent CTAs, score explanations, tooltips, and legal disclaimers
+*   **v1.3:** Added conditional logic for visa-specific questions, new visa types (D1, Temporary Protection), passive income option, improved mobile UX, and refined scoring system
+*   **v1.4:** Added EU family member visa support, enhanced conditional logic, expanded visa types, improved scoring accuracy, and better mobile UX
+*   **v1.5:** Added red flag warnings for critical risks, first 30 days checklist, enhanced risk detection, and PDF download placeholder
+*   **v1.6:** Added critical red flag detection system with severity levels, enhanced CTA logic based on score and red flags, improved compliance warnings with real-time risk assessment, updated webhook integration with red flags data, and enhanced PDF download messaging
+*   **v1.7:** Enhanced user experience with improved helper texts for NIF and NISS questions, including Portuguese terminology explanations and cleaner, non-repetitive content for better user understanding
+*   **v1.8:** Enhanced helper texts with Portuguese terminology explanations, cleaner interface with reduced repetitive content, consistent styling across all helper texts, improved educational value, and better user experience with simplified content
+
+---
+
+## ⚠️ Known Issues or Debt
+
+*   **PDF Download Button is Placeholder:** Full PDF generation functionality pending
+*   **Supabase Auth Not Implemented:** Database schema supports user authentication but not currently in use
+*   **Red Flag Detection:** Some rules use placeholder logic and could be enhanced with real-time data
+*   **Multi-language Support:** Currently English only, Portuguese translation planned
+
+---
+
+## 🛠️ Related Tools in the Worktugal Toolkit
+
+*   Portugal Setup Checker (Current tool) - v1.8
+*   Freelancer Tax Estimator (in development)
+*   NHR Eligibility Tool (planned)
+*   PT Banking Compliance Tool (planned)
+
+---
+
+## ➡️ Action Steps for v1.8 Deployment
+
+1.  **✅ Code Updates Complete:** All files updated with v1.8 features
+2.  **✅ Push to GitHub:** Commit and push v1.8 changes
+3.  **✅ Tag Version:** Create Git tag `v1.8`
+4.  **✅ Deploy to Production:** Confirmed live at https://setup.apps.worktugal.com/
+5.  **Announce Launch:** "Our Setup Checker now includes enhanced Portuguese terminology explanations and cleaner interface for better user understanding."
+
+---
+
+## 🚀 Manual GitHub Update Steps
+
+```bash
+# Add all changes
+git add .
+
+# Commit with version message
+git commit -m "feat: v1.8 enhanced helper texts, Portuguese terminology explanations, cleaner interface"
+
+# Push to main branch
+git push origin main
+
+# Create and push version tag
+git tag v1.8
+git push origin v1.8
+```
+
+---
+
+## 🔄 Complete Rebuild Instructions
+
+If you need to rebuild this quiz from scratch, follow these steps:
+
+### Step 1: Project Setup
+```bash
+npm create vite@latest portugal-setup-checker -- --template react-ts
+cd portugal-setup-checker
+npm install @stripe/stripe-js @supabase/supabase-js lucide-react react-router-dom
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+### Step 2: Create Core Files
+1. Copy `src/utils/quizQuestions.ts` - Contains all questions and scoring logic
+2. Copy `src/utils/detectRedFlags.ts` - Red flag detection system
+3. Copy `src/pages/Quiz.tsx` - Main quiz component with navigation
+4. Copy `src/pages/Results.tsx` - Results display with recommendations
+5. Copy `src/components/ProgressBar.tsx` - Progress visualization
+6. Copy `src/utils/supabase.ts` - Database integration
+
+### Step 3: Database Setup
+1. Create Supabase project
+2. Run migration for `quiz_completions` table
+3. Set up RLS policies
+4. Configure environment variables
+
+### Step 4: Integration Setup
+1. Configure Stripe for payment processing
+2. Set up Make.com webhook endpoint
+3. Configure UTM parameter tracking
+4. Test real-time counter functionality
+
+### Step 5: Styling & UX
+1. Apply Tailwind configuration
+2. Implement mobile-first responsive design
+3. Add helper text and modals
+4. Configure scroll-to-top behavior
+
+This documentation provides everything needed to rebuild the quiz system from scratch, including all the conditional logic, scoring rules, and integrations.

@@ -1,0 +1,121 @@
+Here's how I would brief our Bolt.new agent and dev team on the mission, ensuring they understand the vision, the legal context, and the concrete deliverables for the Freelancer Tax Checkup v1.0 — Portugal Compliance Self‑Test:
+
+1. Vision & Goal
+
+Mission: Build Portugal’s first automated self‑assessment tool that lets freelancers and expats instantly see whether they’re compliant with Portuguese tax, social-security and immigration rules, and then routes them to the right professional (accountant or tax lawyer) if they aren’t.
+
+Value: Most freelancers don’t know if they need to register for VAT, whether NISS is required for their residence renewal, or if they must appoint a fiscal representative. They fear fines but hate bureaucracy. The checkup turns their confusion into clarity and gives us a high‑quality lead funnel.
+
+Distinction: We are not giving legal advice; we’re offering a structured self‑check anchored on official rules (Finanças, Segurança Social, AIMA). For actual filings or legal opinions, we hand off to certified professionals.
+
+2. Legal Anchors to Incorporate
+
+Use the latest official sources (as of 4 Nov 2025) to define the questions and scoring logic. Key confirmations from our research:
+
+VAT exemption threshold: In 2025 the small‑business exemption applies up to €15 000 turnover; if turnover exceeds €18 750 in the first half of 2025 you must switch immediately to the normal VAT regime
+caiadoguerreiro.com
+.
+
+NISS & AIMA: AIMA now requires a complete application; missing documents (including NISS) mean outright rejection. For renewals processed after 30 Jun 2025 the applicant must provide both NIF and NISS
+pt.linkedin.com
+. For new residence applications, AIMA rejects any file missing any required document after 28 Apr 2025
+worktugal.com
+.
+
+Fiscal representative: Non‑EU/EEA residents who have tax obligations must appoint a fiscal representative within 15 days; penalties range from €75 to €7 500 for non‑compliance
+getnifportugal.com
+. EU/EEA residents can avoid this if they activate electronic notifications.
+
+Late activity statement: According to PwC Portugal’s 2025 tax guide, failure to file the statement of commencement or changes of activity can result in penalties of €600–7 500
+pwc.pt
+.
+
+Late/incomplete tax returns: Expatica notes that late or incomplete income‑tax returns incur penalties from €200 to €2 500
+expatica.com
+.
+
+Social-security declarations: If you miss a quarterly declaration, the system treats you as having no income and charges the minimum monthly contribution (~€20); many freelancers on Reddit report this situation
+reddit.com
+.
+
+3. Minimum Viable Question Set (v1.0)
+
+Structure the form into five steps and collect email before showing results:
+
+Identity & Residency – name, email, nationality, visa type, NIF (yes/no), NISS (yes/no), lease registered (yes/no), fiscal representative (yes/no).
+
+Activity & Earnings – whether activity is open, CAE/CIRS code, start date, estimated turnover, VAT regime (Article 53 vs. normal).
+
+Tax & Social Security – IRS filing status (previous year filed?), any Finanças letters/fines, quarterly SS declarations up to date?
+
+Urgency & Language – how urgent the case is, preferred language, a brief description of the main worry.
+
+Consent & Result – explicit consent to store data and route to a certified professional; then show a score and send a personalised summary via email.
+
+Each question should be phrased as a self‑check, not advice. Example: “Have you earned more than €15 000 this year?” instead of “Do you need to register for VAT?”
+
+4. Scoring & Routing Logic
+
+Green (Compliant): Activity open, NIF/NISS present, turnover below threshold, declarations up to date, no Finanças letters.
+
+Yellow (Needs Setup): Activity missing or turnover approaching €15 000, VAT not chosen, NISS or fiscal rep missing but no urgent deadlines.
+
+Red (Urgent): Missing NISS/NIF when required, activity opened late, fines/letters received, turnover already above €15 000, Social Security declarations missed.
+
+Green submissions get a thank‑you email and optional educational content. Yellow submissions are invited to connect with an OCC‑certified accountant. Red submissions are routed to a tax lawyer or specialist.
+
+5. Implementation Tasks for the Dev/Claude Agent
+
+Research Verification: Run a fresh search (up to today) across official Portuguese sources (PortaldasFinancas, Segurança Social, AIMA/SEF) and reputable law firms to confirm all thresholds, penalties and procedures cited above. Use at least one official source per rule; if contradictory sources appear, flag them.
+
+Form Rebuild: Using Bolt.new, adapt the existing intake form to the new “Freelancer Tax Checkup v1.0”:
+
+Rename all user‑facing elements to “Freelancer Tax Checkup” or “Portugal Compliance Self‑Test.”
+
+Implement the five‑step flow described above with conditional logic (e.g., show VAT questions only if turnover ≥ €15 000).
+
+Auto‑save progress and provide a progress bar.
+
+Make the copy plain and human (“Have you opened your freelance activity?”).
+
+Ensure mobile‑first design and NIF/NISS/IBAN format validation.
+
+Data Handling & Automations:
+
+Map each form field to Supabase/Airtable; use clear column names (nif, niss, activity_open, turnover_estimate, etc.).
+
+Extend the Make.com scenario to calculate the score (green/yellow/red) and assign appropriate tags in FluentCRM (tax_checkup_user, needs_accountant, needs_lawyer).
+
+Send an immediate personalised email summarising the result and next steps.
+
+Trigger Telegram notifications only for red and high‑urgency cases, including basic info (name, email, score, urgency).
+
+Legal & UX Safeguards:
+
+Include a disclaimer on the form and in emails: “This tool is for informational purposes and does not constitute legal or tax advice.”
+
+Add a consent checkbox and link to our privacy policy explaining data use.
+
+Do not lock results behind a login; collect email at Step 1 or Step 5 and deliver results instantly.
+
+Ongoing Maintenance:
+
+Set a monthly reminder (Make.com/FluentCRM) to re‑run a compliance sweep via our research prompt (e.g., updated VAT thresholds, new AIMA or Finanças rules).
+
+Schedule quarterly check‑ins with our accountant/tax‑lawyer advisors to review the logic and update penalty ranges (e.g., use the €600–7 500 range for failure to start activity
+pwc.pt
+ rather than the old €200–2 500 figure meant for tax returns
+expatica.com
+).
+
+Log all suggestions from user feedback and Reddit/Telegram threads as potential questions or clarifications.
+
+6. Monetization Path
+
+Use the CRM tags to segment users and offer paid services: urgent cases → €49‑€59 consultation with an accountant or lawyer; yellow cases → subscription for quarterly reminders; green cases → upsell affiliate products (insurance, business banking, coworking passes).
+
+Integrate an “expert match” button on the result page, which uses our existing partner network to book a call and collects our referral fee.
+
+Summary for the Dev Team
+
+We’re moving from a broad intake to a targeted diagnostic tool that quickly highlights compliance gaps and monetizable urgency. Follow the research, verify every rule, build a clear five‑step wizard, implement scoring and routing via Make.com/Airtable/FluentCRM, and ensure everything is compliant with GDPR and professional regulations. This is version 1.0—expect monthly iterations as rules change.

@@ -1,0 +1,71 @@
+Plan: Simple Test Automation Hub for Development
+
+Understanding:
+
+You just need a quick way to fire off test submissions with your own email
+Data flows: Form → Supabase → Make.com → Airtable/FluentCRM/Email Octopus/Telegram
+Keep it dead simple, just for you, no fancy stuff
+1. Create Single Test Hub Page
+
+Build one admin-only page at /admin/test-hub that shows all your test scenarios
+Use your existing AdminRoute component (already in your code) - no extra auth needed
+Grid layout similar to your ContactSuccessDemo page but with actual submit buttons
+Each card has: scenario name, description, preset data, and "Send Test" button
+Email field is pre-filled with your Gmail but you can change it before clicking
+2. Test Scenarios to Include
+
+Contact Form scenarios:
+
+Accounting inquiry (accounting purpose)
+Partnership high budget (partnership + €1000+)
+Partnership medium budget (partnership + €500-999)
+Partnership starter budget (partnership + €200-499)
+General info request (info purpose)
+Other inquiry (other purpose)
+Accounting Desk scenarios:
+
+Tax Triage Consult booking
+Tax Compliance Consult booking
+Tax Strategy Consult booking
+Tax Checkup scenarios:
+
+Sample tax checkup submission
+3. Simple Submission Flow
+
+Click "Send Test" button on any scenario
+Shows small modal with pre-filled data
+Email field editable (defaults to vandevo.com@gmail.com)
+"Submit to Database" button creates real record
+Success message shows: "Created! Check your email, Telegram, and Airtable"
+Small "View in Admin" link to see the actual record in your admin panels
+4. Quick Access Features
+
+Add link in AdminNavigation menu: "Test Hub" badge
+No password protection needed - already behind admin auth
+Simple banner at top: "Test Mode - Creates real database records and triggers automations"
+Each scenario shows what it will trigger (Email, Airtable, FluentCRM, Telegram)
+5. Keep It Minimal
+
+No preset configuration files - just hardcode 10-15 common scenarios
+No automated testing framework - just manual click testing
+No cleanup scripts - you have few users, manual cleanup is fine
+No analytics or tracking on test submissions
+Use your existing form submission functions (submitContactRequest, createConsultBooking, etc.)
+Benefits:
+
+One-click testing: Fire off any scenario in 2 clicks instead of filling forms
+Real flow testing: Actually triggers Make.com → Airtable → email → Telegram
+Email debugging: Use your own email to verify templates and content
+Fast iteration: Test changes across all scenarios quickly
+Future-proof: Easy to add new scenarios as you build more features
+No complexity: Just a simple page with buttons, nothing fancy
+Implementation will be minimal:
+
+Single new page component: AdminTestHub.tsx
+Add route to App.tsx (1 line)
+Add link to AdminNavigation (1 line)
+Reuse all your existing submission functions
+No new dependencies, no config files, no infrastructure
+This approach gives you exactly what you need: quick way to test your Make.com automations with real data, using your own email, without overcomplicating anything. As you scale, you can always add more scenarios or features.
+
+Want me to switch to build mode and implement this? Just click the "Implement this plan" button below, and I'll build this simple test hub for you.

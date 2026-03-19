@@ -1,0 +1,465 @@
+{
+  "form_metadata": {
+    "name": "Accounting Compliance Intake Form",
+    "route": "/accounting/intake",
+    "component": "ComprehensiveIntakeForm",
+    "total_steps": 4,
+    "form_type": "Multi-step wizard",
+    "submission_endpoint": "submitAccountingIntake",
+    "success_redirect": "/accounting/intake/success?id={intake.id}",
+    "database_table": "accounting_intakes",
+    "description": "Comprehensive intake questionnaire for Portuguese accounting compliance assessment"
+  },
+  "form_structure": {
+    "step_1": {
+      "title": "Let's start with your details",
+      "subtitle": "We'll use this to contact you about your intake",
+      "label": "Personal & Contact",
+      "validation_required": ["name", "email"],
+      "fields": [
+        {
+          "name": "name",
+          "label": "Full Name",
+          "type": "text",
+          "required": true,
+          "placeholder": "John Doe",
+          "database_field": "name"
+        },
+        {
+          "name": "email",
+          "label": "Email Address",
+          "type": "email",
+          "required": true,
+          "placeholder": "you@example.com",
+          "help_text": "We'll send your intake summary and next steps here",
+          "database_field": "email"
+        },
+        {
+          "name": "phone",
+          "label": "Phone Number (Optional)",
+          "type": "tel",
+          "required": false,
+          "placeholder": "+351 912 345 678",
+          "database_field": "phone"
+        },
+        {
+          "name": "country",
+          "label": "Current Country of Residence",
+          "type": "text",
+          "required": false,
+          "placeholder": "e.g., Portugal, United States, Brazil",
+          "database_field": "country"
+        },
+        {
+          "name": "city",
+          "label": "City in Portugal (if applicable)",
+          "type": "text",
+          "required": false,
+          "placeholder": "e.g., Lisbon, Porto, Albufeira",
+          "database_field": "city"
+        }
+      ]
+    },
+    "step_2": {
+      "title": "Residency & Income",
+      "subtitle": "This determines your tax obligations in Portugal",
+      "label": "Residency & Income",
+      "validation_required": ["residency_status", "days_in_portugal", "income_sources"],
+      "fields": [
+        {
+          "name": "residency_status",
+          "label": "Residency Status in Portugal",
+          "type": "select",
+          "required": true,
+          "options": [
+            {"value": "", "label": "Select your status"},
+            {"value": "tourist", "label": "Tourist / Short Stay"},
+            {"value": "digital_nomad_visa", "label": "Digital Nomad Visa"},
+            {"value": "d7_visa", "label": "D7 Visa Holder"},
+            {"value": "d2_visa", "label": "D2 Visa (Entrepreneur)"},
+            {"value": "resident", "label": "Tax Resident"},
+            {"value": "nhr", "label": "NHR (Non-Habitual Resident)"},
+            {"value": "citizen", "label": "Portuguese Citizen"},
+            {"value": "other", "label": "Other"}
+          ],
+          "database_field": "residency_status"
+        },
+        {
+          "name": "days_in_portugal",
+          "label": "Days in Portugal (per year)",
+          "type": "number",
+          "required": true,
+          "placeholder": "e.g., 183",
+          "min": 0,
+          "max": 365,
+          "help_text": "Important: 183+ days = tax resident (must file in Portugal)",
+          "database_field": "days_in_portugal"
+        },
+        {
+          "name": "income_sources",
+          "label": "Income Sources (select all that apply)",
+          "type": "multi-select-checkbox",
+          "required": true,
+          "min_selections": 1,
+          "display": "grid-2-columns",
+          "options": [
+            {"value": "freelance", "label": "Freelance/Self-employed"},
+            {"value": "employment", "label": "Employment (W2/PAYE)"},
+            {"value": "rental", "label": "Rental Income"},
+            {"value": "investment", "label": "Investment Income"},
+            {"value": "pension", "label": "Pension"},
+            {"value": "business", "label": "Business Ownership"},
+            {"value": "crypto", "label": "Cryptocurrency"},
+            {"value": "other", "label": "Other"}
+          ],
+          "database_field": "income_sources",
+          "database_type": "string[]"
+        }
+      ]
+    },
+    "step_3": {
+      "title": "Tax Registration Status",
+      "subtitle": "Tell us what you already have set up",
+      "label": "Tax Registration",
+      "validation_required": ["has_nif"],
+      "fields": [
+        {
+          "name": "has_nif",
+          "label": "Do you have a Portuguese NIF (tax ID)?",
+          "type": "boolean-buttons",
+          "required": true,
+          "options": [
+            {"value": true, "label": "Yes"},
+            {"value": false, "label": "No"}
+          ],
+          "database_field": "has_nif"
+        },
+        {
+          "name": "nif_number",
+          "label": "NIF Number (optional)",
+          "type": "text",
+          "required": false,
+          "placeholder": "9 digits",
+          "maxLength": 9,
+          "conditional_display": {
+            "depends_on": "has_nif",
+            "show_when": true
+          },
+          "database_field": "nif_number"
+        },
+        {
+          "name": "has_iban",
+          "label": "Do you have a Portuguese IBAN (bank account)?",
+          "type": "boolean-buttons",
+          "required": false,
+          "help_text": "Required for receiving payments and Social Security in Portugal",
+          "options": [
+            {"value": true, "label": "Yes"},
+            {"value": false, "label": "No"}
+          ],
+          "database_field": "has_iban"
+        },
+        {
+          "name": "iban_number",
+          "label": "IBAN Number (optional)",
+          "type": "text",
+          "required": false,
+          "placeholder": "PT50...",
+          "maxLength": 25,
+          "transform": "uppercase",
+          "help_text": "Format: PT50 0000 0000 0000 0000 0000 0 (25 characters)",
+          "conditional_display": {
+            "depends_on": "has_iban",
+            "show_when": true
+          },
+          "database_field": "iban_number"
+        },
+        {
+          "name": "has_vat_number",
+          "label": "Are you VAT registered in Portugal?",
+          "type": "boolean-buttons",
+          "required": false,
+          "help_text": "Required if annual income exceeds €15,000 (2025 threshold)",
+          "options": [
+            {"value": true, "label": "Yes"},
+            {"value": false, "label": "No"}
+          ],
+          "database_field": "has_vat_number"
+        },
+        {
+          "name": "vat_regime",
+          "label": "VAT Regime",
+          "type": "select",
+          "required": false,
+          "conditional_display": {
+            "depends_on": "has_vat_number",
+            "show_when": true
+          },
+          "options": [
+            {"value": "", "label": "Select VAT regime"},
+            {"value": "normal", "label": "Normal Regime (quarterly filing)"},
+            {"value": "simplified", "label": "Simplified Regime"},
+            {"value": "exempt", "label": "Exempt from VAT"},
+            {"value": "not_sure", "label": "Not Sure"}
+          ],
+          "database_field": "vat_regime"
+        },
+        {
+          "name": "has_fiscal_representative",
+          "label": "Do you have a fiscal representative?",
+          "type": "boolean-buttons",
+          "required": false,
+          "help_text": "Required for non-residents earning Portuguese-source income",
+          "options": [
+            {"value": true, "label": "Yes"},
+            {"value": false, "label": "No"}
+          ],
+          "database_field": "has_fiscal_representative"
+        },
+        {
+          "name": "activity_opened",
+          "label": "Have you opened activity at Financas?",
+          "type": "boolean-buttons",
+          "required": false,
+          "help_text": "Required before invoicing or paying Social Security",
+          "options": [
+            {"value": true, "label": "Yes"},
+            {"value": false, "label": "No"}
+          ],
+          "database_field": "activity_opened"
+        }
+      ]
+    },
+    "step_4": {
+      "title": "Final Details",
+      "subtitle": "Help us understand your situation and prioritize your intake",
+      "label": "Background & Urgency",
+      "validation_required": ["previous_accountant", "urgency_level"],
+      "fields": [
+        {
+          "name": "previous_accountant",
+          "label": "Have you worked with an accountant before?",
+          "type": "boolean-buttons",
+          "required": true,
+          "options": [
+            {"value": true, "label": "Yes"},
+            {"value": false, "label": "No"}
+          ],
+          "database_field": "previous_accountant"
+        },
+        {
+          "name": "accounting_software",
+          "label": "Accounting Software Used",
+          "type": "select",
+          "required": false,
+          "options": [
+            {"value": "", "label": "Select if applicable"},
+            {"value": "none", "label": "None / Manual"},
+            {"value": "excel", "label": "Excel / Sheets"},
+            {"value": "invoicexpress", "label": "InvoiceXpress"},
+            {"value": "moloni", "label": "Moloni"},
+            {"value": "sage", "label": "Sage"},
+            {"value": "quickbooks", "label": "QuickBooks"},
+            {"value": "other", "label": "Other"}
+          ],
+          "database_field": "accounting_software"
+        },
+        {
+          "name": "urgency_level",
+          "label": "How urgent is your situation?",
+          "type": "select",
+          "required": true,
+          "default": "medium",
+          "options": [
+            {"value": "low", "label": "Low - General planning"},
+            {"value": "medium", "label": "Medium - Need answer in 1-2 weeks"},
+            {"value": "high", "label": "High - Deadline approaching or penalty risk"}
+          ],
+          "database_field": "urgency_level"
+        },
+        {
+          "name": "biggest_worry",
+          "label": "What's your biggest worry right now?",
+          "type": "textarea",
+          "required": false,
+          "rows": 3,
+          "placeholder": "e.g., Not sure if I'm paying enough Social Security, worried about a letter from Financas...",
+          "database_field": "biggest_worry"
+        },
+        {
+          "name": "special_notes",
+          "label": "Additional Information",
+          "type": "textarea",
+          "required": false,
+          "rows": 4,
+          "placeholder": "Any other details you think we should know...",
+          "database_field": "special_notes"
+        }
+      ],
+      "informational_block": {
+        "type": "info",
+        "icon": "FileCheck",
+        "title": "What happens next?",
+        "items": [
+          "We'll review your intake within 48 hours",
+          "You'll get a written summary of your compliance status",
+          "We'll email you with clear next steps"
+        ]
+      }
+    }
+  },
+  "ui_specifications": {
+    "progress_indicator": {
+      "type": "bar",
+      "segments": 4,
+      "active_color": "blue-400",
+      "inactive_color": "gray-700",
+      "shows_step_number": true
+    },
+    "navigation": {
+      "previous_button": {
+        "label": "Previous",
+        "icon": "ArrowLeft",
+        "visible_on_steps": [2, 3, 4],
+        "variant": "outline"
+      },
+      "next_button": {
+        "label": "Next",
+        "icon": "ArrowRight",
+        "visible_on_steps": [1, 2, 3],
+        "disabled_when": "step not valid"
+      },
+      "submit_button": {
+        "label": "Complete Intake",
+        "label_submitting": "Submitting...",
+        "visible_on_step": 4,
+        "size": "lg",
+        "disabled_when": "step not valid or submitting"
+      }
+    },
+    "styling": {
+      "background": "gray-900",
+      "form_container": "bg-white/[0.03] backdrop-blur-3xl rounded-3xl border border-white/[0.10] shadow-2xl",
+      "text_primary": "white",
+      "text_secondary": "gray-400",
+      "text_help": "gray-500",
+      "button_active": "border-blue-400 bg-blue-400/10 text-white",
+      "button_inactive": "border-white/[0.08] bg-white/[0.02] text-gray-300"
+    },
+    "animations": {
+      "form_entry": {
+        "type": "motion",
+        "initial": {"opacity": 0, "y": 20},
+        "animate": {"opacity": 1, "y": 0}
+      },
+      "step_transition": {
+        "type": "motion",
+        "initial": {"opacity": 0, "x": 20},
+        "animate": {"opacity": 1, "x": 0},
+        "duration": 0.3
+      }
+    }
+  },
+  "validation_rules": {
+    "step_1": {
+      "required_fields": ["name", "email"],
+      "validations": {
+        "email": "Must be valid email format"
+      }
+    },
+    "step_2": {
+      "required_fields": ["residency_status", "days_in_portugal", "income_sources"],
+      "validations": {
+        "days_in_portugal": "Must be between 0 and 365",
+        "income_sources": "Must select at least one income source"
+      }
+    },
+    "step_3": {
+      "required_fields": ["has_nif"],
+      "validations": {
+        "nif_number": "Optional, max 9 digits",
+        "iban_number": "Optional, max 25 characters"
+      }
+    },
+    "step_4": {
+      "required_fields": ["previous_accountant", "urgency_level"],
+      "validations": {}
+    }
+  },
+  "backend_integration": {
+    "submission_function": "submitAccountingIntake",
+    "location": "src/lib/intakes.ts",
+    "database": {
+      "table": "accounting_intakes",
+      "fields_stored": [
+        "name", "email", "phone", "country", "city",
+        "residency_status", "days_in_portugal",
+        "income_sources",
+        "has_nif", "nif_number",
+        "has_niss", "niss_number",
+        "has_iban", "iban_number",
+        "has_vat_number", "vat_regime",
+        "has_fiscal_representative",
+        "has_electronic_notifications",
+        "activity_opened", "activity_code", "activity_date",
+        "previous_accountant", "accounting_software",
+        "urgency_level", "biggest_worry", "special_notes",
+        "files", "status", "tags",
+        "created_at", "updated_at", "claimed_by", "claimed_at"
+      ],
+      "auto_fields": ["id", "created_at", "updated_at"]
+    },
+    "success_handling": {
+      "redirect_to": "/accounting/intake/success",
+      "query_params": ["id"],
+      "includes_intake_id": true
+    },
+    "error_handling": {
+      "displays_alert": true,
+      "alert_variant": "error",
+      "prevents_navigation": true
+    }
+  },
+  "additional_features": {
+    "privacy_notice": {
+      "displayed": true,
+      "location": "below_form",
+      "text": "Your information is securely stored and will only be used to provide you with accounting guidance. We will never share your data with third parties without your consent."
+    },
+    "scroll_behavior": {
+      "on_step_change": "scroll to top with smooth animation"
+    },
+    "error_clearing": {
+      "trigger": "on user input change"
+    }
+  },
+  "typescript_interfaces": {
+    "AccountingIntakeData": {
+      "file": "src/types/intake.ts",
+      "all_fields": [
+        "name", "email", "phone", "country", "city",
+        "residency_status", "days_in_portugal",
+        "income_sources",
+        "has_nif", "nif_number", "has_niss", "niss_number",
+        "has_iban", "iban_number",
+        "has_vat_number", "vat_regime",
+        "has_fiscal_representative", "has_electronic_notifications",
+        "activity_opened", "activity_code", "activity_date",
+        "previous_accountant", "accounting_software",
+        "urgency_level", "biggest_worry", "special_notes",
+        "files", "status", "tags"
+      ]
+    },
+    "AccountingIntake": {
+      "extends": "AccountingIntakeData",
+      "additional_fields": ["id", "created_at", "updated_at", "claimed_by", "claimed_at"]
+    }
+  },
+  "business_logic": {
+    "tax_residency_threshold": "183 days or more in Portugal = tax resident",
+    "vat_threshold": "€15,000 annual income (2025)",
+    "fiscal_representative_requirement": "Non-residents earning Portuguese-source income",
+    "activity_opening_requirement": "Must be done before invoicing or paying Social Security",
+    "response_time": "Intake review within 48 hours"
+  }
+}

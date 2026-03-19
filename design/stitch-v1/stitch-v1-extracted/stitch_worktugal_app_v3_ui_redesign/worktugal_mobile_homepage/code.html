@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Worktugal | Portugal Compliance Risk Diagnostic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#E5E5E4",
+              "tertiary": "#F59E0B",
+              "surface-container-lowest": "#FFFFFF",
+              "surface-container-high": "#E8E8E5",
+              "surface-container-highest": "#E2E3E0",
+              "inverse-on-surface": "#F8FAFC",
+              "on-primary-fixed-variant": "#0F3E2E",
+              "on-background": "#0F172A",
+              "inverse-primary": "#A2D1BA",
+              "surface-container-low": "#F3F4F1",
+              "secondary-fixed-dim": "#9CA3AF",
+              "secondary-container": "#F1F5F9",
+              "primary-container": "#10B981",
+              "on-error-container": "#991B1B",
+              "background": "#FAFAF9",
+              "surface": "#FAFAF9",
+              "tertiary-container": "#FEF3C7",
+              "on-surface-variant": "#64748B",
+              "on-secondary": "#FFFFFF",
+              "on-secondary-container": "#475569",
+              "surface-variant": "#F1F5F9",
+              "outline": "#E2E8F0",
+              "secondary": "#64748B",
+              "primary-fixed-dim": "#8BC6B0",
+              "tertiary-fixed-dim": "#FCD34D",
+              "inverse-surface": "#1E293B",
+              "on-surface": "#0F172A",
+              "on-secondary-fixed-variant": "#374151",
+              "surface-container": "#EDEEEB",
+              "on-primary-fixed": "#002116",
+              "primary-fixed": "#BDE6D7",
+              "on-secondary-fixed": "#111827",
+              "on-error": "#FFFFFF",
+              "tertiary-fixed": "#FDE68A",
+              "on-tertiary": "#FFFFFF",
+              "secondary-fixed": "#D1D5DB",
+              "on-tertiary-container": "#D97706",
+              "error-container": "#FEE2E2",
+              "on-primary-container": "#FFFFFF",
+              "on-tertiary-fixed": "#451A03",
+              "surface-bright": "#FFFFFF",
+              "surface-tint": "#0F3E2E",
+              "on-primary": "#FFFFFF",
+              "primary": "#0F3E2E",
+              "outline-variant": "#CBD5E1",
+              "on-tertiary-fixed-variant": "#92400E",
+              "error": "#EF4444"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      body { font-family: 'Inter', sans-serif; background-color: #FAFAF9; }
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+      .tonal-shift { background-color: #FAFAF9; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface antialiased pb-16">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center justify-between px-6 h-16 w-full max-w-screen-2xl mx-auto">
+<div class="text-[20px] font-black tracking-tighter text-[#0F3E2E]">Worktugal</div>
+<button class="text-[#0F3E2E] active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-12 px-5 space-y-12">
+<!-- Hero Section -->
+<section class="space-y-6">
+<div class="space-y-4">
+<span class="text-[10px] font-bold uppercase tracking-[0.15em] text-primary-container">FREE · 2 MIN · NO SIGNUP</span>
+<h1 class="text-[32px] font-extrabold leading-tight tracking-tight text-primary">
+                    Know your Portugal compliance risk. Before it costs you.
+                </h1>
+<p class="text-[16px] leading-relaxed text-on-surface-variant">
+                    The free diagnostic trusted by 1,000+ remote workers navigating Portugal's tax system.
+                </p>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container font-bold py-4 rounded-lg shadow-sm active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
+                Run your free diagnostic <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</section>
+<!-- Floating Score Card -->
+<section class="relative -mt-4">
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-l-4 border-primary-container">
+<div class="grid grid-cols-2 gap-4 divide-x divide-outline">
+<div class="pr-2">
+<p class="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-1">Setup Score</p>
+<div class="text-[30px] font-black text-primary-container tracking-tighter">74/100</div>
+</div>
+<div class="pl-6">
+<p class="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-1">Exposure Index</p>
+<div class="text-[30px] font-black text-tertiary tracking-tighter">31 pts</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Social Proof -->
+<section class="text-center">
+<div class="text-[11px] font-bold uppercase tracking-[0.2em] text-on-surface-variant/60">
+                1,000+ USERS · VERIFIED · FREE FOREVER
+            </div>
+</section>
+<!-- Features Bento-lite stack -->
+<section class="space-y-4">
+<div class="bg-surface-container rounded-xl p-6 flex gap-4 border-l-4 border-primary">
+<div class="bg-white p-2 rounded-lg h-fit">
+<span class="material-symbols-outlined text-primary" data-icon="analytics">analytics</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-bold text-primary">Dual scoring system</h3>
+<p class="text-[14px] text-on-surface-variant leading-normal">A unique methodology combining Setup Score and Exposure Index.</p>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-6 flex gap-4 border-l-4 border-error">
+<div class="bg-white p-2 rounded-lg h-fit">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-bold text-primary">Trap detection</h3>
+<p class="text-[14px] text-on-surface-variant leading-normal">Our engine identifies hidden compliance traps before they occur.</p>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-6 flex gap-4 border-l-4 border-tertiary">
+<div class="bg-white p-2 rounded-lg h-fit">
+<span class="material-symbols-outlined text-tertiary" data-icon="verified">verified</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-bold text-primary">Verified sources</h3>
+<p class="text-[14px] text-on-surface-variant leading-normal">Data strictly verified against official AT, AIMA, and Segurança Social regulations.</p>
+</div>
+</div>
+</section>
+<!-- CTA Section (Dark) -->
+<section class="bg-primary rounded-xl p-8 space-y-6 text-center overflow-hidden relative">
+<div class="relative z-10 space-y-4">
+<h2 class="text-white text-[24px] font-bold tracking-tight">Ready to check your compliance status?</h2>
+<button class="w-full bg-primary-container text-on-primary-container font-bold py-4 rounded-lg active:scale-95 transition-all">
+                    Get Started Now
+                </button>
+</div>
+<!-- Decorative background pattern -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" data-alt="Abstract emerald green dot pattern background" style="background-image: radial-gradient(#10B981 1px, transparent 1px); background-size: 20px 20px;"></div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary w-full py-12 px-6">
+<div class="flex flex-col items-center gap-6 text-center w-full">
+<div class="text-white font-bold tracking-tight">Worktugal</div>
+<div class="flex gap-6 text-[11px] font-bold uppercase tracking-widest text-slate-400">
+<a class="hover:text-[#10B981] transition-colors" href="#">Compliance</a>
+<a class="hover:text-[#10B981] transition-colors" href="#">Privacy</a>
+<a class="hover:text-[#10B981] transition-colors" href="#">Terms</a>
+</div>
+<p class="text-[11px] uppercase tracking-widest text-slate-400">© 2024 Worktugal Emerald Zenith. All rights reserved.</p>
+</div>
+</footer>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-16 px-4 pb-safe bg-white border-t border-slate-100 shadow-[0_-1px_2px_0_rgba(0,0,0,0.05)] z-50">
+<a class="flex flex-col items-center justify-center text-primary-container scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.15em] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 hover:text-primary-container" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.15em] font-bold">Scores</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 hover:text-primary-container" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.15em] font-bold">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 hover:text-primary-container" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-[0.15em] font-bold">Profile</span>
+</a>
+</nav>
+</body></html>

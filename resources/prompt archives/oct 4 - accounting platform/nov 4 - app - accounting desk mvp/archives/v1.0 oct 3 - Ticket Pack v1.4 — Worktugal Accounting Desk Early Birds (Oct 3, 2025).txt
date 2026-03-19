@@ -1,0 +1,70 @@
+🎟️ Ticket Pack v1.4 — Worktugal Accounting Desk Early Birds (Oct 3, 2025)
+
+Ticket 1 — Swap CTA to Waitlist Modal
+Task: Update the Accounting page hero section.
+Scope: One file only (likely src/pages/accounting/AccountingPage.tsx or equivalent).
+Change CTA button text from "Book This Week" to "Join Early Access".
+On click, open a new modal component AccountingWaitlistForm.tsx (to be built in Ticket 2).
+Keep the rest of the Accounting page unchanged.
+
+Ticket 2 — Create Waitlist Form Component
+Task: Implement AccountingWaitlistForm.tsx in src/components/accounting/.
+Scope: One file only.
+Form fields: name, email (required), country, main_need, urgency, consent (checkbox).
+On submit: insert into Supabase table leads_accounting.
+After success: show confirmation modal with copy:
+"You are on the list. We send booking links as soon as slots open. If your case is urgent, reply to the confirmation email with your main question and NIF status."
+Do not wire Make.com yet (that’s Ticket 3).
+
+Ticket 3 — Add Supabase Insert Helper
+Task: Create src/lib/leads.ts.
+Scope: One file only.
+Function insertLead(data) that inserts {name,email,country,main_need,urgency,consent} into leads_accounting.
+Return the inserted row or error.
+Form from Ticket 2 should import and call insertLead().
+
+Ticket 4 — Add Make.com Webhook Call
+Task: Add a helper in src/lib/make.ts.
+Scope: One file only.
+Function notifyMake(endpoint, payload) that POSTs to VITE_MAKE_BASE + endpoint with JSON body.
+Modify insertLead() so after Supabase insert succeeds, it also calls notifyMake("lead", {id,email}).
+If Make call fails, just log error, do not block success state.
+
+Ticket 5 — Wire Join-Accountants Form
+Task: Update src/pages/join-accountants/JoinAccountantsPage.tsx (or equivalent).
+Scope: One file only.
+Ensure form fields insert into Supabase table accountant_applicants:
+{full_name, email, phone, years_experience, linkedin, cv_url, motivation, occ_number, languages, consent}.
+Status defaults to "new".
+On submit: show success message "Thanks for applying. We’ll review your info and reach out."
+
+Ticket 6 — Add Accountant Applicant Alert
+Task: Extend src/lib/make.ts.
+Scope: One file only.
+Add function notifyMake("applicant", {...fields}).
+After insert into accountant_applicants, trigger notifyMake() with compact applicant data.
+Webhook will send Telegram/email notification.
+Do not block UI on failure, just log error.
+
+Ticket 7 — Hidden Stripe Test Route
+Task: Create /accounting-test page.
+Scope: One file only (src/pages/accounting/AccountingTestPage.tsx).
+Page content: Label "TEST MODE — Internal use only".
+Buttons to trigger checkout for the three Stripe consult products (59, 149, 349).
+All payments must run in test mode with 4242 card.
+After success, Supabase submissions table should update with status "paid".
+Console must remain clean (no errors).
+Do not expose this page in navigation; only accessible by direct URL.
+
+
+✅ End State After Tickets 1–7:
+
+Waitlist funnel working (CTA → modal → Supabase insert → confirmation email via Make).
+
+Accountant intake working (form → Supabase insert → applicant alert).
+
+Stripe consult products validated in hidden test mode.
+
+No live payments yet, Perks flow untouched, app deploys cleanly to Netlify.
+
+⚡ Operator Take: This sequence is surgical. Each ticket is scoped to one file, under 30 lines if possible, and testable in isolation. Once all 7 are shipped, you’ll have a functional Early Birds funnel without risking a repo-wide break.

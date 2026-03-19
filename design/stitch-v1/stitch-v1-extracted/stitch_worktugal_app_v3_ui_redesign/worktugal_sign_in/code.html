@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign In - Worktugal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#F1F5F9",
+              "secondary-container": "#F1F5F9",
+              "tertiary-container": "#FEF3C7",
+              "primary-container": "#10B981",
+              "on-primary-fixed": "#002116",
+              "tertiary-fixed-dim": "#FCD34D",
+              "on-secondary": "#FFFFFF",
+              "surface-container": "#EDEEEB",
+              "on-error-container": "#991B1B",
+              "on-tertiary-fixed-variant": "#92400E",
+              "error": "#EF4444",
+              "tertiary": "#F59E0B",
+              "on-secondary-fixed": "#111827",
+              "on-secondary-container": "#475569",
+              "tertiary-fixed": "#FDE68A",
+              "on-surface-variant": "#64748B",
+              "on-primary-fixed-variant": "#0F3E2E",
+              "surface-container-lowest": "#FFFFFF",
+              "primary": "#0F3E2E",
+              "inverse-primary": "#A2D1BA",
+              "on-tertiary-container": "#D97706",
+              "error-container": "#FEE2E2",
+              "inverse-on-surface": "#F8FAFC",
+              "inverse-surface": "#1E293B",
+              "surface": "#FAFAF9",
+              "on-background": "#0F172A",
+              "surface-container-high": "#E8E8E5",
+              "secondary-fixed": "#D1D5DB",
+              "primary-fixed-dim": "#8BC6B0",
+              "primary-fixed": "#BDE6D7",
+              "on-surface": "#0F172A",
+              "on-primary-container": "#FFFFFF",
+              "on-primary": "#FFFFFF",
+              "surface-container-low": "#F3F4F1",
+              "surface-tint": "#0F3E2E",
+              "surface-container-highest": "#E2E3E0",
+              "on-error": "#FFFFFF",
+              "surface-dim": "#E5E5E4",
+              "outline-variant": "#CBD5E1",
+              "outline": "#E2E8F0",
+              "on-secondary-fixed-variant": "#374151",
+              "surface-bright": "#FFFFFF",
+              "on-tertiary": "#FFFFFF",
+              "on-tertiary-fixed": "#451A03",
+              "background": "#FAFAF9",
+              "secondary-fixed-dim": "#9CA3AF",
+              "secondary": "#64748B"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAF9;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col">
+<!-- Suppressing Shared Nav Components for Transactional Screen -->
+<main class="flex-grow flex flex-col px-6 py-12 max-w-md mx-auto w-full">
+<!-- Logo Section -->
+<div class="flex flex-col items-center mb-10">
+<div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mb-4 shadow-sm">
+<span class="material-symbols-outlined text-primary-container text-2xl" data-icon="shield_with_heart" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+</div>
+<h1 class="text-primary font-black tracking-tighter text-[24px]">Worktugal</h1>
+</div>
+<!-- Header -->
+<div class="text-center mb-10">
+<h2 class="text-on-surface font-bold text-[28px] tracking-tight leading-tight mb-3">Welcome back</h2>
+<p class="text-secondary text-[14px] leading-relaxed max-w-[280px] mx-auto">
+                Sign in to access your compliance history and saved results.
+            </p>
+</div>
+<!-- Social Auth -->
+<div class="space-y-3 mb-8">
+<button class="w-full h-14 rounded-xl border border-outline bg-surface-container-lowest flex items-center justify-center gap-3 active:scale-[0.98] transition-all duration-200">
+<img alt="Google Logo" class="w-5 h-5" data-alt="Google colorful company logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtrUNCipVNYl3W9HCQog4pfMmKoTJeXGXm8yPiINyenG5rw1Uxmfv5a2PZthk8SrDMIqVM9KeALOEj8tDNi4iT9nDCY4RArP6q3Fh2R_s1TL8dMYp6TncNpCcVSA5EQl3ujpvADnOeRic4ew3wunEnC91nf5w1m52V01u_9ByF3RTLi1OlFaEuseNdF2tEYGDbMN-9xC4kETZaWQLCDorsiWo7430B8R93c4XgbyFdENnXX9Ugi9KrI_xr9-BM6mOhhbv4UouA8O3g"/>
+<span class="text-[15px] font-semibold text-on-surface">Continue with Google</span>
+</button>
+<button class="w-full h-14 rounded-xl border border-outline bg-surface-container-lowest flex items-center justify-center gap-3 active:scale-[0.98] transition-all duration-200">
+<span class="material-symbols-outlined text-on-surface text-xl" data-icon="apple" style="font-variation-settings: 'FILL' 1;">ios</span>
+<span class="text-[15px] font-semibold text-on-surface">Continue with Apple</span>
+</button>
+</div>
+<!-- Divider -->
+<div class="relative mb-8 flex items-center">
+<div class="flex-grow border-t border-outline"></div>
+<span class="px-4 text-[11px] font-bold uppercase tracking-[0.15em] text-on-surface-variant bg-surface">or</span>
+<div class="flex-grow border-t border-outline"></div>
+</div>
+<!-- Form -->
+<form class="space-y-4">
+<div class="space-y-1.5">
+<label class="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant ml-1">Email Address</label>
+<div class="relative">
+<input class="w-full h-14 px-4 rounded-xl bg-surface-container-low border-transparent focus:border-primary-container focus:ring-0 text-[15px] placeholder:text-on-surface-variant/50 transition-colors" placeholder="your@email.com" type="email"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] font-bold uppercase tracking-[0.15em] text-on-surface-variant ml-1">Password</label>
+<div class="relative">
+<input class="w-full h-14 px-4 rounded-xl bg-surface-container-low border-transparent focus:border-primary-container focus:ring-0 text-[15px] placeholder:text-on-surface-variant/50 transition-colors" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<div class="pt-4">
+<button class="w-full h-14 bg-primary-container text-on-primary font-bold rounded-xl shadow-sm hover:opacity-90 active:scale-95 transition-all duration-200 text-[16px]" type="submit">
+                    Sign in
+                </button>
+</div>
+</form>
+<!-- Forgot Password -->
+<div class="mt-6 text-center">
+<a class="text-[13px] font-medium text-secondary hover:text-primary-container transition-colors" href="#">Forgot password?</a>
+</div>
+<!-- Sign Up Link -->
+<div class="mt-auto pt-12 text-center pb-6">
+<p class="text-[14px] text-secondary">
+                Don't have an account? 
+                <a class="text-primary-container font-bold ml-1 hover:underline underline-offset-4" href="#">Sign up</a>
+</p>
+</div>
+</main>
+<!-- Visual Accent Element (Sovereign Compliance Bar) -->
+<div class="fixed left-0 top-1/2 -translate-y-1/2 w-1 h-32 bg-primary-container rounded-r-full opacity-20 md:hidden"></div>
+</body></html>

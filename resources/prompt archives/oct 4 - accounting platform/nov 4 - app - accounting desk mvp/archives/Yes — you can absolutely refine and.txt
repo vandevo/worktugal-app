@@ -1,0 +1,121 @@
+Yes — you can absolutely refine and relaunch that landing page right now to start collecting free intakes.
+You already have the structure. You just need to shift the message and promise so it matches your new hybrid model: free intake, data collection, and accountant funnel.
+
+Here’s exactly how to rewrite it, line by line.
+
+Refined Landing Page — Version 2.0 (Lead Collection Mode)
+
+Header
+
+Worktugal Accounting Desk
+Freelancers and expats in Portugal — get your accounting setup checked, for free.
+
+Hero Section
+
+Title:
+
+Got your NIF. Now what?
+
+Subtitle:
+
+Find out if your Portugal accounting setup is complete — and what’s missing — in 2 minutes.
+No accountant needed, no payment, no bureaucracy.
+
+CTA Button:
+
+Start Free Accounting Check
+
+(link this to your Supabase intake form)
+
+What You Get (Bulleted Benefits)
+
+✅ Personalized Report
+You’ll get a summary of what’s ready (NIF, NISS, VAT, etc.) and what’s missing.
+
+✅ Fast Turnaround
+Receive your readiness summary by email within 2 business days.
+
+✅ Trusted Network
+If you need professional help, we’ll connect you to verified English-speaking accountants in Portugal.
+
+✅ 100% Free
+This service is free during early access — no hidden fees or commitments.
+
+Mini Form (Lead Intake)
+
+Headline:
+
+Start your free accounting readiness check
+
+Fields:
+
+Full Name
+
+Email (required)
+
+What’s your current status? (dropdown: “Got NIF”, “Need NISS”, “Freelancer starting activity”, “Received Finanças letter”, “Other”)
+
+How urgent is this? (dropdown: “Very urgent”, “This week”, “Just checking”)
+
+Consent checkbox:
+
+I agree to receive updates about my accounting readiness check and occasional Worktugal updates.
+
+Button:
+
+Get My Free Report
+
+(When they submit, send Supabase record + auto email confirming their summary will be ready in 2 days.)
+
+How It Works (Visual Steps)
+
+Fill the quick form
+Takes under 2 minutes.
+
+We review your info
+You’ll get a personalized readiness summary and checklist by email.
+
+Get connected
+If you need help, we’ll match you with a verified accountant.
+
+Trust Section
+
+Built with Lisbon’s trusted professionals
+Worktugal partners with certified accountants, lawyers, and relocation experts who help freelancers and remote professionals stay compliant in Portugal.
+
+Include your logos (Outsite, Second Home, Fox Iberia, MVA Advogados, etc.)
+
+Final CTA
+
+Start Free Accounting Check
+Get your readiness summary and find out what’s missing — free during early access.
+
+Fine Print (Transparent Disclaimer)
+
+Worktugal Accounting Desk provides informational readiness reports and connects users to certified accountants.
+We don’t file taxes or provide official financial advice.
+Your data is stored securely and will never be sold or shared without consent.
+
+Why this works
+Old Version	Problem	New Version	Fix
+“Talk to an OCC-certified accountant for €59.”	Sounds paid, high-friction, no trust.	“Free readiness check”	Low barrier, collects data instantly.
+“Join early access waitlist.”	Passive, not actionable.	“Start free check now.”	Converts curiosity into submission.
+“Get booking invite when slots open.”	Suggests limited capacity, slow.	“Receive report in 2 business days.”	Concrete, believable, easy.
+Next Steps
+
+Update the live copy with the version above (replace all €59 wording with free check language).
+
+Connect the form to Supabase (store name, email, tags, status).
+
+In Make.com, auto-send:
+
+A confirmation email: “We received your submission.”
+
+A 2-day follow-up email: “Your readiness summary is ready.”
+
+Collect 100 free intakes before introducing any paid offer.
+
+Those become your first supply pool for accountants.
+
+⚡ Operator Take
+Yes, relaunch it. The revised page turns curiosity into real data with zero risk. You’ll build the user base quietly, prove demand, and have a ready pipeline to sell to accountants later — without promising what you can’t yet deliver.

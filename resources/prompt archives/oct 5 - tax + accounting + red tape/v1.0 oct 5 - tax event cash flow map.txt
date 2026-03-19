@@ -1,0 +1,85 @@
+Tax-Event & Cashflow Map – Worktugal Sovereign Stack
+[CLIENTS]
+   ↓ (EU / US / Global Payments via Stripe)
+[STRIPE PAYMENTS EUROPE LTD]
+   - Registered to: Remote Worktugal
+   - NIF: 296971260
+   - Currency settlement: EUR (Wise BE), CHF (Revolut LT), USD (Wise US)
+
+   ↓ (automatic payout)
+[WISE BUSINESS – BELGIUM]
+   - IBAN: BE31 9054 4895 9655
+   - Jurisdiction: Belgium (EU Payment Institution)
+   - Funds held offshore, not yet taxed in PT
+   Tax event: none (still foreign business income)
+
+   ↓ (optional transfers)
+   ├─► [REVOLUT PERSONAL – LITHUANIA]
+   │     - Used for personal liquidity
+   │     - Trigger: **personal withdrawal → Portuguese IRS declaration**
+   │     Tax event: YES (declare as Category B income)
+   │
+   └─► [ACTIVOBANK – PORTUGAL]
+         - Local visibility and proof of residence
+         - Use for bills, rent, or AIMA proof
+         Tax event: already counted when you withdraw from Wise
+
+[XOLO GO OÜ – ESTONIA]
+   - Contractual invoicing partner
+   - Issues client invoices under EE VAT EE102156920
+   - Retains 5 % service fee, 95 % sent to Stripe/Wise
+   Tax event: none in EE (transparent partnership); declared in PT later
+
+[DELAWARE LLC (optional)]
+   - For U.S. marketplace or SaaS income
+   - Managed outside U.S. → no U.S. tax
+   - Transfers revenue to Wise BE
+   Tax event: only when repatriated to PT
+
+[CRYPTO ASSETS – LEDGER / BINANCE]
+   - Gains taxed only if sold < 365 days (28 %)
+   - Held > 365 days → exempt
+   - Keep CSV proof of acquisition and sale dates
+
+Tax-Event Logic
+Action	Jurisdiction	Tax Trigger	What To Do
+Client pays invoice via Stripe	EE / US / Global	No	Keep Stripe receipts
+Stripe pays Wise Business	BE	No	Maintain payout logs
+You move funds Wise → Revolut	BE → LT	No	Offshore transfer
+You move funds Wise → Activo	BE → PT	Yes	Declare as personal income
+You keep crypto > 365 days	–	No	Document hold period
+You sell crypto < 365 days	PT	Yes (28 %)	Report in IRS
+Delaware LLC profit retained abroad	US	No	Report as foreign income only if distributed
+Operating Rules
+
+Document every border. Keep monthly exports from Stripe, Wise, and Revolut.
+
+Separate business vs. personal accounts. Wise = business, Revolut = personal.
+
+Only declare what crosses into Portugal. Everything held abroad remains foreign-source until withdrawn.
+
+Annual IRS filing: Category B, simplified regime, 75 % of receipts taxable base.
+
+Crypto: show acquisition proof + Ledger screenshots if questioned.
+
+Compliance folder:
+/Financas – IRS, receipts
+/Wise – payouts
+/Stripe – monthly CSVs
+/Crypto – trades, wallet proofs
+
+Visual Diagram Guide
+
+If you want to build the actual image:
+
+Shape nodes by jurisdiction color:
+
+Blue = Portugal (residency)
+
+Green = EU offshore (Wise BE, Revolut LT, Xolo EE)
+
+Grey = Neutral / Crypto / US
+
+Use solid arrows for cash transfers, dotted arrows for legal oversight.
+
+Label tax-event nodes in red circles (Revolut → PT, Activo → PT, crypto < 365 days).

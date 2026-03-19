@@ -1,0 +1,52 @@
+Prompt B, Agency Docs QA and Arrival Desk, deep research
+
+You are my senior market analyst. Objective, validate and spec a B2B product called Agency Docs QA and Arrival Desk for Dutch and German staffing agencies that hire EU workers from Portugal and Spain. Deliver a concise, source-linked brief with tables.
+
+Scope and constraints
+
+Timeline window, 2024 to today. Prioritize the Netherlands and Germany in English and local languages where needed.
+
+Trust sources, agency sites with recruiter pages, Glassdoor reviews, candidate forums, housing complaints, transport instructions, planner job posts, works councils, ABU or NBBU guidelines, EU labor mobility reports.
+
+Exclude generic blogs. Flag claims without links.
+
+Tasks
+A. Target agency list
+• List 15 staffing agencies that place logistics, warehousing, or light industry workers into NL or DE. Include HireAbroad, HOBIJ, ID Logistics ecosystem, OTTO, Timing, DSV partners, Randstad Inhouse. Table fields, website, vertical, intake process summary, whether they use portals, housing policy signal, and any mention of arrival support.
+
+B. Failure points and cost
+• Extract 20 dated complaints or reviews about intake chaos, document rejection, housing miscoordination, late arrivals, no-shows, and day one failures. Include short quotes, dates, and links.
+• Cite any estimates or credible mentions that quantify no-show or early churn costs.
+
+C. Existing substitutes
+• Identify 8 third-party services or tools used for candidate intake or arrival coordination. For each, describe features, price if public, and where they fail for blue collar flows.
+
+D. Service definition
+• Define the minimum credible backbone for a 48 hour file review and planner handoff, ID verification, right to work, address or housing confirmation, travel plan capture, day one checklist, WhatsApp reminder cadence.
+• Provide a weekly status report schema that planners would accept.
+
+E. Pricing and unit economics
+• Propose two pricing models based on found data or clear assumptions.
+Model 1 retainer, 990 per month for up to 15 active candidates then 60 per extra.
+Model 2 pay per show-up, 120 per candidate who arrives and checks in on day one.
+• Estimate savings from a single avoided no-show or a 2 day faster start, and show how that justifies price.
+
+F. Pilot and outreach plan
+• Draft a 14-day pilot with pass or fail gates. Success metric, 80 percent of candidates cleared within SLA and at least one planner testimonial.
+• Provide a 7-day outreach plan, LinkedIn recruiter titles to target, sample DM script, and one short case post format using a real anonymized example.
+
+Output format
+
+Executive summary, 5 lines.
+
+Agency table and process notes.
+
+Failure quotes and links.
+
+Service backbone and weekly report schema.
+
+Pricing models with a one-line ROI logic.
+
+Pilot plan and outreach scripts.
+
+Sources, numbered with dates.

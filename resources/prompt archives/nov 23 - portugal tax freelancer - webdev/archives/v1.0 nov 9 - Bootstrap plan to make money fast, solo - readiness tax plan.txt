@@ -1,0 +1,80 @@
+Bootstrap plan to make money fast, solo
+
+1. Narrow the product
+
+Start with one lane, Portugal freelancer basics.
+Use your existing 3-minute Compliance Checkup as the entry, then sell a paid Readiness Report and optional human review.
+
+Free, Compliance Checkup. Captures email and key facts, returns a score and a to-do list.
+Paid, Readiness Report, €39, PDF plus dashboard, covers NIF, Abertura de Atividade, IVA threshold, quarterly IRS payments, Segurança Social start, receipts rules, penalties and deadlines.
+Paid add-on, Accountant Review, €79 to €149, asynchronous review of the Readiness Report and documents, 48 to 72 hour turnaround, you keep a margin.
+
+2. Keep the stack tiny
+
+Frontend, Bolt.new React app at app.worktugal.com.
+Backend, Supabase for Auth and Postgres, RLS on user_id.
+Payments, Stripe Checkout, one time for the report, separate product for the review.
+Automation, Make.com to write Stripe events into Supabase, generate a PDF, send SES email, open an Airtable row when a review is purchased.
+Intel, Parallel Find All for source harvesting, not for advice, Perplexity for citation checks, store citations with each rule.
+
+3. Ship only what proves value
+
+MVP screens, Checkup, Paywall, Receipt, Report page, Review upload, Status page.
+PDF template, 4 pages, summary, score, exact next steps, penalties and due dates, citations.
+Schema, users, reports, report_items, citations, orders, reviews.
+
+Minimal SQL,
+reports, id, user_id, score, risk_level, created_at.
+report_items, id, report_id, code, title, body, severity, citation_id.
+citations, id, url, source_type, retrieved_at, snippet.
+orders, id, user_id, stripe_id, product, amount, status.
+reviews, id, report_id, status, assignee, notes.
+
+4. Price and offer
+
+Readiness Report, €39, includes one update within 30 days.
+Accountant Review, €79 early bird, rises to €149 when you have two accountants.
+Bundle, €99, report plus review, limited to first 50 buyers.
+
+5. Acquisition this month
+
+LinkedIn and Reddit, publish a plain English checklist, link to free Checkup.
+Telegram group, post the penalty table excerpt and a link to the Checkup.
+Partner page, add two visible review slots per week, visible scarcity.
+Lead magnet, “Portugal Freelancer Starter Kit”, email gated, feeds FluentCRM.
+
+6. Proof and retention
+
+Turn the Report into a living page, let users mark tasks done, send one nudge per week.
+Ask for a one-line testimonial after review, show initials and city.
+Add an upsell later, Quarterly VAT Reminder, €19 per quarter, email plus checklist.
+
+7. Guardrails
+
+Never claim legal advice, always show citations and dates.
+Hard code all numeric rules in your edge functions, no AI math.
+Show a freshness badge per rule, green within 6 months, amber older, red unknown.
+
+8. Ten day build plan
+
+Day 1 to 2, schema, Supabase tables, Stripe products, Make webhooks.
+Day 3 to 4, Checkup form and score logic, paywall, receipt page.
+Day 5, PDF generator, SES email, Report page with citations.
+Day 6, review intake, file upload, Airtable queue, status page.
+Day 7, seed twenty rules with citations, run tests on three real cases.
+Day 8, landing copy and screenshots, FluentCRM welcome, two emails.
+Day 9, LinkedIn and Reddit posts, Telegram announcement, partner page.
+Day 10, ship bundle offer, collect first five paid reviews, publish two testimonials.
+
+9. Metrics to watch
+
+Checkup to paid report conversion, target 8 to 12 percent.
+Report to review conversion, target 25 to 40 percent.
+Refunds under 5 percent.
+Time per review under 30 minutes.
+
+Operator Take
+Sell the Readiness Report now, bolt on human review, keep AI as research only.
+
+Next Move
+Create two Stripe products, Readiness Report at €39 and Accountant Review at €79, wire the Make.com Stripe webhook to insert into Supabase orders and trigger SES with a placeholder PDF.

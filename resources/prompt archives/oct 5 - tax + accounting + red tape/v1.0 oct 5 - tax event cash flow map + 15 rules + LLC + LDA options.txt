@@ -1,0 +1,234 @@
+Tax-Event & Cashflow Map – Worktugal Sovereign Stack
+[CLIENTS]
+   ↓ (EU / US / Global Payments via Stripe)
+[STRIPE PAYMENTS EUROPE LTD]
+   - Registered to: Remote Worktugal
+   - NIF: 296971260
+   - Currency settlement: EUR (Wise BE), CHF (Revolut LT), USD (Wise US)
+
+   ↓ (automatic payout)
+[WISE BUSINESS – BELGIUM]
+   - IBAN: BE31 9054 4895 9655
+   - Jurisdiction: Belgium (EU Payment Institution)
+   - Funds held offshore, not yet taxed in PT
+   Tax event: none (still foreign business income)
+
+   ↓ (optional transfers)
+   ├─► [REVOLUT PERSONAL – LITHUANIA]
+   │     - Used for personal liquidity
+   │     - Trigger: **personal withdrawal → Portuguese IRS declaration**
+   │     Tax event: YES (declare as Category B income)
+   │
+   └─► [ACTIVOBANK – PORTUGAL]
+         - Local visibility and proof of residence
+         - Use for bills, rent, or AIMA proof
+         Tax event: already counted when you withdraw from Wise
+
+[XOLO GO OÜ – ESTONIA]
+   - Contractual invoicing partner
+   - Issues client invoices under EE VAT EE102156920
+   - Retains 5 % service fee, 95 % sent to Stripe/Wise
+   Tax event: none in EE (transparent partnership); declared in PT later
+
+[DELAWARE LLC (optional)]
+   - For U.S. marketplace or SaaS income
+   - Managed outside U.S. → no U.S. tax
+   - Transfers revenue to Wise BE
+   Tax event: only when repatriated to PT
+
+[CRYPTO ASSETS – LEDGER / BINANCE]
+   - Gains taxed only if sold < 365 days (28 %)
+   - Held > 365 days → exempt
+   - Keep CSV proof of acquisition and sale dates
+
+Tax-Event Logic
+Action	Jurisdiction	Tax Trigger	What To Do
+Client pays invoice via Stripe	EE / US / Global	No	Keep Stripe receipts
+Stripe pays Wise Business	BE	No	Maintain payout logs
+You move funds Wise → Revolut	BE → LT	No	Offshore transfer
+You move funds Wise → Activo	BE → PT	Yes	Declare as personal income
+You keep crypto > 365 days	–	No	Document hold period
+You sell crypto < 365 days	PT	Yes (28 %)	Report in IRS
+Delaware LLC profit retained abroad	US	No	Report as foreign income only if distributed
+Operating Rules
+
+Document every border. Keep monthly exports from Stripe, Wise, and Revolut.
+
+Separate business vs. personal accounts. Wise = business, Revolut = personal.
+
+Only declare what crosses into Portugal. Everything held abroad remains foreign-source until withdrawn.
+
+Annual IRS filing: Category B, simplified regime, 75 % of receipts taxable base.
+
+Crypto: show acquisition proof + Ledger screenshots if questioned.
+
+Compliance folder:
+/Financas – IRS, receipts
+/Wise – payouts
+/Stripe – monthly CSVs
+/Crypto – trades, wallet proofs
+
+Visual Diagram Guide
+
+If you want to build the actual image:
+
+Shape nodes by jurisdiction color:
+
+Blue = Portugal (residency)
+
+Green = EU offshore (Wise BE, Revolut LT, Xolo EE)
+
+Grey = Neutral / Crypto / US
+
+Use solid arrows for cash transfers, dotted arrows for legal oversight.
+
+Label tax-event nodes in red circles (Revolut → PT, Activo → PT, crypto < 365 days).
+
+1. Never mix personal and business money
+
+Don’t pay your rent, groceries, or gym directly from Wise Business or Xolo payouts.
+
+Keep Revolut (personal) and Wise (business) completely separate.
+
+Why: co-mingled funds let tax authorities treat all your offshore cash as personal income and kill your low-tax defense.
+
+2. Don’t fake residency or substance
+
+Don’t claim your business is “based in Estonia or Delaware” if you manage it daily from Portugal.
+
+Portugal can invoke “center of effective management” rules and tax all worldwide profits.
+
+If you want foreign substance, create small anchors: Estonian invoice trail, U.S. digital services receipts, or proof of client jurisdiction.
+
+3. Never receive large crypto-to-bank transfers without paperwork
+
+If you sell crypto, move the proceeds through an exchange account under your name, with transaction history attached.
+
+Don’t send directly from Ledger to Activo or Revolut.
+
+Anything over €10 000 without an audit trail can be flagged as AML or undeclared income.
+
+4. Don’t ignore annual filings
+
+Even if zero income, always file IRS (Portugal) and Segurança Social declarations on time.
+
+Skipping a year breaks your “active taxpayer” record, and AIMA can deny renewal citing “fiscal inactivity”.
+
+5. Don’t list the wrong address
+
+For Finanças, Segurança Social, and AIMA, keep your Portuguese address (R. Sabino de Sousa).
+
+For business, list Xolo’s Estonian address only on invoices and Stripe.
+
+Mixing these confuses both systems and can freeze your tax ID for review.
+
+6. Never use undeclared platforms or shadow processors
+
+Avoid Payoneer, Skrill, or unregistered crypto gateways that skip PSD2 licensing.
+
+Stick to Stripe, Wise, Revolut, and bank-regulated rails.
+
+7. Don’t trigger permanent establishment
+
+If you open an office, hire staff, or lease space under your foreign entity name in Portugal, Finanças can re-tax all offshore income locally.
+
+Keep Portuguese activities personal, not corporate.
+
+8. Don’t brag publicly about tax avoidance
+
+Never post content implying you “don’t pay taxes in Portugal.”
+
+Authorities now cross-reference social media, invoices, and residence permits.
+
+Keep your positioning as “digital exporter operating within EU rules.”
+
+9. Don’t run payroll or issue payslips to yourself through Xolo
+
+That converts you into an employer under Estonian law and kills the light-structure advantage.
+
+Always use contractor invoices, not salary.
+
+10. Don’t ignore compliance signals
+
+If Finanças or Stripe sends a verification request, answer within 7 days with clear PDFs.
+
+Delays cause automatic freezes, not fines.
+
+11. Don’t use Binance or unverified exchanges for fiat off-ramp
+
+Convert only via EU-licensed exchanges (Kraken, Coinbase EU).
+
+Send crypto proceeds to Wise or Revolut only after conversion and KYC proof.
+
+12. Don’t let your residency card expire
+
+Renew at least 90 days before expiry (22 Sep 2026).
+
+Keep IRS and NISS proof ready; AIMA refuses renewals if you show fiscal gaps.
+
+13. Don’t scale too fast without structure
+
+If your gross receipts exceed ~€200 000/year, the simplified regime ends.
+
+Have an accountant ready to register an LDA or move into organized accounting immediately.
+
+14. Don’t assume secrecy protects you
+
+Every EU institution (Finanças, Wise, Revolut, Stripe, Xolo) exchanges data under DAC7 and CRS.
+
+Your safety comes from compliance and clarity, not opacity.
+
+15. Never treat advisors as enemies
+
+Find one crypto-aware accountant and one small-firm tax lawyer.
+
+Tell them the truth privately; make them your shield, not your obstacle.
+
+1. When to start an LDA (Portugal)
+
+Use-case: You outgrow the simplified regime or need a local corporate face.
+
+Trigger	What it means	Why it matters
+€200 000 + annual revenue	Finanças forces organized accounting.	Category B simplified ends; accountant costs become similar to company accounting.
+Hiring or subcontracting locally	Paying others in Portugal.	You need payroll and liability protection.
+Portuguese corporate clients	They need invoices with IVA and company NIPC.	LDA gives you that instantly.
+Applying for grants or credit	Government or EU funds.	Only companies qualify.
+
+Pros:
+
+Local credibility, access to contracts, deductible VAT, limited liability.
+Cons:
+
+21 % + municipal corporate tax, quarterly IVA, accountant ~€150-250/month, harder closure.
+
+Best moment: once you’re doing €15 000 +/month in consistent revenue from Portugal-based clients or your accountant says the simplified regime margin is costing you more than the corporate rate.
+
+2. When to form a Delaware LLC
+
+Use-case: You want a global front for U.S. payments, software, or IP licensing.
+
+Trigger	What it means	Why it matters
+Recurring U.S. clients or platforms	Stripe Atlas, Gumroad, Patreon, Shopify.	Some require a U.S. entity and EIN.
+Digital product scale or investors	You want to separate IP or brand.	Easier to license, partner, or sell later.
+Annual receipts > €50 000 outside EU	Big foreign exposure.	LLC shields you from double-tax inquiries.
+
+Pros:
+
+Instant credibility with U.S. partners, easy setup, no U.S. tax if income is foreign-sourced.
+Cons:
+
+Annual Delaware franchise tax (~$300-400) + registered agent (~$100).
+
+Must prove management is outside the U.S. and declare income in Portugal when withdrawn.
+
+Best moment: when you start processing > €5 000/month from U.S. clients or SaaS/affiliate channels and need a neutral brand to handle them.
+
+3. Strategic order
+
+Keep current setup (Portugal + Xolo + Wise + Stripe) until you hit €100 000+ yearly turnover.
+
+Add Delaware LLC for U.S. visibility and payment rails once you see stable American or global clients.
+
+Create Unipessoal LDA only when Portuguese obligations or local hiring make it unavoidable.
+
+That sequence keeps taxes low, bureaucracy light, and optionality high.

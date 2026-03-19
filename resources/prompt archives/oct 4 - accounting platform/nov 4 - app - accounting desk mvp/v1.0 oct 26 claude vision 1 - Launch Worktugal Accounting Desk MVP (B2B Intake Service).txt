@@ -1,0 +1,79 @@
+Plan: Launch Worktugal Accounting Desk MVP (B2B Intake Service)
+Based on your extensive research, strategic documents, and existing codebase, here's the execution plan to launch your Accounting Desk as a B2B intake service targeting Portuguese accountants:
+
+1. Database Schema & Backend Infrastructure
+
+Create accounting_intakes table with comprehensive compliance fields (NIF, NISS, IBAN, VAT regime, fiscal representative status, activity codes, residence proof)
+Create accountants table for B2B customers with credits system and subscription tracking
+Create intake_claims table to track when accountants claim/unlock leads
+Add indexes for email, status, country, and accountant_id for fast queries
+Implement RLS policies: users can submit anonymously, accountants can view claimed intakes only
+Add JSONB field for flexible metadata storage (urgency flags, document URLs, compliance alerts)
+2. Intake Form Enhancement (User-Facing)
+
+Expand existing IntakeForm component to match your Ultimate Intake spec from the documents
+Add document upload fields: passport, NIF document, IBAN screenshot, lease agreement, NISS certificate
+Implement real-time IBAN validation (PT50 format, 25 characters)
+Add VAT threshold calculator with 2025 rules (15,000 euro threshold)
+Include AIMA appointment tracker with deadline warnings
+Add fiscal representative status checker with Article 151 PTC compliance
+Implement mobile-first file upload with drag-drop and preview
+Auto-save progress to localStorage to prevent data loss
+3. Accountant Dashboard (B2B Customer Portal)
+
+Create authenticated accountant view with login/signup flow
+Build intake list table with filters: status (ready, missing_docs, urgent), country, date range
+Display anonymized preview: tags, city, urgency, compliance flags only
+Add "Unlock & Claim" button that consumes 1 credit and reveals full contact info
+Implement private intake link generator for accountants' existing clients
+Show credits remaining and top-up prompt
+Add weekly digest email automation via Make.com
+Export functionality: CSV/PDF download of claimed intakes
+4. Stripe Payment Integration (Hybrid B2B Model)
+
+Create Stripe product: "Starter Plan" at 49 EUR/month recurring
+Implement metered billing: 15 EUR per additional claimed intake beyond 10
+Add one-time payment option: "Pay Per Intake" at 39 EUR per unlock
+Build Stripe checkout flow for accountant signup
+Implement webhook handler for subscription events and credit top-ups
+Display billing history and invoice downloads
+Add cancellation flow with retention messaging
+5. Compliance & Automation Layer
+
+Build AI-powered intake summary generator using OpenAI/Claude API
+Create automated compliance checklist: NIF verification, NISS requirement check, VAT regime validation, fiscal rep alert
+Implement real-time validation: IBAN format, NIF 9-digit format, lease Modelo 2 requirement
+Add document OCR for passport and NIF cross-validation
+Create automated email templates: user confirmation, readiness summary, accountant notification
+Build Make.com scenarios: new intake webhook, accountant digest, payment confirmation
+6. Marketing & Go-To-Market Assets
+
+Update homepage hero to feature Accounting Desk as primary offering
+Create dedicated landing page at /accounting-intake with clear B2B value proposition
+Build accountant-specific sales page: "Stop WhatsApp Chaos - Get Clean Intakes in 48 Hours"
+Add social proof section with OCC certification badges
+Create case study template: "Accountant saves 3 hours per client"
+Implement email drip campaign for accountant onboarding
+Add LinkedIn outreach scripts targeting OCC members
+Create demo video showing intake-to-handoff workflow
+7. Pilot Launch & Validation
+
+Recruit 2-3 small OCC-certified accountants from Contabilista.pt directory
+Offer pilot pricing: 99 EUR for 14 days, 10 intakes included, full refund if SLA missed
+Set strict success criteria: 1 paying accountant within 7 days, 6 clean handoffs within 14 days, 1 renewal signal
+Manually process first 20 intakes to validate workflow and gather feedback
+Document average time savings per intake
+Collect testimonials and case study data
+Iterate on compliance checklist based on accountant feedback
+8. Spain Expansion Preparation
+
+Duplicate intake schema with country flag field
+Map Portuguese fields to Spanish equivalents: NIF to NIE, NISS to Social Security Number, CAE to IAE
+Translate form labels to Spanish with EN/ES toggle
+Identify 2-3 Spanish asesor partners via LinkedIn and immigration forums
+Clone Supabase functions with Spain-specific logic
+Create Spain subdomain or route: spain.worktugal.com or /es/accounting
+Prepare Spanish pricing in EUR with localized copy
+Summary & Benefits
+
+This plan executes your "Money OS" strategy by building the intake choke point that every accountant needs but no one has productized. You'll start with Portugal proof (2-3 paying accountants), then scale to Spain using the same infrastructure. The two-lane model (free user intakes + paid accountant access) creates compounding supply while charging the side with budget and recurring need. This is infrastructure, not a feature - once accountants depend on your clean intake flow, switching costs become prohibitive. Revenue potential: 5 accountants at 149 EUR/month + usage = 1,000+ EUR MRR within 60 days, scalable to 7,000+ EUR/month within 9 months by adding white-label and Spain.

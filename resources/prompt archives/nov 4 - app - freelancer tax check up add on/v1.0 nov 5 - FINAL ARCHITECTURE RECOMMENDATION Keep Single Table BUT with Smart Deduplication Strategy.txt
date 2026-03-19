@@ -1,0 +1,437 @@
+FINAL ARCHITECTURE RECOMMENDATION: Keep Single Table BUT with Smart Deduplication Strategy
+
+Why I'm Changing My Recommendation:
+Your B2B Lead Monetization Requirements:
+
+Accountants need to see FULL lead history (all checkup resubmissions = engagement score)
+Commission tracking requires single source of truth per lead
+Lead claiming by accountants needs unified view
+User dashboard showing "all my compliance checks over time" needs time-series data
+Prevent selling same lead twice to different accountants
+Your Current Single-Table Approach is Actually CORRECT - here's how to fix the duplicate/Make.com issues:
+
+Plan: Production-Ready Single Table Architecture with Deduplication
+1. Database Schema - Enhanced accounting_intakes Table
+Keep your current merged table BUT add these critical fields:
+
+
+-- Add to existing accounting_intakes table
+ALTER TABLE accounting_intakes
+  ADD COLUMN IF NOT EXISTS user_id uuid REFERENCES auth.users(id),
+  ADD COLUMN IF NOT EXISTS lead_email_hash text GENERATED ALWAYS AS (md5(lower(trim(email)))) STORED,
+  ADD COLUMN IF NOT EXISTS is_latest_submission boolean DEFAULT true,
+  ADD COLUMN IF NOT EXISTS submission_sequence integer DEFAULT 1,
+  ADD COLUMN IF NOT EXISTS previous_submission_id bigint REFERENCES accounting_intakes(id),
+  ADD COLUMN IF NOT EXISTS first_submission_at timestamptz DEFAULT now();
+
+-- Create composite unique index to prevent exact duplicate submissions within 1 hour
+CREATE UNIQUE INDEX idx_accounting_intakes_duplicate_prevention 
+  ON accounting_intakes(lead_email_hash, source_type) 
+  WHERE created_at > now() - interval '1 hour';
+
+-- Index for "latest submission per email" queries
+CREATE INDEX idx_accounting_intakes_latest 
+  ON accounting_intakes(lead_email_hash, is_latest_submission) 
+  WHERE is_latest_submission = true;
+
+-- Index for lead engagement tracking
+CREATE INDEX idx_accounting_intakes_submission_sequence 
+  ON accounting_intakes(lead_email_hash, submission_sequence DESC);
+What this solves:
+
+lead_email_hash: Normalized email matching (case-insensitive, trim whitespace)
+is_latest_submission: Flag for "current" record per email (for Make.com)
+submission_sequence: Track engagement (1st checkup, 2nd checkup, etc.)
+previous_submission_id: Linked list of submissions for history tracking
+first_submission_at: Lead acquisition date (never changes)
+Duplicate prevention index: Prevents accidental double-submit within 1 hour
+2. Submission Handler with Smart Deduplication Logic
+Updated submitTaxCheckup() function:
+
+
+export async function submitTaxCheckup(formData: TaxCheckupFormData) {
+  const scores = calculateComplianceScore(formData);
+  const emailHash = formData.email.toLowerCase().trim();
+
+  // Step 1: Check for existing submissions from this email
+  const { data: existingSubmissions, error: queryError } = await supabase
+    .from('accounting_intakes')
+    .select('id, submission_sequence, created_at, source_type')
+    .eq('email', emailHash)
+    .order('created_at', { ascending: false })
+    .limit(1);
+
+  if (queryError) {
+    console.error('Error checking existing submissions:', queryError);
+  }
+
+  const latestSubmission = existingSubmissions?.[0];
+  const isResubmission = !!latestSubmission;
+  const nextSequence = isResubmission ? (latestSubmission.submission_sequence || 1) + 1 : 1;
+
+  // Step 2: If resubmitting, mark previous submissions as not latest
+  if (isResubmission) {
+    await supabase
+      .from('accounting_intakes')
+      .update({ is_latest_submission: false })
+      .eq('lead_email_hash', emailHash);
+  }
+
+  // Step 3: Insert new submission
+  const { data: intake, error } = await supabase
+    .from('accounting_intakes')
+    .insert([{
+      name: formData.name || latestSubmission?.name || '',
+      email: formData.email,
+      phone: formData.phone || latestSubmission?.phone || null,
+      work_type: formData.work_type,
+      months_in_portugal: formData.months_in_portugal,
+      residency_status: formData.residency_status,
+      has_nif: formData.has_nif,
+      activity_opened: formData.activity_opened,
+      estimated_annual_income: formData.estimated_annual_income,
+      has_vat_number: formData.has_vat_number,
+      has_niss: formData.has_niss,
+      has_fiscal_representative: formData.has_fiscal_representative,
+      email_marketing_consent: formData.email_marketing_consent,
+      utm_source: formData.utm_source || null,
+      utm_campaign: formData.utm_campaign || null,
+      utm_medium: formData.utm_medium || null,
+      source_type: 'tax_checkup',
+      compliance_score_red: scores.red,
+      compliance_score_yellow: scores.yellow,
+      compliance_score_green: scores.green,
+      compliance_report: scores.report,
+      lead_quality_score: scores.leadQualityScore,
+      urgency_level: scores.urgencyLevel,
+      status: 'new',
+      income_sources: ['freelance'],
+      // NEW FIELDS
+      lead_email_hash: emailHash,
+      is_latest_submission: true,
+      submission_sequence: nextSequence,
+      previous_submission_id: latestSubmission?.id || null,
+      first_submission_at: isResubmission ? latestSubmission.created_at : new Date().toISOString()
+    }])
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error submitting tax checkup:', error);
+    throw new Error('Failed to submit checkup. Please try again.');
+  }
+
+  // Step 4: Trigger webhook ONLY for new leads OR significant changes
+  const shouldTriggerWebhook = !isResubmission || 
+    (scores.red > 0 && nextSequence <= 2) || // First 2 submissions with red flags
+    (scores.leadQualityScore >= 70); // High quality resubmissions
+
+  if (shouldTriggerWebhook) {
+    try {
+      const makeWebhookUrl = import.meta.env.VITE_MAKE_INTAKE_WEBHOOK_URL;
+      if (makeWebhookUrl) {
+        fetch(makeWebhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event: isResubmission ? 'tax_checkup_resubmitted' : 'tax_checkup_submitted',
+            intake_id: intake.id,
+            name: formData.name || 'there',
+            email: formData.email,
+            work_type: formData.work_type,
+            compliance_score_red: scores.red,
+            compliance_score_yellow: scores.yellow,
+            compliance_score_green: scores.green,
+            urgency_level: scores.urgencyLevel,
+            lead_quality_score: scores.leadQualityScore,
+            submission_sequence: nextSequence,
+            is_resubmission: isResubmission,
+            created_at: intake.created_at
+          })
+        }).catch(err => console.error('Webhook failed:', err));
+      }
+    } catch (err) {
+      console.error('Error calling Make.com webhook:', err);
+    }
+  }
+
+  return { intake, scores, isResubmission, submissionSequence: nextSequence };
+}
+What this solves:
+
+No duplicate triggers for same email - Make.com only fires for new leads or significant changes
+Engagement tracking - submission_sequence shows lead warmth
+Historical record - All submissions kept, linked via previous_submission_id
+Latest-only queries - Filter by is_latest_submission = true for current state
+Prevent accidental double-submit - Unique index blocks duplicate within 1 hour
+3. Make.com Automation Strategy - Two Scenarios
+Scenario A: Watch for is_latest_submission = true (Recommended)
+
+Make.com Module 1: Supabase - Watch Records
+
+Table: accounting_intakes
+Filter: is_latest_submission = true AND created_at > {{lastRun}}
+Output: Only latest submission per email per poll
+Benefits:
+
+No duplicate emails sent to same person
+No complex filtering logic needed
+Natural deduplication at database level
+Scenario B: Use Database Webhook Function (Advanced)
+
+
+-- Create webhook function that triggers ONLY for latest submissions
+CREATE OR REPLACE FUNCTION notify_tax_checkup_webhook()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Only trigger webhook if this is marked as latest submission
+  IF NEW.is_latest_submission = true AND NEW.source_type = 'tax_checkup' THEN
+    PERFORM net.http_post(
+      url := 'https://hook.make.com/your-webhook-url',
+      headers := '{"Content-Type": "application/json"}'::jsonb,
+      body := jsonb_build_object(
+        'event', 'tax_checkup_latest_submission',
+        'intake_id', NEW.id,
+        'email', NEW.email,
+        'submission_sequence', NEW.submission_sequence,
+        'compliance_score_red', NEW.compliance_score_red,
+        'lead_quality_score', NEW.lead_quality_score,
+        'created_at', NEW.created_at
+      )
+    );
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER tax_checkup_webhook_trigger
+AFTER INSERT OR UPDATE OF is_latest_submission ON accounting_intakes
+FOR EACH ROW
+EXECUTE FUNCTION notify_tax_checkup_webhook();
+Benefits:
+
+Real-time webhook (no polling delay)
+Fires only when is_latest_submission flag is set
+Automatically handles resubmission logic
+4. User Account Registration Linking
+
+// Call this after successful signup
+async function linkAnonymousSubmissionsToUser(userId: string, email: string) {
+  const emailHash = email.toLowerCase().trim();
+
+  // Link all historical submissions to this user
+  const { data, error } = await supabase
+    .from('accounting_intakes')
+    .update({ user_id: userId })
+    .eq('lead_email_hash', emailHash)
+    .is('user_id', null)
+    .select();
+
+  if (error) {
+    console.error('Error linking submissions:', error);
+    return { linked: 0 };
+  }
+
+  console.log(`Linked ${data.length} previous submissions to user ${userId}`);
+  return { linked: data.length, submissions: data };
+}
+User Dashboard Query - Show Compliance History:
+
+
+async function getUserComplianceHistory(userId: string) {
+  const { data, error } = await supabase
+    .from('accounting_intakes')
+    .select('id, created_at, source_type, compliance_score_red, compliance_score_yellow, compliance_score_green, submission_sequence')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: true });
+
+  if (error) throw error;
+
+  // Calculate compliance improvement over time
+  const timeline = data.map((submission, index) => ({
+    date: submission.created_at,
+    sequenceNumber: submission.submission_sequence,
+    complianceScore: Math.round(
+      (submission.compliance_score_green / 
+       (submission.compliance_score_red + submission.compliance_score_yellow + submission.compliance_score_green)) * 100
+    ),
+    improvement: index > 0 ? 
+      Math.round(data[index].compliance_score_green - data[index - 1].compliance_score_green) : 
+      0
+  }));
+
+  return timeline;
+}
+Gamification Example:
+
+
+// Show in user dashboard
+const history = await getUserComplianceHistory(userId);
+const firstCheck = history[0];
+const latestCheck = history[history.length - 1];
+
+return {
+  message: `You've improved your compliance from ${firstCheck.complianceScore}% to ${latestCheck.complianceScore}% over ${history.length} checkups!`,
+  badge: latestCheck.complianceScore >= 90 ? 'gold' : latestCheck.complianceScore >= 70 ? 'silver' : 'bronze',
+  nextMilestone: 'Get to 100% compliance to unlock premium accountant access'
+};
+5. Accountant Dashboard - B2B Lead Management
+View: Available Leads (Not Yet Claimed)
+
+
+-- Show only latest submissions that haven't been claimed
+SELECT 
+  id,
+  name,
+  email,
+  created_at,
+  first_submission_at,
+  submission_sequence AS engagement_score,
+  compliance_score_red AS urgency,
+  lead_quality_score,
+  source_type
+FROM accounting_intakes
+WHERE is_latest_submission = true
+  AND claimed_by IS NULL
+  AND status = 'new'
+ORDER BY lead_quality_score DESC, compliance_score_red DESC;
+View: Lead Engagement Timeline (For Specific Lead)
+
+
+-- Show all submissions from a specific email for engagement analysis
+SELECT 
+  id,
+  created_at,
+  source_type,
+  submission_sequence,
+  compliance_score_red,
+  compliance_score_yellow,
+  compliance_score_green,
+  work_type,
+  estimated_annual_income
+FROM accounting_intakes
+WHERE lead_email_hash = md5(lower(trim('lead@example.com')))
+ORDER BY submission_sequence ASC;
+Claiming Logic:
+
+
+async function claimLead(intakeId: number, accountantId: string) {
+  // Step 1: Verify this is the latest submission
+  const { data: intake } = await supabase
+    .from('accounting_intakes')
+    .select('is_latest_submission, lead_email_hash, claimed_by')
+    .eq('id', intakeId)
+    .single();
+
+  if (!intake.is_latest_submission) {
+    throw new Error('Cannot claim outdated submission. Please claim the latest checkup.');
+  }
+
+  if (intake.claimed_by) {
+    throw new Error('This lead has already been claimed by another accountant.');
+  }
+
+  // Step 2: Claim the lead (mark ALL submissions from this email as claimed)
+  const { data, error } = await supabase
+    .from('accounting_intakes')
+    .update({ 
+      claimed_by: accountantId, 
+      claimed_at: new Date().toISOString(),
+      status: 'claimed'
+    })
+    .eq('lead_email_hash', intake.lead_email_hash)
+    .select();
+
+  if (error) throw error;
+
+  // Step 3: Log this in audit trail
+  await supabase.from('lead_contact_history').insert({
+    email: intake.email,
+    event_type: 'lead_claimed',
+    accountant_id: accountantId,
+    accounting_intake_id: intakeId,
+    metadata: { claimed_submissions: data.length }
+  });
+
+  return { claimed: data.length, latestIntake: data.find(d => d.id === intakeId) };
+}
+What this prevents:
+
+Selling same lead twice - All historical submissions get claimed together
+Lead poaching - Once claimed, no other accountant can claim
+Stale lead claiming - Must claim latest submission, not old ones
+6. Admin Analytics Queries
+Lead Engagement Report:
+
+
+-- How many times do leads resubmit before converting?
+SELECT 
+  submission_sequence AS checkup_number,
+  COUNT(*) AS lead_count,
+  AVG(compliance_score_red) AS avg_red_flags,
+  AVG(lead_quality_score) AS avg_quality,
+  COUNT(CASE WHEN claimed_by IS NOT NULL THEN 1 END) AS claimed_count,
+  ROUND(COUNT(CASE WHEN claimed_by IS NOT NULL THEN 1 END) * 100.0 / COUNT(*), 2) AS claim_rate_pct
+FROM accounting_intakes
+WHERE source_type = 'tax_checkup'
+GROUP BY submission_sequence
+ORDER BY submission_sequence;
+Output Example:
+
+
+checkup_number | lead_count | avg_red_flags | avg_quality | claimed_count | claim_rate_pct
+---------------+------------+---------------+-------------+---------------+---------------
+1              | 450        | 2.3           | 65          | 45            | 10.00
+2              | 120        | 1.8           | 72          | 28            | 23.33
+3              | 35         | 1.2           | 78          | 18            | 51.43
+4              | 8          | 0.5           | 85          | 7             | 87.50
+Insights: Leads who resubmit 3+ times have 87% claim rate vs 10% for first-time checkups.
+
+Duplicate Email Detection (Safety Check):
+
+
+-- Find emails with multiple "latest" submissions (data integrity issue)
+SELECT 
+  lead_email_hash,
+  COUNT(*) AS latest_count,
+  array_agg(id ORDER BY created_at DESC) AS intake_ids
+FROM accounting_intakes
+WHERE is_latest_submission = true
+GROUP BY lead_email_hash
+HAVING COUNT(*) > 1;
+Should return 0 rows if deduplication logic is working correctly.
+
+7. Frontend UX Flow
+User submits checkup for 2nd time:
+
+Detection: Frontend checks isResubmission in response
+Message: "Welcome back! We see you checked your compliance on [date]. Here's your updated report."
+Comparison: Show side-by-side: "Last time: 40% compliant → Now: 65% compliant"
+Gamification: "You fixed 2 red flags since last time! Keep going!"
+CTA: "Want personalized help? An accountant can review your full situation."
+Prevents user confusion: User knows their history is tracked, feels progress.
+
+Summary: Why Single Table is Best for Your B2B Use Case
+Advantages:
+Accountant dashboard: Single query shows all lead activity
+Commission tracking: One lead = one payout, even with multiple checkups
+Lead claiming: Claim entire lead history with one action
+User dashboard: Complete compliance journey in one table
+Engagement scoring: submission_sequence shows lead warmth
+No join complexity: Reporting is simple and fast
+Make.com simplicity: Filter by is_latest_submission = true - done
+How We Solved Your Pain Points:
+Duplicate emails: is_latest_submission flag prevents duplicate Make.com triggers
+last_step_reached conflicts: Separate field per source_type (checkup vs intake)
+User account linking: user_id FK connects anonymous → authenticated
+Make.com triggers: Webhook fires only for latest submissions
+Data cleanliness: lead_email_hash normalizes matching, unique index prevents accidents
+Best Practices Applied:
+Immutable history: Never delete old submissions (audit trail)
+Flag-based filtering: is_latest_submission for current state queries
+Normalized matching: lead_email_hash prevents case/whitespace mismatches
+Engagement scoring: submission_sequence for lead prioritization
+Atomic claiming: Claim all submissions from email together
+Idempotent webhooks: Deduplicate at database level, not Make.com level
+Migration Plan (If You Want to Implement This)
+Would you like me to create the migration SQL to add these deduplication fields to your existing accounting_intakes table? I can also update your submitTaxCheckup() function with the smart deduplication logic.

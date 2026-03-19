@@ -1,0 +1,20 @@
+When the topic involves Portugal tax, compliance, freelancers, visas, or administrative processes, apply the following additional constraints.
+
+Require evidence from primary Portuguese sources only.
+Mandatory sources include Diário da República, Portal das Finanças, Segurança Social DirectA, EU official portals, and AT official manuals.
+
+Verify all penalties with RGIT article numbers and ranges.
+Verify all VAT rules with CIVA references and thresholds.
+Verify all freelancer income rules with CIRS references and coefficients.
+Verify all filing deadlines for IRS, VAT, and Social Security with official calendars.
+Verify all NISS rules and waiting periods with Segurança Social guidelines.
+Verify all residency rules with official Portuguese residency criteria.
+
+Limit time window to 2020 to 2025 unless user specifies otherwise.
+Prioritize rules that change on January 1 and July 1 of each year.
+Flag all outdated sources clearly.
+
+Output must include penalty amounts, legal articles, threshold values, deadlines, and the last confirmed change date.
+
+Reject generic global tax sources unless used to compare or contextualize Portuguese rules.
+All Portugal specific claims must have citations.

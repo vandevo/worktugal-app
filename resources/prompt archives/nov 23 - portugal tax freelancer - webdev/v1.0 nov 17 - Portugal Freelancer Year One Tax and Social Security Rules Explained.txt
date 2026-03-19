@@ -1,0 +1,260 @@
+========================================
+Portugal has two money rules for freelancers
+
+Rule 1. IRS (income tax)
+This is the tax you pay once a year on your freelance income.
+
+Rule 2. Social Security
+This is the monthly contribution you pay for the pension and benefits system.
+
+They are not the same.
+They do not talk to each other.
+They use different formulas.
+This is why your brain gets confused.
+
+Now I will explain each one like you are five years old.
+
+========================================
+IRS (income tax)
+
+Portugal looks at your freelance money like this:
+
+If you make 100 euro
+Portugal pretends you only earned 25 euro
+and taxes you on that part.
+
+That is the normal rule.
+It is called the “coefficient” but ignore that word.
+
+Now here is the special first year rule:
+
+In your first year, Portugal gives you a bonus.
+It taxes you on only half of that 25 euro.
+So only 12.5 euro of your 100 euro get taxed.
+
+This is why people say:
+“Only 37.5 percent of your income is taxed in year one.”
+
+That is IRS.
+
+Nothing more.
+Nothing less.
+
+========================================
+Social Security
+
+This is a different system.
+
+Here is the rule:
+
+For the first 12 months you pay zero.
+Nothing.
+Zero euro.
+You are completely exempt.
+
+That is the “100 percent exemption”.
+It has nothing to do with IRS.
+It has nothing to do with coefficients.
+It is just a Social Security rule.
+
+After the first 12 months
+you start paying a monthly amount based on your real income.
+
+========================================
+The two together
+
+This is why everyone gets confused:
+
+Year one has
+IRS bonus
+and
+Social Security zero payment
+
+People mix them up
+and think it is all one benefit
+or all one discount
+when they are actually two unrelated systems.
+
+========================================
+Summary in three lines
+
+IRS
+First year.
+You pay tax on about 37.5 percent instead of 75 percent.
+
+Social Security
+First year.
+You pay zero.
+
+They are separate.
+They do not affect each other.
+
+I found partial legal and official backing for both the exemption and the coefficient reduction rules, but not a fully clear single legal text that states “50% reduction in year 1” as plainly as your email.
+
+Here are what I found, where the gaps are, and what we should treat as verified versus interpretative.
+
+✅ What is backed by official sources
+
+Social Security first-year exemption
+
+According to Segurança Social “Requerer a isenção do pagamento de contribuições …” – new freelancers (“trabalhadores independentes”) may request exemption from payment of Social Security contributions during an initial period. 
+Government of Portugal
++1
+
+Guides state clearly: “New freelancers are granted an initial exemption from social security contributions during the first 12 months of activity.” 
+LVP Advogados
++1
+
+Simplified Regime (Regime Simplificado) coefficients
+
+The Código do IRS (CIRS) article 31 defines the coefficients to determine taxable income under the simplified regime. 
+OCC
++1
+
+The coefficient 0.75 for professionals/services is confirmed. 
+Diário da República
++1
+
+⚠️ What is less clearly sourced or needs interpretation
+
+I did not locate a clear text from government portals that says explicitly “the coefficient is reduced by 50% in the first year of new activity” under all conditions.
+
+Many external guides claim this “50% reduction” rule for first-year freelancers; but I couldn’t find a direct link to the legal code (CIRS article) in the public sources I checked that uses that exact wording for “50% reduction year one, 25% year two”.
+
+For example, one PDF guide says: “50% of ‘IRS’ is exempt in year one and 25% in year two…” 
+eurofinesco.com
+ but this is not an official government site.
+
+Because of this, the statement must be marked as “may qualify” and conditioned on specific rules (no salary/pension, first year, activity opening, etc.).
+
+Also, Social Security exemption is clearly defined; but how it intersects with IRS coefficient rule is less clear in the law I found.
+
+🔍 Summary in plain language
+
+For Social Security: Yes, new freelancers in Portugal get an exemption for the first 12 months.
+
+For IRS coefficient: Likely yes under certain conditions (new activity, no salary/pension income), but the legal source is not clearly visible in the official text I reviewed—so it's accurate but requires the conditions to be explicit.
+
+🛠 What you must do
+
+Update your messaging to reflect these conditions clearly.
+
+Mention: “may qualify if …”
+
+If possible, find the exact legal provision for the “50% reduction” (by article and link) and reference it.
+
+Encourage users to check with an accountant for their personal situation.
+
+Confidence: Medium-High (because one part is strongly verified, the other part has strong supporting guides but not a fully confirmed government text in my search).
+
+If you like, I can dig into the official Diário da República archives and attempt to find the exact law provision for the 50% coefficient reduction and send you the article number and link.
+
+Great — I found legal sources for both rules.
+Here’s the detailed breakdown.
+
+1. IRS Coefficient Reduction Rule
+
+What the law says:
+
+Código do Imposto sobre o Rendimento das Pessoas Singulares (CIRS) Artigo 31.º, paragraph 10 (“n.º 10”) states:
+
+“Os coeficientes previstos nas alíneas b), c) e f) do n.º 1 são reduzidos em 50 % e 25 % no período de tributação do início da actividade e no período de tributação seguinte, respectivamente.” 
+BDJur
++1
+
+“b)” refers to coefficient 0,75 (services professional)
+
+“c)” refers to coefficient 0,35 (other services)
+
+“f)” refers to coefficient 0,10 (other income)
+
+Official complementary guide from Caixa Geral de Depósitos confirms:
+
+“No primeiro ano de actividade, os coeficientes 0,75, 0,35 e 0,10 são reduzidos para metade. No ano de tributação seguinte, os mesmos coeficientes são reduzidos em 25%. Contudo, para beneficiar desta vantagem, o trabalhador não pode ter rendimentos de trabalho dependente nem de pensões.” 
+CGD
+
+Conclusion: The IRS rule is legally valid.
+If you’re under Regime Simplificado and meet the conditions (new activity, no salary or pension), your taxable base coefficient is cut by 50% in year one.
+
+Caveats (important):
+
+Applies only to the coefficients b), c), f) of Art. 31.º n.º 1 CIRS.
+
+The condition “no salary or pension income” is explicitly required by the Caixa guide.
+
+Must be “period of tributação do início da actividade” (first tax year of the activity).
+
+2. Social Security 12-Month Exemption Rule
+
+What the law says:
+
+From Segurança Social website:
+
+“Os trabalhadores independentes têm direito a isenção de Segurança Social durante os primeiros 12 meses de actividade…” 
+CGD
++1
+
+Additional explanation confirms conditions: new freelance activity, and other conditions regarding accumulation with dependent work etc. 
+AC Contabilidade
++1
+
+Conclusion: The Social Security 12-month exemption is legally valid.
+If you start as a freelancer, you may be exempt from paying contributions for the first year.
+
+Caveats:
+
+The exemption is subject to conditions (for example, if you are already contributing under another category, or you are combining work dependent + independent).
+
+During the exemption, you may have limited coverage of benefits if you suspend activity etc.
+
+Summary for you
+
+✅ Both rules exist and have official legal/guide sources.
+
+✅ The email wording is legally grounded, but must include conditions so users don’t assume automatic qualification.
+
+⚠️ Make sure to emphasise the conditions: new activity, no salary/pension income (IRS rule); new freelancer independent status, first 12 months (Social Security rule).
+
+Next Move
+
+If you like, I can pull up the exact legislative text (PDF extracts) for Art. 31.º n.º 10 CIRS and the portugeuse Social Security code or legislation (e.g., Law 110/2009 or the Regime Contributivo) and send you the direct links to embed in your Worktugal compliance engine.
+
+Official Source Links
+
+Código do Imposto sobre o Rendimento das Pessoas Singulares (CIRS), Article 31.º, paragraph 10:
+“Os coeficientes previstos nas alíneas b), c) e f) do n.º 1 são reduzidos em 50 % e 25 % no período de tributação do início da atividade e no período de tributação seguinte, respetivamente, desde que, nesses períodos, o sujeito passivo não aufira rendimentos das categorias A ou H.” 
+o informador fiscal
++2
+BDJur
++2
+
+Official portal listing of CIRS (by Autoridade Tributária e Aduaneira):
+Index page for the CIRS code on the tax authority site. 
+Portal das Finanças
+
+IRS Regime Simplificado explanatory page by Caixa Geral de Depósitos (2025 update):
+States: “No primeiro ano de atividade, os coeficientes 0,75, 0,35 e 0,10 são reduzidos para metade. No ano de tributação seguinte, … reduzidos em 25 %.” 
+CGD
+
+Social Security exemption page (for self-employed workers) on Portuguese government portal:
+“The self-employed workers may be entitled to exemption from the payment of Social Security contributions, in certain cases.” 
+Government of Portugal
++1
+
+Key Extracts & Explanation
+
+For IRS: The law clearly states the 50% reduction in first year and 25% in second year for the coefficients b), c), f) of Article 31.º, provided no Category A (employment) or H (pension) income is earned. 
+o informador fiscal
++1
+
+For Social Security: Guides and portals indicate that new freelancers/self-employed may be exempt from contributions for the first 12 months of their activity. 
+Expatica
++1
+
+Risk/Condition to mention
+
+The IRS benefit is not automatic if you have salary or pension income in the same year.
+
+The Social Security exemption still requires registration and reporting (e.g., quarterly declarations) during the exemption period.
+
+These rules apply to new activities — if you already had the activity or ceased it within a certain timeframe, rules may differ.

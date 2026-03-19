@@ -1,0 +1,171 @@
+Research lane
+Portugal tax and compliance. VAT. Freelancer and small business enforcement.
+
+Objective
+Map and verify all rules governing VAT exemption for freelancers and small independent workers in Portugal, including the €15000 exemption threshold, the €18750 immediate VAT registration trigger, Form 12208 timeline, loss of exemption rules, reporting obligations while exempt, and enforcement penalties. Explicitly verify whether any VAT threshold change has been legally enacted for 2026.
+
+Scope and profiles
+Focus on
+• Freelancers under regime simplificado
+• Freelancers under contabilidade organizada
+• VAT exempt freelancers
+• Newly VAT registered freelancers
+• Foreign residents and digital nomads
+• Freelancers invoicing foreign clients
+
+Time window
+2020 to 2025 with explicit verification of confirmed 2026 applicability
+No speculation beyond published law or AT guidance
+
+Core questions to answer
+
+What VAT exemption is
+
+Who qualifies for VAT exemption
+
+What the €15000 threshold means in practice
+
+What triggers immediate VAT registration at €18750
+
+How Form 12208 works and when it must be submitted
+
+What happens when exemption is lost
+
+What reporting obligations exist even while exempt
+
+What penalties apply for errors or delays
+
+Whether any VAT threshold change has been legally confirmed for 2026
+
+Legal basis to map
+Cross reference all findings against
+• CIVA Article 53 and related articles
+• Diário da República amendments
+• Portal das Finanças guidance
+• AT circulars and binding rulings
+• RGIT penalty provisions
+
+For each rule include
+rule_description
+legal_article_and_number
+applies_to_which_profiles
+effective_date
+last_confirmed_change_date
+
+Threshold mechanics section
+Explain clearly
+• How the €15000 threshold is calculated
+• Gross versus net turnover
+• Full year versus partial year activity
+• What counts toward the threshold
+• Common miscalculations
+
+Immediate VAT registration trigger
+Explain
+• When €18750 applies
+• Why this number exists
+• What happens the moment it is exceeded
+• Deadlines to act
+• Consequences of delay
+
+Form 12208 deep dive
+Map
+• When the form is required
+• Deadline rules
+• Portal submission steps
+• Common rejection reasons
+• What happens if it is late or not submitted
+
+VAT exempt reporting obligations
+Include
+• New VAT exempt quarterly turnover reporting rules (effective July 1 2025)
+• Deadlines per quarter
+• Penalties for non submission
+• Interaction with Recibos Verdes
+
+Foreign client interaction
+Explain
+• VAT exemption when invoicing EU clients
+• Reverse charge wording
+• Non EU client rules
+• Reporting even when no VAT is charged
+
+Penalties and enforcement
+Identify penalties for
+• Exceeding threshold without registering
+• Late Form 12208
+• Charging VAT incorrectly
+• Failing to report while exempt
+
+For each penalty include
+trigger_condition
+legal_basis
+penalty_range
+fixed_or_proportional
+audit_risk_level
+citation
+
+2026 verification section
+Explicitly verify
+• Whether VAT exemption thresholds changed for 2026
+• Whether any law, State Budget, or AT circular confirms a new amount
+• If no change exists, state clearly “No change confirmed as of January 2026”
+
+Do not speculate.
+
+Community and real world traps
+Cluster recurring mistakes from
+• Portuguese accountants
+• Ordem dos Contabilistas Certificados
+• Reputable Portuguese tax firms
+• Reddit Portugal and PortugalExpats
+
+Tie every trap to verified law.
+
+Evidence requirements
+Use primary Portuguese sources only for rules, including
+• Diário da República
+• CIVA
+• Autoridade Tributária
+• Portal das Finanças
+
+Secondary sources only to illustrate real world errors.
+
+Language
+English, preserving key Portuguese legal terms such as
+IVA
+isenção de IVA
+Artigo 53
+Formulário 12208
+Recibos Verdes
+
+Output format
+Deliver an editorial ready Markdown report including
+
+Three line executive summary
+
+VAT exemption explained
+
+Threshold mechanics
+
+Immediate registration trigger
+
+Form 12208 timeline
+
+Reporting obligations while exempt
+
+Penalties and enforcement table
+
+2020 to 2025 rule timeline with 2026 verification
+
+Writing brief for a Worktugal article titled
+“VAT Exemption in Portugal. The €15000 Threshold and the Trap That Forces Registration”
+
+Include title tag, meta description, H1 to H3 structure, internal links to the Tax Checkup, and CTA to app.worktugal.com.
+
+Exclusions
+No speculation.
+No accounting marketing.
+No generic VAT theory.
+
+Return Markdown only, not JSON.

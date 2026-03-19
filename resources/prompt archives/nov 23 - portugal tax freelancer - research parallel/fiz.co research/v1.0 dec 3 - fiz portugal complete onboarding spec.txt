@@ -1,0 +1,527 @@
+FIZ PORTUGAL
+COMPLETE TECHNICAL ONBOARDING SPEC
+UPDATED WITH ALL MISSING FIELDS
+
+===========================================
+
+FIZ PORTUGAL
+COMPLETE TECHNICAL ONBOARDING SPEC
+UPDATED WITH ALL MISSING FIELDS
+
+===========================================
+
+Everything below comes directly from your raw FIZ interface capture.
+
+This is now the canonical reference for any Worktugal build, Claude agent, or Bolt implementation.
+
+1. SYSTEM ENTRY: ADD NEW PROFILE
+
+When a new user chooses Add new profile, FIZ shows:
+
+1.1 Type of Activity
+Dropdown: Activity Type
+
+Two exclusive options:
+
+TI (Independent Worker)
+Description: Self employed or individual entrepreneur who works on his own account
+
+ENI (Sole Proprietor)
+
+Field: NIF
+
+For TI
+Input: Portuguese NIF
+Validation: Numeric, 9 digits (FIZ does not verify regime)
+
+Field: NIPC
+
+For company
+Input: 9 digit company tax number
+
+Button: Add
+2. GENERAL SETTINGS > GENERAL INFO
+
+Displayed fields:
+
+Name
+
+Short name (optional)
+
+Activity toggles
+
+Providing Services
+
+Selling Goods
+(each is a separate toggle, not a dropdown)
+
+Email
+
+Phone
+
+Website
+
+Address line
+
+City
+
+Postal code
+
+Danger zone
+Button: Delete Account
+
+3. AT COMMUNICATION SETUP
+Step 1: Choose how data will be sent to AT
+
+Options:
+
+Automatic
+
+All documents sent automatically
+
+SAF T still downloadable
+
+Manual
+
+Only ATCUD series created
+
+User uploads SAF T manually to AT
+
+Step 2: Choose how to connect to AT
+
+Options:
+
+Automatic
+
+FIZ logs into AT with user credentials
+
+Creates limited sub user
+
+Manual
+
+User must create sub user manually
+
+FIZ provides instructions
+
+User pastes:
+
+Username
+
+Password
+
+Auto send to accountant:
+
+Fields:
+
+Accountant email
+
+Monthly schedule
+
+Day of month
+
+Toggle: Auto send SAF T
+
+4. INVOICING SETTINGS
+4.1 Customise invoice
+
+Fields:
+
+Logo upload
+
+PNG, JPG max 5MB
+
+IBAN
+
+Custom PDF templates
+
+Requires paid plan
+
+Document print size
+
+A4
+
+80mm
+
+Accepted payment methods
+
+MB Way
+
+SPIN
+
+Other toggles appear depending on updates
+
+5. TEAM MEMBERS
+
+Requires upgrade.
+
+Fields:
+
+Invite team member email
+
+Role / Permissions (not visible until upgraded)
+
+6. INVOICES TAB
+
+Dashboard displays:
+
+Paid
+
+Count
+
+Total value without VAT
+
+Total VAT
+
+Unpaid
+
+Overdue
+
+Drafts
+
+Buttons:
+
+Add new invoice
+
+Import invoices
+
+Import from AT
+
+Import from CSV
+
+Export SAF T PT
+
+7. CREATE NEW INVOICE (TYPE SELECTION)
+
+Document types:
+
+Invoice
+
+Invoice receipt
+
+Simplified invoice
+
+Receipt
+
+Commercial proposal
+
+8. INVOICE BUILDER – FULL FIELD SET
+
+General:
+
+Type
+
+Issue date
+
+Due date
+
+Payment date (for invoice receipt)
+
+Select payment method (for invoice receipt)
+
+Tax classification:
+
+EAC or CIRS
+
+Button: Add EAC codes
+
+Billing:
+
+Bill to
+
+Add customer
+
+Items:
+
+Add item
+
+Item selector
+
+Quantity
+
+Price
+
+VAT
+
+Withholding tax
+
+Notes
+
+Notes:
+
+Field: Notes (optional)
+
+Recurring schedule:
+
+Fields:
+
+Make recurring toggle
+
+Frequency dropdown
+
+Daily
+
+Weekly
+
+Monthly
+
+Custom interval
+
+How often (numeric)
+
+Time of day
+
+Start date
+
+End date (optional)
+
+Due date (for repeated invoices)
+
+Auto send to client
+
+Totals:
+
+Subtotal
+
+VAT
+
+Total to pay (invoice)
+
+Total paid (invoice receipt)
+
+9. ADD NEW CUSTOMER
+
+Fields:
+
+Country (default Portugal)
+
+NIF / NIPC (optional)
+
+Name
+
+Email
+
+City
+
+Address
+
+Postal code
+
+Phone
+
+Button: Add
+
+Import options:
+
+Import from AT automatically
+
+Import from CSV
+
+10. ADD NEW ITEM
+
+Fields:
+
+Item type
+
+Service
+
+Goods
+
+Service name
+
+Notes
+
+Price without VAT
+
+Price with VAT
+
+Unit of measurement
+
+VAT
+
+Auto VAT
+
+Manual VAT
+
+Withholding tax
+
+Unit price
+
+Button: Add
+
+11. SOCIAL SECURITY QUARTERLY MODULE
+
+Screen shows:
+
+Credentials not configured
+
+Button: Configure
+
+Submitted declarations
+
+Amounts to pay
+
+Quarter navigation
+
+Activity type dropdown
+
+TI (Independent Worker)
+
+ENI (Sole Proprietor)
+
+Employment status dropdown:
+
+Employment Status (4 options)
+
+Self employed / unemployed
+
+Monthly salary below 522.5 euros
+
+Monthly salary 522.5 to 2090 euros
+
+Monthly salary above 2090 euros
+
+Income breakdown
+
+Service provision
+
+Product sales
+
+Total income for the quarter
+
+Relevant income
+
+Contribution calculation
+
+Rate: 21.4 percent
+
+Contribution amount: numeric
+
+Social Security credentials required to submit
+
+12. VAT QUARTERLY MODULE
+
+Fields and layout:
+
+Quarter
+
+Deadline
+
+Assessment period
+
+Sales breakdown
+
+Base without VAT
+
+VAT
+
+Total
+
+EU Purchases (Reverse Charge)
+
+Fields:
+
+Products bought in the EU
+
+Field 12 or 13
+
+Amount excl VAT
+
+VAT calculated
+
+Services received from the EU
+
+Field 16 or 17
+
+Amount
+
+VAT calculated
+
+Deductible tax
+
+Sections:
+
+Non current assets
+
+Inventories
+
+Other goods and services
+
+Previous quarter credit
+
+Fields:
+
+Field 61 – Credit from previous period
+
+Manual entry required unless AT credentials linked
+
+Tax calculation
+
+Fields:
+
+VAT collected
+
+Normal rate
+
+Intermediate rate
+
+Reduced rate
+
+Zero declaration
+
+Submission
+
+Validate and submit
+
+Requires AT credentials
+
+Filing opens at the start of next period
+
+13. PRICING PLANS
+VAT exempt
+
+Options:
+
+FIZ Base – 0 euros
+
+FIZ Auto – 9.99 euros
+
+FIZ Prime – 14.99 euros
+
+VAT subject
+
+Options:
+
+FIZ Base – 0 euros
+
+FIZ Auto Pro – 14.99 euros
+
+FIZ Prime Pro – 24.99 euros
+
+Tax Shield coverage:
+
+Auto – up to 500 euros
+
+Prime – up to 1500 euros
+
+14. LANDING PAGE FEATURES FOR ICP MAPPING
+
+FIZ explicitly markets itself as:
+
+“The first financial assistant for independent workers in Portugal”
+
+10,000 plus satisfied users
+
+Certified by AT number 3041
+
+Made for TI and ENI
+
+Designed for freelancers providing services in Portugal
+
+Not designed for cross border operations or expats
+
+Not a compliance engine
+
+No onboarding education
+
+Target: Portuguese speaking, domestic, already compliant freelancers
+

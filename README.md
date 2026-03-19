@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2026-03-10 (v2.6)
+**Last Updated:** 2026-03-19 (v3.1)
 
 ---
 
@@ -29,14 +29,17 @@ Surface the compliance mistakes that cost expats thousands before they happen. W
 | Product | Status | Revenue Model | Description |
 | :--- | :--- | :--- | :--- |
 | **Compliance Risk Diagnostic** | Live at `/diagnostic` | Lead generation (free) | 13-question diagnostic producing Setup Score, Exposure Index, 4-segment classification, and triggered trap rules |
-| **Portugal Clarity Call** | Live via Cal.com | 149 EUR one-time | 30-minute video call reviewing diagnostic results with prioritized action plan |
+| **My Account Dashboard** | Live at `/dashboard` | Retention / upsell surface | Signed-in users see compliance history, scores, quick actions, and account settings |
+| **Google Sign-In** | Live | Auth / retention | One-click account creation via Google OAuth (Supabase). Also available mid-diagnostic. |
 
 ### Deferred Products
 
 | Product | Status | Trigger |
 | :--- | :--- | :--- |
+| **Portugal Clarity Call (149 EUR)** | Paused — no active CTA | Reactivate once Cal.com integration is re-wired to new UI |
 | **Paid Risk Scan (29 EUR)** | Stripe not yet wired | After 5+ clarity calls booked |
 | **B2B Engine License** | Month 3+ | After 200 completions + 10 clarity calls |
+| **AI-Native Blog / CMS** | Planned | Content flywheel — blog at `/blog` shows coming soon page |
 
 ### Legacy Products (Retired/Archived)
 
@@ -97,7 +100,7 @@ The diagnostic engine is powered by **Parallel.ai** for real-time compliance res
 | `src/lib/diagnostic/submit.ts` | Supabase insert + Make.com webhook |
 | `src/lib/diagnostic/types.ts` | TypeScript interfaces |
 | `src/components/diagnostic/DiagnosticForm.tsx` | Paginated form with email gate |
-| `src/components/diagnostic/DiagnosticResults.tsx` | Results page with dual scores, traps, clarity call CTA |
+| `src/components/diagnostic/DiagnosticResults.tsx` | Results page with dual scores, traps, save/share action bar, community CTA |
 
 ---
 
@@ -115,9 +118,10 @@ Layer 3 (Month 3+): B2B Engine License for relocation firms
 
 ### Frontend
 
-- **React 18** + **TypeScript 5** + **Vite 5**
+- **React 18** + **TypeScript 5** + **Vite 6**
 - **Tailwind CSS 3** + **Framer Motion** + **Lucide React**
-- **Obsidian Design System**: Dark theme, serif typography, minimalist UI
+- **Emerald Zenith Design System** (v3.0, active): Light-mode first, Inter font, forest green `#0F3D2E` + emerald `#10B981` palette, `#FAFAF9` light bg / `#0E0E10` dark bg. Full light/dark mode support.
+- ~~Obsidian Design System~~ — **retired**. Dark-only, Playfair Display serif. Replaced by Emerald Zenith in v3.0 (2026-03-19).
 
 ### Backend & Database
 
@@ -132,7 +136,7 @@ Layer 3 (Month 3+): B2B Engine License for relocation firms
 
 ### AI & Research
 
-- **Claude Opus 4.6** (Cursor): Primary development model
+- **Claude Code CLI** (Claude Sonnet 4.6): Primary development agent. All coding, architecture, MCP ops, and strategy run here. Cursor agent retired.
 - **Parallel.ai**: Regulatory research, data enrichment
 - **Perplexity Pro**: Fact-checking, market scans
 
@@ -140,7 +144,7 @@ Layer 3 (Month 3+): B2B Engine License for relocation firms
 
 - **Cloudflare Pages**: Auto-deploy from `main` branch
 - **Live URL**: https://app.worktugal.com
-- **Dev Environment**: WSL Ubuntu, Node.js 20+
+- **Dev Environment**: WSL Ubuntu, Node.js 24, pnpm 10
 
 ---
 
@@ -162,17 +166,42 @@ VITE_CLARITY_CALL_URL=
 ```bash
 git clone https://github.com/vandevo/worktugal-app.git
 cd worktugal-app
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 - **Production Branch**: `main`
-- **Build Command**: `npm run build`
+- **Build Command**: `pnpm build`
 - **Output Directory**: `dist`
 
 ---
 
 ## Recent Updates
+
+### 2026-03-19: UX cleanup, blog, changelog — v3.1 (continued)
+
+- **Results page UX**: Removed duplicate ShareCard preview (score data was shown twice). Save + share actions collapsed into one compact action bar below the score hero.
+- **Blog**: Replaced broken placeholder posts with honest coming soon page — upcoming titles, Telegram CTA, diagnostic nudge.
+- **Changelog split**: Added `is_public` boolean to `project_changelog` table. Public `/changelog` only shows consumer-facing entries in plain language. Internal/technical entries (security, infra, AI indexing) stay in Supabase only.
+- **Em dash cleanup**: Removed `—` from all visible sentence copy across FAQ, CTA buttons, blog, and results page. Standard title separator (`Page — Site`) kept.
+
+### 2026-03-19: Emerald Zenith — v3.0 → v3.1
+
+- **Emerald Zenith Design System launched**: Full light/dark mode rebuild. `#0F3D2E` forest green + `#10B981` emerald palette. Inter font replaces Playfair Display. Obsidian dark-only theme retired.
+- **My Account dashboard**: Personal compliance hub for all signed-in users. Shows latest score, diagnostic history, account settings, quick actions, official resource links.
+- **Google Sign-In**: Available at sign-in, mid-diagnostic (contact step), and on results page for unauthenticated users.
+- **Diagnostic sessionStorage**: Answers, step, and page persisted to sessionStorage so OAuth redirect doesn't lose progress.
+- **Inline profile editing**: Display name editable directly in My Account. ProfileModal removed.
+- **Footer, legal pages, FAQ, cookie banner**: All rebuilt in Emerald Zenith. Forest green footer, clean prose Privacy Policy and Terms, accordion FAQ, compact bottom-right cookie card.
+- **ComplianceDisclaimer**: New reusable component with inline / banner / footer variants.
+- **My Account nav link**: Available to all authenticated users (not admin-only).
+
+### 2026-03-13: Security + share card — v2.8
+
+- **Security headers**: HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy added via Cloudflare Pages `_headers`.
+- **RLS hardening**: Supabase Row Level Security tightened on `compliance_diagnostics` with email regex and score bounds.
+- **Shareable result card**: Download branded PNG or copy pre-formatted text for Reddit, LinkedIn, Telegram. Built with html2canvas.
+- **llms.txt**: Added for AI search engine indexing (Perplexity, ChatGPT, Gemini).
 
 ### 2026-03-10: Trust-First Results + Homepage Rebuild + UX Fixes -- v2.6
 

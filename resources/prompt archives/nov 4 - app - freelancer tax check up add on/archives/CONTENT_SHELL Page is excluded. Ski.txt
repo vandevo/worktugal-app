@@ -1,0 +1,228 @@
+content_script.js:1 Uncaught TypeError: Cannot read properties of undefined (reading 'control')
+    at content_script.js:1:422999
+    at Array.some (<anonymous>)
+    at shouldOfferCompletionListForField (content_script.js:1:422984)
+    at elementWasFocused (content_script.js:1:423712)
+    at HTMLDocument.focusInEventHandler (content_script.js:1:423069)
+(anonymous) @ content_script.js:1
+shouldOfferCompletionListForField @ content_script.js:1
+elementWasFocused @ content_script.js:1
+focusInEventHandler @ content_script.js:1
+requestAnimationFrame
+(anonymous) @ entry.client-Cwvfzg7j.js:27
+(anonymous) @ Chat.client-Ia4RtFA-.js:106
+handleSendMessage @ Chat.client-Ia4RtFA-.js:106
+onKeyDown @ Chat.client-Ia4RtFA-.js:106
+Nb @ index-BkLAaom1.js:21
+Tb @ index-BkLAaom1.js:21
+Ub @ index-BkLAaom1.js:21
+nf @ index-BkLAaom1.js:21
+se @ index-BkLAaom1.js:21
+(anonymous) @ index-BkLAaom1.js:21
+Qk @ index-BkLAaom1.js:24
+Jb @ index-BkLAaom1.js:21
+hd @ index-BkLAaom1.js:21
+fd @ index-BkLAaom1.js:21
+ed @ index-BkLAaom1.js:21
+(anonymous) @ performance-Bq0R80YA.js:8Understand this error
+entry.client-Cwvfzg7j.js:29 [Violation] 'requestAnimationFrame' handler took 191ms
+entry.client-Cwvfzg7j.js:27 ERROR Error: Attached file's text exceeds context limit or prompt is too long.
+    at onErrorPart (Chat.client-Ia4RtFA-.js:37:3985)
+    at processDataStream (Chat.client-Ia4RtFA-.js:37:337)
+    at async processChatResponse (Chat.client-Ia4RtFA-.js:37:1684)
+    at async callChatApi (Chat.client-Ia4RtFA-.js:37:5642)
+    at async Chat.client-Ia4RtFA-.js:117:13365
+    at async Chat.client-Ia4RtFA-.js:137:17534
+content_script.js:1 Uncaught TypeError: Cannot read properties of undefined (reading 'control')
+    at content_script.js:1:422999
+    at Array.some (<anonymous>)
+    at shouldOfferCompletionListForField (content_script.js:1:422984)
+    at elementWasFocused (content_script.js:1:423712)
+    at HTMLDocument.focusInEventHandler (content_script.js:1:423069)
+
+3content_script.js:1 Uncaught TypeError: Cannot read properties of undefined (reading 'control')
+    at content_script.js:1:422999
+    at Array.some (<anonymous>)
+    at shouldOfferCompletionListForField (content_script.js:1:422984)
+    at elementWasFocused (content_script.js:1:423712)
+    at HTMLDocument.focusInEventHandler (content_script.js:1:423069)
+(anonymous) @ content_script.js:1
+shouldOfferCompletionListForField @ content_script.js:1
+elementWasFocused @ content_script.js:1
+focusInEventHandler @ content_script.js:1Understand this error
+30content_script.js:1 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'control')
+    at content_script.js:1:422999
+    at Array.some (<anonymous>)
+    at shouldOfferCompletionListForField (content_script.js:1:422984)
+    at processInputEvent (content_script.js:1:426332)
+(anonymous) @ content_script.js:1
+shouldOfferCompletionListForField @ content_script.js:1
+processInputEvent @ content_script.js:1
+setTimeout
+inputEventHandler @ content_script.js:1Understand this error
+performance-Bq0R80YA.js:8 [Violation] 'input' handler took 201ms
+398content_script.js:1 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'control')
+    at content_script.js:1:422999
+    at Array.some (<anonymous>)
+    at shouldOfferCompletionListForField (content_script.js:1:422984)
+    at processInputEvent (content_script.js:1:426332)
+(anonymous) @ content_script.js:1
+shouldOfferCompletionListForField @ content_script.js:1
+processInputEvent @ content_script.js:1
+setTimeout
+inputEventHandler @ content_script.js:1Understand this error
+index-BkLAaom1.js:24 [Violation] 'keydown' handler took 196ms.webcontainer@runtime.cf284e50.js:26 Supabase request failed 
+{url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/a…ting_intakes?select=id&source_type=eq.tax_checkup', status: 403, body: ''}
+console.error	@	.webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl	@	.preview-script.js:1
+Promise.then		
+window.fetch	@	.preview-script.js:1
+.preview-script.js:1 
+ HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+window.fetch	@	.preview-script.js:1
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed 
+{url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/a…ting_intakes?select=id&source_type=eq.tax_checkup', status: 403, body: ''}
+console.error	@	.webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl	@	.preview-script.js:1
+Promise.then		
+window.fetch	@	.preview-script.js:1
+data:text/javascript…WxMb2FkIH07Cg==:665 [Violation] Avoid using document.write(). https://developers.google.com/web/updates/2016/08/removing-document-write
+getSandBox	@	data:text/javascript…WxMb2FkIH07Cg==:665
+getDefaultStyle	@	data:text/javascript…WxMb2FkIH07Cg==:697
+copyCssStyles	@	data:text/javascript…WxMb2FkIH07Cg==:774
+cloneNode	@	data:text/javascript…WxMb2FkIH07Cg==:974
+await in cloneNode		
+domToForeignObjectSvg	@	data:text/javascript…xMb2FkIH07Cg==:1455
+await in domToForeignObjectSvg		
+domToCanvas	@	data:text/javascript…xMb2FkIH07Cg==:1516
+await in domToCanvas		
+domToDataUrl	@	data:text/javascript…xMb2FkIH07Cg==:1551
+await in domToDataUrl		
+domToJpeg	@	data:text/javascript…xMb2FkIH07Cg==:1610
+await in domToJpeg		
+R	@	.preview-script.js:1
+x	@	.preview-script.js:1.preview-script.js:1 
+ HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+window.fetch	@	.preview-script.js:1
+.preview-script.js:1  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+window.fetch @ .preview-script.js:1
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed {url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/a…ting_intakes?select=id&source_type=eq.tax_checkup', status: 403, body: ''}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl @ .preview-script.js:1
+Promise.then
+window.fetch @ .preview-script.js:1
+await in window.fetch
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.preview-script.js:1  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+window.fetch @ .preview-script.js:1
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed {url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/a…ting_intakes?select=id&source_type=eq.tax_checkup', status: 403, body: ''}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl @ .preview-script.js:1
+Promise.then
+window.fetch @ .preview-script.js:1
+await in window.fetch
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358865945, lastCount: 6}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358868945, lastCount: 1}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358868945, lastCount: 2}
+.preview-script.js:1  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+window.fetch @ .preview-script.js:1
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed {url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/a…ting_intakes?select=id&source_type=eq.tax_checkup', status: 403, body: ''}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl @ .preview-script.js:1
+Promise.then
+window.fetch @ .preview-script.js:1
+await in window.fetch
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.preview-script.js:1  HEAD https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/accounting_intakes?select=id&source_type=eq.tax_checkup 403 (Forbidden)
+window.fetch @ .preview-script.js:1
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+.webcontainer@runtime.cf284e50.js:26 Supabase request failed {url: 'https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/a…ting_intakes?select=id&source_type=eq.tax_checkup', status: 403, body: ''}
+console.error @ .webcontainer@runtime.cf284e50.js:26
+e.clone.text.then.console.error.requestUrl @ .preview-script.js:1
+Promise.then
+window.fetch @ .preview-script.js:1
+await in window.fetch
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3922
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3943
+fulfilled @ @supabase_supabase-js.js?v=e58cba53:3895
+Promise.then
+step @ @supabase_supabase-js.js?v=e58cba53:3908
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3910
+__awaiter6 @ @supabase_supabase-js.js?v=e58cba53:3892
+(anonymous) @ @supabase_supabase-js.js?v=e58cba53:3933
+then @ @supabase_supabase-js.js?v=e58cba53:89Understand this error
+injection-tss-mv3.js:1 TSS: Counted history being pushed
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358868945, lastCount: 3}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358870209, lastCount: 1}
+injection-tss-mv3.js:1 TSS: Counted history being replaced
+injection-tss-mv3.js:1 TSS: Caught history
+injection-tss-mv3.js:1 TSS: Checking if repeated 500 times for interval 1000 against data:  {lastTime: 1762358870209, lastCount: 2}

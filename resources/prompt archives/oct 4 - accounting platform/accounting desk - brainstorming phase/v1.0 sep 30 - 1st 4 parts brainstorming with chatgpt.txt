@@ -1,0 +1,596 @@
+#1 part 1 from chatgpt
+
+Executive brief, three sentences
+
+Launch Worktugal Accounting Desk as a prepaid consult and starter pack marketplace that routes clients to vetted accountants, with Worktugal as merchant of record. Start with three products, a 30 minute triage at fifty nine euros, a freelancer start pack at three hundred to four hundred euros, and annual return consults that convert into full filings with a small platform cut. Use a simple tracker and strict refund rules to de risk outcomes for both sides, then grow into higher ticket returns and case bundles.
+
+Extracted data tables
+
+Provider price table, as of 2025 09 30
+| Provider | Offer | Price | Notes |
+| Fresh Portugal | Tax consult 30 min | 420 euro | Premium advisory segment |
+| Kilobanan | Basic monthly accounting | 60 euro per month | Entry level plan |
+| Elevate | LDA monthly accounting | 299 euro per month | Company plan |
+| E residence | NIF standard | 79 to 140 euro | Express around 3 days near 289 euro |
+| NovoMove | Bank account support | 300 euro | Lower bound in brief |
+| GetNIF | Bank account support | 700 euro | Upper bound in brief |
+| AnchorLess | NIF or bundle | 79 to 89 euro | Competitive bundle tier |
+
+Law and policy notes to verify
+| Topic | Note | Action |
+| Fiscal representative | Non EU with Portuguese tax ties appoint a fiscal representative quickly after trigger, brief states 15 days | Verify current AT rule and grace windows, update copy |
+| NIF requirement | Needed for bank, lease, utilities, visa, business setup | Keep as simple fact, add source on site |
+| Tax residency | 183 day presence triggers worldwide income | Add clear example in intake hints |
+| Licensed advice | Only licensed PT pros can provide tax or legal advice | Use clear disclaimer and partner list |
+| AIMA and NISS | NISS required at residence steps starting April 28 2025 per brief | Verify with current AIMA guidance |
+
+Contradiction check
+
+Items to confirm before publishing site copy
+Fiscal representative timing window, exact day count can vary by situation.
+Express NIF turnaround varies by office and workload.
+Bank account support pricing spans a wide range and may depend on bundle.
+Stance for now, present ranges with a line that timelines and fees vary by provider and district, then verify each claim when you publish the pricing page.
+
+Action pack, one week sprint
+
+Goal ship Accounting Desk MVP that can take prepaid bookings and deliver sessions that end with written next steps.
+
+Day 1 setup
+Owner Van
+Create three Stripe products with prices and descriptions.
+Triage 30 min at 59 euro, refundable if provider no show.
+Freelancer start pack at 349 euro, scope list included.
+Annual return consult at 149 euro, applied to full return if purchased in 7 days.
+Write SLA, refund policy, and disclaimers.
+Draft intake form with income sources, residency facts, deadlines, and special notes.
+
+Day 2 provider
+Owner Van
+Sign two trial accountants for prepaid test calls, use a simple show up offer, three paid slots each, Worktugal pays out post session.
+Set provider calendar windows for five days.
+Share briefing template and no show policy.
+
+Day 3 product
+Owner Van
+Publish landing with three offers, trust receipts, and FAQ.
+Enable booking, payment, and confirmation emails.
+Ship tracker v0 manual update only, statuses are requested, paid, scheduled, in session, delivered, closed.
+
+Day 4 launch
+Owner Van
+Warm launch to Worktugal channels, two expat FB groups, one Reddit post.
+Offer five founder slots with same week delivery and a twenty euro voucher toward a start pack.
+Collect two recorded testimonials with consent.
+
+Week metrics
+Fifteen paid triage calls, five start pack sales, two return consults.
+Target platform margin around one thousand to two thousand euro.
+
+Bolt ready build prompt, paste into Bolt Claude
+Role
+You are the senior product team inside Bolt.new. Build the Worktugal Accounting Desk MVP. Trust your stack choices and generators.
+
+Scope
+Prepaid bookings for three products, triage 30 min, freelancer start pack, annual return consult. Intake capture, status tracker, provider handoff, payout log. Admin manual updates are allowed.
+
+Screens
+Landing with three offers, card layout, clear prices, simple FAQ, primary CTA Book now.  
+Booking flow, pick product, pick slot, pay with Stripe, confirmation screen.  
+Intake form, dynamic questions by product, income sources, residency triggers, deadlines, special notes.  
+Case tracker, five statuses requested, paid, scheduled, in session, delivered, closed.  
+Provider portal lite, today view, briefs, links to meeting, notes, payout amount and date.
+
+Objects and fields
+User, Provider, Product, Booking, Intake, Case, Document, Payout, Note.  
+Booking fields product id, user id, provider id, slot, price, paid at, status.  
+Case fields booking id, current status, next step, eta, owner, notes.  
+Payout fields provider id, amount, hold until, released at.
+
+Rules and policies
+Merchant of record is Worktugal. Payouts release after 48 hours unless a dispute flag is set. One reschedule allowed with 24 hour notice. No show rules apply.
+
+Email and messages
+On payment, send email and WhatsApp confirmation. Send 24 hour reminder. Post session send a one page receipt and next steps.
+
+UI and copy style
+Clear and calm, short lines, liquid glass inspired, Tailwind friendly, high contrast, mobile first, premium but simple. Use the Add On Liquid Glass UX UI System rules that the founder provided.
+
+Accept criteria
+User books and pays in under two minutes. Provider receives a brief and a calendar event. Admin can update status. User can see tracker state and next step. A receipt is generated with a written outcome.
+
+Partner outreach copy, short and direct
+
+Subject, Paid consults that start on time
+
+Hi Name,
+We run Worktugal, an English first desk for freelancers and remote workers in Portugal. We prepay consults and send you a brief. You join the call, deliver advice, and get paid within 48 hours.
+Pilot offer, three prepaid slots this week, we take care of calendar, intake, and payment. If a client no shows, we handle it.
+Reply with your three preferred time windows and your invoicing details.
+Thanks, Van
+
+Refund and SLA block, plain language
+
+You pay to book a time that starts on time. You can reschedule once with 24 hour notice. If a provider no shows, you get a full refund. If the session happens but the scope is not met, we will either complete it within 3 business days or refund you. For complex cases we will propose a plan with cost and timeline before you approve. Worktugal is not a law firm or an accounting firm. Licensed partners provide the advice.
+
+Next research pass for Perplexity
+
+Run a Fast mode check to verify the fiscal representative timing rule, current NIF express timelines by district, and the NISS at residence requirement date. Ask for tier one sources only and add links.
+
+__________________
+#2 part 2 from chatgpt
+
+Start here today, two hour push
+
+Create three Stripe products
+Triage 30 min at 59 euro.
+Freelancer start pack at 349 euro.
+Annual return consult at 149 euro, credit the fee if they buy full filing within seven days.
+
+Draft and paste the site copy below into a one page landing on Worktugal
+
+Add the intake fields below to a single form
+
+Send the partner outreach note to three accountants
+
+Site copy, paste ready
+
+Headline
+Talk to a real accountant this week. Book now, get answers, leave with next steps.
+
+Three offers
+Triage call 30 minutes at 59 euro. Fast answers on VAT, receipts verdes, deadlines.
+Freelancer start pack at 349 euro. Open activity, VAT decision, e Fatura access, first receipt walkthrough.
+Annual return consult at 149 euro. Scope your return and credits. Fee applies to full filing if you proceed within seven days.
+
+How it works
+Book and pay. Fill a short intake. Meet on time. Get a written next steps note and a receipt.
+
+Refund and SLA
+You can reschedule once with 24 hour notice. If a provider no shows, you get a full refund. If scope is missed, we complete it within three business days or refund you. Worktugal is not a law firm or an accounting firm. Licensed partners deliver the advice.
+
+FAQ snippets
+Do I need VAT
+We check your turnover against Article 53 and your activity codes, then tell you yes or no with an example.
+How fast can I start
+Triage in 48 hours. Start pack kickoff in three business days.
+Who are the providers
+OCC certified accountants. We verify certification and reputation before sending bookings.
+
+Intake fields, single page
+
+Full name. Email. WhatsApp. Nationality. Residency status. Days in Portugal in the last twelve months. Monthly income and sources. Employer or client countries. Do you have a NIF. Do you have VAT. Do you issue receipts verdes now. Deadlines or letters received. Special notes. Files upload is optional for MVP.
+
+Provider outreach, paste ready
+
+Subject, Three prepaid consults this week
+
+Hi Name,
+We run Worktugal for freelancers and remote workers. We prepay consults and send you a brief. You join on time, deliver advice, and get paid within 48 hours.
+Pilot this week, three prepaid slots. We handle the calendar, intake, and payments.
+Reply with three time windows and invoicing details.
+Thanks, Van
+
+Tracker v0, manual
+
+Statuses
+Requested. Paid. Scheduled. In session. Delivered. Closed.
+Each case shows current status, owner, next step, eta, and a link to the written notes.
+
+Bolt prompt, paste into Claude inside Bolt
+
+Role
+You are the product team. Build Worktugal Accounting Desk MVP. Trust your stack. Do not change frameworks.
+
+Scope
+One landing. One booking flow with Stripe. One intake form. One simple case tracker for users and an admin view for manual updates. A tiny provider portal with today view and briefs.
+
+Screens
+Landing with three offers and FAQ.
+Booking flow with product pick, slot pick, Stripe pay, confirmation.
+Intake form with the fields provided by founder.
+Case tracker for the user with five statuses and next step text.
+Admin view to update status and notes.
+Provider view with today slots, briefs, and payout amount.
+
+Objects and fields
+User, Provider, Product, Booking, Intake, Case, Payout, Note.
+Booking has product id, user id, provider id, slot, price, paid at, status.
+Case has booking id, status, next step, eta, owner, notes.
+Payout has provider id, amount, hold until, released at.
+
+Rules
+Merchant of record is Worktugal. Payouts release 48 hours after session unless dispute flag. One reschedule allowed with 24 hour notice.
+
+Comms
+On payment send email and WhatsApp confirmation. Send a 24 hour reminder. After session send a one page outcome note and receipt.
+
+UX style
+Liquid glass inspired and Tailwind friendly. High contrast. Mobile first. Clear copy. One primary action per screen. Respect light and dark modes. Keep load fast.
+
+Acceptance
+A user can pay and book in under two minutes. A provider receives a calendar invite and a brief. Admin can update status. The user can see the tracker and next step. A receipt is generated.
+
+Roles and timers
+
+Van, Stripe products and prices, 30 minutes.
+Van, landing copy paste and intake form, 45 minutes.
+Van, partner outreach to three accountants, 15 minutes.
+Van, Bolt prompt paste and review, 30 minutes.
+
+What to ignore this week
+
+Do not build a provider marketplace.
+Do not build visa services.
+Do not automate payouts beyond a simple ledger.
+Do not publish legal claims without a source. Use the ranges and caveats from the brief.
+
+__________________
+#3 part 3 from chatgpt
+Short answer
+
+Start with two signed accountants plus one standby. Two can cover your week one volume and SLAs. The standby protects your 48 hour promise and lets you open more slots if demand pops.
+
+Why two is enough
+
+Workload math for the first week
+• Triage call, 30 minutes session, 10 minutes buffer, 40 minutes total. Fifteen triage calls equals ten hours.
+• Start pack kickoff, 60 minutes session, 30 minutes prep, 90 minutes total. Five kickoffs equals seven and a half hours.
+• Return consult, 60 minutes session, 10 minutes buffer, 70 minutes total. Two consults equals two hours and twenty minutes.
+• Total about nineteen hours and fifty minutes. One strong accountant can do twenty to twenty five billable hours per week. Two gives you headroom, faster scheduling, and coverage for illness.
+
+Slot plan that meets your promises
+
+Target window for triage, within forty eight hours
+• Each accountant opens two daily triage slots on three weekdays, for example Tue, Wed, Thu. That is twelve triage slots across two providers.
+• Add two Saturday slots shared between them for people who work weekdays.
+• You now have fourteen triage slots. Overflows can go to the standby.
+
+Target window for start pack kickoff, within three business days
+• Each accountant opens three kickoff slots in a week, ninety minutes each.
+• Six kickoff slots covers five booked start packs with one spare.
+
+Roster example in Lisbon time
+
+Provider A, Tue and Thu late afternoon triage, Wed morning kickoffs.
+Provider B, Mon afternoon triage, Wed afternoon triage, Fri morning kickoffs.
+Standby C, Sat morning triage, Thu evening triage backup, one floating kickoff.
+
+Triggers to add more supply
+
+Add a fourth accountant when any of these happens for two weeks
+• More than twenty four hours average wait for a triage slot.
+• More than three business days average wait for a kickoff slot.
+• Over twenty percent of users ask for reschedule due to lack of times.
+• CSAT for scheduling drops below four point five out of five.
+
+Quality and risk controls
+
+• Trial three prepaid calls per new accountant before you give them full load.
+• Hold payouts forty eight hours to allow dispute flags.
+• Record sessions only with consent and use a standard notes template.
+• Weekly ten minute QA with each provider, look at notes and outcomes.
+
+What the standby actually does
+
+• Offers two triage blocks per week, one evening, one weekend.
+• Picks up overflow, illness gaps, and rush cases.
+• Can be promoted to core provider when triggers hit.
+
+Cost and margin note
+
+• With two providers you can handle about twenty to thirty sessions a week without overtime.
+• Your platform margin target stays intact because you do not need to overpay for rush slots.
+• Keep payouts simple, release after forty eight hours. No bonuses in week one.
+
+Exact next steps today
+
+• Sign two accountants for three prepaid trial slots each this week, plus one standby for two backup slots.
+• Publish real availability, do not offer ghost slots.
+• Cap bookings at the live slot count. If you sell out, open the standby.
+
+_____________
+#4 part 4 from chatgpt
+What is best right now
+
+Yes. A prepaid Accounting Desk is the best week one model for Portugal. It matches immediate pain, you can deliver it with two providers, and you control checkout. It puts money in the account within four days without heavy build.
+
+What becomes best over eight weeks
+
+A hybrid that keeps prepaid consults but adds two owned assets. One, a simple case tracker and receipts that make you the source of truth. Two, a tiny self serve tax triage that qualifies leads before they hit a human. With those, you reduce provider dependence and raise conversion into higher ticket work.
+
+Decision matrix
+
+| Model | Time to first euro | Platform margin potential | Ops load | Risk | Defensibility |
+| Prepaid Accounting Desk | Two to four days | Medium now, grows with upsells | Low to medium | Low | Medium with tracker and receipts |
+| White label bundles with a few providers | One week | Medium to high | Medium | Low | Medium if you control checkout and SLAs |
+| Referral only links | Same day | Low | Very low | Low | Low, easy to copy |
+| Info kits and calculators | Two to seven days if audience is hot | Medium over time | Very low | Low | High if kits are excellent |
+| Subscription with office hours | Two to four weeks | Medium recurring | Medium | Medium | Medium if sessions are real and weekly |
+| Full concierge tax or visa | Three to eight weeks | High per case | High | Medium to high | Medium, heavy ops needed |
+
+Short take
+Start with prepaid Accounting Desk. Add white label bundles in week two. Seed two info kits and a simple calculator in week three. Leave subscription and concierge for later.
+
+Two moats you need
+
+Moat one
+A case tracker that clients can open any time. Show status, owner, ETA, last action, next step. Generate a written receipt of outcomes after every session. This makes you the record of truth, not the provider inbox.
+
+Moat two
+A tiny self serve intake and triage. Five questions that route to a clear next step with a price and an example. This cuts provider time, improves quality, and trains your audience to expect clarity fast.
+
+Simple numbers that work
+
+Week one goal
+Fifteen triage calls at fifty nine euro, take twenty five percent. Five start packs at three hundred to four hundred euro, take twenty percent. Two return consults that convert into filings, take a small cut. Target platform margin around one to two thousand euro.
+
+Week two growth
+Add one white label bundle such as freelancer start pack at a fixed price with a guaranteed kickoff window. Add two upsells such as quarterly VAT filing and address updates.
+
+Go or no go rules
+
+Go if two providers sign trial slots and you can open fourteen triage slots in the calendar.
+Go if Stripe products are live and the tracker page is loading.
+Hold if you cannot guarantee a 48 hour triage window.
+
+Exact next moves that make this the best version
+
+One
+Ship the Accounting Desk MVP exactly as scoped. Keep the tracker manual for now with five statuses and a notes field.
+
+Two
+Add the outcome note template so every session ends with a written next step and a receipt. This is your trust engine.
+
+Three
+Publish one self serve truth calculator next week. Example, Do I need VAT, with Article 53 logic and a clear example. End with a book button.
+
+Four
+Stand up one white label bundle with a two day kickoff SLA. Keep your cut simple and visible.
+
+Five
+Publish two info kits with a checkout inside the same flow. Example, Freelancer setup checklist and Annual return prep checklist. These raise order value without adding ops.
+
+Direct answer
+
+Yes for now. The prepaid Accounting Desk is the best model to hit money in four days with low risk and low ops. It becomes the best long term version only if you add the tracker and the self serve triage so you own the truth, reduce provider load, and convert more users into paid work without chasing anyone.
+
+_________________
+#part 5 from chatgpt
+Short answer
+
+Yes. You can compete and win as a solo founder with AI if you own three things. The checkout, the calendar, and the truth layer. That turns you into the place where money flows in, time is promised, and outcomes are recorded. Teams cannot move faster than that.
+
+The five moats that make a solo founder scary
+
+Own the checkout. Prepaid bookings. You are merchant of record. No pay, no slot.
+
+Own the calendar. Real slots only. One reschedule with notice. Payouts release after forty eight hours.
+
+Own the truth. A simple case tracker and written outcome notes after every session. Clients and providers follow your record.
+
+Standard briefs. One intake, one notes template, one receipt format. Providers just show up and deliver.
+
+Speed promise. Triage within forty eight hours. Start pack kickoff within three business days. Hit those windows and you steal trust from larger teams.
+
+One person AI stack
+
+Trust Bolt on the stack. Use AI and light automations to remove busywork.
+
+Supabase for truth. Tables for users, providers, products, bookings, cases, intake, notes, payouts, availability. RLS on by default.
+
+Stripe for money. Products for triage, start pack, return consult. Webhooks to update bookings and create payouts.
+
+Calendar and comms. Auto invites on payment. Email and WhatsApp reminders before session. Outcome note and receipt after session.
+
+Make dot com for glue. Stripe event to Supabase row update, to calendar invite, to message, to case status.
+
+Tiny admin. A single view to change case status, write next steps, and release payout.
+
+Capacity math that works
+
+Week one target you set
+
+Fifteen triage calls at thirty minutes each plus buffer. About ten hours total.
+
+Five start pack kickoffs at ninety minutes each. About seven and a half hours.
+
+Two return consults at seventy minutes each. About two hours and twenty minutes.
+Two core accountants plus one standby covers this load with comfort. You protect your windows and keep space for spikes.
+
+Scoreboard to know you are winning
+
+Track four leading signals and four trailing signals.
+
+Leading. Slot fill rate. Time to triage. Time to kickoff. CSAT after session.
+
+Trailing. Platform margin. Refund rate. Repeat rate. Referral rate.
+Week one targets
+
+Fill at least seventy percent of live slots.
+
+Median time to triage under forty eight hours.
+
+Median time to kickoff under three business days.
+
+CSAT four point five or higher.
+
+Risks and simple fixes
+
+Supply quality varies. Fix with three prepaid trial calls per new provider and a short weekly QA on notes and outcomes.
+
+Scope creep. Fix with a numbered checklist inside each package and clear out of scope add ons.
+
+No shows. Fix with one reschedule rule and a clean refund path only for provider no show.
+
+Burnout. Fix with a two hour daily ops window and automations for invites, reminders, receipts, and status moves.
+
+Four day compete plan
+
+Day one
+
+Create Stripe products and prices. Triage fifty nine euros. Start pack three hundred to four hundred euros. Return consult one hundred forty nine euros credited to a filing.
+
+Write the intake and outcome note templates. Paste them into Bolt.
+
+Day two
+
+Sign two accountants and one standby for trial slots. Publish real availability only.
+
+Paste the Bolt build brief for landing, booking, intake, tracker, and tiny provider view.
+
+Day three
+
+Dry run three paid test bookings with friends. Fix any slot, message, or payout issues.
+
+Add the case tracker link to the confirmation email.
+
+Day four
+
+Open fourteen triage slots for the next seven days. Launch to your channels. Offer five founder slots with same week delivery. Collect two short testimonials with consent.
+
+Why this beats larger teams
+
+You remove unpaid discovery. They still do it.
+
+You show a live tracker and written outcomes. They bury status in email threads.
+
+You keep the same small set of packages and rules. They expand scope and slow down.
+
+You pay providers fast and handle admin. They make providers handle billing and scheduling.
+
+If you want an edge on price without racing to the bottom
+
+Keep triage at fifty nine euros and make it the fastest path to clarity.
+
+Keep start pack mid market and publish a real checklist so buyers know the value.
+
+Credit the return consult fee to a full filing if they book within seven days. This locks conversion.
+
+One last check
+
+Ask only three questions before you expand.
+
+Can I still meet the forty eight hour triage window.
+
+Is the tracker up to date every day.
+
+Is CSAT above four point five.
+
+If those are true, you can stand toe to toe with bigger teams. If any slip, pause growth and fix.
+
+__________
+#6 part 6 from perplexity 
+Realistic and safe to act on this week
+
+Market is crowded with many NIF and accounting providers. Treat competition as high.
+
+Pricing ranges are broadly accurate for MVP planning. NIF around 79 to 140. Express tiers higher. Bank account help in the low hundreds. Monthly accounting from about 60 to about 300. Premium consults can be a few hundred per half hour.
+
+Clear gap to win is prepaid consults with on time starts, English support, and a visible tracker with written next steps.
+
+Your target of one thousand to two thousand euro platform margin in month one is realistic if you fill about fifteen triage calls and five start packs.
+
+Only licensed Portuguese pros can provide direct tax or legal advice. You must operate as an intermediary with clear disclaimers and vetted partners.
+
+Seasonality exists. March to September is busier. Keep this in mind but do not let it delay launch.
+
+Requires verification before you publish on site
+
+Fiscal representative timing and rules for non EU. The brief says fifteen days. This varies and has changed over time. Verify with current Autoridade Tributária guidance.
+
+AIMA and NISS rule start date. The brief cites April 28, 2025. Confirm on an official page.
+
+Express NIF in three days as a blanket claim. Processing speed varies by channel and district. Publish ranges with a source.
+
+Bank account support prices and conditions. These vary with remote flow, in person flow, and required documents. Publish ranges and caveats.
+
+Exact tax return price bands for expats. Keep as a range until you lock partner price sheets.
+
+Hand-wavy or speculative parts to ignore for now
+
+Success probabilities in the decision matrix. Useful for framing, not for site copy or investor math.
+
+Any claim that suggests guaranteed timelines from government offices. You can only guarantee your response windows, not the state.
+
+Tiny verify list you can paste into Perplexity Fast mode
+
+Prompt title
+Portugal compliance facts to verify
+
+Inputs
+Portugal. Tax and migration operations. Official sources only. Today’s date.
+
+Questions
+One. Current rule and timing for appointing a fiscal representative for non EU with Portuguese tax ties.
+Two. Whether electronic notifications remove the need for a fiscal representative for some non residents and the precise conditions.
+Three. Official confirmation and date for NISS requirement at residence appointments in 2025.
+Four. Official guidance on NIF processing channels and timelines.
+Output
+Five line executive. Three bullet list of facts with links. One caveat section for regional variance.
+
+What to do right now without waiting
+
+Keep the prepaid Accounting Desk plan. The pricing and demand signals are realistic enough to launch.
+
+Publish three products today. Triage at fifty nine. Start pack at about three hundred to four hundred. Return consult at one hundred forty nine credited to a filing.
+
+Use cautious copy. Examples. Ranges. Clear refund and SLA. Clear disclaimer that licensed partners deliver advice.
+
+Ship the simple tracker and written outcome note. This is your trust engine.
+
+Sign two accountants and one standby. Open fourteen triage slots over seven days.
+
+If you want, I will run the tiny verify list for you in our format and hand back a one page facts card you can copy into your FAQ and refund page.
+
+
+________________
+#7 part 7 from chatgpt
+Short answer
+Yes. Prepaid consults and service bundles already exist in Portugal, but I don’t see anyone offering a true multi-provider “Accounting Desk” with unified SLAs and a client-visible tracker.
+
+Who is already doing paid consults or packaged services
+
+Fresh Portugal sells 30-minute paid tax consultations via an online booking flow. They also steer bigger cases to paid plans. 
+Fresh
++3
+Fresh
++3
+Fresh
++3
+
+Novomove sells a one-off Portuguese tax consult for about €80 and packages like NIF plus bank account bundles with published prices. 
+NOVOMOVE
++2
+NOVOMOVE
++2
+
+Kilobanan offers bookable “Accountant Consultation” sessions at published prices. 
+kilobanan.com
+
+Bordr offers a live video call with a Portuguese tax expert in addition to NIF services. 
+Bordr
+
+AnchorLess sells productized admin services around NIF and address changes and markets competitive NIF pricing. 
+AnchorLess
++1
+
+Touchdown advertises a one-hour video tax consultation with a Portuguese tax lawyer and a written summary. 
+Touchdown
++1
+
+What I don’t see yet
+
+A neutral marketplace that matches clients to multiple accountants under one roof with prepaid checkout, standardized refund and reschedule rules, and platform-controlled payouts.
+
+A consumer-visible case tracker for routine accounting tasks that shows status, owner, ETA, and next step across providers.
+
+A consistent “written outcome note” after every consult as part of the service entitlement, not an optional extra.
+
+Why this matters
+You can slot in where others stop. They sell time with one firm. You sell outcomes with many firms and control the truth layer. Keep checkout on your side, enforce SLAs, show a tracker, and issue a written outcome note after every session. That is the wedge a solo founder can own.
+
+Compliance note
+Direct tax advice in Portugal must be delivered by licensed professionals. Use vetted partners and keep the platform as the intermediary. The OCC is the statutory body for certified accountants. 
+IFAC
+If you want, I’ll turn this into a two-page competitor grid and a crisp “why us” section you can paste into the landing page and the Bolt brief.

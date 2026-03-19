@@ -1,0 +1,98 @@
+Your flywheel now has **six** pillars instead of four.
+
+Each pillar feeds directly into the Tax Checkup.
+
+Every article must use verified rules, fines, deadlines, and schema logic.
+
+You will use this list to cross items off in Notion.
+
+====================================================
+
+### 1. Foundation and Setup (Must be done first)
+
+- [x]  NIF Guide 2025. Verified RGIT penalties, representative rules, 15 day deadline, e balcao accuracy.
+- [x]  Bank Account Setup 2025. IBAN requirements, SEPA issues, timelines, banks that work for freelancers.
+- [ ]  NISS Registration 2025. AIMA rule, 2 to 4 week wait, required documents, visa conditions.
+- [ ]  Opening Activity 2025. Correct CIRS CAE codes, common traps, €300 to €7500 penalties.
+- [ ]  Tax Residency Guide. 183 days, habitual abode, permanent home rule, worldwide income trigger.
+
+====================================================
+
+### 2. Simplified Regime and Income Rules
+
+- [ ]  Simplified Regime Detailed Guide. Verified matrix, coefficients, €200k limit, year 1 and 2 reductions.
+- [ ]  15 Percent Expense Obligation Rule. Parallel explained formula.
+- [ ]  Crypto Tax 2025. 365 day rule, capital gains, reporting obligations.
+- [ ]  IFICI versus old NHR. Updated eligibility and impact.
+
+====================================================
+
+### 3. Invoicing and VAT
+
+- [ ]  Recibos Verdes 2025. Correct fields, cancellation limits, foreign client rules.
+- [ ]  VAT Exemption 2025. €15000 threshold, €18750 immediate trigger, Form 12208 timeline.
+- [ ]  VAT Registration for Non EU. Mandatory rules and penalties.
+- [ ]  Quarterly VAT Return 2025. New rule starting July, even for exempt workers.
+- [ ]  Certified Invoicing Software Guide. Who must use it, 50k and 100k rules.
+- [ ]  ATCUD and QR Code 2025. Mandatory requirements and calendar.
+
+====================================================
+
+### 4. Social Security and Quarterlies
+
+- [ ]  Social Security Explained 2025. NISS to SS Direct workflow.
+- [ ]  Quarterly Declaration Guide. Jan 20, Apr 20, Jul 20, Oct 20.
+- [ ]  Contribution Calculation. 21.4 percent, relevant income, 70 percent rule, 10 percent rule.
+- [ ]  Economically Dependent Worker Rule. 50 percent single client rule.
+- [ ]  Exemption Year Explained. Year 1 mechanics and traps.
+- [ ]  Reminder Automation Flow. Make.com or Telegram integration.
+
+====================================================
+
+### 5. Digital Invoicing and Reporting
+
+- [ ]  Digital Invoicing 2025. What changes, mandatory elements, transition plan.
+- [ ]  ATCUD Mandatory 2025. How to get series, how to validate.
+- [ ]  Invoice Series Communication. Portal process.
+- [ ]  QR Code Rules. Required for all invoices and receipts.
+- [ ]  Storage and Archiving Rules. Six year requirement.
+
+====================================================
+
+### 6. Annual Filing and Strategy
+
+- [ ]  IRS Modelo 3 2025. Step by step plus Annex SS.
+- [ ]  Refund Timelines and Common Delays.
+- [ ]  Pagamentos por Conta 2025. Advance payments, rules, deadlines.
+- [ ]  Year 1 versus Year 2 Tax Burden. Updated graph and explanation.
+- [ ]  Annual Tax Calendar. All deadlines, verified with Parallel.ai.
+- [ ]  Complete Tax Glossary. All key terms cross linked to Checkup.
+
+====================================================
+
+Execution Notes (v2.0)
+
+- Publish one long form per week, cross linked into the Checkup.
+- Repurpose visuals from mindmap, timeline, tax flow, penalty map.
+- Attach CTA to every post footer:
+    
+    Take your free tax readiness checkup at app.worktugal.com
+    
+- Track conversions per article using UTM in Supabase plus Make router.
+- Each article must reflect penalty ranges exactly as defined in your rule schema.
+
+====================================================
+
+Operator Take
+
+This v2.0 flywheel matches your Checkup, your penalties, your Parallel.ai rules, your mindmap, and your Survival Map. You can now build content that cannot be competed with by agencies, lawyers, or SEO copywriters because it comes from real schema logic and verified government rules.
+
+Next Move
+
+Say one of:
+
+Draft the NISS Guide next
+
+Draft the VAT Exemption Guide
+
+Draft the Simplified Regime Matrix article

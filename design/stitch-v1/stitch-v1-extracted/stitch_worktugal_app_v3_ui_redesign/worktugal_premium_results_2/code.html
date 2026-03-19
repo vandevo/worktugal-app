@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Worktugal Compliance Diagnostic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0f3e2e",
+                        "background-light": "#FAFAF9",
+                        "background-dark": "#131f1b",
+                        "emerald-accent": "#10b981",
+                        "amber-accent": "#f59e0b",
+                        "red-accent": "#ef4444",
+                        "blue-accent": "#3b82f6",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.25rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .small-caps { font-variant: all-small-caps; letter-spacing: 0.05em; }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen pb-24">
+<!-- Header -->
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-4 flex items-center justify-between border-b border-primary/5">
+<h1 class="text-primary dark:text-emerald-accent text-2xl font-bold tracking-tight">Worktugal</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 shadow-sm border border-primary/10">
+<span class="material-symbols-outlined text-primary dark:text-slate-100 text-[22px]">ios_share</span>
+</button>
+</header>
+<main class="max-w-md mx-auto px-5 pt-6 space-y-6">
+<!-- Hero Card -->
+<section class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-primary/5">
+<h2 class="text-slate-500 dark:text-slate-400 text-xs font-bold small-caps mb-6 text-center">Your Compliance Snapshot</h2>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="bg-background-light dark:bg-slate-800 p-4 rounded-xl text-center">
+<p class="text-[10px] text-slate-500 font-semibold mb-1 uppercase tracking-wider">Setup Score</p>
+<p class="text-emerald-accent text-xl font-bold">74/100</p>
+</div>
+<div class="bg-background-light dark:bg-slate-800 p-4 rounded-xl text-center">
+<p class="text-[10px] text-slate-500 font-semibold mb-1 uppercase tracking-wider">Exposure Index</p>
+<p class="text-amber-accent text-xl font-bold">31 pts</p>
+</div>
+</div>
+<div class="flex justify-center mb-6">
+<div class="bg-amber-accent/20 px-6 py-1.5 rounded-full border border-amber-accent/30">
+<span class="text-amber-900 dark:text-amber-200 text-xs font-bold tracking-wide uppercase">Medium Risk</span>
+</div>
+</div>
+<div class="flex items-center justify-center gap-2 flex-wrap">
+<div class="flex items-center gap-1.5 bg-red-accent/10 text-red-600 dark:text-red-400 px-3 py-1 rounded-full text-xs font-medium border border-red-accent/20">
+<span class="material-symbols-outlined text-sm">warning</span> 2 High
+                </div>
+<div class="flex items-center gap-1.5 bg-amber-accent/10 text-amber-600 dark:text-amber-400 px-3 py-1 rounded-full text-xs font-medium border border-amber-accent/20">
+<span class="material-symbols-outlined text-sm">error</span> 3 Medium
+                </div>
+<div class="flex items-center gap-1.5 bg-blue-accent/10 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full text-xs font-medium border border-blue-accent/20">
+<span class="material-symbols-outlined text-sm">info</span> 1 Low
+                </div>
+</div>
+</section>
+<!-- Compliance Traps Section -->
+<section class="space-y-4">
+<h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold small-caps px-1">Compliance Traps</h3>
+<!-- Trap Card 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-primary/5 border-l-4 border-l-red-accent p-4 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-slate-900 dark:text-slate-100">No NIF registered</h4>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Lack of a tax identification number can lead to severe fines and blocked bank accounts.</p>
+<a class="text-primary dark:text-emerald-accent text-xs font-bold flex items-center gap-1 mt-1 hover:underline" href="#">
+                    See fix <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Trap Card 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-primary/5 border-l-4 border-l-amber-accent p-4 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-slate-900 dark:text-slate-100">Foreign income not declared</h4>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Tax audits often target undeclared global income for NHR candidates. High risk of penalties.</p>
+<a class="text-primary dark:text-emerald-accent text-xs font-bold flex items-center gap-1 mt-1 hover:underline" href="#">
+                    See fix <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Trap Card 3 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-primary/5 border-l-4 border-l-blue-accent p-4 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-slate-900 dark:text-slate-100">NHR status not confirmed</h4>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Missing the application window results in standard 28-48% tax rates instead of the 20% flat rate.</p>
+<a class="text-primary dark:text-emerald-accent text-xs font-bold flex items-center gap-1 mt-1 hover:underline" href="#">
+                    See fix <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</section>
+<!-- Community CTA Card -->
+<section class="bg-primary dark:bg-primary/90 rounded-2xl p-6 text-white overflow-hidden relative">
+<div class="relative z-10">
+<h3 class="text-xl font-bold mb-2">Fix this with our community</h3>
+<p class="text-white/80 text-sm mb-6">Join 1,000+ people on Telegram for real-time compliance updates.</p>
+<button class="w-full bg-emerald-accent hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-xl transition-colors flex items-center justify-center gap-2">
+                    Join Telegram <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Abstract background shape -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-emerald-accent/10 rounded-full -mr-10 -mt-10 blur-2xl"></div>
+</section>
+<!-- Share Actions -->
+<section class="grid grid-cols-2 gap-4 pb-8">
+<button class="flex items-center justify-center gap-2 border-2 border-primary/10 dark:border-white/10 text-primary dark:text-slate-100 font-bold py-3 rounded-xl hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined text-xl">download</span>
+<span class="text-sm">Download card</span>
+</button>
+<button class="flex items-center justify-center gap-2 border-2 border-primary/10 dark:border-white/10 text-primary dark:text-slate-100 font-bold py-3 rounded-xl hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined text-xl">content_copy</span>
+<span class="text-sm">Copy text</span>
+</button>
+</section>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-primary/5 px-6 pb-8 pt-3">
+<div class="max-w-md mx-auto flex justify-between items-center">
+<a class="flex flex-col items-center gap-1 text-primary dark:text-emerald-accent" href="#">
+<span class="material-symbols-outlined fill-1">analytics</span>
+<span class="text-[10px] font-bold">Results</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">build_circle</span>
+<span class="text-[10px] font-medium">Fixes</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-[10px] font-medium">Community</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>

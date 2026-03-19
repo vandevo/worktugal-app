@@ -1,0 +1,68 @@
+Step-by-Step Freelancer Onboarding Checklist (Portugal, 2025, income under €40 000)
+
+1. Pre-Setup (Before Working or Invoicing)
+
+Goal: register legally, open required accounts, and avoid early fines.
+
+Step	Action	Why It Matters	Estimated Time	Penalty if Ignored
+1	Get a NIF (tax number)	You need it for everything – contracts, invoices, bank, NISS.	Same day at Finanças or Loja do Cidadão	€150–€300 for operating without NIF
+2	Open a Portuguese bank account	Required for payments and tax transactions.	1 week average	Transactions may be rejected
+3	Obtain NISS (social-security number)	Enables your contributions and benefits.	2 weeks	Delays social-security registration
+4	Register activity (“Abertura de Atividade”)	Declares you as self-employed under Regime Simplificado.	10 min online at Finanças	€300–€7 500 fine for unregistered work
+2. Getting Paid and Staying Compliant
+
+Goal: start invoicing correctly and track VAT exposure.
+
+Step	Action	When	Notes	Penalty
+5	Activate and issue “Recibos Verdes”	From first client payment	Done via Portal das Finanças	€50–€300 late-invoice fines
+6	Monitor VAT threshold (€15 000/year)	Monthly or quarterly	Below → exempt (Art. 53); above → register for IVA within 30 days	€200–€2 500 fine for late VAT registration
+7	File quarterly Social-Security declarations	Jan 20, Apr 20, Jul 20, Oct 20	Pay 21.4 % of declared income	10 % interest + penalties if late
+8	Keep basic records	Always	Income log, invoices, expense receipts	Up to €2 500 + interest for missing proof
+3. Tax Filing (IRS 2026 for 2025 income)
+
+Goal: report yearly income correctly and pay what’s due.
+
+Step	Action	When	What Happens
+9	Calculate taxable income (75 % rule)	After year-end	Example: €40 000 × 75 % = €30 000 taxable
+10	Apply deductions & rates	Standard deduction ~ €4 349 → tax ≈ €5 700	
+11	Include social-security contribution (~€6 000)	Year 2+	Total tax burden ≈ €11 700
+12	Submit IRS Modelo 3	Apr 1 – Jun 30 2026	File online via Portal das Finanças
+13	Pay or receive refund	After assessment	Missed filing = €200–€2 500 fine
+4. Routine Maintenance
+
+Goal: stay compliant through automation and awareness.
+
+Frequency	Task	Notes
+Monthly	Log revenue, issue invoices, store receipts	Use app or Excel
+Quarterly	Review VAT status & SS payments	Check threshold drift
+Annually	IRS filing, update income estimate	Adjust contributions for next year
+5. Common Pitfalls to Avoid
+
+Registering too late → Finanças can retro-fine from first income date.
+
+Missing SS deadlines → 10 % interest compounds quickly.
+
+Crossing €15 000 without VAT registration → triggers audit.
+
+Ignoring letters from Finanças → many are automated penalty notices.
+
+Not declaring foreign income → double-tax risk.
+
+6. Ready-to-Use App Flow (UX Summary)
+
+Intro Screen: “Let’s check your tax readiness.”
+
+Section 1: Identity → NIF + NISS.
+
+Section 2: Activity → Open Regime Simplificado.
+
+Section 3: Invoicing → Recibos Verdes + VAT Monitor.
+
+Section 4: Compliance → Social Security + IRS Calendar.
+
+Section 5: Output → Scorecard + Penalties + Action Plan.
+
+Operator Take
+This checklist is your product skeleton.
+Each line item can become a form step, tooltip, or penalty alert inside the Worktugal Checkup Wizard.
+Next move: import this structure into Airtable or Bolt.new, tag each step with Status = Automated | Manual | Coming Soon, and you’ll have your first interactive onboarding prototype.

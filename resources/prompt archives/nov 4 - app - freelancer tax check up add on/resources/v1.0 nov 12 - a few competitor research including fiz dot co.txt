@@ -1,0 +1,201 @@
+# Competitive Landscape Mapping
+
+This is a clear overview of the main players and how Worktugal fits into the Portuguese market.  
+Every statement is grounded in verifiable information from official sites.
+
+---
+
+# 1. Software competitors (tax and invoicing tools)
+
+## FIZ (Portugal)
+
+**What they do**  
+A freelancer focused SaaS offering unlimited certified invoicing via Web, App and WhatsApp plus automatic VAT and Social Security submissions.  
+They offer a Tax Shield guarantee that covers fines up to €1 500 per declaration.  
+Human and AI support respond at any time.
+
+**Evidence**  
+fiz.co
+
+**Gaps vs Worktugal**  
+FIZ assumes the user is already compliant.  
+No pre filing compliance audit.  
+No risk detection.  
+No cross border guidance.  
+No marketplace.
+
+---
+
+## Rauva (Portugal)
+
+**What they do**  
+A digital business banking platform letting users create companies online, open business accounts and manage invoices, expenses and cards.  
+Invoices follow Portuguese tax standards.  
+Offers transaction syncing, cash flow analytics and one to one support.  
+Partners with Swan (an e money institution).  
+Not a bank or law firm.
+
+**Evidence**  
+get.rauva.com
+
+**Gaps vs Worktugal**  
+Offers banking and invoicing, not compliance.  
+Assumes users are already legal entities.  
+No risk engine.  
+No residency or visa guidance.  
+Targets SMEs rather than freelancers.
+
+---
+
+## Contasimple (Spain)
+
+**What they do**  
+Cloud invoicing and billing for freelancers and small businesses in Spain.  
+Ensures e invoice compliance, traceability and automatic submission to Spanish tax authorities.  
+Includes OCR expense tracking, bank reconciliation and automated tax calculation.
+
+**Evidence**  
+getapp.com
+
+**Gaps vs Worktugal**  
+Spain only.  
+No diagnostic engine.  
+No cross border support.
+
+---
+
+## Taxfix (Germany, Spain, UK)
+
+**What they do**  
+A mobile and web app replacing tax forms with simple questions.  
+Automatically generates and submits the tax return.  
+Shows instant refund calculation.
+
+**Evidence**  
+support.taxfix.de
+
+**Gaps vs Worktugal**  
+Not suitable for self employed people.  
+Not suitable for users with foreign income.  
+Focuses on personal income tax.  
+No VAT, Social Security or residency guidance.  
+No VAT threshold warnings.  
+Portugal not supported.
+
+---
+
+## Quipu (Spain)
+
+**What they do**  
+An all in one invoicing and cash flow management system.  
+Creates and sends invoices, tracks payment status and connects bank accounts.  
+Automatically classifies transactions and simulates cash flow.
+
+**Evidence**  
+getquipu.com
+
+**Gaps vs Worktugal**  
+Focuses on automation.  
+Spain only.  
+No pre registration compliance checks.  
+No migration or residency layer.
+
+---
+
+## Moloni (Portugal)
+
+**What they do**  
+A leading online invoicing platform certified by the Portuguese tax authority.  
+Emphasises speed, advanced tools, mobile apps and strong security.  
+Supports e invoicing, digital signatures and automatic ATCUD codes.
+
+**Evidence**  
+moloni.pt
+
+**Gaps vs Worktugal**  
+Pure invoicing.  
+Assumes users are already compliant.  
+No risk scoring.  
+No immigration or residency guidance.
+
+---
+
+## InvoiceXpress (Portugal)
+
+**What they do**  
+Certified invoicing SaaS offering dashboards, VAT comparison, recurring invoices, SMS and email delivery, SAF T export and advanced search tools.  
+Strong security and digital signed PDF invoices.
+
+**Evidence**  
+invoicexpress.com
+
+**Gaps vs Worktugal**  
+Focus on billing automation.  
+No compliance diagnosis.  
+No cross border or residency support.  
+No marketplace.
+
+---
+
+# 2. Traditional accounting firms and communities
+
+## ContaMestre and LusoConta  
+Regional accounting firms.  
+Human driven bookkeeping and tax filing.  
+Not cloud native.  
+No automated risk scoring.
+
+## ExpatsPortugal services  
+A community forum connecting newcomers to service providers.  
+Not software.  
+No automated compliance systems.
+
+## PwC and Deloitte SME arms  
+Enterprise grade advisory and tax services.  
+Expensive and targeted at established companies.  
+Not self service.  
+Not built for freelancers.
+
+---
+
+# 3. Worktugal’s wedge
+
+## Pre compliance diagnostic engine  
+Worktugal runs an Eleven Rule compliance scan before the user invoices anyone.  
+Identifies missing NIF and NISS, unregistered activity, VAT threshold crossings and visa related traps.  
+Competitors assume these problems are already solved.
+
+## Timing and behavioral layer  
+Worktugal maps Portugal’s fiscal clock, including AT slowdowns, blackout periods, holiday delays and penalty cycles.  
+None of the listed competitors offer timing intelligence.
+
+## Cross border focus  
+Worktugal targets remote workers and migrants using visas like NHR, D7 and the digital nomad visa.  
+Incorporates foreign income rules and residency traps.  
+Taxfix explicitly excludes these cases.  
+Other tools serve only domestic freelancers.
+
+## Marketplace and partner network  
+Worktugal converts diagnostic results into paid Fix Sessions and matches users with vetted accountants.  
+FIZ does filings in house.  
+Rauva provides banking.  
+Moloni and InvoiceXpress provide invoicing.  
+No one operates a shared revenue marketplace.
+
+## Portable system architecture  
+Worktugal sits before invoicing, banking or filing.  
+Its rules engine and fiscal calendar can be replicated in Spain, Netherlands or UAE.  
+Competitors are tied to national filings or banking licenses.
+
+---
+
+# Conclusion
+
+FIZ, Rauva, Moloni and InvoiceXpress prove there is demand for automation.  
+But they only start after the user is already compliant.
+
+Worktugal intercepts users before they enter the system.  
+It detects risks, maps deadlines, prevents fines and connects users to the right accountant.  
+This position is not occupied by any invoicing tool, banking app or traditional firm.
+
+Worktugal therefore owns a unique wedge: a compliance risk and timing intelligence engine that transforms chaos into clear actions before any invoice is sent.

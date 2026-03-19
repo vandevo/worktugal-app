@@ -1,0 +1,163 @@
+v1.4 - Worktugal Accounting Desk Early Birds Plan (Oct 3, 2025)
+
+1) Early Birds waitlist flow
+
+Keep the Accounting page live, switch primary CTA to a waitlist modal until you finish wiring payments.
+
+Copy for hero button
+Book This Week → Join Early Access
+
+Microcopy
+We are opening a limited Early Birds cohort for prepaid consults. Add your email to get a booking invite and a priority code. No spam.
+
+Fields
+name, email, country, main need, urgency, consent
+
+Success state
+You are on the list. We send booking links as soon as slots open. If your case is urgent, reply to the email you receive after this.
+
+Minimal Supabase table
+leads_accounting
+id uuid default gen_random_uuid
+created_at timestamptz default now
+name text
+email text
+country text
+main_need text
+urgency text
+source text default ‘accounting_page’
+status text default ‘new’ check in (‘new’, ‘invited’, ‘booked’, ‘closed’)
+
+RLS
+Owner read via email match. Service role insert via Edge Function or anon insert with tight policy by origin path.
+
+2) Accountant application flow
+
+Your join-accountants page exists. Capture real data to shortlist.
+
+Supabase table
+accountant_applicants
+id uuid default gen_random_uuid
+created_at timestamptz default now
+full_name text
+email text
+phone text
+years_experience int
+linkedin text
+cv_url text
+motivation text
+occ_number text null
+languages text[]
+status text default ‘new’ check in (‘new’, ‘screened’, ‘interview’, ‘approved’, ‘rejected’)
+
+RLS
+Service role writes. Admin read in dashboard later.
+
+Screening rule of thumb
+OCC number present, English B2 or better, willingness to deliver written outcomes within 48 hours, accepts 48 hour payout and one reschedule rule.
+
+3) Make.com automations
+
+Scenario A, new lead
+Trigger, Supabase insert on leads_accounting
+Action, send Gmail template Early Birds confirmation with plain reply path
+Optional, add to Google Sheet for manual triage
+
+Scenario B, new accountant applicant
+Trigger, Supabase insert on accountant_applicants
+Action, notify you in Telegram or email with a compact card of fields
+Optional, auto request OCC number proof if missing
+
+Email template, Early Birds confirmation
+Subject, You are on the Accounting Desk Early Birds list
+Body, Thanks for joining. We are opening slots in batches. You will get a booking invite soon. If your case is urgent, reply with two lines, your main question and your NIF status. We answer within one business day.
+
+4) Stripe consults test plan
+
+Products to test
+Tax Triage 59
+Freelancer Start Pack 349
+Annual Return 149
+
+Test checklist
+Open checkout from Accounting page in test mode
+Pay with 4242 card
+Stripe webhook updates submissions or consult table
+status moves to paid
+Return URL hits success page with submission_id
+Manual schedule link works
+Written outcome placeholder can be saved to outcome_url
+No console errors
+No double writes in DB
+
+Edge Function metadata
+Always include service_type, submission_id, user_id
+
+5) Safe schema choice
+
+Short term
+Add consult fields to submissions as already drafted, then write a view consults_v consolidating just consult rows for dashboards.
+
+Long term
+When you have supply running, add consult_bookings and outcome notes, and join by submission_id. Do not rush this now.
+
+SQL patch you can run now
+
+ALTER TABLE submissions
+ADD COLUMN service_type text NOT NULL DEFAULT 'consult',
+ADD COLUMN preferred_date timestamptz NULL,
+ADD COLUMN outcome_url text NULL,
+ADD COLUMN status text NOT NULL DEFAULT 'requested'
+  CHECK (status IN ('requested','paid','scheduled','delivered'));
+
+
+Lead table
+
+create table if not exists public.leads_accounting (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  name text,
+  email text not null,
+  country text,
+  main_need text,
+  urgency text,
+  source text not null default 'accounting_page',
+  status text not null default 'new' check (status in ('new','invited','booked','closed'))
+);
+
+
+Applicants table
+
+create table if not exists public.accountant_applicants (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  full_name text not null,
+  email text not null,
+  phone text,
+  years_experience int,
+  linkedin text,
+  cv_url text,
+  motivation text,
+  occ_number text,
+  languages text[],
+  status text not null default 'new' check (status in ('new','screened','interview','approved','rejected'))
+);
+
+6) Guardrails for Bolt.new while you develop this
+
+Paste your Universal AI Development Protocol at session start. Then add this short reminder each time before any code change.
+
+Short Guardrail reminder
+Work in Guardrail Mode. Only the files I name. Show a diff. Wait for confirm. Max one file and 30 lines. No repo-wide edits. If type check or build fails, rollback and report.
+
+7) What to do right now, in order
+
+Change Accounting hero CTA to waitlist modal
+Create leads_accounting table and RLS
+Wire the form to insert leads
+Turn on Make.com Scenario A for lead email
+Ship join-accountants form to accountant_applicants
+Turn on Make.com Scenario B for applicant alerts
+Run Stripe test mode for each consult product on a hidden test route
+Only after all tests pass, switch the Accounting CTA back to Book Now for a small cohort
+~

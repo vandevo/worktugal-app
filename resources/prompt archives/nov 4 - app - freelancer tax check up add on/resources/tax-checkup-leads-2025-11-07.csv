@@ -1,0 +1,4 @@
+Date,Name,Email,Phone,Work Type,Red Flags,Warnings,Quality Score,Email Consent,UTM Source
+11/7/2025,John Freaking Jane,vandevo.com@gmail.com,+351919089418,developer,0,4,88,Yes,
+11/7/2025,Test Critical User,vandevo.com@gmail.com,+351912345678,developer,4,0,100,Yes,test
+11/7/2025,John Freaking Doe,vandevo.com@gmail.com,+351911998234,developer,1,1,89,Yes,

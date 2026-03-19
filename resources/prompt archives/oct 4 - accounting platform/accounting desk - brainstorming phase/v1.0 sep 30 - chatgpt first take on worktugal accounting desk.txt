@@ -1,0 +1,167 @@
+Got you. Here’s a sharp, no-fluff plan to pick the right wedge, launch fast in 4 days, and make it pay.
+
+Where the money really is
+
+Accountants win as the first wedge. Demand is constant and urgent: NIF questions, freelancer setup, quarterly VAT, IRS returns, NISS, receipts, fines, audits. Premium tax lawyers are pricey and booked; they’re great for complex cases later, not for day-one scale. Example signals: Fresh Portugal charges €420 for a 30-min consult and ~€3,500 for a personal tax plan, targeting higher-income clients . Mass NIF players are crowded and cheap; some charge €79–€150 for NIF with fiscal rep upsells and bank account add-ons, so margins are thin and churny . General relocation bundles (D7/D8) are common and price-anchored at €899–€1,199, but require heavy ops and broad scope .
+
+Your best opening: an “Accounting Desk for Expats” that guarantees a paid, on-time consult and a concrete deliverable. You control the checkout. Providers just show up. No chasing anyone.
+
+The wedge
+
+Worktugal Accounting Desk. Portugal-only. English-first. Freelancers, remote workers, early movers.
+
+Unique advantages
+
+Instant-book, prepaid consults that start on time.
+
+Clear deliverables per package.
+
+A simple “case tracker” that shows status and next steps, reducing anxiety. Think Lawfully’s timelines and notifications concept adapted to Portugal tax and admin flows .
+
+Core paid offers to launch
+
+30-minute tax triage. €59. Within 48h. We keep 25 percent. Provider gets a calendar slot, shows up, gets paid.
+
+Freelancer start pack. €299–€399. Open atividade, VAT if needed, e-Factura access, NISS guidance, first “recibos verdes” walkthrough. We keep ~20 percent. This is the high-intent, high-pain entry.
+
+Annual return pack. Start at €800 in the market for expats; target a mid-range partner catalog and take 10–15 percent .
+
+Add-ons. VAT registration €120, quarterly filing €99 each, NIF rep transfer €79, address update €79, lease review €150 with partner lawyer if needed .
+
+Why this converts
+
+Fresh’s pricing signals willingness to pay for clarity and speed at the high end .
+
+Mid-market accountants already sell advisory from €280, filings from €275, freelancer setup from €300, proving demand and price acceptance .
+
+NIF mills are cheap but impersonal; your edge is live help plus a tracker and guaranteed outcome windows .
+
+How it works operationally
+
+Flow
+
+User books and pays on Worktugal. You are merchant of record. Slots are real. Instant email and WhatsApp confirmation.
+
+Intake form collects exact income sources and residency facts. You pre-score the case and attach a checklist.
+
+Provider receives a structured brief and joins a calendar event with a Worktugal notepad template.
+
+Payouts happen after the session concludes. No-show policy: prepay with reschedule once.
+
+Provider side
+
+Pitch: “zero billing admin, prepaid show-up work, reliable pipeline.” GoalSeek-style services confirm the scope accountants already offer; you bundle and productize them .
+
+Start with boutique accountants comfortable in English. Offer a “found money” channel with clear SLA.
+
+Legal and trust
+
+Prominent disclaimer: Worktugal is not a law firm or accountant; services are delivered by accredited pros. This is standard across competitors .
+
+GDPR: encrypted file upload, minimum data retention, clear DPA with providers.
+
+Receipts with VAT breakdown. Written scope and refund rules in plain English.
+
+MVP, built fast, Bolt-ready
+
+Scope only what Bolt.new can ship cleanly without custom stacks. You asked to trust Bolt; so we keep features “Claude-buildable” from day one.
+
+Essential screens
+
+Landing with three offers and trust signals.
+
+Booking flow with time slots, Stripe checkout, and confirmation.
+
+Intake form with dynamic questions by case type.
+
+Case tracker showing step, owner, ETA, and documents required. Inspired by Lawfully’s clear status updates and projected timelines .
+
+Provider portal lite: calendar, briefs, payout ledger.
+
+Data model
+
+Users, Providers, Bookings, Packages, Checklists, Documents, Payouts, Notes.
+
+Status machine: requested, paid, scheduled, in-session, delivered, revision, closed, refunded.
+
+SLAs
+
+Triage call within 48h.
+
+Start pack kickoff within 3 business days.
+
+Return draft within 10 business days after document completeness.
+
+Pricing and unit economics
+
+Example month one
+
+40 triage calls at €59: €2,360 gross. Keep 25 percent = €590.
+
+15 start packs at €349 avg: €5,235 gross. Keep 20 percent = €1,047.
+
+5 annual returns at €800: €4,000 gross. Keep 12.5 percent = €500.
+
+Total platform margin ≈ €2,137 before payment fees and ads.
+
+Ads: start with content and partnerships; keep CAC near zero for the pilot.
+
+Audience and acquisition
+
+Where to pull demand
+
+Worktugal’s own channels and DMs.
+
+Expat FB groups, Reddit threads, niche Discords.
+
+Content: “Do you really need IVA?” “First 90 days in Portugal, tax edition.” “Receipts verdes in 10 screenshots.”
+
+Direct partner feeds: relocation services that stop at NIF and bank account can pass you tax clients; many already productize these flows at transparent price points you can match or beat .
+
+Four-day launch plan
+
+Day 1
+
+Pick final offer names, prices, refunds.
+
+Draft all copy. Build a one-page landing with three CTAs.
+
+Create the intake forms and the consult notepad template.
+
+Day 2
+
+Wire Stripe and payout settings. Set no-show and refund logic.
+
+Seed supplier calendar with three accountants and five daily slots. Offer them guaranteed paid trials.
+
+Day 3
+
+Ship tracker v0: five status steps, manual updates only.
+
+Dry-run three internal bookings with friends to test end-to-end.
+
+Day 4
+
+Go live to Worktugal audience, two FB groups, one Reddit thread.
+
+Offer five “founder slots” with same-day triage and a €20 voucher toward a start pack.
+
+What not to build yet
+
+Full visa concierge and property services. Heavy ops, lower margins, wider scope. Others already package it tightly at €899–€1,199 with legal chats and case managers .
+
+A NIF-only funnel race to the bottom. Competitors sell €79–€150 with fiscal rep upsells; value capture is thin and customer LTV is weak .
+
+Risks and counters
+
+Supply quality varies. Counter with trial jobs, recorded calls (with consent), CSAT surveys, and right to replace provider.
+
+Scope creep in start packs. Counter with a numbered checklist and out-of-scope upsells.
+
+Cash flow timing. Hold payouts 48h post-session. Clear refund policy for no-deliverable cases.
+
+Decision, crisp
+
+Start with accountants. Launch the Accounting Desk now. Add a light lawyer consult later as an upsell path once the engine runs.
+
+If you want, I’ll draft the Bolt-ready prompt pack for the MVP screens, schema, and flows in one go.

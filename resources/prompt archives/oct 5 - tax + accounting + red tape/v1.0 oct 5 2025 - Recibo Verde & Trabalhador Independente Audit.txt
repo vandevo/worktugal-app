@@ -1,0 +1,172 @@
+**Owner:** VO VAN TOAN QUOC
+
+**NIF:** 296971260 **NISS:** 12083410901
+
+**Regime:** Category B (Simplified) **IVA:** Exempt (Art. 53 CIVA)
+
+**Finanças Office:** 3069 Lisboa-1 **Segurança Social:** Active (21.4 %)
+
+**Monthly Contribution:** ~€20 minimum (base compliance tier)
+
+---
+
+### **1. Legal Framework Summary**
+
+| Area | Current Status (2025) |
+| --- | --- |
+| Fiscal Regime | Trabalhador Independente – Cat B Simplified |
+| IVA | Exempt under Art. 53 CIVA (≤ €13 500 previous year turnover) |
+| Retenção na Fonte | 23 % default rate (2025 law); option to keep 25 % if preferred |
+| Retenção Exemption | Allowed if total previous-year recibos ≤ €15 000 |
+| SS Rate | 21.4 % on 70 % of income (base = 1/3 of quarter) |
+| Filing Obligations | Quarterly SS declaration + annual IRS (Modelo 3) |
+
+✅ All thresholds checked as of Oct 2025 (Orçamento do Estado 2025 rules).
+
+---
+
+### **2. Quarterly and Annual Workflow**
+
+**Every Quarter (Jan – Apr – Jul – Oct):**
+
+1. Login → [Segurança Social Direta → Trabalhador Independente → Declaração Trimestral]
+2. Enter income from recibos verdes only (do not include Xolo/Stripe earnings).
+3. If zero, enter “0” → system keeps minimum ~€20.
+4. Pay within month following the quarter (e.g., April 30 for Q1).
+5. Download payment proof.
+
+**Every Year (Apr – Jun):**
+
+1. File IRS (Modelo 3) via Portal das Finanças.
+2. Include recibo verde income auto-imported from e-Fatura.
+3. If no income, submit €0 declaration to stay active.
+
+---
+
+### **3. Issuing Recibos Verdes (E-Fatura Portal)**
+
+**Use only for Portugal-based clients.**
+
+Foreign invoices must go through Xolo or Stripe.
+
+**Steps:**
+
+1. Portal das Finanças → *Emitir Recibo Verde Eletrónico*
+2. Tipo de Rendimento → “Prestação de Serviços”
+3. Descrição → brief service summary (“Consultoria, serviços digitais”)
+4. IVA → “Isento Art. 53º CIVA”
+5. Retenção na Fonte → choose option:
+    
+    • 23 % (default 2025)
+    
+    • 25 % (optional higher)
+    
+    • None (if previous year ≤ €15 000)
+    
+6. Save PDF for records.
+
+✅ 3–5 receipts/year from different clients = active low-risk.
+
+❌ >10 receipts to same client = dependency risk.
+
+---
+
+### **4. Social Security Contribution Matrix**
+
+| Quarterly Gross Income (€) | Monthly Payment (Approx.) | Note |
+| --- | --- | --- |
+| 0 – 1 000 | ~€20 minimum | Maintain active status |
+| 1 001 – 3 000 | €50 – €150 | 21.4 % of 70 % base |
+| 3 001 – 6 000 | €200 – €400 | adjusts next quarter |
+| > 6 000 | variable 21.4 % | consider LDA transition |
+
+Formula: *(quarter income × 0.70 × 0.214) ÷ 3 = monthly SS amount*
+
+---
+
+### **5. Pausing or Closing Activity**
+
+**Pause (no new recibos):**
+
+- Keep atividade open.
+- Quarterly SS declaration = “0 €”.
+- Continue minimum payment.
+- File IRS annually with zero income.
+
+**Close (Cessação de Atividade):**
+
+1. Portal das Finanças → *Declaração de Cessação*.
+2. Select reason = “Cessação temporária”.
+3. Submit final SS quarter.
+4. Save confirmation PDF.
+5. Reopen online anytime when needed.
+
+---
+
+### **6. Record-Keeping Checklist**
+
+| Document | Retention | Location |
+| --- | --- | --- |
+| IRS Modelo 3 PDF | 10 years | Finanças Portal |
+| SS Comprovativos | 10 years | SSD Portal |
+| Recibo Verde PDFs | 10 years | e-Fatura Archive |
+| Payment Receipts (MB Ref) | 5 years | Bank Exports |
+| Xolo/Stripe Invoices | 10 years | Foreign Income Folder |
+
+---
+
+### **7. Red-Flag Triggers (High Risk of Audit)**
+
+1. Using recibos verdes for foreign clients.
+2. Not filing quarterly SS or annual IRS.
+3. Income > €15 000 without retenção or IVA registration.
+4. Same client > 80 % of annual income (dependent work risk).
+5. Listing foreign address on Portuguese receipts.
+6. Receiving crypto or foreign transfers into PT business account without proof.
+
+---
+
+### **8. Upgrade or Transition Triggers**
+
+| Trigger | Required Action |
+| --- | --- |
+| Yearly income > €15 000 | Start applying retenção na fonte or IVA as needed |
+| Yearly income > €200 000 | Move to organized accounting or LDA |
+| Consistent foreign revenue | Route via Xolo / Stripe only |
+| Hiring local staff | Form Unipessoal LDA |
+
+---
+
+### **9. Practical Safety Rules**
+
+- Never mix foreign income with recibo verde ledger.
+- Keep PT address for Finanças and SS, EE address only on Xolo invoices.
+- Store every quarterly proof offline and in cloud.
+- If in doubt, declare small income and pay minimum SS — never skip.
+- When income rises or becomes regular, consult accountant for IVA transition.
+
+---
+
+### **10. Current Tax Rates (2025 Reference)**
+
+| Item | 2024 → 2025 Change | Current Rate |
+| --- | --- | --- |
+| IRS Retenção na Fonte | 25 % → 23 % | 23 % default for services |
+| IVA Exemption limit | €12 500 → €13 500 | Below limit = Art. 53 CIVA |
+| SS Rate | Unchanged | 21.4 % |
+| Retenção Exemption limit | New €15 000 rule | ≤ €15 000 = optional retenção |
+
+---
+
+### **11. Best Low-Income Compliance Setup (for you)**
+
+- Keep atividade open (Category B simplified).
+- Declare quarterly with €0 or low income.
+- Pay ~€20 SS monthly.
+- File IRS each spring.
+- Issue few recibos verdes only for PT clients (≤ €15 000 yearly).
+- Route real revenue (Xolo/Stripe) through foreign rails.
+
+**Outcome:**
+
+Fully legal Portuguese resident status, social-security coverage, and compliance for ≈ €240 per year.

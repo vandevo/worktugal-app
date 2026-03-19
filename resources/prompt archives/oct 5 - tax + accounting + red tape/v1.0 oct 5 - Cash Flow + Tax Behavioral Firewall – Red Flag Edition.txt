@@ -1,0 +1,80 @@
+Owner: VO VAN TOAN QUOC
+System: Worktugal / Xolo / Stripe / Wise / Revolut / Activo
+Purpose: Prevent self-sabotage, legal exposure, or audit triggers.
+
+Core Rule
+
+Operate like a transparent professional, not a hidden entity.
+You win by clarity, timing, and documentation — not opacity.
+
+Tier 1: Hard Prohibitions (Instant Audit Triggers)
+
+No personal spending from business accounts
+Wise Business and Xolo = professional only.
+
+No mixing residency addresses
+Portugal address on government filings, Estonia only on invoices.
+
+No large crypto-to-bank transfers without transaction history
+Always show exchange CSV + wallet ID trail.
+
+No skipped filings
+File IRS and Segurança Social every year, even with €0 income.
+
+No false claims of foreign management
+Don’t say you “operate from Estonia” while living in Lisbon.
+
+No payroll or employee status through Xolo
+Use contractor invoices, never payslips.
+
+No unregulated processors
+Use only Stripe, Wise, Revolut, Activo.
+
+No missing residency renewals
+Renew AIMA before expiry with current IRS/NISS proofs.
+
+Tier 2: Audit Magnets (High Suspicion Signals)
+
+Crypto liquidation into Revolut or Activo without proof.
+
+Sudden income jump >200K €/year without changing regime.
+
+Xolo invoices matching local Portuguese clients.
+
+Public bragging about tax avoidance or “living tax-free.”
+
+Invoices with mixed addresses (Lisboa + Tartu).
+
+Tier 3: Bureaucracy Traps (Slow Decay Loops)
+
+Ignoring Finanças notices beyond 7 days.
+
+Mixing business and love life finances.
+
+Opening an LDA before consistent revenue.
+
+Using accountants unfamiliar with crypto or cross-border structures.
+
+Letting utilities lapse or address proofs expire.
+
+Tier 4: Survival Mode Reset
+
+When overwhelmed, follow this sequence:
+
+Freeze new commitments.
+
+Check IRS + Segurança Social dashboards.
+
+Verify Stripe → Wise → Revolut balances and flow logs.
+
+Pay any pending contributions.
+
+Update residency file (AIMA) with latest IRS/NISS proof.
+
+Only then resume scaling or new ventures.
+
+Permanent Principle
+
+If an action adds visibility, documentation, or optionality — it’s safe.
+If it adds opacity, dependency, or uncertainty — abort.
+

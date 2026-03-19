@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#0f3e2e",
+                "background-light": "#FAFAF9",
+                "background-dark": "#131f1b",
+                "emerald-custom": "#10B981",
+                "amber-custom": "#F59E0B",
+                "red-custom": "#EF4444",
+                "blue-custom": "#3B82F6",
+              },
+              fontFamily: {
+                "display": ["Inter", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "2xl": "1.25rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .ios-shadow { shadow-[0_4px_20px_rgba(0,0,0,0.05)] }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-slate-900 dark:text-slate-100">
+<div class="max-w-md mx-auto flex flex-col min-h-screen pb-24">
+<!-- Header -->
+<header class="flex items-center justify-between px-6 py-5 bg-background-light/80 backdrop-blur-md sticky top-0 z-50">
+<h1 class="text-primary dark:text-emerald-custom text-xl font-bold tracking-tight">Worktugal</h1>
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">share</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="px-6 space-y-6">
+<!-- Hero Score Card -->
+<section class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-50 dark:border-slate-800">
+<header class="text-center mb-6">
+<p class="text-[10px] font-bold tracking-[0.15em] text-slate-400 dark:text-slate-500 uppercase">Your Compliance Snapshot</p>
+</header>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="text-center p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+<p class="text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-1">Setup Score</p>
+<div class="flex items-baseline justify-center">
+<span class="text-3xl font-bold text-emerald-custom">74</span>
+<span class="text-sm font-medium text-slate-400 ml-0.5">/100</span>
+</div>
+</div>
+<div class="text-center p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+<p class="text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-1">Exposure Index</p>
+<div class="flex items-baseline justify-center">
+<span class="text-3xl font-bold text-amber-custom">31</span>
+<span class="text-sm font-medium text-slate-400 ml-0.5">pts</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-center gap-4">
+<span class="px-4 py-1.5 rounded-full bg-amber-custom/10 text-amber-custom text-xs font-bold tracking-wide uppercase">
+                        Medium Risk
+                    </span>
+<div class="flex gap-2">
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-custom/10 text-red-custom">
+<span class="text-xs font-semibold">2 High</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-custom/10 text-amber-custom">
+<span class="text-xs font-semibold">3 Medium</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-custom/10 text-blue-custom">
+<span class="text-xs font-semibold">1 Low</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section Title -->
+<div class="flex items-center justify-between">
+<h3 class="text-[11px] font-bold tracking-[0.15em] text-slate-500 dark:text-slate-400 uppercase">Compliance Traps</h3>
+<span class="flex items-center justify-center bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] font-bold w-5 h-5 rounded-full">6</span>
+</div>
+<!-- Trap Cards -->
+<div class="space-y-4">
+<!-- Card 1: High Risk -->
+<article class="bg-white dark:bg-slate-900 rounded-lg p-5 border-l-4 border-red-custom shadow-sm flex flex-col gap-3">
+<div class="flex justify-start">
+<span class="px-2.5 py-1 rounded bg-red-custom/10 text-red-custom text-[10px] font-bold tracking-wide uppercase">High Risk</span>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-slate-100 font-bold text-base">No NIF registered</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mt-1">
+                            Operating without a NIF exposes you to fines of €80–€700 under CIVA Art. 29.
+                        </p>
+</div>
+<a class="text-emerald-custom font-semibold text-sm flex items-center gap-1 mt-1" href="#">
+                        See fix <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</article>
+<!-- Card 2: Medium Risk -->
+<article class="bg-white dark:bg-slate-900 rounded-lg p-5 border-l-4 border-amber-custom shadow-sm flex flex-col gap-3">
+<div class="flex justify-start">
+<span class="px-2.5 py-1 rounded bg-amber-custom/10 text-amber-custom text-[10px] font-bold tracking-wide uppercase">Medium Risk</span>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-slate-100 font-bold text-base">Foreign income not declared</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mt-1">
+                            Incomplete declarations can trigger audits by Autoridade Tributária regarding global remote earnings.
+                        </p>
+</div>
+<a class="text-emerald-custom font-semibold text-sm flex items-center gap-1 mt-1" href="#">
+                        See fix <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</article>
+<!-- Card 3: Low Risk -->
+<article class="bg-white dark:bg-slate-900 rounded-lg p-5 border-l-4 border-blue-custom shadow-sm flex flex-col gap-3">
+<div class="flex justify-start">
+<span class="px-2.5 py-1 rounded bg-blue-custom/10 text-blue-custom text-[10px] font-bold tracking-wide uppercase">Low Risk</span>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-slate-100 font-bold text-base">NHR status not confirmed</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mt-1">
+                            You may be paying 20-48% tax instead of the flat 20% rate available to new residents.
+                        </p>
+</div>
+<a class="text-emerald-custom font-semibold text-sm flex items-center gap-1 mt-1" href="#">
+                        See fix <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</article>
+</div>
+<!-- CTA Card -->
+<section class="bg-primary rounded-xl p-8 text-center space-y-6">
+<div class="space-y-2">
+<h3 class="text-white text-xl font-bold">Fix this with our community</h3>
+<p class="text-emerald-custom/80 text-sm">Join 1,000+ people on Telegram</p>
+</div>
+<button class="w-full bg-emerald-custom text-white font-bold py-4 rounded-lg flex items-center justify-center gap-2 hover:bg-emerald-600 transition-colors">
+                    Join Telegram <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</section>
+<!-- Share Buttons -->
+<div class="grid grid-cols-2 gap-3 pb-8">
+<button class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg border-2 border-slate-200 dark:border-slate-800 font-semibold text-slate-700 dark:text-slate-300 text-sm">
+<span class="material-symbols-outlined text-lg">download</span>
+                    Download card
+                </button>
+<button class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg border-2 border-slate-200 dark:border-slate-800 font-semibold text-slate-700 dark:text-slate-300 text-sm">
+<span class="material-symbols-outlined text-lg">content_copy</span>
+                    Copy text
+                </button>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-100 dark:border-slate-800 pb-safe px-6 pt-2 pb-6">
+<div class="flex justify-around items-center">
+<a class="flex flex-col items-center gap-1 text-primary dark:text-emerald-custom" href="#">
+<span class="material-symbols-outlined fill-1">analytics</span>
+<span class="text-[10px] font-bold">Results</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="text-[10px] font-medium">Fixes</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-[10px] font-medium">Community</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

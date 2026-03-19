@@ -1,0 +1,154 @@
+Here’s how I would refine your draft intake form to make it more accurate and practical for the first Bolt.new wizard, based on the fact‑checking I did:
+
+1. Correct critical compliance facts
+
+Activity start fines: the draft says late activity registration leads to a €200–2 500 fine, but PwC’s 2024 tax guide notes that failing to file the commencement (start‑of‑activity) declaration can result in penalties of €600–7 500
+pwc.pt
+. I’d either adjust the range or say “significant fines” without quoting a low figure.
+
+VAT exemption threshold: state that Article 53’s annual turnover limit rises from €14  500 in 2024 to €15  000 in 2025
+support.rauva.com
+; mention the €18  750 tolerance band for mid‑year turnover (if relevant) so applicants understand when VAT registration becomes mandatory.
+
+NISS and residence: AIMA’s April 2025 rule means complete residence applications must include both NIF and NISS
+inlis.pt
+. Clarify that NISS is mandatory for renewals after 30 Jun 2025
+pt.linkedin.com
+ but may still be pending for new applicants; ask if they already have NISS or need guidance.
+
+Fiscal representative: highlight the 15‑day obligation for non‑EU/EEA residents to appoint a fiscal representative
+portugalhomes.com
+ and add a yes/no question with contact details if they already have one.
+
+2. Add contact and consent fields
+Include Email, Phone/WhatsApp and a consent checkbox so you can follow up legally. This is critical for data protection and for later matching them with accountants.
+
+3. Separate identity and residence
+A clearer first section could be:
+
+Passport/ID upload (with expiry date).
+
+Full legal name and date of birth.
+
+Country of citizenship.
+
+Current address in Portugal.
+
+Residence status/visa type (D7, D8, D2, EU/EEA, CPLP, etc.).
+
+A question: “Have you registered your lease contract with Finanças (Modelo 2)?” – this matters because AIMA requires the lease to be registered
+lvpadvogados.com
+.
+
+4. Streamline activity and VAT questions
+
+Ask “Have you opened your freelance activity (‘Início de Atividade’) with Finanças?” If no, skip CAE/VAT questions but remind them this must be done before invoicing.
+
+For CAE codes, consider a dropdown with common freelancer categories (73110 consultancy, 85590 training, etc.) or a link to the official list so users don’t guess.
+
+For VAT: only show the VAT regime choice if estimated turnover exceeds €14 500 (2024) or €15 000 (2025)
+support.rauva.com
+. Ask if they sell to Portuguese consumers (B2C) versus businesses abroad (B2B) since exports can be zero‑rated.
+
+Ask if they plan to hire a fiscal representative (for non‑EU/EEA).
+
+5. Clarify tax history and penalties
+
+Replace “Have you already earned income without declaring?” with “Have you issued invoices or received income before registering your activity?” to capture undeclared work.
+
+Ask “Have you filed an IRS return in Portugal before?” and, if yes, request copies or previous accountant contact details (helpful for continuity).
+
+Ask if they have any open Finanças or Social Security letters or fines to ensure issues are resolved before onboarding.
+
+6. Behavioural & UX improvements
+
+Use plain language: e.g., “Have you already opened your freelancer activity?” instead of “Activity Already Opened at Finanças?”
+
+Include an urgency selector (“Within 2 weeks”, “Within a month”, “No rush”) to prioritise follow‑up.
+
+Language support: ask about preferred language and Portuguese proficiency, as the legal portals and Finanças sites are often only in Portuguese.
+
+Display a progress bar and save progress automatically (as your note suggests) to reduce abandonment.
+
+7. Additional optional questions
+
+Bank details: ask if they have a Portuguese IBAN yet (PT50); if not, provide guidance.
+
+Social security status: ask if NISS registration is complete or pending, given AIMA’s requirement.
+
+Future services: ask if they need help with Non‑Habitual Resident (NHR) regime or other incentives.
+
+Ask if they want to be matched with a certified accountant; if yes, request permission to share their details with an accountant.
+
+These refinements will turn your intake form into a comprehensive wizard that not only collects all necessary compliance data but also identifies the most common pain points and readiness levels. They also ensure the form aligns with verified Portuguese regulations
+inlis.pt
+support.rauva.com
+ and avoids stating inaccurate penalty ranges
+pwc.pt
+. You can always iterate after seeing how users respond, but starting with accurate, well‑structured questions will reduce confusion and save time for both you and the accountants who will use your platform.
+
+To build a first‑version intake wizard that is genuinely idiot‑proof, accessible on mobile, and pleasing even for distracted or non‑tech‑savvy users, you should think in terms of small, clear steps and progressive disclosure rather than a single intimidating form. Here’s how I would structure it and what to include or defer for later iterations:
+
+1. Break the journey into 4–5 steps with a progress bar
+
+A multi‑step wizard reduces cognitive load, lets users focus on one theme at a time, and gives them dopamine hits as they complete each step. Each step should have no more than 4–5 fields and a clear heading. For example:
+
+Basics & Contact – name, email, country, preferred language. Explain in one line why you need this (“so we can send your summary and contact you if needed”).
+
+Identity & Residence – passport upload, date of birth, NIF, visa type, current address, lease registered (yes/no).
+
+Activity & Income – have you opened activity? CAE code (dropdown with common options), start date, expected turnover, invoicing platform. Show VAT questions only if they enter an estimate > €14 500 for 2024 or > €15 000 for 2025
+support.rauva.com
+.
+
+Social Security & Tax History – NISS status (have/need), prior IRS filings, any Finanças letters or fines, fiscal‑representative status
+portugalhomes.com
+.
+
+Readiness & Next Steps – urgency (drop‑down), whether they have an accountant, open comments (“Describe your biggest worry”), consent checkbox for data use.
+
+A progress indicator (“Step 2 of 5”) reassures users they’re advancing. Allow back/forward navigation so they can correct errors without starting over.
+
+2. No login for the first version
+
+Logins are friction. For the MVP, collect essential contact info and let users complete the form in one go. Save their submission to Supabase with a unique ID and send a confirmation email with a link to update details if needed. Once the model is proven, you can offer optional accounts for users who want to track status or manage multiple clients.
+
+3. Success page with clear expectations, not over‑promising
+
+After submission, show a friendly thank‑you page that:
+
+Confirms you’ve received their information.
+
+Tells them when to expect their personalised summary (e.g., “within 2 business days”).
+
+Explains what happens next (e.g., you’ll review their documents and, if they opted for help, match them with a certified accountant).
+
+Offers a call‑to‑action to join your newsletter or early‑access program.
+
+Include an automatic email receipt with the same information. For a future iteration, you can attach an auto‑generated PDF summary using a language model API, but don’t delay the MVP to integrate AI. Focus first on shipping the form and sending a plain‑text summary.
+
+4. Make it mobile‑first and accessible
+
+Big inputs and simple language: use large tap targets, plain EN/PT labels, and avoid bureaucratic terms (“freelance activity start” instead of “Início de Atividade”).
+
+Auto‑save progress: store each step in local storage so a user can resume if they accidentally close the tab.
+
+Conditional logic: hide fields that don’t apply (e.g., VAT questions if turnover is below the threshold).
+
+Upload helpers: accept photos as well as PDFs for passport and lease uploads, and show immediate validation (e.g., reject non‑PT IBAN formats).
+
+Accessibility: ensure high contrast, large fonts, and screen‑reader labels; avoid long scrolling pages.
+
+5. Build with the future in mind, but don’t over‑engineer
+
+Supabase structure: store each submission in an intakes table, with JSON for step data and tags for quick filtering. Add a simple users table later when you introduce logins.
+
+AI summary: once submissions start flowing, you can generate a PDF summary using OpenAI or Gemini. For the MVP, just send a plain summary by email; the AI integration can be an upgrade.
+
+Dashboard for accountants: that will be Phase 2 or 3. Focus first on collecting high‑quality intake data. When ready, allow accountants to sign up, pay, and view anonymised leads.
+
+6. Make it feel premium
+
+A minimalist, premium feel comes from uncluttered design and thoughtful micro‑copy, not necessarily from fancy graphics. Use lots of white space, clear typography, and a consistent colour palette. Offer quick tips or tooltips (e.g., “Your CAE code is usually on your business registration document”) and success animations when a step is completed. These touches keep users engaged without overwhelming them.
+
+Bottom line: start with a simple, multi‑step, mobile‑friendly wizard that collects contact info, verifies identity and residence details, captures activity and tax status, and asks about urgency and history. Don’t require logins or complicated features up front. Send a confirmation email and let them know what happens next. Once you’ve proven people will fill this out, you can add AI‑generated summaries, user accounts, and an accountant dashboard.
