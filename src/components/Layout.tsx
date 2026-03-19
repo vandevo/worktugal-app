@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { LogOut, Settings, LayoutDashboard, ClipboardCheck } from 'lucide-react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { LogOut, Settings, LayoutDashboard, ClipboardCheck, Sun, Moon, Menu, X } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useUserProfile } from '../hooks/useUserProfile';
-import { UserRoleBadge } from './UserRoleBadge';
+import { useTheme } from '../contexts/ThemeContext';
 import { AuthModal } from './auth/AuthModal';
 import { ProfileModal } from './ProfileModal';
-import { Button } from './ui/Button';
 import { signOut } from '../lib/auth';
 import { Footer } from './Footer';
 
@@ -15,158 +14,278 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
+const NAV_LINKS = [
+  { label: 'Diagnostic', href: '/diagnostic' },
+  { label: 'Accounting', href: '/accounting' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Community', href: 'https://t.me/worktugal', external: true },
+];
+
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user } = useAuth();
   const { profile, getDisplayName, getInitials } = useUserProfile();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
   const userMenuRef = useRef<HTMLDivElement>(null);
 
+  // Close menus on route change
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+    setShowUserMenu(false);
+    setShowMobileMenu(false);
+  }, [location.pathname]);
+
+  // Close user dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
         setShowUserMenu(false);
       }
     };
-
-    if (showUserMenu) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    if (showUserMenu) document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showUserMenu]);
+
+  // Lock body scroll when mobile menu open
+  useEffect(() => {
+    document.body.style.overflow = showMobileMenu ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [showMobileMenu]);
 
   const handleSignOut = async () => {
     try {
       await signOut();
       setShowUserMenu(false);
-    } catch (error) {
-      console.error('Error signing out:', error);
+    } catch (err) {
+      console.error('Sign out error:', err);
     }
   };
 
   return (
-    <div className="min-h-screen bg-obsidian text-slate-300 selection:bg-blue-500/30">
-      <nav className="sticky top-0 z-50 bg-obsidian/80 backdrop-blur-xl border-b border-white/5">
+    <div className="min-h-screen bg-[#FAFAF9] dark:bg-[#0E0E10] text-[#1A1A1A] dark:text-[#F5F5F5] transition-colors duration-200">
+
+      {/* ── Navigation ──────────────────────────────────────────── */}
+      <header className="sticky top-0 z-50 w-full bg-[#FAFAF9]/80 dark:bg-[#0E0E10]/80 backdrop-blur-md border-b border-[#0F3D2E]/5 dark:border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            <a href="/" className="flex items-center gap-3 hover:opacity-90 transition-all duration-300 group">
-              <img
-                src="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
-                alt="Worktugal Logo"
-                className="w-9 h-9 object-contain grayscale brightness-125 group-hover:grayscale-0 transition-all duration-500"
-                width="36"
-                height="36"
-              />
-              <div className="flex items-center gap-3">
-                <span className="text-xl font-medium tracking-tight text-white">
-                  Worktugal
-                </span>
-                <Link 
-                  to="/changelog"
-                  className="hidden sm:inline-flex items-center bg-white/5 text-gray-400 px-3 py-1 rounded-full border border-white/10 text-[10px] font-medium tracking-widest uppercase hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-                >
-                  V2.7
-                </Link>
-              </div>
-            </a>
+          <div className="flex items-center justify-between h-16 md:h-[68px]">
 
-            {/* Navigation Links & Auth */}
-            <div className="flex items-center space-x-6">
-              {/* User Menu or Sign In */}
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-2 group flex-shrink-0">
+              <span className="text-xl">🇵🇹</span>
+              <span className="text-xl font-extrabold tracking-tight text-[#0F3D2E] dark:text-[#10B981] group-hover:opacity-80 transition-opacity">
+                Worktugal
+              </span>
+            </Link>
+
+            {/* Center nav — desktop */}
+            <nav className="hidden md:flex items-center gap-8">
+              {NAV_LINKS.map(link => (
+                link.external ? (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-[#0F3D2E] dark:hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className={`text-sm font-semibold transition-colors ${
+                      location.pathname.startsWith(link.href)
+                        ? 'text-[#0F3D2E] dark:text-[#10B981]'
+                        : 'text-slate-600 dark:text-slate-400 hover:text-[#0F3D2E] dark:hover:text-white'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              ))}
+            </nav>
+
+            {/* Right side */}
+            <div className="flex items-center gap-2 md:gap-3">
+
+              {/* Dark mode toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-[#0F3D2E] dark:hover:text-white hover:bg-[#0F3D2E]/5 dark:hover:bg-white/5 transition-all"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark'
+                  ? <Sun className="w-[18px] h-[18px]" />
+                  : <Moon className="w-[18px] h-[18px]" />
+                }
+              </button>
+
               {user ? (
-                <div className="flex items-center space-x-3 md:space-x-4">
-                  {profile && <UserRoleBadge role={profile.role} hasPaidReview={profile.has_paid_compliance_review} />}
-                  <div className="relative" ref={userMenuRef}>
-                    <button
-                      onClick={() => setShowUserMenu(!showUserMenu)}
-                      className="flex items-center space-x-3 text-slate-400 hover:text-white transition-all duration-200 group"
-                    >
-                      <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center text-white text-xs font-medium group-hover:bg-white/10 transition-all duration-200 border border-white/10">
-                        {getInitials()}
-                      </div>
-                      <span className="hidden sm:inline text-sm font-light">
-                        {getDisplayName()}
-                      </span>
-                    </button>
+                /* Authenticated user menu */
+                <div className="relative" ref={userMenuRef}>
+                  <button
+                    onClick={() => setShowUserMenu(!showUserMenu)}
+                    className="flex items-center gap-2.5 group"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-[#0F3D2E] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                      {getInitials()}
+                    </div>
+                    <span className="hidden sm:inline text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-[#0F3D2E] dark:group-hover:text-white transition-colors">
+                      {getDisplayName()}
+                    </span>
+                  </button>
 
+                  <AnimatePresence>
                     {showUserMenu && (
                       <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="absolute right-0 mt-3 w-48 bg-[#121212] backdrop-blur-xl rounded-xl border border-white/5 shadow-2xl py-2 z-[60]"
+                        initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute right-0 mt-2 w-52 bg-white dark:bg-[#161618] rounded-2xl border border-[#E5E7EB] dark:border-[#2D2D35] shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] py-1.5 z-[60]"
                       >
                         {profile?.role === 'admin' && (
                           <button
-                            onClick={() => {
-                              navigate('/dashboard');
-                              setShowUserMenu(false);
-                            }}
-                            className="w-full px-4 py-2.5 text-left text-slate-300 hover:text-white hover:bg-slate-800/50 transition-colors duration-200 flex items-center space-x-3 text-sm font-medium"
+                            onClick={() => { navigate('/dashboard'); setShowUserMenu(false); }}
+                            className="w-full px-4 py-2.5 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] hover:text-[#0F3D2E] dark:hover:text-white flex items-center gap-3 transition-colors"
                           >
-                            <LayoutDashboard className="h-4 w-4" />
-                            <span>Dashboard</span>
+                            <LayoutDashboard className="w-4 h-4 flex-shrink-0" />
+                            Dashboard
                           </button>
                         )}
                         <button
-                          onClick={() => {
-                            navigate('/diagnostic');
-                            setShowUserMenu(false);
-                          }}
-                          className="w-full px-4 py-2.5 text-left text-slate-300 hover:text-white hover:bg-slate-800/50 transition-colors duration-200 flex items-center space-x-3 text-sm font-medium"
+                          onClick={() => { navigate('/diagnostic'); setShowUserMenu(false); }}
+                          className="w-full px-4 py-2.5 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] hover:text-[#0F3D2E] dark:hover:text-white flex items-center gap-3 transition-colors"
                         >
-                          <ClipboardCheck className="h-4 w-4" />
-                          <span>Risk Diagnostic</span>
+                          <ClipboardCheck className="w-4 h-4 flex-shrink-0" />
+                          Run Diagnostic
                         </button>
                         <button
-                          onClick={() => {
-                            setShowProfileModal(true);
-                            setShowUserMenu(false);
-                          }}
-                          className="w-full px-4 py-2.5 text-left text-slate-300 hover:text-white hover:bg-slate-800/50 transition-colors duration-200 flex items-center space-x-3 text-sm font-medium"
+                          onClick={() => { setShowProfileModal(true); setShowUserMenu(false); }}
+                          className="w-full px-4 py-2.5 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] hover:text-[#0F3D2E] dark:hover:text-white flex items-center gap-3 transition-colors"
                         >
-                          <Settings className="h-4 w-4" />
-                          <span>Edit Profile</span>
+                          <Settings className="w-4 h-4 flex-shrink-0" />
+                          Edit Profile
                         </button>
+                        <div className="my-1.5 border-t border-[#E5E7EB] dark:border-[#2D2D35]" />
                         <button
                           onClick={handleSignOut}
-                          className="w-full px-4 py-2.5 text-left text-slate-300 hover:text-white hover:bg-slate-800/50 transition-colors duration-200 flex items-center space-x-3 text-sm font-medium"
+                          className="w-full px-4 py-2.5 text-left text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-500/5 flex items-center gap-3 transition-colors"
                         >
-                          <LogOut className="h-4 w-4" />
-                          <span>Sign Out</span>
+                          <LogOut className="w-4 h-4 flex-shrink-0" />
+                          Sign Out
                         </button>
                       </motion.div>
                     )}
-                  </div>
+                  </AnimatePresence>
                 </div>
               ) : (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setShowAuthModal(true)}
-                  className="text-xs font-medium uppercase tracking-widest rounded-lg px-6 py-2 border-white/10 hover:border-white/20 hover:bg-white/5 text-gray-400 hover:text-white transition-all duration-300"
-                >
-                  Sign In
-                </Button>
+                /* Unauthenticated */
+                <div className="hidden sm:flex items-center gap-2">
+                  <button
+                    onClick={() => setShowAuthModal(true)}
+                    className="px-4 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-[#0F3D2E]/5 dark:hover:bg-white/5 rounded-xl transition-all"
+                  >
+                    Sign in
+                  </button>
+                  <Link
+                    to="/diagnostic"
+                    className="bg-[#0F3D2E] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 transition-all flex items-center gap-1.5"
+                  >
+                    Run diagnostic
+                  </Link>
+                </div>
               )}
+
+              {/* Mobile hamburger */}
+              <button
+                onClick={() => setShowMobileMenu(!showMobileMenu)}
+                className="md:hidden p-2 rounded-xl text-slate-500 hover:bg-[#0F3D2E]/5 dark:hover:bg-white/5 transition-all"
+                aria-label="Toggle menu"
+              >
+                {showMobileMenu ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
             </div>
           </div>
         </div>
-      </nav>
 
-      <main className="text-slate-300">{children}</main>
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {showMobileMenu && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden border-t border-[#E5E7EB] dark:border-[#2D2D35] bg-[#FAFAF9] dark:bg-[#0E0E10] overflow-hidden"
+            >
+              <div className="px-4 py-4 flex flex-col gap-1">
+                {NAV_LINKS.map(link => (
+                  link.external ? (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-3 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] hover:text-[#0F3D2E] dark:hover:text-white rounded-xl transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={link.href}
+                      to={link.href}
+                      className={`px-4 py-3 text-sm font-semibold rounded-xl transition-colors ${
+                        location.pathname.startsWith(link.href)
+                          ? 'bg-[#0F3D2E]/5 text-[#0F3D2E] dark:text-[#10B981]'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22]'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  )
+                ))}
+
+                {!user && (
+                  <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-[#E5E7EB] dark:border-[#2D2D35]">
+                    <button
+                      onClick={() => { setShowAuthModal(true); setShowMobileMenu(false); }}
+                      className="w-full py-3 text-sm font-bold text-slate-700 dark:text-slate-200 border border-[#E5E7EB] dark:border-[#2D2D35] rounded-xl hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] transition-all"
+                    >
+                      Sign in
+                    </button>
+                    <Link
+                      to="/diagnostic"
+                      className="w-full py-3 text-sm font-bold text-white bg-[#0F3D2E] rounded-xl hover:bg-[#1A5C44] transition-all text-center"
+                    >
+                      Run diagnostic →
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      {/* ── Main content ──────────────────────────────────────────── */}
+      <main>{children}</main>
+
       <Footer />
 
+      {/* ── Modals ────────────────────────────────────────────────── */}
       <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         initialMode="login"
       />
-
       <ProfileModal
         isOpen={showProfileModal}
         onClose={() => setShowProfileModal(false)}
