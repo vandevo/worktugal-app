@@ -8,6 +8,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { AuthModal } from './auth/AuthModal';
 import { signOut } from '../lib/auth';
 import { Footer } from './Footer';
+import { BottomNav } from './BottomNav';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -199,10 +200,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </div>
               )}
 
-              {/* Mobile hamburger */}
+              {/* Mobile hamburger — desktop overflow only, hidden when bottom nav is present */}
               <button
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
-                className="md:hidden p-2 rounded-xl text-slate-500 hover:bg-[#0F3D2E]/5 dark:hover:bg-white/5 transition-all"
+                className="hidden p-2 rounded-xl text-slate-500 hover:bg-[#0F3D2E]/5 dark:hover:bg-white/5 transition-all"
                 aria-label="Toggle menu"
               >
                 {showMobileMenu ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -271,9 +272,11 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       </header>
 
       {/* ── Main content ──────────────────────────────────────────── */}
-      <main>{children}</main>
+      <main className="pb-16 md:pb-0">{children}</main>
 
       <Footer />
+
+      <BottomNav onAuthOpen={() => setShowAuthModal(true)} />
 
       {/* ── Modals ────────────────────────────────────────────────── */}
       <AuthModal
