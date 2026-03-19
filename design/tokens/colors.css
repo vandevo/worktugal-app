@@ -1,0 +1,42 @@
+/**
+ * Worktugal Design Tokens — Color System v3.0
+ * Source of truth for all color decisions.
+ * These mirror tailwind.config.js and globals.css.
+ */
+
+:root {
+  /* ── Brand ─────────────────────────────── */
+  --color-forest:        #0F3D2E;  /* primary brand, deep forest green */
+  --color-forest-light:  #1A5C44;  /* hover state */
+  --color-emerald:       #10B981;  /* CTA, success, accent */
+  --color-emerald-hover: #059669;  /* CTA hover */
+
+  /* ── Light mode surfaces ────────────────── */
+  --color-bg:            #FAFAF9;  /* page background */
+  --color-surface:       #FFFFFF;  /* card / input */
+  --color-surface-2:     #F5F4F2;  /* raised surface */
+  --color-surface-3:     #EEEDE9;  /* subtle dividers */
+
+  /* ── Dark mode surfaces ─────────────────── */
+  --color-ink:           #0E0E10;  /* page background dark */
+  --color-ink-surface:   #161618;  /* card dark */
+  --color-ink-surface-2: #1E1E22;  /* raised dark */
+  --color-ink-surface-3: #26262C;  /* subtle dark */
+
+  /* ── Text ───────────────────────────────── */
+  --color-text-primary:   #1A1A1A;
+  --color-text-secondary: #6B7280;
+  --color-text-tertiary:  #9CA3AF;
+  --color-text-dim:       #D1D5DB;
+
+  /* ── Borders ────────────────────────────── */
+  --color-border:        #E5E7EB;  /* light mode */
+  --color-border-strong: #D1D5DB;
+  --color-border-dark:   #2D2D35;  /* dark mode */
+
+  /* ── Risk system ────────────────────────── */
+  --color-risk-high:   #EF4444;  /* red */
+  --color-risk-medium: #F59E0B;  /* amber */
+  --color-risk-low:    #3B82F6;  /* blue */
+  --color-risk-clear:  #10B981;  /* emerald */
+}

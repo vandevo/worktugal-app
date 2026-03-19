@@ -1,0 +1,32 @@
+/**
+ * Worktugal Design Tokens — Spacing & Radius v3.0
+ */
+
+:root {
+  /* ── Border radius ──────────────────────── */
+  --radius-sm:   0.5rem;   /* 8px  — small chips, tags */
+  --radius-md:   0.75rem;  /* 12px — inputs, small cards */
+  --radius-lg:   1rem;     /* 16px — cards */
+  --radius-xl:   1.25rem;  /* 20px — large cards */
+  --radius-2xl:  1.5rem;   /* 24px — hero cards, CTA blocks */
+  --radius-3xl:  2rem;     /* 32px — modals */
+  --radius-full: 9999px;   /* pills, badges */
+
+  /* ── Section spacing ────────────────────── */
+  --section-sm:  3rem;     /* 48px  */
+  --section-md:  5rem;     /* 80px  */
+  --section-lg:  7rem;     /* 112px */
+  --section-xl:  10rem;    /* 160px */
+
+  /* ── Component spacing ──────────────────── */
+  --space-card:  1.5rem;   /* 24px — card internal padding */
+  --space-card-lg: 2rem;   /* 32px — large card padding */
+  --space-gap:   1rem;     /* 16px — default gap between elements */
+  --space-gap-lg: 1.5rem;  /* 24px — section gap */
+
+  /* ── Mobile safe areas ──────────────────── */
+  --safe-top:    env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+  --safe-left:   env(safe-area-inset-left);
+  --safe-right:  env(safe-area-inset-right);
+}

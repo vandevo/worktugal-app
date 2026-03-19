@@ -1,0 +1,42 @@
+/**
+ * Worktugal Design Tokens — Typography v3.0
+ */
+
+:root {
+  /* ── Font family ────────────────────────── */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* ── Font sizes ─────────────────────────── */
+  --text-xs:   0.75rem;   /* 12px — badges, labels */
+  --text-sm:   0.875rem;  /* 14px — secondary copy */
+  --text-base: 1rem;      /* 16px — body */
+  --text-lg:   1.125rem;  /* 18px — lead text */
+  --text-xl:   1.25rem;   /* 20px — section subheads */
+  --text-2xl:  1.5rem;    /* 24px — section heads */
+  --text-3xl:  1.875rem;  /* 30px — page heads */
+  --text-4xl:  2.25rem;   /* 36px — hero subhead */
+  --text-5xl:  3rem;      /* 48px — hero headline mobile */
+  --text-6xl:  3.75rem;   /* 60px — hero headline desktop */
+  --text-7xl:  4.5rem;    /* 72px — display */
+
+  /* ── Font weights ───────────────────────── */
+  --weight-light:     300;
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+  --weight-extrabold: 800;
+  --weight-black:     900;
+
+  /* ── Line heights ───────────────────────── */
+  --leading-tight:  1.2;
+  --leading-snug:   1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  /* ── Letter spacing ─────────────────────── */
+  --tracking-tight:   -0.025em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.025em;
+  --tracking-widest:  0.15em;  /* uppercase labels */
+}

@@ -28,3 +28,10 @@ dist-ssr
 *:Zone.Identifier
 
 # prompts/
+.envrc
+
+# Design assets — keep HTML exports, ignore binaries
+design/*.zip
+design/*.fig
+design/*.sketch
+design/*.pdf
