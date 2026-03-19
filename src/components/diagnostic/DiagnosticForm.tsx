@@ -42,22 +42,28 @@ export const DiagnosticForm: React.FC = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const autoSubmitAttempted = React.useRef(false);
 
   // Persist state across OAuth redirect
   useEffect(() => { sessionStorage.setItem('diag_answers', JSON.stringify(answers)); }, [answers]);
   useEffect(() => { sessionStorage.setItem('diag_step', formStep); }, [formStep]);
   useEffect(() => { sessionStorage.setItem('diag_page', String(questionPage)); }, [questionPage]);
 
-  // When logged-in user reaches email step, auto-submit using verified session
+  // When logged-in user reaches email step, auto-submit once using verified session
   useEffect(() => {
     if (!user || formStep !== 'email' || !allQuestionsAnswered || isSubmitting) return;
+    if (autoSubmitAttempted.current) return;
 
     const userEmail = user.email ?? '';
     if (!userEmail) return;
 
-    // Verify the session is actually attached to the client before submitting
+    autoSubmitAttempted.current = true;
+
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) return;
+      if (!session) {
+        autoSubmitAttempted.current = false;
+        return;
+      }
 
       setEmail(userEmail);
       setFormStep('analyzing');
@@ -82,8 +88,8 @@ export const DiagnosticForm: React.FC = () => {
       }).catch((err) => {
         console.error('Auto-submit failed:', err);
         setError(err instanceof Error ? err.message : 'Failed to submit. Please try again.');
-        setFormStep('email');
         setIsSubmitting(false);
+        // Stay on email step so user can submit manually — do NOT reset formStep to trigger loop
       });
     });
   }, [user, formStep]);
