@@ -87,6 +87,14 @@ export function calculateSetupScore(answers: DiagnosticAnswers): number {
         else if (answer === 'not_sure') totalScore += question.weight * 0.3;
         break;
       }
+      case 'foreign_tax_deregistration': {
+        if (answer === 'yes' || answer === 'not_applicable') {
+          totalScore += question.weight;
+        } else if (answer === 'unsure') {
+          totalScore += question.weight * 0.3;
+        }
+        break;
+      }
       default: {
         if (question.type === 'yes-no' && answer === 'yes') {
           totalScore += question.weight;

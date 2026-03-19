@@ -158,6 +158,9 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
       { value: 'not_sure', label: 'Not sure' },
     ],
     weight: 20,
+    skipConditions: (answers: DiagnosticAnswers) => {
+      return ['eu_citizen', 'permanent', 'eu_family_member'].includes(answers.visa_status);
+    },
   },
   {
     id: 'foreign_tax_deregistration',
