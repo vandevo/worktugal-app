@@ -14,6 +14,7 @@ import type { DiagnosticAnswers } from '../../lib/diagnostic';
 import { trackFormSubmission } from '../../lib/analytics';
 import { signInWithGoogle } from '../../lib/auth';
 import { useAuth } from '../../hooks/useAuth';
+import { supabase } from '../../lib/supabase';
 
 type FormStep = 'questions' | 'email' | 'analyzing';
 
@@ -47,12 +48,17 @@ export const DiagnosticForm: React.FC = () => {
   useEffect(() => { sessionStorage.setItem('diag_step', formStep); }, [formStep]);
   useEffect(() => { sessionStorage.setItem('diag_page', String(questionPage)); }, [questionPage]);
 
-  // After Google OAuth redirect: user is now logged in, answers still in sessionStorage
-  // Auto-submit so they land on results instead of seeing the email gate again
+  // When logged-in user reaches email step, auto-submit using verified session
   useEffect(() => {
-    if (user && formStep === 'email' && allQuestionsAnswered && !isSubmitting) {
-      const userEmail = user.email ?? '';
-      if (!userEmail) return;
+    if (!user || formStep !== 'email' || !allQuestionsAnswered || isSubmitting) return;
+
+    const userEmail = user.email ?? '';
+    if (!userEmail) return;
+
+    // Verify the session is actually attached to the client before submitting
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) return;
+
       setEmail(userEmail);
       setFormStep('analyzing');
       setIsSubmitting(true);
@@ -74,12 +80,12 @@ export const DiagnosticForm: React.FC = () => {
         sessionStorage.removeItem('diag_page');
         navigate(`/diagnostic/results?id=${response.id}`);
       }).catch((err) => {
-        console.error('Auto-submit after OAuth failed:', err);
+        console.error('Auto-submit failed:', err);
         setError(err instanceof Error ? err.message : 'Failed to submit. Please try again.');
         setFormStep('email');
         setIsSubmitting(false);
       });
-    }
+    });
   }, [user, formStep]);
 
   const utmSource = searchParams.get('utm_source') || undefined;
