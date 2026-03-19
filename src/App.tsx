@@ -33,10 +33,7 @@ import { TaxCheckupLeads } from './components/admin/TaxCheckupLeads';
 import { AccountantApplicationReview } from './components/admin/AccountantApplicationReview';
 import { AppointmentManagement } from './components/admin/AppointmentManagement';
 import { PaidReviewsAdmin } from './components/admin/PaidReviewsAdmin';
-import { ChangelogManager } from './components/admin/ChangelogManager';
-import { CmsManager } from './components/admin/CmsManager';
 import { Changelog } from './components/Changelog';
-import { AdminTestHub } from './components/admin/AdminTestHub';
 import { CheckoutSuccess } from './components/CheckoutSuccess';
 
 function App() {
@@ -130,30 +127,6 @@ function App() {
               element={
                 <AdminRoute>
                   <PaidReviewsAdmin />
-                </AdminRoute>
-              }
-            />
-            <Route
-              path="/admin/changelog"
-              element={
-                <AdminRoute>
-                  <ChangelogManager />
-                </AdminRoute>
-              }
-            />
-            <Route
-              path="/admin/cms"
-              element={
-                <AdminRoute>
-                  <CmsManager />
-                </AdminRoute>
-              }
-            />
-            <Route
-              path="/admin/test-hub"
-              element={
-                <AdminRoute>
-                  <AdminTestHub />
                 </AdminRoute>
               }
             />

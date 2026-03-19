@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, Briefcase, Mail, ArrowRight, ClipboardCheck, FlaskConical } from 'lucide-react';
+import { Calendar, Briefcase, Mail, ArrowRight, ClipboardCheck } from 'lucide-react';
 import { getAllAppointments } from '../../lib/appointments';
 import { getAllApplications } from '../../lib/accountants';
 import { getContactRequestStats } from '../../lib/contacts';
@@ -73,20 +73,12 @@ export const AdminOverview: React.FC = () => {
       color: 'purple',
     },
     {
-      title: 'Tax Checkup Leads',
-      description: 'Lead generation from compliance diagnostic tool',
+      title: 'Diagnostic Leads',
+      description: 'Lead intelligence from compliance diagnostic tool',
       icon: ClipboardCheck,
       path: '/admin/checkup-leads',
       badge: stats.taxCheckupLeads,
       color: 'orange',
-    },
-    {
-      title: 'Test Hub',
-      description: 'Testing and development utilities',
-      icon: FlaskConical,
-      path: '/admin/test-hub',
-      badge: 0,
-      color: 'slate',
     },
   ];
 
