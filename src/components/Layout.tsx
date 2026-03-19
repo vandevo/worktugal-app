@@ -76,8 +76,14 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="flex items-center justify-between h-16 md:h-[68px]">
 
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2 group flex-shrink-0">
-              <span className="text-xl">🇵🇹</span>
+            <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0">
+              <img
+                src="/worktugal-logo-bg-light-radius-1000-1000.png"
+                alt="Worktugal"
+                className="w-8 h-8 object-contain rounded-lg"
+                width="32"
+                height="32"
+              />
               <span className="text-xl font-extrabold tracking-tight text-[#0F3D2E] dark:text-[#10B981] group-hover:opacity-80 transition-opacity">
                 Worktugal
               </span>
