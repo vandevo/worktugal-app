@@ -81,13 +81,26 @@ Surface the compliance mistakes that cost expats thousands before they happen. W
 
 The diagnostic engine is powered by **Parallel.ai** for real-time compliance research and automated regulatory monitoring.
 
-- **Real-time Research**: The `research-compliance` Edge Function uses Parallel Search API to verify current tax thresholds and immigration rules based on specific user data.
-- **Regulatory Monitoring**: Automated watches on official Portuguese government sources (CIRS, CIVA, Diário da República) to detect changes in laws or deadlines.
-- **Local Building & Research**: We use the `parallel-cli` for deep research during development and to build new compliance modules.
+- **Real-time Research**: Search official Portuguese government sources before updating trap rules or penalty ranges.
+- **Regulatory Monitoring**: 5 active monitors (weekly cadence) watch official sources and fire a webhook to Make.com on any detected change. Make.com routes the alert to Telegram.
+- **Local Building & Research**: Use `parallel-cli` for deep research during development.
+
+**5 Active Monitors (weekly, all sources official):**
+
+| Monitor ID | Topic | Rules Covered | Sources |
+| :--- | :--- | :--- | :--- |
+| `monitor_4b8a99...` | IRS Tax Rates & NHR | `dual_tax_residency`, `unfiled_irs` | portaldasfinancas.gov.pt, dre.pt |
+| `monitor_ce6196...` | VAT & Freelancer Classification | `vat_misclassification` | portaldasfinancas.gov.pt, dre.pt |
+| `monitor_9ad9a6...` | Social Security & NISS | `social_security_misalignment` | seg-social.pt, dre.pt |
+| `monitor_709aab...` | Residence Permits & AIMA | `permit_expiry_risk`, `permit_no_aima` | aima.gov.pt, dre.pt |
+| `monitor_6f68a4...` | Schengen & Border Control | `schengen_overstay` | dre.pt, EU sources |
+
+**Pipeline:** Parallel.ai detects change → fires `https://hook.eu2.make.com/5ejuzx6ghj85eqv3u7aksqi5j8nism5d` → Make.com scenario `8891111` → Telegram alert to Van with rule name, source URL, and summary.
 
 **CLI Usage:**
 ```bash
 ./bin/parallel-cli/parallel-cli search "Portugal NHR 2026 update"
+./bin/parallel-cli/parallel-cli monitor list
 ```
 
 ### Key Files
