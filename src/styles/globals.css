@@ -2,20 +2,118 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+/* ─── Inter font ──────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* ─── CSS Variables — Light mode (default) ──────────────────── */
+:root {
+  --bg: #FAFAF9;
+  --bg-surface: #FFFFFF;
+  --bg-surface-2: #F5F4F2;
+  --bg-surface-3: #EEEDE9;
+
+  --text-primary: #1A1A1A;
+  --text-secondary: #6B7280;
+  --text-tertiary: #9CA3AF;
+
+  --border: #E5E7EB;
+  --border-strong: #D1D5DB;
+
+  --forest: #0F3D2E;
+  --emerald: #10B981;
+  --emerald-hover: #059669;
+
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.1), 0 2px 6px rgba(0,0,0,0.05);
+  --shadow-elevated: 0 8px 24px rgba(0,0,0,0.12);
+
+  color-scheme: light;
+}
+
+/* ─── CSS Variables — Dark mode ──────────────────────────────── */
+.dark {
+  --bg: #0E0E10;
+  --bg-surface: #161618;
+  --bg-surface-2: #1E1E22;
+  --bg-surface-3: #26262C;
+
+  --text-primary: #F5F5F5;
+  --text-secondary: #9CA3AF;
+  --text-tertiary: #6B7280;
+
+  --border: #2D2D35;
+  --border-strong: #3D3D48;
+
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.5);
+  --shadow-elevated: 0 8px 24px rgba(0,0,0,0.6);
+
   color-scheme: dark;
 }
 
-* {
+/* ─── Base reset ─────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  line-height: 1.6;
+}
+
+/* ─── Semantic utility classes ───────────────────────────────── */
+@layer utilities {
+  .bg-page       { background-color: var(--bg); }
+  .bg-card       { background-color: var(--bg-surface); }
+  .bg-card-2     { background-color: var(--bg-surface-2); }
+  .text-base-primary   { color: var(--text-primary); }
+  .text-base-secondary { color: var(--text-secondary); }
+  .text-base-tertiary  { color: var(--text-tertiary); }
+  .border-base   { border-color: var(--border); }
+  .shadow-card   { box-shadow: var(--shadow-card); }
+  .shadow-elevated { box-shadow: var(--shadow-elevated); }
+}
+
+/* ─── iOS-native tap highlight removal ──────────────────────── */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ─── Focus styles — accessible, not browser-default ────────── */
+:focus-visible {
+  outline: 2px solid var(--emerald);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Scrollbar — minimal ────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+
+/* ─── Selection ──────────────────────────────────────────────── */
+::selection {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: var(--text-primary);
+}
+
+/* ─── Smooth transitions for theme switching ─────────────────── */
+.theme-transition,
+.theme-transition * {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
 }
