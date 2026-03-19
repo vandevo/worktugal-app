@@ -13,6 +13,7 @@ import { submitDiagnostic } from '../../lib/diagnostic/submit';
 import type { DiagnosticAnswers } from '../../lib/diagnostic';
 import { trackFormSubmission } from '../../lib/analytics';
 import { signInWithGoogle } from '../../lib/auth';
+import { useAuth } from '../../hooks/useAuth';
 
 type FormStep = 'questions' | 'email' | 'analyzing';
 
@@ -21,6 +22,7 @@ const QUESTIONS_PER_PAGE = 1;
 export const DiagnosticForm: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { user } = useAuth();
 
   const [answers, setAnswers] = useState<DiagnosticAnswers>(() => {
     try { return JSON.parse(sessionStorage.getItem('diag_answers') || '{}'); } catch { return {}; }
@@ -44,6 +46,41 @@ export const DiagnosticForm: React.FC = () => {
   useEffect(() => { sessionStorage.setItem('diag_answers', JSON.stringify(answers)); }, [answers]);
   useEffect(() => { sessionStorage.setItem('diag_step', formStep); }, [formStep]);
   useEffect(() => { sessionStorage.setItem('diag_page', String(questionPage)); }, [questionPage]);
+
+  // After Google OAuth redirect: user is now logged in, answers still in sessionStorage
+  // Auto-submit so they land on results instead of seeing the email gate again
+  useEffect(() => {
+    if (user && formStep === 'email' && allQuestionsAnswered && !isSubmitting) {
+      const userEmail = user.email ?? '';
+      if (!userEmail) return;
+      setEmail(userEmail);
+      setFormStep('analyzing');
+      setIsSubmitting(true);
+
+      const result = runDiagnostic(answers, 'portugal');
+      submitDiagnostic({
+        email: userEmail,
+        answers,
+        result,
+        country: 'portugal',
+        utmSource,
+        utmMedium,
+        utmCampaign,
+        contact: { name: user.user_metadata?.full_name || undefined },
+      }).then((response) => {
+        trackFormSubmission('diagnostic_v2');
+        sessionStorage.removeItem('diag_answers');
+        sessionStorage.removeItem('diag_step');
+        sessionStorage.removeItem('diag_page');
+        navigate(`/diagnostic/results?id=${response.id}`);
+      }).catch((err) => {
+        console.error('Auto-submit after OAuth failed:', err);
+        setError(err instanceof Error ? err.message : 'Failed to submit. Please try again.');
+        setFormStep('email');
+        setIsSubmitting(false);
+      });
+    }
+  }, [user]);
 
   const utmSource = searchParams.get('utm_source') || undefined;
   const utmMedium = searchParams.get('utm_medium') || undefined;
