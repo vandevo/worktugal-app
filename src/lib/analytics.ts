@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
+export const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID || 'G-FLJ2KM6R1Z';
 
 export const pageview = (url: string) => {
   if (typeof window.gtag !== 'undefined' && GA_MEASUREMENT_ID) {
