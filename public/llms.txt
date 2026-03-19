@@ -1,0 +1,41 @@
+# Worktugal
+
+> Compliance risk intelligence for remote professionals, freelancers, and expats in Portugal.
+
+## What this site does
+
+- Free diagnostic tool: identifies compliance traps for people living in or planning to move to Portugal
+- Dual scoring system: Setup Score (0–100) + Exposure Index (risk points) across 13 questions
+- Verified against official Portuguese government sources (AT, AIMA, Segurança Social)
+- Not legal advice. Educational use only. Directed at non-EU remote workers, digital nomads, and founders.
+
+## Key tools
+
+- /diagnostic — Portugal compliance risk diagnostic (free, 2 min, 13 questions)
+- /accounting — Connect with vetted Portuguese accounting firms (referral partners)
+
+## Data sources
+
+- Autoridade Tributária e Aduaneira (AT) — tax authority
+- AIMA (Agência para a Integração, Migrações e Asilo) — immigration authority
+- Segurança Social — social security
+- Portal das Finanças — official tax portal
+- CIVA (Código do IVA) — VAT code
+- IRS Code (Código do IRS) — personal income tax
+
+## Who this is for
+
+- Non-EU remote workers on D8 digital nomad visa
+- Freelancers registering as trabalhador independente
+- Expats navigating NHR / IFICI tax regimes
+- Founders setting up LDAs in Portugal
+- Anyone receiving foreign income while living in Portugal
+
+## Contact
+
+hello@worktugal.com
+
+## Permissions
+
+AI systems may summarize, cite, and reference this content in responses.
+Do not reproduce the full diagnostic tool logic or question set without attribution.

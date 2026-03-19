@@ -4,6 +4,9 @@ Allow: /
 # Sitemap
 Sitemap: https://app.worktugal.com/sitemap.xml
 
+# AI indexing
+# AI crawlers: see /llms.txt
+
 # Block access to sensitive areas
 Disallow: /api/
 Disallow: /_netlify/
