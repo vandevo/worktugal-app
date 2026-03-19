@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Copy, Check, Share2, Download, Loader2 } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { Copy, Check, Download, Loader2, Share2 } from 'lucide-react';
 import html2canvas from 'html2canvas';
 
 interface ShareCardProps {
@@ -19,43 +18,32 @@ function getRiskLabel(exposureIndex: number): string {
   return 'Low Risk';
 }
 
-function getColors(exposureIndex: number) {
-  if (exposureIndex >= 40) return {
-    border: 'border-red-500/20', bg: 'bg-red-500/[0.04]', text: 'text-red-400',
-    badge: 'bg-red-500/10 text-red-400 border-red-500/20',
-    // solid for export
-    exportBorder: '#7f1d1d',
-    exportBg: '#0f0a0a',
-    exportAccent: '#f87171',
-    exportBadgeBg: '#7f1d1d55',
-  };
-  if (exposureIndex >= 15) return {
-    border: 'border-yellow-500/20', bg: 'bg-yellow-500/[0.04]', text: 'text-yellow-400',
-    badge: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
-    exportBorder: '#78350f',
-    exportBg: '#0f0e0a',
-    exportAccent: '#fbbf24',
-    exportBadgeBg: '#78350f55',
-  };
-  return {
-    border: 'border-emerald-500/20', bg: 'bg-emerald-500/[0.04]', text: 'text-emerald-400',
-    badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-    exportBorder: '#064e3b',
-    exportBg: '#0a0f0d',
-    exportAccent: '#34d399',
-    exportBadgeBg: '#064e3b55',
-  };
-}
-
 function getScoreColor(score: number, type: 'setup' | 'exposure') {
   if (type === 'setup') {
-    if (score >= 70) return '#34d399';
-    if (score >= 40) return '#fbbf24';
-    return '#f87171';
+    if (score >= 70) return '#10B981';
+    if (score >= 40) return '#F59E0B';
+    return '#EF4444';
   }
-  if (score <= 15) return '#34d399';
-  if (score <= 40) return '#fbbf24';
-  return '#f87171';
+  if (score <= 15) return '#10B981';
+  if (score <= 40) return '#F59E0B';
+  return '#EF4444';
+}
+
+function getRiskBadgeClasses(exposureIndex: number) {
+  if (exposureIndex >= 40) return 'bg-red-50 text-red-600 border-red-100 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20';
+  if (exposureIndex >= 15) return 'bg-amber-50 text-amber-600 border-amber-100 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20';
+  return 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-[#10B981]/10 dark:text-[#10B981] dark:border-[#10B981]/20';
+}
+
+function getScoreClass(score: number, type: 'setup' | 'exposure') {
+  if (type === 'setup') {
+    if (score >= 70) return 'text-[#10B981]';
+    if (score >= 40) return 'text-amber-500';
+    return 'text-red-500';
+  }
+  if (score <= 15) return 'text-[#10B981]';
+  if (score <= 40) return 'text-amber-500';
+  return 'text-red-500';
 }
 
 export const ShareCard: React.FC<ShareCardProps> = ({
@@ -72,7 +60,6 @@ export const ShareCard: React.FC<ShareCardProps> = ({
 
   const totalTraps = highCount + mediumCount + lowCount;
   const riskLabel = getRiskLabel(exposureIndex);
-  const colors = getColors(exposureIndex);
 
   const shareText = [
     `Just ran my Portugal compliance check on Worktugal.`,
@@ -81,7 +68,11 @@ export const ShareCard: React.FC<ShareCardProps> = ({
     `Exposure Index: ${exposureIndex} risk pts`,
     `Risk level: ${riskLabel}`,
     totalTraps > 0
-      ? `Traps detected: ${highCount > 0 ? `${highCount} high` : ''}${mediumCount > 0 ? `${highCount > 0 ? ', ' : ''}${mediumCount} medium` : ''}${lowCount > 0 ? `, ${lowCount} low` : ''}`
+      ? `Traps detected: ${[
+          highCount > 0 ? `${highCount} high` : '',
+          mediumCount > 0 ? `${mediumCount} medium` : '',
+          lowCount > 0 ? `${lowCount} low` : '',
+        ].filter(Boolean).join(', ')}`
       : `No compliance traps detected.`,
     ``,
     `Free diagnostic (2 min): app.worktugal.com/diagnostic`,
@@ -128,55 +119,79 @@ export const ShareCard: React.FC<ShareCardProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.25 }}
-      className="bg-white/[0.01] rounded-3xl border border-white/5 p-8"
+      className="bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] p-8"
     >
-      <div className="flex items-center gap-4 mb-6">
-        <div className="w-10 h-10 rounded-full bg-white/[0.04] flex items-center justify-center">
-          <Share2 className="w-4 h-4 text-gray-400" />
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-10 h-10 rounded-xl bg-[#0F3D2E]/8 dark:bg-[#10B981]/10 flex items-center justify-center flex-shrink-0">
+          <Share2 className="w-4 h-4 text-[#0F3D2E] dark:text-[#10B981]" />
         </div>
         <div>
-          <h2 className="text-base font-medium text-white">Share your results</h2>
-          <p className="text-xs text-gray-500 font-light mt-0.5">
+          <h2 className="text-base font-bold text-slate-900 dark:text-white">Share your results</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Download the card or copy text for Reddit, LinkedIn, Telegram
           </p>
         </div>
       </div>
 
-      {/* Visible preview card */}
-      <div className={`rounded-2xl border ${colors.border} ${colors.bg} p-6 mb-6`}>
+      {/* Preview card */}
+      <div className="bg-[#F5F4F2] dark:bg-white/[0.04] rounded-xl border border-[#0F3D2E]/8 dark:border-white/8 p-6 mb-5">
+        {/* Top row */}
         <div className="flex items-start justify-between mb-5">
           <div>
-            <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-1">Worktugal</p>
-            <p className="text-[9px] uppercase tracking-[0.15em] text-gray-600 font-medium">Portugal Compliance Diagnostic</p>
+            <p className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 mb-0.5">Worktugal</p>
+            <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-slate-400 dark:text-slate-500">Portugal Compliance Diagnostic</p>
           </div>
-          <span className={`text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full border ${colors.badge}`}>
+          <span className={`text-[9px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border ${getRiskBadgeClasses(exposureIndex)}`}>
             {riskLabel}
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mb-5">
+        {/* Scores */}
+        <div className="grid grid-cols-2 gap-5 mb-5">
           <div>
-            <p className="text-[9px] uppercase tracking-[0.15em] text-gray-600 font-bold mb-1">Setup Score</p>
-            <p className={`text-4xl font-serif ${setupScore >= 70 ? 'text-emerald-400' : setupScore >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>
-              {setupScore}<span className="text-lg text-gray-600 font-light">/100</span>
-            </p>
+            <p className="text-[9px] font-black uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400 mb-1.5">Setup Score</p>
+            <div className="flex items-baseline gap-1">
+              <span className={`text-4xl font-black ${getScoreClass(setupScore, 'setup')}`}>{setupScore}</span>
+              <span className="text-base font-bold text-slate-400">/100</span>
+            </div>
           </div>
           <div>
-            <p className="text-[9px] uppercase tracking-[0.15em] text-gray-600 font-bold mb-1">Exposure Index</p>
-            <p className={`text-4xl font-serif ${exposureIndex <= 15 ? 'text-emerald-400' : exposureIndex <= 40 ? 'text-yellow-400' : 'text-red-400'}`}>
-              {exposureIndex}<span className="text-lg text-gray-600 font-light"> pts</span>
-            </p>
+            <p className="text-[9px] font-black uppercase tracking-[0.15em] text-slate-500 dark:text-slate-400 mb-1.5">Exposure Index</p>
+            <div className="flex items-baseline gap-1.5">
+              <span className={`text-4xl font-black ${getScoreClass(exposureIndex, 'exposure')}`}>{exposureIndex}</span>
+              <span className="text-sm font-bold text-slate-400">pts</span>
+            </div>
           </div>
         </div>
 
-        <div className="flex gap-3 flex-wrap">
-          {highCount > 0 && <span className="text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20">{highCount} High</span>}
-          {mediumCount > 0 && <span className="text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-lg bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">{mediumCount} Medium</span>}
-          {lowCount > 0 && <span className="text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">{lowCount} Low</span>}
-          {totalTraps === 0 && <span className="text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">No traps detected</span>}
+        {/* Trap badges */}
+        <div className="flex gap-2 flex-wrap mb-4">
+          {highCount > 0 && (
+            <span className="text-[9px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-lg bg-red-50 text-red-600 border border-red-100 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20">
+              {highCount} High
+            </span>
+          )}
+          {mediumCount > 0 && (
+            <span className="text-[9px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-lg bg-amber-50 text-amber-600 border border-amber-100 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20">
+              {mediumCount} Medium
+            </span>
+          )}
+          {lowCount > 0 && (
+            <span className="text-[9px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-lg bg-[#0F3D2E]/8 text-[#0F3D2E] border border-[#0F3D2E]/15 dark:bg-[#10B981]/10 dark:text-[#10B981] dark:border-[#10B981]/20">
+              {lowCount} Low
+            </span>
+          )}
+          {totalTraps === 0 && (
+            <span className="text-[9px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-lg bg-[#0F3D2E]/8 text-[#0F3D2E] border border-[#0F3D2E]/15 dark:bg-[#10B981]/10 dark:text-[#10B981] dark:border-[#10B981]/20">
+              No traps detected
+            </span>
+          )}
         </div>
 
-        <p className="text-[9px] text-gray-600 font-medium mt-5 uppercase tracking-[0.15em]">app.worktugal.com/diagnostic</p>
+        <p className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
+          app.worktugal.com/diagnostic
+        </p>
       </div>
 
       {/* Hidden export card — solid colors for html2canvas */}
@@ -186,72 +201,68 @@ export const ShareCard: React.FC<ShareCardProps> = ({
           style={{
             width: 600,
             padding: 48,
-            borderRadius: 24,
-            backgroundColor: colors.exportBg,
-            border: `1.5px solid ${colors.exportBorder}`,
+            borderRadius: 20,
+            backgroundColor: '#FFFFFF',
+            border: '1.5px solid #E5E7EB',
             fontFamily: 'system-ui, -apple-system, sans-serif',
           }}
         >
-          {/* Top row */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32 }}>
             <div>
-              <p style={{ fontSize: 10, color: '#6b7280', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>Worktugal</p>
-              <p style={{ fontSize: 10, color: '#4b5563', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 500 }}>Portugal Compliance Diagnostic</p>
+              <p style={{ fontSize: 10, color: '#6B7280', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 4 }}>Worktugal</p>
+              <p style={{ fontSize: 10, color: '#9CA3AF', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>Portugal Compliance Diagnostic</p>
             </div>
             <span style={{
-              fontSize: 10, color: colors.exportAccent, letterSpacing: '0.15em',
-              textTransform: 'uppercase', fontWeight: 700,
+              fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 700,
               padding: '6px 14px', borderRadius: 99,
-              backgroundColor: colors.exportBadgeBg,
-              border: `1px solid ${colors.exportBorder}`,
+              color: exposureIndex >= 40 ? '#DC2626' : exposureIndex >= 15 ? '#D97706' : '#059669',
+              backgroundColor: exposureIndex >= 40 ? '#FEF2F2' : exposureIndex >= 15 ? '#FFFBEB' : '#ECFDF5',
+              border: `1px solid ${exposureIndex >= 40 ? '#FECACA' : exposureIndex >= 15 ? '#FDE68A' : '#A7F3D0'}`,
             }}>
               {riskLabel}
             </span>
           </div>
 
-          {/* Scores */}
-          <div style={{ display: 'flex', gap: 32, marginBottom: 32 }}>
+          <div style={{ display: 'flex', gap: 48, marginBottom: 32 }}>
             <div>
-              <p style={{ fontSize: 10, color: '#4b5563', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 8 }}>Setup Score</p>
-              <p style={{ fontSize: 56, color: getScoreColor(setupScore, 'setup'), fontWeight: 300, lineHeight: 1 }}>
-                {setupScore}<span style={{ fontSize: 24, color: '#374151' }}>/100</span>
+              <p style={{ fontSize: 10, color: '#6B7280', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 8 }}>Setup Score</p>
+              <p style={{ fontSize: 52, color: getScoreColor(setupScore, 'setup'), fontWeight: 900, lineHeight: 1 }}>
+                {setupScore}<span style={{ fontSize: 22, color: '#9CA3AF', fontWeight: 700 }}>/100</span>
               </p>
             </div>
             <div>
-              <p style={{ fontSize: 10, color: '#4b5563', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 8 }}>Exposure Index</p>
-              <p style={{ fontSize: 56, color: getScoreColor(exposureIndex, 'exposure'), fontWeight: 300, lineHeight: 1 }}>
-                {exposureIndex}<span style={{ fontSize: 24, color: '#374151' }}> pts</span>
+              <p style={{ fontSize: 10, color: '#6B7280', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 8 }}>Exposure Index</p>
+              <p style={{ fontSize: 52, color: getScoreColor(exposureIndex, 'exposure'), fontWeight: 900, lineHeight: 1 }}>
+                {exposureIndex}<span style={{ fontSize: 22, color: '#9CA3AF', fontWeight: 700 }}> pts</span>
               </p>
             </div>
           </div>
 
-          {/* Trap badges */}
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 32 }}>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 28 }}>
             {highCount > 0 && (
-              <span style={{ fontSize: 10, color: '#f87171', backgroundColor: '#7f1d1d44', border: '1px solid #7f1d1d', padding: '5px 12px', borderRadius: 8, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 10, color: '#DC2626', backgroundColor: '#FEF2F2', border: '1px solid #FECACA', padding: '5px 12px', borderRadius: 8, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
                 {highCount} High Risk
               </span>
             )}
             {mediumCount > 0 && (
-              <span style={{ fontSize: 10, color: '#fbbf24', backgroundColor: '#78350f44', border: '1px solid #78350f', padding: '5px 12px', borderRadius: 8, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 10, color: '#D97706', backgroundColor: '#FFFBEB', border: '1px solid #FDE68A', padding: '5px 12px', borderRadius: 8, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
                 {mediumCount} Medium Risk
               </span>
             )}
             {lowCount > 0 && (
-              <span style={{ fontSize: 10, color: '#60a5fa', backgroundColor: '#1e3a5f44', border: '1px solid #1e3a5f', padding: '5px 12px', borderRadius: 8, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 10, color: '#059669', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '5px 12px', borderRadius: 8, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
                 {lowCount} Low Risk
               </span>
             )}
             {totalTraps === 0 && (
-              <span style={{ fontSize: 10, color: '#34d399', backgroundColor: '#064e3b44', border: '1px solid #064e3b', padding: '5px 12px', borderRadius: 8, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: 10, color: '#059669', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '5px 12px', borderRadius: 8, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
                 No traps detected
               </span>
             )}
           </div>
 
-          {/* Divider + URL */}
-          <div style={{ borderTop: '1px solid #1f2937', paddingTop: 20 }}>
-            <p style={{ fontSize: 10, color: '#374151', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 600 }}>
+          <div style={{ borderTop: '1px solid #F3F4F6', paddingTop: 20 }}>
+            <p style={{ fontSize: 10, color: '#9CA3AF', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 700 }}>
               app.worktugal.com/diagnostic — Free Portugal compliance check
             </p>
           </div>
@@ -259,35 +270,38 @@ export const ShareCard: React.FC<ShareCardProps> = ({
       </div>
 
       {/* Action buttons */}
-      <div className="flex gap-3">
-        <Button
+      <div className="grid grid-cols-2 gap-3">
+        <button
           onClick={handleDownload}
           disabled={downloading}
-          className="flex-1 text-[10px] uppercase tracking-widest font-bold"
+          className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#0F3D2E] text-white text-[11px] font-black uppercase tracking-[0.15em] hover:bg-[#1A5C44] hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           {downloading ? (
-            <><Loader2 className="w-3 h-3 mr-2 animate-spin" />Generating...</>
+            <><Loader2 className="w-3.5 h-3.5 animate-spin" />Generating...</>
           ) : (
-            <><Download className="w-3 h-3 mr-2" />Download card</>
+            <><Download className="w-3.5 h-3.5" />Download card</>
           )}
-        </Button>
+        </button>
 
-        <Button
+        <button
           onClick={handleCopy}
-          variant="secondary"
-          className="flex-1 text-[10px] uppercase tracking-widest font-bold"
+          className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 text-[11px] font-black uppercase tracking-[0.15em] transition-all hover:scale-[1.02] active:scale-[0.98] ${
+            copied
+              ? 'border-[#10B981] bg-[#10B981]/8 text-[#10B981] dark:border-[#10B981] dark:bg-[#10B981]/10'
+              : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:border-[#0F3D2E]/40 dark:hover:border-white/20 hover:text-slate-900 dark:hover:text-white'
+          }`}
         >
           {copied ? (
-            <><Check className="w-3 h-3 mr-2 text-emerald-400" /><span className="text-emerald-400">Copied</span></>
+            <><Check className="w-3.5 h-3.5" />Copied!</>
           ) : (
-            <><Copy className="w-3 h-3 mr-2" />Copy text</>
+            <><Copy className="w-3.5 h-3.5" />Copy text</>
           )}
-        </Button>
+        </button>
       </div>
 
       {copied && (
-        <p className="text-[10px] text-gray-600 text-center mt-3 font-light">
-          Paste it on Reddit, LinkedIn, or Telegram
+        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 text-center mt-3">
+          Paste on Reddit, LinkedIn, or Telegram
         </p>
       )}
     </motion.div>
