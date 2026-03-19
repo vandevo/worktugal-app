@@ -69,4 +69,5 @@ export interface DiagnosticSubmission {
   utm_source?: string;
   utm_medium?: string;
   utm_campaign?: string;
+  user_id?: string;
 }

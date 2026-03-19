@@ -8,6 +8,7 @@ interface SubmitDiagnosticParams {
   answers: DiagnosticAnswers;
   result: DiagnosticResult;
   country: string;
+  userId?: string;
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
@@ -43,6 +44,7 @@ export async function submitDiagnostic(
     utm_source: params.utmSource,
     utm_medium: params.utmMedium,
     utm_campaign: params.utmCampaign,
+    ...(params.userId ? { user_id: params.userId } : {}),
   };
 
   const { data, error } = await supabase

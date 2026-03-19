@@ -75,6 +75,7 @@ export const DiagnosticForm: React.FC = () => {
         answers,
         result,
         country: 'portugal',
+        userId: user.id,
         utmSource,
         utmMedium,
         utmCampaign,
