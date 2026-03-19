@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const FAQ_ITEMS = [
   {
     q: 'Is the diagnostic really free?',
-    a: 'Yes. No credit card, no hidden fees. Your full results are shown immediately — Setup Score, Exposure Index, every compliance trap detected, legal citations, penalty ranges, and official source links. Nothing is locked.',
+    a: 'Yes. No credit card, no hidden fees. Your full results are shown immediately: Setup Score, Exposure Index, every compliance trap detected, legal citations, penalty ranges, and official source links. Nothing is locked.',
   },
   {
     q: 'How does the scoring work?',
@@ -14,7 +14,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'What are compliance traps?',
-    a: 'Traps are specific risks that catch people off guard — dual tax residency if you never deregistered abroad (CIRS Art. 16), VAT misclassification if you crossed the income threshold (CIVA Art. 29), or unfiled IRS returns with penalties from €150 to €3,750. Each trap includes the legal basis and a source URL you can verify yourself.',
+    a: 'Traps are specific risks that catch people off guard. For example: dual tax residency if you never deregistered abroad (CIRS Art. 16), VAT misclassification if you crossed the income threshold (CIVA Art. 29), or unfiled IRS returns with penalties from €150 to €3,750. Each trap includes the legal basis and a source URL you can verify yourself.',
   },
   {
     q: 'What if my situation is complicated?',
@@ -26,7 +26,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Will I be spammed with emails?',
-    a: 'No. We send your results and only follow up if Portuguese rules change in a way that directly affects your situation. You control consent during the diagnostic — and can unsubscribe any time.',
+    a: 'No. We send your results and only follow up if Portuguese rules change in a way that directly affects your situation. You control consent during the diagnostic and can unsubscribe any time.',
   },
 ];
 

@@ -75,7 +75,7 @@ export const ModernHero: React.FC = () => {
             onClick={() => navigate('/diagnostic')}
             className="px-10 py-4 bg-white text-black hover:bg-gray-100 rounded-xl text-sm uppercase tracking-widest font-bold transition-all shadow-xl shadow-black/20 active:scale-95"
           >
-            Check My Risk — Free (3 min)
+            Check My Risk · Free · 3 min
           </button>
         </motion.div>
 

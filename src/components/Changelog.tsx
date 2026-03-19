@@ -92,6 +92,56 @@ function getCategoryConfig(category: string) {
 
 // ── Static fallback entries ──────────────────────────────────────────────────
 const FALLBACK_ENTRIES: ChangelogEntry[] = [
+  // ── v3.1 — 2026-03-19 ─────────────────────────────────────────────────────
+  {
+    id: 'my-account-dashboard',
+    date: '2026-03-19',
+    category: 'feature',
+    title: 'My Account dashboard',
+    details: 'New personal dashboard showing your latest compliance score, diagnostic history, and account settings — all in one place. Accessible from the nav menu for every signed-in user. Replaces the old admin-only Dashboard with a user-first design.',
+    version: 'v3.1',
+  },
+  {
+    id: 'inline-profile-editing',
+    date: '2026-03-19',
+    category: 'fix',
+    title: 'Inline profile editing — ProfileModal removed',
+    details: 'Display name editing is now built directly into the My Account page with a Save button that turns green on success. The separate Edit Profile modal has been removed entirely for a simpler, less disruptive flow.',
+    version: 'v3.1',
+  },
+  {
+    id: 'google-signin-diagnostic',
+    date: '2026-03-19',
+    category: 'feature',
+    title: 'Google Sign-In on the diagnostic contact step',
+    details: 'Added a "Continue with Google" button on the final diagnostic step so users can save their results without typing an email. Diagnostic answers, current step, and question page are persisted in sessionStorage so nothing is lost across the OAuth redirect.',
+    version: 'v3.1',
+  },
+  {
+    id: 'save-results-banner',
+    date: '2026-03-19',
+    category: 'feature',
+    title: '"Save results" sign-in prompt on results page',
+    details: 'Unauthenticated users who complete the diagnostic now see a compact "Save your results — Continue with Google" banner directly on the results page, reducing friction for account creation at the moment of highest intent.',
+    version: 'v3.1',
+  },
+  {
+    id: 'footer-legal-faq-rebuild',
+    date: '2026-03-19',
+    category: 'ui',
+    title: 'Footer, legal pages, FAQ, and cookie banner rebuilt',
+    details: 'Footer, Privacy Policy, Terms of Service, FAQ accordion, and Cookie Consent Banner all rebuilt from scratch in Emerald Zenith. Forest green footer with no phone/WhatsApp, clean prose legal pages, Telegram + LinkedIn links, and a compact bottom-right cookie card with per-category toggle switches.',
+    version: 'v3.1',
+  },
+  {
+    id: 'compliance-disclaimer',
+    date: '2026-03-19',
+    category: 'content',
+    title: 'Compliance disclaimer module',
+    details: 'Added a reusable ComplianceDisclaimer component with three layout variants (inline, banner, footer). Surfaces the "for informational purposes only — not legal advice" notice consistently wherever diagnostic results are shown.',
+    version: 'v3.1',
+  },
+  // ── v3.0 — 2026-03-19 ─────────────────────────────────────────────────────
   {
     id: 'v3-redesign',
     date: '2026-03-19',
@@ -108,30 +158,16 @@ const FALLBACK_ENTRIES: ChangelogEntry[] = [
     details: 'Users can now sign in or create an account with a single click using their Google account. OAuth handled via Supabase — no separate password needed.',
     version: 'v3.0',
   },
-  {
-    id: 'security-hardening',
-    date: '2026-03-13',
-    category: 'security',
-    title: 'Security headers + RLS hardening',
-    details: 'Added HSTS, X-Frame-Options, X-Content-Type-Options, and Referrer-Policy via Cloudflare Pages _headers. Tightened Supabase Row Level Security on compliance_diagnostics: email validation regex and score range bounds on insert. RLS enabled on ai_memories with deny-by-default policy.',
-    version: 'v2.7',
-  },
+  // ── v2.8 — 2026-03-13 ─────────────────────────────────────────────────────
   {
     id: 'share-card',
     date: '2026-03-13',
     category: 'feature',
     title: 'Shareable result card with PNG export',
-    details: 'After completing the diagnostic, users can download a branded PNG score card or copy a pre-formatted text snippet to share on Reddit, LinkedIn, or Telegram. Built with html2canvas on a hidden solid-color export div for reliable rendering.',
-    version: 'v2.7',
+    details: 'After completing the diagnostic, you can download a branded PNG score card or copy a pre-formatted text snippet to share on Reddit, LinkedIn, or Telegram.',
+    version: 'v2.8',
   },
-  {
-    id: 'ai-indexing',
-    date: '2026-03-13',
-    category: 'docs',
-    title: 'llms.txt added for AI indexing',
-    details: 'Added /llms.txt to help AI search engines (Perplexity, ChatGPT, Gemini) understand what Worktugal does, what data sources we cite, and how we want our content used. Part of the 2026 SEO stack for AI-era discoverability.',
-    version: 'v2.7',
-  },
+  // ── v2.0 — 2025-12-01 ─────────────────────────────────────────────────────
   {
     id: 'diagnostic-v2',
     date: '2025-12-01',
@@ -139,6 +175,15 @@ const FALLBACK_ENTRIES: ChangelogEntry[] = [
     title: 'Dual-score diagnostic engine',
     details: 'Launched the Setup Score + Exposure Index methodology. 13 conditional questions mapped to Portugal\'s compliance framework across AT (tax authority), AIMA (immigration), and Segurança Social. Each triggered trap includes legal basis, penalty range, and a verified official source URL.',
     version: 'v2.0',
+  },
+  // ── v1.0 — 2025-10-01 ─────────────────────────────────────────────────────
+  {
+    id: 'launch',
+    date: '2025-10-01',
+    category: 'feature',
+    title: 'Worktugal launched',
+    details: 'First public release. Email-gated compliance risk diagnostic for freelancers and remote workers planning to live in Portugal. Results delivered via the platform with a breakdown across tax, immigration, and social security risk categories.',
+    version: 'v1.0',
   },
 ];
 
@@ -153,6 +198,7 @@ export const Changelog: React.FC = () => {
         const { data, error } = await supabase
           .from('project_changelog')
           .select('id, date, category, title, details, version')
+          .eq('is_public', true)
           .order('date', { ascending: false });
 
         if (error) throw error;
