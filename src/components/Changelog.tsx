@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Calendar, Tag, ChevronRight, Rocket, Sparkles, Shield, Cpu, Layout as LayoutIcon, Globe } from 'lucide-react';
+import {
+  Rocket,
+  Sparkles,
+  Shield,
+  Cpu,
+  Layout as LayoutIcon,
+  Globe,
+  FileText,
+  ArrowRight,
+} from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import { Card } from './ui/Card';
-import { Button } from './ui/Button';
 import { Seo } from './Seo';
 
 interface ChangelogEntry {
@@ -16,26 +23,124 @@ interface ChangelogEntry {
   version: string | null;
 }
 
-const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  feature: <Rocket className="w-4 h-4" />,
-  fix: <Sparkles className="w-4 h-4" />,
-  ui: <LayoutIcon className="w-4 h-4" />,
-  integration: <Globe className="w-4 h-4" />,
-  security: <Shield className="w-4 h-4" />,
-  performance: <Cpu className="w-4 h-4" />,
+// ── Category config ──────────────────────────────────────────────────────────
+const CATEGORY_CONFIG: Record<string, {
+  label: string;
+  icon: React.ReactNode;
+  dot: string;
+  badge: string;
+}> = {
+  feature: {
+    label: 'New Feature',
+    icon: <Rocket className="w-3.5 h-3.5" />,
+    dot: 'bg-[#0F3D2E]',
+    badge: 'bg-[#0F3D2E]/8 text-[#0F3D2E] border-[#0F3D2E]/15 dark:bg-[#10B981]/10 dark:text-[#10B981] dark:border-[#10B981]/20',
+  },
+  fix: {
+    label: 'Improvement',
+    icon: <Sparkles className="w-3.5 h-3.5" />,
+    dot: 'bg-[#10B981]',
+    badge: 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-[#10B981]/10 dark:text-[#10B981] dark:border-[#10B981]/20',
+  },
+  ui: {
+    label: 'Design',
+    icon: <LayoutIcon className="w-3.5 h-3.5" />,
+    dot: 'bg-violet-500',
+    badge: 'bg-violet-50 text-violet-700 border-violet-100 dark:bg-violet-500/10 dark:text-violet-400 dark:border-violet-500/20',
+  },
+  security: {
+    label: 'Security',
+    icon: <Shield className="w-3.5 h-3.5" />,
+    dot: 'bg-amber-500',
+    badge: 'bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20',
+  },
+  performance: {
+    label: 'Performance',
+    icon: <Cpu className="w-3.5 h-3.5" />,
+    dot: 'bg-blue-500',
+    badge: 'bg-blue-50 text-blue-700 border-blue-100 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
+  },
+  integration: {
+    label: 'Integration',
+    icon: <Globe className="w-3.5 h-3.5" />,
+    dot: 'bg-teal-500',
+    badge: 'bg-teal-50 text-teal-700 border-teal-100 dark:bg-teal-500/10 dark:text-teal-400 dark:border-teal-500/20',
+  },
+  database: {
+    label: 'Core Update',
+    icon: <FileText className="w-3.5 h-3.5" />,
+    dot: 'bg-slate-500',
+    badge: 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-white/8 dark:text-slate-400 dark:border-white/10',
+  },
+  content: {
+    label: 'Content',
+    icon: <FileText className="w-3.5 h-3.5" />,
+    dot: 'bg-slate-500',
+    badge: 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-white/8 dark:text-slate-400 dark:border-white/10',
+  },
+  docs: {
+    label: 'Guide',
+    icon: <FileText className="w-3.5 h-3.5" />,
+    dot: 'bg-slate-500',
+    badge: 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-white/8 dark:text-slate-400 dark:border-white/10',
+  },
 };
 
-const CATEGORY_LABELS: Record<string, string> = {
-  feature: 'New Feature',
-  fix: 'Improvement',
-  database: 'Core Update',
-  ui: 'Design',
-  integration: 'Connection',
-  security: 'Security',
-  performance: 'Speed',
-  content: 'Content',
-  docs: 'Guide',
-};
+function getCategoryConfig(category: string) {
+  return CATEGORY_CONFIG[category] ?? CATEGORY_CONFIG.docs;
+}
+
+// ── Static fallback entries ──────────────────────────────────────────────────
+const FALLBACK_ENTRIES: ChangelogEntry[] = [
+  {
+    id: 'v3-redesign',
+    date: '2026-03-19',
+    category: 'ui',
+    title: 'Emerald Zenith — full UI/UX redesign',
+    details: 'Complete rebuild of the design system. Light mode first, Inter font, forest green (#0F3D2E) brand palette, glassmorphism score cards on the homepage, and redesigned diagnostic flow with 4px colored left borders on risk cards. All pages now adapt seamlessly between light and dark modes.',
+    version: 'v3.0',
+  },
+  {
+    id: 'google-oauth',
+    date: '2026-03-19',
+    category: 'feature',
+    title: 'Google Sign-In added',
+    details: 'Users can now sign in or create an account with a single click using their Google account. OAuth handled via Supabase — no separate password needed.',
+    version: 'v3.0',
+  },
+  {
+    id: 'security-hardening',
+    date: '2026-03-13',
+    category: 'security',
+    title: 'Security headers + RLS hardening',
+    details: 'Added HSTS, X-Frame-Options, X-Content-Type-Options, and Referrer-Policy via Cloudflare Pages _headers. Tightened Supabase Row Level Security on compliance_diagnostics: email validation regex and score range bounds on insert. RLS enabled on ai_memories with deny-by-default policy.',
+    version: 'v2.7',
+  },
+  {
+    id: 'share-card',
+    date: '2026-03-13',
+    category: 'feature',
+    title: 'Shareable result card with PNG export',
+    details: 'After completing the diagnostic, users can download a branded PNG score card or copy a pre-formatted text snippet to share on Reddit, LinkedIn, or Telegram. Built with html2canvas on a hidden solid-color export div for reliable rendering.',
+    version: 'v2.7',
+  },
+  {
+    id: 'ai-indexing',
+    date: '2026-03-13',
+    category: 'docs',
+    title: 'llms.txt added for AI indexing',
+    details: 'Added /llms.txt to help AI search engines (Perplexity, ChatGPT, Gemini) understand what Worktugal does, what data sources we cite, and how we want our content used. Part of the 2026 SEO stack for AI-era discoverability.',
+    version: 'v2.7',
+  },
+  {
+    id: 'diagnostic-v2',
+    date: '2025-12-01',
+    category: 'feature',
+    title: 'Dual-score diagnostic engine',
+    details: 'Launched the Setup Score + Exposure Index methodology. 13 conditional questions mapped to Portugal\'s compliance framework across AT (tax authority), AIMA (immigration), and Segurança Social. Each triggered trap includes legal basis, penalty range, and a verified official source URL.',
+    version: 'v2.0',
+  },
+];
 
 export const Changelog: React.FC = () => {
   const [entries, setEntries] = useState<ChangelogEntry[]>([]);
@@ -43,159 +148,171 @@ export const Changelog: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchChangelog();
+    (async () => {
+      try {
+        const { data, error } = await supabase
+          .from('project_changelog')
+          .select('id, date, category, title, details, version')
+          .order('date', { ascending: false });
+
+        if (error) throw error;
+        setEntries(data && data.length > 0 ? data : FALLBACK_ENTRIES);
+      } catch {
+        setEntries(FALLBACK_ENTRIES);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
-  const fetchChangelog = async () => {
-    try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('project_changelog')
-        .select('id, date, category, title, details, version')
-        .order('date', { ascending: false });
-
-      if (error) throw error;
-      setEntries(data || []);
-    } catch (err) {
-      console.error('Error fetching changelog:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Group entries by year/month for section headers
+  const grouped = entries.reduce<Record<string, ChangelogEntry[]>>((acc, entry) => {
+    const key = new Date(entry.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    if (!acc[key]) acc[key] = [];
+    acc[key].push(entry);
+    return acc;
+  }, {});
 
   return (
-    <div className="min-h-screen bg-[#050505] py-20 px-4">
-      <Seo 
-        title="Changelog & Updates - Worktugal"
+    <>
+      <Seo
+        title="Changelog — Worktugal product updates"
         description="Product updates, new features, and compliance intelligence improvements for Worktugal."
       />
 
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <header className="text-center mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-5xl md:text-6xl font-serif text-white mb-6">
-              Product Updates
-            </h1>
-            <p className="text-xl text-gray-400 font-light max-w-2xl mx-auto">
-              Tracking our journey building compliance risk intelligence 
-              for freelancers in Portugal.
-            </p>
-          </motion.div>
-        </header>
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-12 md:py-20">
 
-        {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="w-8 h-8 border-2 border-white/10 border-t-white rounded-full animate-spin" />
-          </div>
-        ) : (
-          <div className="relative space-y-12">
-            {/* Timeline Line */}
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-white/5 -translate-x-1/2 hidden md:block" />
+        {/* ── Hero ──────────────────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-14"
+        >
+          <span className="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full mb-5">
+            Product Updates
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.05] mb-4">
+            What's new in Worktugal
+          </h1>
+          <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
+            Tracking our journey building compliance risk intelligence for remote workers and freelancers in Portugal.
+          </p>
+        </motion.div>
 
-            {entries.map((entry, index) => (
-              <motion.div
-                key={entry.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative flex flex-col md:flex-row gap-8 ${
-                  index % 2 === 0 ? 'md:flex-row-reverse' : ''
-                }`}
-              >
-                {/* Date Bubble (Desktop) */}
-                <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white/20 border-4 border-[#050505] z-10" />
-
-                {/* Content Card */}
-                <div className="flex-1">
-                  <Card className="p-8 hover:border-white/10 transition-all duration-500">
-                    <div className="flex flex-wrap items-center gap-4 mb-6">
-                      <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-full border border-white/5">
-                        <Calendar className="w-3.5 h-3.5 text-gray-500" />
-                        <span className="text-[10px] font-medium text-gray-400 uppercase tracking-widest">
-                          {new Date(entry.date).toLocaleDateString('en-US', { 
-                            month: 'long', 
-                            day: 'numeric', 
-                            year: 'numeric' 
-                          })}
-                        </span>
-                      </div>
-                      
-                      {entry.version && (
-                        <div className="px-3 py-1.5 bg-emerald-400/5 text-emerald-400/60 rounded-full border border-emerald-400/10 text-[10px] font-medium uppercase tracking-widest">
-                          {entry.version}
-                        </div>
-                      )}
-
-                      <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-full border border-white/5">
-                        <Tag className="w-3.5 h-3.5 text-gray-500" />
-                        <span className="text-[10px] font-medium text-gray-400 uppercase tracking-widest">
-                          {CATEGORY_LABELS[entry.category] || entry.category}
-                        </span>
-                      </div>
-                    </div>
-
-                    <h2 className="text-2xl font-serif text-white mb-4">
-                      {entry.title}
-                    </h2>
-                    
-                    {entry.details && (
-                      <div className="prose prose-invert max-w-none">
-                        <p className="text-gray-400 font-light leading-relaxed text-sm whitespace-pre-wrap">
-                          {entry.details}
-                        </p>
-                      </div>
-                    )}
-
-                    <div className="mt-8 flex items-center justify-between pt-6 border-t border-white/5">
-                      <div className="flex items-center gap-3 text-gray-500">
-                        {CATEGORY_ICONS[entry.category] || <Sparkles className="w-4 h-4" />}
-                        <span className="text-[10px] uppercase tracking-[0.2em] font-bold">
-                          {entry.category === 'feature' ? 'New Release' : 'System Polish'}
-                        </span>
-                      </div>
-                      
-                      <button className="text-white/40 hover:text-white transition-colors group flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold">
-                        Learn More
-                        <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                      </button>
-                    </div>
-                  </Card>
-                </div>
-
-                {/* Spacer for Desktop Alignment */}
-                <div className="flex-1 hidden md:block" />
-              </motion.div>
-            ))}
+        {/* ── Loading ───────────────────────────────────────────────── */}
+        {loading && (
+          <div className="flex justify-center py-16">
+            <div className="w-6 h-6 border-2 border-[#10B981] border-t-transparent rounded-full animate-spin" />
           </div>
         )}
 
-        {/* Footer CTA */}
-        <div className="mt-32 text-center pb-20">
-          <Card className="p-12">
-            <h3 className="text-3xl font-serif text-white mb-6">
-              Ready for your own compliance check?
-            </h3>
-            <p className="text-gray-400 font-light mb-10 max-w-xl mx-auto leading-relaxed">
-              Experience the latest updates firsthand. Run our free 3-minute diagnostic 
-              and see where you stand with Portuguese compliance law.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button onClick={() => navigate('/diagnostic')} className="w-full sm:w-auto">
-                Start Free Diagnostic
-              </Button>
-              <Button onClick={() => navigate('/contact')} variant="outline" className="w-full sm:w-auto">
-                Talk to Us
-              </Button>
+        {/* ── Timeline ──────────────────────────────────────────────── */}
+        {!loading && (
+          <div className="relative">
+            {/* Vertical line */}
+            <div className="absolute left-[7px] top-2 bottom-2 w-px bg-slate-200 dark:bg-white/8" />
+
+            <div className="space-y-10">
+              {Object.entries(grouped).map(([monthYear, monthEntries]) => (
+                <div key={monthYear}>
+                  {/* Month label */}
+                  <div className="flex items-center gap-4 mb-6 ml-[28px]">
+                    <span className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500">
+                      {monthYear}
+                    </span>
+                  </div>
+
+                  <div className="space-y-5">
+                    {monthEntries.map((entry, i) => {
+                      const config = getCategoryConfig(entry.category);
+                      return (
+                        <motion.div
+                          key={entry.id}
+                          initial={{ opacity: 0, x: -12 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.4, delay: i * 0.05 }}
+                          className="flex gap-5"
+                        >
+                          {/* Dot */}
+                          <div className="flex-shrink-0 mt-5">
+                            <div className={`w-3.5 h-3.5 rounded-full border-2 border-white dark:border-[#0E0E10] ${config.dot} relative z-10`} />
+                          </div>
+
+                          {/* Card */}
+                          <div className="flex-1 bg-white dark:bg-[#161618] rounded-xl border border-[#0F3D2E]/8 dark:border-white/8 p-5 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)] transition-all">
+                            {/* Meta row */}
+                            <div className="flex flex-wrap items-center gap-2 mb-3">
+                              <span className={`inline-flex items-center gap-1.5 text-[9px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full border ${config.badge}`}>
+                                {config.icon}
+                                {config.label}
+                              </span>
+                              {entry.version && (
+                                <span className="text-[9px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-[#0F3D2E]/8 text-[#0F3D2E] border border-[#0F3D2E]/15 dark:bg-[#10B981]/10 dark:text-[#10B981] dark:border-[#10B981]/20">
+                                  {entry.version}
+                                </span>
+                              )}
+                              <span className="ml-auto text-[10px] font-semibold text-slate-400 dark:text-slate-500">
+                                {new Date(entry.date).toLocaleDateString('en-US', {
+                                  month: 'short',
+                                  day: 'numeric',
+                                  year: 'numeric',
+                                })}
+                              </span>
+                            </div>
+
+                            <h2 className="text-base font-bold text-slate-900 dark:text-white mb-2 leading-snug">
+                              {entry.title}
+                            </h2>
+
+                            {entry.details && (
+                              <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                                {entry.details}
+                              </p>
+                            )}
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
-          </Card>
-        </div>
+          </div>
+        )}
+
+        {/* ── CTA ───────────────────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-20 bg-[#0F3D2E] rounded-2xl p-10 text-center relative overflow-hidden"
+        >
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+              backgroundSize: '32px 32px',
+            }}
+          />
+          <div className="relative z-10">
+            <h3 className="text-xl font-black text-white mb-3">
+              Try the diagnostic yourself
+            </h3>
+            <p className="text-white/60 text-sm mb-7 max-w-xs mx-auto leading-relaxed">
+              Free 2-minute compliance check. No account needed to get your results.
+            </p>
+            <button
+              onClick={() => navigate('/diagnostic')}
+              className="inline-flex items-center gap-2 bg-[#10B981] text-white px-8 py-3.5 rounded-xl text-sm font-bold hover:bg-[#059669] hover:scale-[1.03] active:scale-[0.97] transition-all shadow-lg shadow-black/20"
+            >
+              Run free diagnostic
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </motion.div>
+
       </div>
-    </div>
+    </>
   );
 };

@@ -54,7 +54,8 @@ function App() {
 
             <Route path="/compliance-review" element={<Navigate to="/diagnostic" replace />} />
 
-            <Route path="/accounting" element={<AccountingDeskLanding />} />
+            <Route path="/changelog" element={<Changelog />} />
+            <Route path="/accounting" element={<Navigate to="/changelog" replace />} />
             <Route path="/accounting/intake" element={<ComprehensiveIntakeForm />} />
             <Route path="/accounting/intake/success" element={<IntakeSuccess />} />
             <Route path="/accounting/checkout" element={<ConsultCheckout />} />

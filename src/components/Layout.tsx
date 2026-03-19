@@ -16,7 +16,7 @@ interface LayoutProps {
 
 const NAV_LINKS = [
   { label: 'Diagnostic', href: '/diagnostic' },
-  { label: 'Accounting', href: '/accounting' },
+  { label: 'Changelog', href: '/changelog' },
   { label: 'Blog', href: '/blog' },
   { label: 'Community', href: 'https://t.me/worktugal', external: true },
 ];

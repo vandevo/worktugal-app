@@ -94,6 +94,17 @@ export const signIn = async (email: string, password: string, captchaToken?: str
   return data;
 };
 
+export const signInWithGoogle = async () => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `${window.location.origin}/diagnostic`,
+    },
+  });
+  if (error) throw error;
+  return data;
+};
+
 export const signOut = async () => {
   try {
     await supabase.auth.signOut();

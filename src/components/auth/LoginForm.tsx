@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { motion, AnimatePresence } from 'framer-motion';
-import { LogIn, Mail, Lock, Eye, EyeOff } from 'lucide-react';
-import { signIn, resetPasswordForEmail } from '../../lib/auth';
-import { Input } from '../ui/Input';
-import { Button } from '../ui/Button';
+import { motion } from 'framer-motion';
+import { Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { signIn, signInWithGoogle, resetPasswordForEmail } from '../../lib/auth';
 import { Alert } from '../ui/Alert';
 import { trackLogin } from '../../lib/analytics';
 
@@ -25,6 +23,7 @@ interface LoginFormProps {
 export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignup }) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [resetEmailSent, setResetEmailSent] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -33,148 +32,177 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess, onSwitchToSignu
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
-  });
+  } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
 
   const email = watch('email');
 
   const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
     setError(null);
-
     try {
       await signIn(data.email, data.password);
       trackLogin('email');
       onSuccess?.();
     } catch (err: any) {
-      // Make Supabase error messages friendlier
-      const message = err.message === 'Invalid login credentials'
-        ? 'Email or password incorrect. Please try again.'
-        : err.message || 'Failed to sign in';
-      setError(message);
+      setError(
+        err.message === 'Invalid login credentials'
+          ? 'Email or password incorrect. Please try again.'
+          : err.message || 'Failed to sign in'
+      );
     } finally {
       setLoading(false);
     }
   };
 
+  const handleGoogle = async () => {
+    setGoogleLoading(true);
+    setError(null);
+    try {
+      await signInWithGoogle();
+      // OAuth redirects the page — no onSuccess needed
+    } catch (err: any) {
+      setError(err.message || 'Failed to sign in with Google');
+      setGoogleLoading(false);
+    }
+  };
+
   const handleForgotPassword = async () => {
-    setError(null); // Clear any existing errors first
-    setResetEmailSent(false); // Clear any existing success message
-    
+    setError(null);
+    setResetEmailSent(false);
     if (!email || !email.includes('@')) {
-      setError('Please enter a valid email address first');
+      setError('Please enter your email address first');
       return;
     }
-
     try {
       await resetPasswordForEmail(email);
-
       setResetEmailSent(true);
     } catch (err: any) {
       setError(err.message || 'Failed to send reset email');
     }
   };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="w-full max-w-md mx-auto"
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.2 }}
     >
-      <div className="text-center mb-6">
-        <div className="flex items-center space-x-3 mb-4">
-          <div className="w-10 h-10 bg-blue-500/10 border border-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-            <LogIn className="h-5 w-5 text-blue-500/50" />
-          </div>
-          <div className="text-left flex-1">
-            <h2 className="text-xl font-serif text-white leading-tight">Welcome back</h2>
-            <p className="text-xs text-gray-500 font-light mt-1 uppercase tracking-widest">Sign in to your account</p>
-          </div>
-        </div>
+      {/* Header */}
+      <div className="mb-6">
+        <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+          Welcome back
+        </h2>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+          Sign in to your Worktugal account
+        </p>
       </div>
 
-      {error && (
-        <Alert variant="error" className="mb-4">
-          {error}
-        </Alert>
-      )}
-
+      {error && <Alert variant="error" className="mb-4">{error}</Alert>}
       {resetEmailSent && (
         <Alert variant="success" className="mb-4">
-          <strong>Password reset email sent!</strong><br />
-          Check your email for a link to reset your password.
+          Password reset email sent — check your inbox.
         </Alert>
       )}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <Input
-          label="Email"
-          type="email"
-          placeholder="your@email.com"
-          {...register('email')}
-          error={errors.email?.message}
-        />
 
-        <div className="space-y-1">
-          <label htmlFor="login-password" className="block text-xs font-medium uppercase tracking-widest text-gray-500 mb-2">
-            Password
+      {/* Google button */}
+      <button
+        type="button"
+        onClick={handleGoogle}
+        disabled={googleLoading || loading}
+        className="w-full flex items-center justify-center gap-3 h-12 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 text-sm font-semibold hover:border-[#0F3D2E]/40 dark:hover:border-white/20 hover:bg-slate-50 dark:hover:bg-white/[0.07] transition-all disabled:opacity-50 disabled:cursor-not-allowed mb-5"
+      >
+        {googleLoading ? (
+          <Loader2 className="w-4 h-4 animate-spin" />
+        ) : (
+          <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+        )}
+        Continue with Google
+      </button>
+
+      {/* Divider */}
+      <div className="flex items-center gap-3 mb-5">
+        <div className="flex-1 h-px bg-slate-200 dark:bg-white/10" />
+        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">or</span>
+        <div className="flex-1 h-px bg-slate-200 dark:bg-white/10" />
+      </div>
+
+      {/* Email/password form */}
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <div>
+          <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2">
+            Email
           </label>
           <div className="relative">
+            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
-              id="login-password"
-              name="password"
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Enter your password"
-              autoComplete="current-password"
-              className="w-full px-4 py-3 pr-12 bg-white/[0.02] border border-white/5 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-white/[0.06] focus:border-blue-400/40 focus:ring-2 focus:ring-blue-400/20 hover:bg-white/[0.04] transition-all duration-200 font-light text-sm shadow-lg shadow-black/20"
-              {...register('password')}
+              type="email"
+              placeholder="you@example.com"
+              {...register('email')}
+              className="w-full h-11 pl-10 pr-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white placeholder-slate-400 text-sm font-medium focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
             />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
-            >
-              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-            </button>
           </div>
-          {errors.password && (
-            <p className="text-xs text-red-400">{errors.password.message}</p>
-          )}
-          <div className="text-right">
+          {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>}
+        </div>
+
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+              Password
+            </label>
             <button
               type="button"
               onClick={handleForgotPassword}
-              className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
+              className="text-[10px] font-bold text-[#0F3D2E] dark:text-[#10B981] hover:opacity-70 transition-opacity"
             >
               Forgot password?
             </button>
           </div>
+          <div className="relative">
+            <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Your password"
+              autoComplete="current-password"
+              {...register('password')}
+              className="w-full h-11 pl-10 pr-11 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white placeholder-slate-400 text-sm font-medium focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors"
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </button>
+          </div>
+          {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password.message}</p>}
         </div>
 
-        <Button
+        <button
           type="submit"
-          size="lg"
-          className="w-full"
-          loading={loading}
+          disabled={loading || googleLoading}
+          className="w-full h-12 bg-[#0F3D2E] text-white rounded-xl text-sm font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          Sign In
-        </Button>
+          {loading ? <><Loader2 className="w-4 h-4 animate-spin" />Signing in...</> : 'Sign In'}
+        </button>
       </form>
 
       {onSwitchToSignup && (
-        <div className="mt-8 text-center pt-6 border-t border-white/5">
-          <p className="text-gray-500 text-xs font-light">
-            Don't have an account?{' '}
-            <button
-              type="button"
-              onClick={onSwitchToSignup}
-              className="text-blue-400 hover:text-blue-300 font-medium transition-all duration-200"
-            >
-              Sign up
-            </button>
-          </p>
-        </div>
+        <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6 pt-6 border-t border-slate-100 dark:border-white/8">
+          Don't have an account?{' '}
+          <button
+            type="button"
+            onClick={onSwitchToSignup}
+            className="font-bold text-[#0F3D2E] dark:text-[#10B981] hover:opacity-70 transition-opacity"
+          >
+            Sign up free
+          </button>
+        </p>
       )}
     </motion.div>
   );

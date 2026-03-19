@@ -20,15 +20,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [mode, setMode] = useState<'login' | 'signup'>(initialMode);
 
   const handleSuccess = () => {
-    // Track successful authentication from gated content
     if (typeof gtag !== 'undefined' && source) {
       gtag('event', 'signup_from_gated_content', {
         event_category: 'conversion',
         event_label: source,
-        value: 1
+        value: 1,
       });
     }
-    
     onClose();
   };
 
@@ -36,47 +34,49 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+          className="absolute inset-0 bg-black/40 backdrop-blur-sm"
           onClick={onClose}
         />
 
         {/* Modal */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          initial={{ opacity: 0, scale: 0.95, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="relative bg-[#121212] backdrop-blur-2xl rounded-3xl border border-white/5 shadow-2xl p-6 sm:p-8 lg:p-10 w-full max-w-md mx-4"
+          exit={{ opacity: 0, scale: 0.95, y: 16 }}
+          transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="relative bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 shadow-[0_24px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.5)] w-full max-w-md"
         >
-          {/* Close button */}
+          {/* Close */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-9 h-9 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] text-gray-400 hover:text-white transition-all duration-300 flex items-center justify-center border border-white/5"
+            className="absolute top-4 right-4 w-8 h-8 rounded-xl bg-slate-100 dark:bg-white/[0.06] hover:bg-slate-200 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all flex items-center justify-center"
           >
-            <X className="h-4 w-4" />
+            <X className="w-4 h-4" />
           </button>
 
-          {/* Form content */}
-          <AnimatePresence mode="wait">
-            {mode === 'login' ? (
-              <LoginForm
-                key="login"
-                onSuccess={handleSuccess}
-                onSwitchToSignup={() => setMode('signup')}
-              />
-            ) : (
-              <SignupForm
-                key="signup"
-                onSuccess={handleSuccess}
-                onSwitchToLogin={() => setMode('login')}
-              />
-            )}
-          </AnimatePresence>
+          <div className="p-8">
+            <AnimatePresence mode="wait">
+              {mode === 'login' ? (
+                <LoginForm
+                  key="login"
+                  onSuccess={handleSuccess}
+                  onSwitchToSignup={() => setMode('signup')}
+                />
+              ) : (
+                <SignupForm
+                  key="signup"
+                  onSuccess={handleSuccess}
+                  onSwitchToLogin={() => setMode('login')}
+                />
+              )}
+            </AnimatePresence>
+          </div>
         </motion.div>
       </div>
     </AnimatePresence>
