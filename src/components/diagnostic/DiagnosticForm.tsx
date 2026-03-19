@@ -216,9 +216,9 @@ export const DiagnosticForm: React.FC = () => {
           {/* Header */}
           <div className="mb-8">
             <div className="mb-4">
-              <h2 className="text-2xl sm:text-3xl font-serif text-white mb-2">
+              <h1 className="text-2xl sm:text-3xl font-serif text-white mb-2">
                 Compliance Risk Diagnostic
-              </h2>
+              </h1>
               <span className="text-xs font-light text-gray-500 uppercase tracking-widest">
                 {formStep === 'email'
                   ? 'Final step'
