@@ -52,15 +52,16 @@ export const PortugalTrapRules: TrapRule[] = [
     id: 'unfiled_irs',
     conditions: {
       time_lived_in_portugal: ['more_than_183'],
+      business_structure: ['employed_foreign', 'freelancer_remote', 'foreign_company', 'passive_income'],
     },
     exposureScore: 20,
     severity: 'high',
-    fix: 'You have lived in Portugal over 183 days. Under CIRS Art. 16 you are a tax resident by law and must file IRS Modelo 3 including Annex J for foreign income and overseas bank accounts. The filing window is April 1 to June 30 each year. Penalty for late or missing filing: 150 to 3,750 EUR.',
-    legal_basis: 'CIRS Art. 16 + IRS Modelo 3, Annex J — worldwide income declaration for residents',
+    fix: 'You have lived in Portugal over 183 days and have foreign-source income. Under CIRS Art. 16 you are a tax resident by law and must file IRS Modelo 3 including Annex J to declare your foreign income and any overseas bank accounts. The filing window is April 1 to June 30 each year. Penalty for late or missing filing: 150 to 3,750 EUR.',
+    legal_basis: 'CIRS Art. 16 + IRS Modelo 3, Annex J — foreign income declaration for tax residents with overseas income',
     source_url:
       'https://info.portaldasfinancas.gov.pt/pt/apoio_ao_contribuinte/Cidadaos/Rendimentos/Declaracao/Modelo_3/Paginas/default.aspx',
     penalty_range: '150–3,750 EUR for late filing',
-    last_verified: '2026-03-12',
+    last_verified: '2026-03-19',
   },
   {
     id: 'permit_expiry_risk',
