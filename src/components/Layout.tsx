@@ -68,7 +68,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAF9] dark:bg-[#0E0E10] text-[#1A1A1A] dark:text-[#F5F5F5] transition-colors duration-200">
+    <div className="min-h-screen overflow-x-hidden bg-[#FAFAF9] dark:bg-[#0E0E10] text-[#1A1A1A] dark:text-[#F5F5F5] transition-colors duration-200">
 
       {/* ── Navigation ──────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 w-full bg-[#FAFAF9]/80 dark:bg-[#0E0E10]/80 backdrop-blur-md border-b border-[#0F3D2E]/5 dark:border-white/5">
