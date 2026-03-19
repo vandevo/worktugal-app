@@ -80,7 +80,7 @@ export const DiagnosticForm: React.FC = () => {
         setIsSubmitting(false);
       });
     }
-  }, [user]);
+  }, [user, formStep]);
 
   const utmSource = searchParams.get('utm_source') || undefined;
   const utmMedium = searchParams.get('utm_medium') || undefined;
