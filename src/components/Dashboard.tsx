@@ -1,33 +1,20 @@
-import React from 'react';
-import { useAuth } from '../hooks/useAuth';
 import { useUserProfile } from '../hooks/useUserProfile';
-import { SubscriptionStatus } from './SubscriptionStatus';
-import { Button } from './ui/Button';
-import { Card } from './ui/Card';
-import { User, Settings, CreditCard } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { AdminOverview } from './admin/AdminOverview';
 import { ClientDashboard } from './client/ClientDashboard';
 
 export function Dashboard() {
-  const { user } = useAuth();
   const { profile, loading } = useUserProfile();
-  const navigate = useNavigate();
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="w-6 h-6 border-2 border-[#10B981] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   if (profile?.role === 'admin') {
     return <AdminOverview />;
-  }
-
-  if (profile?.role === 'accountant') {
-    return <ClientDashboard />;
   }
 
   return <ClientDashboard />;

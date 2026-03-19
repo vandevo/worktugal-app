@@ -1,43 +1,39 @@
 import React from 'react';
+import { Scale } from 'lucide-react';
 
 interface ComplianceDisclaimerProps {
   variant?: 'footer' | 'inline' | 'banner';
   className?: string;
 }
 
-const DISCLAIMER_TEXT =
-  'Worktugal provides compliance readiness assessment and educational information only. This is not legal or tax advice. Information is sourced from official Portuguese authorities where available. Final decisions should be confirmed with a licensed professional (OCC-certified accountant or lawyer).';
+const TEXT = 'Worktugal provides compliance readiness assessments for informational and educational purposes only. This is not legal, tax, or immigration advice. Always consult a licensed professional (OCC-certified accountant or qualified lawyer) before making decisions.';
 
 export const ComplianceDisclaimer: React.FC<ComplianceDisclaimerProps> = ({
-  variant = 'footer',
+  variant = 'inline',
   className = '',
 }) => {
   if (variant === 'banner') {
     return (
-      <div className={`bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 ${className}`}>
-        <p className="text-yellow-200/90 text-xs italic leading-relaxed text-center">
-          {DISCLAIMER_TEXT}
-        </p>
+      <div className={`flex items-start gap-3 bg-amber-50 dark:bg-amber-500/8 border border-amber-200 dark:border-amber-500/20 rounded-xl p-4 ${className}`}>
+        <Scale className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+        <p className="text-xs text-amber-700 dark:text-amber-400 leading-relaxed">{TEXT}</p>
       </div>
     );
   }
 
-  if (variant === 'inline') {
+  if (variant === 'footer') {
     return (
-      <p className={`text-gray-500 text-xs leading-relaxed ${className}`}>
-        {DISCLAIMER_TEXT}
-      </p>
+      <div className={`border-t border-slate-100 dark:border-white/6 pt-6 ${className}`}>
+        <p className="text-[11px] text-slate-400 dark:text-slate-500 text-center leading-relaxed max-w-2xl mx-auto">{TEXT}</p>
+      </div>
     );
   }
 
-  // footer variant (default)
+  // inline (default) — used on results page
   return (
-    <div className={`py-6 border-t border-white/[0.05] ${className}`}>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-gray-600 text-xs text-center leading-relaxed">
-          {DISCLAIMER_TEXT}
-        </p>
-      </div>
+    <div className={`flex items-start gap-2.5 ${className}`}>
+      <Scale className="w-3.5 h-3.5 text-slate-400 flex-shrink-0 mt-0.5" />
+      <p className="text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">{TEXT}</p>
     </div>
   );
 };

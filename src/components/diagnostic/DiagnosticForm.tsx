@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, Shield, Loader2, Mail } from 'lucide-react';
@@ -12,6 +12,7 @@ import { runDiagnostic } from '../../lib/diagnostic';
 import { submitDiagnostic } from '../../lib/diagnostic/submit';
 import type { DiagnosticAnswers } from '../../lib/diagnostic';
 import { trackFormSubmission } from '../../lib/analytics';
+import { signInWithGoogle } from '../../lib/auth';
 
 type FormStep = 'questions' | 'email' | 'analyzing';
 
@@ -21,16 +22,28 @@ export const DiagnosticForm: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const [answers, setAnswers] = useState<DiagnosticAnswers>({});
+  const [answers, setAnswers] = useState<DiagnosticAnswers>(() => {
+    try { return JSON.parse(sessionStorage.getItem('diag_answers') || '{}'); } catch { return {}; }
+  });
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [marketingConsent, setMarketingConsent] = useState(false);
   const [accountingInterest, setAccountingInterest] = useState(false);
-  const [formStep, setFormStep] = useState<FormStep>('questions');
-  const [questionPage, setQuestionPage] = useState(0);
+  const [formStep, setFormStep] = useState<FormStep>(() => {
+    const saved = sessionStorage.getItem('diag_step') as FormStep | null;
+    return saved === 'email' ? 'email' : 'questions';
+  });
+  const [questionPage, setQuestionPage] = useState(() => {
+    try { return parseInt(sessionStorage.getItem('diag_page') || '0', 10); } catch { return 0; }
+  });
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Persist state across OAuth redirect
+  useEffect(() => { sessionStorage.setItem('diag_answers', JSON.stringify(answers)); }, [answers]);
+  useEffect(() => { sessionStorage.setItem('diag_step', formStep); }, [formStep]);
+  useEffect(() => { sessionStorage.setItem('diag_page', String(questionPage)); }, [questionPage]);
 
   const utmSource = searchParams.get('utm_source') || undefined;
   const utmMedium = searchParams.get('utm_medium') || undefined;
@@ -115,6 +128,9 @@ export const DiagnosticForm: React.FC = () => {
       });
 
       trackFormSubmission('diagnostic_v2');
+      sessionStorage.removeItem('diag_answers');
+      sessionStorage.removeItem('diag_step');
+      sessionStorage.removeItem('diag_page');
       navigate(`/diagnostic/results?id=${response.id}`);
     } catch (err) {
       console.error('Diagnostic submission error:', err);
@@ -325,6 +341,28 @@ export const DiagnosticForm: React.FC = () => {
                     </div>
                   </div>
 
+                  {/* Google fast-track */}
+                  <div className="space-y-3">
+                    <button
+                      type="button"
+                      onClick={() => signInWithGoogle()}
+                      className="w-full flex items-center justify-center gap-3 h-12 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.04] text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/8 transition-all"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                      </svg>
+                      Continue with Google
+                    </button>
+                    <div className="flex items-center gap-3">
+                      <div className="flex-1 h-px bg-slate-200 dark:bg-white/8" />
+                      <span className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">or</span>
+                      <div className="flex-1 h-px bg-slate-200 dark:bg-white/8" />
+                    </div>
+                  </div>
+
                   {/* Email */}
                   <div>
                     <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2.5">
@@ -338,7 +376,7 @@ export const DiagnosticForm: React.FC = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@example.com"
                         required
-                        className="w-full h-12 pl-10 pr-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm font-medium focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
+                        className="w-full h-12 pl-10 pr-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm font-medium focus:outline-none focus-visible:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
                       />
                     </div>
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mt-2">
@@ -356,7 +394,7 @@ export const DiagnosticForm: React.FC = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="John"
-                        className="w-full h-12 px-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm font-medium focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
+                        className="w-full h-12 px-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm font-medium focus:outline-none focus-visible:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
                       />
                     </div>
                     <div>
@@ -368,7 +406,7 @@ export const DiagnosticForm: React.FC = () => {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+351 9..."
-                        className="w-full h-12 px-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm font-medium focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
+                        className="w-full h-12 px-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm font-medium focus:outline-none focus-visible:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
                       />
                     </div>
                   </div>

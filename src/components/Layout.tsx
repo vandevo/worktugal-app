@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogOut, Settings, LayoutDashboard, ClipboardCheck, Sun, Moon, Menu, X } from 'lucide-react';
+import { LogOut, LayoutDashboard, ClipboardCheck, Sun, Moon, Menu, X } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useUserProfile } from '../hooks/useUserProfile';
 import { useTheme } from '../contexts/ThemeContext';
 import { AuthModal } from './auth/AuthModal';
-import { ProfileModal } from './ProfileModal';
 import { signOut } from '../lib/auth';
 import { Footer } from './Footer';
 
@@ -29,7 +28,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
 
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [showProfileModal, setShowProfileModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
@@ -157,28 +155,19 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                         transition={{ duration: 0.15 }}
                         className="absolute right-0 mt-2 w-52 bg-white dark:bg-[#161618] rounded-2xl border border-[#E5E7EB] dark:border-[#2D2D35] shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] py-1.5 z-[60]"
                       >
-                        {profile?.role === 'admin' && (
-                          <button
-                            onClick={() => { navigate('/dashboard'); setShowUserMenu(false); }}
-                            className="w-full px-4 py-2.5 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] hover:text-[#0F3D2E] dark:hover:text-white flex items-center gap-3 transition-colors"
-                          >
-                            <LayoutDashboard className="w-4 h-4 flex-shrink-0" />
-                            Dashboard
-                          </button>
-                        )}
+                        <button
+                          onClick={() => { navigate('/dashboard'); setShowUserMenu(false); }}
+                          className="w-full px-4 py-2.5 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] hover:text-[#0F3D2E] dark:hover:text-white flex items-center gap-3 transition-colors"
+                        >
+                          <LayoutDashboard className="w-4 h-4 flex-shrink-0" />
+                          {profile?.role === 'admin' ? 'Dashboard' : 'My Account'}
+                        </button>
                         <button
                           onClick={() => { navigate('/diagnostic'); setShowUserMenu(false); }}
                           className="w-full px-4 py-2.5 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] hover:text-[#0F3D2E] dark:hover:text-white flex items-center gap-3 transition-colors"
                         >
                           <ClipboardCheck className="w-4 h-4 flex-shrink-0" />
                           Run Diagnostic
-                        </button>
-                        <button
-                          onClick={() => { setShowProfileModal(true); setShowUserMenu(false); }}
-                          className="w-full px-4 py-2.5 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] hover:text-[#0F3D2E] dark:hover:text-white flex items-center gap-3 transition-colors"
-                        >
-                          <Settings className="w-4 h-4 flex-shrink-0" />
-                          Edit Profile
                         </button>
                         <div className="my-1.5 border-t border-[#E5E7EB] dark:border-[#2D2D35]" />
                         <button
@@ -291,10 +280,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         initialMode="login"
-      />
-      <ProfileModal
-        isOpen={showProfileModal}
-        onClose={() => setShowProfileModal(false)}
       />
     </div>
   );

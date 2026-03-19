@@ -1,414 +1,463 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../hooks/useAuth';
-import { Button } from '../ui/Button';
-import { Alert } from '../ui/Alert';
-import { Calendar, FileText, User, Clock, CheckCircle, Download, Star, AlertCircle, Video } from 'lucide-react';
-import { getUserConsultBookings } from '../../lib/consults';
-import { getClientAppointments, approveAppointment, rateAppointment } from '../../lib/appointments';
-import { CONSULT_SERVICES } from '../../types/accounting';
-import type { ConsultBooking } from '../../types/accounting';
-import type { Appointment } from '../../types/accountant';
+import { useUserProfile, notifyProfileUpdate } from '../../hooks/useUserProfile';
+import { supabase } from '../../lib/supabase';
+import { updateUserProfile } from '../../lib/profile';
+import {
+  ClipboardCheck,
+  ArrowRight,
+  BookOpen,
+  Users,
+  TrendingUp,
+  AlertTriangle,
+  CheckCircle,
+  Clock,
+  ExternalLink,
+  Check,
+} from 'lucide-react';
+
+interface PastDiagnostic {
+  id: string;
+  setup_score: number;
+  exposure_index: number;
+  segment: string;
+  country_target: string;
+  created_at: string;
+  trap_flags: Array<{ id: string; severity: string }> | null;
+}
+
+function SegmentBadge({ segment }: { segment: string }) {
+  const configs: Record<string, { label: string; classes: string; icon: typeof CheckCircle }> = {
+    protected:   { label: 'Protected',   classes: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400', icon: CheckCircle },
+    exposed:     { label: 'Exposed',     classes: 'bg-amber-50   text-amber-700   dark:bg-amber-500/10   dark:text-amber-400',   icon: AlertTriangle },
+    critical:    { label: 'Critical',    classes: 'bg-red-50     text-red-700     dark:bg-red-500/10     dark:text-red-400',     icon: AlertTriangle },
+    transitional:{ label: 'In Progress', classes: 'bg-blue-50    text-blue-700    dark:bg-blue-500/10    dark:text-blue-400',    icon: Clock },
+  };
+  const cfg = configs[segment] ?? configs.transitional;
+  const Icon = cfg.icon;
+  return (
+    <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.15em] ${cfg.classes}`}>
+      <Icon className="w-3 h-3" />
+      {cfg.label}
+    </span>
+  );
+}
+
+function ScoreBar({ value, color }: { value: number; color: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      <div className="flex-1 h-1.5 bg-slate-100 dark:bg-white/8 rounded-full overflow-hidden">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: `${value}%` }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className={`h-full rounded-full ${color}`}
+        />
+      </div>
+      <span className="text-xs font-black text-slate-700 dark:text-slate-300 w-7 text-right">{value}</span>
+    </div>
+  );
+}
 
 export const ClientDashboard: React.FC = () => {
   const { user } = useAuth();
-  const [bookings, setBookings] = useState<ConsultBooking[]>([]);
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const { profile, getDisplayName } = useUserProfile();
+  const [diagnostics, setDiagnostics] = useState<PastDiagnostic[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [rating, setRating] = useState<{ [key: number]: number }>({});
+  const [displayName, setDisplayName] = useState('');
+  const [nameSaving, setNameSaving] = useState(false);
+  const [nameSaved, setNameSaved] = useState(false);
 
   useEffect(() => {
-    loadData();
-  }, []);
+    setDisplayName(profile?.display_name || '');
+  }, [profile]);
 
-  const loadData = async () => {
+  const handleSaveName = async () => {
     if (!user) return;
-
-    setLoading(true);
-    setError(null);
-
+    setNameSaving(true);
     try {
-      const [bookingsRes, appointmentsRes] = await Promise.all([
-        getUserConsultBookings(),
-        getClientAppointments(user.id)
-      ]);
-
-      if (bookingsRes.error) throw bookingsRes.error;
-      if (appointmentsRes.error) throw appointmentsRes.error;
-
-      setBookings(bookingsRes.data || []);
-      setAppointments(appointmentsRes.data || []);
-    } catch (err) {
-      console.error('Error loading dashboard data:', err);
-      setError(err instanceof Error ? err.message : 'Failed to load data');
+      await updateUserProfile(user.id, { display_name: displayName.trim() || null });
+      notifyProfileUpdate();
+      setNameSaved(true);
+      setTimeout(() => setNameSaved(false), 2000);
+    } catch {
+      // silent
     } finally {
-      setLoading(false);
+      setNameSaving(false);
     }
   };
 
-  const handleApprove = async (appointmentId: number) => {
-    try {
-      await approveAppointment(appointmentId);
-      await loadData();
-    } catch (err) {
-      console.error('Error approving appointment:', err);
-      alert('Failed to approve appointment');
-    }
-  };
-
-  const handleRate = async (appointmentId: number, stars: number) => {
-    try {
-      await rateAppointment(appointmentId, stars);
-      await loadData();
-    } catch (err) {
-      console.error('Error rating appointment:', err);
-      alert('Failed to submit rating');
-    }
-  };
-
-  const getService = (serviceType: string) => {
-    return CONSULT_SERVICES.find(s => s.id === serviceType);
-  };
-
-  const formatDate = (dateString?: string | null) => {
-    if (!dateString) return 'Not scheduled';
-    return new Date(dateString).toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  };
-
-  const getStatusBadge = (status: string) => {
-    const configs: { [key: string]: { label: string; color: string; icon: any } } = {
-      pending: { label: 'Pending', color: 'yellow', icon: Clock },
-      confirmed: { label: 'Confirmed', color: 'blue', icon: CheckCircle },
-      completed: { label: 'Completed', color: 'green', icon: CheckCircle },
-      cancelled: { label: 'Cancelled', color: 'red', icon: AlertCircle }
-    };
-
-    const config = configs[status] || configs.pending;
-    const Icon = config.icon;
-
-    return (
-      <span className={`px-3 py-1 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 ${
-        config.color === 'green' ? 'bg-green-400/10 text-green-400' :
-        config.color === 'blue' ? 'bg-blue-400/10 text-blue-400' :
-        config.color === 'yellow' ? 'bg-yellow-400/10 text-yellow-400' :
-        'bg-red-400/10 text-red-400'
-      }`}>
-        <Icon className="w-3 h-3" />
-        {config.label}
-      </span>
-    );
-  };
+  useEffect(() => {
+    if (!user) return;
+    (async () => {
+      try {
+        const { data } = await supabase
+          .from('compliance_diagnostics')
+          .select('id, setup_score, exposure_index, segment, country_target, created_at, trap_flags')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false })
+          .limit(10);
+        setDiagnostics(data ?? []);
+      } catch {
+        setDiagnostics([]);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [user]);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-obsidian py-20 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400"></div>
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="w-6 h-6 border-2 border-[#10B981] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
+  const latest = diagnostics[0] ?? null;
+  const firstName = getDisplayName().split(' ')[0];
+
   return (
-    <div className="min-h-screen bg-obsidian py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <div className="mb-8 flex items-center justify-between">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+
+        {/* ── Header ──────────────────────────────────────────────── */}
+        <div className="mb-10">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] mb-2">
+            Your Account
+          </p>
+          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+            Welcome back, {firstName}
+          </h1>
+          <p className="mt-2 text-slate-500 dark:text-slate-400 text-sm">
+            Track your Portugal compliance status and run new diagnostics.
+          </p>
+        </div>
+
+        {/* ── Score summary if we have a latest run ───────────────── */}
+        {latest && (
+          <div className="bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 p-6 mb-6">
+            <div className="flex items-start justify-between mb-5">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">
+                  Latest diagnostic
+                </p>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <SegmentBadge segment={latest.segment} />
+                  <span className="text-[10px] text-slate-400 font-medium">
+                    {new Date(latest.created_at).toLocaleDateString('en-US', {
+                      month: 'long', day: 'numeric', year: 'numeric',
+                    })}
+                  </span>
+                </div>
+              </div>
+              <Link
+                to={`/diagnostic/results?id=${latest.id}`}
+                className="flex items-center gap-1.5 text-xs font-bold text-[#0F3D2E] dark:text-[#10B981] hover:underline"
+              >
+                View full results
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 mb-2">
+                  Setup Score
+                </p>
+                <ScoreBar
+                  value={latest.setup_score}
+                  color={latest.setup_score >= 70 ? 'bg-[#10B981]' : latest.setup_score >= 40 ? 'bg-amber-400' : 'bg-red-400'}
+                />
+              </div>
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 mb-2">
+                  Exposure Index
+                </p>
+                <ScoreBar
+                  value={latest.exposure_index}
+                  color={latest.exposure_index <= 30 ? 'bg-[#10B981]' : latest.exposure_index <= 60 ? 'bg-amber-400' : 'bg-red-400'}
+                />
+              </div>
+            </div>
+
+            {latest.trap_flags && latest.trap_flags.length > 0 && (
+              <div className="mt-4 pt-4 border-t border-slate-100 dark:border-white/6">
+                <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 mb-2">
+                  Risks flagged
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {latest.trap_flags.slice(0, 6).map(t => (
+                    <span
+                      key={t.id}
+                      className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                        t.severity === 'high'
+                          ? 'bg-red-50 text-red-600 dark:bg-red-500/10 dark:text-red-400'
+                          : t.severity === 'medium'
+                          ? 'bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400'
+                          : 'bg-slate-100 text-slate-600 dark:bg-white/6 dark:text-slate-400'
+                      }`}
+                    >
+                      {t.id}
+                    </span>
+                  ))}
+                  {latest.trap_flags.length > 6 && (
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-500 dark:bg-white/6 dark:text-slate-400">
+                      +{latest.trap_flags.length - 6} more
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── Quick action cards ───────────────────────────────────── */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+          {/* Run diagnostic */}
+          <Link
+            to="/diagnostic"
+            className="group flex flex-col gap-3 bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 p-5 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 transition-all"
+          >
+            <div className="w-9 h-9 rounded-xl bg-[#0F3D2E]/8 dark:bg-[#10B981]/10 flex items-center justify-center">
+              <ClipboardCheck className="w-4.5 h-4.5 text-[#0F3D2E] dark:text-[#10B981]" />
+            </div>
             <div>
-              <h1 className="text-3xl font-bold text-white mb-2">
-                My Dashboard
-              </h1>
-              <p className="text-gray-400">
-                Track your accounting consultations and manage your tax services
+              <p className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">Run Diagnostic</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                Get your current compliance score in 2 min.
               </p>
             </div>
-            <Button onClick={() => window.location.href = '/accounting'}>
-              Book New Consultation
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <Calendar className="w-8 h-8 text-blue-400" />
-                <h3 className="text-lg font-semibold text-white">Quick Actions</h3>
-              </div>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href="/accounting"
-                    className="block text-gray-300 hover:text-white transition-colors py-2 text-sm"
-                  >
-                    → Book a consultation
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/accounting#faq"
-                    className="block text-gray-300 hover:text-white transition-colors py-2 text-sm"
-                  >
-                    → View FAQ
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/accounting#pricing"
-                    className="block text-gray-300 hover:text-white transition-colors py-2 text-sm"
-                  >
-                    → See pricing
-                  </a>
-                </li>
-              </ul>
+            <div className="mt-auto flex items-center gap-1 text-xs font-bold text-[#0F3D2E] dark:text-[#10B981]">
+              Start now <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </div>
+          </Link>
 
-            <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <FileText className="w-8 h-8 text-purple-400" />
-                <h3 className="text-lg font-semibold text-white">Resources</h3>
-              </div>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href="https://info.portaldasfinancas.gov.pt"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-gray-300 hover:text-white transition-colors py-2 text-sm"
-                  >
-                    → Portal das Finanças ↗
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.seg-social.pt"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-gray-300 hover:text-white transition-colors py-2 text-sm"
-                  >
-                    → Segurança Social ↗
-                  </a>
-                </li>
-              </ul>
+          {/* Resources */}
+          <Link
+            to="/blog"
+            className="group flex flex-col gap-3 bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 p-5 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 transition-all"
+          >
+            <div className="w-9 h-9 rounded-xl bg-[#0F3D2E]/8 dark:bg-[#10B981]/10 flex items-center justify-center">
+              <BookOpen className="w-4.5 h-4.5 text-[#0F3D2E] dark:text-[#10B981]" />
             </div>
-
-            <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <User className="w-8 h-8 text-green-400" />
-                <h3 className="text-lg font-semibold text-white">Support</h3>
-              </div>
-              <p className="text-gray-300 text-sm mb-3">
-                Need help? Contact our support team.
+            <div>
+              <p className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">Journal</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                Guides on tax residency, AIMA, NIF, NISS.
               </p>
-              <a
-                href="mailto:hello@worktugal.com"
-                className="text-blue-400 hover:text-blue-300 text-sm font-medium"
-              >
-                hello@worktugal.com
-              </a>
             </div>
+            <div className="mt-auto flex items-center gap-1 text-xs font-bold text-[#0F3D2E] dark:text-[#10B981]">
+              Read articles <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </div>
+          </Link>
+
+          {/* Community */}
+          <a
+            href="https://t.me/worktugal"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col gap-3 bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 p-5 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 transition-all"
+          >
+            <div className="w-9 h-9 rounded-xl bg-[#0F3D2E]/8 dark:bg-[#10B981]/10 flex items-center justify-center">
+              <Users className="w-4.5 h-4.5 text-[#0F3D2E] dark:text-[#10B981]" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">Community</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                Join 1,000+ remote workers in Portugal.
+              </p>
+            </div>
+            <div className="mt-auto flex items-center gap-1 text-xs font-bold text-[#0F3D2E] dark:text-[#10B981]">
+              Join Telegram <ExternalLink className="w-3.5 h-3.5" />
+            </div>
+          </a>
+        </div>
+
+        {/* ── Diagnostic history ───────────────────────────────────── */}
+        <div className="mb-10">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-black text-slate-900 dark:text-white tracking-tight">
+              Diagnostic History
+            </h2>
+            <Link
+              to="/diagnostic"
+              className="text-xs font-bold text-[#0F3D2E] dark:text-[#10B981] hover:underline flex items-center gap-1"
+            >
+              <TrendingUp className="w-3.5 h-3.5" />
+              Run new
+            </Link>
           </div>
 
-          {error && (
-            <Alert variant="error" className="mb-6">
-              {error}
-            </Alert>
-          )}
-
-          {/* Upcoming Appointments */}
-          <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6 mb-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-white">Your Appointments</h2>
-              <button
-                onClick={loadData}
-                className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
-              >
-                Refresh
-              </button>
-            </div>
-
-            {appointments.length === 0 ? (
-              <div className="text-center py-8">
-                <Video className="w-12 h-12 text-gray-500 mx-auto mb-3" />
-                <p className="text-gray-400">No appointments scheduled yet</p>
+          {diagnostics.length === 0 ? (
+            <div className="bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 p-10 text-center">
+              <div className="w-12 h-12 rounded-2xl bg-[#0F3D2E]/6 dark:bg-[#10B981]/10 flex items-center justify-center mx-auto mb-4">
+                <ClipboardCheck className="w-6 h-6 text-[#0F3D2E] dark:text-[#10B981]" />
               </div>
-            ) : (
-              <div className="space-y-4">
-                {appointments.map((appointment) => {
-                  const service = getService(appointment.service_type);
-                  return (
-                    <motion.div
-                      key={appointment.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="bg-white/[0.03] backdrop-blur-3xl rounded-xl border border-white/[0.10] p-6 hover:border-white/[0.20] transition-colors"
-                    >
-                      <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <div className="flex items-center gap-3 mb-2">
-                            <h3 className="text-lg font-semibold text-white">
-                              {service?.name || appointment.service_type}
-                            </h3>
-                            {getStatusBadge(appointment.status)}
-                          </div>
-                          <p className="text-sm text-gray-400">Case ID: #{appointment.id}</p>
-                        </div>
-                        {service && (
-                          <div className="text-right">
-                            <p className="text-xl font-bold text-white">€{service.price}</p>
-                          </div>
-                        )}
-                      </div>
+              <p className="text-sm font-bold text-slate-900 dark:text-white mb-1">No diagnostics yet</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-6 max-w-xs mx-auto">
+                Run your first compliance check to see your Setup Score and Exposure Index.
+              </p>
+              <Link
+                to="/diagnostic"
+                className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-[#1A5C44] transition-all"
+              >
+                Run free diagnostic
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          ) : (
+            <div className="bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 overflow-hidden">
+              {diagnostics.map((d, i) => (
+                <Link
+                  key={d.id}
+                  to={`/diagnostic/results?id=${d.id}`}
+                  className={`flex items-center gap-4 px-5 py-4 hover:bg-slate-50 dark:hover:bg-white/[0.02] transition-colors group ${
+                    i !== 0 ? 'border-t border-slate-100 dark:border-white/6' : ''
+                  }`}
+                >
+                  {/* Score bubble */}
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black flex-shrink-0 ${
+                    d.setup_score >= 70
+                      ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400'
+                      : d.setup_score >= 40
+                      ? 'bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400'
+                      : 'bg-red-50 text-red-700 dark:bg-red-500/10 dark:text-red-400'
+                  }`}>
+                    {d.setup_score}
+                  </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div>
-                          <p className="text-xs text-gray-500 mb-1">Scheduled For</p>
-                          <p className="text-sm font-semibold text-blue-400">
-                            {formatDate(appointment.scheduled_date)}
-                          </p>
-                        </div>
-
-                        {appointment.calcom_booking_url && (
-                          <div>
-                            <p className="text-xs text-gray-500 mb-1">Booking Details</p>
-                            <a
-                              href={appointment.calcom_booking_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-sm text-blue-400 hover:text-blue-300"
-                            >
-                              View in Cal.com ↗
-                            </a>
-                          </div>
-                        )}
-
-                        {appointment.consultation_completed_at && (
-                          <div>
-                            <p className="text-xs text-gray-500 mb-1">Completed On</p>
-                            <p className="text-sm text-green-400">
-                              {formatDate(appointment.consultation_completed_at)}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-
-                      {appointment.outcome_document_url && (
-                        <div className="border-t border-white/[0.10] pt-4 mb-4">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <p className="text-sm font-semibold text-white mb-1">Outcome Document Ready</p>
-                              <p className="text-xs text-gray-400">
-                                Submitted on {formatDate(appointment.outcome_submitted_at)}
-                              </p>
-                            </div>
-                            <a
-                              href={appointment.outcome_document_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded-lg text-sm font-semibold transition-colors"
-                            >
-                              <Download className="w-4 h-4" />
-                              Download
-                            </a>
-                          </div>
-
-                          {!appointment.client_approved_at && (
-                            <div className="mt-4">
-                              <Button
-                                onClick={() => handleApprove(appointment.id)}
-                                size="sm"
-                                className="w-full"
-                              >
-                                Approve & Release Payment
-                              </Button>
-                              <p className="text-xs text-gray-500 mt-2 text-center">
-                                Payment held in escrow until {formatDate(appointment.escrow_hold_until)}
-                              </p>
-                            </div>
-                          )}
-
-                          {appointment.client_approved_at && !appointment.client_rating && (
-                            <div className="mt-4">
-                              <p className="text-sm text-gray-300 mb-3">Rate your experience:</p>
-                              <div className="flex gap-2">
-                                {[1, 2, 3, 4, 5].map((star) => (
-                                  <button
-                                    key={star}
-                                    onClick={() => handleRate(appointment.id, star)}
-                                    className="text-gray-400 hover:text-yellow-400 transition-colors"
-                                  >
-                                    <Star className="w-6 h-6" fill={star <= (rating[appointment.id] || 0) ? 'currentColor' : 'none'} />
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-
-                          {appointment.client_rating && (
-                            <div className="mt-4 flex items-center gap-2">
-                              <p className="text-sm text-gray-400">Your rating:</p>
-                              <div className="flex gap-1">
-                                {[1, 2, 3, 4, 5].map((star) => (
-                                  <Star
-                                    key={star}
-                                    className="w-4 h-4 text-yellow-400"
-                                    fill={star <= appointment.client_rating! ? 'currentColor' : 'none'}
-                                  />
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                        </div>
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <SegmentBadge segment={d.segment} />
+                      <span className="text-[10px] text-slate-400">
+                        Exposure {d.exposure_index}
+                      </span>
+                      {d.trap_flags && d.trap_flags.length > 0 && (
+                        <span className="text-[10px] text-red-500 dark:text-red-400 font-semibold">
+                          {d.trap_flags.filter(t => t.severity === 'high').length} high risks
+                        </span>
                       )}
-                    </motion.div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          {/* Consultation History */}
-          <div className="bg-white/[0.03] backdrop-blur-3xl rounded-2xl border border-white/[0.10] p-6">
-            <h2 className="text-2xl font-bold text-white mb-6">Consultation History</h2>
-
-            {bookings.length === 0 ? (
-              <div className="text-center py-8">
-                <FileText className="w-12 h-12 text-gray-500 mx-auto mb-3" />
-                <p className="text-gray-400 mb-4">No consultations booked yet</p>
-                <Button onClick={() => window.location.href = '/accounting'}>
-                  Book Your First Consultation
-                </Button>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {bookings.map((booking) => {
-                  const service = getService(booking.service_type);
-                  return (
-                    <div
-                      key={booking.id}
-                      className="bg-white/[0.02] rounded-lg border border-white/[0.08] p-4"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-semibold text-white">{service?.name}</p>
-                          <p className="text-xs text-gray-400">Booked on {formatDate(booking.created_at)}</p>
-                        </div>
-                        <p className="text-lg font-bold text-white">€{service?.price}</p>
-                      </div>
                     </div>
-                  );
-                })}
-              </div>
-            )}
+                    <p className="text-[10px] text-slate-400 mt-0.5">
+                      {new Date(d.created_at).toLocaleDateString('en-US', {
+                        month: 'short', day: 'numeric', year: 'numeric',
+                      })}
+                      {d.country_target && ` · ${d.country_target}`}
+                    </p>
+                  </div>
+
+                  <ArrowRight className="w-4 h-4 text-slate-300 dark:text-slate-600 group-hover:text-[#0F3D2E] dark:group-hover:text-[#10B981] transition-colors flex-shrink-0" />
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* ── Useful links ─────────────────────────────────────────── */}
+        <div className="bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 p-5 mb-10">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">
+            Official Resources
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {[
+              { label: 'Portal das Finanças', href: 'https://info.portaldasfinancas.gov.pt' },
+              { label: 'Segurança Social', href: 'https://www.seg-social.pt' },
+              { label: 'AIMA (Immigration)', href: 'https://www.aima.gov.pt' },
+              { label: 'ePortugal.gov.pt', href: 'https://eportugal.gov.pt' },
+            ].map(link => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-[#0F3D2E] dark:hover:text-white transition-colors py-1.5 group"
+              >
+                <ExternalLink className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600 group-hover:text-[#0F3D2E] dark:group-hover:text-[#10B981] transition-colors flex-shrink-0" />
+                {link.label}
+              </a>
+            ))}
           </div>
-        </motion.div>
-      </div>
+        </div>
+
+        {/* ── Account settings ────────────────────────────────────── */}
+        <div className="bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 p-5 mb-6">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">
+            Account Settings
+          </p>
+          <div className="space-y-4">
+            {/* Email — read only */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5">
+                Email
+              </label>
+              <div className="h-11 flex items-center px-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-sm text-slate-400 dark:text-slate-500">
+                {user?.email}
+              </div>
+            </div>
+
+            {/* Display name */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5">
+                Display Name
+              </label>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={displayName}
+                  onChange={e => setDisplayName(e.target.value)}
+                  placeholder="Your name"
+                  className="flex-1 h-11 px-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm font-medium focus:outline-none focus-visible:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
+                />
+                <button
+                  onClick={handleSaveName}
+                  disabled={nameSaving}
+                  className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                    nameSaved
+                      ? 'bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/20'
+                      : 'bg-[#0F3D2E] text-white hover:bg-[#1A5C44]'
+                  }`}
+                >
+                  {nameSaved ? <><Check className="w-3.5 h-3.5" /> Saved</> : 'Save'}
+                </button>
+              </div>
+              <p className="text-[11px] text-slate-400 mt-1.5">
+                Leave empty to use your email username.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Bottom CTA ───────────────────────────────────────────── */}
+        <div className="bg-[#0F3D2E] rounded-2xl p-8 text-center relative overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+              backgroundSize: '32px 32px',
+            }}
+          />
+          <div className="relative z-10">
+            <h3 className="text-lg font-black text-white mb-2">
+              Stay ahead of your compliance
+            </h3>
+            <p className="text-white/60 text-sm mb-6 max-w-xs mx-auto leading-relaxed">
+              Re-run the diagnostic whenever your situation changes — new clients, new visa, new country.
+            </p>
+            <Link
+              to="/diagnostic"
+              className="inline-flex items-center gap-2 bg-[#10B981] text-white px-7 py-3 rounded-xl text-sm font-bold hover:bg-[#059669] hover:scale-[1.03] active:scale-[0.97] transition-all shadow-lg shadow-black/20"
+            >
+              Run diagnostic now
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+
+      </motion.div>
     </div>
   );
 };
