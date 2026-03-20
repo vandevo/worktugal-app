@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
-import { Send } from 'lucide-react';
+import { Send, Check } from 'lucide-react';
 import { submitContactRequest } from '../lib/contacts';
 import { Seo } from './Seo';
 import { trackContactRequest } from '../lib/analytics';
@@ -31,16 +31,23 @@ const topics = [
 
 export function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState<ContactFormData['purpose']>('feedback');
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: { purpose: 'feedback' },
   });
+
+  const handleTopicSelect = (value: ContactFormData['purpose']) => {
+    setSelectedTopic(value);
+    setValue('purpose', value);
+  };
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
@@ -111,18 +118,30 @@ export function ContactPage() {
               </div>
 
               <div>
-                <label htmlFor="contact-topic" className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">
+                <p className="block text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">
                   Topic
-                </label>
-                <select
-                  id="contact-topic"
-                  {...register('purpose')}
-                  className="w-full px-4 py-2.5 bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/8 rounded-xl text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#10B981]/30 focus:border-[#10B981]/50 transition-all"
-                >
-                  {topics.map((t) => (
-                    <option key={t.value} value={t.value}>{t.label}</option>
-                  ))}
-                </select>
+                </p>
+                <input type="hidden" {...register('purpose')} />
+                <div className="grid grid-cols-2 gap-2">
+                  {topics.map((t) => {
+                    const active = selectedTopic === t.value;
+                    return (
+                      <button
+                        key={t.value}
+                        type="button"
+                        onClick={() => handleTopicSelect(t.value as ContactFormData['purpose'])}
+                        className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-sm font-semibold text-left transition-all ${
+                          active
+                            ? 'bg-[#0F3D2E]/8 dark:bg-[#10B981]/10 border-[#10B981]/40 dark:border-[#10B981]/30 text-[#0F3D2E] dark:text-[#10B981]'
+                            : 'bg-transparent border-slate-200 dark:border-white/8 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-white/15'
+                        }`}
+                      >
+                        {active && <Check className="w-3.5 h-3.5 flex-shrink-0" />}
+                        <span className="leading-snug">{t.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               <div>
