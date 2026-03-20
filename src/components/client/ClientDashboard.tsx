@@ -267,7 +267,7 @@ export const ClientDashboard: React.FC = () => {
             <div>
               <p className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">Community</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Join 1,000+ remote workers in Portugal.
+                Follow for rule changes and compliance updates in Portugal.
               </p>
             </div>
             <div className="mt-auto flex items-center gap-1 text-xs font-bold text-[#0F3D2E] dark:text-[#10B981]">

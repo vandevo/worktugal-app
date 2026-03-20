@@ -100,9 +100,7 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
     ],
     weight: 10,
     skipConditions: (answers: DiagnosticAnswers) => {
-      return ['eu_citizen', 'golden_visa', 'permanent', 'eu_family_member'].includes(
-        answers.visa_status
-      );
+      return ['eu_citizen', 'golden_visa', 'permanent'].includes(answers.visa_status);
     },
   },
   {

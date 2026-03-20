@@ -56,13 +56,22 @@ export const Footer: React.FC = () => {
           {/* Contact + Connect */}
           <div>
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-4">Contact</p>
-            <a
-              href="mailto:hello@worktugal.com"
-              className="flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors mb-5"
-            >
-              <Mail className="w-3.5 h-3.5 flex-shrink-0" />
-              hello@worktugal.com
-            </a>
+            <ul className="space-y-3 mb-5">
+              <li>
+                <Link to="/contact" className="text-sm text-white/50 hover:text-white transition-colors">
+                  Get in touch
+                </Link>
+              </li>
+              <li>
+                <a
+                  href="mailto:hello@worktugal.com"
+                  className="flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors"
+                >
+                  <Mail className="w-3.5 h-3.5 flex-shrink-0" />
+                  hello@worktugal.com
+                </a>
+              </li>
+            </ul>
 
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-3">Connect</p>
             <div className="flex gap-2">

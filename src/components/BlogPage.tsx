@@ -61,7 +61,7 @@ export function BlogPage() {
               <Bell className="w-6 h-6 text-white/60 mx-auto mb-3" />
               <h2 className="text-lg font-black text-white mb-2">Get notified when we publish</h2>
               <p className="text-white/60 text-sm mb-6 max-w-xs mx-auto leading-relaxed">
-                Join our Telegram community. We share guides, compliance updates, and answered questions there first.
+                Follow the Worktugal channel on Telegram. Guides, compliance updates, and rule changes posted there first.
               </p>
               <a
                 href="https://t.me/worktugal"

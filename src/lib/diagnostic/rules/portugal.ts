@@ -1,6 +1,6 @@
 import type { TrapRule } from '../types';
 
-export const RULESET_VERSION = 'portugal_v2';
+export const RULESET_VERSION = 'portugal_v3';
 
 export const PortugalTrapRules: TrapRule[] = [
   {
@@ -67,7 +67,7 @@ export const PortugalTrapRules: TrapRule[] = [
     id: 'permit_expiry_risk',
     conditions: {
       aima_appointment: 'yes',
-      visa_status: ['d7_visa', 'd8_visa', 'd2_visa', 'd1_visa', 'family_reunion', 'hqa_tech', 'temp_residence'],
+      visa_status: ['d7_visa', 'd8_visa', 'd2_visa', 'd1_visa', 'family_reunion', 'hqa_tech', 'temp_residence', 'eu_family_member'],
     },
     exposureScore: 15,
     severity: 'medium',
@@ -81,7 +81,7 @@ export const PortugalTrapRules: TrapRule[] = [
     id: 'permit_no_aima',
     conditions: {
       aima_appointment: ['no', 'unsure'],
-      visa_status: ['d7_visa', 'd8_visa', 'd2_visa', 'd1_visa', 'family_reunion', 'hqa_tech', 'temp_residence'],
+      visa_status: ['d7_visa', 'd8_visa', 'd2_visa', 'd1_visa', 'family_reunion', 'hqa_tech', 'temp_residence', 'eu_family_member'],
     },
     exposureScore: 20,
     severity: 'high',
@@ -104,6 +104,21 @@ export const PortugalTrapRules: TrapRule[] = [
     source_url: 'https://files.dre.pt/StaticContent/Lei_23_2007_EN.pdf',
     penalty_range: '80–700 EUR',
     last_verified: '2026-03-05',
+  },
+  {
+    id: 'eu_crue_missing',
+    conditions: {
+      visa_status: 'eu_citizen',
+      time_lived_in_portugal: ['more_than_183', '90_to_183'],
+      foreign_tax_deregistration: ['no', 'unsure', 'yes'],
+    },
+    exposureScore: 10,
+    severity: 'medium',
+    fix: 'EU citizens who stay in Portugal for more than 3 months must obtain a Certificado de Registo de Cidadão da União Europeia (CRUE). You have 30 days after the 3-month mark to apply. Submit your application at AIMA or your local Câmara Municipal with proof of employment, self-sufficiency, or study enrolment. Failure to register is an administrative infraction.',
+    legal_basis: 'Law 37/2006 Art. 14 — EU citizen registration obligation after 3 months of residence',
+    source_url: 'https://aima.gov.pt/pt/nacionais-ue-e-familiares/nacionais-ue/certificado-de-registo-para-nacionais-ue',
+    penalty_range: 'Administrative infraction',
+    last_verified: '2026-03-19',
   },
   {
     id: 'social_security_misalignment',

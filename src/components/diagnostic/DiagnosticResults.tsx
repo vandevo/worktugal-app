@@ -257,6 +257,9 @@ export const DiagnosticResults: React.FC = () => {
                   </span>
                   <CheckCircle2 className="w-4 h-4 text-slate-400" />
                 </div>
+                <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-3">
+                  How complete your legal setup is. 60+ is strong.
+                </p>
                 <div className="flex items-baseline gap-1 mb-4">
                   <span className={`text-5xl font-black ${setupColor}`}>{setupScore}</span>
                   <span className="text-lg font-bold text-slate-400">/100</span>
@@ -284,6 +287,9 @@ export const DiagnosticResults: React.FC = () => {
                   </span>
                   <AlertTriangle className="w-4 h-4 text-slate-400" />
                 </div>
+                <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-3">
+                  Risk points from compliance gaps detected. 0 is ideal.
+                </p>
                 <div className="flex items-baseline gap-2 mb-4">
                   <span className={`text-5xl font-black ${exposureColor}`}>{exposureIndex}</span>
                   <span className="text-base font-bold text-slate-500 dark:text-slate-400">pts</span>
@@ -519,29 +525,36 @@ export const DiagnosticResults: React.FC = () => {
                 </span>
               </div>
               <h3 className="text-xl font-black text-white mb-3">
-                Join the Worktugal community
+                Stay ahead on Portugal compliance
               </h3>
               <p className="text-white/60 text-sm mb-8 max-w-xs mx-auto leading-relaxed">
-                Ask questions, share your experience, and get monthly compliance updates for Portugal.
+                Follow the Worktugal channel. Rule changes, deadlines, and guides posted as they happen.
               </p>
               <button
                 onClick={() => window.open('https://t.me/worktugal', '_blank')}
                 className="inline-flex items-center gap-2 bg-[#10B981] text-white px-8 py-3.5 rounded-xl text-sm font-bold hover:bg-[#059669] hover:scale-[1.03] active:scale-[0.97] transition-all shadow-lg shadow-black/20"
               >
                 <Send className="w-4 h-4" />
-                Join Telegram
+                Follow on Telegram
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </motion.div>
 
-          {/* ── Run again ──────────────────────────────────────────── */}
-          <div className="text-center">
+          {/* ── Run again + Feedback ───────────────────────────────── */}
+          <div className="text-center flex items-center justify-center gap-6">
             <button
               onClick={() => navigate('/diagnostic')}
               className="text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-[#0F3D2E] dark:hover:text-white transition-colors"
             >
               Run diagnostic again →
+            </button>
+            <span className="text-slate-200 dark:text-slate-700">·</span>
+            <button
+              onClick={() => navigate('/contact?topic=feedback')}
+              className="text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-[#0F3D2E] dark:hover:text-white transition-colors"
+            >
+              Send feedback →
             </button>
           </div>
 
