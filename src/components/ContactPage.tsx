@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
-import { Send, Check } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { submitContactRequest } from '../lib/contacts';
 import { Seo } from './Seo';
 import { trackContactRequest } from '../lib/analytics';
@@ -122,7 +122,7 @@ export function ContactPage() {
                   Topic
                 </p>
                 <input type="hidden" {...register('purpose')} />
-                <div className="grid grid-cols-2 gap-2">
+                <div className="flex flex-col gap-2">
                   {topics.map((t) => {
                     const active = selectedTopic === t.value;
                     return (
@@ -130,14 +130,13 @@ export function ContactPage() {
                         key={t.value}
                         type="button"
                         onClick={() => handleTopicSelect(t.value as ContactFormData['purpose'])}
-                        className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-sm font-semibold text-left transition-all ${
+                        className={`w-full px-4 py-3 rounded-xl border text-sm text-left transition-all ${
                           active
-                            ? 'bg-[#0F3D2E]/8 dark:bg-[#10B981]/10 border-[#10B981]/40 dark:border-[#10B981]/30 text-[#0F3D2E] dark:text-[#10B981]'
-                            : 'bg-transparent border-slate-200 dark:border-white/8 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-white/15'
+                            ? 'border-[#10B981] bg-[#10B981]/[0.06] dark:bg-[#10B981]/[0.08] text-[#0F3D2E] dark:text-[#10B981] font-semibold'
+                            : 'border-slate-200 dark:border-white/8 text-slate-600 dark:text-slate-400 font-medium hover:border-slate-300 dark:hover:border-white/20 hover:text-slate-900 dark:hover:text-white'
                         }`}
                       >
-                        {active && <Check className="w-3.5 h-3.5 flex-shrink-0" />}
-                        <span className="leading-snug">{t.label}</span>
+                        {t.label}
                       </button>
                     );
                   })}
