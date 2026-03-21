@@ -351,64 +351,159 @@ Deno.serve(async (req: Request) => {
     );
     console.log('Enhanced report generated with live stats');
 
-    const makeWebhookUrl = 'https://hook.eu2.make.com/y1fpmxf85vp5rmqlfv9fj3s54gm5w88y';
+    const resendApiKey = Deno.env.get('RESEND_API_KEY');
 
-    try {
-      console.log('Sending to Make.com webhook...');
-      const makeResponse = await fetch(makeWebhookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: lead.id,
-          email: lead.email,
-          name: lead.name || '',
-          phone: lead.phone || '',
-          work_type: lead.work_type,
-          months_in_portugal: lead.months_in_portugal,
-          residency_status: lead.residency_status || '',
-          has_nif: lead.has_nif,
-          activity_opened: lead.activity_opened,
-          estimated_annual_income: lead.estimated_annual_income,
-          has_vat_number: lead.has_vat_number,
-          has_niss: lead.has_niss,
-          has_fiscal_representative: lead.has_fiscal_representative,
-          email_marketing_consent: lead.email_marketing_consent,
-          interested_in_accounting_services: lead.interested_in_accounting_services,
-          compliance_score_red: lead.compliance_score_red,
-          compliance_score_yellow: lead.compliance_score_yellow,
-          compliance_score_green: lead.compliance_score_green,
-          compliance_report: enhancedReport,
-          lead_quality_score: lead.lead_quality_score,
-          utm_source: lead.utm_source || '',
-          utm_campaign: lead.utm_campaign || '',
-          utm_medium: lead.utm_medium || '',
-          status: lead.status,
-          is_resubmission: (submission.submission_sequence ?? 1) > 1,
-          submission_sequence: lead.submission_sequence,
-          created_at: lead.created_at,
-          timestamp: new Date().toISOString(),
-          source: 'tax_checkup_wizard',
-          live_stats: {
-            total_submissions: liveStats.totalSubmissions,
-            unique_users: liveStats.uniqueUsers,
-            pct_no_activity: liveStats.pctNoActivity,
-            pct_no_nif: liveStats.pctNoNIF,
-            pct_interested_in_services: liveStats.pctInterestedInServices,
-            avg_red_flags: liveStats.avgRedFlags
-          }
-        }),
-      });
+    if (resendApiKey) {
+      try {
+        const displayName = lead.name || lead.email.split('@')[0];
+        const redCount = lead.compliance_score_red || 0;
+        const yellowCount = lead.compliance_score_yellow || 0;
+        const greenCount = lead.compliance_score_green || 0;
+        const score = lead.lead_quality_score || 0;
 
-      if (!makeResponse.ok) {
-        const errorText = await makeResponse.text();
-        console.error('Make.com webhook failed:', makeResponse.status, errorText);
-      } else {
-        console.log('Successfully sent to Make.com webhook');
+        const scoreColor = redCount === 0 ? '#16a34a' : redCount <= 1 ? '#d97706' : '#dc2626';
+        const scoreLabel = redCount === 0 ? 'Low Risk' : redCount <= 1 ? 'Medium Risk' : 'High Risk';
+
+        const reportHtml = enhancedReport
+          .split('\n')
+          .map(line => {
+            if (line.startsWith('##')) return `<h3 style="color:#111827;margin:20px 0 8px;">${line.replace(/^##\s*/, '')}</h3>`;
+            if (line.startsWith('#')) return `<h2 style="color:#111827;margin:24px 0 8px;">${line.replace(/^#\s*/, '')}</h2>`;
+            if (line.startsWith('- ')) return `<li style="margin:4px 0;">${line.replace(/^-\s*/, '')}</li>`;
+            if (line.trim() === '') return '<br>';
+            return `<p style="margin:6px 0;color:#374151;">${line}</p>`;
+          })
+          .join('\n');
+
+        const userEmailHtml = `<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f9fafb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f9fafb;padding:40px 20px;">
+    <tr><td>
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+
+        <!-- Header -->
+        <tr><td style="background:#111827;padding:32px 40px;">
+          <p style="margin:0;color:#ffffff;font-size:22px;font-weight:700;">Worktugal</p>
+          <p style="margin:6px 0 0;color:#9ca3af;font-size:14px;">Your Tax Compliance Report</p>
+        </td></tr>
+
+        <!-- Score -->
+        <tr><td style="padding:32px 40px 0;">
+          <p style="margin:0 0 4px;color:#6b7280;font-size:14px;">Hi ${displayName},</p>
+          <p style="margin:0 0 24px;color:#111827;font-size:16px;">Here's your personal tax compliance report based on your answers.</p>
+
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f9fafb;border-radius:8px;padding:24px;margin-bottom:24px;">
+            <tr>
+              <td style="text-align:center;padding:0 16px;">
+                <p style="margin:0;font-size:36px;font-weight:700;color:${scoreColor};">${score}</p>
+                <p style="margin:4px 0 0;font-size:12px;color:#6b7280;">Score</p>
+              </td>
+              <td style="text-align:center;padding:0 16px;">
+                <p style="margin:0;font-size:28px;font-weight:700;color:#dc2626;">${redCount}</p>
+                <p style="margin:4px 0 0;font-size:12px;color:#6b7280;">Critical</p>
+              </td>
+              <td style="text-align:center;padding:0 16px;">
+                <p style="margin:0;font-size:28px;font-weight:700;color:#d97706;">${yellowCount}</p>
+                <p style="margin:4px 0 0;font-size:12px;color:#6b7280;">Warnings</p>
+              </td>
+              <td style="text-align:center;padding:0 16px;">
+                <p style="margin:0;font-size:28px;font-weight:700;color:#16a34a;">${greenCount}</p>
+                <p style="margin:4px 0 0;font-size:12px;color:#6b7280;">Good</p>
+              </td>
+              <td style="text-align:center;padding:0 16px;">
+                <p style="margin:0;font-size:14px;font-weight:600;color:${scoreColor};">${scoreLabel}</p>
+                <p style="margin:4px 0 0;font-size:12px;color:#6b7280;">Status</p>
+              </td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- Report -->
+        <tr><td style="padding:0 40px;">
+          <div style="border-top:1px solid #e5e7eb;padding-top:24px;font-size:14px;line-height:1.7;color:#374151;">
+            ${reportHtml}
+          </div>
+        </td></tr>
+
+        <!-- CTA -->
+        <tr><td style="padding:32px 40px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:20px;">
+            <tr><td>
+              <p style="margin:0 0 8px;font-size:15px;font-weight:600;color:#111827;">Need help fixing these issues?</p>
+              <p style="margin:0 0 16px;font-size:14px;color:#374151;">Our vetted Portuguese accountants can handle everything — from NIF to VAT registration to annual filings.</p>
+              <a href="https://worktugal.com/accountants" style="display:inline-block;background:#111827;color:#ffffff;padding:12px 24px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:600;">Find an Accountant</a>
+            </td></tr>
+          </table>
+        </td></tr>
+
+        <!-- Footer -->
+        <tr><td style="padding:24px 40px;border-top:1px solid #e5e7eb;">
+          <p style="margin:0;font-size:12px;color:#9ca3af;">This report is for informational purposes only and does not constitute legal or tax advice. &copy; ${new Date().getFullYear()} Worktugal</p>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+
+        // Send report to user
+        const userRes = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${resendApiKey}`,
+          },
+          body: JSON.stringify({
+            from: 'Worktugal <noreply@worktugal.com>',
+            to: [lead.email],
+            subject: `Your Tax Compliance Report — ${scoreLabel} (${score}/100)`,
+            html: userEmailHtml,
+          }),
+        });
+
+        if (userRes.ok) {
+          console.log('Compliance report sent to user:', lead.email);
+        } else {
+          console.error('Failed to send report to user:', userRes.status, await userRes.text());
+        }
+
+        // Notify Van
+        const vanRes = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${resendApiKey}`,
+          },
+          body: JSON.stringify({
+            from: 'Worktugal <noreply@worktugal.com>',
+            to: ['hello@worktugal.com'],
+            subject: `New diagnostic: ${displayName} — ${scoreLabel} (${score}/100, ${redCount} critical)`,
+            html: `<p>New tax checkup submitted.</p>
+<ul>
+  <li><strong>Name:</strong> ${displayName}</li>
+  <li><strong>Email:</strong> ${lead.email}</li>
+  <li><strong>Score:</strong> ${score}/100 — ${scoreLabel}</li>
+  <li><strong>Critical:</strong> ${redCount} | <strong>Warnings:</strong> ${yellowCount} | <strong>Good:</strong> ${greenCount}</li>
+  <li><strong>Income:</strong> ${lead.estimated_annual_income}</li>
+  <li><strong>Interested in services:</strong> ${lead.interested_in_accounting_services ? 'Yes' : 'No'}</li>
+  <li><strong>Resubmission:</strong> ${(submission.submission_sequence ?? 1) > 1 ? 'Yes (#' + lead.submission_sequence + ')' : 'No'}</li>
+</ul>`,
+          }),
+        });
+
+        if (vanRes.ok) {
+          console.log('Diagnostic notification sent to Van');
+        } else {
+          console.error('Failed to send notification to Van:', vanRes.status, await vanRes.text());
+        }
+      } catch (emailError) {
+        console.error('Failed to send Resend emails:', emailError);
       }
-    } catch (webhookError) {
-      console.error('Failed to call Make.com webhook:', webhookError);
+    } else {
+      console.warn('RESEND_API_KEY not configured — emails skipped');
     }
 
     return new Response(

@@ -126,58 +126,54 @@ Deno.serve(async (req: Request) => {
 
     console.log('Accountant application saved to database:', application.id);
 
-    const makeWebhookUrl = 'https://hook.eu2.make.com/hmq8w79pv7hv6q95r36vpi5kr92rpdgy';
+    const resendApiKey = Deno.env.get('RESEND_API_KEY');
 
     try {
-      console.log('Sending to Make.com webhook...');
-      const makePayload = {
-        id: application.id,
-        created_at: application.created_at,
-        full_name: application.full_name,
-        email: application.email,
-        phone: application.phone || '',
-        linkedin_url: application.linkedin_url || '',
-        website_url: application.website_url || '',
-        has_occ: application.has_occ,
-        occ_number: application.occ_number || '',
-        experience_years: application.experience_years,
-        english_fluency: application.english_fluency || '',
-        portuguese_fluency: application.portuguese_fluency || '',
-        specializations: (application.specializations || []).join(', '),
-        specializations_count: (application.specializations || []).length,
-        availability: application.availability || '',
-        current_freelancer_clients: application.current_freelancer_clients || '',
-        foreign_client_percentage: application.foreign_client_percentage || '',
-        preferred_communication: application.preferred_communication || '',
-        accepts_triage_role: application.accepts_triage_role || '',
-        partnership_interest_level: application.partnership_interest_level || '',
-        vat_scenario_answer: truncateText(application.vat_scenario_answer || '', 500),
-        why_worktugal: truncateText(application.why_worktugal || '', 500),
-        bio: truncateText(application.bio || '', 500),
-        resume_url: application.resume_url || '',
-        status: application.status,
-        timestamp: new Date().toISOString(),
-        source: 'accountant_application_form',
-      };
-
-      console.log('Payload size estimate:', JSON.stringify(makePayload).length, 'bytes');
-
-      const makeResponse = await fetch(makeWebhookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(makePayload),
-      });
-
-      if (!makeResponse.ok) {
-        const errorText = await makeResponse.text();
-        console.error('Make.com webhook failed:', makeResponse.status, errorText);
+      if (!resendApiKey) {
+        console.warn('RESEND_API_KEY not configured — accountant application notification skipped');
       } else {
-        console.log('Successfully sent to Make.com webhook');
+        console.log('Sending accountant application notification via Resend...');
+
+        const emailBody = `<p>New accountant application received.</p>
+<ul>
+  <li><strong>Name:</strong> ${application.full_name}</li>
+  <li><strong>Email:</strong> ${application.email}</li>
+  <li><strong>Phone:</strong> ${application.phone || '—'}</li>
+  <li><strong>LinkedIn:</strong> ${application.linkedin_url || '—'}</li>
+  <li><strong>Website:</strong> ${application.website_url || '—'}</li>
+  <li><strong>OCC:</strong> ${application.has_occ ? application.occ_number || 'Yes' : 'No'}</li>
+  <li><strong>Experience:</strong> ${application.experience_years} years</li>
+  <li><strong>English:</strong> ${application.english_fluency || '—'}</li>
+  <li><strong>Portuguese:</strong> ${application.portuguese_fluency || '—'}</li>
+  <li><strong>Specializations:</strong> ${(application.specializations || []).join(', ') || '—'}</li>
+  <li><strong>Availability:</strong> ${application.availability || '—'}</li>
+  <li><strong>Partnership interest:</strong> ${application.partnership_interest_level || '—'}</li>
+  <li><strong>Resume:</strong> ${application.resume_url || '—'}</li>
+</ul>
+<p><strong>Why Worktugal:</strong><br>${truncateText(application.why_worktugal || '', 500)}</p>`;
+
+        const resendResponse = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${resendApiKey}`,
+          },
+          body: JSON.stringify({
+            from: 'Worktugal <noreply@worktugal.com>',
+            to: ['hello@worktugal.com'],
+            subject: `New accountant application: ${application.full_name}`,
+            html: emailBody,
+          }),
+        });
+
+        if (!resendResponse.ok) {
+          console.error('Resend notification failed:', resendResponse.status, await resendResponse.text());
+        } else {
+          console.log('Successfully sent accountant application notification via Resend');
+        }
       }
-    } catch (webhookError) {
-      console.error('Failed to call Make.com webhook:', webhookError);
+    } catch (notifyError) {
+      console.error('Failed to send Resend notification:', notifyError);
     }
 
     return new Response(

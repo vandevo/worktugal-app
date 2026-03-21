@@ -30,15 +30,14 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    // Get the Make.com webhook URL from environment variables
-    const makeWebhookUrl = Deno.env.get('MAKE_WEBHOOK_LEADS_URL') || 'https://hook.eu2.make.com/lgaoguuofatr0ox3fvrjwyg7cr0mu5qn';
+    const resendApiKey = Deno.env.get('RESEND_API_KEY');
 
-    if (!makeWebhookUrl) {
-      console.warn('MAKE_WEBHOOK_LEADS_URL not configured - lead will not be sent to Make.com');
+    if (!resendApiKey) {
+      console.warn('RESEND_API_KEY not configured - lead notification skipped');
       return new Response(
         JSON.stringify({
           success: false,
-          message: 'Make.com webhook URL not configured',
+          message: 'RESEND_API_KEY not configured',
         }),
         {
           status: 200,
@@ -50,46 +49,45 @@ Deno.serve(async (req: Request) => {
     // Parse the webhook payload from Supabase
     const payload = await req.json();
 
-    // Extract the lead data from the database webhook
     // Supabase sends: { type: 'INSERT', table: 'leads_accounting', record: {...}, old_record: null }
     const lead: LeadPayload = payload.record || payload;
 
     console.log('Processing lead:', lead.id, lead.email);
 
-    // Prepare payload for Make.com
-    const makePayload = {
-      lead_id: lead.id,
-      name: lead.name,
-      email: lead.email,
-      country: lead.country || '',
-      main_need: lead.main_need || '',
-      urgency: lead.urgency || '',
-      additional_details: lead.additional_details || '',
-      consent: lead.consent,
-      source: lead.source,
-      status: lead.status,
-      created_at: lead.created_at,
-      timestamp: new Date().toISOString(),
-    };
+    const emailBody = `<p>New lead submitted on Worktugal.</p>
+<ul>
+  <li><strong>Name:</strong> ${lead.name}</li>
+  <li><strong>Email:</strong> ${lead.email}</li>
+  <li><strong>Country:</strong> ${lead.country || '—'}</li>
+  <li><strong>Main need:</strong> ${lead.main_need || '—'}</li>
+  <li><strong>Urgency:</strong> ${lead.urgency || '—'}</li>
+  <li><strong>Source:</strong> ${lead.source}</li>
+  <li><strong>Status:</strong> ${lead.status}</li>
+  <li><strong>Details:</strong> ${lead.additional_details || '—'}</li>
+  <li><strong>Submitted:</strong> ${lead.created_at}</li>
+</ul>`;
 
-    console.log('Sending to Make.com:', makeWebhookUrl);
-
-    // Send to Make.com
-    const makeResponse = await fetch(makeWebhookUrl, {
+    const resendResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${resendApiKey}`,
       },
-      body: JSON.stringify(makePayload),
+      body: JSON.stringify({
+        from: 'Worktugal <noreply@worktugal.com>',
+        to: ['hello@worktugal.com'],
+        subject: `New lead: ${lead.name} from ${lead.country || 'unknown'}`,
+        html: emailBody,
+      }),
     });
 
-    if (!makeResponse.ok) {
-      console.error('Make.com webhook failed:', makeResponse.status, await makeResponse.text());
+    if (!resendResponse.ok) {
+      console.error('Resend notification failed:', resendResponse.status, await resendResponse.text());
       return new Response(
         JSON.stringify({
           success: false,
-          message: 'Failed to send to Make.com',
-          status: makeResponse.status,
+          message: 'Failed to send lead notification via Resend',
+          status: resendResponse.status,
         }),
         {
           status: 200,
@@ -98,12 +96,12 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    console.log('Successfully sent lead to Make.com:', lead.id);
+    console.log('Successfully sent lead notification via Resend:', lead.id);
 
     return new Response(
       JSON.stringify({
         success: true,
-        message: 'Lead sent to Make.com',
+        message: 'Lead notification sent',
         lead_id: lead.id,
       }),
       {

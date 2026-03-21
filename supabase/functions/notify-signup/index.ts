@@ -13,8 +13,6 @@ interface SignupPayload {
   created_at: string;
 }
 
-const MAKECOM_WEBHOOK_URL = "https://hook.eu2.make.com/pueq1sw659ym23cr3fwe7huvhxk4nx9v";
-
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, {
@@ -26,48 +24,51 @@ Deno.serve(async (req: Request) => {
   try {
     const payload: SignupPayload = await req.json();
 
-    // Extract display name from email if not provided
     const displayName = payload.display_name || payload.email.split("@")[0];
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
 
-    // Prepare webhook payload for Make.com
-    const webhookPayload = {
-      email: payload.email,
-      name: displayName,
-      source: "site_signup",
-      role: "user",
-      timestamp: payload.created_at || new Date().toISOString(),
-      user_id: payload.user_id,
-    };
-
-    const sendWebhook = async () => {
+    const sendEmail = async () => {
+      if (!resendApiKey) {
+        console.warn("RESEND_API_KEY not configured — signup notification skipped");
+        return;
+      }
       try {
-        console.log("Firing webhook to Make.com:", webhookPayload);
-        const res = await fetch(MAKECOM_WEBHOOK_URL, {
+        const res = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${resendApiKey}`,
           },
-          body: JSON.stringify(webhookPayload),
+          body: JSON.stringify({
+            from: "Worktugal <noreply@worktugal.com>",
+            to: ["hello@worktugal.com"],
+            subject: `New signup: ${displayName} (${payload.email})`,
+            html: `<p><strong>${displayName}</strong> just signed up on Worktugal.</p>
+<ul>
+  <li><strong>Email:</strong> ${payload.email}</li>
+  <li><strong>User ID:</strong> ${payload.user_id}</li>
+  <li><strong>Time:</strong> ${payload.created_at || new Date().toISOString()}</li>
+</ul>`,
+          }),
         });
         if (res.ok) {
-          console.log("Make.com webhook delivered successfully");
+          console.log("Resend notification delivered successfully");
         } else {
-          console.error("Make.com webhook failed with status:", res.status);
+          console.error("Resend notification failed:", res.status, await res.text());
         }
       } catch (err) {
-        console.error("Make.com webhook error:", err);
+        console.error("Resend notification error:", err);
       }
     };
 
     // @ts-ignore: EdgeRuntime is available in Supabase environment
     if (typeof EdgeRuntime !== "undefined") {
       // @ts-ignore
-      EdgeRuntime.waitUntil(sendWebhook());
+      EdgeRuntime.waitUntil(sendEmail());
     } else {
-      sendWebhook().catch(err => console.error("Make.com webhook error (fallback):", err));
+      sendEmail().catch(err => console.error("Resend notification error (fallback):", err));
     }
 
-    // Return success immediately without waiting for Make.com
     return new Response(
       JSON.stringify({
         success: true,
@@ -81,7 +82,6 @@ Deno.serve(async (req: Request) => {
   } catch (error) {
     console.error("Error in notify-signup function:", error);
 
-    // Return success even on error - we don't want to break signup
     return new Response(
       JSON.stringify({
         success: true,

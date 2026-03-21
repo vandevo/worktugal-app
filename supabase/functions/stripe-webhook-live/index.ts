@@ -52,39 +52,53 @@ Deno.serve(async (req) => {
   }
 });
 
-async function forwardToMakecom(event: Stripe.Event) {
-  const makecomWebhookUrl = Deno.env.get('MAKECOM_WEBHOOK_PAID_REVIEW_PAYMENT_CONFIRMED');
+async function sendPaymentNotification(event: Stripe.Event) {
+  const resendApiKey = Deno.env.get('RESEND_API_KEY');
 
-  if (!makecomWebhookUrl) {
-    console.log('No MAKECOM_WEBHOOK_PAID_REVIEW_PAYMENT_CONFIRMED configured, skipping Make.com forwarding');
+  if (!resendApiKey) {
+    console.log('No RESEND_API_KEY configured, skipping payment notification');
     return;
   }
 
+  const obj = event.data.object as Record<string, unknown>;
+  const customerEmail = (obj.customer_email || obj.receipt_email || '—') as string;
+  const amountTotal = typeof obj.amount_total === 'number' ? `€${(obj.amount_total / 100).toFixed(2)}` : '—';
+
   try {
-    const response = await fetch(makecomWebhookUrl, {
+    const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${resendApiKey}`,
+      },
       body: JSON.stringify({
-        event_id: event.id,
-        event_type: event.type,
-        created: event.created,
-        data: event.data.object,
-        livemode: event.livemode,
+        from: 'Worktugal <noreply@worktugal.com>',
+        to: ['hello@worktugal.com'],
+        subject: `Payment confirmed: ${event.type}`,
+        html: `<p>Stripe payment event received.</p>
+<ul>
+  <li><strong>Event:</strong> ${event.type}</li>
+  <li><strong>Event ID:</strong> ${event.id}</li>
+  <li><strong>Customer email:</strong> ${customerEmail}</li>
+  <li><strong>Amount:</strong> ${amountTotal}</li>
+  <li><strong>Live mode:</strong> ${event.livemode}</li>
+  <li><strong>Time:</strong> ${new Date(event.created * 1000).toISOString()}</li>
+</ul>`,
       }),
     });
 
     if (!response.ok) {
-      console.error(`Make.com webhook failed: ${response.status} ${await response.text()}`);
+      console.error(`Resend payment notification failed: ${response.status} ${await response.text()}`);
     } else {
-      console.log(`Successfully forwarded ${event.type} to Make.com`);
+      console.log(`Successfully sent payment notification for ${event.type}`);
     }
   } catch (error: any) {
-    console.error(`Error forwarding to Make.com: ${error.message}`);
+    console.error(`Error sending payment notification: ${error.message}`);
   }
 }
 
 async function handleEvent(event: Stripe.Event) {
-  await forwardToMakecom(event);
+  await sendPaymentNotification(event);
 
   const stripeData = event?.data?.object ?? {};
 
