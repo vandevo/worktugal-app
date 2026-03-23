@@ -14,23 +14,22 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Get commit info
-        id: commit
-        run: |
-          echo "message=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
-          echo "author=$(git log -1 --pretty=%an)" >> $GITHUB_OUTPUT
-          echo "sha=$(git log -1 --pretty=%h)" >> $GITHUB_OUTPUT
-
       - name: Post to Worktugal channel
+        env:
+          SUPABASE_FUNCTION_URL: ${{ secrets.SUPABASE_FUNCTION_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
+          COMMIT_MSG=$(git log -1 --pretty=%s)
+          COMMIT_SHA=$(git log -1 --pretty=%h)
+
           MESSAGE="🚀 <b>New update live</b> — <a href=\"https://app.worktugal.com\">app.worktugal.com</a>
 
-${{ steps.commit.outputs.message }}
+${COMMIT_MSG}
 
-<i>Deployed from commit ${{ steps.commit.outputs.sha }}</i>"
+<i>Commit: ${COMMIT_SHA}</i>"
 
           curl -s -X POST \
-            "${{ secrets.SUPABASE_FUNCTION_URL }}/post-to-channel" \
+            "${SUPABASE_FUNCTION_URL}/post-to-channel" \
             -H "Content-Type: application/json" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
             -d "{\"message\": $(echo "$MESSAGE" | jq -Rs .), \"source\": \"deploy\", \"parse_mode\": \"HTML\"}"
