@@ -106,6 +106,7 @@ export const DiagnosticResults: React.FC = () => {
   const { user } = useAuth();
   const diagnosticId = searchParams.get('id');
   const isDemo = searchParams.get('demo') === 'true';
+  const isNew = searchParams.get('new') === '1';
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -221,6 +222,16 @@ export const DiagnosticResults: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="space-y-6"
         >
+
+          {/* ── Inbox banner (shown only on fresh submit) ──────────── */}
+          {isNew && !isDemo && data?.email && (
+            <div className="bg-[#0F3D2E]/8 dark:bg-[#10B981]/10 border border-[#0F3D2E]/15 dark:border-[#10B981]/20 rounded-2xl px-5 py-4 flex items-start gap-3">
+              <Send className="w-4 h-4 text-[#0F3D2E] dark:text-[#10B981] flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-[#0F3D2E] dark:text-[#10B981] font-medium">
+                Results sent to <span className="font-bold">{data.email}</span> — check your inbox.
+              </p>
+            </div>
+          )}
 
           {/* ── Score Hero ─────────────────────────────────────────── */}
           <div className="bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] p-8 md:p-10">
@@ -342,7 +353,7 @@ export const DiagnosticResults: React.FC = () => {
             <div className="flex flex-wrap items-center gap-3">
               {!user && !isDemo && (
                 <button
-                  onClick={() => signInWithGoogle()}
+                  onClick={() => signInWithGoogle(`${window.location.origin}${window.location.pathname}${window.location.search}`)}
                   className="flex items-center gap-2.5 bg-white dark:bg-white/[0.06] border border-slate-200 dark:border-white/10 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/10 transition-all shadow-sm"
                 >
                   <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">

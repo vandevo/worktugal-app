@@ -85,7 +85,7 @@ export const DiagnosticForm: React.FC = () => {
         sessionStorage.removeItem('diag_answers');
         sessionStorage.removeItem('diag_step');
         sessionStorage.removeItem('diag_page');
-        navigate(`/diagnostic/results?id=${response.id}`);
+        navigate(`/diagnostic/results?id=${response.id}&new=1`);
       }).catch((err) => {
         console.error('Auto-submit failed:', err);
         setError(err instanceof Error ? err.message : 'Failed to submit. Please try again.');
@@ -181,7 +181,7 @@ export const DiagnosticForm: React.FC = () => {
       sessionStorage.removeItem('diag_answers');
       sessionStorage.removeItem('diag_step');
       sessionStorage.removeItem('diag_page');
-      navigate(`/diagnostic/results?id=${response.id}`);
+      navigate(`/diagnostic/results?id=${response.id}&new=1`);
     } catch (err) {
       console.error('Diagnostic submission error:', err);
       setError(err instanceof Error ? err.message : 'Failed to submit. Please try again.');

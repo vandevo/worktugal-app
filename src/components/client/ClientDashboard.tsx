@@ -235,25 +235,6 @@ export const ClientDashboard: React.FC = () => {
             </div>
           </Link>
 
-          {/* Resources */}
-          <Link
-            to="/blog"
-            className="group flex flex-col gap-3 bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 p-5 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 transition-all"
-          >
-            <div className="w-9 h-9 rounded-xl bg-[#0F3D2E]/8 dark:bg-[#10B981]/10 flex items-center justify-center">
-              <BookOpen className="w-4.5 h-4.5 text-[#0F3D2E] dark:text-[#10B981]" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">Journal</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Guides on tax residency, AIMA, NIF, NISS.
-              </p>
-            </div>
-            <div className="mt-auto flex items-center gap-1 text-xs font-bold text-[#0F3D2E] dark:text-[#10B981]">
-              Read articles <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-            </div>
-          </Link>
-
           {/* Community */}
           <a
             href="https://t.me/worktugal"

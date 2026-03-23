@@ -94,11 +94,11 @@ export const signIn = async (email: string, password: string, captchaToken?: str
   return data;
 };
 
-export const signInWithGoogle = async () => {
+export const signInWithGoogle = async (redirectTo?: string) => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${window.location.origin}/diagnostic`,
+      redirectTo: redirectTo ?? `${window.location.origin}/diagnostic`,
     },
   });
   if (error) throw error;
