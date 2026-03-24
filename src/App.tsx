@@ -12,7 +12,6 @@ import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsAndConditions } from './components/TermsAndConditions';
 import { PerksDirectory } from './components/PerksDirectory';
 import { BlogPage } from './components/BlogPage';
-import { BlogPost } from './components/BlogPost';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminRoute } from './components/AdminRoute';
 import { RouteTracker } from './components/RouteTracker';
@@ -74,7 +73,7 @@ function App() {
             <Route path="/perks" element={<PerksDirectory />} />
 
             <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/blog/:slug" element={<BlogPage />} />
 
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsAndConditions />} />
