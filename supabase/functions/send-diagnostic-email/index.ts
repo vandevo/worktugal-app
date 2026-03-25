@@ -34,6 +34,8 @@ interface DiagnosticEmailPayload {
   traps: TriggeredTrap[];
   recommendations: string[];
   country_target: string;
+  marketing_consent?: boolean;
+  is_authenticated?: boolean;
 }
 
 const SEVERITY_COLOR = {
@@ -87,106 +89,66 @@ Deno.serve(async (req: Request) => {
     const segmentMessage = SEGMENT_MESSAGES[payload.segment] ?? '';
     const resultsUrl = `https://app.worktugal.com/diagnostic/results?id=${payload.id}`;
 
-    const trapsSection = payload.traps.length > 0
-      ? `<h2 style="font-size:18px;font-weight:800;color:#111827;margin:32px 0 16px;">${payload.traps.length} Compliance Risk${payload.traps.length === 1 ? '' : 's'} Detected</h2>
-         ${payload.traps.map(trapHtml).join('')}`
-      : `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:20px;text-align:center;margin:24px 0;">
-           <p style="margin:0;font-size:15px;font-weight:700;color:#065f46;">No compliance traps detected</p>
-           <p style="margin:8px 0 0;font-size:13px;color:#374151;">Based on your answers, your setup looks clean. Keep monitoring as regulations evolve.</p>
-         </div>`;
+    const subject = highTraps.length >= 2
+      ? `You have ${highTraps.length} high-risk compliance gaps`
+      : payload.setup_score < 40
+      ? `Your Portugal compliance score: ${payload.setup_score}/100 — action needed`
+      : `Your Portugal setup score: ${payload.setup_score}/100`;
 
-    const recsSection = payload.recommendations.length > 0
-      ? `<h2 style="font-size:18px;font-weight:800;color:#111827;margin:32px 0 12px;">Next Steps</h2>
-         <ul style="padding-left:20px;margin:0;">
-           ${payload.recommendations.map(r => `<li style="font-size:14px;color:#374151;line-height:1.7;margin-bottom:6px;">${r}</li>`).join('')}
-         </ul>`
-      : '';
+    const html = `<div style="max-width:560px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a1a;">
 
-    const html = `<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#f9fafb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f9fafb;padding:40px 20px;">
-    <tr><td>
-      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+<p style="font-size:15px;line-height:1.7;margin-bottom:20px;">Hi ${displayName},</p>
 
-        <!-- Header -->
-        <tr><td style="background:#0F3D2E;padding:28px 40px;">
-          <p style="margin:0;color:#ffffff;font-size:20px;font-weight:800;letter-spacing:-0.3px;">Worktugal</p>
-          <p style="margin:4px 0 0;color:#10B981;font-size:11px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;">Compliance Risk Diagnostic</p>
-        </td></tr>
+<p style="font-size:15px;line-height:1.7;margin-bottom:24px;">Your Portugal compliance check just came back. Here's the summary.</p>
 
-        <!-- Intro -->
-        <tr><td style="padding:32px 40px 0;">
-          <p style="margin:0 0 6px;font-size:15px;color:#111827;">Hi ${displayName},</p>
-          <p style="margin:0 0 24px;font-size:14px;color:#6b7280;line-height:1.6;">${segmentMessage}</p>
-        </td></tr>
+<div style="background:#f7f7f7;border-left:3px solid #1a1a1a;padding:16px 20px;margin-bottom:12px;font-size:14px;line-height:1.9;">
+Setup Score: <strong style="color:${setupColor};">${payload.setup_score}/100</strong><br>
+Exposure Index: <strong style="color:${exposureColor};">${payload.exposure_index} risk pts</strong><br>
+Risks detected: <strong>${payload.traps.length}</strong>
+</div>
 
-        <!-- Scores -->
-        <tr><td style="padding:0 40px;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f9fafb;border-radius:10px;overflow:hidden;">
-            <tr>
-              <td style="padding:24px;text-align:center;border-right:1px solid #e5e7eb;">
-                <p style="margin:0 0 4px;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:#6b7280;">Setup Score</p>
-                <p style="margin:0;font-size:42px;font-weight:900;color:${setupColor};line-height:1;">${payload.setup_score}</p>
-                <p style="margin:4px 0 0;font-size:12px;color:#9ca3af;">/100</p>
-              </td>
-              <td style="padding:24px;text-align:center;border-right:1px solid #e5e7eb;">
-                <p style="margin:0 0 4px;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:#6b7280;">Exposure Index</p>
-                <p style="margin:0;font-size:42px;font-weight:900;color:${exposureColor};line-height:1;">${payload.exposure_index}</p>
-                <p style="margin:4px 0 0;font-size:12px;color:#9ca3af;">pts risk</p>
-              </td>
-              <td style="padding:24px;text-align:center;">
-                <p style="margin:0 0 8px;font-size:10px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:#6b7280;">Risks Found</p>
-                <table cellpadding="0" cellspacing="0" style="margin:0 auto;">
-                  <tr>
-                    <td style="text-align:center;padding:0 8px;"><span style="font-size:22px;font-weight:900;color:#ef4444;">${highTraps.length}</span><br><span style="font-size:10px;color:#ef4444;font-weight:700;">HIGH</span></td>
-                    <td style="text-align:center;padding:0 8px;"><span style="font-size:22px;font-weight:900;color:#f59e0b;">${mediumTraps.length}</span><br><span style="font-size:10px;color:#f59e0b;font-weight:700;">MED</span></td>
-                    <td style="text-align:center;padding:0 8px;"><span style="font-size:22px;font-weight:900;color:#10b981;">${lowTraps.length}</span><br><span style="font-size:10px;color:#10b981;font-weight:700;">LOW</span></td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </td></tr>
+${segmentMessage ? `<p style="font-size:13px;line-height:1.6;color:#555;margin-bottom:28px;padding:0 4px;">${segmentMessage}</p>` : '<div style="margin-bottom:28px;"></div>'}
 
-        <!-- Traps & Recommendations -->
-        <tr><td style="padding:0 40px;">
-          ${trapsSection}
-          ${recsSection}
-        </td></tr>
+<p style="margin-bottom:32px;">
+<a href="${resultsUrl}" style="display:inline-block;background:#1a1a1a;color:#ffffff;padding:14px 28px;text-decoration:none;font-weight:600;border-radius:8px;font-size:14px;">View my full results →</a>
+</p>
 
-        <!-- CTAs -->
-        <tr><td style="padding:32px 40px;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:20px;margin-bottom:16px;">
-            <tr><td>
-              <p style="margin:0 0 6px;font-size:15px;font-weight:700;color:#111827;">Need help fixing these?</p>
-              <p style="margin:0 0 14px;font-size:13px;color:#374151;">Our vetted Portuguese accountants handle NIF, VAT, NISS, IRS and more.</p>
-              <a href="https://worktugal.com/accountants" style="display:inline-block;background:#0F3D2E;color:#ffffff;padding:10px 22px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:700;">Find an Accountant</a>
-            </td></tr>
-          </table>
-          <a href="${resultsUrl}" style="display:block;text-align:center;font-size:13px;color:#6b7280;text-decoration:none;">View your full results online →</a>
-        </td></tr>
+<p style="font-size:14px;line-height:1.7;color:#444;margin-bottom:32px;">Your results page breaks down every risk in plain English: the rule, the penalty range, and the official government source you can verify yourself. No paywall. Everything is free to read.</p>
 
-        <!-- Footer -->
-        <tr><td style="padding:20px 40px;border-top:1px solid #e5e7eb;">
-          <p style="margin:0;font-size:11px;color:#9ca3af;">This report is for informational purposes only and does not constitute legal or tax advice. &copy; ${new Date().getFullYear()} Worktugal</p>
-        </td></tr>
+<div style="margin:32px 0;"></div>
 
-      </table>
-    </td></tr>
-  </table>
-</body>
-</html>`;
+<p style="font-size:14px;font-weight:700;margin-bottom:8px;">Know someone who should check theirs?</p>
+<p style="font-size:14px;line-height:1.7;color:#444;margin-bottom:16px;">Most people in Portugal are operating blind. Same traps, every year, because nobody explains this clearly. If this was useful, share the diagnostic. It takes 2 minutes and it's completely free.</p>
+<p style="margin-bottom:32px;">
+<a href="https://app.worktugal.com/diagnostic" style="font-size:14px;color:#1a1a1a;font-weight:700;text-decoration:underline;">Share the free diagnostic →</a>
+</p>
+
+<div style="margin:32px 0;"></div>
+
+<p style="font-size:14px;font-weight:700;margin-bottom:8px;">Stay ahead on Portugal compliance.</p>
+<p style="font-size:14px;line-height:1.7;color:#444;margin-bottom:16px;">I post regulatory changes, tax rule updates, and compliance alerts as they happen. No group chat noise, just the signal that matters.</p>
+<p style="margin-bottom:32px;">
+<a href="https://t.me/worktugal" style="display:inline-block;background:#f7f7f7;color:#1a1a1a;padding:12px 24px;text-decoration:none;font-weight:600;border-radius:8px;font-size:14px;border:1px solid #e0e0e0;">Follow Worktugal on Telegram →</a>
+</p>
+
+<div style="margin:32px 0;"></div>
+
+<p style="font-size:15px;line-height:1.7;">Van<br>Founder, Worktugal</p>
+<p style="font-size:13px;color:#888;margin-top:6px;">P.S. Reply to this email anytime. I read every message.</p>
+
+<p style="font-size:11px;color:#bbb;margin-top:40px;border-top:1px solid #f0f0f0;padding-top:16px;line-height:1.6;">Worktugal provides compliance risk information for educational purposes only. Not legal or tax advice. All data verified against official Portuguese government sources. You received this because you completed a free compliance diagnostic at app.worktugal.com.</p>
+
+</div>`;
 
     // Send to user
     const userRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendApiKey}` },
       body: JSON.stringify({
-        from: 'Worktugal <noreply@worktugal.com>',
+        from: 'Van from Worktugal <hello@worktugal.com>',
+        reply_to: 'hello@worktugal.com',
         to: [payload.email],
-        subject: `Your Portugal Compliance Report — Setup ${payload.setup_score}/100, ${highTraps.length} High Risk`,
+        subject,
         html,
       }),
     });
@@ -223,12 +185,100 @@ Deno.serve(async (req: Request) => {
       console.error('Failed to send diagnostic notification to Van:', vanRes.status, await vanRes.text());
     }
 
+    // Telegram notification
+    const botToken = Deno.env.get('TELEGRAM_BOT_TOKEN');
+    const chatId = Deno.env.get('TELEGRAM_CHAT_ID');
+    if (botToken && chatId) {
+      const trapSummary = payload.traps.map(t => `• [${t.severity.toUpperCase()}] ${t.id}`).join('\n') || 'None';
+      const tgText = `<b>New diagnostic</b>\n\n<b>Name:</b> ${displayName}\n<b>Email:</b> ${payload.email}\n<b>Country:</b> ${payload.country_target}\n\n<b>Scores</b>\nSetup: <b>${payload.setup_score}/100</b>\nExposure: <b>${payload.exposure_index} pts</b>\nSegment: ${payload.segment}\n\n<b>Risks</b> — High: ${highTraps.length} | Med: ${mediumTraps.length} | Low: ${lowTraps.length}\n${trapSummary}\n\n<a href="${resultsUrl}">View results →</a>`;
+      const tgRes = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text: tgText, parse_mode: 'HTML', disable_web_page_preview: true }),
+      });
+      if (tgRes.ok) {
+        console.log('Telegram notification sent');
+      } else {
+        console.error('Telegram notification failed:', tgRes.status, await tgRes.text());
+      }
+    }
+
+    // Listmonk — subscribe if user consented or is authenticated (account = implicit consent)
+    const shouldSubscribe = payload.marketing_consent === true || payload.is_authenticated === true;
+    const listmonkUrl = shouldSubscribe ? Deno.env.get('LISTMONK_URL') : null;
+    const listmonkUsername = Deno.env.get('LISTMONK_USERNAME');
+    const listmonkPassword = Deno.env.get('LISTMONK_PASSWORD');
+    const listmonkListId = Deno.env.get('LISTMONK_DIAGNOSTIC_LIST_ID');
+    if (listmonkUrl && listmonkUsername && listmonkPassword && listmonkListId) {
+      try {
+        // Step 1: login to get session cookie
+        const loginRes = await fetch(`${listmonkUrl}/admin/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `username=${encodeURIComponent(listmonkUsername)}&password=${encodeURIComponent(listmonkPassword)}`,
+          redirect: 'manual',
+        });
+        const setCookie = loginRes.headers.get('set-cookie') ?? '';
+        const sessionMatch = setCookie.match(/session=([^;]+)/);
+        if (!sessionMatch) {
+          console.error('Listmonk login failed — no session cookie');
+        } else {
+          const sessionCookie = `session=${sessionMatch[1]}`;
+          // Step 2: add subscriber
+          const lmRes = await fetch(`${listmonkUrl}/api/subscribers`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Cookie': sessionCookie },
+            body: JSON.stringify({
+              email: payload.email,
+              name: displayName,
+              status: 'enabled',
+              lists: [parseInt(listmonkListId)],
+              attribs: {
+                setup_score: payload.setup_score,
+                exposure_index: payload.exposure_index,
+                segment: payload.segment,
+                country: payload.country_target,
+                high_risks: highTraps.length,
+                source: 'diagnostic',
+              },
+              preconfirm_subscriptions: true,
+            }),
+          });
+          if (lmRes.ok) {
+            console.log('Subscribed to Listmonk diagnostic list:', payload.email);
+          } else {
+            const lmBody = await lmRes.text();
+            if (lmBody.includes('already')) {
+              console.log('Already in Listmonk list:', payload.email);
+            } else {
+              console.error('Listmonk subscription failed:', lmRes.status, lmBody);
+            }
+          }
+        }
+      } catch (lmErr: any) {
+        console.error('Listmonk error:', lmErr.message);
+      }
+    }
+
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (error: any) {
     console.error('Unexpected error in send-diagnostic-email:', error);
+    const errBotToken = Deno.env.get('TELEGRAM_BOT_TOKEN');
+    const errChatId = Deno.env.get('TELEGRAM_CHAT_ID');
+    if (errBotToken && errChatId) {
+      await fetch(`https://api.telegram.org/bot${errBotToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: errChatId,
+          text: `<b>Edge function error</b>\n\n<b>Function:</b> send-diagnostic-email\n<b>Error:</b> ${error.message}`,
+          parse_mode: 'HTML',
+        }),
+      }).catch(() => {});
+    }
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

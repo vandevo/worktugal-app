@@ -70,6 +70,8 @@ export async function submitDiagnostic(
         traps: params.result.triggeredTraps,
         recommendations: params.result.recommendations,
         country_target: params.country,
+        marketing_consent: contact.marketing_consent ?? false,
+        is_authenticated: !!params.userId,
       },
     }).catch(err => console.error('Diagnostic email failed:', err));
   }
