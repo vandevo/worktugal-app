@@ -92,55 +92,45 @@ function getCategoryConfig(category: string) {
 
 // ── Static fallback entries ──────────────────────────────────────────────────
 const FALLBACK_ENTRIES: ChangelogEntry[] = [
-  // ── v3.4 — 2026-03-25 ─────────────────────────────────────────────────────
+  // ── v3.2 — 2026-03-25 ─────────────────────────────────────────────────────
+  {
+    id: 'welcome-email',
+    date: '2026-03-25',
+    category: 'feature',
+    title: 'Welcome email when you create an account',
+    details: 'New accounts at app.worktugal.com now receive a welcome email automatically — with a direct link to run your diagnostic, the Telegram channel for compliance updates, and a pointer to the free guides library.',
+    version: 'v3.2',
+  },
   {
     id: 'blog-guides-launch',
     date: '2026-03-25',
     category: 'feature',
-    title: 'Compliance Guides — blog.worktugal.com live',
-    details: 'Launched a dedicated compliance knowledge base at blog.worktugal.com. First guide: NISS in Portugal — a deep-dive on social security registration that 50% of diagnostic users are missing. Fact-checked against official Segurança Social sources including the December 2025 law change on employer reporting deadlines.',
-    version: 'v3.4',
-  },
-  {
-    id: 'dashboard-guides-card',
-    date: '2026-03-25',
-    category: 'fix',
-    title: 'Compliance Guides card on the dashboard',
-    details: 'The My Account dashboard now surfaces the guides library as a quick action. The card links directly to blog.worktugal.com so users can access relevant compliance content without leaving their workflow.',
-    version: 'v3.4',
+    title: 'Compliance guides — blog.worktugal.com',
+    details: 'Launched a free compliance knowledge base at blog.worktugal.com. First guide: NISS in Portugal — a deep-dive on social security registration, including the December 2025 change to employer reporting deadlines.',
+    version: 'v3.2',
   },
   {
     id: 'first-time-diagnostic-redirect',
     date: '2026-03-25',
     category: 'fix',
-    title: 'New accounts redirect straight to the diagnostic',
-    details: 'Users who sign up and have no previous diagnostic results are now redirected to the diagnostic automatically instead of landing on an empty dashboard. First action is now the most valuable action.',
-    version: 'v3.4',
-  },
-  // ── v3.3 — 2026-03-25 ─────────────────────────────────────────────────────
-  {
-    id: 'diagnostic-email-observability',
-    date: '2026-03-25',
-    category: 'integration',
-    title: 'Diagnostic email observability — Telegram alerts',
-    details: 'The send-diagnostic-email edge function now sends a Telegram alert on every delivery and error. Failed sends surface immediately rather than silently dropping. Resend delivery status is logged for each recipient.',
-    version: 'v3.3',
+    title: 'New accounts go straight to the diagnostic',
+    details: 'If you sign up and have no previous diagnostic results, you are now taken directly to the diagnostic instead of an empty dashboard.',
+    version: 'v3.2',
   },
   {
-    id: 'listmonk-diagnostic-list',
+    id: 'dashboard-guides-card',
     date: '2026-03-25',
-    category: 'integration',
-    title: 'Listmonk list 4 — diagnostic user segment',
-    details: 'Users who complete the diagnostic are now added to a dedicated Listmonk segment (list 4) separate from the main 15k list. Enables targeted re-engagement campaigns for diagnostic completers once guides and paid products are ready.',
-    version: 'v3.3',
+    category: 'fix',
+    title: 'Guides shortcut on the dashboard',
+    details: 'The My Account dashboard now has a quick-access card linking to the compliance guides library at blog.worktugal.com.',
+    version: 'v3.2',
   },
-  // ── v3.2 — 2026-03-25 ─────────────────────────────────────────────────────
   {
     id: 'telegram-channel',
     date: '2026-03-25',
     category: 'feature',
-    title: 'Worktugal Telegram channel launched',
-    details: 'The official Worktugal Telegram channel is live at t.me/worktugal. Subscribe for compliance law updates, new guide alerts, and diagnostics tips specific to Portugal. The community card on the dashboard links directly to the channel.',
+    title: 'Worktugal on Telegram',
+    details: 'The official Worktugal Telegram channel is live at t.me/worktugal. Subscribe for compliance law changes, new guide alerts, and AIMA and AT deadline reminders specific to Portugal.',
     version: 'v3.2',
   },
   // ── v3.1 — 2026-03-19 ─────────────────────────────────────────────────────

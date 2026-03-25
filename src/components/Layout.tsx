@@ -200,10 +200,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </div>
               )}
 
-              {/* Mobile hamburger — desktop overflow only, hidden when bottom nav is present */}
+              {/* Mobile hamburger */}
               <button
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
-                className="hidden p-2 rounded-xl text-slate-500 hover:bg-[#0F3D2E]/5 dark:hover:bg-white/5 transition-all"
+                className="md:hidden p-2 rounded-xl text-slate-500 hover:bg-[#0F3D2E]/5 dark:hover:bg-white/5 transition-all"
                 aria-label="Toggle menu"
               >
                 {showMobileMenu ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
