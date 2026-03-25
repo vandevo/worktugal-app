@@ -92,6 +92,57 @@ function getCategoryConfig(category: string) {
 
 // ── Static fallback entries ──────────────────────────────────────────────────
 const FALLBACK_ENTRIES: ChangelogEntry[] = [
+  // ── v3.4 — 2026-03-25 ─────────────────────────────────────────────────────
+  {
+    id: 'blog-guides-launch',
+    date: '2026-03-25',
+    category: 'feature',
+    title: 'Compliance Guides — blog.worktugal.com live',
+    details: 'Launched a dedicated compliance knowledge base at blog.worktugal.com. First guide: NISS in Portugal — a deep-dive on social security registration that 50% of diagnostic users are missing. Fact-checked against official Segurança Social sources including the December 2025 law change on employer reporting deadlines.',
+    version: 'v3.4',
+  },
+  {
+    id: 'dashboard-guides-card',
+    date: '2026-03-25',
+    category: 'fix',
+    title: 'Compliance Guides card on the dashboard',
+    details: 'The My Account dashboard now surfaces the guides library as a quick action. The card links directly to blog.worktugal.com so users can access relevant compliance content without leaving their workflow.',
+    version: 'v3.4',
+  },
+  {
+    id: 'first-time-diagnostic-redirect',
+    date: '2026-03-25',
+    category: 'fix',
+    title: 'New accounts redirect straight to the diagnostic',
+    details: 'Users who sign up and have no previous diagnostic results are now redirected to the diagnostic automatically instead of landing on an empty dashboard. First action is now the most valuable action.',
+    version: 'v3.4',
+  },
+  // ── v3.3 — 2026-03-25 ─────────────────────────────────────────────────────
+  {
+    id: 'diagnostic-email-observability',
+    date: '2026-03-25',
+    category: 'integration',
+    title: 'Diagnostic email observability — Telegram alerts',
+    details: 'The send-diagnostic-email edge function now sends a Telegram alert on every delivery and error. Failed sends surface immediately rather than silently dropping. Resend delivery status is logged for each recipient.',
+    version: 'v3.3',
+  },
+  {
+    id: 'listmonk-diagnostic-list',
+    date: '2026-03-25',
+    category: 'integration',
+    title: 'Listmonk list 4 — diagnostic user segment',
+    details: 'Users who complete the diagnostic are now added to a dedicated Listmonk segment (list 4) separate from the main 15k list. Enables targeted re-engagement campaigns for diagnostic completers once guides and paid products are ready.',
+    version: 'v3.3',
+  },
+  // ── v3.2 — 2026-03-25 ─────────────────────────────────────────────────────
+  {
+    id: 'telegram-channel',
+    date: '2026-03-25',
+    category: 'feature',
+    title: 'Worktugal Telegram channel launched',
+    details: 'The official Worktugal Telegram channel is live at t.me/worktugal. Subscribe for compliance law updates, new guide alerts, and diagnostics tips specific to Portugal. The community card on the dashboard links directly to the channel.',
+    version: 'v3.2',
+  },
   // ── v3.1 — 2026-03-19 ─────────────────────────────────────────────────────
   {
     id: 'my-account-dashboard',
