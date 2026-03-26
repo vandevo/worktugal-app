@@ -1,5 +1,7 @@
 # Worktugal — Session Index
 
+Last session: v3.2-welcome-flow-tagging-hamburger-2026-03-25.md
+
 Read this first to orient. Load individual files only when deep context is needed.
 
 ## Project Context
