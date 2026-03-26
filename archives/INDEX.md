@@ -1,6 +1,6 @@
 # Worktugal — Session Index
 
-Last session: v3.2-welcome-flow-tagging-hamburger-2026-03-25.md
+Last session: 2026-03-25-niss-content-loop-v3.5.md
 
 Read this first to orient. Load individual files only when deep context is needed.
 
@@ -15,6 +15,7 @@ Deploy: push to main → Cloudflare Pages (worktugal.com).
 
 | Version | Date | Summary |
 |---|---|---|
+| 2026-03-25-niss-content-loop-v3.5 | 2026-03-25 | NISS article post-publish loop: 3 article updates from Reddit comments, 9.9K views #1 r/PortugalExpats, prompt stack updated, product signals logged |
 | v3.2-welcome-flow-tagging-hamburger | 2026-03-25 | Welcome onboarding loop, Listmonk tagging system, hamburger menu |
 | v3.5-telegram-channel-portugal-os | 2026-03-24 | Telegram Portugal intel channel, content OS |
 | v3.3-resend-email-os | 2026-03-21 | Full Make.com → Resend migration, 5 email flows replaced, Listmonk for campaigns |
