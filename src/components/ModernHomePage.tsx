@@ -36,7 +36,7 @@ export const ModernHomePage: React.FC = () => {
         title="Worktugal: find hidden compliance risks before Portugal fines you"
         description="Free 2-minute diagnostic for remote workers, freelancers, and expats in Portugal. Discover compliance traps, penalty exposure, and corrective actions with legal citations."
         ogTitle="Worktugal: compliance risk diagnostic for remote workers and freelancers in Portugal"
-        ogDescription="13 questions. Dual risk scoring. Source-cited legal basis. Find what you missed before it costs you up to €3,750."
+        ogDescription="14 questions. Dual risk scoring. Source-cited legal basis. Find what you missed before it costs you up to €3,750."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
         ogUrl="https://app.worktugal.com/"
@@ -63,7 +63,7 @@ export const ModernHomePage: React.FC = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-              The free diagnostic trusted by 1,000+ remote workers, freelancers, and founders navigating Portugal's complex tax and visa system.
+              The free diagnostic trusted by 900+ remote workers, freelancers, and founders navigating Portugal's complex tax and visa system.
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
@@ -137,7 +137,7 @@ export const ModernHomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center md:justify-between items-center gap-6 opacity-70">
             {[
-              '1,000+ users',
+              '900+ users',
               'Verified against AT, AIMA, Segurança Social',
               'Free forever',
             ].map((item, i) => (
@@ -195,7 +195,7 @@ export const ModernHomePage: React.FC = () => {
             Ready to check your compliance status?
           </motion.h2>
           <p className="text-[#10B981]/80 text-lg md:text-xl max-w-2xl relative z-10 leading-relaxed">
-            Join 1,000+ professionals who secured their life in Portugal with our intelligence platform.
+            Join 900+ professionals who secured their life in Portugal with our intelligence platform.
           </p>
           <Link
             to="/diagnostic"

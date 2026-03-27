@@ -88,6 +88,7 @@ Deno.serve(async (req: Request) => {
     const exposureColor = payload.exposure_index <= 15 ? '#10b981' : payload.exposure_index <= 40 ? '#f59e0b' : '#ef4444';
     const segmentMessage = SEGMENT_MESSAGES[payload.segment] ?? '';
     const resultsUrl = `https://app.worktugal.com/diagnostic/results?id=${payload.id}`;
+    const hasNissGap = payload.traps.some(t => t.id.toLowerCase().includes('niss'));
 
     const subject = highTraps.length >= 2
       ? `You have ${highTraps.length} high-risk compliance gaps`
@@ -114,6 +115,12 @@ ${segmentMessage ? `<p style="font-size:13px;line-height:1.6;color:#555;margin-b
 </p>
 
 <p style="font-size:14px;line-height:1.7;color:#444;margin-bottom:32px;">Your results page breaks down every risk in plain English: the rule, the penalty range, and the official government source you can verify yourself. No paywall. Everything is free to read.</p>
+
+${hasNissGap ? `<div style="background:#f0fdf4;border-left:4px solid #10b981;border-radius:8px;padding:16px 20px;margin-bottom:32px;">
+<p style="margin:0 0 8px;font-size:14px;font-weight:700;color:#0F3D2E;">Your NISS gap — read this first</p>
+<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#374151;">NISS registration is one of the most missed steps for remote workers in Portugal. This guide covers the full process, the 12-month A1 exemption window, contribution rates, and what the December 2025 employer deadline change means for foreign-employed workers.</p>
+<a href="https://blog.worktugal.com/niss-portugal-registration/" style="font-size:14px;color:#0F3D2E;font-weight:700;text-decoration:underline;">Read the NISS guide →</a>
+</div>` : ''}
 
 <div style="margin:32px 0;"></div>
 
