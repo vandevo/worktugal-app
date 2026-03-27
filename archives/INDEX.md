@@ -1,6 +1,6 @@
 # Worktugal — Session Index
 
-Last session: 2026-03-25-niss-content-loop-v3.5.md
+Last session: 2026-03-27-landing-b2b-signals-v3.6.md
 
 Read this first to orient. Load individual files only when deep context is needed.
 
@@ -15,6 +15,7 @@ Deploy: push to main → Cloudflare Pages (worktugal.com).
 
 | Version | Date | Summary |
 |---|---|---|
+| 2026-03-27-landing-b2b-signals-v3.6 | 2026-03-27 | Landing page fixes (900+, 14 questions, no credit card badge), indexing automated (Crawler Hints + GSC sitemaps), B2B referral layer strategy, 4 product signals logged |
 | 2026-03-25-niss-content-loop-v3.5 | 2026-03-25 | NISS article post-publish loop: 3 article updates from Reddit comments, 9.9K views #1 r/PortugalExpats, prompt stack updated, product signals logged |
 | v3.2-welcome-flow-tagging-hamburger | 2026-03-25 | Welcome onboarding loop, Listmonk tagging system, hamburger menu |
 | v3.5-telegram-channel-portugal-os | 2026-03-24 | Telegram Portugal intel channel, content OS |
