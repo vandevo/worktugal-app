@@ -243,6 +243,12 @@ export function getRecommendations(answers: DiagnosticAnswers): string[] {
     recs.push('Schedule your AIMA appointment to formalize your residency status');
   }
 
+  const crueQ = diagnosticQuestions.find((q) => q.id === 'crue_registered');
+  const skipCrue = crueQ?.skipConditions?.(answers);
+  if (!skipCrue && answers.crue_registered === 'no') {
+    recs.push('Register your EU residency at your local Câmara Municipal (CRUE). Required after 3 months of stay — not at AIMA, which handles non-EU nationals only. You need CRUE before you can register for NISS.');
+  }
+
   const healthQ = diagnosticQuestions.find((q) => q.id === 'health_insurance');
   const skipHealth = healthQ?.skipConditions?.(answers);
   if (!skipHealth && answers.health_insurance === 'no') {

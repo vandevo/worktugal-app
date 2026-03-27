@@ -117,6 +117,19 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
     weight: 5,
   },
   {
+    id: 'crue_registered',
+    text: 'Have you registered your EU residency with your Câmara Municipal (CRUE)?',
+    description:
+      'EU citizens staying more than 3 months must obtain the Certificado de Registo de Cidadão da União Europeia at their local Câmara Municipal — not AIMA, which handles non-EU nationals only.',
+    type: 'yes-no',
+    weight: 10,
+    skipConditions: (answers: DiagnosticAnswers) => {
+      const isEuCitizen = answers.visa_status === 'eu_citizen';
+      const longEnough = ['90_to_183', 'more_than_183'].includes(answers.time_lived_in_portugal);
+      return !(isEuCitizen && longEnough);
+    },
+  },
+  {
     id: 'health_insurance',
     text: 'Do you have valid health insurance covering €30,000+ in medical costs?',
     description: 'Required for Schengen area compliance and visa applications',

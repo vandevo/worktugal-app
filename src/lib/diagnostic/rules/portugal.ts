@@ -1,6 +1,6 @@
 import type { TrapRule } from '../types';
 
-export const RULESET_VERSION = 'portugal_v3';
+export const RULESET_VERSION = 'portugal_v4';
 
 export const PortugalTrapRules: TrapRule[] = [
   {
@@ -110,15 +110,15 @@ export const PortugalTrapRules: TrapRule[] = [
     conditions: {
       visa_status: 'eu_citizen',
       time_lived_in_portugal: ['more_than_183', '90_to_183'],
-      foreign_tax_deregistration: ['no', 'unsure', 'yes'],
+      crue_registered: 'no',
     },
-    exposureScore: 10,
-    severity: 'medium',
-    fix: 'EU citizens who stay in Portugal for more than 3 months must obtain a Certificado de Registo de Cidadão da União Europeia (CRUE). You have 30 days after the 3-month mark to apply. Submit your application at AIMA or your local Câmara Municipal with proof of employment, self-sufficiency, or study enrolment. Failure to register is an administrative infraction.',
-    legal_basis: 'Law 37/2006 Art. 14 — EU citizen registration obligation after 3 months of residence',
+    exposureScore: 15,
+    severity: 'high',
+    fix: 'EU citizens who stay in Portugal for more than 3 months must obtain a Certificado de Registo de Cidadão da União Europeia (CRUE). You have 30 days after the 3-month mark to apply. Go to your local Câmara Municipal (city hall) — not AIMA, which handles non-EU nationals only. Bring your EU ID or passport, proof of address, and proof of employment, self-sufficiency, or study enrolment. Without CRUE you cannot register for NISS, and the two cannot be done in parallel. Fine for missing the deadline: €400 to €1,500 under Lei 37/2006.',
+    legal_basis: 'Lei 37/2006 Art. 14 — EU citizen registration obligation after 3 months of residence; Art. 16 — administrative fine for non-registration',
     source_url: 'https://aima.gov.pt/pt/nacionais-ue-e-familiares/nacionais-ue/certificado-de-registo-para-nacionais-ue',
-    penalty_range: 'Administrative infraction',
-    last_verified: '2026-03-19',
+    penalty_range: '€400–€1,500',
+    last_verified: '2026-03-27',
   },
   {
     id: 'social_security_misalignment',
