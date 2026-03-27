@@ -82,6 +82,18 @@ export function calculateSetupScore(answers: DiagnosticAnswers): number {
         else if (answer === 'below_1020') totalScore += question.weight * 0.5;
         break;
       }
+      case 'crue_registered': {
+        if (answer === 'yes') {
+          totalScore += question.weight;
+        } else if (
+          answer === 'no' &&
+          answers.time_lived_in_portugal === 'less_than_90'
+        ) {
+          // Not yet required — EU citizen under 90 days gets full credit
+          totalScore += question.weight;
+        }
+        break;
+      }
       case 'overstay_risk': {
         if (answer === 'no') totalScore += question.weight;
         else if (answer === 'not_sure') totalScore += question.weight * 0.3;
@@ -246,7 +258,11 @@ export function getRecommendations(answers: DiagnosticAnswers): string[] {
   const crueQ = diagnosticQuestions.find((q) => q.id === 'crue_registered');
   const skipCrue = crueQ?.skipConditions?.(answers);
   if (!skipCrue && answers.crue_registered === 'no') {
-    recs.push('Register your EU residency at your local Câmara Municipal (CRUE). Required after 3 months of stay — not at AIMA, which handles non-EU nationals only. You need CRUE before you can register for NISS.');
+    if (answers.time_lived_in_portugal === 'less_than_90') {
+      recs.push('You are not yet required to register for CRUE, but doing it now unblocks NISS sooner. Go to your local Câmara Municipal — the earlier you do it, the faster everything downstream moves.');
+    } else {
+      recs.push('Register your EU residency at your local Câmara Municipal (CRUE). Required after 3 months — not at AIMA. You need CRUE before you can register for NISS. Missing the 30-day window after month 3 carries a €400–€1,500 fine.');
+    }
   }
 
   const healthQ = diagnosticQuestions.find((q) => q.id === 'health_insurance');

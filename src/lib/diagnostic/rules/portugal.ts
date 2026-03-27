@@ -1,6 +1,6 @@
 import type { TrapRule } from '../types';
 
-export const RULESET_VERSION = 'portugal_v4';
+export const RULESET_VERSION = 'portugal_v5';
 
 export const PortugalTrapRules: TrapRule[] = [
   {
@@ -118,6 +118,21 @@ export const PortugalTrapRules: TrapRule[] = [
     legal_basis: 'Lei 37/2006 Art. 14 — EU citizen registration obligation after 3 months of residence; Art. 16 — administrative fine for non-registration',
     source_url: 'https://aima.gov.pt/pt/nacionais-ue-e-familiares/nacionais-ue/certificado-de-registo-para-nacionais-ue',
     penalty_range: '€400–€1,500',
+    last_verified: '2026-03-27',
+  },
+  {
+    id: 'eu_article7_no_status',
+    conditions: {
+      visa_status: 'eu_citizen',
+      time_lived_in_portugal: ['90_to_183', 'more_than_183'],
+      business_structure: 'none',
+    },
+    exposureScore: 15,
+    severity: 'medium',
+    fix: 'EU free movement after 3 months is not unconditional. Under Article 7 of Directive 2004/38, you must meet at least one condition: employed or self-employed in Portugal, have sufficient resources not to become a burden on the social assistance system, be enrolled as a student, or be a family member of someone who qualifies. With no formal structure and 90+ days in Portugal, your right to remain may be challenged. Establish employment, register as a freelancer, or ensure you have documented sufficient resources.',
+    legal_basis: 'EU Directive 2004/38 Art. 7 — conditions for right of residence beyond 3 months',
+    source_url: 'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32004L0038',
+    penalty_range: null,
     last_verified: '2026-03-27',
   },
   {

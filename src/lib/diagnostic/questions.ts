@@ -120,13 +120,11 @@ export const diagnosticQuestions: DiagnosticQuestion[] = [
     id: 'crue_registered',
     text: 'Have you registered your EU residency with your Câmara Municipal (CRUE)?',
     description:
-      'EU citizens staying more than 3 months must obtain the Certificado de Registo de Cidadão da União Europeia at their local Câmara Municipal — not AIMA, which handles non-EU nationals only.',
+      'EU citizens must obtain the Certificado de Registo de Cidadão da União Europeia at their local Câmara Municipal — not AIMA. You can apply before the 90-day mark. Doing it early unblocks NISS sooner and removes a dependency that slows everything downstream. After 90 days you have 30 days to file or face a €400–€1,500 fine.',
     type: 'yes-no',
     weight: 10,
     skipConditions: (answers: DiagnosticAnswers) => {
-      const isEuCitizen = answers.visa_status === 'eu_citizen';
-      const longEnough = ['90_to_183', 'more_than_183'].includes(answers.time_lived_in_portugal);
-      return !(isEuCitizen && longEnough);
+      return answers.visa_status !== 'eu_citizen';
     },
   },
   {
