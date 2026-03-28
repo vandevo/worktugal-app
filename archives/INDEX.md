@@ -1,6 +1,6 @@
 # Worktugal — Session Index
 
-Last session: 2026-03-28-aima-article-editorial-gate-v3.7.md
+Last session: 2026-03-28-content-pipeline-automation-v3.8.md
 
 Read this first to orient. Load individual files only when deep context is needed.
 
@@ -15,6 +15,7 @@ Deploy: push to main → Cloudflare Pages (worktugal.com).
 
 | Version | Date | Summary |
 |---|---|---|
+| 2026-03-28-content-pipeline-automation-v3.8 | 2026-03-28 | Full content pipeline automated: gemini-draft.mjs, parallel-research.mjs, telegram-post.mjs, /new-article command. AIMA v1.1 patch. blog-engine v3.2. Gemini 3.1 Pro confirmed. |
 | 2026-03-28-aima-article-editorial-gate-v3.7 | 2026-03-28 | AIMA card delay article published, pre-publish editorial gate built (pre-publish-check.mjs), Reddit OS fixed, LinkedIn format standardised, Telegram posted |
 | 2026-03-27-landing-b2b-signals-v3.6 | 2026-03-27 | Landing page fixes (900+, 14 questions, no credit card badge), indexing automated (Crawler Hints + GSC sitemaps), B2B referral layer strategy, 4 product signals logged |
 | 2026-03-25-niss-content-loop-v3.5 | 2026-03-25 | NISS article post-publish loop: 3 article updates from Reddit comments, 9.9K views #1 r/PortugalExpats, prompt stack updated, product signals logged |
