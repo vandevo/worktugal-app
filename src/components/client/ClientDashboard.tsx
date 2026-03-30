@@ -16,7 +16,9 @@ import {
   Clock,
   ExternalLink,
   Check,
+  PhoneCall,
 } from 'lucide-react';
+import { CLARITY_CALL_URL } from '../../lib/config';
 
 interface PastDiagnostic {
   id: string;
@@ -217,6 +219,42 @@ export const ClientDashboard: React.FC = () => {
                   )}
                 </div>
               </div>
+            )}
+          </div>
+        )}
+
+        {/* ── Clarity Call banner (only if latest run has high/medium flags) ── */}
+        {latest && latest.trap_flags && latest.trap_flags.some(t => t.severity === 'high' || t.severity === 'medium') && (
+          <div className="flex items-center gap-4 bg-red-50 dark:bg-red-500/[0.06] border border-red-100 dark:border-red-500/15 rounded-2xl px-5 py-4 mb-6">
+            <div className="w-9 h-9 rounded-xl bg-red-100 dark:bg-red-500/15 flex items-center justify-center flex-shrink-0">
+              <PhoneCall className="w-4 h-4 text-red-500 dark:text-red-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-slate-900 dark:text-white leading-snug">
+                Your flags need a plan, not a search.
+              </p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                30-min call. I review your results first. Case file included.
+              </p>
+            </div>
+            {CLARITY_CALL_URL ? (
+              <a
+                href={CLARITY_CALL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 inline-flex items-center gap-1.5 bg-[#0F3D2E] text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#1A5C44] transition-all whitespace-nowrap"
+              >
+                Book — €149
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            ) : (
+              <button
+                disabled
+                className="flex-shrink-0 inline-flex items-center gap-1.5 bg-[#0F3D2E] text-white px-4 py-2 rounded-xl text-xs font-bold opacity-40 cursor-not-allowed whitespace-nowrap"
+              >
+                Book — €149
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
             )}
           </div>
         )}

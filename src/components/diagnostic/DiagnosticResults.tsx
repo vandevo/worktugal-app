@@ -100,6 +100,8 @@ const DEMO_DATA = {
   },
 };
 
+import { CLARITY_CALL_URL } from '../../lib/config';
+
 export const DiagnosticResults: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -478,6 +480,52 @@ export const DiagnosticResults: React.FC = () => {
               <p className="text-slate-500 dark:text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
                 Based on your answers, we did not identify any of the common Portugal compliance traps. Continue monitoring your setup as regulations evolve.
               </p>
+            </motion.div>
+          )}
+
+          {/* ── Clarity Call CTA ──────────────────────────────────── */}
+          {(highTraps.length > 0 || mediumTraps.length > 0) && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] p-8"
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <AlertTriangle className="w-5 h-5 text-red-500 dark:text-red-400" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                    These flags don't resolve on their own.
+                  </h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
+                    Book a Portugal Clarity Call. I review your results before we speak — no cold starts. 30 minutes. You leave with a plan and a case file ready to share with any specialist.
+                  </p>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                    {CLARITY_CALL_URL ? (
+                      <a
+                        href={CLARITY_CALL_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-6 py-3 rounded-xl text-sm font-bold hover:bg-[#1A5C44] hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md shadow-black/10"
+                      >
+                        Book the call — €149
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
+                    ) : (
+                      <button
+                        disabled
+                        className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-6 py-3 rounded-xl text-sm font-bold opacity-40 cursor-not-allowed"
+                      >
+                        Book the call — €149
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    )}
+                    <span className="text-xs text-slate-400">30 min · Case file included · Cancel anytime</span>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           )}
 
