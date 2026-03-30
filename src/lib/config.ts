@@ -1,6 +1,6 @@
 // ── Clarity Call ────────────────────────────────────────────────────────────
 // Set to Cal.com URL when ready — activates all clarity call CTAs across the app
-export const CLARITY_CALL_URL = '';
+export const CLARITY_CALL_URL = 'https://cal.com/worktugal/clarity-call';
 
 // ── Referral Partners ────────────────────────────────────────────────────────
 // Add booking/contact URL when agreement is signed — section stays hidden until set
