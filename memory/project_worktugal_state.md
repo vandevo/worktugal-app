@@ -6,12 +6,12 @@ type: project
 
 Worktugal is Van's product for remote professionals navigating Portugal — clarity, tools, sovereignty. 7+ events, 300+ RSVPs, 1K+ community.
 
-**Stack:** React + Vite frontend (worktugal-app), Cloudflare Pages hosting, Supabase DB/auth, Make.com automation, Stripe payments, EmailOctopus email campaigns.
+**Stack:** React + Vite + TypeScript, Cloudflare Pages hosting, Supabase DB/auth, n8n automation (self-hosted, replacing Make.com), Resend transactional email, Listmonk campaigns (15k contacts), Ghost blog (blog.worktugal.com).
 
-**What exists:** Tax checkup tool (Visa Wizard, risk score, setup checker), app at app.worktugal.com, Portugal compliance data (Eleven Rules, fiscal calendar, research archive).
+**What exists:** Compliance Risk Diagnostic (915+ completions, 13 questions, 7 trap rules including CRUE), My Account Dashboard, Google OAuth, Ghost blog with Admin API, Telegram channel (@worktugal), content pipeline (Parallel AI research → Gemini draft → Claude review → Ghost publish).
 
-**Critical gap as of 2026-03-15:** Zero paying users. No Stripe product live. No Fix Session (€49, 30 min, accountant handoff) published. No articles published despite 4 being ready.
+**Critical gap as of 2026-04-24:** Zero paying users. Paid diagnostic (€29) identified as fastest revenue path — Stripe not wired to UI. B2B compliance intelligence (€499-999/mo) defined but not built. 15k email list dormant — no campaigns sent since migration from EmailOctopus.
 
 **Vault source of truth:** `/home/vandevo/projects/prompt-secret-vault/`
 
-**Why:** Infrastructure is complete. The only missing piece is one paid button and one published article.
+**Why:** Infrastructure is complete (n8n, Resend, Listmonk, Ghost, Telegram). The only missing piece is one paid button and one re-engagement campaign.

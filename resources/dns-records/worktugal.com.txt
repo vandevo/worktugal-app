@@ -1,0 +1,110 @@
+;;
+;; Domain:     worktugal.com.
+;; Exported:   2026-03-24 21:58:23
+;;
+;; This file is intended for use for informational and archival
+;; purposes ONLY and MUST be edited before use on a production
+;; DNS server.  In particular, you must:
+;;   -- update the SOA record with the correct authoritative name server
+;;   -- update the SOA record with the contact e-mail address information
+;;   -- update the NS record(s) with the authoritative name servers for this domain.
+;;
+;; For further information, please consult the BIND documentation
+;; located on the following website:
+;;
+;; http://www.isc.org/
+;;
+;; And RFC 1035:
+;;
+;; http://www.ietf.org/rfc/rfc1035.txt
+;;
+;; Please note that we do NOT offer technical support for any use
+;; of this zone data, the BIND name server, or any other third-party
+;; DNS software.
+;;
+;; Use at your own risk.
+;; SOA Record
+worktugal.com	3600	IN	SOA	norah.ns.cloudflare.com. dns.cloudflare.com. 2052605610 10000 2400 604800 3600
+
+;; NS Records
+worktugal.com.	86400	IN	NS	norah.ns.cloudflare.com.
+worktugal.com.	86400	IN	NS	valentin.ns.cloudflare.com.
+
+;; A Records
+blog.worktugal.com.	1	IN	A	162.159.152.4 ; cf_tags=cf-proxied:true
+blog.worktugal.com.	1	IN	A	162.159.153.4 ; cf_tags=cf-proxied:true
+cpanel.worktugal.com.	1	IN	A	35.195.250.20 ; cf_tags=cf-proxied:false
+jobs.worktugal.com.	1	IN	A	99.83.186.151 ; cf_tags=cf-proxied:true
+jobs.worktugal.com.	1	IN	A	75.2.96.173 ; cf_tags=cf-proxied:true
+mail.worktugal.com.	1	IN	A	34.62.136.208 ; cf_tags=cf-proxied:false
+pass.worktugal.com.	1	IN	A	192.0.2.1 ; cf_tags=cf-proxied:true
+server.worktugal.com.	1	IN	A	35.195.250.20 ; cf_tags=cf-proxied:false
+*.worktugal.com.	1	IN	A	35.195.250.20 ; cf_tags=cf-proxied:false
+www.worktugal.com.	1	IN	A	35.195.250.20 ; cf_tags=cf-proxied:true
+
+;; CAA Records
+worktugal.com.	1	IN	CAA	0 issue "comodoca.com"
+worktugal.com.	1	IN	CAA	0 issue "letsencrypt.org"
+worktugal.com.	1	IN	CAA	0 issue "pki.goog; cansignhttpexchanges=yes"
+worktugal.com.	1	IN	CAA	0 issuewild "letsencrypt.org"
+worktugal.com.	1	IN	CAA	0 issuewild "digicert.com; cansignhttpexchanges=yes"
+worktugal.com.	1	IN	CAA	0 issuewild "comodoca.com"
+worktugal.com.	1	IN	CAA	0 issue "digicert.com; cansignhttpexchanges=yes"
+worktugal.com.	1	IN	CAA	0 issuewild "pki.goog; cansignhttpexchanges=yes"
+
+;; CNAME Records
+4figegwjbk4vukjzi27cgl6r4a6zpzdr._domainkey.worktugal.com.	1	IN	CNAME	4figegwjbk4vukjzi27cgl6r4a6zpzdr.dkim.amazonses.com. ; cf_tags=cf-proxied:false
+57327244.worktugal.com.	1	IN	CNAME	57327244.a265408c92.californicus.eoidentity.com. ; cf_tags=cf-proxied:false
+app.worktugal.com.	1	IN	CNAME	worktugal-apps.pages.dev. ; cf_tags=cf-proxied:false
+autoconfig.worktugal.com.	1	IN	CNAME	mail.worktugal.com. ; cf_tags=cf-proxied:false
+autodiscover.worktugal.com.	1	IN	CNAME	mail.worktugal.com. ; cf_tags=cf-proxied:false
+eo._domainkey.worktugal.com.	1	IN	CNAME	eo._domainkey.a265408c92.californicus.eoidentity.com. ; cf_tags=cf-proxied:false
+eom.worktugal.com.	1	IN	CNAME	eom.a265408c92.californicus.eoidentity.com. ; cf_tags=cf-proxied:false
+eot.worktugal.com.	1	IN	CNAME	eot.a265408c92.californicus.eoidentity.com. ; cf_tags=cf-proxied:false
+go.worktugal.com.	1	IN	CNAME	cname.short.io. ; cf_tags=cf-proxied:true
+litesrv._domainkey.worktugal.com.	1	IN	CNAME	litesrv._domainkey.mlsend.com. ; cf_tags=cf-proxied:false
+pm-bounces.worktugal.com.	1	IN	CNAME	pm.mtasv.net. ; cf_tags=cf-proxied:true
+s1._domainkey.worktugal.com.	1	IN	CNAME	s1.domainkey.u36591387.wl138.sendgrid.net. ; cf_tags=cf-proxied:false
+s2._domainkey.worktugal.com.	1	IN	CNAME	s2.domainkey.u36591387.wl138.sendgrid.net. ; cf_tags=cf-proxied:false
+setup.apps.worktugal.com.	1	IN	CNAME	portugal-setup-checker.netlify.app. ; cf_tags=cf-proxied:false
+status.worktugal.com.	3600	IN	CNAME	statuspage.betteruptime.com. ; cf_tags=cf-proxied:false
+tax.worktugal.com.	1	IN	CNAME	benevolent-medovik-c2585f.netlify.app. ; cf_tags=cf-proxied:false
+ten5clyv2tsdazggj7u5nwaizkabg5h6._domainkey.worktugal.com.	1	IN	CNAME	ten5clyv2tsdazggj7u5nwaizkabg5h6.dkim.amazonses.com. ; cf_tags=cf-proxied:false
+track.worktugal.com.	1	IN	CNAME	track.stat-pulse.com. ; cf_tags=cf-proxied:true
+worktugal.com.	1	IN	CNAME	worktugal-static.pages.dev. ; cf_tags=cf-proxied:true
+zpvu6hqlhlzmf4oe7axp2hs3nbozx6zx._domainkey.worktugal.com.	1	IN	CNAME	zpvu6hqlhlzmf4oe7axp2hs3nbozx6zx.dkim.amazonses.com. ; cf_tags=cf-proxied:false
+
+;; MX Records
+send.worktugal.com.	3600	IN	MX	10 feedback-smtp.eu-west-1.amazonses.com.
+ses.worktugal.com.	1	IN	MX	10 feedback-smtp.us-east-1.amazonses.com.
+worktugal.com.	1	IN	MX	10 mx2.privateemail.com.
+worktugal.com.	1	IN	MX	10 mx1.privateemail.com.
+
+;; NS Records
+worktugal.com.	1	IN	NS	kevin.quicns.com.
+worktugal.com.	1	IN	NS	jon.quicns.com.
+
+;; SRV Records
+_autodiscover._tcp.worktugal.com.	1	IN	SRV	0 0 443 mail.worktugal.com.
+
+;; TXT Records
+default._bimi.worktugal.com.	1	IN	TXT	"v=BIMI1; l=https://worktugal.com/wp-content/uploads/2024/08/1000-svg-worktugal-cleaned.svg; a=;"
+default._domainkey.server.worktugal.com.	1	IN	TXT	"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA07T1MUokVJRzxu/n7BJdfxQMEYCu4KekawjBGIgSlzFCCwTtVMbTEVjcGhYSzvbSddCriSSnZr6OF8XTn80AJo/bKq3RohxEboUS/UO3dB5fYqGgbuAGd432ykkeP1Nh0yo9oJ604e+idRi0rQdcCHibFsulBvJdNRGa91g2TIKlqDYTCub1XKSokOLVbu6Qo" "YAEXMEHiapmf5y9Yrj6ToKa+JRoAs9nOJqPCF1uDtz24W+cL0s1/aYRszOtmwYLHcRSsDxVzw3gcRZ8W2wI6BtoVD3lvdyMW1BxKNFCyWV4FqakeVGNagOTuB01fNeZnWwRzeMs25eYPbYEmqfX3QIDAQAB;"
+default._domainkey.worktugal.com.	1	IN	TXT	"v=DKIM1;k=rsa;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqdX8UG3MAQW6x9f5mZw7QN9+BSMTGLwo/Zz3s9W2IQrNVjJZwcOAAfJzfReQw3Ad2JTEg37QmZ33W0H7CHxfdweQ+XbO7aiLhSC6zqcZs/9BBrHxijRjH7QivGhnLDs0azRcJItsIk89VFc+h7G1E+0uaVQRXdzosd6KEaZGpFd7xiG4XY9GQqHD1OkT9T/OqNB" "pKEJAxEmgPp3om+21H3QSttpUlMa5ElypU1ejk+Othe4OkKkoir8ygWfX9gRk1WPOLzBQXw7Hb6kLVNMZ9mAKLP74qHksNTIBulzGzUE4YydeFAvbMoSkUDxcEmxoAW4MZ94pAO+57ChAhthElwIDAQAB"
+default._domainkey.worktugal.com.	1	IN	TXT	"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvVj+sBV01b3tCpb2lxqLbdw4pIH0gdrAJovy3kbwp1/CtZ/mKaOPLRJMI7yrBduECfw0WclcASMKbGtsR/J9RrPjBwvyYjwA4tD2hlvfR+zIFsmOJi3sLpQ3iFZMTnncxlpYBskCDud0zV8Zth9ShygarcJkuOgbketvsLqoUjREogtNTHa1QIxC6ZrauqSLC" "g7RSN7v00/w5LRFetoH3pa3kEysZwZzCxIlMyz8Z8NfKvPI7Xw6st6PdVEDHkmAIqmmvdHeKytVnrTf0018XnLbwkViXbuRgSka61qx1gIgxgsNJYwK+ZgJmqWqL7RLdDTkFG1WHbT36bPv92DW6wIDAQAB;"
+_discord.worktugal.com.	1	IN	TXT	"dh=fc13aec30ea7766b776e301e8c60020598be67a3"
+_dmarc.worktugal.com.	1	IN	TXT	"v=DMARC1; p=quarantine; pct=100; rua=mailto:dmarc-reports@worktugal.com,mailto:re+gyqqdnzhyaw@dmarc.postmarkapp.com; sp=quarantine; aspf=r"
+mail._domainkey.worktugal.com.	1	IN	TXT	"k=rsa;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeMVIzrCa3T14JsNY0IRv5/2V1/v2itlviLQBwXsa7shBD6TrBkswsFUToPyMRWC9tbR/5ey0nRBH0ZVxp+lsmTxid2Y2z+FApQ6ra2VsXfbJP3HE6wAO0YTVEJt1TmeczhEd2Jiz/fcabIISgXEdSpTYJhb0ct0VJRxcg4c8c7wIDAQAB"
+netlify-challenge.worktugal.com.	1	IN	TXT	"24596bb4e65384b93f2f3675215a4c2d"
+resend._domainkey.worktugal.com.	3600	IN	TXT	"p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+Fa6VHBnN1Zmpy6k1wrLu3YWdsqSmnbkKDhW4gNq6yLkUhwh0NQudpu8YBE/HJQtPjW3eOCTOy07bFgvD9xjsTqlZQ4kXH/R6m44tS1ULmEIMCNeLGfESLwBftEkpO0TLhCvCo7EsPUmDOYT2+7bW9l/gQ7BdQX7LZfzCw9LwSwIDAQAB"
+send.worktugal.com.	3600	IN	TXT	"v=spf1 include:amazonses.com ~all"
+server.worktugal.com.	1	IN	TXT	"v=spf1 +mx +a +ip4:35.195.250.20 ~all"
+ses.worktugal.com.	1	IN	TXT	"v=spf1 include:amazonses.com ~all"
+worktugal.com.	1	IN	TXT	"v=spf1 include:spf.privateemail.com include:amazonses.com ~all"
+worktugal.com.	1	IN	TXT	"google-gws-recovery-domain-verification=68405882"
+worktugal.com.	1	IN	TXT	"zoho-verification=zb74751666.zmverify.zoho.eu"
+worktugal.com.	1	IN	TXT	"facebook-domain-verification=rhox8eh5f9waim32acnfwfrda17sjr"
+worktugal.com.	1	IN	TXT	"pinterest-site-verification=d8f6b6393a5e4f38bd8ef897cff76880"
+worktugal.com.	1	IN	TXT	"openai-domain-verification=dv-9gML5ARTi8UfpjIwYKN0yyjS"
+worktugal.com.	1	IN	TXT	"stripe-verification=ddcd367755516bcac2dad8560ed6058b1ee118948c0b09f8b63a81c585f34a02"
+worktugal.com.	1	IN	TXT	"google-site-verification=DpvErb7P3ie2KvKGVBNe7kQ6nIrvGgXjXScK-dsWbsU"

@@ -1,6 +1,6 @@
 # Worktugal
 
-**Last Updated:** 2026-03-19 (v3.1)
+**Last Updated:** 2026-04-23 (v3.4)
 
 ---
 
@@ -28,18 +28,18 @@ Surface the compliance mistakes that cost expats thousands before they happen. W
 
 | Product | Status | Revenue Model | Description |
 | :--- | :--- | :--- | :--- |
-| **Compliance Risk Diagnostic** | Live at `/diagnostic` | Lead generation (free) | 13-question diagnostic producing Setup Score, Exposure Index, 4-segment classification, and triggered trap rules |
+| **Compliance Risk Diagnostic** | Live at `/diagnostic` | Lead generation (free) → Paid upgrade planned (€29) | 13-question diagnostic producing Setup Score, Exposure Index, 4-segment classification, and triggered trap rules. 915+ total completions (865 legacy v1 + 50 v2). |
 | **My Account Dashboard** | Live at `/dashboard` | Retention / upsell surface | Signed-in users see compliance history, scores, quick actions, and account settings |
 | **Google Sign-In** | Live | Auth / retention | One-click account creation via Google OAuth (Supabase). Also available mid-diagnostic. |
 
 ### Deferred Products
 
 | Product | Status | Trigger |
-| :--- | :--- | :--- |
+|---|---|---|
+| **Paid Diagnostic Upgrade (€29)** | Priority — Stripe payment flow needed | First revenue move. Email list of ~15k. |
 | **Portugal Clarity Call (149 EUR)** | Paused — no active CTA | Reactivate once Cal.com integration is re-wired to new UI |
-| **Paid Risk Scan (29 EUR)** | Stripe not yet wired | After 5+ clarity calls booked |
 | **B2B Engine License** | Month 3+ | After 200 completions + 10 clarity calls |
-| **AI-Native Blog / CMS** | Planned | Content flywheel — blog at `/blog` shows coming soon page |
+| **AI-Native Blog / CMS** | Live | Ghost self-hosted at blog.worktugal.com. Admin API wired. |
 
 ### Legacy Products (Retired/Archived)
 
@@ -62,11 +62,11 @@ Surface the compliance mistakes that cost expats thousands before they happen. W
 3. Engine classifies user into one of 4 segments (high/low setup x high/low exposure)
 4. **Email gate** captures contact before results are shown
 5. Results page shows dual scores, **all triggered traps with full legal basis, penalty ranges, and source citations** (free, no paywall), and clarity call CTA
-6. Make.com webhook fires on every submission (SES emails, Telegram alert, EmailOctopus)
+6. Supabase insert → edge functions fire Resend (transactional email) + n8n (automation bus). Make.com scenarios still active for legacy flows — gradual migration in progress.
 
 ### Trap Rules (Portugal)
 
-6 declarative rules with source citations, evaluated by condition engine:
+7 declarative rules with source citations, evaluated by condition engine (6 Portugal + 1 CRUE for EU citizens):
 
 | Trap | Severity | Conditions |
 | :--- | :--- | :--- |
@@ -76,26 +76,27 @@ Surface the compliance mistakes that cost expats thousands before they happen. W
 | Social security misalignment | High | Freelancer + not registered NISS |
 | Permit expiry risk | Medium | AIMA appointment booked + non-EU visa holder |
 | Schengen overstay | Medium | Short-term stay + overstay risk flagged |
+| EU CRUE registration gap | Medium | EU citizen + registered in Portugal + missing CRUE certificate |
 
 ### AI Research & Monitoring (Parallel.ai)
 
 The diagnostic engine is powered by **Parallel.ai** for real-time compliance research and automated regulatory monitoring.
 
 - **Real-time Research**: Search official Portuguese government sources before updating trap rules or penalty ranges.
-- **Regulatory Monitoring**: 5 active monitors (weekly cadence) watch official sources and fire a webhook to Make.com on any detected change. Make.com routes the alert to Telegram.
+- **Regulatory Monitoring**: 5 active monitors (weekly cadence) watch official sources. Alerts now route through n8n (self-hosted at n8n.worktugal.com). Legacy Make.com scenario still active — migration in progress.
 - **Local Building & Research**: Use `parallel-cli` for deep research during development.
 
 **5 Active Monitors (weekly, all sources official):**
 
 | Monitor ID | Topic | Rules Covered | Sources |
-| :--- | :--- | :--- | :--- |
+|---|---|---|---|
 | `monitor_4b8a99...` | IRS Tax Rates & NHR | `dual_tax_residency`, `unfiled_irs` | portaldasfinancas.gov.pt, dre.pt |
 | `monitor_ce6196...` | VAT & Freelancer Classification | `vat_misclassification` | portaldasfinancas.gov.pt, dre.pt |
 | `monitor_9ad9a6...` | Social Security & NISS | `social_security_misalignment` | seg-social.pt, dre.pt |
 | `monitor_709aab...` | Residence Permits & AIMA | `permit_expiry_risk`, `permit_no_aima` | aima.gov.pt, dre.pt |
 | `monitor_6f68a4...` | Schengen & Border Control | `schengen_overstay` | dre.pt, EU sources |
 
-**Pipeline:** Parallel.ai detects change → fires `https://hook.eu2.make.com/5ejuzx6ghj85eqv3u7aksqi5j8nism5d` → Make.com scenario `8891111` → Telegram alert to Van with rule name, source URL, and summary.
+**Pipeline:** Parallel.ai detects change → fires webhook → n8n workflow → Telegram alert to Van with rule name, source URL, and summary.
 
 **CLI Usage:**
 ```bash
@@ -110,7 +111,7 @@ The diagnostic engine is powered by **Parallel.ai** for real-time compliance res
 | `src/lib/diagnostic/engine.ts` | Scoring engine, trap evaluator, segment classifier |
 | `src/lib/diagnostic/questions.ts` | 13 diagnostic questions with weights and skip logic |
 | `src/lib/diagnostic/rules/portugal.ts` | 6 Portugal trap rules (declarative config) |
-| `src/lib/diagnostic/submit.ts` | Supabase insert + Make.com webhook |
+| `src/lib/diagnostic/submit.ts` | Supabase insert + edge functions (Resend + n8n) |
 | `src/lib/diagnostic/types.ts` | TypeScript interfaces |
 | `src/components/diagnostic/DiagnosticForm.tsx` | Paginated form with email gate |
 | `src/components/diagnostic/DiagnosticResults.tsx` | Results page with dual scores, traps, save/share action bar, community CTA |
@@ -120,9 +121,9 @@ The diagnostic engine is powered by **Parallel.ai** for real-time compliance res
 ## Monetization Ladder
 
 ```
-Layer 1 (NOW):     Free Diagnostic --> 149 EUR Clarity Call via Cal.com
-Layer 2 (deferred): 29 EUR Paid Risk Scan via Stripe
-Layer 3 (Month 3+): B2B Engine License for relocation firms
+Layer 1 (NOW):       Free Diagnostic → Paid upgrade (€29) via Stripe
+Layer 2 (deferred):  B2B Compliance Intelligence (€499-999/mo) for relocation firms
+Layer 3 (Month 3+):  Consumer Pro (€199-299/yr) — advanced tools, alerts, community
 ```
 
 ---
@@ -143,15 +144,23 @@ Layer 3 (Month 3+): B2B Engine License for relocation firms
 
 ### Automation & Distribution
 
-- **Make.com**: Webhook orchestration (SES lead email, SES internal alert, Telegram notification, EmailOctopus)
-- **Cal.com**: Clarity call booking + Stripe payment
-- **Luma**: Event management (1,253 subscribers)
+- **n8n**: Self-hosted at n8n.worktugal.com (Docker on van-cloud). Primary automation bus. MCP-enabled — workflows callable as native tools by AI agents.
+- **Make.com**: Legacy scenarios still active — gradual migration to n8n in progress.
+- **Resend**: Transactional email (welcome flows, diagnostic results, password reset). worktugal.com + oyala.app verified. Pro plan.
+- **Listmonk**: Campaign email at mail.worktugal.com (Docker on van-cloud). 3 lists: main (~15k), diagnostic users, blog subscribers. SES SMTP backend.
+- **Amazon SES**: SMTP delivery for Listmonk high-volume campaigns.
+- **Ghost CMS**: Blog at blog.worktugal.com (Docker on van-cloud). Admin API wired. Emerald Zenith CSS injected.
+- **Cal.com**: Clarity call booking + Stripe payment (paused, not wired to UI).
 
-### AI & Research
+### AI & Development
 
-- **Claude Code CLI** (Claude Sonnet 4.6): Primary development agent. All coding, architecture, MCP ops, and strategy run here. Cursor agent retired.
-- **Parallel.ai**: Regulatory research, data enrichment
-- **Perplexity Pro**: Fact-checking, market scans
+- **Claude Code CLI** (Claude Sonnet 4.6): Primary development agent. All coding, architecture, MCP ops, and strategy.
+- **Qwen3.6 Plus** (via OpenCode): All-rounder agent — 80% of day-to-day coding, writing, strategy. 9 MCPs (Cloudflare, Supabase, GitHub, n8n, Parallel, Context7, Gemini Tools, GCP Secrets).
+- **MiniMax M2.5**: Ultra-cheap coding overflow ($0.118/M tokens).
+- **DeepSeek V3.2**: Reasoning-heavy tasks, second opinions.
+- **Gemini 3.1 Pro/Flash**: Long-form content, image generation, free-tier tasks.
+- **Parallel.ai**: Regulatory research, data enrichment, 5 active compliance monitors.
+- **Context7**: Live library docs for any framework/API — eliminates config hallucination.
 
 ### Deployment
 
@@ -168,9 +177,16 @@ Required in `.env`:
 ```
 VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
-VITE_MAKE_DIAGNOSTIC_WEBHOOK_URL=
-VITE_CLARITY_CALL_URL=
+RESEND_API_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+GHOST_ADMIN_API_KEY=
+GHOST_ADMIN_API_URL=
 ```
+
+Edge functions also require: `RESEND_WEBHOOK_SECRET`, `WORKTUGAL_BOT_TOKEN` (for Telegram channel posting).
 
 ---
 
@@ -190,6 +206,65 @@ pnpm dev
 ---
 
 ## Recent Updates
+
+### 2026-04-23: Stack audit + README sync — v3.4
+
+- **README updated**: Reflects current stack (n8n, Resend, Listmonk, Ghost), correct completion counts (915+ total), updated monetization priorities.
+- **Diagnostic count corrected**: 50 v2 completions in Supabase + 865 legacy v1 = 915+ total.
+- **Business opportunities mapped**: 5 opportunities logged, paid diagnostic (€29) identified as fastest revenue path.
+
+### 2026-03-28: Content pipeline + distribution automation — v3.2
+
+- **Ghost blog live**: Self-hosted at blog.worktugal.com. Admin API wired for programmatic publishing.
+- **Telegram channel posting**: `post-to-channel` edge function deployed. Auto-posts changelog entries to @worktugal public channel.
+- **Changelog Telegram trigger**: Postgres trigger auto-fires Telegram post on new changelog with `post_to_telegram=true`.
+- **Article pipeline**: `/new-article` command + `gemini-draft.mjs` + `parallel-research.mjs` + `telegram-post.mjs` for end-to-end content workflow.
+- **Pre-publish check**: `pre-publish-check.mjs` blocks em dashes, AI openers, banned words before Ghost publish.
+- **Reddit OS corrected**: Links in body allowed on r/PortugalExpats. Markdown hyperlink format enforced.
+- **r/RemotePortugal**: 120 organic members identified as owned distribution channel.
+- **AWS SES credential rotation**: Compromised key replaced. New `ses-smtp-listmonk` IAM user created.
+
+### 2026-03-27: Indexing + B2B strategy + CRUE — v3.0
+
+- **Cloudflare Crawler Hints**: IndexNow enabled — automatic search indexing on every publish.
+- **Google Search Console**: Sitemaps submitted for blog.worktugal.com + worktugal.com.
+- **B2B referral monetisation**: Expert referral CTA on diagnostic results, white-label diagnostic for relocation firms.
+- **CRUE question added**: EU citizens now asked about CRUE registration. `eu_crue_missing` trap fixed.
+- **Landing page accuracy**: Lead count 900+, question count 14, badge updated to "NO CREDIT CARD".
+
+### 2026-03-25: Email stack migration + welcome flow — v2.9
+
+- **Make.com retired from transactional email**: Resend is now the single transactional layer (worktugal.com + oyala.app verified, Pro plan).
+- **Listmonk replaces EmailOctopus**: Self-hosted at mail.worktugal.com. List 4 (Diagnostic Users) captures every completer with rich attributes. List 5 (Blog Subscribers) created via Ghost webhook.
+- **Welcome flow updated**: New signups trigger Resend email + Telegram ping + Listmonk subscription with source/provider/date attribs.
+- **Ghost member webhook**: Ghost member.added → Listmonk list 5 (Blog Subscribers).
+- **Changelog split**: `is_public` flag in `project_changelog` table. Public `/changelog` shows consumer-facing entries only.
+- **Mobile nav fixed**: Hamburger button unhidden. Mobile users can now reach Blog, Changelog, Community.
+
+### 2026-03-24: Telegram ops + dashboard — v2.8
+
+- **Two-bot Telegram architecture**: @WorktugalPassBot (ops alerts to Van) + @worktugal_bot (public @worktugal channel posts).
+- **ClientDashboard**: Compliance Guides card added (blog.worktugal.com). First-time redirect (0 diagnostics → /diagnostic).
+- **ModernHomePage**: Badge updated to NO SIGNUP REQUIRED, account benefits hint added.
+
+### 2026-03-23: Email observability — v2.4
+
+- **Resend webhook deployed**: Svix signature verification, `resend_email_events` table logs all 6 event types.
+- **Telegram bounce alerts**: email.bounced + email.complained fire Telegram alerts automatically.
+- **Email OS documented**: Three-file structure (email-os / resend-email-system / email-engine).
+
+### 2026-03-22: Prompt vault + MCPs — v2.2
+
+- **Prompt vault rewritten**: Claude Code-native OS (v4.0). 19 routes in core-router.
+- **GitHub MCP connected**: Classic PAT with repo scope.
+- **Context7 MCP connected**: Live library docs for any framework/API.
+- **RESEND_API_KEY added**: Was missing from Supabase secrets, causing silent email skips.
+
+### 2026-03-21: Email infrastructure — v2.1
+
+- **Make.com retired from transactional email**: Resend is now the single transactional layer.
+- **Listmonk live**: Self-hosted at mail.worktugal.com. Diagnostic Users list captures every completer.
+- **5 edge functions migrated**: All email flows now use Resend directly.
 
 ### 2026-03-19: UX cleanup, blog, changelog — v3.1 (continued)
 
@@ -219,9 +294,9 @@ pnpm dev
 ### 2026-03-10: Trust-First Results + Homepage Rebuild + UX Fixes -- v2.6
 
 - **Paywall removed (trust-first)**: All diagnostic results now shown for free — full trap breakdown, legal basis (CIRS/CIVA articles), penalty ranges, and official source citations. Nothing locked. Clarity call repositioned as a personalized action plan, not a content unlock.
-- **Homepage rebuilt (mobile-first)**: Fake search bar removed. Subheadline broadened to remote workers, freelancers, and expats. Primary CTA updated to `"Check My Risk — Free (3 min)"`. Trust signals simplified to inline text spans (no credit card, legal citations, 865 completions count).
+- **Homepage rebuilt (mobile-first)**: Fake search bar removed. Subheadline broadened to remote workers, freelancers, and expats. Primary CTA updated to `"Check My Risk — Free (3 min)"`. Trust signals simplified to inline text spans (no credit card, legal citations, 915+ completions count).
 - **Features section**: Section title changed to `"The risks that cost people the most"`. Penalty amounts lead each card (e.g. "Up to €3,750"). Language broadened beyond freelancers.
-- **Testimonials → Stats bar**: Section replaced with four concrete metrics: 865 diagnostics completed, 6 compliance traps checked, €3,750 max penalty caught, 3 min avg completion.
+- **Testimonials → Stats bar**: Section replaced with four concrete metrics: 915+ diagnostics completed, 7 compliance traps checked, €3,750 max penalty caught, 3 min avg completion.
 - **FAQ tightened**: Reduced from 11 to 6 questions. "Is the diagnostic really free?" answer updated to explicitly state nothing is locked.
 - **ModernPartners section removed** from homepage composer.
 - **DiagnosticForm UX**: Switched from 4 questions per page to 1 question per page (reduced cognitive load on mobile). Question label restyled as `<h3>` serif heading. Email gate copy updated to reflect full free results.
@@ -230,7 +305,7 @@ pnpm dev
 
 ### 2026-03-08: Strategic Pivot + Clarity Call Integration -- v2.5
 
-- **Monetization resequenced**: Clarity call (149 EUR) is now Layer 1 revenue. Stripe 29 EUR deferred.
+- **Monetization resequenced**: Paid diagnostic (€29) is now Layer 1 revenue. Clarity call (149 EUR) deferred.
 - **Dead trap rule fixed**: Added `foreign_tax_deregistration` question (Q13) so `dual_tax_residency` trap can fire.
 - **Results page rebuilt**: Replaced disabled 29 EUR "Coming Soon" button with live 149 EUR clarity call CTA linking to Cal.com. Sticky bottom bar updated.
 - **Plans updated**: Both active plans revised to reflect resequenced monetization, distribution strategy (Luma, Reddit, monthly IRL events), and deferred items.
@@ -240,11 +315,12 @@ pnpm dev
 - **Webhook pipeline rewired**: Fire-and-forget POST from `submitDiagnostic()` with 20-field v2 payload.
 - **Make.com scenario updated**: Renamed to v3.0, Airtable route deleted, all 4 modules (SES lead, SES internal, Telegram, EmailOctopus) updated with v2 fields and 29 EUR CTA copy.
 - **Cloudflare env var**: `VITE_MAKE_DIAGNOSTIC_WEBHOOK_URL` added to Pages production.
+- **Note**: Make.com scenarios still active but being gradually migrated to n8n (self-hosted at n8n.worktugal.com).
 
 ### 2026-03-05: Diagnostic Engine v2 -- v2.0-v2.3
 
 - **Engine built**: Dual scoring (Setup Score + Exposure Index), 4-segment classification, trap rule evaluator.
-- **6 Portugal trap rules**: Declarative config with source citations, legal basis, penalty ranges.
+- **6 Portugal trap rules** (+ 1 CRUE rule for EU citizens): Declarative config with source citations, legal basis, penalty ranges.
 - **UI shipped**: DiagnosticForm (paginated, email gate, contact fields), DiagnosticResults (dual scores, trap cards).
 - **Homepage repositioned**: Risk-detection narrative. 49 EUR product archived. Routes consolidated to `/diagnostic`.
 - **Supabase schema**: `compliance_diagnostics` table live in production.
@@ -260,29 +336,41 @@ Expats in Portugal assume they're compliant but rarely verify until something br
 
 ### Our Position
 
-Worktugal owns the **discovery moment** -- the instant someone realizes they might be exposed. The diagnostic engine surfaces risks. The clarity call explains them. The referral connects them to the right professional. Whoever owns the discovery moment controls the market.
+Worktugal owns the **discovery moment** -- the instant someone realizes they might be exposed. The diagnostic engine surfaces risks. The platform compounds with every completion, every article, every alert subscriber. Whoever owns the discovery moment controls the market.
+
+### Why Now
+
+- Nationality law changed April 1, 2026 -- event journalism window open
+- 60% of small publishers losing search traffic to AI -- build direct relationships
+- 15k email list + 19.7k Facebook + diagnostic data = moat no competitor has
+- AI answer engines need authoritative sources -- Worktugal positioned to be cited
 
 ### Distribution Strategy
 
 | Channel | Reach | Purpose |
-| :--- | :--- | :--- |
-| Luma community | 1,253 subscribers | Announce diagnostic, monthly events |
-| Monthly IRL event | 30-50 attendees | Trust building, live diagnostic demos |
-| Reddit | r/PortugalExpats, r/digitalnomad, r/USExpatTaxes | Target US expats with compliance trap content |
-| Make.com automation | Per-submission | Telegram alerts, email follow-up for high-risk profiles |
-| Gulf corridor (emerging) | Middle East expats fleeing instability | Geopolitical tailwind — wealthy individuals relocating from UAE, Qatar, Saudi Arabia seeking EU residency, wealth preservation, and banking access |
+|---|---|---|
+| Email (Listmonk) | ~15k contacts | Campaign sends, re-engagement, paid diagnostic launch |
+| Email (Ghost) | Blog subscribers | Editorial newsletter, event-driven updates |
+| Facebook | 19.7k members | Community trust, organic reach |
+| Reddit | r/PortugalExpats, r/digitalnomad, r/RemotePortugal | Article distribution, diagnostic CTA in comments |
+| Telegram | @worktugal channel | Instant alerts, changelog posts, real-time trust |
+| LinkedIn | Van's personal brand | Founder authority, B2B reach, data posts |
+| n8n automation | Per-event | Welcome flows, email observability, Telegram alerts |
+| Gulf corridor (emerging) | Middle East expats | Geopolitical tailwind — EU residency seekers |
 
-### Partner Network (Month 2)
+### Partner Network (Month 2+)
 
-The professional referral layer (immigration lawyers, tax advisors, relocation specialists) is **deferred until clarity call volume is proven**. The `/accountants/apply` route is kept alive but unpromoted. Once 3+ clarity call clients need a referral, direct outreach to 2-3 Lisbon-based professionals begins — broadened beyond accountants to include lawyers and relocation specialists.
+The professional referral layer (immigration lawyers, tax advisors, relocation specialists) is **deferred until diagnostic volume and paid conversions are proven**. The `/accountants/apply` route is kept alive but unpromoted. Once 3+ clients need a referral, direct outreach to 2-3 Lisbon-based professionals begins — broadened beyond accountants to include lawyers and relocation specialists.
+
+**B2B target**: Relocation firms and HR teams managing mobile workforces. Compliance intelligence product (€499-999/mo) built on n8n automation + AI synthesis + proprietary diagnostic data.
 
 ---
 
 ## Contact
 
 - **App URL**: https://app.worktugal.com
+- **Blog**: https://blog.worktugal.com
 - **GitHub**: https://github.com/vandevo/worktugal-app
-- **Clarity Call**: https://cal.com/worktugal/clarity-call
 - **Community**: https://t.me/worktugal
 
 ---
