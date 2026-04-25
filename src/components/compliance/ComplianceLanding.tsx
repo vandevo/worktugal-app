@@ -1,12 +1,97 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Clock, Globe, Search, Mail, Building2, Scale, Users } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Shield, Clock, Globe, Search, Building2, Scale, Users, ChevronDown } from 'lucide-react';
 import { Seo } from '../Seo';
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+};
+
+const FAQ_ITEMS = [
+  {
+    q: 'Where does the data come from?',
+    a: 'Official Portuguese government sources: Diário da República (the official gazette), AIMA, Portal das Finanças, and Segurança Social. Every alert links directly to the official publication.',
+  },
+  {
+    q: 'Is this legal advice?',
+    a: 'No. We provide factual summaries of regulatory changes with links to official sources. The AI-assisted summaries are clearly labeled. Always verify with the official publication or your legal counsel.',
+  },
+  {
+    q: 'What practice areas are covered?',
+    a: 'Immigration law, tax law, labor law, and golden visa regulations. You can filter alerts by your specific practice area.',
+  },
+  {
+    q: 'How is this different from checking Diário da República myself?',
+    a: 'The Diário da República publishes 100+ items per day — most irrelevant to immigration practice. We filter, summarize, and deliver only what matters to your clients. You save hours per week.',
+  },
+  {
+    q: 'What happens after the Founding Member period?',
+    a: 'Founding Members lock in €29/mo for life. After the first 10 spots, the price increases to €49/mo. No grandfathering for late joiners.',
+  },
+];
+
+const FaqAccordion: React.FC = () => {
+  const [open, setOpen] = useState<number | null>(null);
+
+  return (
+    <div className="space-y-2">
+      {FAQ_ITEMS.map((item, i) => {
+        const isOpen = open === i;
+        return (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3, delay: i * 0.04 }}
+            className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+              isOpen
+                ? 'bg-white dark:bg-[#161618] border-[#0F3D2E]/20 dark:border-[#10B981]/20 shadow-[0_4px_20px_rgba(0,0,0,0.06)]'
+                : 'bg-white dark:bg-[#161618] border-[#0F3D2E]/8 dark:border-white/8 hover:border-[#0F3D2E]/15 dark:hover:border-white/12'
+            }`}
+          >
+            <button
+              onClick={() => setOpen(isOpen ? null : i)}
+              className="w-full flex items-center justify-between px-6 py-5 text-left"
+            >
+              <span className={`text-sm font-bold pr-6 transition-colors ${
+                isOpen
+                  ? 'text-[#0F3D2E] dark:text-[#10B981]'
+                  : 'text-slate-900 dark:text-white'
+              }`}>
+                {item.q}
+              </span>
+              <div className={`w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 transition-all ${
+                isOpen
+                  ? 'bg-[#0F3D2E] text-white dark:bg-[#10B981]'
+                  : 'bg-slate-100 dark:bg-white/8 text-slate-400 dark:text-slate-500'
+              }`}>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+              </div>
+            </button>
+
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.22 }}
+                  className="overflow-hidden"
+                >
+                  <p className="px-6 pb-5 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                    {item.a}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
 };
 
 const FEATURES = [
@@ -379,43 +464,24 @@ export const ComplianceLanding: React.FC = () => {
 
       {/* ── FAQ ──────────────────────────────────────────────────── */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-8 text-center">
-          Frequently asked questions
-        </h2>
-        <div className="space-y-6">
-          {[
-            {
-              q: 'Where does the data come from?',
-              a: 'Official Portuguese government sources: Diário da República (the official gazette), AIMA, Portal das Finanças, and Segurança Social. Every alert links directly to the official publication.',
-            },
-            {
-              q: 'Is this legal advice?',
-              a: 'No. We provide factual summaries of regulatory changes with links to official sources. The AI-assisted summaries are clearly labeled. Always verify with the official publication or your legal counsel.',
-            },
-            {
-              q: 'What practice areas are covered?',
-              a: 'Immigration law, tax law, labor law, and golden visa regulations. You can filter alerts by your specific practice area.',
-            },
-            {
-              q: 'How is this different from checking Diário da República myself?',
-              a: 'The Diário da República publishes 100+ items per day — most irrelevant to immigration practice. We filter, summarize, and deliver only what matters to your clients. You save hours per week.',
-            },
-            {
-              q: 'What happens after the Founding Member period?',
-              a: 'Founding Members lock in €29/mo for life. After the first 10 spots, the price increases to €49/mo. No grandfathering for late joiners.',
-            },
-          ].map((faq, i) => (
-            <motion.div
-              key={i}
-              {...fadeUp}
-              transition={{ duration: 0.5, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-              className="border-b border-[#0F3D2E]/8 dark:border-white/8 pb-6"
-            >
-              <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">{faq.q}</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{faq.a}</p>
-            </motion.div>
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <span className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full mb-4">
+            FAQ
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-3">
+            Common questions
+          </h2>
+          <p className="text-slate-500 dark:text-slate-400 text-base">
+            Everything you need to know before joining Compliance Watch.
+          </p>
+        </motion.div>
+
+        <FaqAccordion />
       </section>
     </>
   );
