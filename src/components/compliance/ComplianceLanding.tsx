@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Shield, Clock, Globe, Search, Building2, Scale, Users, ChevronDown } from 'lucide-react';
+import { ArrowRight, Shield, Clock, Globe, Search, Building2, Scale, Users, ChevronDown, Loader2 } from 'lucide-react';
 import { Seo } from '../Seo';
+import { useAuth } from '../../contexts/AuthContext';
+import { createCheckoutSession } from '../../lib/stripe-checkout';
+import { COMPLIANCE_SUBSCRIPTION } from '../../stripe-config';
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -136,6 +139,36 @@ const AUDIENCES = [
 ];
 
 export const ComplianceLanding: React.FC = () => {
+  const { user } = useAuth();
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+
+  const handleCheckout = async () => {
+    setCheckoutLoading(true);
+    try {
+      const { url } = await createCheckoutSession({
+        priceId: COMPLIANCE_SUBSCRIPTION.priceId,
+        mode: 'subscription',
+        successUrl: `${window.location.origin}/dashboard?subscribed=true`,
+        cancelUrl: `${window.location.origin}/compliance`
+      });
+      if (url) window.location.href = url;
+    } catch (err) {
+      if (!(err instanceof Error && err.message === 'Authentication required')) {
+        console.error('Checkout error:', err);
+      }
+    } finally {
+      setCheckoutLoading(false);
+    }
+  };
+
+  const handleCheckoutOrLogin = () => {
+    if (!user) {
+      const redirectUrl = encodeURIComponent(`${window.location.origin}/compliance`);
+      window.location.href = `/login?redirect=${redirectUrl}`;
+      return;
+    }
+    handleCheckout();
+  };
   return (
     <>
       <Seo
@@ -219,12 +252,13 @@ export const ComplianceLanding: React.FC = () => {
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
-              <a
-              href="mailto:hello@worktugal.com?subject=Founding Member: Compliance Intelligence"
-                className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-7 py-4 rounded-xl text-base font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+              <button
+                onClick={handleCheckoutOrLogin}
+                disabled={checkoutLoading}
+                className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-7 py-4 rounded-xl text-base font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Become a Founding Member <ArrowRight className="w-4 h-4" />
-              </a>
+                {checkoutLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Become a Founding Member <ArrowRight className="w-4 h-4" /></>}
+              </button>
               <a
                 href="#how-it-works"
                 className="inline-flex items-center gap-2 px-7 py-4 text-base font-bold text-slate-600 dark:text-slate-300 hover:bg-[#0F3D2E]/5 dark:hover:bg-white/5 rounded-xl transition-all"
@@ -443,12 +477,13 @@ export const ComplianceLanding: React.FC = () => {
             First 10 spots. Weekly digest + searchable archive + direct source links. Launch in 2 weeks.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 relative z-10">
-            <a
-              href="mailto:hello@worktugal.com?subject=Founding Member: Compliance Intelligence"
-              className="bg-[#10B981] text-white px-10 py-5 rounded-xl text-xl font-bold hover:bg-[#059669] hover:scale-[1.03] active:scale-[0.97] transition-all shadow-2xl shadow-black/20"
+            <button
+              onClick={handleCheckoutOrLogin}
+              disabled={checkoutLoading}
+              className="bg-[#10B981] text-white px-10 py-5 rounded-xl text-xl font-bold hover:bg-[#059669] hover:scale-[1.03] active:scale-[0.97] transition-all shadow-2xl shadow-black/20 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Become a Founding Member
-            </a>
+              {checkoutLoading ? <Loader2 className="w-5 h-5 animate-spin inline" /> : 'Become a Founding Member'}
+            </button>
             <a
               href="mailto:hello@worktugal.com?subject=Questions about Compliance Intelligence"
               className="border border-white/20 text-white px-10 py-5 rounded-xl text-lg font-bold hover:bg-white/10 transition-all"

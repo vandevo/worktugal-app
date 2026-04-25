@@ -16,7 +16,7 @@ Full VanOS context in `~/.claude/CLAUDE.md` and `/home/vandevo/CLAUDE.md`. Do no
 | Forms | React Hook Form + Zod |
 | Animation | Framer Motion |
 | Auth + DB | Supabase (Google OAuth, PostgreSQL) |
-| Payments | Stripe (not yet wired to UI) |
+| Payments | Stripe (live: €29/mo Founding Member subscription wired) |
 | Hosting | Cloudflare Pages |
 | Email | Resend (transactional) + Listmonk (campaigns) |
 
@@ -29,15 +29,15 @@ src/
     diagnostic/   compliance risk diagnostic form + results
     accounting/   accountant application + consult booking
     admin/        admin management UI
-  pages/        route-level components
+  pages/        route-level components (includes LoginPage)
   hooks/        custom React hooks
-  lib/          supabase client, stripe config
+  lib/          supabase client, stripe checkout utility
   contexts/     auth context
   types/        TypeScript types
   utils/        helpers
 supabase/
   migrations/   DB schema history
-  functions/    edge functions
+  functions/    edge functions (stripe-checkout, stripe-webhook)
 ```
 
 ---
@@ -52,6 +52,7 @@ supabase/
 | B2B Compliance Intelligence | Live `/compliance` | Landing page + Founding Member outreach |
 | Portugal Clarity Call (149 EUR) | Paused | Cal.com not wired |
 | Paid Risk Scan (29 EUR) | Deferred | Stripe not wired yet |
+| B2B Founding Member (€29/mo) | Wired | Stripe checkout live on `/compliance`, awaiting validation |
 | AI Blog | Planned | `/blog` shows coming soon |
 
 ---

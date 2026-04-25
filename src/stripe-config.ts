@@ -18,6 +18,24 @@ const getPriceId = () => {
   return import.meta.env.VITE_STRIPE_PRICE_ID_TEST || 'price_1SlUdKBm1NepJXMzGA6BmwUo';
 };
 
+const getCompliancePriceId = () => {
+  if (STRIPE_MODE === 'live') {
+    return import.meta.env.VITE_STRIPE_COMPLIANCE_PRICE_ID_LIVE || 'price_1TQ8nsBm1NepJXMzm0n8hlNf';
+  }
+  return import.meta.env.VITE_STRIPE_COMPLIANCE_PRICE_ID_TEST || '';
+};
+
+export const COMPLIANCE_SUBSCRIPTION: Product = {
+  id: 'prod_UOwhQ5fH1TTV2g',
+  priceId: getCompliancePriceId(),
+  name: 'Compliance Watch Founding Member',
+  description: 'Monthly subscription for the Compliance Watch platform. Founding Member rate locked for early adopters.',
+  price: 29.00,
+  currency: 'eur',
+  currencySymbol: '€',
+  mode: 'subscription'
+};
+
 export const STRIPE_PRODUCTS: Product[] = [
   {
     id: 'prod_TiwWNMoSapgc7X',

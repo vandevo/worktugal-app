@@ -26,6 +26,7 @@ import { ConsultSuccessDemo } from './components/accounting/ConsultSuccessDemo';
 import { DiagnosticForm } from './components/diagnostic/DiagnosticForm';
 import { DiagnosticResults } from './components/diagnostic/DiagnosticResults';
 import { ComplianceLanding } from './components/compliance/ComplianceLanding';
+import { LoginPage } from './pages/LoginPage';
 import { AccountantApplicationForm } from './components/accounting/AccountantApplicationForm';
 import { AccountantApplicationSuccess } from './components/accounting/AccountantApplicationSuccess';
 import { ContactRequestsManager } from './components/admin/ContactRequestsManager';
@@ -53,6 +54,7 @@ function App() {
             <Route path="/diagnostic/results" element={<DiagnosticResults />} />
 
             <Route path="/compliance" element={<ComplianceLanding />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/compliance-review" element={<Navigate to="/diagnostic" replace />} />
 
             <Route path="/changelog" element={<Changelog />} />
