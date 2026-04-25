@@ -24,7 +24,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'How is this different from checking Diário da República myself?',
-    a: 'The Diário da República publishes 100+ items per day — most irrelevant to immigration practice. We filter, summarize, and deliver only what matters to your clients. You save hours per week.',
+    a: 'The Diário da República publishes 100+ items per day, most irrelevant to immigration practice. We filter, summarize, and deliver only what matters to your clients. You save hours per week.',
   },
   {
     q: 'What happens after the Founding Member period?',
@@ -108,7 +108,7 @@ const FEATURES = [
   {
     icon: Search,
     title: 'Searchable archive',
-    desc: 'Every regulatory change since 2026, indexed and searchable. "What changed in NHR rules?" — answered in seconds.',
+    desc: 'Every regulatory change since 2026, indexed and searchable. "What changed in NHR rules?" answered in seconds.',
   },
   {
     icon: Shield,
@@ -121,7 +121,7 @@ const AUDIENCES = [
   {
     icon: Scale,
     title: 'Immigration lawyers',
-    desc: 'Stop manually checking Diário da República. Get filtered alerts for your practice areas — immigration, tax, labor, golden visa.',
+    desc: 'Stop manually checking Diário da República. Get filtered alerts for your practice areas: immigration, tax, labor, golden visa.',
   },
   {
     icon: Building2,
@@ -131,7 +131,7 @@ const AUDIENCES = [
   {
     icon: Users,
     title: 'HR departments',
-    desc: 'Managing employees in Portugal? Know when work permits, social security, or tax obligations change — before your team is affected.',
+    desc: 'Managing employees in Portugal? Know when work permits, social security, or tax obligations change before your team is affected.',
   },
 ];
 
@@ -139,9 +139,9 @@ export const ComplianceLanding: React.FC = () => {
   return (
     <>
       <Seo
-        title="Worktugal Compliance — Real-time Portugal regulatory intelligence for professionals"
+        title="Worktugal Compliance: Real-time Portugal regulatory intelligence for professionals"
         description="Track immigration, tax, and labor law changes in Portugal. Sourced from official government publications. Built for immigration lawyers, relocation firms, and HR departments."
-        ogTitle="Worktugal Compliance — Portugal regulatory intelligence"
+        ogTitle="Worktugal Compliance: Portugal regulatory intelligence"
         ogDescription="Real-time alerts on Portugal law changes. Official sources. AI summaries. Searchable archive. €29/mo for Founding Members."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
@@ -179,7 +179,7 @@ export const ComplianceLanding: React.FC = () => {
               name: 'How is this different from checking Diário da República myself?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'The Diário da República publishes 100+ items per day — most irrelevant to immigration practice. We filter, summarize, and deliver only what matters to your clients. You save hours per week.',
+                text: 'The Diário da República publishes 100+ items per day, most irrelevant to immigration practice. We filter, summarize, and deliver only what matters to your clients. You save hours per week.',
               },
             },
             {
@@ -198,7 +198,7 @@ export const ComplianceLanding: React.FC = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 lg:pt-24 lg:pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-          {/* Left — copy */}
+          {/* Left: copy */}
           <motion.div
             className="lg:col-span-7 flex flex-col gap-6"
             initial={{ opacity: 0, y: 24 }}
@@ -206,7 +206,7 @@ export const ComplianceLanding: React.FC = () => {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="inline-flex items-center self-start text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full">
-              FOUNDING MEMBER — €29/MO FOR LIFE
+              FOUNDING MEMBER: €29/MO FOR LIFE
             </span>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 dark:text-white leading-[1.05] tracking-tight">
@@ -220,7 +220,7 @@ export const ComplianceLanding: React.FC = () => {
 
             <div className="flex flex-wrap gap-3 pt-2">
               <a
-                href="mailto:hello@worktugal.com?subject=Founding Member — Compliance Intelligence"
+              href="mailto:hello@worktugal.com?subject=Founding Member: Compliance Intelligence"
                 className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-7 py-4 rounded-xl text-base font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
                 Become a Founding Member <ArrowRight className="w-4 h-4" />
@@ -237,7 +237,7 @@ export const ComplianceLanding: React.FC = () => {
             </p>
           </motion.div>
 
-          {/* Right — preview cards */}
+          {/* Right: preview cards */}
           <motion.div
             className="lg:col-span-5 relative flex items-center justify-center min-h-[320px]"
             initial={{ opacity: 0, y: 24 }}
@@ -326,7 +326,7 @@ export const ComplianceLanding: React.FC = () => {
             Built for professionals who can't afford to miss a change.
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            If your clients' visas, tax status, or legal compliance depend on knowing when Portuguese law changes — this is for you.
+            If your clients' visas, tax status, or legal compliance depend on knowing when Portuguese law changes, this is for you.
           </p>
         </div>
 
@@ -367,12 +367,12 @@ export const ComplianceLanding: React.FC = () => {
             {
               step: '1',
               title: 'We monitor',
-              desc: 'Official RSS feeds from Diário da República, AIMA, Portal das Finanças, and Seg-Social — checked every 6 hours.',
+              desc: 'Official RSS feeds from Diário da República, AIMA, Portal das Finanças, and Seg-Social, checked every 6 hours.',
             },
             {
               step: '2',
               title: 'AI summarizes',
-              desc: '"What changed" + "Who this affects" + "Deadline" — in English, grounded in the official source text.',
+              desc: '"What changed" + "Who this affects" + "Deadline", in English, grounded in the official source text.',
             },
             {
               step: '3',
@@ -437,14 +437,14 @@ export const ComplianceLanding: React.FC = () => {
             {...fadeUp}
             className="text-3xl md:text-5xl font-black text-white relative z-10 leading-tight"
           >
-            Founding Member — €29/mo for life.
+            Founding Member: €29/mo for life.
           </motion.h2>
           <p className="text-[#10B981]/80 text-lg md:text-xl max-w-2xl relative z-10 leading-relaxed">
             First 10 spots. Weekly digest + searchable archive + direct source links. Launch in 2 weeks.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 relative z-10">
             <a
-              href="mailto:hello@worktugal.com?subject=Founding Member — Compliance Intelligence"
+              href="mailto:hello@worktugal.com?subject=Founding Member: Compliance Intelligence"
               className="bg-[#10B981] text-white px-10 py-5 rounded-xl text-xl font-bold hover:bg-[#059669] hover:scale-[1.03] active:scale-[0.97] transition-all shadow-2xl shadow-black/20"
             >
               Become a Founding Member
