@@ -24,7 +24,11 @@ Full VanOS context in `~/.claude/CLAUDE.md` and `/home/vandevo/CLAUDE.md`. Do no
 
 ```
 src/
-  components/   shared UI components
+  components/
+    compliance/   B2B compliance intelligence landing page
+    diagnostic/   compliance risk diagnostic form + results
+    accounting/   accountant application + consult booking
+    admin/        admin management UI
   pages/        route-level components
   hooks/        custom React hooks
   lib/          supabase client, stripe config
@@ -45,6 +49,7 @@ supabase/
 | Compliance Risk Diagnostic | Live `/diagnostic` | 13-question free tool, lead gen |
 | My Account Dashboard | Live `/dashboard` | Signed-in users only |
 | Google Sign-In | Live | Supabase OAuth |
+| B2B Compliance Intelligence | Live `/compliance` | Landing page + Founding Member outreach |
 | Portugal Clarity Call (149 EUR) | Paused | Cal.com not wired |
 | Paid Risk Scan (29 EUR) | Deferred | Stripe not wired yet |
 | AI Blog | Planned | `/blog` shows coming soon |

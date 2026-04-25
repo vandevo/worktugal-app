@@ -8,9 +8,9 @@ Worktugal is Van's product for remote professionals navigating Portugal — clar
 
 **Stack:** React + Vite + TypeScript, Cloudflare Pages hosting, Supabase DB/auth, n8n automation (self-hosted, replacing Make.com), Resend transactional email, Listmonk campaigns (15k contacts), Ghost blog (blog.worktugal.com).
 
-**What exists:** Compliance Risk Diagnostic (915+ completions, 13 questions, 7 trap rules including CRUE), My Account Dashboard, Google OAuth, Ghost blog with Admin API, Telegram channel (@worktugal), content pipeline (Parallel AI research → Gemini draft → Claude review → Ghost publish).
+**What exists:** Compliance Risk Diagnostic (915+ completions, 13 questions, 7 trap rules including CRUE), My Account Dashboard, Google OAuth, Ghost blog with Admin API, Telegram channel (@worktugal), content pipeline (Parallel AI research → Gemini draft → Claude review → Ghost publish), B2B Compliance Intelligence landing page (`/compliance`) with Founding Member pricing (€29/mo for life).
 
-**Critical gap as of 2026-04-24:** Zero paying users. Paid diagnostic (€29) identified as fastest revenue path — Stripe not wired to UI. B2B compliance intelligence (€499-999/mo) defined but not built. 15k email list dormant — no campaigns sent since migration from EmailOctopus.
+**Critical gap as of 2026-04-25:** Zero paying users. B2B compliance intelligence landing page live — awaiting Founding Member outreach validation (3 paid commitments required before building automated pipeline). Stripe not wired to UI. 15k email list dormant.
 
 **Vault source of truth:** `/home/vandevo/projects/prompt-secret-vault/`
 
