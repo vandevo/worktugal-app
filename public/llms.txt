@@ -6,12 +6,14 @@
 
 - Free diagnostic tool: identifies compliance traps for people living in or planning to move to Portugal
 - Dual scoring system: Setup Score (0–100) + Exposure Index (risk points) across 13 questions
+- B2B compliance intelligence: real-time alerts on Portuguese regulatory changes from official sources (Diário da República, AIMA, AT, Segurança Social)
 - Verified against official Portuguese government sources (AT, AIMA, Segurança Social)
-- Not legal advice. Educational use only. Directed at non-EU remote workers, digital nomads, and founders.
+- Not legal advice. Educational use only. Directed at non-EU remote workers, digital nomads, founders, and immigration professionals.
 
 ## Key tools
 
 - /diagnostic — Portugal compliance risk diagnostic (free, 2 min, 13 questions)
+- /compliance — B2B regulatory intelligence feed for immigration lawyers, relocation firms, and HR teams (€29/mo Founding Member)
 - /accounting — Connect with vetted Portuguese accounting firms (referral partners)
 
 ## Data sources
@@ -30,6 +32,9 @@
 - Expats navigating NHR / IFICI tax regimes
 - Founders setting up LDAs in Portugal
 - Anyone receiving foreign income while living in Portugal
+- Immigration lawyers tracking Portuguese regulatory changes
+- Relocation firms managing client visa and tax compliance
+- HR departments with employees based in Portugal
 
 ## Contact
 

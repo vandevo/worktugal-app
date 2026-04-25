@@ -61,6 +61,52 @@ export const ComplianceLanding: React.FC = () => {
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
         ogUrl="https://app.worktugal.com/compliance"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'Where does the data come from?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Official Portuguese government sources: Diário da República (the official gazette), AIMA, Portal das Finanças, and Segurança Social. Every alert links directly to the official publication.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Is this legal advice?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'No. We provide factual summaries of regulatory changes with links to official sources. The AI-assisted summaries are clearly labeled. Always verify with the official publication or your legal counsel.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What practice areas are covered?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Immigration law, tax law, labor law, and golden visa regulations. You can filter alerts by your specific practice area.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'How is this different from checking Diário da República myself?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'The Diário da República publishes 100+ items per day — most irrelevant to immigration practice. We filter, summarize, and deliver only what matters to your clients. You save hours per week.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What happens after the Founding Member period?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Founding Members lock in €29/mo for life. After the first 10 spots, the price increases to €49/mo. No grandfathering for late joiners.',
+              },
+            },
+          ],
+        }}
       />
 
       {/* ── Hero ─────────────────────────────────────────────────── */}
