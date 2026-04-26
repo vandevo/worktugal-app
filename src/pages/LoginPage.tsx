@@ -21,7 +21,7 @@ export const LoginPage: React.FC = () => {
     <div className="min-h-[60vh] flex items-center justify-center">
       <AuthModal
         isOpen={showModal}
-        onClose={() => navigate('/', { replace: true })}
+        onClose={() => navigate(redirect, { replace: true })}
         initialMode="login"
         source="login_page"
       />
