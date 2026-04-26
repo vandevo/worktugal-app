@@ -24,6 +24,6 @@ Ordered by leverage (updated 2026-04-25):
 - ~~Create Stripe Fix Session product~~ → Superseded by paid diagnostic (€29) as priority.
 - ~~Run TPP Add-on 03~~ → Superseded by B2B compliance intelligence strategy.
 - ~~B2B compliance intelligence pitch~~ → `/compliance` landing page built (2026-04-25). Awaiting Founding Member outreach validation.
-- ~~Wire Stripe Founding Member checkout~~ → €29/mo subscription wired to `/compliance` CTAs. Product `prod_UOwhQ5fH1TTV2g`, price `price_1TQ8nsBm1NepJXMzm0n8hlNf` (live). `/login` route added for auth redirect. Ready for validation outreach.
+- ~~Wire Stripe Founding Member checkout~~ → €29/mo subscription wired to `/compliance` CTAs. Product `prod_UOwhQ5fH1TTV2g`, price `price_1TQ8nsBm1NepJXMzm0n8hlNf` (live). `/login` route added for auth redirect. Login modal close fixed to return to `/compliance` instead of home. Ready for validation outreach.
 
 **Why:** Infrastructure is complete. Revenue actions remain the bottleneck. Every session should move one step closer to a paid button.
