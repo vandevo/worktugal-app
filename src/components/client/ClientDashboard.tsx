@@ -16,9 +16,7 @@ import {
   Clock,
   ExternalLink,
   Check,
-  PhoneCall,
 } from 'lucide-react';
-import { CLARITY_CALL_URL } from '../../lib/config';
 
 interface PastDiagnostic {
   id: string;
@@ -223,39 +221,33 @@ export const ClientDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* ── Clarity Call banner (only if latest run has high/medium flags) ── */}
+        {/* ── Compliance Intelligence banner (only if latest run has high/medium flags) ── */}
         {latest && latest.trap_flags && latest.trap_flags.some(t => t.severity === 'high' || t.severity === 'medium') && (
-          <div className="flex items-center gap-4 bg-red-50 dark:bg-red-500/[0.06] border border-red-100 dark:border-red-500/15 rounded-2xl px-5 py-4 mb-6">
-            <div className="w-9 h-9 rounded-xl bg-red-100 dark:bg-red-500/15 flex items-center justify-center flex-shrink-0">
-              <PhoneCall className="w-4 h-4 text-red-500 dark:text-red-400" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-slate-900 dark:text-white leading-snug">
-                Your flags need a plan, not a search.
-              </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                30-min call. I review your results first. Case file included.
-              </p>
-            </div>
-            {CLARITY_CALL_URL ? (
-              <a
-                href={CLARITY_CALL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-shrink-0 inline-flex items-center gap-1.5 bg-[#0F3D2E] text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#1A5C44] transition-all whitespace-nowrap"
+          <div className="bg-[#0F3D2E] rounded-2xl px-6 py-5 mb-6 relative overflow-hidden">
+            <div
+              className="absolute inset-0 opacity-10"
+              style={{
+                backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+                backgroundSize: '32px 32px',
+              }}
+            />
+            <div className="relative z-10 flex flex-col sm:flex-row items-center gap-3 sm:gap-5">
+              <div className="text-center sm:text-left sm:flex-1 min-w-0">
+                <p className="text-sm font-bold text-white leading-snug">
+                  Your flags need monitoring, not guessing.
+                </p>
+                <p className="text-xs text-white/50 mt-0.5">
+                  Real-time Portugal law alerts. Official sources. €29/mo.
+                </p>
+              </div>
+              <Link
+                to="/compliance"
+                className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 bg-[#10B981] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[#059669] active:scale-[0.97] transition-all shadow-lg shadow-black/20 min-h-[44px]"
               >
-                Book — €149
+                View Plans
                 <ArrowRight className="w-3.5 h-3.5" />
-              </a>
-            ) : (
-              <button
-                disabled
-                className="flex-shrink-0 inline-flex items-center gap-1.5 bg-[#0F3D2E] text-white px-4 py-2 rounded-xl text-xs font-bold opacity-40 cursor-not-allowed whitespace-nowrap"
-              >
-                Book — €149
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            )}
+              </Link>
+            </div>
           </div>
         )}
 

@@ -50,7 +50,7 @@ supabase/
 | My Account Dashboard | Live `/dashboard` | Signed-in users only |
 | Google Sign-In | Live | Supabase OAuth |
 | B2B Compliance Intelligence | Live `/compliance` | Landing page + Founding Member outreach |
-| Portugal Clarity Call (149 EUR) | Paused | Cal.com not wired |
+| Portugal Clarity Call (149 EUR) | Removed | Replaced by Compliance Intelligence CTA (€29/mo) |
 | Paid Risk Scan (29 EUR) | Deferred | Stripe not wired yet |
 | B2B Founding Member (€29/mo) | Wired | Stripe checkout live on `/compliance`, awaiting validation |
 | AI Blog | Planned | `/blog` shows coming soon |

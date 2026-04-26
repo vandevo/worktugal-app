@@ -25,5 +25,6 @@ Ordered by leverage (updated 2026-04-25):
 - ~~Run TPP Add-on 03~~ → Superseded by B2B compliance intelligence strategy.
 - ~~B2B compliance intelligence pitch~~ → `/compliance` landing page built (2026-04-25). Awaiting Founding Member outreach validation.
 - ~~Wire Stripe Founding Member checkout~~ → €29/mo subscription wired to `/compliance` CTAs. Product `prod_UOwhQ5fH1TTV2g`, price `price_1TQ8nsBm1NepJXMzm0n8hlNf` (live). `/login` route added for auth redirect. Login modal close fixed to return to `/compliance` instead of home. Ready for validation outreach.
+- ~~Replace Clarity Call CTAs with Compliance Intelligence~~ → Diagnostic results page and dashboard banner both now show forest green hero block CTA pointing to `/compliance` (€29/mo). Clarity Call (€149) dead product references removed. Responsive: full-width button on mobile, auto-width on desktop. Emerald Zenith theme tokens applied.
 
 **Why:** Infrastructure is complete. Revenue actions remain the bottleneck. Every session should move one step closer to a paid button.

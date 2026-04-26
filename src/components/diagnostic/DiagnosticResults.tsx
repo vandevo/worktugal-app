@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import {
   AlertTriangle,
   CheckCircle2,
@@ -99,8 +99,6 @@ const DEMO_DATA = {
     foreign_tax_deregistration: 'unsure',
   },
 };
-
-import { CLARITY_CALL_URL } from '../../lib/config';
 
 export const DiagnosticResults: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -483,48 +481,41 @@ export const DiagnosticResults: React.FC = () => {
             </motion.div>
           )}
 
-          {/* ── Clarity Call CTA ──────────────────────────────────── */}
+          {/* ── Compliance Intelligence CTA ─────────────────────────── */}
           {(highTraps.length > 0 || mediumTraps.length > 0) && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
-              className="bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] p-8"
+              className="bg-[#0F3D2E] rounded-2xl p-6 sm:p-10 relative overflow-hidden"
             >
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <AlertTriangle className="w-5 h-5 text-red-500 dark:text-red-400" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-                    These flags don't resolve on their own.
-                  </h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
-                    Book a Portugal Clarity Call. I review your results before we speak — no cold starts. 30 minutes. You leave with a plan and a case file ready to share with any specialist.
-                  </p>
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                    {CLARITY_CALL_URL ? (
-                      <a
-                        href={CLARITY_CALL_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-6 py-3 rounded-xl text-sm font-bold hover:bg-[#1A5C44] hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md shadow-black/10"
-                      >
-                        Book the call — €149
-                        <ArrowRight className="w-4 h-4" />
-                      </a>
-                    ) : (
-                      <button
-                        disabled
-                        className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-6 py-3 rounded-xl text-sm font-bold opacity-40 cursor-not-allowed"
-                      >
-                        Book the call — €149
-                        <ArrowRight className="w-4 h-4" />
-                      </button>
-                    )}
-                    <span className="text-xs text-slate-400">30 min · Case file included · Cancel anytime</span>
-                  </div>
-                </div>
+              <div
+                className="absolute inset-0 opacity-10"
+                style={{
+                  backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+                  backgroundSize: '32px 32px',
+                }}
+              />
+              <div className="relative z-10 flex flex-col items-center text-center max-w-lg mx-auto">
+                <span className="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full mb-4">
+                  Stay compliant
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white leading-tight mb-2">
+                  These flags do not resolve on their own.
+                </h3>
+                <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-md">
+                  Real-time Portugal law alerts. Official sources. AI summaries. Searchable archive.
+                </p>
+                <Link
+                  to="/compliance"
+                  className="inline-flex items-center justify-center gap-2 bg-[#10B981] text-white px-8 py-4 rounded-xl text-base font-bold hover:bg-[#059669] active:scale-[0.97] transition-all shadow-lg shadow-black/20 min-h-[48px] w-full sm:w-auto sm:min-w-[280px]"
+                >
+                  View Compliance Intelligence
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.15em] mt-4">
+                  €29/mo founding member price
+                </p>
               </div>
             </motion.div>
           )}
