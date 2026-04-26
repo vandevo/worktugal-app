@@ -163,8 +163,7 @@ export const ComplianceLanding: React.FC = () => {
 
   const handleCheckoutOrLogin = () => {
     if (!user) {
-      const redirectUrl = encodeURIComponent(`${window.location.origin}/compliance`);
-      window.location.href = `/login?redirect=${redirectUrl}`;
+      window.location.href = '/login?redirect=/compliance';
       return;
     }
     handleCheckout();
