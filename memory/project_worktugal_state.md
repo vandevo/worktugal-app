@@ -14,4 +14,6 @@ Worktugal is Van's product for remote professionals navigating Portugal — clar
 
 **Vault source of truth:** `/home/vandevo/projects/prompt-secret-vault/`
 
+**n8n automation (self-hosted at n8n.worktugal.com):** Version 2.17.8 (updated 2026-04-27). n8n Version Update Checker workflow (ID: 2Rj4ROAXA3AJE4Fs) runs Mondays 9 AM — compares running version against Docker Hub latest, sends Telegram alert via @WorktugalPassBot when update available. Update script at `~/docker/n8n/update-n8n.sh` on van-cloud.
+
 **Why:** Infrastructure is complete (n8n, Resend, Listmonk, Ghost, Telegram). The only missing piece is one paid button and one re-engagement campaign.
