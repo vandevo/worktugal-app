@@ -4,9 +4,11 @@ description: Outstanding items from v2.0–v2.2 session handovers that haven't b
 type: project
 ---
 
-Ordered by leverage (updated 2026-04-25):
+Ordered by leverage (updated 2026-04-28):
 
-1. **B2B Founding Member outreach** — `/compliance` landing page live. Send validation emails to 30 immigration lawyers + 20 relocation firms. 3 paid commitments (€29/mo) = build Phase 1 automated pipeline.
+1. **Write first compliance digest** — Browse dre.pt manually, pick 3-5 expat-relevant changes, send to 15k list via Listmonk. Track opens, clicks, `/radar` signups. Validate demand before automating.
+
+2. **B2B Founding Member outreach** — `/compliance` landing page live. Send validation emails to 30 immigration lawyers + 20 relocation firms. 3 paid commitments (€29/mo) = build Phase 1 automated pipeline.
 
 2. **Wire Stripe paid diagnostic (€29)** — 15k email list, 915+ completions. Create Stripe product, payment link, add CTA to results page + email follow-up.
 
@@ -24,6 +26,7 @@ Ordered by leverage (updated 2026-04-25):
 - ~~Create Stripe Fix Session product~~ → Superseded by paid diagnostic (€29) as priority.
 - ~~Run TPP Add-on 03~~ → Superseded by B2B compliance intelligence strategy.
 - ~~B2B compliance intelligence pitch~~ → `/compliance` landing page built (2026-04-25). Awaiting Founding Member outreach validation.
+- ~~Portugal Radar landing page~~ → `/radar` built with email capture + Google OAuth signup. `radar_subscribers` table created in Supabase. `auto-subscribe-radar` edge function deployed. n8n workflows: Parallel Monitor → Compliance Alerts (32omcS4yZzGNMCLB) + Weekly Digest Compiler (1t4tZaHWFTnf7snB). 2 Parallel AI monitors created (daily): expat legislation + immigration/tax policy.
 - ~~Wire Stripe Founding Member checkout~~ → €29/mo subscription wired to `/compliance` CTAs. Product `prod_UOwhQ5fH1TTV2g`, price `price_1TQ8nsBm1NepJXMzm0n8hlNf` (live). `/login` route added for auth redirect. Login modal close fixed to return to `/compliance` instead of home. Ready for validation outreach.
 - ~~Replace Clarity Call CTAs with Compliance Intelligence~~ → Diagnostic results page and dashboard banner both now show forest green hero block CTA pointing to `/compliance` (€29/mo). Clarity Call (€149) dead product references removed. Responsive: full-width button on mobile, auto-width on desktop. Emerald Zenith theme tokens applied.
 - ~~OpenCode MCP timeout fixes~~ → Cloudflare + GitHub MCPs switched to wrapper scripts (env var bypass). Context7 switched to remote HTTP (WSL stdio hang). `.claude/` added to `.gitignore`. Archive reorganized under `archives/2026-04/`.

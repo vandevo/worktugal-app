@@ -19,7 +19,7 @@ const NAV_LINKS = [
   { label: 'Changelog', href: '/changelog' },
   { label: 'Blog', href: 'https://blog.worktugal.com', external: true },
   { label: 'Community', href: 'https://t.me/worktugal', external: true },
-  { label: 'For Professionals', href: '/compliance' },
+  { label: 'Radar', href: '/radar' },
 ];
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {

@@ -504,17 +504,17 @@ export const DiagnosticResults: React.FC = () => {
                   These flags do not resolve on their own.
                 </h3>
                 <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-md">
-                  Real-time Portugal law alerts. Official sources. AI summaries. Searchable archive.
+                  Get weekly alerts when Portuguese law changes affect your situation. Free for 2 weeks.
                 </p>
                 <Link
-                  to="/compliance"
+                  to="/radar"
                   className="inline-flex items-center justify-center gap-2 bg-[#10B981] text-white px-8 py-4 rounded-xl text-base font-bold hover:bg-[#059669] active:scale-[0.97] transition-all shadow-lg shadow-black/20 min-h-[48px] w-full sm:w-auto sm:min-w-[280px]"
                 >
-                  View Compliance Intelligence
+                  Get on the Radar
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.15em] mt-4">
-                  €29/mo founding member price
+                  Free for 2 weeks, then €12/mo
                 </p>
               </div>
             </motion.div>

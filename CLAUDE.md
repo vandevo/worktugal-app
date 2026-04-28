@@ -27,6 +27,7 @@ src/
   components/
     compliance/   B2B compliance intelligence landing page
     diagnostic/   compliance risk diagnostic form + results
+    radar/        B2C compliance radar landing page (email capture + Google OAuth)
     accounting/   accountant application + consult booking
     admin/        admin management UI
   pages/        route-level components (includes LoginPage)
@@ -37,7 +38,7 @@ src/
   utils/        helpers
 supabase/
   migrations/   DB schema history
-  functions/    edge functions (stripe-checkout, stripe-webhook)
+  functions/    edge functions (stripe-checkout, stripe-webhook, auto-subscribe-radar)
 ```
 
 ---
@@ -49,6 +50,8 @@ supabase/
 | Compliance Risk Diagnostic | Live `/diagnostic` | 13-question free tool, lead gen |
 | My Account Dashboard | Live `/dashboard` | Signed-in users only |
 | Google Sign-In | Live | Supabase OAuth |
+| Portugal Radar | Live `/radar` | B2C compliance monitor landing with email + Google signup |
+| Compliance Monitor (Parallel AI) | Live | 2 daily monitors → n8n → Qwen → Supabase → weekly digest |
 | B2B Compliance Intelligence | Live `/compliance` | Landing page + Founding Member outreach |
 | Portugal Clarity Call (149 EUR) | Removed | Replaced by Compliance Intelligence CTA (€29/mo) |
 | Paid Risk Scan (29 EUR) | Deferred | Stripe not wired yet |
