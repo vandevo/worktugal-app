@@ -60,6 +60,24 @@ supabase/
 
 ---
 
+## Vault Context
+
+**Session index (load this first):** `prompt-secret-vault/prompts/knowledge/worktugal-session-index.md`
+
+The session index lists every relevant strategy, research, feature, and design file with one-line descriptions and a loading guide by task. Load it at session start instead of hunting across the vault individually.
+
+| Task | Load from vault |
+|---|---|
+| UI / frontend | `emerald-zenith-theme.md` |
+| New feature | `worktugal-app-features.md` + `worktugal-platform-strategy.md` |
+| Strategy / product | `worktugal-platform-strategy.md` + `worktugal-strategy-2026.md` + `worktugal-focus-rails.md` |
+| Phase 0 execution | `worktugal-phase0-plan.md` |
+| Email flows | `resend-email-system.md` |
+| Secrets | `api-secrets-os.md` |
+| Research | `resources/research/INDEX.md` |
+
+---
+
 ## Project Rules
 
 - Always use Context7 before touching Supabase, Stripe, or Vite config.
