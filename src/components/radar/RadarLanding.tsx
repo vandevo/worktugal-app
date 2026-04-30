@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Bell, Shield, Clock, ChevronDown, Loader2, Mail, LogIn } from 'lucide-react';
+import { ArrowRight, Bell, Shield, Clock, ChevronDown, Loader2, Mail } from 'lucide-react';
 import { Seo } from '../Seo';
 import { supabase } from '../../lib/supabase';
 
@@ -192,20 +192,21 @@ export const RadarLanding: React.FC = () => {
 
     setSubmitting(true);
     try {
-      const { error: dbError } = await supabase
-        .from('radar_subscribers')
-        .insert([{ email, source: 'radar_landing', subscribed_at: new Date().toISOString() }]);
+      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/auto-subscribe-radar`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+        },
+        body: JSON.stringify({ email }),
+      });
 
-      if (dbError) {
-        if (dbError.code === '23505') {
-          setError('You\'re already on the list. Check your inbox!');
-        } else {
-          setError('Something went wrong. Please try again.');
-        }
-        return;
+      const data = await res.json();
+      if (data.ok) {
+        setSubmitted(true);
+      } else {
+        setError(data.error || 'Something went wrong. Please try again.');
       }
-
-      setSubmitted(true);
     } catch {
       setError('Something went wrong. Please try again.');
     } finally {
@@ -234,9 +235,9 @@ export const RadarLanding: React.FC = () => {
     <>
       <Seo
         title="Portugal Radar — rule changes that affect you, before they hit you"
-        description="Weekly plain-English digest of Portuguese law changes affecting your visa, tax, and residency. €12/mo after your first 2 weeks free."
+        description="Weekly plain-English digest of Portuguese law changes affecting your visa, tax, and residency. €5/mo after your first 2 weeks free."
         ogTitle="Portugal Radar — never miss a rule change"
-        ogDescription="We monitor 50+ Portuguese government sources and send you only the changes that affect your situation. Free for 2 weeks, then €12/mo."
+        ogDescription="We monitor 50+ Portuguese government sources and send you only the changes that affect your situation. Free for 2 weeks, then €5/mo."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
         ogUrl="https://app.worktugal.com/radar"
@@ -266,7 +267,7 @@ export const RadarLanding: React.FC = () => {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="inline-flex items-center self-start text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full">
-              FREE FOR 2 WEEKS, THEN €12/MO
+              FREE FOR 2 WEEKS, THEN €5/MO
             </span>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 dark:text-white leading-[1.05] tracking-tight">
@@ -463,7 +464,8 @@ export const RadarLanding: React.FC = () => {
       </section>
 
       {/* ── How it works ─────────────────────────────────────────── */}
-      <section id="how-it-works" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 bg-slate-50 dark:bg-white/[0.02]">
+      <div className="bg-slate-50 dark:bg-white/[0.02]">
+      <section id="how-it-works" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-12">
           <span className="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full">
             HOW IT WORKS
@@ -509,6 +511,7 @@ export const RadarLanding: React.FC = () => {
           ))}
         </div>
       </section>
+      </div>
 
       {/* ── Features ─────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
@@ -548,7 +551,7 @@ export const RadarLanding: React.FC = () => {
             {...fadeUp}
             className="text-3xl md:text-5xl font-black text-white relative z-10 leading-tight"
           >
-            Free for 2 weeks. Then €12/mo.
+            Free for 2 weeks. Then €5/mo.
           </motion.h2>
           <p className="text-[#10B981]/80 text-lg md:text-xl max-w-2xl relative z-10 leading-relaxed">
             Weekly digest. Only the changes that affect your situation. Cancel anytime with one click.

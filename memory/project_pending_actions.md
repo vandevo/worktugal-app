@@ -4,19 +4,21 @@ description: Outstanding items from v2.0–v2.2 session handovers that haven't b
 type: project
 ---
 
-Ordered by leverage (updated 2026-04-28):
+Ordered by leverage (updated 2026-04-30):
 
 1. **Write first compliance digest** — Browse dre.pt manually, pick 3-5 expat-relevant changes, send to 15k list via Listmonk. Track opens, clicks, `/radar` signups. Validate demand before automating.
 
-2. **B2B Founding Member outreach** — `/compliance` landing page live. Send validation emails to 30 immigration lawyers + 20 relocation firms. 3 paid commitments (€29/mo) = build Phase 1 automated pipeline.
+2. **Fix n8n Weekly Digest workflow** — "Send via Listmonk" node uses dead Basic auth (Listmonk v6 requires session cookies). Must update to session-cookie login before Friday 4pm digest fires.
 
-2. **Wire Stripe paid diagnostic (€29)** — 15k email list, 915+ completions. Create Stripe product, payment link, add CTA to results page + email follow-up.
+3. **B2B Founding Member outreach** — `/compliance` landing page live. Send validation emails to 30 immigration lawyers + 20 relocation firms. 3 paid commitments (€29/mo) = build Phase 1 automated pipeline.
 
-3. **Re-engagement campaign via Listmonk** — 15k contacts dormant since EmailOctopus migration. Send monthly compliance update with diagnostic CTA. Template exists in portugal-calendar-os.md.
+4. **Wire Stripe paid diagnostic (€29)** — 15k email list, 915+ completions. Create Stripe product, payment link, add CTA to results page + email follow-up.
 
-4. **Publish one article per week** — Ghost blog live at blog.worktugal.com. Content pipeline automated (Parallel AI research → Gemini draft → Claude review → pre-publish-check → Ghost publish). Nationality law change (April 1, 2026) is current event journalism window.
+5. **Re-engagement campaign via Listmonk** — 15k contacts dormant since EmailOctopus migration. Send monthly compliance update with diagnostic CTA. Template exists in portugal-calendar-os.md.
 
-5. **Growbot cancellation** — ~€7.80/mo. User requested cancellation. Draft email ready.
+6. **Publish one article per week** — Ghost blog live at blog.worktugal.com. Content pipeline automated (Parallel AI research → Gemini draft → Claude review → pre-publish-check → Ghost publish). Nationality law change (April 1, 2026) is current event journalism window.
+
+7. **Growbot cancellation** — ~€7.80/mo. User requested cancellation. Draft email ready.
 
 **Completed:**
 - ~~Make.com RSS scenario~~ → Replaced by n8n workflows + 5 Parallel AI regulatory monitors (weekly).
@@ -31,5 +33,6 @@ Ordered by leverage (updated 2026-04-28):
 - ~~Replace Clarity Call CTAs with Compliance Intelligence~~ → Diagnostic results page and dashboard banner both now show forest green hero block CTA pointing to `/compliance` (€29/mo). Clarity Call (€149) dead product references removed. Responsive: full-width button on mobile, auto-width on desktop. Emerald Zenith theme tokens applied.
 - ~~OpenCode MCP timeout fixes~~ → Cloudflare + GitHub MCPs switched to wrapper scripts (env var bypass). Context7 switched to remote HTTP (WSL stdio hang). `.claude/` added to `.gitignore`. Archive reorganized under `archives/2026-04/`.
 - ~~n8n version checker workflow~~ → Workflow "n8n Version Update Checker" (ID: 2Rj4ROAXA3AJE4Fs) live, runs Mondays 9 AM. Telegram alerts via @WorktugalPassBot. n8n updated from 2.16.1 → 2.17.8. Update script at `~/docker/n8n/update-n8n.sh` on van-cloud. n8n workflow creation checklist saved to `resources/tmp/n8n-workflow-checklist.md`.
+- ~~RadarLanding.tsx bugs + Listmonk integration~~ → Pricing fixed €12→€5. Email signup now calls auto-subscribe-radar edge function (session-cookie Listmonk v6 auth, source attribution). Dead LogIn import removed. How It Works bg clipping fixed. Anon key added to edge fn call. Ghost members bulk-imported to Listmonk list 5. Resend tracking disabled on both domains. LISTMONK_RADAR_LIST_ID=3.
 
 **Why:** Infrastructure is complete. Revenue actions remain the bottleneck. Every session should move one step closer to a paid button.

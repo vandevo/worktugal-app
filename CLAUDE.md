@@ -50,7 +50,7 @@ supabase/
 | Compliance Risk Diagnostic | Live `/diagnostic` | 13-question free tool, lead gen |
 | My Account Dashboard | Live `/dashboard` | Signed-in users only |
 | Google Sign-In | Live | Supabase OAuth |
-| Portugal Radar | Live `/radar` | B2C compliance monitor landing with email + Google signup |
+| Portugal Radar | Live `/radar` | B2C compliance monitor landing. Pricing: €5/mo. Email + Google signup wired to Listmonk list 3 via auto-subscribe-radar edge fn. Ghost members synced to Listmonk list 5. |
 | Compliance Monitor (Parallel AI) | Live | 2 daily monitors → n8n → Qwen → Supabase → weekly digest |
 | B2B Compliance Intelligence | Live `/compliance` | Landing page + Founding Member outreach |
 | Portugal Clarity Call (149 EUR) | Removed | Replaced by Compliance Intelligence CTA (€29/mo) |
