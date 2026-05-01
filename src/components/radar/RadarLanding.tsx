@@ -635,22 +635,6 @@ export const RadarLanding: React.FC = () => {
 
         <FaqAccordion />
       </section>
-
-      {/* ── Footer ──────────────────────────────────────────────────── */}
-      <footer className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 text-center">
-        <a
-          href="https://status.worktugal.com/status/live"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-        >
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#10B981]" />
-          </span>
-          All systems operational
-        </a>
-      </footer>
     </>
   );
 };

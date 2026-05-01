@@ -101,6 +101,18 @@ export const Footer: React.FC = () => {
         <div className="border-t border-white/10 pt-7 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-[11px] text-white/30">&copy; 2026 Worktugal. Built for clarity.</p>
           <div className="flex items-center gap-6">
+            <a
+              href="https://status.worktugal.com/status/live"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[11px] text-white/30 hover:text-white/60 transition-colors"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10B981]" />
+              </span>
+              All systems operational
+            </a>
             <button
               onClick={openConsentBanner}
               className="text-[11px] text-white/30 hover:text-white/60 transition-colors"
