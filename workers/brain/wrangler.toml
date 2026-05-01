@@ -7,6 +7,5 @@ compatibility_flags = ["nodejs_compat"]
 SUPABASE_URL = "https://jbmfneyofhqlwnnfuqbd.supabase.co"
 N8N_WEBHOOK = "https://n8n.worktugal.com/webhook/vanbrain-intake"
 
-[[routes]]
-pattern = "brain.worktugal.com/*"
-zone_name = "worktugal.com"
+# Route already exists in Cloudflare, managed manually
+# workers_dev = false
