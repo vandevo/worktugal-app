@@ -276,7 +276,7 @@ export const RadarLanding: React.FC = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-              Diario da Republica, AIMA, and tax authority updates translated into plain English. Every alert links to the official source. Free for 2 weeks.
+              Diário da República, AIMA, and tax authority updates translated into plain English. Every alert links to the official source. Free for 2 weeks.
             </p>
 
             {/* Signup form */}

@@ -92,6 +92,41 @@ function getCategoryConfig(category: string) {
 
 // ── Static fallback entries ──────────────────────────────────────────────────
 const FALLBACK_ENTRIES: ChangelogEntry[] = [
+  // ── v4.2 — 2026-05-02 ─────────────────────────────────────────────────────
+  {
+    id: 'homepage-copy-refresh',
+    date: '2026-05-02',
+    category: 'ui',
+    title: 'Homepage refreshed with clearer messaging',
+    details: 'Hero rewritten to highlight the average uncovered compliance exposure (over €3,750). Feature cards now show what you actually get: your Setup Score, Exposure Index, and prioritized Action Plan. New social proof bar with real numbers. Updated CTA section with stronger framing.',
+    version: 'v4.2',
+  },
+  // ── v4.1 — 2026-05-01 ─────────────────────────────────────────────────────
+  {
+    id: 'uptime-monitoring',
+    date: '2026-05-01',
+    category: 'feature',
+    title: 'Live uptime status on every page',
+    details: 'All Worktugal pages now show a live status badge in the footer. Green dot = all systems operational. Powered by Uptime Kuma on our infrastructure, checked every 60 seconds.',
+    version: 'v4.1',
+  },
+  // ── v4.0 — 2026-04-28 ─────────────────────────────────────────────────────
+  {
+    id: 'radar-launch',
+    date: '2026-04-28',
+    category: 'feature',
+    title: 'Portugal Radar — compliance monitoring for your situation',
+    details: 'New B2C product at app.worktugal.com/radar. Weekly digest of Portuguese law changes that affect your visa, tax, or residency. Official government sources (Diário da República, AIMA, Portal das Finanças) translated into plain English. Sign up with email or Google. Free for 2 weeks, then €5/mo.',
+    version: 'v4.0',
+  },
+  {
+    id: 'compliance-intelligence-launch',
+    date: '2026-04-25',
+    category: 'feature',
+    title: 'Compliance Intelligence for professionals',
+    details: 'Automated regulatory monitoring for immigration lawyers and relocation firms at app.worktugal.com/compliance. Every rule change from Diário da República summarized and categorized by practice area. Founding Members lock in €29/mo for life.',
+    version: 'v4.0',
+  },
   // ── v3.2 — 2026-03-25 ─────────────────────────────────────────────────────
   {
     id: 'welcome-email',

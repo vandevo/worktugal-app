@@ -14,18 +14,18 @@ const fadeUp = {
 const FEATURES = [
   {
     icon: BarChart2,
-    title: 'Dual scoring system',
-    desc: 'A unique methodology combining Setup Score and Exposure Index for total clarity on your compliance status.',
+    title: 'Your Setup Score',
+    desc: 'See how your tax, visa, and social security setup scores from 0 to 100. Most people score lower than they expect.',
   },
   {
     icon: AlertTriangle,
-    title: 'Trap detection',
-    desc: 'Our engine identifies hidden compliance traps specific to remote workers and founders before they occur.',
+    title: 'Your Exposure Index',
+    desc: 'Pinpoint every compliance trap that applies to your situation with penalty amounts and legal citations.',
   },
   {
     icon: ShieldCheck,
-    title: 'Verified sources',
-    desc: 'Every finding is verified against official AT, AIMA, and Segurança Social regulations. No speculation.',
+    title: 'Your Action Plan',
+    desc: 'Get a prioritized list of what to fix first, linked directly to the official AT, AIMA, or Segurança Social source.',
   },
 ];
 
@@ -58,12 +58,12 @@ export const ModernHomePage: React.FC = () => {
             </span>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 dark:text-white leading-[1.05] tracking-tight">
-              Know your Portugal compliance risk.{' '}
-              <span className="text-slate-900/30 dark:text-white/25">Before it costs you.</span>
+              Most remote workers in Portugal have a compliance gap they do not know about.{' '}
+              <span className="text-slate-900/30 dark:text-white/25">The average uncovered exposure: over €3,750.</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-              The free diagnostic trusted by 900+ remote workers, freelancers, and founders navigating Portugal's complex tax and visa system.
+              14 questions. 2 minutes. See exactly where you are exposed and what to do about it. No account needed to start.
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
@@ -137,9 +137,9 @@ export const ModernHomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center md:justify-between items-center gap-6 opacity-70">
             {[
-              '900+ users',
-              'Verified against AT, AIMA, Segurança Social',
-              'Free forever',
+              '900+ expats checked',
+              'Average uncovered exposure: over €3,750',
+              '14 questions - 2 minutes',
             ].map((item, i) => (
               <React.Fragment key={item}>
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
@@ -195,7 +195,8 @@ export const ModernHomePage: React.FC = () => {
             Ready to check your compliance status?
           </motion.h2>
           <p className="text-[#10B981]/80 text-lg md:text-xl max-w-2xl relative z-10 leading-relaxed">
-            Join 900+ professionals who secured their life in Portugal with our intelligence platform.
+            Find your hidden risks in 2 minutes.{' '}
+            900+ expats already discovered compliance gaps they did not know existed. Most took action the same day.
           </p>
           <Link
             to="/diagnostic"
