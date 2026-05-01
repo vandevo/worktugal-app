@@ -14,6 +14,8 @@ Worktugal is Van's product for remote professionals navigating Portugal — clar
 
 **Fixed 2026-04-30:** RadarLanding.tsx bugs (pricing €12→€5, Listmonk integration, dead imports, bg clipping). auto-subscribe-radar edge function rewritten for Listmonk v6 session-cookie auth (Basic auth deprecated in v6). Resend tracking disabled on both domains (CNAME verification failing — not needed). Ghost members bulk-imported to Listmonk list 5 with source attribution. LISTMONK_RADAR_LIST_ID=3.
 
+**Fixed 2026-05-02:** RadarLanding.tsx copy refresh — hero headline rewritten to Challenger framing ("100+ rule changes a day..."), audience cards rewritten to pain-first copy (D7, freelancer, NHR), new "Cost of Inaction" section added with specific penalty amounts (€150-€500 NISS fines, months of AIMA delays, tax penalties), badge updated to "BETA: FIRST 500 LOCK €5/MO", CTA changed to "Start my free 2 weeks", stronger guarantee added. All em dashes replaced.
+
 **Critical gap as of 2026-04-26:** Zero paying users. B2B compliance intelligence landing page live with Stripe checkout wired (€29/mo Founding Member). Clarity Call (€149) CTAs replaced with Compliance Intelligence CTAs on diagnostic results and dashboard. Login redirect fixed. Awaiting Founding Member outreach validation (3 paid commitments required before building automated pipeline). 15k email list dormant.
 
 **Vault source of truth:** `/home/vandevo/projects/prompt-secret-vault/`

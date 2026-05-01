@@ -21,6 +21,7 @@ Ordered by leverage (updated 2026-04-30):
 7. **Growbot cancellation** — ~€7.80/mo. User requested cancellation. Draft email ready.
 
 **Completed:**
+- ~~RadarLanding.tsx copy refresh~~ → Sales copy rewrite: hero Challenger framing, audience pain cards, cost of inaction section, urgency badge, stronger guarantee.
 - ~~Make.com RSS scenario~~ → Replaced by n8n workflows + 5 Parallel AI regulatory monitors (weekly).
 - ~~Monthly compliance email in EmailOctopus~~ → Migrated to Listmonk (mail.worktugal.com). Template ready, not yet sent.
 - ~~Laptop MCP servers~~ → All 11 commands consolidated into vault, symlinked to ~/.config/opencode/commands/.

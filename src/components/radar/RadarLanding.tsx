@@ -25,11 +25,11 @@ const FAQ_ITEMS = [
   },
   {
     q: 'How is this different from just checking government sites myself?',
-    a: 'The Diário da República publishes 100+ items per day — most have nothing to do with you. We filter, translate, and deliver only the changes that affect your specific situation. Saves you hours every week.',
+    a: 'The Diário da República publishes 100+ items per day - most have nothing to do with you. We filter, translate, and deliver only the changes that affect your specific situation. Saves you hours every week.',
   },
   {
     q: 'Can I cancel anytime?',
-    a: 'Yes. No contracts, no commitments. Cancel with one click. If you stop paying, you stop getting alerts — that\'s it.',
+    a: 'Yes. No contracts, no commitments. Cancel with one click. If you stop paying, you stop getting alerts. That is it.',
   },
 ];
 
@@ -122,17 +122,17 @@ const AUDIENCES = [
   {
     icon: Shield,
     title: 'D7 / D8 visa holders',
-    desc: 'Know when residency rules, renewal requirements, or AIMA procedures change before your appointment.',
+    desc: 'One AIMA policy change you missed could delay your renewal by months. We catch it the day it is published.',
   },
   {
     icon: Clock,
     title: 'Freelancers and remote workers',
-    desc: 'Stay on top of tax filing deadlines, NISS obligations, and IRS changes that affect your income.',
+    desc: 'Portugal changes tax rules mid-year without warning. Miss one and you are filing corrections, not just filing.',
   },
   {
     icon: Bell,
     title: 'NHR / IFICI applicants',
-    desc: 'Tax regime rules change frequently. Get alerted the moment eligibility criteria or benefits shift.',
+    desc: 'The rules that saved you 20% in taxes can change overnight. Do not find out on your next return.',
   },
 ];
 
@@ -234,9 +234,9 @@ export const RadarLanding: React.FC = () => {
   return (
     <>
       <Seo
-        title="Portugal Radar — rule changes that affect you, before they hit you"
+        title="Portugal Radar - rule changes that affect you, before they hit you"
         description="Weekly plain-English digest of Portuguese law changes affecting your visa, tax, and residency. €5/mo after your first 2 weeks free."
-        ogTitle="Portugal Radar — never miss a rule change"
+        ogTitle="Portugal Radar - never miss a rule change"
         ogDescription="We monitor 50+ Portuguese government sources and send you only the changes that affect your situation. Free for 2 weeks, then €5/mo."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
@@ -267,16 +267,16 @@ export const RadarLanding: React.FC = () => {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="inline-flex items-center self-start text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full">
-              FREE FOR 2 WEEKS, THEN €5/MO
+              BETA: FIRST 500 LOCK €5/MO
             </span>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 dark:text-white leading-[1.05] tracking-tight">
-              Portugal Radar.{' '}
-              <span className="text-slate-900/30 dark:text-white/25">Changes that affect you, before they hit you.</span>
+              The Portuguese government publishes 100+ rule changes a day.{' '}
+              <span className="text-slate-900/30 dark:text-white/25">One of them will affect your visa, taxes, or residency. We will tell you which one.</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-              We monitor 50+ Portuguese government sources and send you a weekly digest of the rule changes that affect your visa, tax, or residency. Plain English. No jargon.
+              Diario da Republica, AIMA, and tax authority updates translated into plain English. Every alert links to the official source. Free for 2 weeks.
             </p>
 
             {/* Signup form */}
@@ -307,7 +307,7 @@ export const RadarLanding: React.FC = () => {
                     disabled={submitting}
                     className="inline-flex items-center justify-center gap-2 bg-[#0F3D2E] text-white px-7 py-4 rounded-xl text-base font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
                   >
-                    {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Get free updates <ArrowRight className="w-4 h-4" /></>}
+                    {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Start my free 2 weeks <ArrowRight className="w-4 h-4" /></>}
                   </button>
                 </form>
 
@@ -344,7 +344,7 @@ export const RadarLanding: React.FC = () => {
             )}
             {!submitted && (
               <p className="text-sm text-slate-400 dark:text-slate-500">
-                Free for 2 weeks. Cancel anytime. No spam — just the updates that matter.
+                Free for 2 weeks. Cancel anytime. If you do not spot a change that affects you, the next month is free.
               </p>
             )}
           </motion.div>
@@ -490,7 +490,7 @@ export const RadarLanding: React.FC = () => {
             {
               step: '3',
               title: 'You get alerted',
-              desc: 'Weekly digest email filtered by your situation — D7 visa, NHR status, freelancer tax, etc. Only what matters to you.',
+              desc: 'Weekly digest email filtered by your situation - D7 visa, NHR status, freelancer tax, etc. Only what matters to you.',
             },
             {
               step: '4',
@@ -533,6 +533,40 @@ export const RadarLanding: React.FC = () => {
               </motion.div>
             );
           })}
+        </div>
+      </section>
+
+      {/* ── Cost of inaction ──────────────────────────────────── */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="text-center mb-10">
+          <span className="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full">
+            THE COST OF NOT KNOWING
+          </span>
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mt-4 mb-6">
+            What happens if you don't sign up?
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-8 rounded-2xl border border-red-200 dark:border-red-900/30 bg-red-50/50 dark:bg-red-950/20 text-center">
+            <p className="text-lg font-bold text-slate-900 dark:text-white mb-2">Miss a NISS payment deadline</p>
+            <p className="text-3xl font-black text-red-500">€150 to €500</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">in fines</p>
+          </div>
+          <div className="p-8 rounded-2xl border border-amber-200 dark:border-amber-900/30 bg-amber-50/50 dark:bg-amber-950/20 text-center">
+            <p className="text-lg font-bold text-slate-900 dark:text-white mb-2">Miss an AIMA procedure change</p>
+            <p className="text-3xl font-black text-amber-500">Months</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">of renewal delays</p>
+          </div>
+          <div className="p-8 rounded-2xl border border-orange-200 dark:border-orange-900/30 bg-orange-50/50 dark:bg-orange-950/20 text-center">
+            <p className="text-lg font-bold text-slate-900 dark:text-white mb-2">Miss a tax rule change</p>
+            <p className="text-3xl font-black text-orange-500">Interest + penalties</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">on your next return</p>
+          </div>
+        </div>
+        <div className="text-center mt-8">
+          <p className="text-lg text-slate-600 dark:text-slate-400">
+            Radar costs <span className="font-bold text-slate-900 dark:text-white">€5/mo</span>. Not knowing costs more.
+          </p>
         </div>
       </section>
 
