@@ -120,11 +120,11 @@ const FALLBACK_ENTRIES: ChangelogEntry[] = [
     version: 'v4.0',
   },
   {
-    id: 'compliance-intelligence-launch',
+    id: 'compliance-monitor-pipeline',
     date: '2026-04-25',
-    category: 'feature',
-    title: 'Compliance Intelligence for professionals',
-    details: 'Automated regulatory monitoring for immigration lawyers and relocation firms at app.worktugal.com/compliance. Every rule change from Diário da República summarized and categorized by practice area. Founding Members lock in €29/mo for life.',
+    category: 'integration',
+    title: 'Automated regulatory monitoring pipeline',
+    details: 'Live infrastructure monitoring Diário da República via Parallel AI + n8n. Every regulatory change is detected, summarized, and stored within hours of publication. Powers both Portugal Radar alerts and the compliance database.',
     version: 'v4.0',
   },
   // ── v3.2 — 2026-03-25 ─────────────────────────────────────────────────────
