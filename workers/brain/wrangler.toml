@@ -7,10 +7,6 @@ compatibility_flags = ["nodejs_compat"]
 SUPABASE_URL = "https://jbmfneyofhqlwnnfuqbd.supabase.co"
 N8N_WEBHOOK = "https://n8n.worktugal.com/webhook/vanbrain-intake"
 
-# Secrets (set via: wrangler secret put SECRET_NAME)
-# BRAIN_API_KEY
-# SUPABASE_SERVICE_KEY
-
 [[routes]]
 pattern = "brain.worktugal.com/*"
 zone_name = "worktugal.com"

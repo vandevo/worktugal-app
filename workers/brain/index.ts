@@ -33,14 +33,17 @@ export default {
       return new Response(null, { headers: CORS });
     }
 
+    const url = new URL(request.url);
+    const path = url.pathname.replace(/\/$/, '') || '/';
+
+    if (path === '/health') {
+      return json({ status: 'ok', service: 'vanbrain' });
+    }
+
     if (!authorized(request, env)) {
       return err('Unauthorized', 401);
     }
 
-    const url = new URL(request.url);
-    const path = url.pathname.replace(/\/$/, '') || '/';
-
-    // POST /memory — write via n8n (handles embedding)
     if (request.method === 'POST' && path === '/memory') {
       let body: unknown;
       try {
@@ -59,12 +62,11 @@ export default {
       return json(data, res.status);
     }
 
-    // GET /memory — read with optional filters
     if (request.method === 'GET' && path === '/memory') {
       const category = url.searchParams.get('category');
       const key = url.searchParams.get('key');
       const agent = url.searchParams.get('agent');
-      const q = url.searchParams.get('q'); // keyword search
+      const q = url.searchParams.get('q');
       const limit = Math.min(parseInt(url.searchParams.get('limit') ?? '20'), 100);
 
       const params = new URLSearchParams();
@@ -78,7 +80,6 @@ export default {
 
       let supabaseUrl = `${env.SUPABASE_URL}/rest/v1/agent_memory?${params}`;
 
-      // Full-text search via GIN index
       if (q) {
         const ftsParam = `fts=phraseto_tsquery.${encodeURIComponent(q)}`;
         supabaseUrl += `&${ftsParam}`;
@@ -96,7 +97,6 @@ export default {
       return json(data, res.status);
     }
 
-    // GET /memory/categories — list distinct categories + counts
     if (request.method === 'GET' && path === '/memory/categories') {
       const res = await fetch(
         `${env.SUPABASE_URL}/rest/v1/agent_memory?select=category&order=category`,
