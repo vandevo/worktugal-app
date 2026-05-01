@@ -107,7 +107,7 @@ const FALLBACK_ENTRIES: ChangelogEntry[] = [
     date: '2026-05-01',
     category: 'feature',
     title: 'Live uptime status on every page',
-    details: 'All Worktugal pages now show a live status badge in the footer. Green dot = all systems operational. Powered by Uptime Kuma on our infrastructure, checked every 60 seconds.',
+    details: 'Every page now shows a live status indicator in the footer. Green dot means all systems operational, checked every 60 seconds.',
     version: 'v4.1',
   },
   // ── v4.0 — 2026-04-28 ─────────────────────────────────────────────────────
@@ -123,8 +123,8 @@ const FALLBACK_ENTRIES: ChangelogEntry[] = [
     id: 'compliance-monitor-pipeline',
     date: '2026-04-25',
     category: 'integration',
-    title: 'Automated regulatory monitoring pipeline',
-    details: 'Live infrastructure monitoring Diário da República via Parallel AI + n8n. Every regulatory change is detected, summarized, and stored within hours of publication. Powers both Portugal Radar alerts and the compliance database.',
+    title: 'Compliance Monitor active - tracking Portuguese law daily',
+    details: 'Every regulatory change published in Diário da República is detected and summarized within hours. New rules affecting visa, tax, and social security are flagged and categorized so you know what changed and whether it affects your situation.',
     version: 'v4.0',
   },
   // ── v3.2 — 2026-03-25 ─────────────────────────────────────────────────────
@@ -231,7 +231,7 @@ const FALLBACK_ENTRIES: ChangelogEntry[] = [
     date: '2026-03-19',
     category: 'feature',
     title: 'Google Sign-In added',
-    details: 'Users can now sign in or create an account with a single click using their Google account. OAuth handled via Supabase — no separate password needed.',
+    details: 'Users can now sign in or create an account with a single click using their Google account. No separate password needed.',
     version: 'v3.0',
   },
   // ── v2.8 — 2026-03-13 ─────────────────────────────────────────────────────
