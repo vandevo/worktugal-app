@@ -51,7 +51,7 @@ supabase/
 | My Account Dashboard | Live `/dashboard` | Signed-in users only |
 | Google Sign-In | Live | Supabase OAuth |
 | Portugal Radar | Live `/radar` | B2C compliance monitor landing. Pricing: €5/mo. Email + Google signup wired to Listmonk list 3 via auto-subscribe-radar edge fn. Ghost members synced to Listmonk list 5. |
-| Compliance Monitor (Parallel AI) | Live | 2 daily monitors → n8n → Qwen → Supabase → weekly digest |
+| Compliance Monitor (Parallel AI) | Live | 2 daily monitors → n8n → Supabase → Telegram + email + weekly digest |
 | B2B Compliance Intelligence | Live `/compliance` | Landing page + Founding Member outreach |
 | Portugal Clarity Call (149 EUR) | Removed | Replaced by Compliance Intelligence CTA (€29/mo) |
 | Paid Risk Scan (29 EUR) | Deferred | Stripe not wired yet |
@@ -74,6 +74,7 @@ The session index lists every relevant strategy, research, feature, and design f
 | Phase 0 execution | `worktugal-phase0-plan.md` |
 | Email flows | `resend-email-system.md` |
 | Secrets | `api-secrets-os.md` |
+| n8n workflows | `n8n-agent-manual.md` (vault) — workflow IDs, secrets locations, sandbox limits |
 | Research | `resources/research/INDEX.md` |
 
 ---
