@@ -1,7 +1,8 @@
-Last session: 2026-05-01-stack-monitoring-tools-v4.1
+Last session: 2026-05-03-marketing-copy-v4.5
 
 | Session | Date | Summary |
-|---|---|---|
+|---|---|---|---|
+| 2026-05-03-marketing-copy-v4.5 | 2026-05-03 | RadarLanding + homepage copy refresh, changelog entries + stack scrub, Ghost blog audit (settings, theme, root cause), Portuguese accent fixes, /ship 3 projects |
 | 2026-05-01-stack-monitoring-tools-v4.1 | 2026-05-01 | VanBrain CI/CD, RadarLanding bugfixes, Listmonk v6 auth, GlitchTip/Uptime Kuma/GA4 API, Supabase security cleanup, env var fix |
 | 2026-04-29-radar-strategy-brief-v1.0 | 2026-04-29 | Strategy review: /radar audit (4 bugs found), pricing €12→€5, naming decision "Worktugal Brief", brand architecture, session index created |
 | 2026-04-27-mcp-server-fixes-v0.1 | 2026-04-27 | Fixed MCP timeouts: cloudflare/github via wrapper scripts, context7 switched from local stdio to remote HTTP |
