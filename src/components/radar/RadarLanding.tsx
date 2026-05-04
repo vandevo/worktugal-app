@@ -145,6 +145,13 @@ export const RadarLanding: React.FC = () => {
   const [error, setError] = useState('');
   const [googleLoading, setGoogleLoading] = useState(false);
 
+  // Pre-fill email when user is authenticated
+  React.useEffect(() => {
+    if (user?.email) {
+      setEmail(user.email);
+    }
+  }, [user]);
+
   // Check for Google signup callback
   React.useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -317,9 +324,9 @@ export const RadarLanding: React.FC = () => {
                 className="bg-[#10B981]/10 border border-[#10B981]/20 rounded-2xl p-6 flex flex-col gap-4"
               >
                 <div>
-                  <p className="text-lg font-bold text-[#0F3D2E] dark:text-[#10B981]">You're signed in.</p>
+                  <p className="text-lg font-bold text-[#0F3D2E] dark:text-[#10B981]">You're signed in with Google.</p>
                   <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                    Want to get free compliance headlines in your inbox? Enter your email below.
+                    Enter your email to get free compliance headlines, or upgrade for the full brief below.
                   </p>
                 </div>
                 <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3">
@@ -405,6 +412,9 @@ export const RadarLanding: React.FC = () => {
             {error && (
               <p className="text-sm text-red-500">{error}</p>
             )}
+            {!user && !submitted && (
+              <p className="text-xs text-slate-400 dark:text-slate-500">Free weekly digest. Next edition drops Thursday. No spam. Unsubscribe anytime.</p>
+            )}
           </motion.div>
 
           {/* Right: preview cards */}
@@ -470,8 +480,8 @@ export const RadarLanding: React.FC = () => {
           <div className="flex flex-wrap justify-center md:justify-between items-center gap-6 opacity-70">
             {[
               '50+ government sources monitored',
-              'Plain-English summaries',
-              'Official source links',
+              '900+ compliance checkups completed',
+              'Monitored 7 days a week',
             ].map((item, i) => (
               <React.Fragment key={item}>
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
@@ -548,7 +558,7 @@ export const RadarLanding: React.FC = () => {
             {
               step: '3',
               title: 'You get alerted',
-              desc: 'Weekly digest email filtered by your situation - D7 visa, NHR status, freelancer tax, etc. Only what matters to you.',
+              desc: 'Weekly digest delivered to your inbox. Every change summarized in plain English with a link to the official source.',
             },
             {
               step: '4',
@@ -629,6 +639,7 @@ export const RadarLanding: React.FC = () => {
       </section>
 
       {/* ── Upsell: Free → Worktugal Pro ──────────────────────────── */}
+      {!submitted && (
       <section className="max-w-lg mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <div className="bg-gradient-to-b from-[#0F3D2E] to-[#0A2B20] rounded-2xl p-10 text-center flex flex-col items-center gap-6 relative overflow-hidden border border-[#10B981]/10">
           {/* Dot pattern overlay */}
@@ -662,6 +673,7 @@ export const RadarLanding: React.FC = () => {
           </p>
         </div>
       </section>
+      )}
 
       {/* ── FAQ ──────────────────────────────────────────────────── */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
