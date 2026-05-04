@@ -10,18 +10,19 @@ export const LoginPage: React.FC = () => {
   const [showModal, setShowModal] = useState(true);
 
   const redirect = searchParams.get('redirect') || '/dashboard';
+  const safeRedirect = redirect.startsWith('/') ? redirect : `/${redirect}`;
 
   useEffect(() => {
     if (user) {
-      navigate(redirect, { replace: true });
+      navigate(safeRedirect, { replace: true });
     }
-  }, [user, navigate, redirect]);
+  }, [user, navigate, safeRedirect]);
 
   return (
     <div className="min-h-[60vh] flex items-center justify-center">
       <AuthModal
         isOpen={showModal}
-        onClose={() => navigate(redirect, { replace: true })}
+        onClose={() => navigate(safeRedirect, { replace: true })}
         initialMode="login"
         source="login_page"
       />

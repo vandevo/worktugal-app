@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Bell, Shield, Clock, ChevronDown, Loader2, Mail } from 'lucide-react';
 import { Seo } from '../Seo';
 import { supabase } from '../../lib/supabase';
+import { useAuth } from '../../contexts/AuthContext';
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -137,6 +138,7 @@ const AUDIENCES = [
 ];
 
 export const RadarLanding: React.FC = () => {
+  const { user } = useAuth();
   const [email, setEmail] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -298,7 +300,7 @@ export const RadarLanding: React.FC = () => {
                     Free updates tell you what changed. Worktugal Pro tells you what to do about it — step-by-step, before the next deadline.
                   </p>
                   <a
-                    href="https://app.worktugal.com/login?redirect=subscribe"
+                    href="https://app.worktugal.com/login?redirect=/subscribe"
                     className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-5 py-3 rounded-xl text-sm font-bold hover:bg-[#1A5C44] transition-all"
                   >
                     Subscribe to Worktugal Pro · €5/mo <ArrowRight className="w-3.5 h-3.5" />
@@ -308,7 +310,51 @@ export const RadarLanding: React.FC = () => {
                   </p>
                 </div>
               </motion.div>
-            ) : (
+            ) : user ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-[#10B981]/10 border border-[#10B981]/20 rounded-2xl p-6 flex flex-col gap-4"
+              >
+                <div>
+                  <p className="text-lg font-bold text-[#0F3D2E] dark:text-[#10B981]">You're signed in.</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    Want to get free compliance headlines in your inbox? Enter your email below.
+                  </p>
+                </div>
+                <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    className="flex-1 px-5 py-4 rounded-xl border border-[#0F3D2E]/15 dark:border-white/10 bg-white dark:bg-[#161618] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#0F3D2E]/30 dark:focus:ring-[#10B981]/30 text-base"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="inline-flex items-center justify-center gap-2 bg-[#0F3D2E] text-white px-7 py-4 rounded-xl text-base font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
+                  >
+                    {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Join free <ArrowRight className="w-4 h-4" /></>}
+                  </button>
+                </form>
+                <div className="border-t border-[#10B981]/15 pt-4">
+                  <p className="text-sm font-bold text-[#0F3D2E] dark:text-[#10B981] mb-3">Want the full brief?</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">
+                    Free updates tell you what changed. Worktugal Pro tells you what to do about it — step-by-step, before the next deadline.
+                  </p>
+                  <a
+                    href="https://app.worktugal.com/subscribe"
+                    className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-5 py-3 rounded-xl text-sm font-bold hover:bg-[#1A5C44] transition-all"
+                  >
+                    Subscribe to Worktugal Pro · €5/mo <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+                    Signed in as {user.email}. No credit card until you subscribe.
+                  </p>
+                </div>
+              </motion.div>) : (
               <div className="flex flex-col gap-3 pt-2">
                 <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3">
                   <input
