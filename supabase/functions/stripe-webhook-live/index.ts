@@ -4,6 +4,7 @@ import { createClient } from 'npm:@supabase/supabase-js@2.49.1';
 
 const stripeSecretKey = Deno.env.get('STRIPE_SECRET_KEY_LIVE')!;
 const stripeWebhookSecret = Deno.env.get('STRIPE_WEBHOOK_SECRET_LIVE')!;
+const GHOST_URL = 'https://blog.worktugal.com/ghost/api/admin';
 
 const stripe = new Stripe(stripeSecretKey, {
   appInfo: {
@@ -131,9 +132,16 @@ async function handleEvent(event: Stripe.Event) {
 
     const { mode, payment_status } = stripeData as Stripe.Checkout.Session;
 
+    if (event.type === 'customer.subscription.deleted') {
+      console.info(`Subscription cancelled for customer: ${customerId} — downgrading Ghost membership`);
+      await syncGhostMembership(customerId, 'deactivate');
+      return;
+    }
+
     if (isSubscription) {
       console.info(`Starting subscription sync for customer: ${customerId}`);
       await syncCustomerFromStripe(customerId);
+      await syncGhostMembership(customerId, 'activate');
     } else if (mode === 'payment' && payment_status === 'paid') {
       try {
         const {
@@ -281,6 +289,117 @@ async function handleEvent(event: Stripe.Event) {
     }
   }
 }
+
+// ── Ghost Admin API helpers ───────────────────────────────────────────────────
+
+async function generateGhostJWT(adminKey: string): Promise<string> {
+  const [id, secret] = adminKey.split(':');
+  const secretBytes = new Uint8Array(
+    (secret.match(/.{2}/g) as string[]).map((b: string) => parseInt(b, 16))
+  );
+  const key = await crypto.subtle.importKey(
+    'raw', secretBytes, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']
+  );
+  const now = Math.floor(Date.now() / 1000);
+  const encode = (obj: object) =>
+    btoa(JSON.stringify(obj)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+  const header = encode({ alg: 'HS256', typ: 'JWT', kid: id });
+  const payload = encode({ iat: now, exp: now + 300, aud: '/admin/' });
+  const data = new TextEncoder().encode(`${header}.${payload}`);
+  const sigBuf = await crypto.subtle.sign('HMAC', key, data);
+  const sig = btoa(String.fromCharCode(...new Uint8Array(sigBuf)))
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+  return `${header}.${payload}.${sig}`;
+}
+
+async function syncGhostMembership(customerId: string, action: 'activate' | 'deactivate'): Promise<void> {
+  const ghostAdminKey = Deno.env.get('GHOST_ADMIN_API_KEY');
+  if (!ghostAdminKey) {
+    console.log('GHOST_ADMIN_API_KEY not set — skipping Ghost membership sync');
+    return;
+  }
+  try {
+    const customer = await stripe.customers.retrieve(customerId);
+    if ('deleted' in customer && customer.deleted) {
+      console.log(`Stripe customer ${customerId} deleted, skipping Ghost sync`);
+      return;
+    }
+    const email = (customer as Stripe.Customer).email;
+    if (!email) {
+      console.log(`No email for Stripe customer ${customerId}, skipping Ghost sync`);
+      return;
+    }
+    const name = (customer as Stripe.Customer).name || '';
+    const jwt = await generateGhostJWT(ghostAdminKey);
+    const headers: Record<string, string> = {
+      'Authorization': `Ghost ${jwt}`,
+      'Content-Type': 'application/json',
+    };
+
+    // Get paid tier ID
+    const tiersRes = await fetch(`${GHOST_URL}/tiers/`, { headers });
+    if (!tiersRes.ok) throw new Error(`Ghost tiers fetch failed: ${tiersRes.status}`);
+    const tiersData = await tiersRes.json();
+    const paidTier = tiersData.tiers?.find((t: Record<string, unknown>) => t.type === 'paid');
+    if (!paidTier) throw new Error('Ghost paid tier not found');
+
+    // Find existing Ghost member by email
+    const searchRes = await fetch(
+      `${GHOST_URL}/members/?search=${encodeURIComponent(email)}&limit=1`,
+      { headers }
+    );
+    const searchData = await searchRes.json();
+    const existing = searchData.members?.[0];
+
+    if (action === 'activate') {
+      if (existing) {
+        const res = await fetch(`${GHOST_URL}/members/${existing.id}/`, {
+          method: 'PUT',
+          headers,
+          body: JSON.stringify({ members: [{ ...existing, tiers: [{ id: paidTier.id }] }] }),
+        });
+        if (!res.ok) throw new Error(`Ghost member upgrade failed: ${res.status} ${await res.text()}`);
+        console.log(`Ghost: upgraded existing member ${email} to paid tier`);
+      } else {
+        const res = await fetch(`${GHOST_URL}/members/`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            members: [{
+              email,
+              name,
+              tiers: [{ id: paidTier.id }],
+              labels: [{ name: 'stripe-subscriber' }],
+              send_email: true,
+              email_type: 'subscribe',
+            }],
+          }),
+        });
+        if (!res.ok) throw new Error(`Ghost member create failed: ${res.status} ${await res.text()}`);
+        console.log(`Ghost: created new paid member ${email}`);
+      }
+    } else {
+      // Deactivate: drop to free member (keep member, remove paid tier)
+      if (existing) {
+        const res = await fetch(`${GHOST_URL}/members/${existing.id}/`, {
+          method: 'PUT',
+          headers,
+          body: JSON.stringify({ members: [{ ...existing, tiers: [] }] }),
+        });
+        if (!res.ok) throw new Error(`Ghost member downgrade failed: ${res.status} ${await res.text()}`);
+        console.log(`Ghost: downgraded ${email} to free tier on cancellation`);
+      } else {
+        console.log(`Ghost: no member found for ${email} on deactivate, nothing to do`);
+      }
+    }
+  } catch (err: unknown) {
+    // Ghost sync failure must never block payment processing
+    const message = err instanceof Error ? err.message : String(err);
+    console.error(`Ghost membership sync error for customer ${customerId}: ${message}`);
+  }
+}
+
+// ── Stripe subscription sync ──────────────────────────────────────────────────
 
 async function syncCustomerFromStripe(customerId: string) {
   try {

@@ -295,16 +295,16 @@ export const RadarLanding: React.FC = () => {
                 <div className="border-t border-[#10B981]/15 pt-4">
                   <p className="text-sm font-bold text-[#0F3D2E] dark:text-[#10B981] mb-3">Want the full brief?</p>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">
-                    Weekly step-by-step actions, gated reports, and full diagnostic history.
+                    Free updates tell you what changed. Worktugal Pro tells you what to do about it — step-by-step, before the next deadline.
                   </p>
                   <a
-                    href="https://blog.worktugal.com/#/portal/signup"
+                    href="https://app.worktugal.com/login?redirect=subscribe"
                     className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-5 py-3 rounded-xl text-sm font-bold hover:bg-[#1A5C44] transition-all"
                   >
                     Subscribe to Worktugal Pro · €5/mo <ArrowRight className="w-3.5 h-3.5" />
                   </a>
                   <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
-                    Cancel anytime. If you do not spot a change that affects you, the next month is free.
+                    Sign in with Google · cancel anytime · first month free if we miss anything that affects you
                   </p>
                 </div>
               </motion.div>
