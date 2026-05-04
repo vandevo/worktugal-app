@@ -1,7 +1,8 @@
-Last session: 2026-05-03-marketing-copy-v4.5
+Last session: 2026-05-04-ghost-funnel-build-v4.7
 
 | Session | Date | Summary |
 |---|---|---|---|
+| 2026-05-04-ghost-funnel-build-v4.7 | 2026-05-04 | Ghost blog turned into full lead capture + conversion funnel, app pricing unified to €5/mo, Radar upsell added to homepage, 5/18 Google Tasks done |
 | 2026-05-03-marketing-copy-v4.5 | 2026-05-03 | RadarLanding + homepage copy refresh, changelog entries + stack scrub, Ghost blog audit (settings, theme, root cause), Portuguese accent fixes, /ship 3 projects |
 | 2026-05-01-stack-monitoring-tools-v4.1 | 2026-05-01 | VanBrain CI/CD, RadarLanding bugfixes, Listmonk v6 auth, GlitchTip/Uptime Kuma/GA4 API, Supabase security cleanup, env var fix |
 | 2026-04-29-radar-strategy-brief-v1.0 | 2026-04-29 | Strategy review: /radar audit (4 bugs found), pricing €12→€5, naming decision "Worktugal Brief", brand architecture, session index created |
