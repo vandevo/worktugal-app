@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../hooks/useAuth';
 import { useUserProfile, notifyProfileUpdate } from '../../hooks/useUserProfile';
+import { useSubscription } from '../../hooks/useSubscription';
 import { supabase } from '../../lib/supabase';
 import { updateUserProfile } from '../../lib/profile';
 import {
@@ -64,6 +65,7 @@ function ScoreBar({ value, color }: { value: number; color: string }) {
 export const ClientDashboard: React.FC = () => {
   const { user } = useAuth();
   const { profile, getDisplayName } = useUserProfile();
+  const { subscription, loading: subLoading } = useSubscription();
   const navigate = useNavigate();
   const [diagnostics, setDiagnostics] = useState<PastDiagnostic[]>([]);
   const [loading, setLoading] = useState(true);
@@ -142,6 +144,54 @@ export const ClientDashboard: React.FC = () => {
             Track your Portugal compliance status and run new diagnostics.
           </p>
         </div>
+
+        {/* ── Membership status ──────────────────────────────────────── */}
+        {!subLoading && (
+          <div className="mb-6">
+            {subscription ? (
+              <div className="bg-[#10B981]/5 border border-[#10B981]/15 rounded-2xl p-5 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#10B981]/15 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle className="w-5 h-5 text-[#10B981]" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-slate-900 dark:text-white">
+                      Worktugal Pro Member
+                    </p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      Weekly briefs · step-by-step actions · compliance calendar
+                    </p>
+                  </div>
+                </div>
+                <a
+                  href="https://blog.worktugal.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#0F3D2E] dark:text-[#10B981] hover:underline"
+                >
+                  Read on Ghost <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+            ) : (
+              <div className="bg-white dark:bg-[#161618] border border-[#0F3D2E]/8 dark:border-white/8 rounded-2xl p-5 flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white mb-0.5">
+                    Free compliance headlines
+                  </p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    Upgrade to Worktugal Pro for weekly step-by-step actions.
+                  </p>
+                </div>
+                <Link
+                  to="/subscribe"
+                  className="flex-shrink-0 inline-flex items-center gap-1.5 bg-[#0F3D2E] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-[#1A5C44] transition-all"
+                >
+                  Upgrade · €5/mo <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* ── Score summary if we have a latest run ───────────────── */}
         {latest && (
