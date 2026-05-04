@@ -177,6 +177,30 @@ export const ModernHomePage: React.FC = () => {
         </div>
       </section>
 
+      {/* ── Radar upsell ─────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <motion.div
+          {...fadeUp}
+          className="bg-white dark:bg-[#161618] border border-[#0F3D2E]/10 dark:border-white/8 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12"
+        >
+          <div className="flex-1">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981]">From €5/mo</span>
+            <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-2">
+              Your compliance gaps do not stay static.
+            </h3>
+            <p className="text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+              Portugal's rules change weekly. Your diagnostic score will drift. Radar monitors official sources every day and tells you what changed, what it means, and what to do.
+            </p>
+          </div>
+          <Link
+            to="/radar"
+            className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-7 py-4 rounded-xl text-base font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 hover:scale-[1.02] active:scale-[0.98] transition-all whitespace-nowrap flex-shrink-0"
+          >
+            Get on the Radar <ArrowRight className="w-4 h-4" />
+          </Link>
+        </motion.div>
+      </section>
+
       {/* ── CTA section ──────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <div className="bg-[#0F3D2E] rounded-2xl p-12 md:p-20 text-center flex flex-col items-center gap-8 relative overflow-hidden">
