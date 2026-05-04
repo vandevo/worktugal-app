@@ -307,7 +307,7 @@ export const RadarLanding: React.FC = () => {
                     disabled={submitting}
                     className="inline-flex items-center justify-center gap-2 bg-[#0F3D2E] text-white px-7 py-4 rounded-xl text-base font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
                   >
-                    {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Start my free 2 weeks <ArrowRight className="w-4 h-4" /></>}
+                    {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Join free <ArrowRight className="w-4 h-4" /></>}
                   </button>
                 </form>
 
