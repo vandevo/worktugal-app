@@ -36,6 +36,7 @@ import { AppointmentManagement } from './components/admin/AppointmentManagement'
 import { PaidReviewsAdmin } from './components/admin/PaidReviewsAdmin';
 import { Changelog } from './components/Changelog';
 import { CheckoutSuccess } from './components/CheckoutSuccess';
+import { SubscribePage } from './components/radar/SubscribePage';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
             <Route path="/radar" element={<RadarLanding />} />
             <Route path="/compliance" element={<Navigate to="/radar" replace />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/subscribe" element={<SubscribePage />} />
             <Route path="/compliance-review" element={<Navigate to="/diagnostic" replace />} />
 
             <Route path="/changelog" element={<Changelog />} />
