@@ -62,7 +62,7 @@ export const SubscribePage: React.FC = () => {
         </h1>
 
         <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-8">
-          Free updates tell you what changed. Worktugal Pro tells you what to do about it — step-by-step, before the next deadline.
+          Free updates tell you what changed. Worktugal Pro tells you what to do about it. Step-by-step, before the next deadline.
         </p>
 
         <div className="bg-white dark:bg-[#161618] border border-[#0F3D2E]/10 dark:border-white/8 rounded-2xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">

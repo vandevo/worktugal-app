@@ -297,7 +297,7 @@ export const RadarLanding: React.FC = () => {
                 <div className="border-t border-[#10B981]/15 pt-4">
                   <p className="text-sm font-bold text-[#0F3D2E] dark:text-[#10B981] mb-3">Want the full brief?</p>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">
-                    Free updates tell you what changed. Worktugal Pro tells you what to do about it — step-by-step, before the next deadline.
+                    Free updates tell you what changed. Worktugal Pro tells you what to do about it. Step-by-step, before the next deadline.
                   </p>
                   <a
                     href="https://app.worktugal.com/login?redirect=/subscribe"
@@ -342,7 +342,7 @@ export const RadarLanding: React.FC = () => {
                 <div className="border-t border-[#10B981]/15 pt-4">
                   <p className="text-sm font-bold text-[#0F3D2E] dark:text-[#10B981] mb-3">Want the full brief?</p>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">
-                    Free updates tell you what changed. Worktugal Pro tells you what to do about it — step-by-step, before the next deadline.
+                    Free updates tell you what changed. Worktugal Pro tells you what to do about it. Step-by-step, before the next deadline.
                   </p>
                   <a
                     href="https://app.worktugal.com/subscribe"
@@ -649,7 +649,7 @@ export const RadarLanding: React.FC = () => {
             €5/mo. Cancel anytime.
           </motion.h2>
           <p className="text-slate-300 text-base max-w-sm relative z-10 leading-relaxed">
-            Free updates tell you what changed. Worktugal Pro tells you what to do about it — step-by-step, before the next deadline.
+            Free updates tell you what changed. Worktugal Pro tells you what to do about it. Step-by-step, before the next deadline.
           </p>
           <a
             href="https://app.worktugal.com/login?redirect=subscribe"
