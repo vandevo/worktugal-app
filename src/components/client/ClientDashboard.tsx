@@ -271,36 +271,6 @@ export const ClientDashboard: React.FC = () => {
           </div>
         )}
 
-        {/* ── Compliance Intelligence banner (only if latest run has high/medium flags) ── */}
-        {latest && latest.trap_flags && latest.trap_flags.some(t => t.severity === 'high' || t.severity === 'medium') && (
-          <div className="bg-[#0F3D2E] rounded-2xl px-6 py-5 mb-6 relative overflow-hidden">
-            <div
-              className="absolute inset-0 opacity-10"
-              style={{
-                backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-                backgroundSize: '32px 32px',
-              }}
-            />
-            <div className="relative z-10 flex flex-col sm:flex-row items-center gap-3 sm:gap-5">
-              <div className="text-center sm:text-left sm:flex-1 min-w-0">
-                <p className="text-sm font-bold text-white leading-snug">
-                  Your flags need monitoring, not guessing.
-                </p>
-                <p className="text-xs text-white/50 mt-0.5">
-                  Weekly Portugal law alerts. €5/mo.
-                </p>
-              </div>
-              <Link
-                to="/radar"
-                className="flex-shrink-0 inline-flex items-center justify-center gap-1.5 bg-[#10B981] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[#059669] active:scale-[0.97] transition-all shadow-lg shadow-black/20 min-h-[44px]"
-              >
-                View Plans
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </div>
-        )}
-
         {/* ── Quick action cards ───────────────────────────────────── */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
           {/* Run diagnostic */}
