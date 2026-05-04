@@ -504,7 +504,7 @@ export const DiagnosticResults: React.FC = () => {
                   These flags do not resolve on their own.
                 </h3>
                 <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-md">
-                  Get weekly alerts when Portuguese law changes affect your situation. Free for 2 weeks.
+                  Get weekly alerts when Portuguese law changes affect your situation.
                 </p>
                 <Link
                   to="/radar"
@@ -514,7 +514,7 @@ export const DiagnosticResults: React.FC = () => {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.15em] mt-4">
-                  Free for 2 weeks, then €12/mo
+                  €5/mo. Cancel anytime.
                 </p>
               </div>
             </motion.div>

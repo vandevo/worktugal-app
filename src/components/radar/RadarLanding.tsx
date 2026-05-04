@@ -235,9 +235,9 @@ export const RadarLanding: React.FC = () => {
     <>
       <Seo
         title="Portugal Radar - rule changes that affect you, before they hit you"
-        description="Weekly plain-English digest of Portuguese law changes affecting your visa, tax, and residency. €5/mo after your first 2 weeks free."
+        description="Weekly plain-English digest of Portuguese law changes affecting your visa, tax, and residency. €5/mo."
         ogTitle="Portugal Radar - never miss a rule change"
-        ogDescription="We monitor 50+ Portuguese government sources and send you only the changes that affect your situation. Free for 2 weeks, then €5/mo."
+        ogDescription="We monitor 50+ Portuguese government sources and send you only the changes that affect your situation. €5/mo. Cancel anytime."
         ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
         ogType="website"
         ogUrl="https://app.worktugal.com/radar"
@@ -276,7 +276,7 @@ export const RadarLanding: React.FC = () => {
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-              Diário da República, AIMA, and tax authority updates translated into plain English. Every alert links to the official source. Free for 2 weeks.
+              Diário da República, AIMA, and tax authority updates translated into plain English. Every alert links to the official source.
             </p>
 
             {/* Signup form */}
@@ -344,7 +344,7 @@ export const RadarLanding: React.FC = () => {
             )}
             {!submitted && (
               <p className="text-sm text-slate-400 dark:text-slate-500">
-                Free for 2 weeks. Cancel anytime. If you do not spot a change that affects you, the next month is free.
+                €5/mo. Cancel anytime. If you do not spot a change that affects you, the next month is free.
               </p>
             )}
           </motion.div>
@@ -585,7 +585,7 @@ export const RadarLanding: React.FC = () => {
             {...fadeUp}
             className="text-3xl md:text-5xl font-black text-white relative z-10 leading-tight"
           >
-            Free for 2 weeks. Then €5/mo.
+            €5/mo. Cancel anytime.
           </motion.h2>
           <p className="text-[#10B981]/80 text-lg md:text-xl max-w-2xl relative z-10 leading-relaxed">
             Weekly digest. Only the changes that affect your situation. Cancel anytime with one click.

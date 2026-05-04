@@ -116,7 +116,7 @@ const FALLBACK_ENTRIES: ChangelogEntry[] = [
     date: '2026-04-28',
     category: 'feature',
     title: 'Portugal Radar — compliance monitoring for your situation',
-    details: 'New B2C product at app.worktugal.com/radar. Weekly digest of Portuguese law changes that affect your visa, tax, or residency. Official government sources (Diário da República, AIMA, Portal das Finanças) translated into plain English. Sign up with email or Google. Free for 2 weeks, then €5/mo.',
+    details: 'New B2C product at app.worktugal.com/radar. Weekly digest of Portuguese law changes that affect your visa, tax, or residency. Official government sources (Diário da República, AIMA, Portal das Finanças) translated into plain English. Sign up with email or Google. €5/mo.',
     version: 'v4.0',
   },
   {

@@ -237,7 +237,7 @@ export const ClientDashboard: React.FC = () => {
                   Your flags need monitoring, not guessing.
                 </p>
                 <p className="text-xs text-white/50 mt-0.5">
-                  Weekly Portugal law alerts. Free for 2 weeks.
+                  Weekly Portugal law alerts. €5/mo.
                 </p>
               </div>
               <Link

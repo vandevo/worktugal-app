@@ -37,3 +37,17 @@ Ordered by leverage (updated 2026-04-30):
 - ~~RadarLanding.tsx bugs + Listmonk integration~~ → Pricing fixed €12→€5. Email signup now calls auto-subscribe-radar edge function (session-cookie Listmonk v6 auth, source attribution). Dead LogIn import removed. How It Works bg clipping fixed. Anon key added to edge fn call. Ghost members bulk-imported to Listmonk list 5. Resend tracking disabled on both domains. LISTMONK_RADAR_LIST_ID=3.
 
 **Why:** Infrastructure is complete. Revenue actions remain the bottleneck. Every session should move one step closer to a paid button.
+
+## 2026-05-03 — Marketing copy refresh v4.5
+### Completed
+- RadarLanding.tsx copy refresh (hero, audience cards, Cost of Inaction, badge/CTA/guarantee)
+- ModernHomePage.tsx copy refresh (headline, feature cards, social proof, CTA)
+- Changelog entries through May 2, stack refs scrubbed
+- Ghost blog full audit (settings, theme, root cause of bare landing page)
+- Portuguese accent fixes across all files
+- /ship executed for 3 projects
+
+### Critical
+- [ ] Ghost blog fixes: enable portal_button, remove 7-post CTA guard, set cover/logo/SEO, configure header copy
+- [ ] Send first Radar digest (Phase 0 validation)
+- [ ] Fix website main page: hero .gif, /compliance redirect, changelog entries
