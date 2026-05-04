@@ -605,7 +605,7 @@ export const RadarLanding: React.FC = () => {
       </section>
 
       {/* ── Cost of inaction ──────────────────────────────────── */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="text-center mb-10">
           <span className="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full">
             THE COST OF NOT KNOWING
@@ -614,26 +614,31 @@ export const RadarLanding: React.FC = () => {
             What happens if you don't sign up?
           </h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-8 rounded-2xl border border-red-200 dark:border-red-900/30 bg-red-50/50 dark:bg-red-950/20 text-center">
-            <p className="text-lg font-bold text-slate-900 dark:text-white mb-2">Miss a NISS payment deadline</p>
-            <p className="text-3xl font-black text-red-500">€150 to €500</p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">in fines</p>
-          </div>
-          <div className="p-8 rounded-2xl border border-amber-200 dark:border-amber-900/30 bg-amber-50/50 dark:bg-amber-950/20 text-center">
-            <p className="text-lg font-bold text-slate-900 dark:text-white mb-2">Miss an AIMA procedure change</p>
-            <p className="text-3xl font-black text-amber-500">Months</p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">of renewal delays</p>
-          </div>
-          <div className="p-8 rounded-2xl border border-orange-200 dark:border-orange-900/30 bg-orange-50/50 dark:bg-orange-950/20 text-center">
-            <p className="text-lg font-bold text-slate-900 dark:text-white mb-2">Miss a tax rule change</p>
-            <p className="text-3xl font-black text-orange-500">Interest + penalties</p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">on your next return</p>
-          </div>
+
+        <div className="bg-white dark:bg-[#161618] border border-[#0F3D2E]/8 dark:border-white/8 rounded-2xl overflow-hidden">
+          {[
+            { what: 'Miss a NISS payment deadline', cost: '€150 to €500', detail: 'in fines per incident. Portuguese social security charges late payment penalties that start at €150 and escalate for repeat offenses.', },
+            { what: 'Miss an AIMA procedure change', cost: 'Months of delays', detail: 'on your visa or residency renewal. A missed document format change can restart the entire process from day one.', },
+            { what: 'Miss a tax rule change', cost: 'Interest + penalties', detail: 'on your next IRS return. Filing corrections means reopening closed years. Portuguese tax authority can audit up to 4 years back.', },
+          ].map((item, i) => (
+            <div key={item.what} className={`flex flex-col sm:flex-row gap-3 sm:gap-6 px-6 py-5 ${
+              i < 2 ? 'border-b border-[#0F3D2E]/5 dark:border-white/5' : ''
+            }`}>
+              <span className="text-2xl font-black text-[#0F3D2E]/15 dark:text-[#10B981]/15 flex-shrink-0 tabular-nums w-6">{i + 1}</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold text-slate-900 dark:text-white">{item.what}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-1">{item.detail}</p>
+              </div>
+              <div className="flex-shrink-0 text-left sm:text-right">
+                <p className="text-sm font-black text-[#0F3D2E] dark:text-[#10B981]">{item.cost}</p>
+              </div>
+            </div>
+          ))}
         </div>
-        <div className="text-center mt-8">
-          <p className="text-lg text-slate-600 dark:text-slate-400">
-            Radar costs <span className="font-bold text-slate-900 dark:text-white">€5/mo</span>. Not knowing costs more.
+
+        <div className="text-center mt-6">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            Radar costs <span className="font-bold text-slate-900 dark:text-white">€5/mo</span>. Each missed deadline costs more.
           </p>
         </div>
       </section>
