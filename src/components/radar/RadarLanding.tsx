@@ -303,6 +303,9 @@ export const RadarLanding: React.FC = () => {
                   >
                     Subscribe to Worktugal Pro · €5/mo <ArrowRight className="w-3.5 h-3.5" />
                   </a>
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+                    Cancel anytime. If you do not spot a change that affects you, the next month is free.
+                  </p>
                 </div>
               </motion.div>
             ) : (
@@ -355,11 +358,6 @@ export const RadarLanding: React.FC = () => {
             )}
             {error && (
               <p className="text-sm text-red-500">{error}</p>
-            )}
-            {!submitted && (
-              <p className="text-sm text-slate-400 dark:text-slate-500">
-                €5/mo. Cancel anytime. If you do not spot a change that affects you, the next month is free.
-              </p>
             )}
           </motion.div>
 
