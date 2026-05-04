@@ -284,12 +284,26 @@ export const RadarLanding: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-[#10B981]/10 border border-[#10B981]/20 rounded-2xl p-6 flex flex-col gap-3"
+                className="bg-[#10B981]/10 border border-[#10B981]/20 rounded-2xl p-6 flex flex-col gap-4"
               >
-                <p className="text-lg font-bold text-[#0F3D2E] dark:text-[#10B981]">You're on the list.</p>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
-                  Your first free compliance digest is coming this week. Watch your inbox.
-                </p>
+                <div>
+                  <p className="text-lg font-bold text-[#0F3D2E] dark:text-[#10B981]">You're on the list.</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    Your first free compliance update is coming this week. Watch your inbox.
+                  </p>
+                </div>
+                <div className="border-t border-[#10B981]/15 pt-4">
+                  <p className="text-sm font-bold text-[#0F3D2E] dark:text-[#10B981] mb-3">Want the full brief?</p>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">
+                    Weekly step-by-step actions, gated reports, and full diagnostic history.
+                  </p>
+                  <a
+                    href="https://blog.worktugal.com/#/portal/signup"
+                    className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-5 py-3 rounded-xl text-sm font-bold hover:bg-[#1A5C44] transition-all"
+                  >
+                    Subscribe to Worktugal Pro · €5/mo <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
               </motion.div>
             ) : (
               <div className="flex flex-col gap-3 pt-2">

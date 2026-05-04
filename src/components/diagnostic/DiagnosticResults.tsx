@@ -507,7 +507,7 @@ export const DiagnosticResults: React.FC = () => {
                   Get weekly alerts when Portuguese law changes affect your situation.
                 </p>
                 <Link
-                  to="/radar"
+                  to="https://blog.worktugal.com/#/portal/signup"
                   className="inline-flex items-center justify-center gap-2 bg-[#10B981] text-white px-8 py-4 rounded-xl text-base font-bold hover:bg-[#059669] active:scale-[0.97] transition-all shadow-lg shadow-black/20 min-h-[48px] w-full sm:w-auto sm:min-w-[280px]"
                 >
                   Get on the Radar
