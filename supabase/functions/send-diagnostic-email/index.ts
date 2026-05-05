@@ -152,7 +152,7 @@ ${hasNissGap ? `<div style="background:#f0fdf4;border-left:4px solid #10b981;bor
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendApiKey}` },
       body: JSON.stringify({
-        from: 'Van from Worktugal <hello@worktugal.com>',
+        from: 'Worktugal <hello@worktugal.com>',
         reply_to: 'hello@worktugal.com',
         to: [payload.email],
         subject,

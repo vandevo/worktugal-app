@@ -61,37 +61,33 @@ Deno.serve(async (req: Request) => {
       });
     }
 
-    const html = `<div style="max-width:560px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a1a;">
+    const html = `<div style="max-width:600px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1e293b">
 
-<p style="font-size:15px;line-height:1.7;margin-bottom:20px;">Hi ${displayName},</p>
+<p style="font-size:16px;line-height:1.7;margin-bottom:24px">Hi ${displayName},</p>
 
-<p style="font-size:15px;line-height:1.7;margin-bottom:24px;">Your Worktugal account is live. Your next step is the diagnostic — it takes 2 minutes and tells you exactly where you stand on Portugal compliance.</p>
+<p style="font-size:16px;line-height:1.7;margin-bottom:24px">Your Worktugal account is ready. Next step: run the compliance diagnostic. It takes 2 minutes and shows you exactly where you stand on tax, visa, and social security in Portugal.</p>
 
-<div style="background:#f7f7f7;border-left:3px solid #1a1a1a;padding:16px 20px;margin-bottom:28px;font-size:14px;line-height:1.9;">
-Your account saves your results automatically.<br>
-Re-run the diagnostic whenever your situation changes — new visa, new clients, new country.
+<p style="margin-bottom:32px">
+<a href="https://app.worktugal.com/diagnostic" style="display:inline-block;background:#0F3D2E;color:white;padding:14px 28px;text-decoration:none;font-weight:600;border-radius:8px;font-size:15px">Run your free diagnostic</a>
+</p>
+
+<p style="font-size:15px;line-height:1.7;color:#475569;margin-bottom:24px">The diagnostic covers tax residency, social security, immigration status, and business structure. Your results are saved automatically. Re-run anytime your situation changes.</p>
+
+<div style="border-top:1px solid #e2e8f0;margin:32px 0;padding-top:24px">
+
+<p style="font-size:14px;font-weight:700;margin-bottom:8px;color:#1e293b">Stay ahead of compliance changes</p>
+<p style="font-size:14px;line-height:1.7;color:#475569;margin-bottom:20px">Portuguese regulations change often. AIMA deadlines, SS contributions, IRS filing windows. We post updates as they happen, no noise.</p>
+<p style="margin-bottom:24px">
+<a href="https://t.me/worktugal" style="font-size:14px;color:#0F3D2E;font-weight:700;text-decoration:underline">Follow Worktugal on Telegram</a>
+</p>
+
+<p style="font-size:14px;line-height:1.7;color:#475569;margin-bottom:20px">Free compliance guides at <a href="https://blog.worktugal.com" style="color:#0F3D2E;font-weight:600">blog.worktugal.com</a>. NISS, tax residency, AIMA. No paywall.</p>
+
+<p style="font-size:14px;color:#94a3b8;margin-top:24px">Van from Worktugal</p>
+
 </div>
 
-<p style="margin-bottom:32px;">
-<a href="https://app.worktugal.com/diagnostic" style="display:inline-block;background:#0F3D2E;color:#ffffff;padding:14px 28px;text-decoration:none;font-weight:600;border-radius:8px;font-size:14px;">Run your free diagnostic →</a>
-</p>
-
-<p style="font-size:14px;line-height:1.7;color:#444;margin-bottom:16px;">The diagnostic covers tax residency, social security, immigration status, and business structure — the four areas where most people in Portugal get it wrong without realising it.</p>
-
-<div style="margin:32px 0;"></div>
-
-<p style="font-size:14px;font-weight:700;margin-bottom:8px;">Stay ahead of compliance changes.</p>
-<p style="font-size:14px;line-height:1.7;color:#444;margin-bottom:16px;">Portuguese regulations change more often than people expect — AIMA deadlines, SS contribution rules, IRS filing windows. I post updates as they happen, with no noise.</p>
-<p style="margin-bottom:32px;">
-<a href="https://t.me/worktugal" style="font-size:14px;color:#0F3D2E;font-weight:700;text-decoration:underline;">Follow Worktugal on Telegram →</a>
-</p>
-
-<div style="margin:32px 0;"></div>
-
-<p style="font-size:15px;line-height:1.7;">Van<br>Founder, Worktugal</p>
-<p style="font-size:13px;color:#888;margin-top:6px;">P.S. We publish free compliance guides at <a href="https://blog.worktugal.com" style="color:#0F3D2E;">blog.worktugal.com</a> — NISS, tax residency, AIMA — the stuff no one explains clearly. No paywall.</p>
-
-<p style="font-size:11px;color:#bbb;margin-top:40px;border-top:1px solid #f0f0f0;padding-top:16px;line-height:1.6;">Worktugal provides compliance risk information for educational purposes only. Not legal or tax advice. You received this because you created a free account at app.worktugal.com.</p>
+<p style="font-size:11px;color:#94a3b8;margin-top:40px;border-top:1px solid #f1f5f9;padding-top:16px;line-height:1.6">Worktugal provides compliance risk information for educational purposes only. Not legal or tax advice. You received this because you created a free account at app.worktugal.com.</p>
 
 </div>`;
 
@@ -99,7 +95,7 @@ Re-run the diagnostic whenever your situation changes — new visa, new clients,
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendApiKey}` },
       body: JSON.stringify({
-        from: 'Van from Worktugal <hello@worktugal.com>',
+        from: 'Worktugal <hello@worktugal.com>',
         reply_to: 'hello@worktugal.com',
         to: [email],
         subject: 'Your Worktugal account is live — run your diagnostic',
