@@ -142,6 +142,9 @@ async function handleEvent(event: Stripe.Event) {
       console.info(`Starting subscription sync for customer: ${customerId}`);
       await syncCustomerFromStripe(customerId);
       await syncGhostMembership(customerId, 'activate');
+      if (event.type === 'checkout.session.completed') {
+        EdgeRuntime.waitUntil(sendWelcomeEmail(customerId));
+      }
     } else if (mode === 'payment' && payment_status === 'paid') {
       try {
         const {
@@ -459,5 +462,25 @@ async function syncCustomerFromStripe(customerId: string) {
   } catch (error) {
     console.error(`Failed to sync subscription for customer ${customerId}:`, error);
     throw error;
+  }
+}
+
+async function sendWelcomeEmail(customerId: string) {
+  try {
+    const customer = await stripe.customers.retrieve(customerId);
+    if ('deleted' in customer && customer.deleted) return;
+    const email = (customer as Stripe.Customer).email;
+    if (!email) return;
+    const name = (customer as Stripe.Customer).name || 'there';
+
+    await fetch('https://n8n.worktugal.com/webhook/welcome-pro-subscriber', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, name }),
+    });
+    console.log(`Welcome email triggered for ${email}`);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error(`Welcome email trigger failed for customer ${customerId}: ${message}`);
   }
 }
