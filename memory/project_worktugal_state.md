@@ -4,7 +4,7 @@ description: Current state of the Worktugal product, stack, and what exists vs w
 type: project
 ---
 
-**Last updated: 2026-04-30**
+**Last updated: 2026-05-05**
 
 Worktugal is Van's product for remote professionals navigating Portugal — clarity, tools, sovereignty. 7+ events, 300+ RSVPs, 1K+ community.
 
@@ -20,9 +20,9 @@ Worktugal is Van's product for remote professionals navigating Portugal — clar
 
 **Vault source of truth:** `/home/vandevo/projects/prompt-secret-vault/`
 
-**n8n automation (self-hosted at n8n.worktugal.com):** Version 2.17.8 (updated 2026-04-27). n8n Version Update Checker workflow (ID: 2Rj4ROAXA3AJE4Fs) runs Mondays 9 AM — compares running version against Docker Hub latest, sends Telegram alert via @WorktugalPassBot when update available. Update script at `~/docker/n8n/update-n8n.sh` on van-cloud.
+**n8n automation (self-hosted at n8n.worktugal.com):** Version 2.18.7 (updated 2026-05-04, from 2.17.8). n8n Version Update Checker workflow (ID: 2Rj4ROAXA3AJE4Fs) runs Mondays 9 AM — compares running version against Docker Hub latest, sends Telegram alert via @WorktugalPassBot when update available. Update script at `~/docker/n8n/update-n8n.sh` on van-cloud.
 
 **Why:** Infrastructure is complete (n8n, Resend, Listmonk, Ghost, Telegram). The only missing piece is one paid button and one re-engagement campaign.
 
 ## Finished
-- **2026-05-03**: Marketing copy refresh v4.5 — Radar landing, homepage, changelog, Ghost blog audit
+- **2026-05-05**: Radar subscription pipeline live. Stripe test + live webhooks wired (stripe-webhook-test, stripe-webhook-live), Ghost sync on subscription (Admin API), welcome email via Resend. DB schema: stripe_customers → stripe_subscriptions join via customer_id. Pro badge added to nav header (green "Pro" / gray "Free" pill next to theme toggle). Dashboard no longer force-redirects to diagnostic — both free and Pro users see dashboard with diagnostic prompt instead. Radar page and Subscribe page now respect Pro status (show dashboard link instead of re-subscribe CTA).
