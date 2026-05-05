@@ -27,7 +27,7 @@ export const SubscribePage: React.FC = () => {
       const { url } = await createCheckoutSession({
         priceId: PRO_MONTHLY_PRICE_ID,
         mode: 'subscription',
-        successUrl: `${window.location.origin}/checkout/success`,
+        successUrl: `${window.location.origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
         cancelUrl: `${window.location.origin}/subscribe`,
         paymentType: 'radar-subscription',
       });
