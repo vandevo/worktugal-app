@@ -472,15 +472,28 @@ async function sendWelcomeEmail(customerId: string) {
     const email = (customer as Stripe.Customer).email;
     if (!email) return;
     const name = (customer as Stripe.Customer).name || 'there';
+    const resendApiKey = Deno.env.get('RESEND_API_KEY');
+    if (!resendApiKey) {
+      console.log('No RESEND_API_KEY configured, skipping welcome email');
+      return;
+    }
 
-    await fetch('https://n8n.worktugal.com/webhook/welcome-pro-subscriber', {
+    await fetch('https://api.resend.com/emails', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, name }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${resendApiKey}`,
+      },
+      body: JSON.stringify({
+        from: 'Worktugal <hello@worktugal.com>',
+        to: [email],
+        subject: 'Welcome to Worktugal Pro',
+        html: `<div style="max-width:600px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1e293b"><h1 style="color:#0F3D2E;font-size:24px">Welcome to Worktugal Pro</h1><p>Hi ${name},</p><p>Your subscription is active. You now have full access to:</p><ul style="padding-left:20px"><li style="margin-bottom:8px"><strong>Weekly brief</strong>: what changed, what it means, and exactly what to do</li><li style="margin-bottom:8px"><strong>Step-by-step actions</strong> before each compliance deadline</li><li style="margin-bottom:8px"><strong>Compliance calendar</strong>: upcoming filing dates for Portugal</li><li style="margin-bottom:8px"><strong>Full archive</strong> of past briefs</li></ul><p style="margin-top:24px"><a href="https://app.worktugal.com/dashboard" style="background:#0F3D2E;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;display:inline-block;font-weight:600">Go to Dashboard</a></p><p style="margin-top:32px;color:#64748b;font-size:14px">Reply to this email if you need help.<br>The Worktugal Team</p></div>`,
+      }),
     });
-    console.log(`Welcome email triggered for ${email}`);
+    console.log(`Welcome email sent to ${email}`);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    console.error(`Welcome email trigger failed for customer ${customerId}: ${message}`);
+    console.error(`Welcome email failed for customer ${customerId}: ${message}`);
   }
 }
