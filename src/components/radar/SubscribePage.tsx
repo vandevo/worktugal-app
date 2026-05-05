@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Loader2, Shield } from 'lucide-react';
+import { ArrowRight, Loader2, Shield, CheckCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { useSubscription } from '../../hooks/useSubscription';
 import { createCheckoutSession } from '../../lib/stripe-checkout';
 
 const IS_TEST_MODE = import.meta.env.VITE_STRIPE_MODE === 'test';
@@ -17,6 +19,7 @@ const fadeUp = {
 
 export const SubscribePage: React.FC = () => {
   const { user } = useAuth();
+  const { subscription } = useSubscription();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -49,6 +52,33 @@ export const SubscribePage: React.FC = () => {
           <Loader2 className="w-6 h-6 animate-spin mx-auto mb-4 text-[#10B981]" />
           <p className="text-slate-600 dark:text-slate-400">Redirecting to sign-in...</p>
         </div>
+      </div>
+    );
+  }
+
+  if (subscription) {
+    return (
+      <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 pt-16 pb-24">
+        <motion.div className="max-w-md w-full text-center" {...fadeUp}>
+          <div className="w-14 h-14 rounded-2xl bg-[#10B981]/10 flex items-center justify-center mx-auto mb-6">
+            <CheckCircle className="w-7 h-7 text-[#10B981]" />
+          </div>
+          <span className="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full mb-4">
+            WORKTUGAL PRO
+          </span>
+          <h1 className="text-3xl font-black text-slate-900 dark:text-white leading-tight mb-3">
+            You're already a Pro member
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mb-8 leading-relaxed">
+            Your radar digest is on its way. Check your dashboard for the latest compliance briefs.
+          </p>
+          <Link
+            to="/dashboard"
+            className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-6 py-3 rounded-xl text-sm font-bold hover:bg-[#1A5C44] transition-all"
+          >
+            Access Your Dashboard <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </motion.div>
       </div>
     );
   }

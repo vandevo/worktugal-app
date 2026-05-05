@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Bell, Shield, Clock, ChevronDown, Loader2, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Seo } from '../Seo';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../contexts/AuthContext';
+import { useSubscription } from '../../hooks/useSubscription';
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -139,6 +141,7 @@ const AUDIENCES = [
 
 export const RadarLanding: React.FC = () => {
   const { user } = useAuth();
+  const { subscription } = useSubscription();
   const [email, setEmail] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -301,21 +304,52 @@ export const RadarLanding: React.FC = () => {
                     Your first free compliance update is coming this week. Watch your inbox.
                   </p>
                 </div>
-                <div className="border-t border-[#10B981]/15 pt-4">
-                  <p className="text-sm font-bold text-[#0F3D2E] dark:text-[#10B981] mb-3">Want the full brief?</p>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">
-                    Free updates tell you what changed. Worktugal Pro tells you what to do about it. Step-by-step, before the next deadline.
-                  </p>
-                  <a
-                    href="https://app.worktugal.com/login?redirect=/subscribe"
-                    className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-5 py-3 rounded-xl text-sm font-bold hover:bg-[#1A5C44] transition-all"
-                  >
-                    Subscribe to Worktugal Pro · €5/mo <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
-                    Sign in with Google · cancel anytime · first month free if we miss anything that affects you
+                {subscription ? (
+                  <div className="border-t border-[#10B981]/15 pt-4">
+                    <p className="text-sm font-bold text-[#0F3D2E] dark:text-[#10B981] mb-2">You have Worktugal Pro.</p>
+                    <Link
+                      to="/dashboard"
+                      className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-5 py-3 rounded-xl text-sm font-bold hover:bg-[#1A5C44] transition-all"
+                    >
+                      Access Your Dashboard <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="border-t border-[#10B981]/15 pt-4">
+                    <p className="text-sm font-bold text-[#0F3D2E] dark:text-[#10B981] mb-3">Want the full brief?</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">
+                      Free updates tell you what changed. Worktugal Pro tells you what to do about it. Step-by-step, before the next deadline.
+                    </p>
+                    <a
+                      href="https://app.worktugal.com/login?redirect=/subscribe"
+                      className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-5 py-3 rounded-xl text-sm font-bold hover:bg-[#1A5C44] transition-all"
+                    >
+                      Subscribe to Worktugal Pro · €5/mo <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+                      Sign in with Google · cancel anytime · first month free if we miss anything that affects you
+                    </p>
+                  </div>
+                )}
+              </motion.div>
+            ) : user && subscription ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-[#10B981]/10 border border-[#10B981]/20 rounded-2xl p-6 flex flex-col gap-4"
+              >
+                <div>
+                  <p className="text-lg font-bold text-[#0F3D2E] dark:text-[#10B981]">You have Worktugal Pro.</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    You're getting the full brief every week. Check your dashboard for your latest compliance digest.
                   </p>
                 </div>
+                <Link
+                  to="/dashboard"
+                  className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-5 py-3 rounded-xl text-sm font-bold hover:bg-[#1A5C44] transition-all self-start"
+                >
+                  Access Your Dashboard <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
               </motion.div>
             ) : user ? (
               <motion.div
@@ -644,7 +678,7 @@ export const RadarLanding: React.FC = () => {
       </section>
 
       {/* ── Upsell: Free → Worktugal Pro ──────────────────────────── */}
-      {!submitted && (
+      {!submitted && !subscription && (
       <section className="max-w-lg mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <div className="bg-gradient-to-b from-[#0F3D2E] to-[#0A2B20] rounded-2xl p-10 text-center flex flex-col items-center gap-6 relative overflow-hidden border border-[#10B981]/10">
           {/* Dot pattern overlay */}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../hooks/useAuth';
 import { useUserProfile, notifyProfileUpdate } from '../../hooks/useUserProfile';
@@ -66,7 +66,6 @@ export const ClientDashboard: React.FC = () => {
   const { user } = useAuth();
   const { profile, getDisplayName } = useUserProfile();
   const { subscription, loading: subLoading } = useSubscription();
-  const navigate = useNavigate();
   const [diagnostics, setDiagnostics] = useState<PastDiagnostic[]>([]);
   const [loading, setLoading] = useState(true);
   const [displayName, setDisplayName] = useState('');
@@ -110,12 +109,6 @@ export const ClientDashboard: React.FC = () => {
       }
     })();
   }, [user]);
-
-  useEffect(() => {
-    if (!loading && diagnostics.length === 0) {
-      navigate('/diagnostic');
-    }
-  }, [loading, diagnostics, navigate]);
 
   if (loading) {
     return (
@@ -190,6 +183,28 @@ export const ClientDashboard: React.FC = () => {
                 </Link>
               </div>
             )}
+          </div>
+        )}
+
+        {/* ── Diagnostic prompt for users with no past runs ────────── */}
+        {!loading && diagnostics.length === 0 && (
+          <div className="bg-[#0F3D2E]/5 dark:bg-[#10B981]/5 border border-[#0F3D2E]/15 dark:border-[#10B981]/15 rounded-2xl p-6 mb-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-sm font-bold text-slate-900 dark:text-white mb-1">
+                  Complete your compliance diagnostic
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed max-w-md">
+                  You haven't run a diagnostic yet. It takes 2 minutes and gives you your Setup Score, Exposure Index, and a list of specific risks to your situation.
+                </p>
+              </div>
+              <Link
+                to="/diagnostic"
+                className="flex-shrink-0 inline-flex items-center gap-1.5 bg-[#0F3D2E] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-[#1A5C44] transition-all"
+              >
+                Run diagnostic <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
         )}
 

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { LogOut, LayoutDashboard, ClipboardCheck, Sun, Moon, Menu, X } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useUserProfile } from '../hooks/useUserProfile';
+import { useSubscription } from '../hooks/useSubscription';
 import { useTheme } from '../contexts/ThemeContext';
 import { AuthModal } from './auth/AuthModal';
 import { signOut } from '../lib/auth';
@@ -25,6 +26,7 @@ const NAV_LINKS = [
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user } = useAuth();
   const { profile, getDisplayName, getInitials } = useUserProfile();
+  const { subscription } = useSubscription();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
@@ -133,6 +135,17 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 }
               </button>
 
+              {/* Membership badge */}
+              {subscription ? (
+                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-[#10B981]/10 text-[#10B981] text-[10px] font-black uppercase tracking-wider">
+                  Pro
+                </span>
+              ) : user ? (
+                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-200 dark:bg-white/[0.05] text-slate-500 dark:text-slate-500 text-[10px] font-black uppercase tracking-wider">
+                  Free
+                </span>
+              ) : null}
+
               {user ? (
                 /* Authenticated user menu */
                 <div className="relative" ref={userMenuRef}>
@@ -156,9 +169,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                         exit={{ opacity: 0, y: -8, scale: 0.97 }}
                         transition={{ duration: 0.15 }}
                         className="absolute right-0 mt-2 w-52 bg-white dark:bg-[#161618] rounded-2xl border border-[#E5E7EB] dark:border-[#2D2D35] shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] py-1.5 z-[60]"
-                      >
+                        >
                         <button
-                          onClick={() => { navigate('/dashboard'); setShowUserMenu(false); }}
+                    onClick={() => { navigate('/dashboard'); setShowUserMenu(false); }}
                           className="w-full px-4 py-2.5 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] hover:text-[#0F3D2E] dark:hover:text-white flex items-center gap-3 transition-colors"
                         >
                           <LayoutDashboard className="w-4 h-4 flex-shrink-0" />
