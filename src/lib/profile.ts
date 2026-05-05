@@ -6,6 +6,7 @@ export interface UserProfile {
   role: 'user' | 'partner' | 'admin';
   has_paid_compliance_review: boolean;
   paid_compliance_review_id: string | null;
+  welcome_email_sent_at?: string;
   created_at: string;
   updated_at: string;
 }

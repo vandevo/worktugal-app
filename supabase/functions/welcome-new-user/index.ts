@@ -1,10 +1,16 @@
 import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
+import { createClient } from 'npm:@supabase/supabase-js@2.49.1';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
+
+const supabase = createClient(
+  Deno.env.get('SUPABASE_URL') ?? '',
+  Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+);
 
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
@@ -15,6 +21,7 @@ Deno.serve(async (req: Request) => {
     const payload = await req.json();
 
     // Supabase Auth hook payload: { type: 'INSERT', record: { id, email, ... } }
+    const userId: string = payload?.record?.id || payload?.user_id || '';
     const email: string = payload?.record?.email || payload?.email;
     const rawMeta = payload?.record?.raw_user_meta_data || payload?.raw_user_meta_data || {};
     const appMeta = payload?.record?.raw_app_meta_data || payload?.raw_app_meta_data || {};
@@ -27,6 +34,22 @@ Deno.serve(async (req: Request) => {
         status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
+    }
+
+    // Skip if already sent
+    if (email) {
+      const { data: existing } = await supabase
+        .from('user_profiles')
+        .select('welcome_email_sent_at')
+        .eq('id', userId)
+        .maybeSingle();
+
+      if (existing?.welcome_email_sent_at) {
+        return new Response(JSON.stringify({ skip: true, reason: 'already sent' }), {
+          status: 200,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
     }
 
     const resendApiKey = Deno.env.get('RESEND_API_KEY');
@@ -88,6 +111,13 @@ Re-run the diagnostic whenever your situation changes — new visa, new clients,
       console.error('Welcome email failed:', emailRes.status, await emailRes.text());
     } else {
       console.log('Welcome email sent to:', email);
+
+      if (userId) {
+        await supabase.from('user_profiles').upsert(
+          { id: userId, welcome_email_sent_at: new Date().toISOString() },
+          { onConflict: 'id' }
+        );
+      }
     }
 
     // Telegram alert to Van

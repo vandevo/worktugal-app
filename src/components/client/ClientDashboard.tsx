@@ -110,6 +110,23 @@ export const ClientDashboard: React.FC = () => {
     })();
   }, [user]);
 
+  // Trigger welcome email for users who haven't received it yet
+  useEffect(() => {
+    if (!user || !profile || profile.welcome_email_sent_at) return;
+    const sendWelcome = async () => {
+      try {
+        await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/welcome-new-user`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: user.email, user_id: user.id }),
+        });
+      } catch {
+        // silent — function handles idempotency
+      }
+    };
+    sendWelcome();
+  }, [user, profile]);
+
   if (loading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
