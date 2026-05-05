@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabase';
 interface Subscription {
   id: string;
   status: string;
-  plan_name: string;
+  price_id: string;
 }
 
 export function useSubscription() {
@@ -43,7 +43,7 @@ export function useSubscription() {
 
         const { data, error } = await supabase
           .from('stripe_subscriptions')
-          .select('id, status, plan_name')
+          .select('id, status, price_id')
           .eq('customer_id', customer.customer_id)
           .maybeSingle();
 
