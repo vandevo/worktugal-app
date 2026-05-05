@@ -4,7 +4,10 @@ import { ArrowRight, Loader2, Shield } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { createCheckoutSession } from '../../lib/stripe-checkout';
 
-const PRO_MONTHLY_PRICE_ID = 'price_1TT5PQBm1NepJXMzCuLHVV08';
+const IS_TEST_MODE = import.meta.env.VITE_STRIPE_MODE === 'test';
+const PRO_MONTHLY_PRICE_ID = IS_TEST_MODE
+  ? import.meta.env.VITE_STRIPE_PRICE_ID_TEST
+  : import.meta.env.VITE_STRIPE_PRICE_ID_LIVE;
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },

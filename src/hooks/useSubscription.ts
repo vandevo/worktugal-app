@@ -22,14 +22,32 @@ export function useSubscription() {
 
     async function fetchSubscription() {
       try {
+        const { data: customer, error: customerError } = await supabase
+          .from('stripe_customers')
+          .select('customer_id')
+          .eq('user_id', user.id)
+          .is('deleted_at', null)
+          .maybeSingle();
+
+        if (customerError) {
+          console.error('Error fetching stripe customer:', customerError);
+          setLoading(false);
+          return;
+        }
+
+        if (!customer?.customer_id) {
+          setSubscription(null);
+          setLoading(false);
+          return;
+        }
+
         const { data, error } = await supabase
           .from('stripe_subscriptions')
           .select('id, status, plan_name')
-          .eq('user_id', user.id)
-          .eq('status', 'active')
-          .single();
+          .eq('customer_id', customer.customer_id)
+          .maybeSingle();
 
-        if (error && error.code !== 'PGRST116') {
+        if (error) {
           console.error('Error fetching subscription:', error);
         } else {
           setSubscription(data);

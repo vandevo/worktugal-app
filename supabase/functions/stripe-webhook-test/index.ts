@@ -52,44 +52,7 @@ Deno.serve(async (req) => {
   }
 });
 
-async function forwardToMakecom(event: Stripe.Event) {
-  const makecomWebhookUrl = Deno.env.get('MAKECOM_WEBHOOK_PAID_REVIEW_PAYMENT_CONFIRMED');
-
-  if (!makecomWebhookUrl) {
-    console.log('No MAKECOM_WEBHOOK_PAID_REVIEW_PAYMENT_CONFIRMED configured, skipping Make.com forwarding');
-    return;
-  }
-
-  try {
-    const response = await fetch(makecomWebhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        event_id: event.id,
-        event_type: event.type,
-        created: event.created,
-        data: event.data.object,
-        livemode: event.livemode,
-      }),
-    });
-
-    if (!response.ok) {
-      console.error(`Make.com webhook failed: ${response.status} ${await response.text()}`);
-    } else {
-      console.log(`Successfully forwarded ${event.type} to Make.com`);
-    }
-  } catch (error: any) {
-    console.error(`Error forwarding to Make.com: ${error.message}`);
-  }
-}
-
 async function handleEvent(event: Stripe.Event) {
-  if (event.type === 'checkout.session.completed') {
-    await forwardToMakecom(event);
-  } else {
-    console.log(`Skipping Make.com forward for event type: ${event.type} (only checkout.session.completed is forwarded)`);
-  }
-
   const stripeData = event?.data?.object ?? {};
 
   if (!stripeData) {
@@ -108,166 +71,173 @@ async function handleEvent(event: Stripe.Event) {
 
   if (!customerId || typeof customerId !== 'string') {
     console.error(`No customer received on event: ${JSON.stringify(event)}`);
-  } else {
-    let isSubscription = true;
+    return;
+  }
 
-    if (event.type === 'checkout.session.completed') {
-      const { mode } = stripeData as Stripe.Checkout.Session;
+  let isSubscription = true;
 
-      isSubscription = mode === 'subscription';
+  if (event.type === 'checkout.session.completed') {
+    const { mode } = stripeData as Stripe.Checkout.Session;
+    isSubscription = mode === 'subscription';
+    console.info(`Processing ${isSubscription ? 'subscription' : 'one-time payment'} checkout session`);
+  }
 
-      console.info(`Processing ${isSubscription ? 'subscription' : 'one-time payment'} checkout session`);
-    }
+  const { mode, payment_status } = stripeData as Stripe.Checkout.Session;
 
-    const { mode, payment_status } = stripeData as Stripe.Checkout.Session;
+  if (event.type === 'customer.subscription.deleted') {
+    console.info(`Subscription cancelled for customer: ${customerId} — marking inactive`);
+    await supabase.from('stripe_subscriptions')
+      .update({ status: 'canceled', updated_at: new Date().toISOString() })
+      .eq('customer_id', customerId);
+    return;
+  }
 
-    if (isSubscription) {
-      console.info(`Starting subscription sync for customer: ${customerId}`);
-      await syncCustomerFromStripe(customerId);
-    } else if (mode === 'payment' && payment_status === 'paid') {
-      try {
-        const {
-          id: checkout_session_id,
-          payment_intent,
-          amount_subtotal,
-          amount_total,
-          currency,
-          metadata,
-        } = stripeData as Stripe.Checkout.Session;
+  if (isSubscription) {
+    console.info(`Starting subscription sync for customer: ${customerId}`);
+    await syncCustomerFromStripe(customerId);
+  } else if (mode === 'payment' && payment_status === 'paid') {
+    try {
+      const {
+        id: checkout_session_id,
+        payment_intent,
+        amount_subtotal,
+        amount_total,
+        currency,
+        metadata,
+      } = stripeData as Stripe.Checkout.Session;
 
-        const { data: orderData, error: orderError } = await supabase.from('stripe_orders').insert({
-          checkout_session_id,
-          payment_intent_id: payment_intent,
-          customer_id: customerId,
-          amount_subtotal,
-          amount_total,
-          currency,
-          payment_status,
-          status: 'completed',
-        }).select('id').single();
+      const { data: orderData, error: orderError } = await supabase.from('stripe_orders').insert({
+        checkout_session_id,
+        payment_intent_id: payment_intent,
+        customer_id: customerId,
+        amount_subtotal,
+        amount_total,
+        currency,
+        payment_status,
+        status: 'completed',
+      }).select('id').single();
 
-        if (orderError) {
-          console.error('Error inserting order:', orderError);
-          return;
-        }
+      if (orderError) {
+        console.error('Error inserting order:', orderError);
+        return;
+      }
 
-        const paymentType = metadata?.payment_type || 'perk';
+      const paymentType = metadata?.payment_type || 'perk';
 
-        if (metadata?.submission_id && orderData?.id) {
-          const submissionId = parseInt(metadata.submission_id);
+      if (metadata?.submission_id && orderData?.id) {
+        const submissionId = parseInt(metadata.submission_id);
 
-          if (!isNaN(submissionId)) {
-            if (paymentType === 'consult') {
-              const { data: booking, error: consultError } = await supabase
-                .from('consult_bookings')
-                .update({
-                  status: 'completed_payment',
-                  stripe_session_id: checkout_session_id,
-                  updated_at: new Date().toISOString(),
-                })
-                .eq('id', submissionId)
-                .select('*')
-                .single();
+        if (!isNaN(submissionId)) {
+          if (paymentType === 'consult') {
+            const { data: booking, error: consultError } = await supabase
+              .from('consult_bookings')
+              .update({
+                status: 'completed_payment',
+                stripe_session_id: checkout_session_id,
+                updated_at: new Date().toISOString(),
+              })
+              .eq('id', submissionId)
+              .select('*')
+              .single();
 
-              if (consultError) {
-                console.error('Error updating consult booking status:', consultError);
-              } else {
-                console.info(`Successfully updated consult booking ${submissionId} to completed_payment`);
+            if (consultError) {
+              console.error('Error updating consult booking status:', consultError);
+            } else {
+              console.info(`Successfully updated consult booking ${submissionId} to completed_payment`);
 
-                if (booking) {
-                  const durationMap: Record<string, number> = {
-                    'triage': 30,
-                    'start_pack': 90,
-                    'annual_return': 60,
-                    'add_on': 30,
-                  };
+              if (booking) {
+                const durationMap: Record<string, number> = {
+                  'triage': 30,
+                  'start_pack': 90,
+                  'annual_return': 60,
+                  'add_on': 30,
+                };
 
-                  const duration = durationMap[booking.service_type] || 30;
+                const duration = durationMap[booking.service_type] || 30;
 
-                  const priceMap: Record<string, number> = {
-                    'triage': 59.00,
-                    'start_pack': 349.00,
-                    'annual_return': 149.00,
-                    'add_on': 49.00,
-                  };
+                const priceMap: Record<string, number> = {
+                  'triage': 59.00,
+                  'start_pack': 349.00,
+                  'annual_return': 149.00,
+                  'add_on': 49.00,
+                };
 
-                  const totalAmount = priceMap[booking.service_type] || 0;
-                  const platformFee = totalAmount * 0.30;
-                  const accountantPayout = totalAmount * 0.70;
+                const totalAmount = priceMap[booking.service_type] || 0;
+                const platformFee = totalAmount * 0.30;
+                const accountantPayout = totalAmount * 0.70;
 
-                  const { data: appointment, error: appointmentError } = await supabase
-                    .from('appointments')
-                    .insert({
-                      client_id: booking.user_id,
-                      service_type: booking.service_type,
-                      status: 'pending_assignment',
-                      duration_minutes: duration,
-                      payment_amount: totalAmount,
-                      platform_fee_amount: platformFee,
-                      accountant_payout_amount: accountantPayout,
-                      stripe_payment_intent_id: payment_intent as string,
-                      consult_booking_id: booking.id,
-                      client_notes: booking.notes,
-                      preferred_date: booking.preferred_date,
-                    })
-                    .select()
-                    .single();
+                const { data: appointment, error: appointmentError } = await supabase
+                  .from('appointments')
+                  .insert({
+                    client_id: booking.user_id,
+                    service_type: booking.service_type,
+                    status: 'pending_assignment',
+                    duration_minutes: duration,
+                    payment_amount: totalAmount,
+                    platform_fee_amount: platformFee,
+                    accountant_payout_amount: accountantPayout,
+                    stripe_payment_intent_id: payment_intent as string,
+                    consult_booking_id: booking.id,
+                    client_notes: booking.notes,
+                    preferred_date: booking.preferred_date,
+                  })
+                  .select()
+                  .single();
 
-                  if (appointmentError) {
-                    console.error('Error creating appointment:', appointmentError);
-                  } else {
-                    console.info(`Successfully created appointment ${appointment.id} for booking ${submissionId}`);
-                  }
+                if (appointmentError) {
+                  console.error('Error creating appointment:', appointmentError);
+                } else {
+                  console.info(`Successfully created appointment ${appointment.id} for booking ${submissionId}`);
                 }
               }
+            }
+          } else {
+            const { error: submissionError } = await supabase
+              .from('partner_submissions')
+              .update({
+                status: 'completed_payment',
+                stripe_order_id: orderData.id,
+                updated_at: new Date().toISOString(),
+              })
+              .eq('id', submissionId);
+
+            if (submissionError) {
+              console.error('Error updating partner submission status:', submissionError);
             } else {
-              const { error: submissionError } = await supabase
-                .from('partner_submissions')
-                .update({
-                  status: 'completed_payment',
-                  stripe_order_id: orderData.id,
-                  updated_at: new Date().toISOString(),
-                })
-                .eq('id', submissionId);
+              console.info(`Successfully updated partner submission ${submissionId} to completed_payment`);
 
-              if (submissionError) {
-                console.error('Error updating partner submission status:', submissionError);
-              } else {
-                console.info(`Successfully updated partner submission ${submissionId} to completed_payment`);
+              try {
+                const { data: customerData, error: customerError } = await supabase
+                  .from('stripe_customers')
+                  .select('user_id')
+                  .eq('customer_id', customerId)
+                  .single();
 
-                try {
-                  const { data: customerData, error: customerError } = await supabase
-                    .from('stripe_customers')
-                    .select('user_id')
-                    .eq('customer_id', customerId)
-                    .single();
+                if (customerError) {
+                  console.error('Error fetching user_id from stripe_customers:', customerError);
+                } else if (customerData?.user_id) {
+                  const { error: roleUpdateError } = await supabase
+                    .from('user_profiles')
+                    .update({ role: 'partner' })
+                    .eq('id', customerData.user_id);
 
-                  if (customerError) {
-                    console.error('Error fetching user_id from stripe_customers:', customerError);
-                  } else if (customerData?.user_id) {
-                    const { error: roleUpdateError } = await supabase
-                      .from('user_profiles')
-                      .update({ role: 'partner' })
-                      .eq('id', customerData.user_id);
-
-                    if (roleUpdateError) {
-                      console.error('Error updating user role to partner:', roleUpdateError);
-                    } else {
-                      console.info(`Successfully updated user ${customerData.user_id} role to 'partner'`);
-                    }
+                  if (roleUpdateError) {
+                    console.error('Error updating user role to partner:', roleUpdateError);
+                  } else {
+                    console.info(`Successfully updated user ${customerData.user_id} role to 'partner'`);
                   }
-                } catch (roleError) {
-                  console.error('Error in user role update process:', roleError);
                 }
+              } catch (roleError) {
+                console.error('Error in user role update process:', roleError);
               }
             }
           }
         }
-
-        console.info(`Successfully processed one-time payment for session: ${checkout_session_id}`);
-      } catch (error) {
-        console.error('Error processing one-time payment:', error);
       }
+
+      console.info(`Successfully processed one-time payment for session: ${checkout_session_id}`);
+    } catch (error) {
+      console.error('Error processing one-time payment:', error);
     }
   }
 }
@@ -286,7 +256,7 @@ async function syncCustomerFromStripe(customerId: string) {
       const { error: noSubError } = await supabase.from('stripe_subscriptions').upsert(
         {
           customer_id: customerId,
-          subscription_status: 'not_started',
+          status: 'not_started',
         },
         {
           onConflict: 'customer_id',
