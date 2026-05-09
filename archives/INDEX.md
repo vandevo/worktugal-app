@@ -1,7 +1,8 @@
-Last session: 2026-05-09-daily-brief-v4.5
+Last session: 2026-05-09-wrap-fixes-v4.6
 
 | Session | Date | Summary |
 |---|---|---|
+| 2026-05-09-wrap-fixes-v4.6 | 2026-05-09 | Fixed absolute paths in wrap pipeline (wrap.md, session-wrapup.md v2.1, thread-launcher.md v4.0). OpenCode compaction explained. |
 | 2026-05-09-daily-brief-v4.5 | 2026-05-09 | Context-loaded: Attio/Apollo archive, compass, stack-audit, VanBrain. Daily operator brief produced. No shippable work. |
 | 2026-05-09-checkin-v0.1 | 2026-05-09 | Zero-change check-in. Context rehydrated, GLM 5 discussed, no actions taken. Pipeline ready for content distribution. |
 | 2026-05-04-ghost-funnel-build-v4.7 | 2026-05-04 | Ghost blog turned into full lead capture + conversion funnel, app pricing unified to €5/mo, Radar upsell added to homepage, 5/18 Google Tasks done |
