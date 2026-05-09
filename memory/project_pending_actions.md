@@ -8,7 +8,7 @@ Ordered by leverage (updated 2026-04-30):
 
 1. **Write first compliance digest** — Browse dre.pt manually, pick 3-5 expat-relevant changes, send to 15k list via Listmonk. Track opens, clicks, `/radar` signups. Validate demand before automating.
 
-2. **Fix n8n Weekly Digest workflow** — "Send via Listmonk" node uses dead Basic auth (Listmonk v6 requires session cookies). Must update to session-cookie login before Friday 4pm digest fires.
+2. ~~Fix n8n Weekly Digest workflow~~ — Fixed 2026-05-09: removed broken Listmonk send node, now posts digest to Worktugal Ops Telegram chat via ops bot.
 
 3. **B2B Founding Member outreach** — `/compliance` landing page live. Send validation emails to 30 immigration lawyers + 20 relocation firms. 3 paid commitments (€29/mo) = build Phase 1 automated pipeline.
 

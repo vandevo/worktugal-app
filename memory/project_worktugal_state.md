@@ -4,7 +4,7 @@ description: Current state of the Worktugal product, stack, and what exists vs w
 type: project
 ---
 
-**Last updated: 2026-05-05**
+**Last updated: 2026-05-09**
 
 Worktugal is Van's product for remote professionals navigating Portugal — clarity, tools, sovereignty. 7+ events, 300+ RSVPs, 1K+ community.
 
@@ -26,3 +26,4 @@ Worktugal is Van's product for remote professionals navigating Portugal — clar
 
 ## Finished
 - **2026-05-05**: Radar subscription pipeline live. Stripe test + live webhooks wired (stripe-webhook-test, stripe-webhook-live), Ghost sync on subscription (Admin API), welcome email via Resend. DB schema: stripe_customers → stripe_subscriptions join via customer_id. Pro badge added to nav header (green "Pro" / gray "Free" pill next to theme toggle). Dashboard no longer force-redirects to diagnostic — both free and Pro users see dashboard with diagnostic prompt instead. Radar page and Subscribe page now respect Pro status (show dashboard link instead of re-subscribe CTA).
+- **2026-05-09**: Ghost CMS monetization removed. Ghost is now free-only: paid tier removed from portal, Stripe→Ghost membership sync deleted from stripe-webhook-live edge function, Free tier description/benefits rewritten (diagnostic, guide archive, Telegram channel, weekly briefs). Diagnostic results CTA changed from Ghost portal to `/radar`. n8n Weekly Digest Compiler simplified: removed broken Listmonk email send, now posts digest to Worktugal Ops Telegram chat via ops bot. Airtable PAT stored in GCP Secret Manager for API access.
