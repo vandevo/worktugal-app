@@ -1,0 +1,94 @@
+Cloudflare Remote Jobs: 189 Opportunities for Tech Enthusiasts (Salaries Up to $600k)
+⌛ Last updated: 2 years ago
+
+Table of Contents
+About Cloudflare
+Cloudflare’s Mission
+Cloudflare’s History
+Cloudflare’s Growth
+Cloudflare’s Tech Stack
+Cloudflare’s Remote Job Opportunities
+Cloudflare’s Benefits and Perks
+Cloudflare’s Salary Range
+Top Paying Roles
+Lower Paying Roles
+Cloudflare’s Remote Job Locations
+How to Apply for a Remote Job at Cloudflare
+Conclusion
+Discover high-paying remote jobs at Cloudflare, a leading tech company, and earn up to $600k per year with amazing benefits.
+
+Cloudflare, a renowned tech company with a mission to build a better internet, is currently hiring for 189 remote jobs across various departments, including engineering, sales, and security. The company offers competitive salaries, with the highest-paying remote position being Vice President, Sales – Strategic Pursuits Team, earning up to $600k per year.
+
+About Cloudflare
+Cloudflare is a global technology company that operates one of the world’s largest networks, powering over 25 million internet properties. They provide a suite of services that protect and accelerate websites and applications, including security, performance, reliability, and insights. Cloudflare is known for its commitment to building a better internet and fostering a diverse and inclusive workplace.
+
+Cloudflare’s Mission
+Cloudflare’s mission is to help build a better internet. They believe in protecting the free and open internet, empowering organizations and journalists with powerful tools to defend themselves against attacks. Cloudflare also actively contributes to projects like the Athenian Project, ensuring secure access to election information for citizens, and the Path Forward Partnership, providing mid-career professionals with opportunities to re-enter the workforce.
+
+Cloudflare’s History
+Cloudflare’s story began with Project Honey Pot, a system created in 2004 to track and combat email spam. In 2009, Matthew Prince, Michelle Zatlyn, and Lee Holloway came together to develop a service that would not only track but also stop internet threats. Cloudflare was born. The company quickly gained traction and secured funding from top investors, attracting talented engineers from leading tech companies like Google, Yahoo, and PayPal.
+
+Cloudflare’s Growth
+Cloudflare has grown rapidly since its launch in 2010. They have opened six offices across three countries, brought 300 data centers online, and launched dozens of products and hundreds of features. Their focus on performance, security, reliability, and insights has earned them a loyal customer base, ranging from individual bloggers to Fortune 500 companies.
+
+Cloudflare’s Tech Stack
+Cloudflare leverages a wide range of technologies to build, market, and sell its products. Their tech stack includes:
+
+JavaScript
+Python
+HTML5
+Java
+CSS 3
+PHP
+C#
+Kotlin
+Swift
+Go
+C++
+And many more…
+Cloudflare’s Remote Job Opportunities
+Cloudflare offers a diverse range of remote job opportunities, with positions available in the following departments:
+
+Engineering: Software Engineer, Senior Software Engineer, Systems Engineer, Hardware Systems Engineer, Research Engineer
+Sales: Account Executive, Manager, Consulting Services, Professional Services Consultant, Solutions Engineer
+Security: IAM Security Analyst, IAM Security Engineer, Security Compliance Specialist
+Customer Support: Security Operations Center Engineer, Technical Support Engineer
+Business Intelligence: Software Engineer – Data Applications
+Information Technology: Billing Systems Engineer, Fullstack Engineer, Salesforce QA Engineer
+Infrastructure: System Engineer – Netsys, Systems Engineer – Database Platform
+People & Places: HR Analyst
+Production Engineering: Systems Engineer – Platform Configuration, Systems Engineer – Release Manager
+Cloudflare’s Benefits and Perks
+Cloudflare provides its employees with an attractive benefits package, including:
+
+Disability Insurance: Short- and long-term disability coverage.
+Life Insurance: Life insurance for peace of mind.
+Healthcare Benefits: Comprehensive healthcare benefits package.
+Fertility Benefits: Family forming support for employees across all offices.
+Employee Assistance Program (EAP): On-demand mental health support and Employee Assistance Program.
+Equity Benefits: Competitive total rewards package, with every employee owning stock in the company.
+Retirement Benefits: Generous 401(k) and regional pension plans.
+Paid Maternity & Paternity Leave: Up to sixteen paid weeks of bonding leave for all new parents.
+Commuter Benefits: Support for commuting to work via public transportation.
+Take-What-You-Need Vacation: Encourage employees to maintain work-life balance by taking as much time off as needed.
+Cloudflare’s Salary Range
+The average remote employee at Cloudflare can expect to earn between $52k and $600k, with a median base pay of $193k. Additional compensation may include bonuses, stock, commission, profit sharing, tips, and employee benefits.
+
+Top Paying Roles
+Vice President, Sales – Strategic Pursuits Team: $425k – $600k per year.
+Senior Software Engineer: $150k – $250k per year.
+Solutions Engineer: $120k – $200k per year.
+Lower Paying Roles
+Business Development Representative, French and English Speaking: CA$72k – CA$88k per year.
+Technical Support Engineer: $60k – $80k per year.
+Cloudflare’s Remote Job Locations
+Cloudflare offers remote job opportunities in various locations worldwide, including:
+
+Europe: Portugal, Germany, Netherlands, UK, Belgium, France
+North America: US, Canada, Mexico
+How to Apply for a Remote Job at Cloudflare
+To apply for a remote job at Cloudflare, visit their careers page and browse available positions. You can filter jobs by location, department, and keywords to find the perfect role for you.
+
+Search Job Openings
+Conclusion
+Cloudflare offers a wide range of remote job opportunities for tech enthusiasts seeking high-paying positions with excellent benefits. Their commitment to building a better internet and fostering a diverse and inclusive workplace makes them an attractive employer for remote workers worldwide. If you’re looking for a challenging and rewarding career in tech, consider applying for a remote job at Cloudflare.

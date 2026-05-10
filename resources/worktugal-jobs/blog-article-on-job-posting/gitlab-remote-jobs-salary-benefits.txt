@@ -1,0 +1,71 @@
+GitLab Remote Jobs: Earn Up to $406k/Year & Enjoy Unlimited PTO
+⌛ Last updated: 2 years ago
+A cinematic person is looking at the Customer Journey Map
+Table of Contents
+About GitLab
+GitLab’s Tech Stack
+Benefits and Perks at GitLab
+Remote Job Opportunities at GitLab
+Salary Expectations for Remote Employees
+How to Apply for Remote Jobs at GitLab
+Conclusion
+Discover high-paying remote jobs at GitLab, a leading DevOps platform, with unlimited time off, generous benefits, and salaries reaching $406k per year.
+
+GitLab, a leading DevOps platform with over 100,000 organizations as clients, is hiring remote employees across various departments, including sales, marketing, product, engineering, security, and general administration.
+
+The company offers an attractive compensation package, including unlimited time off, 100% health insurance coverage for employees, and a 401(k) with a 50% match. With salaries ranging from $40k to $406k, GitLab presents a unique opportunity for remote workers seeking a fulfilling career with a company that values work-life balance.
+
+About GitLab
+GitLab is a complete DevOps platform delivered as a single application. Built on open-source principles, GitLab benefits from the contributions of thousands of developers and millions of users. The company is constantly innovating and delivering new DevOps solutions to its clients, ranging from startups to global enterprises.
+
+GitLab’s Tech Stack
+GitLab’s tech stack is impressive and includes technologies like:
+
+Ruby on Rails
+JavaScript
+HTML5
+CSS 3
+Ruby
+Go
+Debian
+Linux
+Google Tag Manager
+Postman
+Sidekiq
+This diverse tech stack demonstrates GitLab’s commitment to building robust and scalable solutions.
+
+Benefits and Perks at GitLab
+GitLab offers a comprehensive benefits package that caters to its employees’ well-being and professional growth. Here are some of the key benefits:
+
+Health, Vision, and Dental Insurance: 100% coverage for employees and 66% coverage for family members.
+Employee Assistance Program (EAP): GitLab provides access to an EAP through Modern Health, offering support to all team members.
+Unlimited Time Off: GitLab operates on a “no ask, must tell” policy, allowing employees to take unlimited time off, with a minimum of 25 days per year.
+401(k) and Flexible Spending Account (FSA): GitLab offers a 50% match on the first 6% of base salary, with a yearly cap of $1,500. Company contributions vest evenly over four years.
+Life Insurance: GitLab provides a $20,000 lump sum to the designated beneficiary of any team member who passes away.
+Parental Leave: GitLab offers up to 16 weeks of paid parental leave for employees who have been with the company for at least six months and completed their probationary period. This applies to childbirth or adoption events.
+GitLab Contribute: GitLab hosts an annual team event, GitLab Contribute, where employees from across the globe gather to interact, network, and strengthen the community. Attendance is optional.
+Growth and Development Benefit: GitLab supports employee professional development by reimbursing up to $10,000 USD per calendar year for educational expenses, subject to tenure, performance, company need, and budget availability.
+Remote Job Opportunities at GitLab
+GitLab offers a wide range of remote job opportunities across various departments. Here are some of the current openings:
+
+Sales: 37 openings
+Marketing: 9 openings
+Product & User Experience: 8 openings
+Engineering: 19 openings
+Security: 5 openings
+General & Administrative: 13 openings
+Salary Expectations for Remote Employees
+The average remote employee at GitLab can expect to earn between $40k and $406k, with a median base pay of $159k. Additional pay might include bonuses, stock options, commissions, profit sharing, tips, and employee benefits.
+
+Highest-Paying Remote Job: Senior Director of Strategy, with a base salary ranging from $217k to $406k per year.
+Lowest-Paying Remote Job: Contractor – Senior Recruiter, R&D, with a base salary ranging from $40k to $86k per year.
+Salary ranges vary depending on factors like experience level, location, and specific role.
+
+How to Apply for Remote Jobs at GitLab
+If you’re interested in working at GitLab, visit their careers page and browse their open positions. You can also join their engineering or general talent pool to stay informed about future opportunities.
+
+View All Open Roles
+Conclusion
+GitLab offers an attractive remote work environment with high salaries, unlimited time off, and a comprehensive benefits package. If you’re a skilled professional seeking a rewarding career with a company that values its employees, consider applying for a remote position at GitLab.
+
+The company’s commitment to employee well-being, professional development, and innovative technology makes it a compelling choice for remote workers looking to build a successful career.

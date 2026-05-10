@@ -1,0 +1,78 @@
+Mistral AI hiring 125 staff across Europe following $14 billion valuation
+⌛ Last updated: 3 months ago
+Mistral AI is aggressively hiring 125+ employees across engineering, product, and safety teams in Paris, London, and Amsterdam. The expansion follows a massive Series C funding round, fueling projects like a 1.4 GW AI campus. Applicants face high equity upside but must navigate opaque salary ranges and unclear relocation policies.
+Table of Contents
+What is happening
+The hiring surge
+Why it matters
+Roles and compensation
+Verification
+Analysis: The risk and reward
+How to apply
+Local terms to know
+Common traps
+Bottom line
+FAQ
+Europe’s leading AI lab secures $3 billion in funding and opens roles in Paris, London, and Amsterdam, though salary transparency remains low.
+
+What is happening
+Mistral AI, the Paris-based competitor to OpenAI and Anthropic, has initiated a significant hiring push after reaching a $14 billion valuation in September 2025. Backed by a $3 billion war chest from investors like Nvidia and Microsoft, the company is recruiting for over 125 positions to build sovereign AI infrastructure and enterprise tools.
+
+The hiring surge
+Mistral AI currently lists over 125 open roles. The majority are based at the headquarters in Paris, with additional hubs in London and Amsterdam. The company is scaling rapidly to convert its $3 billion cash reserves into technical dominance, specifically targeting infrastructure, model safety, and enterprise product development.
+
+Why it matters
+This recruitment drive represents one of the few “rocket ship” opportunities in the European tech sector right now. While US giants dominate the market, Mistral is positioning itself as the sovereign EU alternative.
+
+For candidates, this offers a rare chance to work on frontier models (like Mistral Large 2) without moving to San Francisco. The company’s stability is bolstered by its recent $2 billion Series C raise, providing a long runway despite the capital-intensive nature of training large language models.
+
+Roles and compensation
+The open positions are heavily skewed toward technical specialization. Key areas include:
+
+High-Performance Computing (HPC): Engineers to build the planned 1.4 GW AI campus.
+AI Safety & Alignment: Researchers to mitigate reported vulnerabilities in open-weight models.
+Product & Deployment: Managers to integrate Mistral’s API with enterprise tools like Snowflake and Asana.
+Pay transparency warning:
+Mistral AI does not publish salary ranges on its job listings. This is a significant blind spot for applicants. Based on market data for similar Series C deep-tech firms in Paris and London, senior engineering roles typically command base salaries between €100,000 and €180,000.
+
+Because the company is valued at $14 billion, equity packages will be a critical part of the offer. Candidates must negotiate based on total compensation, not just base salary.
+
+Verification
+Verify all current listings directly on the company board:
+Official Mistral AI Careers Page
+
+Analysis: The risk and reward
+The upside at Mistral is clear: high-growth equity and the chance to build Europe’s primary AI infrastructure. The company has reported zero layoffs since its 2023 founding, signaling organizational stability.
+
+However, the HR infrastructure appears to lag behind the technical ambition. There is no public information regarding visa sponsorship or relocation packages, despite the company’s stated desire for top global talent. Furthermore, the remote work policy is inconsistent—some roles are “fully remote” while others require strict on-site presence, with no centralized documentation to clarify the rules.
+
+How to apply
+Applications are processed through the company’s Lever portal.
+
+Review the stack: Ensure your CV highlights experience with LLM infrastructure or open-source model deployment.
+Prepare for opacity: Go into the interview ready to ask specific questions about visa support and remote flexibility, as these are not detailed online.
+Anchor your rate: Since ranges are hidden, research local market rates for “Staff Engineer” or “Lead Product Manager” in Paris to avoid lowball offers.
+Local terms to know
+CDI (Contrat à Durée Indéterminée): The standard permanent employment contract in France, offering strong worker protections.
+BSPCE: A specific type of stock option for French startups, often with favorable tax treatment. Ask if your equity grant falls under this category.
+Common traps
+Assuming remote means global: “Fully remote” often implies “remote within the country of employment” for tax reasons. Do not assume you can work from Portugal for a Paris role without written confirmation.
+Ignoring the safety reports: Recent audits showed Mistral models had higher rates of harmful content generation. Safety engineers should view this as a core job responsibility, not just a PR issue.
+Overvaluing paper money: A $14 billion valuation is high. Ensure you understand the strike price of your options and the conditions for liquidity.
+Bottom line
+Mistral AI offers the highest-profile tech jobs in Europe right now, backed by massive capital. The trade-off is a lack of HR transparency regarding pay and relocation. Apply if you want high-stakes technical work, but negotiate your terms aggressively.
+
+Apply via the official portal before roles are filled.
+
+FAQ
+Does Mistral AI sponsor visas?
+Public listings do not confirm visa sponsorship. Candidates outside the EU should ask recruiters immediately during the first screen.
+
+What is the remote work policy?
+It varies by team. Some roles are listed as fully remote, while others require 3+ days in the Paris or London offices.
+
+How much does Mistral AI pay?
+Salaries are not disclosed. Market estimates for senior technical roles in Paris range from €100,000 to €180,000, plus equity.
+
+Is the company stable?
+Yes. With over $3 billion raised and a recent Series C round in September 2025, the company has a significant financial runway.

@@ -1,0 +1,70 @@
+Anthropic hiring 290 staff globally with salaries up to $746,000
+⌛ Last updated: 3 months ago
+Anthropic is hiring for 290+ positions globally, focusing on new hubs in Dublin, London, and Zurich following a $13 billion funding injection. The company offers top-tier compensation, with technical roles reaching $746,000, but requires relocation as it does not currently support remote work from Portugal. Applicants must prepare for a rigorous six-round interview process and a high-intensity work culture.
+Table of Contents
+The opening
+Why it matters now
+The offer details
+Verification
+Analysis for Portuguese and EU talent
+How to apply
+Local terms explained
+Common traps
+Bottom line
+FAQ
+Relocation packages available for EU hubs in Dublin, London, and Zurich.
+
+Anthropic, the $183 billion AI safety lab behind Claude, is aggressively expanding its workforce following a massive Series F funding round. With over 290 open roles and a mandate to triple its international headcount, the company is recruiting heavily for its new European hubs. For professionals in Portugal and across the EU, this is a high-stakes relocation opportunity offering elite compensation in exchange for intense performance demands.
+
+The opening
+Anthropic is scaling its operations immediately. Following a $13 billion Series F raise in September 2025, the company has opened approximately 290 positions across engineering, product, and go-to-market functions. The expansion targets its headquarters in San Francisco and new European offices in Dublin, London, and Zurich. This is not a remote-first cattle call; it is a targeted recruitment drive for on-site and hybrid roles in specific global hubs.
+
+Why it matters now
+The AI sector is in a capital-flush “arms race.” Anthropic’s valuation jumped from $18 billion to $183 billion in just 18 months. This financial velocity allows them to pay above-market rates to secure talent before competitors do. For European workers, the opening of the Dublin and London offices signals a shift. You no longer need a US visa to work for a top-tier AI lab, though you will likely need to move to one of these cities.
+
+The offer details
+The compensation packages are among the highest in the tech industry. Public data and salary benchmarks indicate the following ranges:
+
+Research Scientist: Median total compensation of $746,000.
+Software Engineer: Highs reaching $671,000.
+Research Engineer (London): Approximately $250,000 – $270,000.
+Information Technologist: $259,000 – $368,000.
+Benefits include comprehensive visa sponsorship (including US Green Card support) and relocation assistance. The company operates on a hybrid model, generally requiring regular office attendance, though specific terms vary by team.
+
+Verification
+Verify these roles and the current headcount directly on the official board:
+Anthropic Careers Page
+
+Analysis for Portuguese and EU talent
+This is a relocation play, not a digital nomad opportunity. Anthropic has no legal entity or hiring footprint in Portugal. If you are based in Lisbon or Porto, you cannot work remotely for them under a standard Portuguese contract.
+
+The opportunity lies in “talent arbitrage.” Portuguese engineers and product managers can leverage Anthropic’s aggressive hiring in Dublin and London to secure salaries significantly higher than local Portuguese rates. The company’s willingness to sponsor visas makes this a viable path for those ready to leave Portugal. Be aware that the culture is described as “intense,” with work-life balance ratings on Blind sitting at a low 3.6/5. You are trading comfort for capital and career velocity.
+
+How to apply
+Review the Jobs Page and filter for Dublin, London, or San Francisco.
+Prepare for a six-stage interview process.
+Clarify the remote/hybrid policy for your specific role during the first screen.
+Submit your application directly; do not rely on third-party aggregators.
+Local terms explained
+Member of Technical Staff: Anthropic uses a flat titling structure. You might be a senior lead but share the same title as a mid-level engineer. Negotiate your level (and equity) based on the internal matrix, not the public job title.
+Relocation Support: This usually covers flights, temporary housing (1–2 months), and moving logistics. It rarely covers lease breaking fees in your home country.
+Equity (RSUs vs. Options): At a $183B valuation, understand if you are getting RSUs (safer) or Options (high strike price risk). Ask specifically about the “preference stack” given the massive funding raised.
+Common traps
+Applying for “Remote” expecting Portugal: “Remote” usually means “Remote within the US” or “Remote within the UK.” Applying from Portugal without stating willingness to relocate will likely result in auto-rejection.
+Ignoring the “Crunchtime”: Reviews cite high stress. If you have rigid family commitments or require a strict 9-to-5, this environment may lead to rapid burnout.
+Underestimating the Interview: The process can involve up to six rounds. Do not treat the initial screens casually; they filter aggressively.
+Bottom line
+Anthropic offers life-changing compensation and a seat at the forefront of AI, but it demands relocation and high-intensity output. If you are willing to move to Dublin or London, apply via the official portal immediately, as these headcounts fill quickly after funding announcements.
+
+FAQ
+Can I work for Anthropic remotely from Portugal?
+No. Anthropic does not have a legal entity in Portugal. You must relocate to a hub like Dublin, London, or San Francisco.
+
+Does Anthropic sponsor visas?
+Yes. They provide visa sponsorship for the US and their European hubs, including Green Card support for eligible employees.
+
+What is the interview process like?
+Expect a rigorous process involving up to six rounds, conducted remotely via Google Meet. Some stages may involve paid assessments.
+
+Is the work-life balance poor?
+Employee data suggests a trade-off. While satisfaction with pay and mission is high (4.4/5), work-life balance scores are lower (3.6/5) due to the rapid pace of growth.

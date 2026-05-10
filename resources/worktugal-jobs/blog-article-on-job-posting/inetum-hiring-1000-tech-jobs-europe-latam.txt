@@ -1,0 +1,64 @@
+The IT services giant is seeking SAP consultants, developers, and AI engineers in Spain, Portugal, France, and beyond.
+
+European IT leader Inetum has launched a major hiring initiative, opening over 1,000 positions across 19 countries. The expansion includes more than 560 remote roles, signaling a significant push to attract tech talent in Europe and Latin America. Key hiring hubs include Spain, France, and Portugal.
+
+The hiring wave comes as Inetum, a company with 28,000 employees and reported sales of €2.5 billion, continues to scale its digital transformation services. Certified as a “Top Employer Europe 2025,” the firm is expanding its teams to meet client demand in cloud computing, generative AI, and enterprise solutions like SAP and Microsoft Dynamics. This move offers a substantial number of opportunities for IT professionals looking for roles within a large, established European corporation, including those seeking remote or hybrid work arrangements.
+
+What the roles involve
+The majority of the open positions are for experienced technology professionals, though opportunities for junior talent exist. The company is primarily seeking candidates with expertise in high-demand platforms and programming languages. While many roles are listed with specific country locations, a significant portion (over 560) are advertised as remote, offering flexibility for candidates within those regions.
+
+Key hiring locations and job counts include:
+
+Spain: 281 jobs
+France: 221 jobs
+Portugal: 185 jobs
+Colombia: 88 jobs
+Poland: 61 jobs
+Morocco: 48 jobs
+Romania: 43 jobs
+Mexico: 30 jobs
+Belgium: 27 jobs
+The roles span several technical domains. Prominent job titles appearing in the listings are:
+
+SAP Consultants: Covering various modules including FI/CO, SD, MM, EWM, and SuccessFactors.
+Software Engineers: Primarily Java, .NET, and C++ developers, with many roles for full-stack profiles.
+Cloud & DevOps: Architects and engineers with experience in Azure, GCP, and OpenShift.
+Data & AI: Data Engineers, AI Architects, Business Intelligence (BI) Consultants, and Data Scientists.
+Project Management: Project Managers, Scrum Masters, and PMOs to lead IT projects.
+Cybersecurity: Specialists in network security and identity and access management.
+Pay and conditions
+Contracts are primarily full-time, permanent positions (contrato indefinido in Spain or Contrat à Durée Indéterminée in France), though some contractor roles are available. Salary information, while not provided for all roles, is available for select positions, giving an indication of compensation levels.
+
+Examples of advertised annual salaries include:
+
+Java Software Engineer (Spain): €45,000 – €50,000
+OpenShift Expert (Spain): €50,000 – €55,000
+AI Expert for SAP (Spain): €40,000 – €65,000
+Cobol Developer (France): €36,000 – €47,000
+Data Visualization Specialist (Mexico): MX$480,000 – MX$720,000
+Based on employee reviews, compensation at Inetum is often described as moderate for the industry. However, the company is seen as a strong entry point for professionals starting their careers, particularly in the SAP ecosystem, offering valuable project experience with major clients.
+
+How to apply
+This hiring drive represents a significant opportunity for tech workers inside and outside the EU, especially in Latin America, to secure roles with a major European employer. While some tech giants have announced hiring freezes, this expansion shows continued demand for specialized IT skills in the corporate services sector. The high number of roles in Portugal and Spain is particularly notable, as these countries are popular destinations for international tech talent.
+
+Candidates interested in these positions should act promptly.
+
+Visit the Official Source: All applications should be made through the official Inetum careers portal. This is the most reliable way to view up-to-date listings and submit an application directly.
+Tailor Your CV: Highlight experience with the specific technologies mentioned in the job descriptions, such as SAP modules, cloud platforms (Azure, GCP), or programming languages (Java, .NET).
+Prepare for a Multi-Stage Process: The interview process typically involves an initial screening with HR, followed by technical interviews with business managers and team leads.
+Clarify Remote Work Policies: For remote positions, confirm whether the role can be performed from anywhere or is restricted to a specific country for tax and legal reasons.
+While many international roles are conducted in English, proficiency in the local language (Spanish, French, Portuguese) is a significant advantage and may be required for certain client-facing positions.
+
+Bottom Line
+
+Inetum‘s hiring spree of over 1,000 tech professionals is a clear indicator of the robust demand for digital transformation skills across Europe and Latin America. With hundreds of remote positions available, this is a prime opportunity for skilled IT workers. Apply via the official Inetum careers portal before positions are filled.
+
+FAQ
+Are these jobs open to non-EU citizens?
+While Inetum hires internationally, candidates for roles in the EU will likely need to have existing work authorization or be eligible for a work visa in the specific country of employment.
+
+Are the remote jobs fully global?
+Most remote jobs are country-specific, meaning you must reside in the country where the job is based for legal and tax purposes. This should be clarified during the interview process.
+
+What is the primary language of work?
+For international teams and projects, English is common. However, for local client projects in countries like France or Spain, fluency in the local language is often necessary.

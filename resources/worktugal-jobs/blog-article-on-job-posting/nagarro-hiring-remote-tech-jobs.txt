@@ -1,0 +1,57 @@
+Global IT firm seeks SAP, AI, and Cloud engineers in Europe, the Americas, and Asia for hundreds of full-time, country-specific remote roles.
+
+Global tech consultancy Nagarro has opened a major hiring drive for over 600 remote and hybrid positions. The expansion targets skilled professionals in SAP, AI, and cloud engineering across dozens of countries, signaling a significant push to scale its digital transformation services.
+
+The Global Hiring Push
+Nagarro, a German-headquartered company with over 17,000 employees, is actively recruiting for a wide range of technology roles. The majority of these positions are full-time and designated as remote, but most are restricted to applicants residing in specific countries. This hiring wave appears focused on bolstering the company’s “Fluidic Intelligence” and AI service offerings, which require a deep bench of specialized talent in high-demand fields.
+
+The scale of the recruitment effort spans continents, with openings listed in Germany, Romania, Poland, Portugal, the United States, Canada, India, Mexico, and many other nations. This move reflects a broader trend in the IT services industry, where large consultancies are competing for a limited pool of senior engineers, architects, and consultants to deliver on complex enterprise projects. The roles are not for beginners; most listings call for mid-level to principal-level experience.
+
+What Roles Are Available and What Do They Pay?
+The available positions are heavily concentrated in enterprise software, data, and AI. Based on recent job postings on the company’s career portal and global job boards, salary transparency varies by region. However, provided data points offer a clear picture of earning potential.
+
+A general remote employee at Nagarro can expect a base salary between $48,000 and $96,000 per year, with a median of $60,000. Top-tier roles in high-cost countries command significantly more.
+
+Key roles and salary ranges include:
+
+Principal Consultant (Legal / Global Technology & Outsourcing) in the United States: $110,000 – $140,000 per year.
+Senior QA Lead in Austria: $66,000 – $96,000 per year.
+Principal AI Architect (Generative AI & ML Solutions) in Austria: $64,000 per year.
+SAP Solution Architect (SuccessFactors) in Austria: $60,000 per year.
+Technical Architect (SAP BTP) in Austria: $54,000 per year.
+Other prominent openings include:
+
+SAP Consultants: Numerous roles for FI/CO, EWM, HCM, and BTP specialists, particularly in Germany, Poland, Romania, and Portugal. Many require German language skills.
+Data & AI Engineers: Positions for Data Engineers, AI Architects, and Machine Learning specialists are open in India, the US, and Romania, with a focus on pharma and healthcare sectors.
+Cloud & DevOps Engineers: Roles for Cloud Infrastructure Engineers and DevOps specialists are available in Germany, Mexico, and the United Arab Emirates.
+Software Engineers: Openings for Python, Java, and .NET developers are spread across India, Romania, Sri Lanka, and Canada.
+Business & Management: Roles like Agile Delivery Manager, Scrum Lead, and Business Development Manager are available in the UK, Portugal, and the US.
+Pay, Conditions, and the Reality on the Ground
+Nagarro promotes a “CARING” culture and a “work from anywhere” philosophy. While remote work is a major benefit, applicants must note that nearly all jobs are tied to a specific country for legal and tax reasons. You cannot apply for a “Romania only” job if you live in Spain.
+
+Publicly available employee reviews on platforms like Glassdoor provide a more nuanced perspective. Many current and former employees praise the company for its good work-life balance, supportive colleagues, and multicultural environment. The flexibility is a frequently cited positive.
+
+However, the same sources reveal a mixed experience. Some employees report that career growth is heavily dependent on project assignments, with opportunities feeling limited if you are not on a high-profile account. Other criticisms point to a management culture that can lack transparency and a pay structure that may favor sales-focused roles over technical contributors. One review states, “Not the place to blast-off your career to new heights,” while another notes, “They are more focused on profits than people.” This contrast is important for any candidate to weigh. The opportunity is real, but the corporate environment has its complexities, which is common for a company of its size.
+
+How to Apply
+Interested candidates should prepare a CV that clearly highlights their experience with the specific technologies mentioned in the job description (e.g., SAP S/4HANA, Python, Azure, Generative AI).
+
+Visit the official Nagarro careers page.
+Use the filters to search for roles by country and expertise.
+Read the requirements carefully, paying close attention to location and language prerequisites.
+Apply directly through their portal. Avoid third-party aggregators that may have outdated information.
+The interview process, according to candidate feedback, typically involves an initial screening followed by multiple technical rounds, which may include coding assessments and deep dives into your past project experience.
+
+Bottom Line: Nagarro‘s global hiring offers a significant opportunity for experienced tech professionals seeking remote work within a large, established company. However, candidates should carefully review role-specific location requirements and enter the process with a realistic view of the corporate environment.
+
+Apply directly via the Nagarro careers portal for the most accurate and up-to-date listings.
+
+FAQ
+Are these jobs fully remote?
+Most jobs are remote but are restricted to applicants residing in a specific country (e.g., “Poland only,” “US only”).
+
+Is the advertised pay guaranteed?
+No. The salary ranges are estimates based on job postings and vary by location, experience level, and specific role. Higher salaries are typically found in the US and Western Europe.
+
+What is the interview process like?
+Based on public reviews, the process usually includes an initial HR screening, followed by two to three technical interviews that may involve coding challenges and detailed discussions about your technical expertise.

@@ -1,0 +1,78 @@
+Cloudflare Hiring 500+ in Portugal: High-Paying Tech Jobs (€3,200 - €4,275+) 🌩️
+Lisbon-based tech giant Cloudflare is expanding, creating 500+ new jobs in Portugal.
+Van Vo
+Oct 18, 2024
+
+This presents a significant opportunity for tech professionals and those seeking rewarding careers in a global company.
+
+Cloudflare, a US-based multinational specializing in web performance and security, is establishing a major presence in Lisbon. This expansion reflects Portugal's growing role as a European tech hub. The company is seeking a diverse range of talent across various technical specializations.
+
+
+
+
+Cloudflare offers above-average compensation packages within the tech industry.
+Job Openings & Tech Stacks
+Cloudflare's recruitment drive in Portugal encompasses a wide array of roles, focusing primarily on software development, engineering, technical support, and operations. Some specific roles mentioned include:
+
+Senior Scaling Engineer
+
+Technical Support Engineer (CDN/Developer Platform)
+
+Technical Support Engineer (HTTP/DNS/SSL)
+
+Technical Support Engineer (Zero Trust Focus)
+
+Senior/Principal Systems Engineer – Workers AI (AI/ML)
+
+Senior/Principal Systems Engineer – Workers AI (Platform)
+
+Senior Software Engineer – Distributed Systems – Europe
+
+Senior Software Engineer (ZTC) – Windows Networks
+
+Software Engineer – Distributed Systems – Europe (Go and/or Rust)
+
+Software Engineer – Zero Trust Client (Low-level OS, VPN, Networking)
+
+Salesforce Developer
+
+Senior Billing Systems Engineer
+
+Infrastructure Implementation Engineer
+
+Account Executive
+
+Security Systems Reliability Engineer
+
+While specific tech stacks vary by role, expect experience with technologies like Go, Rust, Java, AI/ML, cloud platforms, networking protocols (HTTP, DNS, SSL), and security systems to be highly valued.
+
+Salary Information
+Salaries for these positions are competitive and vary depending on experience and seniority. Based on publicly available data, we can expect a range:
+
+Entry-Level Technical Support: €2,650 - €2,850 per month (gross, plus potential additional compensation).
+
+Mid-Level Software Engineers/Systems Administrators: €3,850 - €4,275 per month (gross, plus potential additional compensation).
+
+Senior Engineers/Specialists: Salaries for senior roles are expected to exceed €4,275 per month, potentially reaching significantly higher figures depending on the specific position and experience.
+
+Note: These are estimates based on available information. Always confirm salary details with Cloudflare's HR department during the interview process. Additional compensation (bonuses, stock options) may also be offered.
+
+How to Apply
+Interested candidates should visit Cloudflare's careers page directly. The site allows filtering jobs by area and location, streamlining the search process. Submit your resume and complete the application form via the company website.
+
+View All Open Roles
+
+Benefits of Working at Cloudflare in Portugal
+Competitive Salaries: Cloudflare offers above-average compensation packages within the tech industry.
+
+Growth Opportunities: The company's rapid expansion provides many opportunities for career advancement.
+
+Global Reach: Working for a multinational gives you exposure to international projects and collaborations.
+
+Lisbon Location: Lisbon offers a vibrant, international environment and a relatively high quality of life compared to other major European capitals.
+
+Impactful Work: Contribute to a company that plays a critical role in maintaining the security and performance of the internet.
+
+Thanks for reading Worktugal! Subscribe for free to receive new posts and support my work.
+
+Attribution: Abdo, C. (2024, October 18). Empregos em Portugal na Cloudflare: Multinacional com nova sede e 500 vagas. Vagas pelo Mundo.

@@ -1,0 +1,73 @@
+OpenAI hiring in Dublin and London as valuation hits $500 billion
+⌛ Last updated: 3 months ago
+OpenAI is recruiting for engineering and policy roles in Dublin, London, and Paris following a corporate restructure. The company offers visa sponsorship and top-tier equity packages but enforces a strict in-office policy. Remote work from Portugal is currently not an option.
+Table of Contents
+The scale of the opportunity
+The European map
+Pay and conditions
+The culture tax
+Verification
+What this means for you
+Common traps
+Bottom line
+FAQ
+Tech giant expands European hubs with visa support, but remote work remains off the table
+
+The world’s most valuable AI company has shifted its legal structure to a Public Benefit Corporation (PBC) following a valuation surge to $500 billion. With $20 billion in annual revenue and fresh capital from Microsoft, OpenAI is hiring across its European hubs—but candidates in Portugal must be ready to relocate.
+
+The scale of the opportunity
+OpenAI is no longer just a research lab; it is a financial heavyweight. As of late 2025, the company employs over 5,300 people and generates $20 billion in annual recurring revenue.
+
+The recent shift to a for-profit Public Benefit Corporation structure allows for aggressive capital raising, evidenced by a $500 billion valuation. For employees, this financial strength translates into stability—zero reported layoffs in five years—and liquidity. Staff have been able to sell equity through secondary sales, turning paper stock into cash without waiting for an IPO.
+
+The European map
+While headquarters remain in San Francisco, OpenAI has established physical hubs in:
+
+Dublin, Ireland (European HQ)
+London, UK
+Paris, France
+Tokyo, Japan
+The bad news for Portugal: There is no legal entity or physical office in Portugal. Recruiters have explicitly stated that “no roles are remote.” If you are based in Lisbon or Porto, you cannot work for OpenAI unless you move to one of the hubs listed above.
+
+Despite the Madeira Free Trade Zone offering a 5% corporate tax rate for AI companies, OpenAI has not yet tapped into the Portuguese market.
+
+Pay and conditions
+OpenAI pays well above market averages, even by Big Tech standards.
+
+Developer Experience Engineer: $280,000 – $345,000 (US baseline).
+Research Manager: ~$471,000 average total compensation.
+Equity: Stock packages are a massive component of the offer, with liquidity events allowing employees to cash out at the $500 billion valuation mark.
+The catch: Reports indicate a “flat salary” model for many roles with limited room for negotiation. You get a high offer, but it is often take-it-or-leave-it.
+
+The culture tax
+The money comes with a cost. Glassdoor reviews average a high 4.5/5, but the work-life balance score drops to 3.8/5.
+
+Employees describe a “work-life integration” model rather than true balance. The environment is intense, political, and demanding. Following the 2023 leadership crisis and the departure of key safety researchers in 2024, the internal culture has faced significant strain. This is a high-growth, high-pressure environment, not a lifestyle job.
+
+Verification
+Verify all open roles directly on the official board. Do not apply via third-party aggregators.
+View official OpenAI careers page →
+
+What this means for you
+If you are a senior engineer or researcher in Portugal, OpenAI is a viable target only if you are willing to relocate. The company has a track record of filing H-1B and Green Card applications in the US, suggesting strong visa support for its European offices as well.
+
+For those unwilling to move, this serves as a salary benchmark. If you are working remotely for US tech firms from Portugal, use OpenAI’s public ranges to gauge the value of your skills in the current AI market.
+
+Common traps
+Applying for “Remote”: Do not assume you can negotiate a remote contract from Portugal. You will be rejected.
+Ignoring cost of living: A high salary in Dublin or London disappears quickly compared to Portuguese living costs. Calculate your net purchasing power before accepting.
+Overlooking the “flat pay” policy: Don’t bank on negotiating a 20% bump at the offer stage. The initial number is usually the final number.
+Bottom line
+OpenAI offers life-changing money and equity liquidity, but it requires physical presence in Dublin, London, or Paris. If you are ready to move and can handle a high-pressure environment, apply now.
+
+Apply via the official portal →
+
+FAQ
+Does OpenAI hire remotely in Portugal?
+No. OpenAI requires employees to work from countries where they have a legal entity. Currently, this includes the UK, Ireland, and France, but not Portugal.
+
+Does OpenAI sponsor visas?
+Yes. The company has a strong history of filing for work visas and green cards for specialized talent willing to relocate to their hubs.
+
+Is the equity liquid?
+Yes. Unlike many startups where stock is “paper money,” OpenAI conducts secondary sales that allow employees to sell vested shares to investors for cash.

@@ -1,0 +1,52 @@
+Inflection AI hiring engineers for up to $350,000 with strict location rules
+⌛ Last updated: 2 months ago
+Inflection AI is rebuilding its workforce in Palo Alto after a strategic pivot to enterprise software. The company offers top-quartile salaries ranging from $175,000 to $350,000 for specialized engineering roles. However, the positions require residency in the San Francisco Bay Area, with no options for remote work from Europe.
+Table of Contents
+The offer and the catch
+Visa and relocation reality
+Why this matters for the market
+Verification
+Common traps for applicants
+Bottom line
+FAQ
+The $4 billion AI studio is rebuilding its team in California, but remote options for Europe are zero.
+
+Inflection AI is recruiting for a specific headcount of approximately 60 to 68 employees following a major restructuring in 2024. The company, now focused on enterprise AI infrastructure, is actively hiring for roles such as Research Engineer and Member of Technical Staff. Listed base salaries for these senior positions range from $175,000 to $350,000 annually.
+
+This recruitment drive comes after a “refounding” moment where Microsoft hired most of the original staff and founders. Despite the small team size, Inflection retains a massive war chest, having raised over $1.5 billion from investors including Nvidia and Bill Gates. This creates a rare scenario: a 60-person startup with the financial stability of a large corporation.
+
+The offer and the catch
+The financial package is the primary draw. Beyond the $175k–$350k base salary, the company competes with top-tier tech firms on compensation. The work focuses on “post-training” of large language models (LLMs), involving complex infrastructure and optimization for business clients rather than consumer chatbots.
+
+However, the location requirement is absolute. All current job listings specify “In-Office” at the Palo Alto headquarters. While the company mentions a hybrid model, it does not support remote work from Portugal or the wider EU.
+
+Visa and relocation reality
+For international applicants, the barriers are high. The company’s documentation explicitly mentions visa support for “international employees living in the Bay Area.” This suggests they prioritize transferring existing H-1B holders already in the US over sponsoring new relocation cases from Europe.
+
+Furthermore, Inflection dissolved its UK subsidiary in September 2025. This removes any legal footprint in Europe, meaning they cannot easily employ workers on local EU contracts. If you apply from Lisbon, Berlin, or London, you must be ready to negotiate a full relocation package to California, or your application will likely be ignored.
+
+Why this matters for the market
+Inflection AI represents a specific slice of the 2025 job market: high-capital, low-headcount, and location-centric. It signals that while “Global AI” is a popular narrative, the highest-paying core engineering roles remain concentrated in specific US hubs. For EU talent, this serves as a benchmark for salary negotiation but a reality check on remote accessibility.
+
+Verification
+You can view the official job listings and location requirements on the Inflection AI careers page.
+
+Common traps for applicants
+Applying for remote work: The “hybrid” label often confuses applicants. At Inflection, hybrid means commuting to Palo Alto a few days a week, not working from a laptop in Lagos or Lisbon.
+Ignoring cost of living: A $175,000 salary in Palo Alto has significantly less purchasing power than in Europe. Rent for a one-bedroom apartment in the area often exceeds $3,000 per month.
+Overlooking the pivot: The company is no longer building the “Pi” consumer chatbot as its main focus. The work is now B2B infrastructure. Ensure your portfolio reflects enterprise-grade system design, not just consumer UX.
+Bottom line
+Inflection AI offers elite compensation for engineers willing to work physically in Palo Alto. If you are based in the EU and unwilling to relocate, these roles are not viable options.
+
+FAQ
+Does Inflection AI hire remote workers from Europe?
+No. The company has no legal entity in the EU and requires employees to be based near their Palo Alto headquarters.
+
+What is the salary range for engineers at Inflection AI?
+Senior technical roles typically list base salaries between $175,000 and $350,000, depending on experience.
+
+Does the company sponsor visas for new immigrants?
+Current policy favors international workers already living in the Bay Area. Sponsorship for candidates relocating directly from abroad is not guaranteed.
+
+Is Inflection AI stable after the Microsoft deal?
+Yes. The company retains over $1.5 billion in capital and a partnership with Intel, providing significant financial runway despite the small team size.

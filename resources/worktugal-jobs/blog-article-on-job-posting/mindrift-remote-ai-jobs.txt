@@ -1,0 +1,60 @@
+Mindrift hiring for 30+ roles, pay up to $55/hr
+
+Table of Contents
+What the roles involve
+The reality of pay and work
+How to apply
+FAQ
+Global call for 30+ types of freelance experts, from engineers to writers, for remote AI projects.
+
+Mindrift, the AI training platform owned by data-generation company Toloka, is actively recruiting for over 30 distinct freelance roles. The positions are fully remote and designed for professionals to help train generative AI models. This hiring wave targets specialists in STEM, mathematics, and writing, but the reality of pay and work consistency requires careful review.
+
+The push for AI trainers comes as technology companies race to refine their large language models (LLMs). These models require vast amounts of high-quality, human-verified data to improve their accuracy, safety, and reasoning. Mindrift connects skilled professionals with AI developers to provide this crucial human input. Contributors work on a project basis, creating examples, evaluating AI responses, and refining content based on their domain knowledge. The work is entirely remote and offers a flexible schedule, positioning it as a potential income source for experts worldwide.
+
+What the roles involve
+Mindrift is seeking experts across dozens of specialized fields, with over 30 distinct roles currently listed. All positions are freelance and project-based, not full-time employment. The platform advertises rates of up to $55 per hour for most specialist roles and up to $20 per hour for general writing positions.
+
+High-priority projects currently open include:
+
+AI Agent Evaluation Analyst
+AI Red Team Engineer
+Engineers (Automotive, Civil, Electrical, Mechanical) with and without Python skills
+Scientists (Biologist, Chemist, Physicist, Earth Science Expert)
+Mathematicians
+Evaluation Scenario Writers
+A complete list of active projects and talent pools is available on the Mindrift website, which serves as the primary source for these listings. The application process involves submitting a CV, passing several online assessments to verify expertise, and completing an identity check.
+
+The reality of pay and work
+While the advertised rates are attractive, a review of public feedback from current and former contributors on platforms like Reddit and Glassdoor presents a more complex picture. Applicants should be aware of several key points before applying.
+
+The most significant point of feedback is pay disparity. The advertised hourly rates are a ceiling, not a guarantee. Multiple users report that actual pay is geo-based, meaning the rate offered can be substantially lower depending on the applicant’s country of residence. Offers have been reported as low as $5 to $9 per hour in some regions, a stark contrast to the “up to $55” headline figure.
+
+Work availability is another critical factor. As a freelance platform, the flow of projects can be inconsistent. Contributors describe a “feast or famine” environment where they may have access to many tasks for a short period, followed by weeks or months with no available work. This makes it an unreliable source of primary income.
+
+Finally, the application process itself has drawn criticism. Applicants must complete a series of unpaid tests, which can include college-level English grammar exams, fact-checking assessments, and sample writing tasks. Some find this process demanding for a freelance role with no guarantee of work.
+
+This is a flexible opportunity for skilled professionals to earn supplemental income by contributing to AI development. However, it is not a stable, salaried job. The variable pay and inconsistent project flow mean it is best suited for those looking for a side gig rather than a primary career move.
+
+How to apply
+Professionals interested in becoming an AI trainer can apply directly through the Mindrift portal. The process is as follows:
+
+Select an opportunity and submit your CV.
+If selected, register on the platform.
+Complete the required skills assessments.
+Verify your identity.
+Once approved, you can join an available project or be placed in a talent pool for future opportunities.
+Payments for completed and accepted tasks are processed twice a month through platforms like Payoneer.
+
+Bottom Line
+
+Mindrift offers a legitimate, flexible way for experts to monetize their knowledge by training AI models across 30+ specializations. However, the advertised pay rates are not guaranteed and vary significantly by location, and the work can be inconsistent. Apply via the official Mindrift portal after considering the freelance nature of the work.
+
+FAQ
+Is this a full-time job?
+No, all positions at Mindrift are freelance, remote, and project-based.
+
+Is the advertised pay guaranteed?
+No. Contributor reports confirm that pay rates are often based on your geographic location and can be much lower than the advertised maximum.
+
+What does the application process involve?
+It requires a CV submission followed by a series of unpaid online assessments to test your skills in English, fact-checking, and your specific domain of expertise.

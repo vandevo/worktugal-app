@@ -1,0 +1,71 @@
+Cohere hiring for remote AI roles with $1.6 billion funding and zero layoffs
+⌛ Last updated: 3 months ago
+Cohere is expanding its enterprise AI team globally backed by over $1.6 billion in capital and a recent government grant. The company offers fully remote roles and high salary potential but faces reports of leadership instability and burnout. Applicants should target engineering and sales roles while preparing for a rigorous five-stage interview process.
+Table of Contents
+The capital cushion
+The shift to enterprise
+The offer: Pay and remote terms
+Verification
+The risk: Burnout and culture
+Localization: Portugal and EU applicants
+Common traps
+Bottom line
+FAQ
+Enterprise AI giant recruiting engineers and sales staff globally—but read the culture warnings first
+
+While major tech firms continue to cut staff, enterprise AI platform Cohere has secured a $1.6 billion war chest and is actively recruiting. With zero public layoffs and partnerships with SAP and Dell, the company offers rare stability in a volatile market. Here is the data on salaries, remote terms, and the leadership risks you need to know before applying.
+
+The capital cushion
+Cohere is an anomaly in the 2025 tech landscape. While competitors downsize, this Toronto-based AI infrastructure firm has raised approximately $1.64 billion—including a recent Series D and a CA$240 million government grant—without a single public layoff.
+
+Valued between $5.5 billion and $6.8 billion, the company has secured a financial runway that likely extends for years. For job seekers, this capital reserve signals job security that is currently hard to find in the startup ecosystem.
+
+The shift to enterprise
+Unlike consumer-facing AI tools, Cohere builds the “plumbing” for big business. They provide secure, private Large Language Models (LLMs) for companies that cannot risk putting their data on public clouds.
+
+Recent deals to integrate their ‘North’ platform with SAP and Dell Technologies confirm this strategy is working. Consequently, hiring has shifted toward B2B skill sets. They need talent who understand sovereign cloud, on-premise deployment, and compliance—not just prompt engineering.
+
+The offer: Pay and remote terms
+Cohere operates on a “work-from-anywhere” philosophy with global stipends. While they do not publish salary bands in job ads, third-party data suggests the pay is top-tier.
+
+Software Engineers: Median total compensation is around $151,000, with senior roles reaching significantly higher.
+Sales & Solutions: Benchmarks suggest packages exceeding $235,000 for experienced closers.
+Equity: Given the valuation, stock options are a major component of the offer.
+Note: These figures are US/Canada benchmarks. European offers will likely be adjusted for local cost of living.
+
+Verification
+You can view current openings directly on their official board. Note that they use AshbyHQ, which often blocks automated scrapers, so you must check manually.
+
+View official Cohere jobs here
+
+The risk: Burnout and culture
+The financial stability comes with a cultural cost. Candidates must weigh the high pay against significant warning signs from current and former employees.
+
+Glassdoor ratings sit at a low 2.7/5. Reviews consistently cite a “blatant disregard for employee wellbeing” and high burnout rates. Recent leadership changes in marketing and other departments have created internal friction, described by some as a “power grab.”
+
+This is not a lifestyle job. It is a high-pressure environment scaling rapidly to justify a multi-billion dollar valuation.
+
+Localization: Portugal and EU applicants
+Cohere has hubs in London and Paris but no physical office in Portugal.
+
+Contractor Bias: Previous listings for Portuguese-language roles were for independent contractors.
+Legal Status: If you apply from Portugal, expect a B2B contract (prestação de serviços). You will likely be responsible for your own Social Security and taxes via recibos verdes.
+Visa Support: There is no evidence of visa sponsorship for remote roles outside their hub cities. You must already have the right to work in your location.
+Common traps
+Assuming “Remote” means “Employment”: In countries without a legal entity (like Portugal), you are a vendor, not an employee. You lose standard labor protections unless they use an Employer of Record (EOR).
+Ignoring the Equity Split: High total compensation often relies heavily on stock. Ask for the strike price and vesting schedule immediately.
+Skipping Due Diligence: Do not accept an offer without asking about the specific team’s turnover rate. The low company rating suggests localized toxicity.
+Bottom line
+Cohere offers a rare mix of massive funding and zero layoffs, making it a prime target for ambitious engineers and B2B sellers. However, the culture is turbulent. Apply if you want high-stakes work and equity upside, but enter negotiations knowing that burnout is a documented risk.
+
+Apply via the official portal
+
+FAQ
+Does Cohere hire in Portugal?
+Yes, but typically as remote independent contractors rather than direct employees. You will likely need to handle your own taxes.
+
+Is the work fully remote?
+Yes. Cohere has a “work-from-anywhere” policy supported by stipends, though some roles may require time zones aligned with Toronto or London.
+
+What is the interview process like?
+Expect a five-stage process: recruiter screen, potential take-home assignment, hiring manager interview, and final panel rounds.
