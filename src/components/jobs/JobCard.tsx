@@ -36,7 +36,7 @@ const COMPANY_DOMAIN: Record<string, string> = {
   'mistral-ai': 'mistral.ai',
 };
 
-const LOGO_TOKEN = 'pk_dey3pTxMTsqp8g_f5Xc6lQ';
+const LOGO_TOKEN = 'pk_frb0ba107779627298c1c9';
 
 const SENIORITY_BADGES: Record<string, { label: string; color: string }> = {
   'entry': { label: 'Entry', color: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400' },
@@ -59,7 +59,7 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
   const companyName = job.company_slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
   const domain = COMPANY_DOMAIN[job.company_slug];
   const logoUrl = domain
-    ? `https://img.logo.dev/${domain}?token=${LOGO_TOKEN}&size=40&format=webp&retina=true&fallback=initials`
+    ? `https://img.logokit.com/${domain}?token=${LOGO_TOKEN}&size=64&fallback=monogram`
     : null;
 
   const displayLocations = job.locations && job.locations.length > 0 ? job.locations : [job.location];
