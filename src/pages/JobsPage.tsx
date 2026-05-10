@@ -24,6 +24,8 @@ interface Job {
   seniority: string | null;
 }
 
+const PER_PAGE = 50;
+
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -36,7 +38,7 @@ export const JobsPage: React.FC = () => {
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [companyFilter, setCompanyFilter] = useState('');
-  const [remoteFilter, setRemoteFilter] = useState('');
+  const [visibleCount, setVisibleCount] = useState(PER_PAGE);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -45,6 +47,7 @@ export const JobsPage: React.FC = () => {
         .from('ai_jobs')
         .select('*')
         .eq('is_active', true)
+        .eq('is_eu_eligible', true)
         .order('posted_at', { ascending: false });
 
       if (err) {
@@ -62,36 +65,34 @@ export const JobsPage: React.FC = () => {
 
   const filtered = allJobs.filter((job) => {
     const name = job.company_slug.replace(/-/g, ' ');
-    if (
-      search &&
-      !job.title.toLowerCase().includes(search.toLowerCase()) &&
-      !name.includes(search.toLowerCase())
-    )
-      return false;
+    if (search && !job.title.toLowerCase().includes(search.toLowerCase()) && !name.includes(search.toLowerCase())) return false;
     if (companyFilter && job.company_slug !== companyFilter) return false;
-    if (remoteFilter && job.remote_policy !== remoteFilter) return false;
     return true;
   });
+
+  const visible = filtered.slice(0, visibleCount);
+  const totalFiltered = filtered.length;
+  const hasMore = visibleCount < totalFiltered;
 
   return (
     <>
       <Seo
-        title="AI & Tech Jobs – Worktugal"
+        title="AI & Tech Jobs in Europe – Worktugal"
         description="Curated AI and tech jobs for remote workers in Europe. Browse roles from Anthropic, Databricks, GitLab, Mistral AI, and more."
-        ogTitle="AI & Tech Jobs – Worktugal"
+        ogTitle="AI & Tech Jobs in Europe – Worktugal"
         ogDescription="Curated AI and tech jobs for remote workers in Europe."
       />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <motion.div {...fadeUp}>
           <span className="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full mb-4">
-            AI & TECH JOBS
+            AI & TECH JOBS IN EUROPE
           </span>
           <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white leading-tight mb-2">
             AI Jobs in Europe
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mb-6">
-            Curated roles from AI companies that hire remotely in Europe. Updated daily.
+            Curated AI roles open to candidates in Europe. Updated daily.
           </p>
         </motion.div>
 
@@ -118,17 +119,6 @@ export const JobsPage: React.FC = () => {
               </option>
             ))}
           </select>
-          <select
-            value={remoteFilter}
-            onChange={(e) => setRemoteFilter(e.target.value)}
-            className="px-3 py-2.5 text-sm bg-white dark:bg-[#161618] border border-[#0F3D2E]/10 dark:border-white/10 rounded-xl focus:outline-none focus:border-[#0F3D2E]/30 dark:focus:border-[#10B981]/30 text-slate-900 dark:text-white"
-          >
-            <option value="">All types</option>
-            <option value="eu_remote">EU Remote</option>
-            <option value="global_remote">Global Remote</option>
-            <option value="hybrid">Hybrid</option>
-            <option value="on_site">On-site</option>
-          </select>
         </div>
 
         {loading && (
@@ -148,11 +138,7 @@ export const JobsPage: React.FC = () => {
           <div className="text-center py-20">
             <p className="text-sm text-slate-400 mb-2">No jobs match your filters.</p>
             <button
-              onClick={() => {
-                setSearch('');
-                setCompanyFilter('');
-                setRemoteFilter('');
-              }}
+              onClick={() => { setSearch(''); setCompanyFilter(''); setVisibleCount(PER_PAGE); }}
               className="text-sm text-[#10B981] hover:underline"
             >
               Clear all filters
@@ -161,14 +147,24 @@ export const JobsPage: React.FC = () => {
         )}
 
         {!loading && !error && filtered.length > 0 && (
-          <div className="space-y-3">
-            <p className="text-xs text-slate-400">{filtered.length} job{filtered.length !== 1 ? 's' : ''}</p>
+          <>
+            <p className="text-xs text-slate-400 mb-3">{totalFiltered} job{totalFiltered !== 1 ? 's' : ''}</p>
             <div className="space-y-3">
-              {filtered.map((job, i) => (
+              {visible.map((job, i) => (
                 <JobCard key={job.id} job={job} index={i} />
               ))}
             </div>
-          </div>
+            {hasMore && (
+              <div className="text-center mt-6">
+                <button
+                  onClick={() => setVisibleCount((c) => c + PER_PAGE)}
+                  className="inline-flex items-center justify-center px-6 py-3 bg-white dark:bg-[#161618] border border-[#0F3D2E]/10 dark:border-white/10 rounded-xl text-sm font-bold text-slate-700 dark:text-slate-300 hover:border-[#0F3D2E]/30 dark:hover:border-[#10B981]/30 transition-all"
+                >
+                  Load {Math.min(PER_PAGE, totalFiltered - visibleCount)} more jobs
+                </button>
+              </div>
+            )}
+          </>
         )}
 
         <motion.div
@@ -177,19 +173,15 @@ export const JobsPage: React.FC = () => {
           transition={{ delay: 0.4 }}
           className="mt-10 bg-[#0F3D2E] rounded-2xl p-6 sm:p-8 text-center relative overflow-hidden"
         >
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-              backgroundSize: '32px 32px',
-            }}
+          <div className="absolute inset-0 opacity-10"
+            style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
           />
           <div className="relative z-10">
             <h2 className="text-lg sm:text-xl font-black text-white mb-2">
               Hire AI talent across Europe
             </h2>
             <p className="text-sm text-white/60 mb-4 max-w-md mx-auto">
-              Post your job and reach 1,000+ remote workers in our network. EUR 49 per listing.
+              Post your job and reach 446+ curated AI candidates in our network. EUR 49 per listing.
             </p>
             <Link
               to="/contact"
