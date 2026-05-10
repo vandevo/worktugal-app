@@ -68,6 +68,14 @@ export const JobsPage: React.FC = () => {
     [allJobs]
   );
 
+  const jobStats = useMemo(() => {
+    const now = Date.now();
+    const day = 86400000;
+    const today = allJobs.filter((j) => now - new Date(j.posted_at).getTime() < day).length;
+    const week = allJobs.filter((j) => now - new Date(j.posted_at).getTime() < 7 * day).length;
+    return { today, week };
+  }, [allJobs]);
+
   const filtered = useMemo(() => {
     return allJobs.filter((job) => {
       const name = COMPANY[job.company_slug] || job.company_slug;
@@ -143,6 +151,32 @@ export const JobsPage: React.FC = () => {
             )}
           </div>
         </motion.div>
+
+        {/* ── Teaser counters ──────────────────────────────── */}
+        {!loading && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.4 }}
+            className="flex items-center gap-5 mb-6 text-xs"
+          >
+            <div>
+              <span className="font-black text-slate-900 dark:text-white">{jobStats.today}</span>
+              <span className="text-slate-400 ml-1">posted today</span>
+            </div>
+            <div className="w-px h-4 bg-slate-200 dark:bg-white/10" />
+            <div>
+              <span className="font-black text-slate-900 dark:text-white">{jobStats.week}</span>
+              <span className="text-slate-400 ml-1">added this week</span>
+            </div>
+            <div className="w-px h-4 bg-slate-200 dark:bg-white/10" />
+            <div>
+              <span className="text-slate-400">Viewing</span>
+              <span className="font-black text-slate-900 dark:text-white ml-1">{totalFiltered}</span>
+              <span className="text-slate-400 ml-1">of {allJobs.length} total jobs</span>
+            </div>
+          </motion.div>
+        )}
 
         {/* ── Filters ──────────────────────────────────────── */}
         <div className="space-y-3 mb-6">
