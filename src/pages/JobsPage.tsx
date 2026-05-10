@@ -298,6 +298,28 @@ export const JobsPage: React.FC = () => {
             </Link>
           </div>
         </motion.div>
+
+        {/* ── AI Transparency ──────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mt-8 p-5 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-[#0F3D2E]/5 dark:border-white/5"
+        >
+          <h3 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+            How AI powers this board
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-[11px] text-slate-400 dark:text-slate-500">
+            <span>AI classifies seniority from job titles (senior/lead/mid/entry)</span>
+            <span>AI detects D8 visa eligibility for Portugal</span>
+            <span>AI filters jobs by EU compatibility from location data</span>
+            <span>All job listings verified against official ATS feeds</span>
+          </div>
+          <p className="mt-2 text-[10px] text-slate-400 dark:text-slate-500">
+            No black-box scoring. No candidate ranking. Every badge and filter is explainable.
+            Influenced by Greenhouse AI's structured hiring principles.
+          </p>
+        </motion.div>
       </div>
     </>
   );
