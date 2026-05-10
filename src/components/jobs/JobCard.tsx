@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Calendar, Briefcase, ArrowUpRight, Euro, Users } from 'lucide-react';
+import { MapPin, Calendar, Briefcase, ArrowUpRight, Euro, Timer, Sparkles } from 'lucide-react';
 
 interface Job {
   id: string;
@@ -20,6 +20,8 @@ interface Job {
   d8_eligible: boolean | null;
   is_eu_eligible: boolean | null;
   seniority: string | null;
+  skills: string[] | null;
+  expires_at: string | null;
 }
 
 interface JobCardProps {
@@ -28,17 +30,13 @@ interface JobCardProps {
 }
 
 const COMPANY_NAMES: Record<string, string> = {
-  'anthropic': 'Anthropic',
-  'gitlab': 'GitLab',
-  'databricks': 'Databricks',
-  'mistral-ai': 'Mistral AI',
+  'anthropic': 'Anthropic', 'gitlab': 'GitLab',
+  'databricks': 'Databricks', 'mistral-ai': 'Mistral AI',
 };
 
 const COMPANY_COLORS: Record<string, string> = {
-  'anthropic': 'bg-amber-500',
-  'gitlab': 'bg-orange-500',
-  'databricks': 'bg-blue-600',
-  'mistral-ai': 'bg-indigo-600',
+  'anthropic': 'bg-amber-500', 'gitlab': 'bg-orange-500',
+  'databricks': 'bg-blue-600', 'mistral-ai': 'bg-indigo-600',
 };
 
 const SENIORITY_BADGES: Record<string, { label: string; color: string }> = {
@@ -67,8 +65,14 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
   const primaryLocation = displayLocations[0];
   const extraCount = displayLocations.length - 1;
 
+  const now = Date.now();
+  const hoursSince = (now - new Date(job.posted_at).getTime()) / 3600000;
+  const isNew = hoursSince < 48;
+
+  const expiresAt = job.expires_at ? new Date(job.expires_at) : null;
+  const daysToClose = expiresAt ? Math.ceil((expiresAt.getTime() - now) / 86400000) : null;
+
   const hasSalary = job.salary_min && job.salary_max;
-  const currency = job.salary_currency || 'EUR';
 
   const formatSalary = (val: number): string => {
     if (val >= 1000000) return `${(val / 1000000).toFixed(1)}M`;
@@ -88,21 +92,33 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
     >
       <div className="p-5">
         <div className="flex items-start gap-4">
-          {/* Company avatar */}
           <div className={`w-10 h-10 rounded-xl ${companyColor} flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-0.5`}>
             {initial}
           </div>
 
-          {/* Content */}
           <div className="min-w-0 flex-1">
-            {/* Company + date row */}
+            {/* Company + badges row */}
             <div className="flex items-center justify-between gap-2 mb-0.5">
               <span className="text-xs font-bold text-[#10B981] uppercase tracking-wider">
                 {companyName}
               </span>
-              <span className="text-[11px] text-slate-400 dark:text-slate-500 whitespace-nowrap">
-                {daysSince(job.posted_at)}
-              </span>
+              <div className="flex items-center gap-2">
+                {isNew && (
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded">
+                    <Sparkles className="w-2.5 h-2.5" />
+                    New
+                  </span>
+                )}
+                {daysToClose !== null && daysToClose <= 30 && daysToClose > 0 && (
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">
+                    <Timer className="w-2.5 h-2.5" />
+                    {daysToClose === 1 ? '1 day left' : `${daysToClose} days left`}
+                  </span>
+                )}
+                <span className="text-[11px] text-slate-400 dark:text-slate-500 whitespace-nowrap">
+                  {daysSince(job.posted_at)}
+                </span>
+              </div>
             </div>
 
             {/* Title */}
@@ -136,26 +152,18 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
             </div>
 
             {/* Badges */}
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1.5 mb-2.5">
               {job.remote_policy === 'global_remote' && (
-                <span className="inline-flex items-center text-[10px] font-bold px-2 py-1 rounded bg-[#10B981]/10 text-[#10B981]">
-                  Global Remote
-                </span>
+                <span className="inline-flex items-center text-[10px] font-bold px-2 py-1 rounded bg-[#10B981]/10 text-[#10B981]">Global Remote</span>
               )}
               {job.remote_policy === 'eu_remote' && (
-                <span className="inline-flex items-center text-[10px] font-bold px-2 py-1 rounded bg-[#10B981]/10 text-[#10B981]">
-                  EU Remote
-                </span>
+                <span className="inline-flex items-center text-[10px] font-bold px-2 py-1 rounded bg-[#10B981]/10 text-[#10B981]">EU Remote</span>
               )}
               {job.visa_sponsorship && (
-                <span className="inline-flex items-center text-[10px] font-bold px-2 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400">
-                  Visa Sponsor
-                </span>
+                <span className="inline-flex items-center text-[10px] font-bold px-2 py-1 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400">Visa Sponsor</span>
               )}
               {job.d8_eligible && (
-                <span className="inline-flex items-center text-[10px] font-bold px-2 py-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                  D8 Eligible
-                </span>
+                <span className="inline-flex items-center text-[10px] font-bold px-2 py-1 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">D8 Eligible</span>
               )}
               {job.seniority && SENIORITY_BADGES[job.seniority] && (
                 <span className={`inline-flex items-center text-[10px] font-bold px-2 py-1 rounded ${SENIORITY_BADGES[job.seniority].color}`}>
@@ -163,6 +171,20 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
                 </span>
               )}
             </div>
+
+            {/* Skills */}
+            {job.skills && job.skills.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {job.skills.slice(0, 6).map((skill) => (
+                  <span key={skill} className="inline-flex items-center text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400">
+                    {skill}
+                  </span>
+                ))}
+                {job.skills.length > 6 && (
+                  <span className="text-[10px] text-slate-400">+{job.skills.length - 6} more</span>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
