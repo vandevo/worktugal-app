@@ -88,12 +88,29 @@ export const JobsPage: React.FC = () => {
           <span className="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full mb-4">
             AI & TECH JOBS IN EUROPE
           </span>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white leading-tight mb-2">
-            AI Jobs in Europe
-          </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mb-6">
-            Curated AI roles open to candidates in Europe. Updated daily.
-          </p>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white leading-tight mb-1">
+                AI Jobs in Europe
+              </h1>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                Curated AI roles open to candidates in Europe. Updated daily.
+              </p>
+            </div>
+            {!loading && (
+              <div className="flex items-center gap-4 text-xs">
+                <div className="text-center">
+                  <div className="text-lg font-black text-slate-900 dark:text-white">{totalFiltered}</div>
+                  <div className="text-slate-400">Jobs</div>
+                </div>
+                <div className="w-px h-8 bg-slate-200 dark:bg-white/10" />
+                <div className="text-center">
+                  <div className="text-lg font-black text-slate-900 dark:text-white">{companies.length}</div>
+                  <div className="text-slate-400">Companies</div>
+                </div>
+              </div>
+            )}
+          </div>
         </motion.div>
 
         <div className="flex flex-col sm:flex-row gap-3 mb-6">
