@@ -29,15 +29,14 @@ interface JobCardProps {
   index: number;
 }
 
-const COMPANY_NAMES: Record<string, string> = {
-  'anthropic': 'Anthropic', 'gitlab': 'GitLab',
-  'databricks': 'Databricks', 'mistral-ai': 'Mistral AI',
+const COMPANY_DOMAIN: Record<string, string> = {
+  'anthropic': 'anthropic.com',
+  'gitlab': 'about.gitlab.com',
+  'databricks': 'databricks.com',
+  'mistral-ai': 'mistral.ai',
 };
 
-const COMPANY_COLORS: Record<string, string> = {
-  'anthropic': 'bg-amber-500', 'gitlab': 'bg-orange-500',
-  'databricks': 'bg-blue-600', 'mistral-ai': 'bg-indigo-600',
-};
+const LOGO_TOKEN = 'pk_dey3pTxMTsqp8g_f5Xc6lQ';
 
 const SENIORITY_BADGES: Record<string, { label: string; color: string }> = {
   'entry': { label: 'Entry', color: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400' },
@@ -57,9 +56,11 @@ const daysSince = (dateStr: string): string => {
 };
 
 export const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
-  const companyName = COMPANY_NAMES[job.company_slug] || job.company_slug;
-  const companyColor = COMPANY_COLORS[job.company_slug] || 'bg-emerald-500';
-  const initial = companyName[0];
+  const companyName = job.company_slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+  const domain = COMPANY_DOMAIN[job.company_slug];
+  const logoUrl = domain
+    ? `https://img.logo.dev/${domain}?token=${LOGO_TOKEN}&size=40&format=webp&retina=true&fallback=initials`
+    : null;
 
   const displayLocations = job.locations && job.locations.length > 0 ? job.locations : [job.location];
   const primaryLocation = displayLocations[0];
@@ -92,8 +93,21 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
     >
       <div className="p-5">
         <div className="flex items-start gap-4">
-          <div className={`w-10 h-10 rounded-xl ${companyColor} flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-0.5`}>
-            {initial}
+          {/* Company logo from logo.dev */}
+          <div className="w-10 h-10 rounded-xl flex-shrink-0 mt-0.5 overflow-hidden bg-slate-100 dark:bg-white/5">
+            {logoUrl ? (
+              <img
+                src={logoUrl}
+                alt={companyName}
+                className="w-full h-full object-cover"
+                referrerPolicy="origin"
+                loading="lazy"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-xs font-bold text-slate-400">
+                {companyName[0]}
+              </div>
+            )}
           </div>
 
           <div className="min-w-0 flex-1">
