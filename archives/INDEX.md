@@ -1,7 +1,8 @@
-Last session: 2026-05-09-wrap-fixes-v4.6
+Last session: 2026-05-11-ai-jobs-board-v1.0
 
 | Session | Date | Summary |
 |---|---|---|
+| 2026-05-11-ai-jobs-board-v1.0 | 2026-05-11 | Strategy pivot: AI Jobs board primary revenue, compliance secondary. Direction override, business plan, MVP plan. 3 deep researches. Supabase schema, n8n ATS pipeline, /jobs page live with 445 EU jobs + D8 badges. Ghost free-only. Gemini key rotated. |
 | 2026-05-09-wrap-fixes-v4.6 | 2026-05-09 | Fixed absolute paths in wrap pipeline (wrap.md, session-wrapup.md v2.1, thread-launcher.md v4.0). OpenCode compaction explained. |
 | 2026-05-09-daily-brief-v4.5 | 2026-05-09 | Context-loaded: Attio/Apollo archive, compass, stack-audit, VanBrain. Daily operator brief produced. No shippable work. |
 | 2026-05-09-checkin-v0.1 | 2026-05-09 | Zero-change check-in. Context rehydrated, GLM 5 discussed, no actions taken. Pipeline ready for content distribution. |
