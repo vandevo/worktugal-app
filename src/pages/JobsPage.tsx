@@ -45,6 +45,29 @@ export const JobsPage: React.FC = () => {
   const [deptFilter, setDeptFilter] = useState('');
   const [visibleCount, setVisibleCount] = useState(PER_PAGE);
 
+  useEffect(() => {
+    const fetchJobs = async () => {
+      setLoading(true);
+      const { data, error: err } = await supabase
+        .from('ai_jobs')
+        .select('*')
+        .eq('is_active', true)
+        .eq('is_eu_eligible', true)
+        .order('posted_at', { ascending: false });
+      if (err) { setError('Failed to load jobs.'); setLoading(false); return; }
+      setAllJobs((data || []) as Job[]);
+      setLoading(false);
+    };
+    fetchJobs();
+  }, []);
+
+  const companies = useMemo(() => [...new Set(allJobs.map((j) => j.company_slug))].sort(), [allJobs]);
+
+  const departments = useMemo(
+    () => [...new Set(allJobs.map((j) => j.department).filter(Boolean))].sort().slice(0, 30),
+    [allJobs]
+  );
+
   const filtered = useMemo(() => {
     return allJobs.filter((job) => {
       const name = COMPANY[job.company_slug] || job.company_slug;
