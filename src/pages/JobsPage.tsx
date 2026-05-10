@@ -19,6 +19,8 @@ interface Job {
   visa_sponsorship: boolean | null;
   d8_eligible: boolean | null;
   seniority: string | null;
+  skills: string[] | null;
+  expires_at: string | null;
 }
 
 const COMPANY: Record<string, string> = {
