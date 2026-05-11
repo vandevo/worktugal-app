@@ -16,7 +16,6 @@ import { ComplianceDisclaimer } from '../ComplianceDisclaimer';
 import { getDiagnosticResult } from '../../lib/diagnostic/submit';
 import { SEGMENT_MESSAGES, getRecommendations } from '../../lib/diagnostic';
 import type { DiagnosticSegment, TriggeredTrap, DiagnosticAnswers } from '../../lib/diagnostic';
-import { ShareCard } from './ShareCard';
 import { useAuth } from '../../hooks/useAuth';
 import { signInWithGoogle } from '../../lib/auth';
 
@@ -348,10 +347,10 @@ export const DiagnosticResults: React.FC = () => {
             </p>
           </div>
 
-          {/* ── Actions: Save + Share ──────────────────────────────── */}
-          <div className="bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 px-5 py-4">
-            <div className="flex flex-wrap items-center gap-3">
-              {!user && !isDemo && (
+          {/* ── Actions: Save ──────────────────────────────────── */}
+          {!user && !isDemo && (
+            <div className="bg-white dark:bg-[#161618] rounded-2xl border border-[#0F3D2E]/8 dark:border-white/8 px-5 py-4">
+              <div className="flex flex-wrap items-center gap-3">
                 <button
                   onClick={() => signInWithGoogle(`${window.location.origin}${window.location.pathname}${window.location.search}`)}
                   className="flex items-center gap-2.5 bg-white dark:bg-white/[0.06] border border-slate-200 dark:border-white/10 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/10 transition-all shadow-sm"
@@ -364,18 +363,9 @@ export const DiagnosticResults: React.FC = () => {
                   </svg>
                   Save results
                 </button>
-              )}
-              <div className="h-4 w-px bg-slate-200 dark:bg-white/10 hidden sm:block" />
-              <ShareCard
-                setupScore={data.setup_score}
-                exposureIndex={data.exposure_index}
-                highCount={highTraps.length}
-                mediumCount={mediumTraps.length}
-                lowCount={lowTraps.length}
-                diagnosticId={data.id}
-              />
+              </div>
             </div>
-          </div>
+          )}
 
           {/* ── Triggered Traps ────────────────────────────────────── */}
           {traps.length > 0 && (
@@ -498,24 +488,21 @@ export const DiagnosticResults: React.FC = () => {
               />
               <div className="relative z-10 flex flex-col items-center text-center max-w-lg mx-auto">
                 <span className="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full mb-4">
-                  Stay compliant
+                  Looking for work?
                 </span>
                 <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white leading-tight mb-2">
-                  These flags do not resolve on their own.
+                  Browse 500+ AI roles in Europe.
                 </h3>
                 <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-md">
-                  Get weekly alerts when Portuguese law changes affect your situation.
+                  Curated jobs from Anthropic, Stripe, Databricks, and more. All open to candidates in Europe.
                 </p>
                 <Link
-                  to="/radar"
+                  to="/jobs"
                   className="inline-flex items-center justify-center gap-2 bg-[#10B981] text-white px-8 py-4 rounded-xl text-base font-bold hover:bg-[#059669] active:scale-[0.97] transition-all shadow-lg shadow-black/20 min-h-[48px] w-full sm:w-auto sm:min-w-[280px]"
                 >
-                  Get on the Radar
+                  Browse AI jobs
                   <ArrowRight className="w-4 h-4" />
                 </Link>
-                <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.15em] mt-4">
-                  €5/mo. Cancel anytime.
-                </p>
               </div>
             </motion.div>
           )}
