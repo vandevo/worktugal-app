@@ -28,7 +28,7 @@ export const Footer: React.FC = () => {
               </span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs mb-5">
-              Compliance risk intelligence for freelancers and remote professionals living in Portugal.
+              Curated AI jobs for remote professionals in Europe. Browse 500+ roles from leading AI companies.
             </p>
             <p className="text-white/30 text-[11px] leading-relaxed max-w-sm">
               Not a law firm, tax firm, or accounting practice. Content is for informational and educational purposes only. Always consult a licensed professional for advice specific to your situation.
@@ -40,9 +40,10 @@ export const Footer: React.FC = () => {
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-4">Platform</p>
             <ul className="space-y-3">
               {[
+                { label: 'Jobs', to: '/jobs' },
+                { label: 'Post a Job', to: '/jobs/post' },
                 { label: 'Diagnostic', to: '/diagnostic' },
                 { label: 'Changelog', to: '/changelog' },
-                { label: 'Blog', to: '/blog' },
               ].map(link => (
                 <li key={link.to}>
                   <Link to={link.to} className="text-sm text-white/50 hover:text-white transition-colors">

@@ -164,6 +164,58 @@ async function handleEvent(event: Stripe.Event) {
           return;
         }
 
+        // ── Job posting checkout ──────────────────────────────
+        if (metadata?.type === 'job_posting') {
+          const { company_name, title, location, apply_url } = metadata as Record<string, string>;
+          const companySlug = company_name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+          const jobSlug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+          const { error: jobError } = await supabase.from('ai_jobs').insert({
+            company_slug: companySlug,
+            title,
+            slug: jobSlug,
+            location,
+            locations: [location],
+            apply_url,
+            source: 'stripe_post',
+            source_ats_feed: null,
+            is_active: false,
+            is_eu_eligible: false,
+            department: null,
+            seniority: null,
+            d8_eligible: false,
+            salary_min: null,
+            salary_max: null,
+            salary_currency: 'EUR',
+            remote_policy: null,
+            visa_sponsorship: null,
+            skills: null,
+            posted_at: new Date().toISOString(),
+          });
+
+          if (jobError) {
+            console.error('Error inserting job posting:', jobError);
+          } else {
+            console.info(`Job posting created: ${title} at ${company_name}`);
+
+            const botToken = Deno.env.get('TELEGRAM_BOT_TOKEN');
+            const chatId = Deno.env.get('TELEGRAM_CHAT_ID');
+            if (botToken && chatId) {
+              const tgText = `<b>New paid listing</b>\n\n<b>${title}</b>\nat ${company_name}\n📍 ${location}\n\n<a href="${apply_url}">Apply →</a>`;
+              EdgeRuntime.waitUntil(
+                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ chat_id: chatId, text: tgText, parse_mode: 'HTML' }),
+                }).catch(() => {})
+              );
+            }
+          }
+
+          console.info(`Successfully processed job posting payment for session: ${checkout_session_id}`);
+          return;
+        }
+
         const paymentType = metadata?.payment_type || 'perk';
 
         if (metadata?.submission_id && orderData?.id) {

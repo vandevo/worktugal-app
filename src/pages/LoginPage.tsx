@@ -22,7 +22,7 @@ export const LoginPage: React.FC = () => {
     <div className="min-h-[60vh] flex items-center justify-center">
       <AuthModal
         isOpen={showModal}
-        onClose={() => navigate(safeRedirect, { replace: true })}
+        onClose={() => navigate('/jobs', { replace: true })}
         initialMode="login"
         source="login_page"
       />

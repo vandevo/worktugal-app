@@ -1,238 +1,233 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, BarChart2, AlertTriangle, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Briefcase, Building2, Search, SlidersHorizontal, Bell } from 'lucide-react';
 import { Seo } from './Seo';
-import { CheckupFAQ } from './accounting/CheckupFAQ';
 
 const fadeUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 16 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
 };
 
-const FEATURES = [
-  {
-    icon: BarChart2,
-    title: 'Your Setup Score',
-    desc: 'See how your tax, visa, and social security setup scores from 0 to 100. Most people score lower than they expect.',
-  },
-  {
-    icon: AlertTriangle,
-    title: 'Your Exposure Index',
-    desc: 'Pinpoint every compliance trap that applies to your situation with penalty amounts and legal citations.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Your Action Plan',
-    desc: 'Get a prioritized list of what to fix first, linked directly to the official AT, AIMA, or Segurança Social source.',
-  },
-];
+const COMPANIES = ['Anthropic', 'Stripe', 'Databricks', 'GitLab', 'Mistral AI', 'Figma'];
 
 export const ModernHomePage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Worktugal: find hidden compliance risks before Portugal fines you"
-        description="Free 2-minute diagnostic for remote workers, freelancers, and expats in Portugal. Discover compliance traps, penalty exposure, and corrective actions with legal citations."
-        ogTitle="Worktugal: compliance risk diagnostic for remote workers and freelancers in Portugal"
-        ogDescription="14 questions. Dual risk scoring. Source-cited legal basis. Find what you missed before it costs you up to €3,750."
-        ogImage="https://jbmfneyofhqlwnnfuqbd.supabase.co/storage/v1/object/public/perk-assets/business-logos/worktugal-logo-bg-light-radius-1000-1000.png"
-        ogType="website"
-        ogUrl="https://app.worktugal.com/"
+        title="AI Jobs in Europe – Worktugal"
+        description="Curated AI and tech jobs for remote professionals in Europe. Browse roles from Anthropic, Stripe, Databricks, GitLab, Mistral AI, and more. Updated daily."
+        ogTitle="AI Jobs in Europe"
+        ogDescription="Curated AI and tech jobs open to candidates in Europe. No signup needed to browse."
       />
 
-      {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16 lg:pt-24 lg:pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      {/* ── Hero ──────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 lg:pt-32 lg:pb-24 relative">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-[#0F3D2E]/3 dark:bg-[#10B981]/3 rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[#10B981]/3 dark:bg-[#10B981]/5 rounded-full blur-[100px]" />
+        </div>
 
-          {/* Left — copy */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
           <motion.div
-            className="lg:col-span-7 flex flex-col gap-6"
+            className="lg:col-span-7"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="inline-flex items-center self-start text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full">
-              FREE · 2 MINUTES · NO CREDIT CARD
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+              545 EU-eligible jobs · Updated daily
             </span>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 dark:text-white leading-[1.05] tracking-tight">
-              Most remote workers in Portugal have a compliance gap they do not know about.{' '}
-              <span className="text-slate-900/30 dark:text-white/25">The average uncovered exposure: over €3,750.</span>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white leading-[1.05] tracking-tight mb-5">
+              AI jobs in Europe.
             </h1>
 
-            <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-              14 questions. 2 minutes. See exactly where you are exposed and what to do about it. No account needed to start.
+            <p className="text-lg sm:text-xl text-slate-500 dark:text-slate-400 max-w-lg leading-relaxed mb-8">
+              Curated roles from leading AI companies. All open to candidates in Europe. No signup needed.
             </p>
 
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-wrap gap-3">
               <Link
-                to="/diagnostic"
-                className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-7 py-4 rounded-xl text-base font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                to="/jobs"
+                className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-7 py-3.5 rounded-xl text-base font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 transition-all"
               >
-                Run your free diagnostic <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/diagnostic/results?id=demo"
-                className="inline-flex items-center gap-2 px-7 py-4 text-base font-bold text-slate-600 dark:text-slate-300 hover:bg-[#0F3D2E]/5 dark:hover:bg-white/5 rounded-xl transition-all"
-              >
-                See a sample result
+                Browse 500+ jobs <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-            <p className="text-sm text-slate-400 dark:text-slate-500">
-              Create a free account to save your results and track your compliance status over time.
-            </p>
           </motion.div>
 
-          {/* Right — floating score cards */}
+          {/* Right — floating stats */}
           <motion.div
-            className="lg:col-span-5 relative flex items-center justify-center min-h-[320px]"
+            className="lg:col-span-5 relative flex items-center justify-center min-h-[300px]"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* Glow blob */}
             <div className="absolute inset-0 bg-[#0F3D2E]/5 dark:bg-[#10B981]/5 rounded-full blur-[80px]" />
 
-            <div className="relative w-full max-w-sm flex flex-col gap-5">
-              {/* Setup Score card */}
-              <div
-                className="bg-white/70 dark:bg-white/[0.04] backdrop-blur-xl border border-[#0F3D2E]/10 dark:border-white/8 p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] translate-x-[-8%] hover:-translate-y-1 transition-transform"
+            <div className="relative w-full max-w-sm flex flex-col gap-4">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-white/70 dark:bg-white/[0.04] backdrop-blur-xl border border-[#0F3D2E]/10 dark:border-white/8 p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Setup Score</span>
-                  <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Active Listings</span>
+                  <div className="w-8 h-8 bg-[#0F3D2E]/5 dark:bg-[#10B981]/10 rounded-xl flex items-center justify-center">
+                    <Briefcase className="w-4 h-4 text-[#0F3D2E] dark:text-[#10B981]" />
+                  </div>
                 </div>
-                <div className="flex items-baseline gap-1 mb-4">
-                  <span className="text-5xl font-black text-[#10B981]">74</span>
-                  <span className="text-xl font-bold text-slate-400">/100</span>
-                </div>
-                <div className="h-1.5 w-full bg-slate-100 dark:bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-[#10B981] rounded-full" style={{ width: '74%' }} />
-                </div>
-              </div>
+                <span className="text-5xl font-black text-slate-900 dark:text-white">545</span>
+                <p className="text-xs text-slate-400 mt-1">EU-eligible AI roles</p>
+              </motion.div>
 
-              {/* Exposure Index card */}
-              <div
-                className="bg-white/70 dark:bg-white/[0.04] backdrop-blur-xl border border-[#0F3D2E]/10 dark:border-white/8 p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] translate-x-[12%] hover:-translate-y-1 transition-transform"
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-white/70 dark:bg-white/[0.04] backdrop-blur-xl border border-[#0F3D2E]/10 dark:border-white/8 p-6 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] hover:-translate-y-1 transition-transform"
               >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Exposure Index</span>
-                  <AlertTriangle className="w-4 h-4 text-amber-500" />
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Companies</span>
+                  <div className="w-8 h-8 bg-[#0F3D2E]/5 dark:bg-[#10B981]/10 rounded-xl flex items-center justify-center">
+                    <Building2 className="w-4 h-4 text-[#0F3D2E] dark:text-[#10B981]" />
+                  </div>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-black text-amber-500">18</span>
-                  <span className="text-base font-bold text-slate-500 dark:text-slate-400">pts</span>
-                </div>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-2 italic">Low risk detected in social security filings</p>
-              </div>
+                <span className="text-4xl font-black text-slate-900 dark:text-white">6</span>
+                <p className="text-xs text-slate-400 mt-1">Anthropic · Stripe · Databricks · GitLab · Mistral · Figma</p>
+              </motion.div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* ── Social proof bar ─────────────────────────────────────── */}
-      <div className="border-y border-[#0F3D2E]/5 dark:border-white/5 py-8 bg-white/50 dark:bg-white/[0.02]">
+      {/* ── Company logos ─────────────────────────────────── */}
+      <div className="border-y border-[#0F3D2E]/6 dark:border-white/6 py-10 bg-white/50 dark:bg-white/[0.02]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center md:justify-between items-center gap-6 opacity-70">
-            {[
-              '900+ expats checked',
-              'Average uncovered exposure: over €3,750',
-              '14 questions - 2 minutes',
-            ].map((item, i) => (
-              <React.Fragment key={item}>
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400">
-                  {item}
-                </span>
-                {i < 2 && (
-                  <span className="hidden md:block w-1.5 h-1.5 bg-[#0F3D2E]/20 dark:bg-white/20 rounded-full" />
-                )}
-              </React.Fragment>
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 text-center mb-5">
+            Featuring jobs from
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-3">
+            {COMPANIES.map((name) => (
+              <span key={name} className="text-sm font-bold text-slate-400 dark:text-slate-500 tracking-tight">
+                {name}
+              </span>
             ))}
           </div>
         </div>
       </div>
 
-      {/* ── Features ─────────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {FEATURES.map((f, i) => {
-            const Icon = f.icon;
+      {/* ── How it works ──────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <motion.div {...fadeUp} className="text-center mb-16">
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981]">Simple by design</span>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mt-3">How it works</h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-5xl mx-auto">
+          {[
+            { step: '01', icon: Search, title: 'Browse', desc: '500+ AI and tech roles from companies hiring in Europe. Updated daily from official ATS feeds.' },
+            { step: '02', icon: SlidersHorizontal, title: 'Filter', desc: 'Narrow by company, department, and seniority. D8 visa eligibility, remote policy, and location on every card.' },
+            { step: '03', icon: Bell, title: 'Apply', desc: 'Click through to the company application page. No Worktugal account needed. No tracking. No spam.' },
+          ].map((item, i) => {
+            const Icon = item.icon;
             return (
               <motion.div
-                key={f.title}
-                {...fadeUp}
-                transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-col gap-4 p-8 rounded-2xl border border-[#0F3D2E]/5 dark:border-white/5 bg-white dark:bg-[#161618] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] transition-all"
+                key={item.step}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="text-center"
               >
-                <div className="w-12 h-12 bg-[#0F3D2E]/5 dark:bg-[#10B981]/10 text-[#0F3D2E] dark:text-[#10B981] rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Icon className="w-5 h-5" />
+                <div className="w-14 h-14 rounded-2xl bg-[#0F3D2E]/5 dark:bg-[#10B981]/10 flex items-center justify-center mx-auto mb-5">
+                  <Icon className="w-6 h-6 text-[#0F3D2E] dark:text-[#10B981]" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white">{f.title}</h3>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">{f.desc}</p>
+                <span className="text-[10px] font-black text-[#10B981] tracking-widest">{item.step}</span>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-2 mb-2">{item.title}</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xs mx-auto leading-relaxed">{item.desc}</p>
               </motion.div>
             );
           })}
         </div>
       </section>
 
-      {/* ── Radar upsell ─────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <motion.div
-          {...fadeUp}
-          className="bg-white dark:bg-[#161618] border border-[#0F3D2E]/10 dark:border-white/8 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12"
-        >
-          <div className="flex-1">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981]">From €5/mo</span>
-            <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-2">
-              Your compliance gaps do not stay static.
-            </h3>
-            <p className="text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-              Portugal's rules change weekly. Your diagnostic score will drift. Radar monitors official sources every day and tells you what changed, what it means, and what to do.
-            </p>
+      {/* ── Value props ───────────────────────────────────── */}
+      <section className="border-t border-[#0F3D2E]/6 dark:border-white/6 bg-white/50 dark:bg-white/[0.02]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+          <motion.div {...fadeUp} className="text-center mb-16">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981]">Built differently</span>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mt-3">For Europe's AI talent market</h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-5xl mx-auto">
+            {[
+              { t: 'EU-eligible roles', d: 'Every listing checked against location data. US-only roles are filtered out before you see them.' },
+              { t: 'Visa and tax signals', d: 'D8 visa eligibility, IFICI tax compatibility, and visa sponsorship flagged where available.' },
+              { t: 'Seniority classified', d: 'Entry to executive, auto-classified from the title. Filter by experience without reading every description.' },
+            ].map((f, i) => (
+              <motion.div
+                key={f.t}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="text-center px-4"
+              >
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3">{f.t}</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xs mx-auto leading-relaxed">{f.d}</p>
+              </motion.div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── Employer CTA ──────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-2xl mx-auto text-center"
+        >
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981]">For employers</span>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mt-3 mb-4">
+            Hire AI talent across Europe
+          </h2>
+          <p className="text-base text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-8 leading-relaxed">
+            Reach qualified AI candidates. EUR 49 per listing. Reviewed before going live.
+          </p>
           <Link
-            to="/radar"
-            className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-7 py-4 rounded-xl text-base font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 hover:scale-[1.02] active:scale-[0.98] transition-all whitespace-nowrap flex-shrink-0"
+            to="/jobs/post"
+            className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-8 py-4 rounded-xl text-base font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 transition-all"
           >
-            Get on the Radar <ArrowRight className="w-4 h-4" />
+            Post a job for €49 <ArrowRight className="w-4 h-4" />
           </Link>
         </motion.div>
       </section>
 
-      {/* ── CTA section ──────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="bg-[#0F3D2E] rounded-2xl p-12 md:p-20 text-center flex flex-col items-center gap-8 relative overflow-hidden">
-          {/* Dot pattern overlay */}
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-              backgroundSize: '40px 40px',
-            }}
-          />
-          <motion.h2
-            {...fadeUp}
-            className="text-3xl md:text-5xl font-black text-white relative z-10 leading-tight"
-          >
-            Ready to check your compliance status?
-          </motion.h2>
-          <p className="text-[#10B981]/80 text-lg md:text-xl max-w-2xl relative z-10 leading-relaxed">
-            Find your hidden risks in 2 minutes.{' '}
-            900+ expats already discovered compliance gaps they did not know existed. Most took action the same day.
-          </p>
-          <Link
-            to="/diagnostic"
-            className="bg-[#10B981] text-white px-10 py-5 rounded-xl text-xl font-bold hover:bg-[#059669] hover:scale-[1.03] active:scale-[0.97] transition-all relative z-10 shadow-2xl shadow-black/20"
-          >
-            Run free diagnostic
-          </Link>
+      {/* ── Compliance ────────────────────────────────────── */}
+      <section className="border-t border-[#0F3D2E]/6 dark:border-white/6 bg-white/50 dark:bg-white/[0.02]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+          <div className="max-w-2xl mx-auto text-center">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Also from Worktugal</span>
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-3 mb-3">
+              Free Portugal compliance check
+            </h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-6 leading-relaxed">
+              Most remote workers in Portugal miss a tax, visa, or social security step. Two minutes to find out if you are one of them.
+            </p>
+            <Link
+              to="/diagnostic"
+              className="inline-flex items-center gap-1.5 text-sm font-bold text-[#10B981] hover:text-[#059669] transition-colors"
+            >
+              Run free diagnostic <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
       </section>
-
-      {/* ── FAQ ──────────────────────────────────────────────────── */}
-      <CheckupFAQ />
     </>
   );
 };

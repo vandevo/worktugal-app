@@ -8,25 +8,27 @@ Ordered by leverage (updated 2026-05-11):
 
 **Strategy pivot (2026-05-11):** AI Jobs board is now primary revenue engine. Compliance is secondary content authority. See `worktugal-direction-2026-05-10.md` in vault.
 
-1. **Build Stripe EUR 49 checkout** — /jobs page is live with 445 jobs. No way for employers to pay yet. Copy stripe-checkout edge function pattern. Create Stripe product "AI Job Posting" at EUR 49. Phase 0.3 per MVP plan.
+1. **Write first company spotlight article** — Anthropic. Use company-spotlight-os.md template. Parallel AI refresh → DeepSeek draft → edit → SEO audit → publish on Ghost. Drive traffic to /jobs.
 
-2. **Write first company spotlight article** — Anthropic. Use company-spotlight-os.md template. Parallel AI refresh → DeepSeek draft → edit → SEO audit → publish on Ghost. Drive traffic to /jobs.
+2. **Add 5 more ATS feeds** — OpenAI, Cohere, ElevenLabs, DeepL, Helsing. Discover correct Greenhouse board tokens. Add to Company List array in new v2 workflow.
 
-3. **Add 5 more ATS feeds** — Stripe, ElevenLabs, DeepL, Hugging Face, Cohere. Discover correct Greenhouse board tokens. Add to n8n aggregation pipeline.
+3. **Enrich remote_policy from ATS data** — Greenhouse/Lever feeds have location type data. Update normalize code to detect remote vs on-site.
 
-4. **Add more companies to LogoKit** — Register company domains in the `COMPANY_DOMAIN` mapping in JobCard.tsx for new ATS feeds.
-
-5. **Enrich remote_policy from ATS data** — Greenhouse/Lever feeds have location type data. Update normalize code to detect remote vs on-site.
+4. **Add salary enrichment from ATS content** — HTML-encoded salary data in job descriptions. Currently regex fails on encoded characters.
 
 **Why:** Jobs board is live and functional. Revenue pipeline (Stripe checkout), traffic engine (company spotlights), and supply (more ATS feeds) are the three bottlenecks.
 
 **Completed (new direction):**
 - ~~Supabase schema: ai_jobs + ai_companies tables~~ — Created with indexes, RLS, unique constraints, EU eligibility columns
-- ~~n8n ATS aggregation pipeline~~ — 17-node workflow active, fetches 4 companies daily at 06:00
-- ~~/jobs page~~ — Live at app.worktugal.com/jobs with 445 EU-eligible jobs, premium JobCards, search + filters + pagination
-- ~~Data enrichment: seniority + D8 badges~~ — 253 jobs badged D8 Eligible, seniority classified for all 445
-- ~~Company logos~~ — LogoKit integrated with fallback monogram initials
-- ~~n8n Weekly Digest fixed~~ — Listmonk removed, Telegram ops bot sending
+- ~~n8n ATS aggregation pipeline~~ — v2 loop-based workflow active, 6 companies daily at 06:00
+- ~~/jobs page~~ — Live at app.worktugal.com/jobs with 545 curated AI roles, Ashby-style filters
+- ~~Department filter~~ — Sales/Marketing/HR/Finance/Support/Business dropped from pipeline
+- ~~Workflow refactor~~ — 17 nodes → 7, SplitInBatches loop, scalable to 100+ companies
+- ~~Job posting checkout~~ — EUR 49 self-serve with Google sign-in, Stripe, ai_jobs insert via webhook
+- ~~UI redesign~~ — Job Board Mode: minimal list, no cards, text badges, Ashby-style filters
+- ~~Homepage reorientation~~ — Jobs-first messaging, compliance secondary, new nav/header/bottom
+- ~~Telegram bot hack recovery~~ — Both bots restored, tokens rotated everywhere
+- ~~Security hardening~~ — mcp-gemini.sh → GCP runtime, /ship → git add -u, VanBrain → GCP
 
 **Completed (previous direction):**
 - ~~RadarLanding.tsx copy refresh~~ → Sales copy rewrite: hero Challenger framing, audience pain cards, cost of inaction section, urgency badge, stronger guarantee.

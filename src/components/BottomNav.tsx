@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, BarChart2, Users, User } from 'lucide-react';
+import { Home, Briefcase, Users, User } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
 interface BottomNavProps {
@@ -9,7 +9,7 @@ interface BottomNavProps {
 
 const NAV_ITEMS = [
   { label: 'HOME', href: '/', icon: Home, exact: true },
-  { label: 'RESULTS', href: '/diagnostic', icon: BarChart2, exact: false },
+  { label: 'JOBS', href: '/jobs', icon: Briefcase, exact: false },
   { label: 'COMMUNITY', href: 'https://t.me/worktugal', icon: Users, external: true },
   { label: 'PROFILE', href: '/dashboard', icon: User, exact: false, authRequired: true },
 ];

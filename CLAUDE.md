@@ -1,6 +1,6 @@
 # Worktugal App — Claude Context
 
-Compliance risk detection platform for remote professionals and expats in Portugal. Diagnostic engine surfaces hidden tax, visa, and social security traps before they become penalties.
+AI jobs board for remote professionals and expats in Europe. Compliance risk diagnostic as a secondary free lead magnet. Jobs board is the primary revenue engine (EUR 49 per listing from employers).
 
 Full VanOS context in `~/.claude/CLAUDE.md` and `/home/vandevo/CLAUDE.md`. Do not repeat identity or core laws here.
 
@@ -16,7 +16,7 @@ Full VanOS context in `~/.claude/CLAUDE.md` and `/home/vandevo/CLAUDE.md`. Do no
 | Forms | React Hook Form + Zod |
 | Animation | Framer Motion |
 | Auth + DB | Supabase (Google OAuth, PostgreSQL) |
-| Payments | Stripe (live: €29/mo Founding Member subscription wired) |
+| Payments | Stripe (live: €29/mo Founding Member subscription wired, EUR 49 job posting checkout wired) |
 | Hosting | Cloudflare Pages |
 | Email | Resend (transactional) + Listmonk (campaigns) |
 
@@ -46,16 +46,13 @@ supabase/
 ## Product Status
 
 | Product | Status | Notes |
-|---|---|---|
+|---|---|---|---|
+| AI Jobs Board | Live `/jobs` | Primary revenue engine. 545+ EU-eligible jobs. EUR 49 self-serve checkout at `/jobs/post`. 6 AI companies. |
 | Compliance Risk Diagnostic | Live `/diagnostic` | 13-question free tool, lead gen |
 | My Account Dashboard | Live `/dashboard` | Signed-in users only |
 | Google Sign-In | Live | Supabase OAuth |
-| Portugal Radar | Live `/radar` | B2C compliance monitor landing. Pricing: €5/mo. Email + Google signup wired to Listmonk list 3 via auto-subscribe-radar edge fn. Ghost members synced to Listmonk list 5. |
+| Portugal Radar | Live `/radar` | Maintained, no active development. EUR 5/mo. |
 | Compliance Monitor (Parallel AI) | Live | 2 daily monitors → n8n → Supabase → Telegram + email + weekly digest |
-| B2B Compliance Intelligence | Live `/compliance` | Landing page + Founding Member outreach |
-| Portugal Clarity Call (149 EUR) | Removed | Replaced by Compliance Intelligence CTA (€29/mo) |
-| Paid Risk Scan (29 EUR) | Deferred | Stripe not wired yet |
-| B2B Founding Member (€29/mo) | Wired | Stripe checkout live on `/compliance`, awaiting validation |
 | AI Blog | Planned | `/blog` shows coming soon |
 
 ---

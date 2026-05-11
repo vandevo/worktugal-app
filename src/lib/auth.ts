@@ -95,11 +95,12 @@ export const signIn = async (email: string, password: string, captchaToken?: str
 };
 
 export const signInWithGoogle = async (redirectTo?: string) => {
+  const target = redirectTo
+    ?? (sessionStorage.getItem('pendingPostJob') ? `${window.location.origin}/jobs/post` : null)
+    ?? `${window.location.origin}/jobs`;
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
-    options: {
-      redirectTo: redirectTo ?? `${window.location.origin}/diagnostic`,
-    },
+    options: { redirectTo: target },
   });
   if (error) throw error;
   return data;

@@ -16,8 +16,8 @@ interface SeoProps {
 }
 
 export const Seo: React.FC<SeoProps> = ({
-  title = 'Worktugal: compliance risk tools for freelancers in Portugal',
-  description = 'Free compliance diagnostic for remote professionals in Portugal. Find hidden risks, understand penalty exposure, and get corrective actions with legal citations.',
+  title = 'AI Jobs in Europe – Worktugal',
+  description = 'Curated AI and tech jobs open to candidates in Europe. Browse roles from Anthropic, Stripe, Databricks, GitLab, Mistral AI, and more. Updated daily.',
   ogTitle,
   ogDescription,
   ogImage = 'https://app.worktugal.com/worktugal-logo-bg-light-radius-1000-1000.png',

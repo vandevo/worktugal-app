@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search, ArrowRight, X } from 'lucide-react';
+import { ArrowRight, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Seo } from '../components/Seo';
 import { supabase } from '../lib/supabase';
@@ -28,6 +28,8 @@ const COMPANY: Record<string, string> = {
   'gitlab': 'GitLab',
   'databricks': 'Databricks',
   'mistral-ai': 'Mistral AI',
+  'stripe': 'Stripe',
+  'figma': 'Figma',
 };
 
 const PER_PAGE = 50;
@@ -124,106 +126,64 @@ export const JobsPage: React.FC = () => {
         ogDescription="Curated AI and tech jobs for remote workers in Europe."
       />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <motion.div {...fadeUp}>
-          <span className="inline-flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full mb-4">
-            AI & TECH JOBS IN EUROPE
-          </span>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
-            <div>
-              <h1 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white leading-tight mb-1">
-                AI Jobs in Europe
-              </h1>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                Curated AI roles open to candidates in Europe. Updated daily.
-              </p>
-            </div>
+          <div className="flex items-baseline justify-between gap-4 mb-1">
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
+              AI Jobs in Europe
+            </h1>
             {!loading && (
-              <div className="flex items-center gap-4 text-xs flex-shrink-0">
-                <div className="text-center">
-                  <div className="text-lg font-black text-slate-900 dark:text-white">{totalFiltered}</div>
-                  <div className="text-slate-400">Jobs</div>
-                </div>
-                <div className="w-px h-8 bg-slate-200 dark:bg-white/10" />
-                <div className="text-center">
-                  <div className="text-lg font-black text-slate-900 dark:text-white">{companies.length}</div>
-                  <div className="text-slate-400">Companies</div>
-                </div>
-              </div>
+              <span className="text-sm text-slate-400 dark:text-slate-500 whitespace-nowrap">
+                {totalFiltered} job{totalFiltered !== 1 ? 's' : ''} · {companies.length} compan{companies.length !== 1 ? 'ies' : 'y'}
+              </span>
             )}
           </div>
+          <p className="text-sm text-slate-400 dark:text-slate-500 mb-6">
+            Curated AI roles open to candidates in Europe. Updated daily.
+          </p>
         </motion.div>
 
         {/* ── Teaser counters ──────────────────────────────── */}
         {!loading && (
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.4 }}
-            className="flex items-center gap-5 mb-6 text-xs"
+            transition={{ delay: 0.1, duration: 0.3 }}
+            className="flex items-center gap-3 mb-6 text-[11px] text-slate-400 dark:text-slate-500"
           >
-            <div>
-              <span className="font-black text-slate-900 dark:text-white">{jobStats.today}</span>
-              <span className="text-slate-400 ml-1">posted today</span>
-            </div>
-            <div className="w-px h-4 bg-slate-200 dark:bg-white/10" />
-            <div>
-              <span className="font-black text-slate-900 dark:text-white">{jobStats.week}</span>
-              <span className="text-slate-400 ml-1">added this week</span>
-            </div>
-            <div className="w-px h-4 bg-slate-200 dark:bg-white/10" />
-            <div>
-              <span className="text-slate-400">Viewing</span>
-              <span className="font-black text-slate-900 dark:text-white ml-1">{totalFiltered}</span>
-              <span className="text-slate-400 ml-1">of {allJobs.length} total jobs</span>
-            </div>
+            <span>{jobStats.today} posted today</span>
+            <span className="w-px h-3 bg-slate-200 dark:bg-white/10" />
+            <span>{jobStats.week} added this week</span>
           </motion.div>
         )}
 
         {/* ── Filters ──────────────────────────────────────── */}
-        <div className="space-y-3 mb-6">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Search by title, company, location, or department..."
-              value={search}
-              onChange={(e) => { setSearch(e.target.value); setVisibleCount(PER_PAGE); }}
-              className="w-full pl-9 pr-4 py-2.5 text-sm bg-white dark:bg-[#161618] border border-[#0F3D2E]/10 dark:border-white/10 rounded-xl focus:outline-none focus:border-[#0F3D2E]/30 dark:focus:border-[#10B981]/30 transition-colors text-slate-900 dark:text-white placeholder:text-slate-400"
-            />
-          </div>
+        <div className="flex items-center gap-2 mb-6">
+          <select
+            value={companyFilter}
+            onChange={(e) => { setCompanyFilter(e.target.value); setVisibleCount(PER_PAGE); }}
+            className="flex-1 px-2.5 py-2 text-sm bg-transparent border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-slate-400 dark:focus:border-slate-500 text-slate-900 dark:text-white appearance-none cursor-pointer"
+          >
+            <option value="">All companies</option>
+            {companies.map((c) => (
+              <option key={c} value={c}>{COMPANY[c] || c}</option>
+            ))}
+          </select>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <select
-              value={companyFilter}
-              onChange={(e) => { setCompanyFilter(e.target.value); setVisibleCount(PER_PAGE); }}
-              className="px-3 py-2.5 text-sm bg-white dark:bg-[#161618] border border-[#0F3D2E]/10 dark:border-white/10 rounded-xl focus:outline-none focus:border-[#0F3D2E]/30 dark:focus:border-[#10B981]/30 text-slate-900 dark:text-white appearance-none cursor-pointer"
-            >
-              <option value="">All companies</option>
-              {companies.map((c) => (
-                <option key={c} value={c}>{COMPANY[c] || c}</option>
-              ))}
-            </select>
-
-            <select
-              value={deptFilter}
-              onChange={(e) => { setDeptFilter(e.target.value); setVisibleCount(PER_PAGE); }}
-              className="px-3 py-2.5 text-sm bg-white dark:bg-[#161618] border border-[#0F3D2E]/10 dark:border-white/10 rounded-xl focus:outline-none focus:border-[#0F3D2E]/30 dark:focus:border-[#10B981]/30 text-slate-900 dark:text-white appearance-none cursor-pointer"
-            >
-              <option value="">All departments</option>
-              {departments.map((d) => (
-                <option key={d} value={d}>{d}</option>
-              ))}
-            </select>
-          </div>
+          <select
+            value={deptFilter}
+            onChange={(e) => { setDeptFilter(e.target.value); setVisibleCount(PER_PAGE); }}
+            className="flex-1 px-2.5 py-2 text-sm bg-transparent border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-slate-400 dark:focus:border-slate-500 text-slate-900 dark:text-white appearance-none cursor-pointer"
+          >
+            <option value="">All departments</option>
+            {departments.map((d) => (
+              <option key={d} value={d}>{d}</option>
+            ))}
+          </select>
 
           {hasActiveFilters && (
-            <button
-              onClick={clearFilters}
-              className="inline-flex items-center gap-1 text-xs font-bold text-[#10B981] hover:text-[#059669] transition-colors"
-            >
-              <X className="w-3 h-3" />
-              Clear {activeFilterCount} filter{activeFilterCount !== 1 ? 's' : ''}
+            <button onClick={clearFilters} className="flex-shrink-0 p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+              <X className="w-4 h-4" />
             </button>
           )}
         </div>
@@ -253,8 +213,7 @@ export const JobsPage: React.FC = () => {
 
         {!loading && !error && filtered.length > 0 && (
           <>
-            <p className="text-xs text-slate-400 mb-3">{totalFiltered} result{totalFiltered !== 1 ? 's' : ''}</p>
-            <div className="space-y-3">
+            <div className="divide-y divide-slate-100 dark:divide-white/[0.04]">
               {visible.map((job, i) => (
                 <JobCard key={job.id} job={job} index={i} />
               ))}
@@ -263,7 +222,7 @@ export const JobsPage: React.FC = () => {
               <div className="text-center mt-6">
                 <button
                   onClick={() => setVisibleCount((c) => c + PER_PAGE)}
-                  className="inline-flex items-center justify-center px-6 py-3 bg-white dark:bg-[#161618] border border-[#0F3D2E]/10 dark:border-white/10 rounded-xl text-sm font-bold text-slate-700 dark:text-slate-300 hover:border-[#0F3D2E]/30 dark:hover:border-[#10B981]/30 transition-all"
+                  className="px-5 py-2 text-xs font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 border border-slate-200 dark:border-white/10 rounded-lg hover:border-slate-400 dark:hover:border-slate-500 transition-all"
                 >
                   Load {Math.min(PER_PAGE, totalFiltered - visibleCount)} more
                 </button>
@@ -274,51 +233,36 @@ export const JobsPage: React.FC = () => {
 
         {/* ── CTA ──────────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mt-10 bg-[#0F3D2E] rounded-2xl p-6 sm:p-8 text-center relative overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="mt-10 py-6 border-t border-slate-100 dark:border-white/[0.04]"
         >
-          <div className="absolute inset-0 opacity-10"
-            style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
-          />
-          <div className="relative z-10">
-            <h2 className="text-lg sm:text-xl font-black text-white mb-2">
-              Hire AI talent across Europe
-            </h2>
-            <p className="text-sm text-white/60 mb-4 max-w-md mx-auto">
-              Post your job and reach qualified AI candidates in our network. EUR 49 per listing.
-            </p>
-            <Link
-              to="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-[#10B981] text-white px-6 py-3 rounded-xl text-sm font-bold hover:bg-[#059669] active:scale-[0.97] transition-all min-h-[44px]"
-            >
-              Post a Job for EUR 49
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
+          <p className="text-sm text-slate-400 dark:text-slate-500 mb-3">
+            Want to hire AI talent across Europe?
+          </p>
+          <Link
+            to="/jobs/post"
+            className="inline-flex items-center gap-1.5 text-sm font-bold text-[#10B981] hover:text-[#059669] transition-colors"
+          >
+            Post a job for EUR 49
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </motion.div>
 
         {/* ── AI Transparency ──────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="mt-8 p-5 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-[#0F3D2E]/5 dark:border-white/5"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.35 }}
+          className="mt-8 py-4 border-t border-slate-100 dark:border-white/[0.04]"
         >
-          <h3 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
-            How AI powers this board
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-[11px] text-slate-400 dark:text-slate-500">
-            <span>AI classifies seniority from job titles (senior/lead/mid/entry)</span>
-            <span>AI detects D8 visa eligibility for Portugal</span>
-            <span>AI filters jobs by EU compatibility from location data</span>
-            <span>All job listings verified against official ATS feeds</span>
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-slate-400 dark:text-slate-500">
+            <span>Seniority classified from titles</span>
+            <span>D8 eligibility flagged for Portugal</span>
+            <span>EU compatibility from location data</span>
+            <span>All listings from verified ATS feeds</span>
           </div>
-          <p className="mt-2 text-[10px] text-slate-400 dark:text-slate-500">
-            No black-box scoring. No candidate ranking. Every badge and filter is explainable.
-            Influenced by Greenhouse AI's structured hiring principles.
-          </p>
         </motion.div>
       </div>
     </>

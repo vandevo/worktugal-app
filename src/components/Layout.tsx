@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogOut, LayoutDashboard, ClipboardCheck, Sun, Moon, Menu, X } from 'lucide-react';
+import { LogOut, LayoutDashboard, ClipboardCheck, Sun, Moon, Menu, X, Briefcase } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useUserProfile } from '../hooks/useUserProfile';
 import { useSubscription } from '../hooks/useSubscription';
@@ -21,7 +21,6 @@ const NAV_LINKS = [
   { label: 'Changelog', href: '/changelog' },
   { label: 'Blog', href: 'https://blog.worktugal.com', external: true },
   { label: 'Community', href: 'https://t.me/worktugal', external: true },
-  { label: 'Radar', href: '/radar' },
 ];
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
@@ -35,6 +34,15 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  // Check if user was trying to post a job before OAuth redirect
+  useEffect(() => {
+    const pending = sessionStorage.getItem('pendingPostJob');
+    if (pending && user) {
+      sessionStorage.removeItem('pendingPostJob');
+      navigate('/jobs/post');
+    }
+  }, [user, navigate]);
 
   const userMenuRef = useRef<HTMLDivElement>(null);
 
@@ -172,6 +180,13 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                         className="absolute right-0 mt-2 w-52 bg-white dark:bg-[#161618] rounded-2xl border border-[#E5E7EB] dark:border-[#2D2D35] shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] py-1.5 z-[60]"
                         >
                         <button
+                    onClick={() => { navigate('/jobs/post'); setShowUserMenu(false); }}
+                          className="w-full px-4 py-2.5 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] hover:text-[#0F3D2E] dark:hover:text-white flex items-center gap-3 transition-colors"
+                        >
+                          <Briefcase className="w-4 h-4 flex-shrink-0" />
+                          Post a job
+                        </button>
+                        <button
                     onClick={() => { navigate('/dashboard'); setShowUserMenu(false); }}
                           className="w-full px-4 py-2.5 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] hover:text-[#0F3D2E] dark:hover:text-white flex items-center gap-3 transition-colors"
                         >
@@ -201,17 +216,17 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 /* Unauthenticated */
                 <div className="hidden sm:flex items-center gap-2">
                   <button
+                    onClick={() => { sessionStorage.setItem('pendingPostJob', 'true'); setShowAuthModal(true); }}
+                    className="px-4 py-2 text-sm font-bold text-white bg-[#0F3D2E] hover:bg-[#1A5C44] rounded-xl transition-all"
+                  >
+                    Post a job
+                  </button>
+                  <button
                     onClick={() => setShowAuthModal(true)}
-                    className="px-4 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-[#0F3D2E]/5 dark:hover:bg-white/5 rounded-xl transition-all"
+                    className="px-4 py-2 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white transition-all"
                   >
                     Sign in
                   </button>
-                  <Link
-                    to="/diagnostic"
-                    className="bg-[#0F3D2E] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 transition-all flex items-center gap-1.5"
-                  >
-                    Run diagnostic
-                  </Link>
                 </div>
               )}
 
@@ -267,17 +282,17 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 {!user && (
                   <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-[#E5E7EB] dark:border-[#2D2D35]">
                     <button
+                      onClick={() => { sessionStorage.setItem('pendingPostJob', 'true'); setShowAuthModal(true); setShowMobileMenu(false); }}
+                      className="w-full py-3 text-sm font-bold text-white bg-[#0F3D2E] rounded-xl hover:bg-[#1A5C44] transition-all text-center"
+                    >
+                      Post a job for €49
+                    </button>
+                    <button
                       onClick={() => { setShowAuthModal(true); setShowMobileMenu(false); }}
                       className="w-full py-3 text-sm font-bold text-slate-700 dark:text-slate-200 border border-[#E5E7EB] dark:border-[#2D2D35] rounded-xl hover:bg-[#F5F4F2] dark:hover:bg-[#1E1E22] transition-all"
                     >
                       Sign in
                     </button>
-                    <Link
-                      to="/diagnostic"
-                      className="w-full py-3 text-sm font-bold text-white bg-[#0F3D2E] rounded-xl hover:bg-[#1A5C44] transition-all text-center"
-                    >
-                      Run diagnostic →
-                    </Link>
                   </div>
                 )}
               </div>

@@ -38,6 +38,7 @@ import { Changelog } from './components/Changelog';
 import { CheckoutSuccess } from './components/CheckoutSuccess';
 import { SubscribePage } from './components/radar/SubscribePage';
 import { JobsPage } from './pages/JobsPage';
+import { JobPostPage } from './pages/JobPostPage';
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
 
             <Route path="/radar" element={<RadarLanding />} />
             <Route path="/jobs" element={<JobsPage />} />
+            <Route path="/jobs/post" element={<JobPostPage />} />
             <Route path="/compliance" element={<Navigate to="/radar" replace />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/subscribe" element={<SubscribePage />} />
