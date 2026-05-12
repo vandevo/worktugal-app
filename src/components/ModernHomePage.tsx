@@ -14,12 +14,20 @@ const COMPANY_NAME: Record<string, string> = {
   'anthropic': 'Anthropic', 'gitlab': 'GitLab',
   'databricks': 'Databricks', 'mistral-ai': 'Mistral AI',
   'stripe': 'Stripe', 'figma': 'Figma',
+  'xai': 'xAI', 'datadog': 'Datadog', 'cloudflare': 'Cloudflare',
+  'vercel': 'Vercel', 'tailscale': 'Tailscale', 'grafana-labs': 'Grafana Labs',
+  'neon': 'Neon', 'retool': 'Retool', 'stability-ai': 'Stability AI',
+  'scale-ai': 'Scale AI', 'snyk': 'Snyk', 'palantir': 'Palantir',
 };
 
 const COMPANY_DOMAIN: Record<string, string> = {
   'anthropic': 'anthropic.com', 'gitlab': 'about.gitlab.com',
   'databricks': 'databricks.com', 'mistral-ai': 'mistral.ai',
   'stripe': 'stripe.com', 'figma': 'figma.com',
+  'xai': 'x.ai', 'datadog': 'datadoghq.com', 'cloudflare': 'cloudflare.com',
+  'vercel': 'vercel.com', 'tailscale': 'tailscale.com', 'grafana-labs': 'grafana.com',
+  'neon': 'neon.tech', 'retool': 'retool.com', 'stability-ai': 'stability.ai',
+  'scale-ai': 'scale.com', 'snyk': 'snyk.io', 'palantir': 'palantir.com',
 };
 
 const LOGO_QS = '?token=pk_frb0ba107779627298c1c9&size=64';
@@ -39,7 +47,7 @@ const formatSalary = (min: number | null, max: number | null): string | null => 
   return `€${fmt(min || max!)}`;
 };
 
-const COMPANIES = ['Anthropic', 'Stripe', 'Databricks', 'GitLab', 'Mistral AI', 'Figma'];
+const COMPANIES = ['Anthropic', 'Stripe', 'Databricks', 'GitLab', 'Mistral AI', 'Figma', 'xAI', 'Datadog', 'Cloudflare']; 
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },

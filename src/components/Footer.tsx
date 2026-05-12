@@ -40,7 +40,7 @@ export const Footer: React.FC = () => {
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-4">Platform</p>
             <ul className="space-y-3">
               {[
-                { label: 'Jobs', to: '/jobs' },
+                { label: 'Browse jobs', to: '/jobs' },
                 { label: 'Post a Job', to: '/jobs/post' },
                 { label: 'Diagnostic', to: '/diagnostic' },
                 { label: 'Changelog', to: '/changelog' },
