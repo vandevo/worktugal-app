@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogOut, LayoutDashboard, ClipboardCheck, Sun, Moon, Menu, X, Briefcase } from 'lucide-react';
+import { LogOut, LayoutDashboard, ClipboardCheck, Menu, X, Briefcase, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useUserProfile } from '../hooks/useUserProfile';
 import { useSubscription } from '../hooks/useSubscription';
@@ -132,7 +132,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             {/* Right side */}
             <div className="flex items-center gap-2 md:gap-3">
 
-              {/* Dark mode toggle */}
+              {/* Theme toggle */}
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-[#0F3D2E] dark:hover:text-white hover:bg-[#0F3D2E]/5 dark:hover:bg-white/5 transition-all"

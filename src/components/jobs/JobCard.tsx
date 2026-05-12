@@ -18,6 +18,10 @@ const COMPANY_DOMAIN: Record<string, string> = {
   'anthropic': 'anthropic.com', 'gitlab': 'about.gitlab.com',
   'databricks': 'databricks.com', 'mistral-ai': 'mistral.ai',
   'stripe': 'stripe.com', 'figma': 'figma.com',
+  'xai': 'x.ai', 'datadog': 'datadoghq.com', 'cloudflare': 'cloudflare.com',
+  'vercel': 'vercel.com', 'tailscale': 'tailscale.com', 'grafana-labs': 'grafana.com',
+  'neon': 'neon.tech', 'retool': 'retool.com', 'stability-ai': 'stability.ai',
+  'scale-ai': 'scale.com', 'snyk': 'snyk.io', 'palantir': 'palantir.com',
 };
 
 const LOGO_TOKEN = 'pk_frb0ba107779627298c1c9';

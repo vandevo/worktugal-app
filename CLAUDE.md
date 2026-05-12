@@ -48,7 +48,7 @@ supabase/
 
 | Product | Status | Notes |
 |---|---|---|---|
-| AI Jobs Board | Live `/jobs` | Primary revenue engine. 545+ EU-eligible jobs. EUR 49 self-serve checkout at `/jobs/post`. 6 AI companies. |
+| AI Jobs Board | Live `/jobs` | Primary revenue engine. 545+ EU-eligible jobs. EUR 49 self-serve checkout at `/jobs/post`. 12 AI companies. JobBoard mode design (Ashby-style). |
 | Compliance Risk Diagnostic | Live `/diagnostic` | 13-question free tool, lead gen |
 | My Account Dashboard | Live `/dashboard` | Signed-in users only |
 | Google Sign-In | Live | Supabase OAuth |
@@ -80,7 +80,7 @@ The session index lists every relevant strategy, research, feature, and design f
 ## Project Rules
 
 - Always use Context7 before touching Supabase, Stripe, or Vite config.
-- Design system: Emerald Zenith theme (`prompts/knowledge/emerald-zenith-theme.md` via vault).
+| Design system: | Emerald Zenith v1.2 — Plus Jakarta Sans headlines, Inter body, font-bold (700) headings, forest green (#0F3D2E) primary, emerald (#10B981) accent |
 - No WordPress. No over-engineering. Ship the single-feature MVP first.
 - DB migrations go in `supabase/migrations/` — never raw SQL in production.
 - `.env` is never committed. Use `.env.example` as the reference.

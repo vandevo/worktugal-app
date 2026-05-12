@@ -21,6 +21,10 @@ const COMPANY: Record<string, string> = {
   'anthropic': 'Anthropic', 'gitlab': 'GitLab',
   'databricks': 'Databricks', 'mistral-ai': 'Mistral AI',
   'stripe': 'Stripe', 'figma': 'Figma',
+  'xai': 'xAI', 'datadog': 'Datadog', 'cloudflare': 'Cloudflare',
+  'vercel': 'Vercel', 'tailscale': 'Tailscale', 'grafana-labs': 'Grafana Labs',
+  'neon': 'Neon', 'retool': 'Retool', 'stability-ai': 'Stability AI',
+  'scale-ai': 'Scale AI', 'snyk': 'Snyk', 'palantir': 'Palantir',
 };
 
 const PER_PAGE = 50;
@@ -58,7 +62,7 @@ export const JobsPage: React.FC = () => {
   const companies = useMemo(() => [...new Set(allJobs.map((j) => j.company_slug))].sort(), [allJobs]);
 
   const departments = useMemo(
-    () => [...new Set(allJobs.map((j) => j.department).filter(Boolean))].sort().slice(0, 30),
+    () => [...new Set(allJobs.map((j) => j.department).filter(Boolean))].sort().slice(0, 200),
     [allJobs]
   );
 
@@ -134,22 +138,22 @@ export const JobsPage: React.FC = () => {
           <select
             value={companyFilter}
             onChange={(e) => { setCompanyFilter(e.target.value); setVisibleCount(PER_PAGE); }}
-            className="flex-1 px-2.5 py-2 text-sm bg-transparent border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
+            className="flex-1 px-2.5 py-2 text-sm bg-white dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
           >
             <option value="">All companies</option>
             {companies.map((c) => (
-              <option key={c} value={c}>{COMPANY[c] || c}</option>
+              <option key={c} value={c} className="bg-white dark:bg-[#161618] text-slate-900 dark:text-white">{COMPANY[c] || c}</option>
             ))}
           </select>
 
           <select
             value={deptFilter}
             onChange={(e) => { setDeptFilter(e.target.value); setVisibleCount(PER_PAGE); }}
-            className="flex-1 px-2.5 py-2 text-sm bg-transparent border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
+            className="flex-1 px-2.5 py-2 text-sm bg-white dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
           >
             <option value="">All departments</option>
             {departments.map((d) => (
-              <option key={d} value={d}>{d}</option>
+              <option key={d} value={d} className="bg-white dark:bg-[#161618] text-slate-900 dark:text-white">{d}</option>
             ))}
           </select>
 

@@ -53,6 +53,7 @@ export default {
 
       fontFamily: {
         sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        jakarta: ['"Plus Jakarta Sans"', "Inter", "system-ui", "sans-serif"],
         // Playfair removed — replaced by Inter 900 for display headlines
       },
 
