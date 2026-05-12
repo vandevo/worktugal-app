@@ -7,29 +7,20 @@ import { supabase } from '../lib/supabase';
 import { JobCard } from '../components/jobs/JobCard';
 
 interface Job {
-  id: string;
-  company_slug: string;
-  title: string;
-  location: string;
-  department: string | null;
-  apply_url: string;
-  source: string;
-  posted_at: string;
-  remote_policy: string | null;
-  visa_sponsorship: boolean | null;
-  d8_eligible: boolean | null;
-  seniority: string | null;
-  skills: string[] | null;
-  expires_at: string | null;
+  id: string; company_slug: string; title: string; location: string;
+  department: string | null; apply_url: string; source: string;
+  posted_at: string; remote_policy: string | null;
+  visa_sponsorship: boolean | null; d8_eligible: boolean | null;
+  seniority: string | null; skills: string[] | null; expires_at: string | null;
+  salary_min: number | null; salary_max: number | null;
+  salary_currency: string | null; locations: string[] | null;
+  is_eu_eligible: boolean | null;
 }
 
 const COMPANY: Record<string, string> = {
-  'anthropic': 'Anthropic',
-  'gitlab': 'GitLab',
-  'databricks': 'Databricks',
-  'mistral-ai': 'Mistral AI',
-  'stripe': 'Stripe',
-  'figma': 'Figma',
+  'anthropic': 'Anthropic', 'gitlab': 'GitLab',
+  'databricks': 'Databricks', 'mistral-ai': 'Mistral AI',
+  'stripe': 'Stripe', 'figma': 'Figma',
 };
 
 const PER_PAGE = 50;
@@ -44,7 +35,6 @@ export const JobsPage: React.FC = () => {
   const [allJobs, setAllJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [search, setSearch] = useState('');
   const [companyFilter, setCompanyFilter] = useState('');
   const [deptFilter, setDeptFilter] = useState('');
   const [visibleCount, setVisibleCount] = useState(PER_PAGE);
@@ -82,40 +72,22 @@ export const JobsPage: React.FC = () => {
 
   const filtered = useMemo(() => {
     return allJobs.filter((job) => {
-      const name = COMPANY[job.company_slug] || job.company_slug;
-      const q = search.toLowerCase();
-
-      if (search) {
-        const titleMatch = job.title.toLowerCase().includes(q);
-        const companyMatch = name.toLowerCase().includes(q);
-        const locMatch = job.location.toLowerCase().includes(q);
-        const deptMatch = job.department?.toLowerCase().includes(q) ?? false;
-        if (!titleMatch && !companyMatch && !locMatch && !deptMatch) return false;
-      }
-
       if (companyFilter && job.company_slug !== companyFilter) return false;
       if (deptFilter && job.department !== deptFilter) return false;
-
       return true;
     });
-  }, [allJobs, search, companyFilter, deptFilter]);
+  }, [allJobs, companyFilter, deptFilter]);
 
   const visible = filtered.slice(0, visibleCount);
   const totalFiltered = filtered.length;
   const hasMore = visibleCount < totalFiltered;
-  const hasActiveFilters = search || companyFilter || deptFilter;
+  const hasActiveFilters = companyFilter || deptFilter;
 
   const clearFilters = () => {
-    setSearch('');
     setCompanyFilter('');
     setDeptFilter('');
     setVisibleCount(PER_PAGE);
   };
-
-  const activeFilterCount =
-    (search ? 1 : 0) +
-    (companyFilter ? 1 : 0) +
-    (deptFilter ? 1 : 0);
 
   return (
     <>
@@ -134,7 +106,7 @@ export const JobsPage: React.FC = () => {
             </h1>
             {!loading && (
               <span className="text-sm text-slate-400 dark:text-slate-500 whitespace-nowrap">
-                {totalFiltered} job{totalFiltered !== 1 ? 's' : ''} · {companies.length} compan{companies.length !== 1 ? 'ies' : 'y'}
+                {totalFiltered} job{totalFiltered !== 1 ? 's' : ''}
               </span>
             )}
           </div>
@@ -152,7 +124,7 @@ export const JobsPage: React.FC = () => {
             className="flex items-center gap-3 mb-6 text-[11px] text-slate-400 dark:text-slate-500"
           >
             <span>{jobStats.today} posted today</span>
-            <span className="w-px h-3 bg-slate-200 dark:bg-white/10" />
+            <span className="w-px h-3 bg-[#0F3D2E]/10 dark:bg-white/10" />
             <span>{jobStats.week} added this week</span>
           </motion.div>
         )}
@@ -162,7 +134,7 @@ export const JobsPage: React.FC = () => {
           <select
             value={companyFilter}
             onChange={(e) => { setCompanyFilter(e.target.value); setVisibleCount(PER_PAGE); }}
-            className="flex-1 px-2.5 py-2 text-sm bg-transparent border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-slate-400 dark:focus:border-slate-500 text-slate-900 dark:text-white appearance-none cursor-pointer"
+            className="flex-1 px-2.5 py-2 text-sm bg-transparent border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
           >
             <option value="">All companies</option>
             {companies.map((c) => (
@@ -173,7 +145,7 @@ export const JobsPage: React.FC = () => {
           <select
             value={deptFilter}
             onChange={(e) => { setDeptFilter(e.target.value); setVisibleCount(PER_PAGE); }}
-            className="flex-1 px-2.5 py-2 text-sm bg-transparent border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-slate-400 dark:focus:border-slate-500 text-slate-900 dark:text-white appearance-none cursor-pointer"
+            className="flex-1 px-2.5 py-2 text-sm bg-transparent border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
           >
             <option value="">All departments</option>
             {departments.map((d) => (
@@ -213,7 +185,7 @@ export const JobsPage: React.FC = () => {
 
         {!loading && !error && filtered.length > 0 && (
           <>
-            <div className="divide-y divide-slate-100 dark:divide-white/[0.04]">
+            <div className="divide-y divide-[#0F3D2E]/6 dark:divide-white/[0.06]">
               {visible.map((job, i) => (
                 <JobCard key={job.id} job={job} index={i} />
               ))}
@@ -231,33 +203,32 @@ export const JobsPage: React.FC = () => {
           </>
         )}
 
-        {/* ── CTA ──────────────────────────────────────────── */}
+        {/* ── Bottom CTA ──────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="mt-10 py-6 border-t border-slate-100 dark:border-white/[0.04]"
+          className="mt-14 pt-8 border-t border-[#0F3D2E]/6 dark:border-white/[0.06] text-center"
         >
-          <p className="text-sm text-slate-400 dark:text-slate-500 mb-3">
-            Want to hire AI talent across Europe?
+          <p className="text-sm text-slate-400 dark:text-slate-500 mb-4">
+            Hiring AI talent across Europe?
           </p>
           <Link
             to="/jobs/post"
-            className="inline-flex items-center gap-1.5 text-sm font-bold text-[#10B981] hover:text-[#059669] transition-colors"
+            className="inline-flex items-center gap-2 bg-[#0F3D2E] text-white px-7 py-3.5 rounded-xl text-sm font-bold hover:bg-[#1A5C44] hover:shadow-lg hover:shadow-[#0F3D2E]/20 transition-all"
           >
-            Post a job for EUR 49
-            <ArrowRight className="w-3.5 h-3.5" />
+            Post a job for €49 <ArrowRight className="w-4 h-4" />
           </Link>
         </motion.div>
 
-        {/* ── AI Transparency ──────────────────────────────────── */}
+        {/* ── Job data transparency ────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.35 }}
-          className="mt-8 py-4 border-t border-slate-100 dark:border-white/[0.04]"
+          className="mt-8 pt-6 border-t border-[#0F3D2E]/6 dark:border-white/[0.06]"
         >
-          <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-slate-400 dark:text-slate-500">
+          <div className="flex flex-wrap gap-x-6 gap-y-1.5 text-[11px] text-slate-400 dark:text-slate-500">
             <span>Seniority classified from titles</span>
             <span>D8 eligibility flagged for Portugal</span>
             <span>EU compatibility from location data</span>

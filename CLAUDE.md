@@ -27,10 +27,11 @@ src/
   components/
     compliance/   B2B compliance intelligence landing page
     diagnostic/   compliance risk diagnostic form + results
+    jobs/         JobCard component (logo via Logokit, seniority badges)
     radar/        B2C compliance radar landing page (email capture + Google OAuth)
     accounting/   accountant application + consult booking
     admin/        admin management UI
-  pages/        route-level components (includes LoginPage)
+  pages/        route-level components (JobsPage, LoginPage)
   hooks/        custom React hooks
   lib/          supabase client, stripe checkout utility
   contexts/     auth context
@@ -38,7 +39,7 @@ src/
   utils/        helpers
 supabase/
   migrations/   DB schema history
-  functions/    edge functions (stripe-checkout, stripe-webhook, auto-subscribe-radar)
+  functions/    edge functions (stripe-checkout, stripe-webhook, ghost-member-webhook)
 ```
 
 ---
@@ -53,7 +54,7 @@ supabase/
 | Google Sign-In | Live | Supabase OAuth |
 | Portugal Radar | Live `/radar` | Maintained, no active development. EUR 5/mo. |
 | Compliance Monitor (Parallel AI) | Live | 2 daily monitors → n8n → Supabase → Telegram + email + weekly digest |
-| AI Blog | Planned | `/blog` shows coming soon |
+| AI Blog | Live | Ghost CMS at blog.worktugal.com. Content API public (read-only). |
 
 ---
 
@@ -83,3 +84,4 @@ The session index lists every relevant strategy, research, feature, and design f
 - No WordPress. No over-engineering. Ship the single-feature MVP first.
 - DB migrations go in `supabase/migrations/` — never raw SQL in production.
 - `.env` is never committed. Use `.env.example` as the reference.
+- **Changelog:** After shipping a major feature, redesign, or pivot, insert a new entry into `project_changelog` (via Supabase SQL or the MCP tool). Keep titles and details user-facing — no internal tech names, services, or stack details. Version format: `v{major}.{minor}`. Entries show on `/changelog`.

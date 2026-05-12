@@ -263,9 +263,12 @@ const FALLBACK_ENTRIES: ChangelogEntry[] = [
   },
 ];
 
+const PER_PAGE = 10;
+
 export const Changelog: React.FC = () => {
   const [entries, setEntries] = useState<ChangelogEntry[]>([]);
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(PER_PAGE);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -335,7 +338,7 @@ export const Changelog: React.FC = () => {
             <div className="absolute left-[7px] top-2 bottom-2 w-px bg-slate-200 dark:bg-white/8" />
 
             <div className="space-y-10">
-              {Object.entries(grouped).map(([monthYear, monthEntries]) => (
+              {Object.entries(grouped).slice(0, Math.ceil(visibleCount / 10)).map(([monthYear, monthEntries]) => (
                 <div key={monthYear}>
                   {/* Month label */}
                   <div className="flex items-center gap-4 mb-6 ml-[28px]">
@@ -345,7 +348,7 @@ export const Changelog: React.FC = () => {
                   </div>
 
                   <div className="space-y-5">
-                    {monthEntries.map((entry, i) => {
+                    {monthEntries.slice(0, monthEntries.length).map((entry, i) => {
                       const config = getCategoryConfig(entry.category);
                       return (
                         <motion.div
@@ -400,6 +403,18 @@ export const Changelog: React.FC = () => {
                 </div>
               ))}
             </div>
+
+            {/* Load more */}
+            {visibleCount < entries.length && (
+              <div className="text-center mt-10">
+                <button
+                  onClick={() => setVisibleCount((c) => c + PER_PAGE)}
+                  className="px-5 py-2 text-xs font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 border border-slate-200 dark:border-white/10 rounded-lg hover:border-slate-400 dark:hover:border-slate-500 transition-all"
+                >
+                  Load {Math.min(PER_PAGE, entries.length - visibleCount)} earlier updates
+                </button>
+              </div>
+            )}
           </div>
         )}
 
