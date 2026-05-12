@@ -1,7 +1,8 @@
-Last session: 2026-05-11-pivot-execution-v4.8
+Last session: 2026-05-12-design-refinement-v1.2
 
 | Session | Date | Summary |
 |---|---|---|
+| 2026-05-12-design-refinement-v1.2 | 2026-05-12 | Design system v1.2: theme toggle restored, Jakarta Sans headlines, heading weights 900→700, JobPostPage + landing page redesign to match Stitch output, 12 company mappings, Ghost blog CSS injection, Emerald Zenith v1.2 |
 | 2026-05-11-pivot-execution-v4.8 | 2026-05-11 | Full pivot execution: workflow refactored (17→7 nodes, loop-based), EUR 49 checkout live, UI redesign (Job Board Mode), Stripe + Figma added, 704 non-AI jobs deleted, Telegram bot hack recovery, security hardening, Ghost rebranded to Worktugal AI Jobs |
 | 2026-05-11-ai-jobs-board-v1.0 | 2026-05-11 | Strategy pivot: AI Jobs board primary revenue, compliance secondary. Direction override, business plan, MVP plan. 3 deep researches. Supabase schema, n8n ATS pipeline, /jobs page live with 445 EU jobs + D8 badges. Ghost free-only. Gemini key rotated. |
 | 2026-05-09-wrap-fixes-v4.6 | 2026-05-09 | Fixed absolute paths in wrap pipeline (wrap.md, session-wrapup.md v2.1, thread-launcher.md v4.0). OpenCode compaction explained. |
