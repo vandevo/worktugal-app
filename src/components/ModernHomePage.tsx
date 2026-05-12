@@ -47,8 +47,6 @@ const formatSalary = (min: number | null, max: number | null): string | null => 
   return `€${fmt(min || max!)}`;
 };
 
-const COMPANIES = ['Anthropic', 'Stripe', 'Databricks', 'GitLab', 'Mistral AI', 'Figma', 'xAI', 'Datadog', 'Cloudflare']; 
-
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
   animate: { opacity: 1, y: 0 },
@@ -151,12 +149,12 @@ export const ModernHomePage: React.FC = () => {
 
           {/* Right — Preview cards */}
           <motion.div
-            className="lg:col-span-5 hidden lg:flex flex-col gap-4 justify-center"
+            className="lg:col-span-5 flex lg:flex-col gap-4 justify-center mt-10 lg:mt-0 snap-x snap-mandatory lg:snap-none overflow-x-auto lg:overflow-visible -mx-4 px-4 lg:mx-0 lg:px-0 scrollbar-hide"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="bg-white/60 dark:bg-white/[0.03] backdrop-blur-xl border border-white/20 dark:border-white/8 rounded-2xl p-5 shadow-[0_8px_30px_rgba(15,61,46,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] w-full max-w-sm ml-auto">
+            <div className="bg-white/60 dark:bg-white/[0.03] backdrop-blur-xl border border-white/20 dark:border-white/8 rounded-2xl p-5 shadow-[0_8px_30px_rgba(15,61,46,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] w-[85vw] lg:w-full lg:max-w-sm flex-shrink-0 snap-center lg:snap-none lg:ml-auto">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-8 rounded-lg bg-[#0F3D2E]/5 dark:bg-[#10B981]/10 flex items-center justify-center p-1.5">
                   <img
@@ -184,7 +182,7 @@ export const ModernHomePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white/60 dark:bg-white/[0.03] backdrop-blur-xl border border-white/20 dark:border-white/8 rounded-2xl p-5 shadow-[0_8px_30px_rgba(15,61,46,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] w-full max-w-sm mr-auto">
+            <div className="bg-white/60 dark:bg-white/[0.03] backdrop-blur-xl border border-white/20 dark:border-white/8 rounded-2xl p-5 shadow-[0_8px_30px_rgba(15,61,46,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] w-[85vw] lg:w-full lg:max-w-sm flex-shrink-0 snap-center lg:snap-none lg:mr-auto">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-8 rounded-lg bg-[#0F3D2E]/5 dark:bg-[#10B981]/10 flex items-center justify-center p-1.5">
                   <img
@@ -216,14 +214,14 @@ export const ModernHomePage: React.FC = () => {
 
         {/* Stats strip */}
         <motion.div
-          className="max-w-2xl mx-auto mt-20 grid grid-cols-4 gap-4"
+          className="max-w-2xl mx-auto mt-20 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
         >
           {[
             { value: jobCount + '+', label: 'Active roles' },
-            { value: '10K+', label: 'Job seekers' },
+            { value: '3K+', label: 'Job seekers' },
             { value: String(companyCount), label: 'Companies hiring' },
             { value: '€49', label: 'To post' },
           ].map((stat) => (
@@ -245,11 +243,18 @@ export const ModernHomePage: React.FC = () => {
           <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 text-center mb-5">
             Featuring jobs from
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-3">
-            {COMPANIES.map((name) => (
-              <span key={name} className="text-sm font-bold text-slate-400 dark:text-slate-500 tracking-tight grayscale hover:grayscale-0 transition-all duration-300">
-                {name}
-              </span>
+          <div className="flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-12 gap-y-4">
+            {Object.entries(COMPANY_DOMAIN).slice(0, 9).map(([slug, domain]) => (
+              <div key={slug} className="flex items-center gap-2 grayscale hover:grayscale-0 transition-all duration-300">
+                <img
+                  src={`https://img.logokit.com/${domain}${LOGO_QS}`}
+                  alt={COMPANY_NAME[slug] || slug}
+                  className="w-6 h-6 object-contain rounded"
+                  referrerPolicy="origin"
+                  loading="lazy"
+                />
+                <span className="text-xs font-bold text-slate-400 dark:text-slate-500">{COMPANY_NAME[slug] || slug}</span>
+              </div>
             ))}
           </div>
         </div>

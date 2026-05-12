@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Loader2, CheckCircle, Shield, Clock, Users, MapPin, Euro, Briefcase } from 'lucide-react';
+import { ArrowRight, Loader2, CheckCircle, Shield, Clock, Users, MapPin, Euro, Building2, TrendingUp } from 'lucide-react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { Seo } from '../components/Seo';
@@ -266,7 +266,7 @@ export const JobPostPage: React.FC = () => {
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex gap-3">
                       <div className="w-10 h-10 rounded-lg bg-[#F5F4F2] dark:bg-white/5 flex items-center justify-center border border-slate-200 dark:border-white/10">
-                        <Briefcase className="w-5 h-5 text-[#10B981]" />
+                        <Building2 className="w-5 h-5 text-[#10B981]" />
                       </div>
                       <div>
                         <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 dark:text-slate-500 mb-0.5">{previewCompany}</p>
@@ -303,7 +303,7 @@ export const JobPostPage: React.FC = () => {
                 <div className="mt-4 bg-white dark:bg-[#161618] border border-[#10B981]/20 dark:border-[#10B981]/20 rounded-2xl p-5">
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-lg bg-[#10B981]/10 flex items-center justify-center flex-shrink-0">
-                      <Briefcase className="w-4 h-4 text-[#10B981]" />
+                      <TrendingUp className="w-4 h-4 text-[#10B981]" />
                     </div>
                     <div>
                       <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1">Boost visibility</h4>
