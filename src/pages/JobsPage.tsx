@@ -96,16 +96,16 @@ export const JobsPage: React.FC = () => {
   return (
     <>
       <Seo
-        title="AI & Tech Jobs in Europe – Worktugal"
-        description="Curated AI and tech jobs for remote workers in Europe. Browse roles from Anthropic, Databricks, GitLab, Mistral AI, and more."
-        ogTitle="AI & Tech Jobs in Europe – Worktugal"
-        ogDescription="Curated AI and tech jobs for remote workers in Europe."
+        title="AI Jobs in Europe – Worktugal"
+        description="Curated AI and tech jobs open to candidates in Europe. Browse roles from Anthropic, Stripe, Databricks, GitLab, xAI, and 12+ AI companies. Updated daily."
+        ogTitle="AI Jobs in Europe – Worktugal"
+        ogDescription="Curated AI and tech jobs open to candidates in Europe. Browse 500+ roles from leading AI companies. No signup needed."
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <motion.div {...fadeUp}>
           <div className="flex items-baseline justify-between gap-4 mb-1">
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
               AI Jobs in Europe
             </h1>
             {!loading && (

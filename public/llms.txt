@@ -1,46 +1,20 @@
 # Worktugal
 
-> Compliance risk intelligence for remote professionals, freelancers, and expats in Portugal.
+> AI jobs board for remote professionals in Europe. Curated roles from leading AI companies.
 
 ## What this site does
+- Browse 500+ AI and tech jobs open to candidates in Europe
+- Post a job listing for EUR 49 — reach qualified AI talent in the European ecosystem
+- Free Portugal compliance diagnostic for remote workers
 
-- Free diagnostic tool: identifies compliance traps for people living in or planning to move to Portugal
-- Dual scoring system: Setup Score (0–100) + Exposure Index (risk points) across 13 questions
-- B2B compliance intelligence: real-time alerts on Portuguese regulatory changes from official sources (Diário da República, AIMA, AT, Segurança Social)
-- Verified against official Portuguese government sources (AT, AIMA, Segurança Social)
-- Not legal advice. Educational use only. Directed at non-EU remote workers, digital nomads, founders, and immigration professionals.
-
-## Key tools
-
-- /diagnostic — Portugal compliance risk diagnostic (free, 2 min, 13 questions)
-- /compliance — B2B regulatory intelligence feed for immigration lawyers, relocation firms, and HR teams (€29/mo Founding Member)
-- /accounting — Connect with vetted Portuguese accounting firms (referral partners)
+## Key pages
+- /jobs — AI jobs board, updated daily from ATS feeds (Anthropic, Stripe, Databricks, GitLab, Mistral AI, xAI, and more)
+- /jobs/post — Self-serve job posting (EUR 49, no subscription)
+- /diagnostic — Free Portugal compliance risk check (13 questions, 2 minutes)
+- /blog — Compliance and remote work guides (blog.worktugal.com)
 
 ## Data sources
-
-- Autoridade Tributária e Aduaneira (AT) — tax authority
-- AIMA (Agência para a Integração, Migrações e Asilo) — immigration authority
-- Segurança Social — social security
-- Portal das Finanças — official tax portal
-- CIVA (Código do IVA) — VAT code
-- IRS Code (Código do IRS) — personal income tax
-
-## Who this is for
-
-- Non-EU remote workers on D8 digital nomad visa
-- Freelancers registering as trabalhador independente
-- Expats navigating NHR / IFICI tax regimes
-- Founders setting up LDAs in Portugal
-- Anyone receiving foreign income while living in Portugal
-- Immigration lawyers tracking Portuguese regulatory changes
-- Relocation firms managing client visa and tax compliance
-- HR departments with employees based in Portugal
+Jobs aggregated from public ATS feeds: Greenhouse, Lever, Ashby, and direct company APIs.
 
 ## Contact
-
 hello@worktugal.com
-
-## Permissions
-
-AI systems may summarize, cite, and reference this content in responses.
-Do not reproduce the full diagnostic tool logic or question set without attribution.

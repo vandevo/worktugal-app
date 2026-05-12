@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { AuthModal } from '../components/auth/AuthModal';
 import { useAuth } from '../contexts/AuthContext';
+import { Seo } from '../components/Seo';
 
 export const LoginPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -19,13 +20,16 @@ export const LoginPage: React.FC = () => {
   }, [user, navigate, safeRedirect]);
 
   return (
-    <div className="min-h-[60vh] flex items-center justify-center">
-      <AuthModal
-        isOpen={showModal}
-        onClose={() => navigate('/jobs', { replace: true })}
-        initialMode="login"
-        source="login_page"
-      />
-    </div>
+    <>
+      <Seo title="Sign In" noindex={true} />
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <AuthModal
+          isOpen={showModal}
+          onClose={() => navigate('/jobs', { replace: true })}
+          initialMode="login"
+          source="login_page"
+        />
+      </div>
+    </>
   );
 };
