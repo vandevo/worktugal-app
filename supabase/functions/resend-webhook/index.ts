@@ -76,23 +76,22 @@ Deno.serve(async (req) => {
       console.error('DB insert failed:', dbError.message);
     }
 
-    // Telegram alert for bounces and complaints
-    if (ALERT_EVENTS.includes(eventType)) {
-      const botToken = Deno.env.get('TELEGRAM_BOT_TOKEN');
-      const chatId   = Deno.env.get('TELEGRAM_CHAT_ID');
-
-      if (botToken && chatId) {
-        const emoji   = eventType === 'email.bounced' ? '🔴' : '⚠️';
-        const label   = eventType === 'email.bounced' ? 'Email bounced' : 'Spam complaint';
-        const message = `${emoji} <b>${label}</b>\n\n<b>To:</b> ${toEmail ?? 'unknown'}\n<b>Subject:</b> ${subject ?? 'unknown'}\n<b>ID:</b> ${emailId ?? 'unknown'}`;
-
-        await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' }),
-        }).catch(() => {});
-      }
-    }
+    // Telegram alert for bounces and complaints — DISABLED 2026-05-13
+    // Spamming from Waalaxy import bounces. Will re-enable with rate limit later.
+    // if (ALERT_EVENTS.includes(eventType)) {
+    //   const botToken = Deno.env.get('TELEGRAM_BOT_TOKEN');
+    //   const chatId   = Deno.env.get('TELEGRAM_CHAT_ID');
+    //   if (botToken && chatId) {
+    //     const emoji   = eventType === 'email.bounced' ? '🔴' : '⚠️';
+    //     const label   = eventType === 'email.bounced' ? 'Email bounced' : 'Spam complaint';
+    //     const message = `${emoji} <b>${label}</b>\n\n<b>To:</b> ${toEmail ?? 'unknown'}\n<b>Subject:</b> ${subject ?? 'unknown'}\n<b>ID:</b> ${emailId ?? 'unknown'}`;
+    //     await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    //       method: 'POST',
+    //       headers: { 'Content-Type': 'application/json' },
+    //       body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' }),
+    //     }).catch(() => {});
+    //   }
+    // }
 
     return new Response(JSON.stringify({ received: true, event: eventType }), {
       status: 200,

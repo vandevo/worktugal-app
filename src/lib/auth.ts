@@ -98,6 +98,13 @@ export const signInWithGoogle = async (redirectTo?: string) => {
   const target = redirectTo
     ?? (sessionStorage.getItem('pendingPostJob') ? `${window.location.origin}/jobs/post` : null)
     ?? `${window.location.origin}/jobs`;
+
+  // Give React a render cycle to flush pending state updates (e.g. loading spinner)
+  // before the full-page OAuth redirect tears down the DOM.
+  // Prevents "NotFoundError: insertBefore" when React Router tries to reconcile
+  // nodes that no longer exist during the navigation.
+  await new Promise(r => setTimeout(r, 0));
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: { redirectTo: target },
