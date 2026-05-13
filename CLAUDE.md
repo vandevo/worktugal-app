@@ -17,7 +17,8 @@ Full VanOS context in `~/.claude/CLAUDE.md` and `/home/vandevo/CLAUDE.md`. Do no
 | Animation | Framer Motion |
 | Auth + DB | Supabase (Google OAuth, PostgreSQL) |
 | Payments | Stripe (live: €29/mo Founding Member subscription wired, EUR 49 job posting checkout wired) |
-| Hosting | Cloudflare Pages |
+| Hosting | Cloudflare Pages + Workers |
+| Infrastructure | Cloudflare Workers (ai-jobs-pipeline, vanbrain), Cron Triggers (daily 06:00) — see vault `prompts/knowledge/cloudflare-os.md` for full capability map |
 | Email | Resend (transactional) + Listmonk (campaigns) |
 
 ## Source Structure
