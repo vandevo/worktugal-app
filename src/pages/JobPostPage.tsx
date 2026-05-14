@@ -234,15 +234,7 @@ export const JobPostPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Pricing tiers */}
-                <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10">
-                  <div className="flex flex-wrap items-center gap-4">
-                    <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Compare:</span>
-                    <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500">Standard EUR 99</span>
-                    <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500">Pro EUR 249</span>
-                    <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500">Premium EUR 279</span>
-                  </div>
-                </div>
+
               </motion.div>
             </section>
 
