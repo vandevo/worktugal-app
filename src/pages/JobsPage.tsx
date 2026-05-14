@@ -52,7 +52,8 @@ export const JobsPage: React.FC = () => {
         .select('*')
         .eq('is_active', true)
         .eq('is_eu_eligible', true)
-        .order('posted_at', { ascending: false });
+        .order('posted_at', { ascending: false, nullsFirst: false })
+        .limit(10000);
       if (err) { setError('Failed to load jobs.'); setLoading(false); return; }
       setAllJobs((data || []) as Job[]);
       setLoading(false);
