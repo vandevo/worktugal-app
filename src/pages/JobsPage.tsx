@@ -38,6 +38,7 @@ const fadeUp = {
 
 export const JobsPage: React.FC = () => {
   const [allJobs, setAllJobs] = useState<Job[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [companyFilter, setCompanyFilter] = useState('');
@@ -47,15 +48,16 @@ export const JobsPage: React.FC = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       setLoading(true);
-      const { data, error: err } = await supabase
+      const { data, count, error: err } = await supabase
         .from('ai_jobs')
-        .select('*')
+        .select('*', { count: 'exact' })
         .eq('is_active', true)
         .eq('is_eu_eligible', true)
         .order('posted_at', { ascending: false, nullsFirst: false })
-        .limit(10000);
+        .limit(1000);
       if (err) { setError('Failed to load jobs.'); setLoading(false); return; }
       setAllJobs((data || []) as Job[]);
+      setTotalCount(count || data?.length || 0);
       setLoading(false);
     };
     fetchJobs();
@@ -85,8 +87,8 @@ export const JobsPage: React.FC = () => {
   }, [allJobs, companyFilter, deptFilter]);
 
   const visible = filtered.slice(0, visibleCount);
-  const totalFiltered = filtered.length;
-  const hasMore = visibleCount < totalFiltered;
+  const totalFiltered = hasActiveFilters ? filtered.length : totalCount;
+  const hasMore = hasActiveFilters ? visibleCount < filtered.length : visibleCount < totalCount;
   const hasActiveFilters = companyFilter || deptFilter;
 
   const clearFilters = () => {
