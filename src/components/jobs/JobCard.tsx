@@ -20,10 +20,21 @@ const DOMAIN_OVERRIDE: Record<string, string> = {
   'neon': 'neon.tech', 'stability-ai': 'stability.ai',
   'scale-ai': 'scale.com', 'snyk': 'snyk.io',
   'notion': 'notion.so', 'linear': 'linear.app',
+  'elastic': 'elastic.co', 'c3-ai': 'c3.ai',
+};
+
+const COMPANY_NAME_OVERRIDE: Record<string, string> = {
+  'mistral-ai': 'Mistral AI', 'grafana-labs': 'Grafana Labs',
+  'stability-ai': 'Stability AI', 'scale-ai': 'Scale AI',
+  'c3-ai': 'C3 AI',
 };
 
 const getDomain = (slug: string): string =>
   DOMAIN_OVERRIDE[slug] || `${slug}.com`;
+
+const getCompanyName = (slug: string): string =>
+  COMPANY_NAME_OVERRIDE[slug] ||
+  slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
 
 const LOGO_TOKEN = 'pk_frb0ba107779627298c1c9';
 
@@ -42,7 +53,7 @@ const formatSalary = (val: number): string => {
 };
 
 export const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
-  const companyName = job.company_slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+  const companyName = getCompanyName(job.company_slug);
   const domain = getDomain(job.company_slug);
   const logoUrl = domain
     ? `https://img.logokit.com/${domain}?token=${LOGO_TOKEN}&size=64&fallback=monogram`

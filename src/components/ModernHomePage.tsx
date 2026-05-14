@@ -14,7 +14,7 @@ const COMPANY_NAME_OVERRIDE: Record<string, string> = {
   'gitlab': 'GitLab', 'mistral-ai': 'Mistral AI',
   'xai': 'xAI', 'grafana-labs': 'Grafana Labs',
   'stability-ai': 'Stability AI', 'scale-ai': 'Scale AI',
-  'openai': 'OpenAI',
+  'openai': 'OpenAI', 'c3-ai': 'C3 AI',
 };
 
 const getCompanyName = (slug: string): string =>
@@ -27,6 +27,7 @@ const DOMAIN_OVERRIDE: Record<string, string> = {
   'neon': 'neon.tech', 'stability-ai': 'stability.ai',
   'scale-ai': 'scale.com', 'snyk': 'snyk.io',
   'notion': 'notion.so', 'linear': 'linear.app',
+  'elastic': 'elastic.co', 'c3-ai': 'c3.ai',
 };
 
 const getDomain = (slug: string): string =>
