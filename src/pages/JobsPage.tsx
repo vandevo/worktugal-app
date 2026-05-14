@@ -17,18 +17,16 @@ interface Job {
   is_eu_eligible: boolean | null;
 }
 
-const COMPANY: Record<string, string> = {
-  'anthropic': 'Anthropic', 'gitlab': 'GitLab',
-  'databricks': 'Databricks', 'mistral-ai': 'Mistral AI',
-  'stripe': 'Stripe', 'figma': 'Figma',
-  'xai': 'xAI', 'datadog': 'Datadog', 'cloudflare': 'Cloudflare',
-  'vercel': 'Vercel', 'tailscale': 'Tailscale', 'grafana-labs': 'Grafana Labs',
-  'neon': 'Neon', 'retool': 'Retool', 'stability-ai': 'Stability AI',
-  'scale-ai': 'Scale AI', 'snyk': 'Snyk', 'palantir': 'Palantir',
-  'openai': 'OpenAI', 'notion': 'Notion', 'linear': 'Linear',
-  'cursor': 'Cursor', 'replit': 'Replit', 'vanta': 'Vanta',
-  'cohere': 'Cohere',
+const COMPANY_NAME_OVERRIDE: Record<string, string> = {
+  'gitlab': 'GitLab', 'mistral-ai': 'Mistral AI',
+  'xai': 'xAI', 'grafana-labs': 'Grafana Labs',
+  'stability-ai': 'Stability AI', 'scale-ai': 'Scale AI',
+  'openai': 'OpenAI',
 };
+
+const getCompanyName = (slug: string): string =>
+  COMPANY_NAME_OVERRIDE[slug] ||
+  slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
 
 const PER_PAGE = 50;
 
@@ -145,7 +143,7 @@ export const JobsPage: React.FC = () => {
           >
             <option value="">All companies</option>
             {companies.map((c) => (
-              <option key={c} value={c} className="bg-white dark:bg-[#161618] text-slate-900 dark:text-white">{COMPANY[c] || c}</option>
+              <option key={c} value={c} className="bg-white dark:bg-[#161618] text-slate-900 dark:text-white">{getCompanyName(c)}</option>
             ))}
           </select>
 

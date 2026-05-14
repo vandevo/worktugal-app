@@ -14,18 +14,16 @@ interface Job {
 
 interface JobCardProps { job: Job; index: number; }
 
-const COMPANY_DOMAIN: Record<string, string> = {
-  'anthropic': 'anthropic.com', 'gitlab': 'about.gitlab.com',
-  'databricks': 'databricks.com', 'mistral-ai': 'mistral.ai',
-  'stripe': 'stripe.com', 'figma': 'figma.com',
-  'xai': 'x.ai', 'datadog': 'datadoghq.com', 'cloudflare': 'cloudflare.com',
-  'vercel': 'vercel.com', 'tailscale': 'tailscale.com', 'grafana-labs': 'grafana.com',
-  'neon': 'neon.tech', 'retool': 'retool.com', 'stability-ai': 'stability.ai',
-  'scale-ai': 'scale.com', 'snyk': 'snyk.io', 'palantir': 'palantir.com',
-  'openai': 'openai.com', 'notion': 'notion.so', 'linear': 'linear.app',
-  'cursor': 'cursor.com', 'replit': 'replit.com', 'vanta': 'vanta.com',
-  'cohere': 'cohere.com',
+const DOMAIN_OVERRIDE: Record<string, string> = {
+  'gitlab': 'about.gitlab.com', 'mistral-ai': 'mistral.ai',
+  'xai': 'x.ai', 'datadog': 'datadoghq.com', 'grafana-labs': 'grafana.com',
+  'neon': 'neon.tech', 'stability-ai': 'stability.ai',
+  'scale-ai': 'scale.com', 'snyk': 'snyk.io',
+  'notion': 'notion.so', 'linear': 'linear.app',
 };
+
+const getDomain = (slug: string): string =>
+  DOMAIN_OVERRIDE[slug] || `${slug}.com`;
 
 const LOGO_TOKEN = 'pk_frb0ba107779627298c1c9';
 
@@ -45,7 +43,7 @@ const formatSalary = (val: number): string => {
 
 export const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
   const companyName = job.company_slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
-  const domain = COMPANY_DOMAIN[job.company_slug];
+  const domain = getDomain(job.company_slug);
   const logoUrl = domain
     ? `https://img.logokit.com/${domain}?token=${LOGO_TOKEN}&size=64&fallback=monogram`
     : null;
