@@ -224,7 +224,7 @@ export const ModernHomePage: React.FC = () => {
         >
           {[
             { value: jobCount + '+', label: 'Active roles' },
-            { value: '3K+', label: 'Job seekers' },
+            { value: 'Free', label: 'To apply' },
             { value: String(companyCount), label: 'Companies hiring' },
             { value: '€49', label: 'To post' },
           ].map((stat) => (

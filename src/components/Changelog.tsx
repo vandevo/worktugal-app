@@ -302,7 +302,7 @@ export const Changelog: React.FC = () => {
     <>
       <Seo
         title="Changelog — Worktugal product updates"
-        description="Product updates, new features, and compliance intelligence improvements for Worktugal."
+        description="Product updates, new features, and improvements to the AI jobs board. 950+ roles from 24 companies, salary extraction, performance fixes."
       />
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-12 md:py-20">
