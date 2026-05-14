@@ -108,9 +108,13 @@ const COMPANIES = [
 const SUPABASE_URL = 'https://jbmfneyofhqlwnnfuqbd.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpibWZuZXlvZmhxbHdubmZ1cWJkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MjgzOTI3OCwiZXhwIjoyMDY4NDE1Mjc4fQ.N5lj7ffzoItkZir09mBxRubUGnktAtVSsOgXizJ7nlg';
 
+const TELEGRAM_TOKEN = '7495029105:AAHls_gfBUfhLFQjPyWgUAVmB4pSAeYjqO4';
+const TELEGRAM_CHAT_ID = '2099132460';
+
 export default {
   async scheduled(event, env, ctx) {
     const r = await run(env);
+    await sendTelegram(r);
     console.log(JSON.stringify(r));
   },
 
@@ -251,6 +255,18 @@ function norm(j, c) {
   }
 
   return null;
+}
+
+async function sendTelegram(r) {
+  if (!r || r.upserted === 0) return;
+  const errList = r.errors.map(e => `${e.company}: ${e.error}`).join('\n');
+  const msg = `🤖 AI Jobs Pipeline — ${new Date().toISOString().slice(0, 10)}\n• ${r.companies} companies checked\n• ${r.fetched} raw jobs fetched\n• ${r.kept} EU jobs kept\n• ${r.upserted} upserted to DB${errList ? '\n\n⚠ Errors:\n' + errList : '\n✓ No errors'}`;
+  try {
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg, parse_mode: 'Markdown' }),
+    });
+  } catch (e) { console.error('Telegram notification failed:', e.message); }
 }
 
 async function upsert(jobs) {
