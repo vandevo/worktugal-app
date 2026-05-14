@@ -25,6 +25,9 @@ const COMPANY: Record<string, string> = {
   'vercel': 'Vercel', 'tailscale': 'Tailscale', 'grafana-labs': 'Grafana Labs',
   'neon': 'Neon', 'retool': 'Retool', 'stability-ai': 'Stability AI',
   'scale-ai': 'Scale AI', 'snyk': 'Snyk', 'palantir': 'Palantir',
+  'openai': 'OpenAI', 'notion': 'Notion', 'linear': 'Linear',
+  'cursor': 'Cursor', 'replit': 'Replit', 'vanta': 'Vanta',
+  'cohere': 'Cohere',
 };
 
 const PER_PAGE = 50;

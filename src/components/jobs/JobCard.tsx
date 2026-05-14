@@ -22,6 +22,9 @@ const COMPANY_DOMAIN: Record<string, string> = {
   'vercel': 'vercel.com', 'tailscale': 'tailscale.com', 'grafana-labs': 'grafana.com',
   'neon': 'neon.tech', 'retool': 'retool.com', 'stability-ai': 'stability.ai',
   'scale-ai': 'scale.com', 'snyk': 'snyk.io', 'palantir': 'palantir.com',
+  'openai': 'openai.com', 'notion': 'notion.so', 'linear': 'linear.app',
+  'cursor': 'cursor.com', 'replit': 'replit.com', 'vanta': 'vanta.com',
+  'cohere': 'cohere.com',
 };
 
 const LOGO_TOKEN = 'pk_frb0ba107779627298c1c9';
