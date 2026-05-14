@@ -4,19 +4,21 @@ description: Outstanding items from session handovers. Updated for AI Jobs board
 type: project
 ---
 
-Ordered by leverage (updated 2026-05-11):
+Ordered by leverage (updated 2026-05-13):
 
-**Strategy pivot (2026-05-11):** AI Jobs board is now primary revenue engine. Compliance is secondary content authority. See `worktugal-direction-2026-05-10.md` in vault.
+**Infrastructure shift (2026-05-13):** AI Jobs pipeline migrated from n8n → Cloudflare Worker ($0, 22 companies, 927 jobs). n8n now only used for compliance monitors + Telegram notifications. Cloudflare OS doc created — all CF services documented for future use. Firecrawl integrated for scraping non-ATS companies.
 
-1. **Write first company spotlight article** — Anthropic. Use company-spotlight-os.md template. Parallel AI refresh → DeepSeek draft → edit → SEO audit → publish on Ghost. Drive traffic to /jobs.
+1. **Launch Browser Rendering for non-ATS companies** — Use Cloudflare Browser Rendering or Firecrawl to scrape companies without Greenhouse/Lever/Ashby APIs (Snyk/Workday, Retool). Add to Worker as a fallback step.
 
-2. **Add 5 more ATS feeds** — OpenAI, Cohere, ElevenLabs, DeepL, Helsing. Discover correct Greenhouse board tokens. Add to Company List array in new v2 workflow.
+2. **Add Workers AI job summarization** — Use Cloudflare Workers AI (free Llama) to auto-summarize job descriptions on ingest. Run as a post-process step.
 
-3. **Enrich remote_policy from ATS data** — Greenhouse/Lever feeds have location type data. Update normalize code to detect remote vs on-site.
+3. **Write first company spotlight article** — Anthropic. Use company-spotlight-os.md template. Parallel AI refresh → DeepSeek draft → edit → SEO audit → publish on Ghost.
 
-4. **Add salary enrichment from ATS content** — HTML-encoded salary data in job descriptions. Currently regex fails on encoded characters.
+4. **Enrich remote_policy from ATS data** — Greenhouse/Lever/Ashby feeds have workplaceType/remote data. Update normalize code to detect remote vs on-site.
 
-**Why:** Jobs board is live and functional. Revenue pipeline (Stripe checkout), traffic engine (company spotlights), and supply (more ATS feeds) are the three bottlenecks.
+5. **Add salary enrichment from ATS content** — HTML-encoded salary data in job descriptions. Currently regex fails on encoded characters.
+
+**Why:** Jobs board is live with 927 daily jobs. Supply is solved. Now: more non-ATS companies (Browser Rendering), richer job data (AI summarization, remote/salary), and traffic (company spotlights).
 
 **Completed (new direction):**
 - ~~Supabase schema: ai_jobs + ai_companies tables~~ — Created with indexes, RLS, unique constraints, EU eligibility columns
@@ -29,6 +31,12 @@ Ordered by leverage (updated 2026-05-11):
 - ~~Homepage reorientation~~ — Jobs-first messaging, compliance secondary, new nav/header/bottom
 - ~~Telegram bot hack recovery~~ — Both bots restored, tokens rotated everywhere
 - ~~Security hardening~~ — mcp-gemini.sh → GCP runtime, /ship → git add -u, VanBrain → GCP
+- ~~n8n security patch~~ — Upgraded 2.17.8 → 2.20.7-exp.0 (7 CVEs patched)
+- ~~n8n → Worker migration~~ — ai-jobs-pipeline Worker replaces n8n for job aggregation. 22 companies, 927 EU jobs/day, $0
+- ~~Ashby ATS support~~ — OpenAI, Notion, Linear, Cursor, Replit, Vanta, Cohere added
+- ~~Cloudflare OS knowledge doc~~ — Full capability map in vault
+- ~~Knowledge INDEX.md~~ — 40 docs mapped by use case
+- ~~Firecrawl integration~~ — CLI installed, MCP server wired in opencode.json
 
 **Completed (previous direction):**
 - ~~RadarLanding.tsx copy refresh~~ → Sales copy rewrite: hero Challenger framing, audience pain cards, cost of inaction section, urgency badge, stronger guarantee.

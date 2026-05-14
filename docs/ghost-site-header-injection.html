@@ -1,0 +1,315 @@
+<!-- === FONTS === -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* === WORKTUGAL DESIGN SYSTEM v1.2 === */
+
+:root {
+  --ghost-accent-color: #0F3D2E !important;
+  --wt-forest: #0F3D2E;
+  --wt-forest-hover: #1A5C44;
+  --wt-emerald: #10B981;
+  --wt-emerald-hover: #059669;
+  --wt-bg: #FAFAF9;
+  --wt-surface: #FFFFFF;
+  --wt-border: rgba(15,61,46,0.08);
+  --wt-text: #0F172A;
+  --wt-text-secondary: #64748B;
+  --wt-text-muted: #94A3B8;
+}
+
+body, html, p, li, blockquote, td, th {
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  background-color: var(--wt-bg);
+  color: var(--wt-text);
+}
+
+/* === HEADLINES: Plus Jakarta Sans, 700 weight === */
+h1, h2, h3, h4, h5, h6, .gh-header-title {
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+  color: var(--wt-text);
+}
+
+a { color: var(--wt-forest); }
+a:hover { color: var(--wt-forest-hover); }
+
+/* === NAV === */
+.gh-navigation {
+  background: rgba(250,249,249,0.8) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--wt-border);
+}
+.gh-navigation-logo { font-weight: 700 !important; color: var(--wt-forest) !important; }
+.gh-navigation-menu .nav a { font-weight: 600; color: #334155; }
+.gh-navigation-menu .nav a:hover { color: var(--wt-forest); }
+
+/* === HERO === */
+.gh-header {
+  background-color: var(--wt-forest) !important;
+  position: relative;
+  overflow: hidden;
+}
+.gh-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.12) 1px, transparent 0);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+.gh-header-image { display: none !important; }
+.gh-header-inner { position: relative; z-index: 1; }
+.gh-header-title, .gh-header h1 {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+.gh-header p, .gh-header label { color: rgba(255,255,255,0.8) !important; }
+
+/* Fix: header email input on dark hero background */
+.gh-header .gh-form {
+  background: rgba(255,255,255,0.12) !important;
+}
+.gh-header .gh-form-input {
+  color: #ffffff !important;
+}
+.gh-header .gh-form-input::placeholder {
+  color: rgba(255,255,255,0.5) !important;
+}
+
+/* Fix: nav actions on dark hero — sign in, search icon */
+.gh-header .gh-navigation-actions,
+.gh-header .gh-navigation-members a {
+  color: rgba(255,255,255,0.85) !important;
+}
+.gh-header .gh-icon-button svg {
+  color: rgba(255,255,255,0.7) !important;
+}
+.gh-header .gh-navigation-members a[data-portal="signin"] {
+  color: rgba(255,255,255,0.8) !important;
+}
+
+/* === BUTTONS === */
+.gh-btn, .gh-button, button.gh-btn, .gh-form button, .gh-header button {
+  background: var(--wt-forest) !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  border: none !important;
+  transition: background 0.2s ease !important;
+  padding: 10px 24px !important;
+}
+.gh-btn:hover, .gh-button:hover { background: var(--wt-forest-hover) !important; }
+.gh-button.accent-color {
+  background: var(--wt-emerald) !important;
+}
+.gh-button.accent-color:hover {
+  background: var(--wt-emerald-hover) !important;
+}
+
+/* === SUBSCRIBE FORM === */
+.gh-form {
+  border-radius: 12px !important;
+  background: rgba(255,255,255,0.12) !important;
+}
+.gh-form-input, input.gh-form-input {
+  border-radius: 12px !important;
+  font-family: 'Inter', sans-serif !important;
+}
+/* Footer email — needs visible background */
+.gh-footer .gh-form {
+  background: rgba(15,61,46,0.06) !important;
+}
+.gh-footer .gh-form-input,
+#footer-email {
+  color: #0F172A !important;
+}
+.gh-footer .gh-form-input::placeholder,
+#footer-email::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* === POST CARDS === */
+.gh-card, .post-card {
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+.gh-card:hover, .post-card:hover {
+  border-color: var(--wt-border);
+  box-shadow: 0 8px 30px rgba(15,61,46,0.04);
+}
+
+.gh-card-wrapper {
+  padding: 16px 20px 20px !important;
+}
+.gh-card-image {
+  margin: 0 !important;
+}
+.gh-card-image img {
+  width: 100% !important;
+  display: block !important;
+  aspect-ratio: 1424 / 752 !important;
+  object-fit: cover !important;
+}
+.gh-article-image img {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 1424 / 752 !important;
+  object-fit: cover !important;
+  max-height: 500px !important;
+}
+.gh-card-title {
+  font-size: 16px !important;
+  line-height: 1.3 !important;
+  margin-bottom: 8px !important;
+}
+.gh-card-excerpt {
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  max-height: 58px !important;
+}
+.gh-card-meta {
+  margin-top: 8px !important;
+}
+
+.gh-feed {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (max-width: 767px) {
+  .gh-feed { padding: 0 16px; }
+  .gh-card-wrapper { padding: 14px 16px 16px !important; }
+}
+.gh-card-title, .post-card-title {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 600 !important;
+  color: var(--wt-text) !important;
+}
+.gh-card-excerpt, .post-card-excerpt { color: var(--wt-text-secondary) !important; }
+.gh-card-meta, .post-card-byline-content * { color: var(--wt-text-muted) !important; }
+
+/* === TAG BADGES === */
+.post-card-tags a, .gh-card-tag a, .gh-article-tag {
+  background: rgba(16,185,129,0.1) !important;
+  color: var(--wt-emerald) !important;
+  border: 1px solid rgba(16,185,129,0.2) !important;
+  border-radius: 9999px !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.2em !important;
+  padding: 4px 12px !important;
+  text-decoration: none !important;
+}
+
+/* === ARTICLE CONTENT === */
+.gh-content {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #334155;
+}
+.gh-content h1, .gh-content h2, .gh-content h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700 !important;
+  color: var(--wt-text);
+}
+.gh-content a {
+  color: var(--wt-forest);
+  text-decoration-color: rgba(15,61,46,0.3);
+}
+.gh-content blockquote {
+  border-left: 4px solid var(--wt-emerald);
+  background: rgba(16,185,129,0.05);
+  padding: 12px 20px;
+  border-radius: 0 8px 8px 0;
+  font-style: normal;
+}
+
+/* === FEATURED / RECENT POSTS === */
+.gh-featured-title {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 32px !important;
+  text-transform: none !important;
+  border-bottom: 1px solid var(--wt-border);
+  letter-spacing: -0.01em !important;
+}
+
+/* === FOOTER === */
+.gh-footer {
+  border-top: 1px solid var(--wt-border);
+  background: var(--wt-bg);
+}
+.gh-footer a { color: var(--wt-forest); }
+.gh-footer-copyright { display: none !important; }
+.gh-footer-signup-header {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* === CTA SECTION === */
+.gh-cta-title {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* === ABOUT SECTION === */
+.gh-about-title {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+@media (max-width: 767px) {
+  .gh-navigation { height: 64px; }
+  .gh-navigation .nav a { font-size: 1.6rem; font-weight: 600; }
+}
+</style>
+
+<!-- === GOOGLE ANALYTICS === -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FLJ2KM6R1Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FLJ2KM6R1Z');
+</script>
+
+<!-- === LIVE DIAGNOSTIC COUNT === -->
+<script>
+(function() {
+  var OLD_COUNT = 876;
+  fetch('https://jbmfneyofhqlwnnfuqbd.supabase.co/rest/v1/compliance_diagnostics?select=id', {
+    headers: {
+      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpibWZuZXlvZmhxbHdubmZ1cWJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI4MzkyNzgsImV4cCI6MjA2ODQxNTI3OH0.4PpHCLvmcmji9rKHlgHLqMAK6KncvbGymdlY7a6Ahsg',
+      'Prefer': 'count=exact',
+      'Range': '0-0'
+    }
+  }).then(function(res) {
+    var range = res.headers.get('content-range');
+    if (range) {
+      var total = parseInt(range.split('/')[1]) + OLD_COUNT;
+      document.querySelectorAll('.diagnostic-count').forEach(function(el) {
+        el.textContent = total.toLocaleString();
+      });
+    }
+  }).catch(function() {});
+})();
+</script>

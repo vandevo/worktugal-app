@@ -1,0 +1,157 @@
+LinkedIn Profile Rewrite — Justin Welsh Style
+===============================================
+
+Date: 2026-05-12
+
+---
+
+HEADLINE
+--------
+
+Option A (jobs-first):
+545+ AI jobs across Europe. Founder @ Worktugal. Ex-Emirates, now in Lisbon.
+
+Option B (simpler):
+Building Europe's AI jobs board. Founder @ Worktugal.
+
+Option C (attention grabber):
+I left Emirates for Lisbon. Now I run Europe's AI jobs board.
+
+---
+
+ABOUT SECTION
+-------------
+
+I spent 5 years as cabin crew at Emirates. 50+ countries. 150+ nationalities. Living out of a suitcase in Dubai.
+
+In 2018, I quit. Not for another job. For a person I met during a layover in Lisbon.
+
+Most people thought I was crazy to walk away.
+
+Then COVID hit. The Gulf got unstable. The "safe" choice had a price nobody talks about.
+
+I moved to Lisbon with nothing figured out.
+
+First I built RatherThis — sustainable e-commerce, bamboo toothbrushes, planting trees. It taught me how to build something from zero.
+
+Then I noticed a bigger gap. Everyone moving to Portugal was making the same expensive mistakes. NISS missing. Lease unregistered. Tax residency miscalculated.
+
+So I built the Worktugal compliance diagnostic. 883+ people ran it. My articles rank above government websites.
+
+But here's what happened next.
+
+The same people asking about Portuguese bureaucracy started asking something else. "Where do I find real AI jobs in Europe?"
+
+Not the LinkedIn noise. The roles at companies actually building this stuff.
+
+So I built a jobs board. 545+ hand-curated AI roles across Anthropic, GitLab, Databricks, Mistral AI, Stripe, and Figma. Real salaries. Real applications. Updated daily.
+
+The Portugal stuff is still there. It's just not the headline anymore.
+
+What I do now:
+→ Run app.worktugal.com (jobs board + compliance diagnostic)
+→ Write the Worktugal Letter (3,500+ subscribers)
+→ Post what I learn about building a solo business from Lisbon
+
+If you want your next AI role in Europe: https://app.worktugal.com/jobs
+If you're figuring out Portugal: https://blog.worktugal.com
+
+---
+
+FEATURED SECTION
+----------------
+
+Add a second featured item alongside the newsletter:
+
+1. Remote Worktugal Newsletter (keep as-is)
+
+2. New item:
+   Type: Link
+   Title: Worktugal AI Jobs Board
+   URL: https://app.worktugal.com/jobs
+   Description: 545+ AI jobs in Europe. Anthropic, GitLab, Stripe, Figma and more. Curated daily. Free to browse.
+
+---
+
+EXPERIENCE — REMOTE WORKTUGAL
+------------------------------
+
+Current: Digital Strategist
+
+Change to:
+
+Title: Founder
+Employment type: Self-employed
+Location: Portugal
+
+Description:
+
+Building app.worktugal.com — Europe's AI jobs board with 545+ curated roles at top AI companies. Also runs the Worktugal compliance diagnostic (883+ completions) and newsletter (3,500+ subscribers).
+
+Previously founded RatherThis (sustainable e-commerce). 5 years as cabin crew at Emirates across 50+ countries.
+
+---
+
+EXPERIENCE — RATHERTHIS
+-------------------------
+
+Add this above Worktugal or as a separate entry:
+
+Title: Founder
+Company: RatherThis
+Employment type: Self-employed
+Dates: Approx 2020-2022
+Location: Lisbon, Portugal
+
+Description:
+
+Founded a sustainable e-commerce brand focused on replacing single-use plastic with bamboo alternatives. Built from zero to launch. Learned how to design, source, market, and ship physical products as a solo founder.
+
+---
+
+EXPERIENCE — EMIRATES
+----------------------
+
+Title: Cabin Crew
+Company: Emirates
+Employment type: Full-time
+Dates: Jul 2014 - Mar 2019
+Location: Dubai, United Arab Emirates
+
+Description:
+
+5 years flying A380 and B777 across 50+ countries. 150+ nationalities as passengers and colleagues. Learned communication, crisis management, and how to operate across cultures at scale.
+
+Certified by Emirates Aviation University (GCAA License).
+
+---
+
+HEADLINE REVISION SUMMARY
+--------------------------
+
+Current: "I left Emirates for Lisbon. Now I write about what it actually costs to stay."
+
+Problem: Compliance framing. Passive. No numbers. Hides what you actually do now.
+
+New (Option A): "545+ AI jobs across Europe. Founder @ Worktugal. Ex-Emirates, now in Lisbon."
+
+Why it works:
+- Opens with a number (545+). Justin always leads with proof.
+- States what you do now (AI jobs). Not what you used to do.
+- "Founder @ Worktugal" is clean, professional, credible.
+- "Ex-Emirates, now in Lisbon" keeps your story intact for the 10K followers who know you.
+- It's 12 words. Scannable.
+
+ABOUT REVISION SUMMARY
+-----------------------
+
+Current: Story opens in Saigon with one-party government. Heavy. Compliance frame until the last paragraph.
+
+New: Opens with Emirates (the known credential). Moves through RatherThis (event era) → compliance → jobs. Each era gets 2-3 lines. Ends with two clear CTAs.
+
+Justin's formula applied:
+- Short lines. 1-3 sentences per paragraph.
+- Story arc: corporate → risk → build → results → pivot → bigger results.
+- Numbers throughout (5 years, 50 countries, 883 people, 545 roles, 3,500 subscribers).
+- "But here's what happened next" — the pivot moment, stated directly.
+- Ends with "what I do now" as a clean, bullet-style summary.
