@@ -58,8 +58,8 @@ const fadeUp = {
 export const ModernHomePage: React.FC = () => {
   const [recentJobs, setRecentJobs] = useState<Job[]>([]);
   const [posts, setPosts] = useState<GhostPost[]>([]);
-  const [jobCount, setJobCount] = useState(545);
-  const [companyCount, setCompanyCount] = useState(6);
+  const [jobCount, setJobCount] = useState(927);
+  const [companyCount, setCompanyCount] = useState(22);
 
   useEffect(() => {
     supabase

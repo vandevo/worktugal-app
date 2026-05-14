@@ -104,9 +104,9 @@ export const JobsPage: React.FC = () => {
     <>
       <Seo
         title="AI Jobs in Europe – Worktugal"
-        description="Curated AI and tech jobs open to candidates in Europe. Browse roles from Anthropic, Stripe, Databricks, GitLab, xAI, and 12+ AI companies. Updated daily."
-        ogTitle="AI Jobs in Europe – Worktugal"
-        ogDescription="Curated AI and tech jobs open to candidates in Europe. Browse 500+ roles from leading AI companies. No signup needed."
+        description="Curated AI and tech jobs open to candidates in Europe. Browse roles from Anthropic, Stripe, GitLab, xAI, and 22 AI companies. Updated daily."
+        ogTitle="AI Jobs in Europe"
+        ogDescription="Curated AI and tech jobs open to candidates in Europe. Browse 900+ roles from 22 leading AI companies. No signup needed."
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">

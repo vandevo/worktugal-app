@@ -491,7 +491,7 @@ export const DiagnosticResults: React.FC = () => {
                   Looking for work?
                 </span>
                 <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white leading-tight mb-2">
-                  Browse 500+ AI roles in Europe.
+                  Browse 900+ AI roles in Europe.
                 </h3>
                 <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-md">
                   Curated jobs from Anthropic, Stripe, Databricks, and more. All open to candidates in Europe.

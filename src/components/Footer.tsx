@@ -28,7 +28,7 @@ export const Footer: React.FC = () => {
               </span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs mb-5">
-              Curated AI jobs for remote professionals in Europe. Browse 500+ roles from leading AI companies.
+              Curated AI jobs for remote professionals in Europe. Browse 900+ roles from 22 AI companies.
             </p>
             <p className="text-white/30 text-[11px] leading-relaxed max-w-sm">
               Not a law firm, tax firm, or accounting practice. Content is for informational and educational purposes only. Always consult a licensed professional for advice specific to your situation.
