@@ -74,9 +74,11 @@ function extractSalary(text) {
   const currency = CURRENCIES[sym] || CURR_NAMES[name] || null;
   const isK = t.substring(Math.max(0, m.index + m[0].length - 20), m.index + m[0].length).toLowerCase().includes('k') || m[0].toLowerCase().includes('k');
   const mult = isK ? 1000 : 1;
-  const min = parseFloat(m[3].replace(/,/g, '')) * mult;
-  const max = parseFloat(m[6].replace(/,/g, '')) * mult;
+  const min = parseFloat(m[3].replace(/[.,]/g, '')) * mult;
+  const max = parseFloat(m[6].replace(/[.,]/g, '')) * mult;
   if (isNaN(min) || isNaN(max) || min <= 0 || max <= 0) return {};
+  // sanity: reject anything under 15K (definitely not a real tech salary)
+  if (min < 15000 || max < 15000) return {};
   return { salary_min: Math.round(min), salary_max: Math.round(max), salary_currency: currency };
 }
 
