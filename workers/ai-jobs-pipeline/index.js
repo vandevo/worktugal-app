@@ -121,6 +121,7 @@ export default {
   async fetch(request, env) {
     if (request.method === 'GET' || request.url.includes('/trigger')) {
       const r = await run(env);
+      await sendTelegram(r);
       return Response.json(r);
     }
     return new Response('GET or POST /trigger', { status: 400 });
@@ -260,13 +261,13 @@ function norm(j, c) {
 async function sendTelegram(r) {
   if (!r || r.upserted === 0) return;
   const errList = r.errors.map(e => `${e.company}: ${e.error}`).join('\n');
-  const msg = `🤖 AI Jobs Pipeline — ${new Date().toISOString().slice(0, 10)}\n• ${r.companies} companies checked\n• ${r.fetched} raw jobs fetched\n• ${r.kept} EU jobs kept\n• ${r.upserted} upserted to DB${errList ? '\n\n⚠ Errors:\n' + errList : '\n✓ No errors'}`;
-  try {
-    await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg, parse_mode: 'Markdown' }),
-    });
-  } catch (e) { console.error('Telegram notification failed:', e.message); }
+  const msg = `🤖 AI Jobs Pipeline — ${new Date().toISOString().slice(0, 10)}\n- ${r.companies} companies checked\n- ${r.fetched} raw jobs fetched\n- ${r.kept} EU jobs kept\n- ${r.upserted} upserted to DB${errList ? '\n\n⚠ Errors:\n' + errList : '\n- No errors'}`;
+  const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg }),
+  });
+  const body = await res.text();
+  if (!res.ok) console.error('Telegram send failed:', body);
 }
 
 async function upsert(jobs) {
