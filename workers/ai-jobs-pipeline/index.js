@@ -105,6 +105,8 @@ const COMPANIES = [
   { name: 'Replit', slug: 'replit', ats: 'ashby', board: 'replit' },
   { name: 'Vanta', slug: 'vanta', ats: 'ashby', board: 'vanta' },
   { name: 'Cohere', slug: 'cohere', ats: 'ashby', board: 'cohere' },
+  { name: 'Elastic', slug: 'elastic', ats: 'greenhouse', board: 'elastic' },
+  { name: 'C3 AI', slug: 'c3-ai', ats: 'greenhouse', board: 'c3iot' },
 ];
 
 const SUPABASE_URL = 'https://jbmfneyofhqlwnnfuqbd.supabase.co';
@@ -122,9 +124,13 @@ export default {
 
   async fetch(request, env) {
     if (request.method === 'GET' || request.url.includes('/trigger')) {
-      const r = await run(env);
-      await sendTelegram(r);
-      return Response.json(r);
+      try {
+        const r = await run(env);
+        await sendTelegram(r);
+        return Response.json(r);
+      } catch (e) {
+        return new Response(e.message, { status: 500 });
+      }
     }
     return new Response('GET or POST /trigger', { status: 400 });
   },
@@ -132,6 +138,7 @@ export default {
 
 async function run(env) {
   const out = { companies: 0, fetched: 0, kept: 0, upserted: 0, errors: [] };
+  const allGood = [];
 
   for (const c of COMPANIES) {
     out.companies++;
@@ -140,18 +147,19 @@ async function run(env) {
       out.fetched += raw.length;
 
       const good = raw
-        .map(j => norm(j, c))
+        .map(j => { try { return norm(j, c); } catch (e) { return null; } })
         .filter(j => j && isTechDept(j.department) && j.is_eu_eligible);
 
       out.kept += good.length;
-
-      if (good.length > 0) {
-        await upsert(good);
-        out.upserted += good.length;
-      }
+      allGood.push(...good);
     } catch (e) {
       out.errors.push({ company: c.slug, error: e.message });
     }
+  }
+
+  if (allGood.length > 0) {
+    await upsert(allGood);
+    out.upserted = allGood.length;
   }
 
   return out;
@@ -199,15 +207,12 @@ function norm(j, c) {
     const ll = loc.toLowerCase();
     const eu = isEuLocation(ll);
     const sen = seniority(title);
-    const desc = stripHtml(j.content);
-    const sal = extractSalary(desc || j.title + ' ' + (dept || ''));
     return {
       company_slug: c.slug, title, slug: slug(title) + '-' + (j.id || '0'), location: loc,
       locations: [loc], apply_url: j.absolute_url || '', department: dept,
       is_eu_eligible: eu, seniority: sen,
       d8_eligible: eu && (sen === 'senior' || sen === 'lead' || sen === 'executive'),
       source: 'ats_feed', source_ats_feed: 'greenhouse', is_active: true,
-      description_plain: desc, ...sal,
       updated_at: new Date().toISOString(),
     };
   }
@@ -221,15 +226,12 @@ function norm(j, c) {
     const eu = isEuLocation(ll);
     const sen = seniority(title);
     const idHash = (j.id || (j.applyUrl || '').slice(-8) || '0').toString();
-    const desc = j.descriptionPlain || null;
-    const sal = extractSalary(desc || title + ' ' + (dept || ''));
     return {
       company_slug: c.slug, title, slug: slug(title) + '-' + idHash, location: loc,
       locations: [loc], apply_url: j.applyUrl || j.hostedUrl || '', department: dept,
       is_eu_eligible: eu, seniority: sen,
       d8_eligible: eu && (sen === 'senior' || sen === 'lead' || sen === 'executive'),
       source: 'ats_feed', source_ats_feed: 'lever', is_active: true,
-      description_plain: desc, ...sal,
       updated_at: new Date().toISOString(),
     };
   }
@@ -243,8 +245,6 @@ function norm(j, c) {
     const ll = (loc + ' ' + country).toLowerCase();
     const eu = isEuLocation(ll) || (country.toLowerCase().includes('european') || country.toLowerCase().includes('germany') || country.toLowerCase().includes('uk') || country.toLowerCase().includes('united kingdom') || country.toLowerCase().includes('france') || country.toLowerCase().includes('netherlands') || country.toLowerCase().includes('spain') || country.toLowerCase().includes('ireland'));
     const sen = seniority(title);
-    const desc = j.descriptionPlain || null;
-    const sal = extractSalary(desc || title + ' ' + (dept || ''));
     return {
       company_slug: c.slug, title, slug: slug(title) + '-' + (j.id || '0').slice(0, 8), location: loc,
       locations: j.secondaryLocations ? [loc, ...j.secondaryLocations] : [loc],
@@ -252,7 +252,6 @@ function norm(j, c) {
       is_eu_eligible: eu, seniority: sen,
       d8_eligible: eu && (sen === 'senior' || sen === 'lead' || sen === 'executive'),
       source: 'ats_feed', source_ats_feed: 'ashby', is_active: true,
-      description_plain: desc, ...sal,
       updated_at: new Date().toISOString(),
     };
   }
@@ -282,9 +281,6 @@ async function upsert(jobs) {
       is_eu_eligible: j.is_eu_eligible, seniority: j.seniority,
       d8_eligible: j.d8_eligible, source: j.source,
       source_ats_feed: j.source_ats_feed, is_active: j.is_active,
-      description_plain: j.description_plain || null,
-      salary_min: j.salary_min || null, salary_max: j.salary_max || null,
-      salary_currency: j.salary_currency || null,
       updated_at: j.updated_at,
     }));
 
