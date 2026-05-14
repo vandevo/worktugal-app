@@ -71,14 +71,6 @@ export const JobsPage: React.FC = () => {
     [allJobs]
   );
 
-  const jobStats = useMemo(() => {
-    const now = Date.now();
-    const day = 86400000;
-    const today = allJobs.filter((j) => now - new Date(j.posted_at).getTime() < day).length;
-    const week = allJobs.filter((j) => now - new Date(j.posted_at).getTime() < 7 * day).length;
-    return { today, week };
-  }, [allJobs]);
-
   const filtered = useMemo(() => {
     return allJobs.filter((job) => {
       if (companyFilter && job.company_slug !== companyFilter) return false;
@@ -134,9 +126,7 @@ export const JobsPage: React.FC = () => {
             transition={{ delay: 0.1, duration: 0.3 }}
             className="flex items-center gap-3 mb-6 text-[11px] text-slate-400 dark:text-slate-500"
           >
-            <span>{jobStats.today} posted today</span>
-            <span className="w-px h-3 bg-[#0F3D2E]/10 dark:bg-white/10" />
-            <span>{jobStats.week} added this week</span>
+            <span>{allJobs.length.toLocaleString()} AI jobs</span>
           </motion.div>
         )}
 
