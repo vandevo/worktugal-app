@@ -315,10 +315,10 @@ export const ModernHomePage: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    {salary && (
+                    {sal && (
                       <div className="flex items-center justify-between sm:justify-end gap-4 mt-3 sm:mt-0">
                         <div className="text-right">
-                          <div className="text-sm font-bold text-slate-900 dark:text-white">{salary}</div>
+                          <div className="text-sm font-bold text-slate-900 dark:text-white">{sal}</div>
                           <div className="text-[9px] text-slate-400 dark:text-slate-500 uppercase tracking-wider">Salary range</div>
                         </div>
                         <div className="w-8 h-8 rounded-full bg-[#10B981]/0 group-hover:bg-[#10B981]/10 transition-colors flex items-center justify-center">
