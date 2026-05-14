@@ -141,11 +141,11 @@ export const JobsPage: React.FC = () => {
         )}
 
         {/* ── Filters ──────────────────────────────────────── */}
-        <div className="flex items-center gap-2 mb-6">
+        <div className="flex flex-wrap items-center gap-2 mb-6">
           <select
             value={companyFilter}
             onChange={(e) => { setCompanyFilter(e.target.value); setVisibleCount(PER_PAGE); }}
-            className="flex-1 px-2.5 py-2 text-sm bg-white dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
+            className="flex-1 min-w-[140px] px-2.5 py-2 text-sm bg-white dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
           >
             <option value="">All companies</option>
             {companies.map((c) => (
@@ -156,7 +156,7 @@ export const JobsPage: React.FC = () => {
           <select
             value={deptFilter}
             onChange={(e) => { setDeptFilter(e.target.value); setVisibleCount(PER_PAGE); }}
-            className="flex-1 px-2.5 py-2 text-sm bg-white dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
+            className="flex-1 min-w-[120px] px-2.5 py-2 text-sm bg-white dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
           >
             <option value="">All departments</option>
             {departments.map((d) => (
@@ -164,28 +164,30 @@ export const JobsPage: React.FC = () => {
             ))}
           </select>
 
-          <button
-            onClick={() => { setSalaryOnly(!salaryOnly); setVisibleCount(PER_PAGE); }}
-            className={`flex-shrink-0 flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-sm font-bold transition-all border ${
-              salaryOnly
-                ? 'bg-[#10B981]/10 border-[#10B981]/30 text-[#10B981]'
-                : 'bg-white dark:bg-[#161618] border-slate-200 dark:border-white/10 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'
-            }`}
-          >
-            <Euro className="w-3.5 h-3.5" />
-            Salary
-          </button>
-
-          {hasActiveFilters && (
-            <button onClick={clearFilters} className="flex-shrink-0 p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
-              <X className="w-4 h-4" />
+          <div className="flex items-center gap-2 w-full sm:w-auto sm:ml-auto">
+            <button
+              onClick={() => { setSalaryOnly(!salaryOnly); setVisibleCount(PER_PAGE); }}
+              className={`flex items-center justify-center gap-1.5 px-2.5 py-2 rounded-lg text-sm font-bold transition-all border flex-1 sm:flex-initial ${
+                salaryOnly
+                  ? 'bg-[#10B981]/10 border-[#10B981]/30 text-[#10B981]'
+                  : 'bg-white dark:bg-[#161618] border-slate-200 dark:border-white/10 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'
+              }`}
+            >
+              <Euro className="w-3.5 h-3.5" />
+              Salary
             </button>
-          )}
+
+            {hasActiveFilters && (
+              <button onClick={clearFilters} className="flex-shrink-0 p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
         </div>
 
         {/* ── Salary footnote ────────────────────────────── */}
         {!loading && !error && (
-          <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed mb-4 text-right">
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed mb-4 text-left sm:text-right">
             Only {allJobs.filter(j => j.salary_min).length} of {allJobs.length} jobs list salary — most companies
             don't publish salary ranges publicly. EU Pay Transparency Directive will require this soon.
           </p>
