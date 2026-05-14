@@ -10,25 +10,27 @@ interface Job {
   salary_min: number | null; salary_max: number | null;
 }
 
-const COMPANY_NAME: Record<string, string> = {
-  'anthropic': 'Anthropic', 'gitlab': 'GitLab',
-  'databricks': 'Databricks', 'mistral-ai': 'Mistral AI',
-  'stripe': 'Stripe', 'figma': 'Figma',
-  'xai': 'xAI', 'datadog': 'Datadog', 'cloudflare': 'Cloudflare',
-  'vercel': 'Vercel', 'tailscale': 'Tailscale', 'grafana-labs': 'Grafana Labs',
-  'neon': 'Neon', 'retool': 'Retool', 'stability-ai': 'Stability AI',
-  'scale-ai': 'Scale AI', 'snyk': 'Snyk', 'palantir': 'Palantir',
+const COMPANY_NAME_OVERRIDE: Record<string, string> = {
+  'gitlab': 'GitLab', 'mistral-ai': 'Mistral AI',
+  'xai': 'xAI', 'grafana-labs': 'Grafana Labs',
+  'stability-ai': 'Stability AI', 'scale-ai': 'Scale AI',
+  'openai': 'OpenAI',
 };
 
-const COMPANY_DOMAIN: Record<string, string> = {
-  'anthropic': 'anthropic.com', 'gitlab': 'about.gitlab.com',
-  'databricks': 'databricks.com', 'mistral-ai': 'mistral.ai',
-  'stripe': 'stripe.com', 'figma': 'figma.com',
-  'xai': 'x.ai', 'datadog': 'datadoghq.com', 'cloudflare': 'cloudflare.com',
-  'vercel': 'vercel.com', 'tailscale': 'tailscale.com', 'grafana-labs': 'grafana.com',
-  'neon': 'neon.tech', 'retool': 'retool.com', 'stability-ai': 'stability.ai',
-  'scale-ai': 'scale.com', 'snyk': 'snyk.io', 'palantir': 'palantir.com',
+const getCompanyName = (slug: string): string =>
+  COMPANY_NAME_OVERRIDE[slug] ||
+  slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+
+const DOMAIN_OVERRIDE: Record<string, string> = {
+  'gitlab': 'about.gitlab.com', 'mistral-ai': 'mistral.ai',
+  'xai': 'x.ai', 'datadog': 'datadoghq.com', 'grafana-labs': 'grafana.com',
+  'neon': 'neon.tech', 'stability-ai': 'stability.ai',
+  'scale-ai': 'scale.com', 'snyk': 'snyk.io',
+  'notion': 'notion.so', 'linear': 'linear.app',
 };
+
+const getDomain = (slug: string): string =>
+  DOMAIN_OVERRIDE[slug] || `${slug}.com`;
 
 const LOGO_QS = '?token=pk_frb0ba107779627298c1c9&size=64';
 
@@ -244,16 +246,16 @@ export const ModernHomePage: React.FC = () => {
             Featuring jobs from
           </p>
           <div className="flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-12 gap-y-4">
-            {Object.entries(COMPANY_DOMAIN).slice(0, 9).map(([slug, domain]) => (
+            {['anthropic','gitlab','databricks','stripe','vercel','grafana-labs','openai','cohere','vanta'].map((slug) => (
               <div key={slug} className="flex items-center gap-2 grayscale hover:grayscale-0 transition-all duration-300">
                 <img
-                  src={`https://img.logokit.com/${domain}${LOGO_QS}`}
-                  alt={COMPANY_NAME[slug] || slug}
+                  src={`https://img.logokit.com/${getDomain(slug)}${LOGO_QS}`}
+                  alt={getCompanyName(slug)}
                   className="w-6 h-6 object-contain rounded"
                   referrerPolicy="origin"
                   loading="lazy"
                 />
-                <span className="text-xs font-bold text-slate-400 dark:text-slate-500">{COMPANY_NAME[slug] || slug}</span>
+                <span className="text-xs font-bold text-slate-400 dark:text-slate-500">{getCompanyName(slug)}</span>
               </div>
             ))}
           </div>
@@ -285,31 +287,22 @@ export const ModernHomePage: React.FC = () => {
           <div className="max-w-4xl mx-auto bg-white/60 dark:bg-white/[0.03] backdrop-blur-xl border border-white/20 dark:border-white/8 rounded-2xl shadow-[0_8px_30px_rgba(15,61,46,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)] overflow-hidden">
             <div className="divide-y divide-[#0F3D2E]/6 dark:divide-white/[0.06]">
               {recentJobs.map((job, i) => {
-                const name = COMPANY_NAME[job.company_slug] || job.company_slug;
-                const domain = COMPANY_DOMAIN[job.company_slug];
-                const salary = formatSalary(job.salary_min, job.salary_max);
+                const name = getCompanyName(job.company_slug);
+                const domain = getDomain(job.company_slug);
+                const sal = formatSalary(job?.salary_min, job?.salary_max);
                 return (
-                  <motion.div
-                    key={job.id}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.05 + i * 0.08 }}
+                  <Link key={job.id} to={`/jobs?company=${job.company_slug}`}
                     className="group flex flex-col sm:flex-row sm:items-center justify-between px-6 py-5 hover:bg-[#10B981]/[0.03] dark:hover:bg-white/[0.02] transition-colors cursor-pointer"
                   >
                     <div className="flex items-center gap-4">
-                      {domain ? (
-                        <img
-                          src={`https://img.logokit.com/${domain}${LOGO_QS}`}
-                          alt={name}
-                          className="w-8 h-8 object-contain flex-shrink-0 rounded-lg"
-                          referrerPolicy="origin"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="w-8 h-8 rounded-lg flex-shrink-0 bg-slate-100 dark:bg-white/5 flex items-center justify-center text-[9px] font-bold text-slate-400">
-                          {name[0]}
-                        </div>
-                      )}
+                      <div className="w-8 h-8 rounded-lg flex-shrink-0 bg-slate-100 dark:bg-white/5 flex items-center justify-center overflow-hidden p-1">
+                        {domain ? (
+                          <img src={`https://img.logokit.com/${domain}${LOGO_QS}`}
+                            alt={name} className="w-full h-full object-contain" referrerPolicy="origin" loading="lazy" />
+                        ) : (
+                          <span className="text-[9px] font-bold text-slate-400">{name[0]}</span>
+                        )}
+                      </div>
                       <div>
                         <div className="flex items-center gap-2 mb-0.5">
                           <span className="text-[9px] font-black uppercase tracking-[0.15em] text-slate-400 dark:text-slate-500">{name}</span>
@@ -333,7 +326,7 @@ export const ModernHomePage: React.FC = () => {
                         </div>
                       </div>
                     )}
-                  </motion.div>
+                  </Link>
                 );
               })}
             </div>
