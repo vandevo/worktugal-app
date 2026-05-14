@@ -127,8 +127,10 @@ export default {
       try {
         const r = await run(env);
         await sendTelegram(r);
+        await logRun(r);
         return Response.json(r);
       } catch (e) {
+        await logError('ai-jobs-pipeline', 'fatal', e.message, { stack: e.stack });
         return new Response(e.message, { status: 500 });
       }
     }
@@ -207,12 +209,14 @@ function norm(j, c) {
     const ll = loc.toLowerCase();
     const eu = isEuLocation(ll);
     const sen = seniority(title);
+    const sal = extractSalary(j.content || '');
     return {
       company_slug: c.slug, title, slug: slug(title) + '-' + (j.id || '0'), location: loc,
       locations: [loc], apply_url: j.absolute_url || '', department: dept,
       is_eu_eligible: eu, seniority: sen,
       d8_eligible: eu && (sen === 'senior' || sen === 'lead' || sen === 'executive'),
       source: 'ats_feed', source_ats_feed: 'greenhouse', is_active: true,
+      ...sal,
       updated_at: new Date().toISOString(),
     };
   }
@@ -226,12 +230,14 @@ function norm(j, c) {
     const eu = isEuLocation(ll);
     const sen = seniority(title);
     const idHash = (j.id || (j.applyUrl || '').slice(-8) || '0').toString();
+    const sal = extractSalary(j.descriptionPlain || '');
     return {
       company_slug: c.slug, title, slug: slug(title) + '-' + idHash, location: loc,
       locations: [loc], apply_url: j.applyUrl || j.hostedUrl || '', department: dept,
       is_eu_eligible: eu, seniority: sen,
       d8_eligible: eu && (sen === 'senior' || sen === 'lead' || sen === 'executive'),
       source: 'ats_feed', source_ats_feed: 'lever', is_active: true,
+      ...sal,
       updated_at: new Date().toISOString(),
     };
   }
@@ -245,6 +251,7 @@ function norm(j, c) {
     const ll = (loc + ' ' + country).toLowerCase();
     const eu = isEuLocation(ll) || (country.toLowerCase().includes('european') || country.toLowerCase().includes('germany') || country.toLowerCase().includes('uk') || country.toLowerCase().includes('united kingdom') || country.toLowerCase().includes('france') || country.toLowerCase().includes('netherlands') || country.toLowerCase().includes('spain') || country.toLowerCase().includes('ireland'));
     const sen = seniority(title);
+    const sal = extractSalary(j.descriptionPlain || '');
     return {
       company_slug: c.slug, title, slug: slug(title) + '-' + (j.id || '0').slice(0, 8), location: loc,
       locations: j.secondaryLocations ? [loc, ...j.secondaryLocations] : [loc],
@@ -252,6 +259,7 @@ function norm(j, c) {
       is_eu_eligible: eu, seniority: sen,
       d8_eligible: eu && (sen === 'senior' || sen === 'lead' || sen === 'executive'),
       source: 'ats_feed', source_ats_feed: 'ashby', is_active: true,
+      ...sal,
       updated_at: new Date().toISOString(),
     };
   }
@@ -268,7 +276,32 @@ async function sendTelegram(r) {
     body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg }),
   });
   const body = await res.text();
-  if (!res.ok) console.error('Telegram send failed:', body);
+  if (!res.ok) await logError('ai-jobs-pipeline', 'warn', 'Telegram send failed: ' + body, { status: res.status });
+}
+
+async function logRun(r) {
+  if (r.errors.length > 0) {
+    for (const e of r.errors) {
+      await logError('ai-jobs-pipeline', 'error', `${e.company}: ${e.error}`, { companies: r.companies, fetched: r.fetched, kept: r.kept });
+    }
+  }
+  await logError('ai-jobs-pipeline', 'info', 'run complete', { companies: r.companies, fetched: r.fetched, kept: r.kept, upserted: r.upserted });
+}
+
+async function logError(source, level, message, details) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/error_log`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ source, level, message, details: details || null }),
+    });
+  } catch (e) {
+    console.error('Failed to log error:', e.message);
+  }
 }
 
 async function upsert(jobs) {
@@ -281,6 +314,8 @@ async function upsert(jobs) {
       is_eu_eligible: j.is_eu_eligible, seniority: j.seniority,
       d8_eligible: j.d8_eligible, source: j.source,
       source_ats_feed: j.source_ats_feed, is_active: j.is_active,
+      salary_min: j.salary_min || null, salary_max: j.salary_max || null,
+      salary_currency: j.salary_currency || null,
       updated_at: j.updated_at,
     }));
 
