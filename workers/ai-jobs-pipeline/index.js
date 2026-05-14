@@ -71,6 +71,13 @@ const COMPANIES = [
   { name: 'Stability AI', slug: 'stability-ai', ats: 'greenhouse', board: 'stabilityai' },
   { name: 'Scale AI', slug: 'scale-ai', ats: 'greenhouse', board: 'scaleai' },
   { name: 'Palantir', slug: 'palantir', ats: 'lever', board: 'palantir' },
+  { name: 'OpenAI', slug: 'openai', ats: 'ashby', board: 'openai' },
+  { name: 'Notion', slug: 'notion', ats: 'ashby', board: 'notion' },
+  { name: 'Linear', slug: 'linear', ats: 'ashby', board: 'linear' },
+  { name: 'Cursor', slug: 'cursor', ats: 'ashby', board: 'cursor' },
+  { name: 'Replit', slug: 'replit', ats: 'ashby', board: 'replit' },
+  { name: 'Vanta', slug: 'vanta', ats: 'ashby', board: 'vanta' },
+  { name: 'Cohere', slug: 'cohere', ats: 'ashby', board: 'cohere' },
 ];
 
 const SUPABASE_URL = 'https://jbmfneyofhqlwnnfuqbd.supabase.co';
@@ -138,6 +145,16 @@ async function fetchJobs(c) {
     return await r.json();
   }
 
+  if (c.ats === 'ashby') {
+    const r = await fetch(
+      `https://api.ashbyhq.com/posting-api/job-board/${c.board}?includeCompensation=true`,
+      { headers: { 'User-Agent': 'Worktugal/1.0' } }
+    );
+    if (!r.ok) throw new Error(`Ashby ${r.status}`);
+    const d = await r.json();
+    return d.jobs || [];
+  }
+
   return [];
 }
 
@@ -175,6 +192,26 @@ function norm(j, c) {
       is_eu_eligible: eu, seniority: sen,
       d8_eligible: eu && (sen === 'senior' || sen === 'lead' || sen === 'executive'),
       source: 'ats_feed', source_ats_feed: 'lever', is_active: true,
+      updated_at: new Date().toISOString(),
+    };
+  }
+
+  if (c.ats === 'ashby') {
+    const title = j.title || '';
+    if (!title) return null;
+    const dept = j.department || j.team || null;
+    const loc = j.location || j.address?.postalAddress?.addressLocality || 'Remote';
+    const country = j.address?.postalAddress?.addressCountry || '';
+    const ll = (loc + ' ' + country).toLowerCase();
+    const eu = isEuLocation(ll) || (country.toLowerCase().includes('european') || country.toLowerCase().includes('germany') || country.toLowerCase().includes('uk') || country.toLowerCase().includes('united kingdom') || country.toLowerCase().includes('france') || country.toLowerCase().includes('netherlands') || country.toLowerCase().includes('spain') || country.toLowerCase().includes('ireland'));
+    const sen = seniority(title);
+    return {
+      company_slug: c.slug, title, slug: slug(title) + '-' + (j.id || '0').slice(0, 8), location: loc,
+      locations: j.secondaryLocations ? [loc, ...j.secondaryLocations] : [loc],
+      apply_url: j.applyUrl || j.jobUrl || '', department: dept,
+      is_eu_eligible: eu, seniority: sen,
+      d8_eligible: eu && (sen === 'senior' || sen === 'lead' || sen === 'executive'),
+      source: 'ats_feed', source_ats_feed: 'ashby', is_active: true,
       updated_at: new Date().toISOString(),
     };
   }
