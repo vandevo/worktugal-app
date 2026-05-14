@@ -141,11 +141,11 @@ export const JobsPage: React.FC = () => {
         )}
 
         {/* ── Filters ──────────────────────────────────────── */}
-        <div className="flex flex-wrap items-center gap-2 mb-6">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-6">
           <select
             value={companyFilter}
             onChange={(e) => { setCompanyFilter(e.target.value); setVisibleCount(PER_PAGE); }}
-            className="flex-1 min-w-[140px] px-2.5 py-2 text-sm bg-white dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
+            className="w-full sm:flex-1 px-2.5 py-2 text-sm bg-white dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
           >
             <option value="">All companies</option>
             {companies.map((c) => (
@@ -156,7 +156,7 @@ export const JobsPage: React.FC = () => {
           <select
             value={deptFilter}
             onChange={(e) => { setDeptFilter(e.target.value); setVisibleCount(PER_PAGE); }}
-            className="flex-1 min-w-[120px] px-2.5 py-2 text-sm bg-white dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
+            className="w-full sm:flex-1 px-2.5 py-2 text-sm bg-white dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white appearance-none cursor-pointer transition-colors"
           >
             <option value="">All departments</option>
             {departments.map((d) => (
@@ -164,7 +164,7 @@ export const JobsPage: React.FC = () => {
             ))}
           </select>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto sm:ml-auto">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             <button
               onClick={() => { setSalaryOnly(!salaryOnly); setVisibleCount(PER_PAGE); }}
               className={`flex items-center justify-center gap-1.5 px-2.5 py-2 rounded-lg text-sm font-bold transition-all border flex-1 sm:flex-initial ${
@@ -187,7 +187,7 @@ export const JobsPage: React.FC = () => {
 
         {/* ── Salary footnote ────────────────────────────── */}
         {!loading && !error && (
-          <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed mb-4 text-left sm:text-right">
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed mb-4">
             Only {allJobs.filter(j => j.salary_min).length} of {allJobs.length} jobs list salary — most companies
             don't publish salary ranges publicly. EU Pay Transparency Directive will require this soon.
           </p>
