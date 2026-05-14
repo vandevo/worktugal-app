@@ -55,6 +55,31 @@ function slug(t) {
   return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
+function stripHtml(html) {
+  return html ? html.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim() : null;
+}
+
+const CURRENCIES = { '€': 'EUR', '$': 'USD', '£': 'GBP', '€': 'EUR' };
+const CURR_NAMES = { 'eur': 'EUR', 'usd': 'USD', 'gbp': 'GBP', 'euro': 'EUR', 'dollar': 'USD', 'pound': 'GBP' };
+
+function extractSalary(text) {
+  if (!text) return {};
+  const t = text.toLowerCase().substring(0, 10000);
+  // match: €80k - €120k, $100,000 - $150,000, EUR 80k to 120k, etc.
+  const m = t.match(/(?:([€$£])|(eur|usd|gbp|euro|dollar|pound))\s*([\d,.]+)(?:\s*k)?\s*(?:–|-|to)\s*(?:([€$£])?\s*|(eur|usd|gbp|euro|dollar|pound)\s*)?([\d,.]+)(?:\s*k)?/i);
+  if (!m) return {};
+
+  const sym = m[1] || m[4] || '';
+  const name = (m[2] || m[5] || '').toLowerCase();
+  const currency = CURRENCIES[sym] || CURR_NAMES[name] || null;
+  const isK = t.substring(Math.max(0, m.index + m[0].length - 20), m.index + m[0].length).toLowerCase().includes('k') || m[0].toLowerCase().includes('k');
+  const mult = isK ? 1000 : 1;
+  const min = parseFloat(m[3].replace(/,/g, '')) * mult;
+  const max = parseFloat(m[6].replace(/,/g, '')) * mult;
+  if (isNaN(min) || isNaN(max) || min <= 0 || max <= 0) return {};
+  return { salary_min: Math.round(min), salary_max: Math.round(max), salary_currency: currency };
+}
+
 const COMPANIES = [
   { name: 'Anthropic', slug: 'anthropic', ats: 'greenhouse', board: 'anthropic' },
   { name: 'GitLab', slug: 'gitlab', ats: 'greenhouse', board: 'gitlab' },
@@ -167,12 +192,15 @@ function norm(j, c) {
     const ll = loc.toLowerCase();
     const eu = isEuLocation(ll);
     const sen = seniority(title);
+    const desc = stripHtml(j.content);
+    const sal = extractSalary(desc || j.title + ' ' + (dept || ''));
     return {
       company_slug: c.slug, title, slug: slug(title) + '-' + (j.id || '0'), location: loc,
       locations: [loc], apply_url: j.absolute_url || '', department: dept,
       is_eu_eligible: eu, seniority: sen,
       d8_eligible: eu && (sen === 'senior' || sen === 'lead' || sen === 'executive'),
       source: 'ats_feed', source_ats_feed: 'greenhouse', is_active: true,
+      description_plain: desc, ...sal,
       updated_at: new Date().toISOString(),
     };
   }
@@ -186,12 +214,15 @@ function norm(j, c) {
     const eu = isEuLocation(ll);
     const sen = seniority(title);
     const idHash = (j.id || (j.applyUrl || '').slice(-8) || '0').toString();
+    const desc = j.descriptionPlain || null;
+    const sal = extractSalary(desc || title + ' ' + (dept || ''));
     return {
       company_slug: c.slug, title, slug: slug(title) + '-' + idHash, location: loc,
       locations: [loc], apply_url: j.applyUrl || j.hostedUrl || '', department: dept,
       is_eu_eligible: eu, seniority: sen,
       d8_eligible: eu && (sen === 'senior' || sen === 'lead' || sen === 'executive'),
       source: 'ats_feed', source_ats_feed: 'lever', is_active: true,
+      description_plain: desc, ...sal,
       updated_at: new Date().toISOString(),
     };
   }
@@ -205,6 +236,8 @@ function norm(j, c) {
     const ll = (loc + ' ' + country).toLowerCase();
     const eu = isEuLocation(ll) || (country.toLowerCase().includes('european') || country.toLowerCase().includes('germany') || country.toLowerCase().includes('uk') || country.toLowerCase().includes('united kingdom') || country.toLowerCase().includes('france') || country.toLowerCase().includes('netherlands') || country.toLowerCase().includes('spain') || country.toLowerCase().includes('ireland'));
     const sen = seniority(title);
+    const desc = j.descriptionPlain || null;
+    const sal = extractSalary(desc || title + ' ' + (dept || ''));
     return {
       company_slug: c.slug, title, slug: slug(title) + '-' + (j.id || '0').slice(0, 8), location: loc,
       locations: j.secondaryLocations ? [loc, ...j.secondaryLocations] : [loc],
@@ -212,6 +245,7 @@ function norm(j, c) {
       is_eu_eligible: eu, seniority: sen,
       d8_eligible: eu && (sen === 'senior' || sen === 'lead' || sen === 'executive'),
       source: 'ats_feed', source_ats_feed: 'ashby', is_active: true,
+      description_plain: desc, ...sal,
       updated_at: new Date().toISOString(),
     };
   }
@@ -229,6 +263,9 @@ async function upsert(jobs) {
       is_eu_eligible: j.is_eu_eligible, seniority: j.seniority,
       d8_eligible: j.d8_eligible, source: j.source,
       source_ats_feed: j.source_ats_feed, is_active: j.is_active,
+      description_plain: j.description_plain || null,
+      salary_min: j.salary_min || null, salary_max: j.salary_max || null,
+      salary_currency: j.salary_currency || null,
       updated_at: j.updated_at,
     }));
 
