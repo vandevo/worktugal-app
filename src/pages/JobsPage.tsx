@@ -189,7 +189,12 @@ export const JobsPage: React.FC = () => {
         {!loading && !error && (
           <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed mb-4">
             Only {allJobs.filter(j => j.salary_min).length} of {allJobs.length} jobs list salary — most companies
-            don't publish salary ranges publicly. EU Pay Transparency Directive will require this soon.
+            don't publish salary ranges publicly. The{' '}
+            <a href="https://eur-lex.europa.eu/eli/dir/2023/970/oj/eng" target="_blank" rel="noopener noreferrer"
+              className="underline hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+              EU Pay Transparency Directive
+            </a>{' '}
+            will require salary ranges on all EU-listed jobs from June 2026.
           </p>
         )}
 
