@@ -86,10 +86,10 @@ export const JobsPage: React.FC = () => {
     });
   }, [allJobs, companyFilter, deptFilter]);
 
+  const hasActiveFilters = companyFilter || deptFilter;
   const visible = filtered.slice(0, visibleCount);
   const totalFiltered = hasActiveFilters ? filtered.length : totalCount;
   const hasMore = hasActiveFilters ? visibleCount < filtered.length : visibleCount < totalCount;
-  const hasActiveFilters = companyFilter || deptFilter;
 
   const clearFilters = () => {
     setCompanyFilter('');
