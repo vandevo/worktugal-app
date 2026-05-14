@@ -96,9 +96,9 @@ export const JobsPage: React.FC = () => {
     <>
       <Seo
         title="AI Jobs in Europe – Worktugal"
-        description="Curated AI and tech jobs open to candidates in Europe. Browse roles from Anthropic, Stripe, GitLab, xAI, and 22 AI companies. Updated daily."
+        description="Curated AI and tech jobs open to candidates in Europe. Browse roles from Anthropic, Stripe, GitLab, xAI, and 24 AI companies. Updated daily."
         ogTitle="AI Jobs in Europe"
-        ogDescription="Curated AI and tech jobs open to candidates in Europe. Browse 900+ roles from 22 leading AI companies. No signup needed."
+        ogDescription="Curated AI and tech jobs open to candidates in Europe. Browse 900+ roles from 24 leading AI companies. No signup needed."
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -117,18 +117,6 @@ export const JobsPage: React.FC = () => {
             Curated AI roles open to candidates in Europe. Updated daily.
           </p>
         </motion.div>
-
-        {/* ── Teaser counters ──────────────────────────────── */}
-        {!loading && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.3 }}
-            className="flex items-center gap-3 mb-6 text-[11px] text-slate-400 dark:text-slate-500"
-          >
-            <span>{allJobs.length.toLocaleString()} AI jobs</span>
-          </motion.div>
-        )}
 
         {/* ── Filters ──────────────────────────────────────── */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-6">

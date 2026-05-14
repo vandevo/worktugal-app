@@ -17,7 +17,7 @@ interface SeoProps {
 
 export const Seo: React.FC<SeoProps> = ({
   title = 'AI Jobs in Europe – Worktugal',
-  description = 'Curated AI and tech jobs open to candidates in Europe. Browse 900+ roles from Anthropic, Stripe, GitLab, and 22 AI companies. Updated daily.',
+  description = 'Curated AI and tech jobs open to candidates in Europe. Browse 900+ roles from Anthropic, Stripe, GitLab, and 24 AI companies. Updated daily.',
   ogTitle,
   ogDescription,
   ogImage = 'https://app.worktugal.com/worktugal-logo-bg-light-radius-1000-1000.png',
