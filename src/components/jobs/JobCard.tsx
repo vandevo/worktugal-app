@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, ArrowUpRight, Sparkles, Euro } from 'lucide-react';
+import { MapPin, ArrowUpRight, Sparkles, Euro, DollarSign, PoundSterling } from 'lucide-react';
 
 interface Job {
   id: string; company_slug: string; title: string; location: string;
@@ -107,7 +107,7 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
             {job.department && <span>{job.department}</span>}
             {hasSalary && (
               <span className="font-bold text-[#10B981]">
-                <Euro className="w-3 h-3 inline mr-0.5" />
+                {job.salary_currency === 'USD' ? <DollarSign className="w-3 h-3 inline mr-0.5" /> : job.salary_currency === 'GBP' ? <PoundSterling className="w-3 h-3 inline mr-0.5" /> : <Euro className="w-3 h-3 inline mr-0.5" />}
                 {formatSalary(job.salary_min!)} – {formatSalary(job.salary_max!)}
               </span>
             )}
