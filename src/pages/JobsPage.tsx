@@ -43,6 +43,7 @@ export const JobsPage: React.FC = () => {
   const [error, setError] = useState('');
   const [companyFilter, setCompanyFilter] = useState('');
   const [deptFilter, setDeptFilter] = useState('');
+  const [salaryOnly, setSalaryOnly] = useState(false);
   const [visibleCount, setVisibleCount] = useState(PER_PAGE);
 
   useEffect(() => {
@@ -82,11 +83,12 @@ export const JobsPage: React.FC = () => {
     return allJobs.filter((job) => {
       if (companyFilter && job.company_slug !== companyFilter) return false;
       if (deptFilter && job.department !== deptFilter) return false;
+      if (salaryOnly && !job.salary_min) return false;
       return true;
     });
-  }, [allJobs, companyFilter, deptFilter]);
+  }, [allJobs, companyFilter, deptFilter, salaryOnly]);
 
-  const hasActiveFilters = companyFilter || deptFilter;
+  const hasActiveFilters = companyFilter || deptFilter || salaryOnly;
   const visible = filtered.slice(0, visibleCount);
   const totalFiltered = hasActiveFilters ? filtered.length : totalCount;
   const hasMore = hasActiveFilters ? visibleCount < filtered.length : visibleCount < totalCount;
@@ -94,6 +96,7 @@ export const JobsPage: React.FC = () => {
   const clearFilters = () => {
     setCompanyFilter('');
     setDeptFilter('');
+    setSalaryOnly(false);
     setVisibleCount(PER_PAGE);
   };
 
@@ -161,12 +164,32 @@ export const JobsPage: React.FC = () => {
             ))}
           </select>
 
+          <button
+            onClick={() => { setSalaryOnly(!salaryOnly); setVisibleCount(PER_PAGE); }}
+            className={`flex-shrink-0 flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-sm font-bold transition-all border ${
+              salaryOnly
+                ? 'bg-[#10B981]/10 border-[#10B981]/30 text-[#10B981]'
+                : 'bg-white dark:bg-[#161618] border-slate-200 dark:border-white/10 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'
+            }`}
+          >
+            <Euro className="w-3.5 h-3.5" />
+            Salary
+          </button>
+
           {hasActiveFilters && (
             <button onClick={clearFilters} className="flex-shrink-0 p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
               <X className="w-4 h-4" />
             </button>
           )}
         </div>
+
+        {/* ── Salary footnote ────────────────────────────── */}
+        {!loading && !error && (
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed mb-4 text-right">
+            Only {allJobs.filter(j => j.salary_min).length} of {allJobs.length} jobs list salary — most companies
+            don't publish salary ranges publicly. EU Pay Transparency Directive will require this soon.
+          </p>
+        )}
 
         {/* ── Results ──────────────────────────────────────── */}
         {loading && (
