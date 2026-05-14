@@ -106,7 +106,7 @@ export const JobCard: React.FC<JobCardProps> = ({ job, index }) => {
             </span>
             {job.department && <span>{job.department}</span>}
             {hasSalary && (
-              <span className="font-bold text-slate-600 dark:text-slate-300">
+              <span className="font-bold text-[#10B981]">
                 <Euro className="w-3 h-3 inline mr-0.5" />
                 {formatSalary(job.salary_min!)} – {formatSalary(job.salary_max!)}
               </span>
