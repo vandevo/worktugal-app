@@ -320,7 +320,7 @@ export const Changelog: React.FC = () => {
             What's new in Worktugal
           </h1>
           <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
-            Tracking our journey building compliance risk intelligence for remote workers and freelancers in Portugal.
+            Tracking every update to Europe's AI jobs board. 950+ roles, 24 companies, and counting.
           </p>
         </motion.div>
 
