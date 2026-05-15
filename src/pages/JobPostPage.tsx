@@ -15,6 +15,11 @@ export const JobPostPage: React.FC = () => {
   const [companyName, setCompanyName] = useState('');
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
+  const [remoteType, setRemoteType] = useState('Remote');
+  const [employmentType, setEmploymentType] = useState('Full-time');
+  const [salaryMin, setSalaryMin] = useState('');
+  const [salaryMax, setSalaryMax] = useState('');
+  const [salaryCurrency, setSalaryCurrency] = useState('EUR');
   const [applyUrl, setApplyUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -71,7 +76,17 @@ export const JobPostPage: React.FC = () => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${session!.access_token}`,
           },
-          body: JSON.stringify({ title, company_name: companyName, location, apply_url: applyUrl }),
+          body: JSON.stringify({ 
+          title, 
+          company_name: companyName, 
+          location, 
+          remote_type: remoteType,
+          employment_type: employmentType,
+          salary_min: salaryMin,
+          salary_max: salaryMax,
+          salary_currency: salaryCurrency,
+          apply_url: applyUrl 
+        }),
         }
       );
 
@@ -88,6 +103,11 @@ export const JobPostPage: React.FC = () => {
   const previewTitle = title || 'Senior AI Engineer';
   const previewCompany = companyName || 'Your Company';
   const previewLocation = location || 'Lisbon, Portugal';
+  const previewSalary = salaryMin && salaryMax ? `${salaryMin} – ${salaryMax} ${salaryCurrency}` : '50k – 80k EUR';
+  const previewRemote = remoteType || 'Remote';
+  const previewEmployment = employmentType || 'Full-time';
+  
+  const CurrencyIcon = salaryCurrency === 'USD' ? DollarSign : salaryCurrency === 'GBP' ? PoundSterling : Euro;
 
   return (
     <>
@@ -176,6 +196,80 @@ export const JobPostPage: React.FC = () => {
                         placeholder="e.g. Lisbon, Portugal"
                         className="w-full h-11 px-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm font-medium focus:outline-none focus-visible:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
                       />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                        Remote type
+                      </label>
+                      <select
+                        required
+                        value={remoteType}
+                        onChange={(e) => setRemoteType(e.target.value)}
+                        className="w-full h-11 px-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white text-sm font-medium focus:outline-none focus-visible:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
+                      >
+                        <option value="Remote">Remote</option>
+                        <option value="Hybrid">Hybrid</option>
+                        <option value="On-site">On-site</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                        Employment type
+                      </label>
+                      <select
+                        required
+                        value={employmentType}
+                        onChange={(e) => setEmploymentType(e.target.value)}
+                        className="w-full h-11 px-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white text-sm font-medium focus:outline-none focus-visible:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
+                      >
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Contract">Contract</option>
+                      </select>
+                    </div>
+
+                    <div className="flex gap-4">
+                      <div className="flex-1 space-y-1.5">
+                        <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                          Salary Min
+                        </label>
+                        <input
+                          type="number"
+                          value={salaryMin}
+                          onChange={(e) => setSalaryMin(e.target.value)}
+                          placeholder="e.g. 50000"
+                          className="w-full h-11 px-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm font-medium focus:outline-none focus-visible:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
+                        />
+                      </div>
+                      <div className="flex-1 space-y-1.5">
+                        <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                          Salary Max
+                        </label>
+                        <input
+                          type="number"
+                          value={salaryMax}
+                          onChange={(e) => setSalaryMax(e.target.value)}
+                          placeholder="e.g. 80000"
+                          className="w-full h-11 px-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-sm font-medium focus:outline-none focus-visible:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
+                        />
+                      </div>
+                      <div className="w-24 space-y-1.5">
+                        <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                          Currency
+                        </label>
+                        <select
+                          required
+                          value={salaryCurrency}
+                          onChange={(e) => setSalaryCurrency(e.target.value)}
+                          className="w-full h-11 px-4 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-[#F5F4F2] dark:bg-white/[0.04] text-slate-900 dark:text-white text-sm font-medium focus:outline-none focus-visible:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] transition-colors"
+                        >
+                          <option value="EUR">EUR</option>
+                          <option value="USD">USD</option>
+                          <option value="GBP">GBP</option>
+                        </select>
+                      </div>
                     </div>
 
                     <div className="space-y-1.5">
@@ -276,19 +370,22 @@ export const JobPostPage: React.FC = () => {
                       {previewLocation}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <Euro className="w-3.5 h-3.5" />
-                      €80k – €120k
+                      <CurrencyIcon className="w-3.5 h-3.5" />
+                      {previewSalary}
                     </span>
                   </div>
 
                   <div className="flex gap-2">
                     <span className="px-2.5 py-1 rounded-lg bg-[#F5F4F2] dark:bg-white/[0.04] text-[11px] font-medium text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-white/5">
-                      {previewTitle}
+                      {previewEmployment}
                     </span>
                     <span className="px-2.5 py-1 rounded-lg bg-[#F5F4F2] dark:bg-white/[0.04] text-[11px] font-medium text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-white/5">
-                      Remote friendly
+                      {previewRemote}
                     </span>
                   </div>
+                  <button className="w-full mt-4 bg-[#10B981] text-white py-2 rounded-lg text-xs font-bold hover:bg-[#059669] transition-colors">
+                    Apply now
+                  </button>
                 </div>
 
                 {/* Boost visibility card */}
