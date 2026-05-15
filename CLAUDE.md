@@ -49,13 +49,13 @@ supabase/
 
 | Product | Status | Notes |
 |---|---|---|---|
-| AI Jobs Board | Live `/jobs` | Primary revenue engine. 545+ EU-eligible jobs. EUR 49 self-serve checkout at `/jobs/post`. 12 AI companies. JobBoard mode design (Ashby-style). |
-| Compliance Risk Diagnostic | Live `/diagnostic` | 13-question free tool, lead gen |
-| My Account Dashboard | Live `/dashboard` | Signed-in users only |
-| Google Sign-In | Live | Supabase OAuth |
+| AI Jobs Board | Live `/jobs` | Revenue engine. EUR 49/listing. Review queue for paid listings (v5.1). |
+| Compliance Risk Diagnostic | Live `/diagnostic` | 13-question free tool, lead gen. |
+| My Account Dashboard | Live `/dashboard` | Signed-in users only. |
+| Google Sign-In | Live | Supabase OAuth. |
 | Portugal Radar | Live `/radar` | Maintained, no active development. EUR 5/mo. |
-| Compliance Monitor (Parallel AI) | Live | 2 daily monitors → n8n → Supabase → Telegram + email + weekly digest |
-| AI Blog | Live | Ghost CMS at blog.worktugal.com. Content API public (read-only). |
+| Compliance Monitor (Parallel AI) | Live | 2 daily monitors → n8n → Supabase → Telegram + email + weekly digest. |
+| AI Blog | Live | Ghost CMS at blog.worktugal.com. |
 
 ---
 

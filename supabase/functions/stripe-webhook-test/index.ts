@@ -52,6 +52,10 @@ Deno.serve(async (req) => {
   }
 });
 
+function slug(t: string) {
+  return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
 async function handleEvent(event: Stripe.Event) {
   const stripeData = event?.data?.object ?? {};
 
@@ -125,9 +129,53 @@ async function handleEvent(event: Stripe.Event) {
         return;
       }
 
-      const paymentType = metadata?.payment_type || 'perk';
+       const paymentType = metadata?.payment_type || 'perk';
 
-      if (metadata?.submission_id && orderData?.id) {
+       // ── Job posting checkout ──────────────────────────────
+       if (metadata?.type === 'job_posting') {
+         const {
+           company_name,
+           title,
+           location,
+           apply_url,
+           remote_type,
+           employment_type,
+           salary_min,
+           salary_max,
+           salary_currency
+         } = metadata as Record<string, string>;
+         
+         const companySlug = slug(company_name);
+         const jobSlug = slug(title) + '-' + checkout_session_id.slice(0, 8);
+
+         const { error: jobError } = await supabase.from('ai_jobs').insert({
+           company_slug: companySlug,
+           title,
+           slug: jobSlug,
+           location,
+           locations: [location],
+           apply_url,
+           remote_policy: remote_type,
+           employment_type: employment_type,
+           salary_min: salary_min ? parseInt(salary_min) : null,
+           salary_max: salary_max ? parseInt(salary_max) : null,
+           salary_currency: salary_currency,
+           source: 'stripe_post',
+           is_active: false,
+           posted_at: new Date().toISOString(),
+         });
+
+         if (jobError) {
+           console.error('Error inserting job posting:', jobError);
+         } else {
+           console.info(`Job posting created: ${title} at ${company_name}`);
+         }
+
+         console.info(`Successfully processed job posting payment for session: ${checkout_session_id}`);
+         return;
+       }
+
+       if (metadata?.submission_id && orderData?.id) {
         const submissionId = parseInt(metadata.submission_id);
 
         if (!isNaN(submissionId)) {

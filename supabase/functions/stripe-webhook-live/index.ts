@@ -112,6 +112,10 @@ async function sendPaymentNotification(event: Stripe.Event) {
   }
 }
 
+function slug(t: string) {
+  return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
 async function handleEvent(event: Stripe.Event) {
   await sendPaymentNotification(event);
 
@@ -181,9 +185,20 @@ async function handleEvent(event: Stripe.Event) {
 
         // ── Job posting checkout ──────────────────────────────
         if (metadata?.type === 'job_posting') {
-          const { company_name, title, location, apply_url } = metadata as Record<string, string>;
-          const companySlug = company_name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-          const jobSlug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+          const {
+            company_name,
+            title,
+            location,
+            apply_url,
+            remote_type,
+            employment_type,
+            salary_min,
+            salary_max,
+            salary_currency
+          } = metadata as Record<string, string>;
+          
+          const companySlug = slug(company_name);
+          const jobSlug = slug(title) + '-' + checkout_session_id.slice(0, 8);
 
           const { error: jobError } = await supabase.from('ai_jobs').insert({
             company_slug: companySlug,
@@ -192,19 +207,13 @@ async function handleEvent(event: Stripe.Event) {
             location,
             locations: [location],
             apply_url,
+            remote_policy: remote_type,
+            employment_type: employment_type,
+            salary_min: salary_min ? parseInt(salary_min) : null,
+            salary_max: salary_max ? parseInt(salary_max) : null,
+            salary_currency: salary_currency,
             source: 'stripe_post',
-            source_ats_feed: null,
             is_active: false,
-            is_eu_eligible: false,
-            department: null,
-            seniority: null,
-            d8_eligible: false,
-            salary_min: null,
-            salary_max: null,
-            salary_currency: 'EUR',
-            remote_policy: null,
-            visa_sponsorship: null,
-            skills: null,
             posted_at: new Date().toISOString(),
           });
 

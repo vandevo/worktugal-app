@@ -47,6 +47,8 @@ a:hover { color: var(--wt-forest-hover); }
 .gh-navigation-logo { font-weight: 700 !important; color: var(--wt-forest) !important; }
 .gh-navigation-menu .nav a { font-weight: 600; color: #334155; }
 .gh-navigation-menu .nav a:hover { color: var(--wt-forest); }
+.gh-navigation-actions, .gh-navigation-members { background: transparent !important; }
+.gh-navigation-members a[data-portal="signin"] { color: #334155 !important; }
 
 /* === HERO === */
 .gh-header {
@@ -257,9 +259,18 @@ a:hover { color: var(--wt-forest-hover); }
 .gh-footer {
   border-top: 1px solid var(--wt-border);
   background: var(--wt-bg);
+  overflow-x: hidden;
 }
 .gh-footer a { color: var(--wt-forest); }
 .gh-footer-copyright { display: none !important; }
+.gh-portal-powered, body > .gh-portal-powered { display: none !important; }
+a[href*="ghost.org"] { display: none !important; }
+.gh-footer-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; max-width: 100%; box-sizing: border-box; }
+.gh-footer-menu { margin-left: auto; }
+.gh-footer-menu .nav { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+.gh-footer-menu .nav a { font-size: 13px; font-weight: 600; color: #64748B; text-decoration: none; }
+.gh-footer-menu .nav a:hover { color: var(--wt-forest); }
+.gh-footer-signup { max-width: 100%; box-sizing: border-box; }
 .gh-footer-signup-header {
   font-family: 'Plus Jakarta Sans', sans-serif !important;
   font-weight: 700 !important;
@@ -280,6 +291,14 @@ a:hover { color: var(--wt-forest-hover); }
 @media (max-width: 767px) {
   .gh-navigation { height: 64px; }
   .gh-navigation .nav a { font-size: 1.6rem; font-weight: 600; }
+  .gh-navigation-menu .nav, .gh-navigation-menu .nav li, .gh-navigation-menu .nav a,
+  .gh-dropdown, .gh-dropdown li, .gh-dropdown a { background: transparent !important; }
+  .gh-feed { padding: 0 16px; }
+  .gh-card-wrapper { padding: 14px 16px 16px !important; }
+  .gh-footer-bar { flex-direction: column; text-align: center; gap: 8px; }
+  .gh-footer-menu { margin-left: 0; }
+  .gh-footer-menu .nav { justify-content: center; flex-wrap: wrap; gap: 12px; }
+  .gh-footer-signup { padding-left: 16px; padding-right: 16px; }
 }
 </style>
 
@@ -290,6 +309,19 @@ a:hover { color: var(--wt-forest-hover); }
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-FLJ2KM6R1Z');
+</script>
+
+<!-- === HIDE GHOST PORTAL POWERED === -->
+<script>
+(new MutationObserver(function(m) {
+  for (var i = 0; i < m.length; i++) {
+    for (var j = 0; j < m[i].addedNodes.length; j++) {
+      if (m[i].addedNodes[j].classList && m[i].addedNodes[j].classList.contains('gh-portal-powered')) {
+        m[i].addedNodes[j].style.display = 'none';
+      }
+    }
+  }
+})).observe(document.body, { childList: true, subtree: true });
 </script>
 
 <!-- === LIVE DIAGNOSTIC COUNT === -->

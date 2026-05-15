@@ -53,9 +53,9 @@ Deno.serve(async (req) => {
       });
     }
 
-    const { title, company_name, location, apply_url } = await req.json();
-    if (!title || !company_name || !location || !apply_url) {
-      return new Response(JSON.stringify({ error: 'title, company_name, location, and apply_url are required' }), {
+    const { title, company_name, location, apply_url, remote_type, employment_type, salary_min, salary_max, salary_currency } = await req.json();
+    if (!title || !company_name || !location || !apply_url || !remote_type || !employment_type) {
+      return new Response(JSON.stringify({ error: 'title, company_name, location, apply_url, remote_type, and employment_type are required' }), {
         status: 400, headers: { ...headers, 'Content-Type': 'application/json' },
       });
     }
@@ -96,6 +96,11 @@ Deno.serve(async (req) => {
         title,
         location,
         apply_url,
+        remote_type,
+        employment_type,
+        salary_min,
+        salary_max,
+        salary_currency,
       },
     });
 
