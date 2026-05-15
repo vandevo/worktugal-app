@@ -48,9 +48,24 @@ Deno.serve(async (req) => {
     return Response.json({ received: true });
   } catch (error: any) {
     console.error('Error processing webhook:', error);
+    await logError('stripe-webhook-live', 'error', `Webhook processing failed: ${error.message}`, { stack: error.stack });
     return Response.json({ error: error.message }, { status: 500 });
   }
 });
+
+async function logError(source: string, level: 'error' | 'warn', message: string, details?: Record<string, unknown>): Promise<void> {
+  try {
+    await supabase.from('error_log').insert({
+      source,
+      level,
+      message,
+      details: details ?? null,
+      resolved: false,
+    });
+  } catch {
+    // never throw from error logger
+  }
+}
 
 async function sendPaymentNotification(event: Stripe.Event) {
   const resendApiKey = Deno.env.get('RESEND_API_KEY');
@@ -391,11 +406,13 @@ async function syncCustomerFromStripe(customerId: string) {
 
     if (subError) {
       console.error('Error syncing subscription:', subError);
+      await logError('stripe-webhook-live', 'error', `Subscription sync failed for customer ${customerId}`, { customerId, error: subError.message });
       throw new Error('Failed to sync subscription in database');
     }
     console.info(`Successfully synced subscription for customer: ${customerId}`);
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Failed to sync subscription for customer ${customerId}:`, error);
+    await logError('stripe-webhook-live', 'error', `syncCustomerFromStripe threw for customer ${customerId}`, { customerId, message: error.message });
     throw error;
   }
 }
