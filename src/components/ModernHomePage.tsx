@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Seo } from './Seo';
+import HeroNewsletterInline from './HeroNewsletterInline';
 import { supabase } from '../lib/supabase';
 
 interface Job {
@@ -469,6 +470,37 @@ export const ModernHomePage: React.FC = () => {
             </Link>
           </div>
         </div>
+      </section>
+
+      {/* ── Newsletter ─────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="bg-white/60 dark:bg-white/[0.03] backdrop-blur-xl border border-white/20 dark:border-white/8 rounded-[32px] p-10 md:p-14 relative overflow-hidden shadow-[0_8px_30px_rgba(15,61,46,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
+        >
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-[#10B981]/[0.06] dark:bg-[#10B981]/[0.08] rounded-full blur-[120px] pointer-events-none" />
+          <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-16 relative z-10">
+            <div className="flex-1">
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#10B981] bg-[#10B981]/10 px-3 py-1.5 rounded-full mb-4 border border-[#10B981]/15">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
+                Weekly briefing
+              </span>
+              <p className="font-jakarta text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                This week in AI hiring
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-lg">
+                Every Monday: the best AI roles in Europe, visa route changes, and company expansions distilled from 20+ sources across the continent.
+              </p>
+            </div>
+            <div className="hidden md:block w-px h-20 bg-[#0F3D2E]/6 dark:bg-white/8 shrink-0" />
+            <div className="w-full md:w-[340px] shrink-0">
+              <HeroNewsletterInline />
+            </div>
+          </div>
+        </motion.div>
       </section>
     </>
   );

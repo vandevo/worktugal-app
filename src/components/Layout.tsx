@@ -10,6 +10,7 @@ import { AuthModal } from './auth/AuthModal';
 import { signOut } from '../lib/auth';
 import { Footer } from './Footer';
 import { BottomNav } from './BottomNav';
+import NewsletterPopup from './NewsletterPopup';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -314,6 +315,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         onClose={() => setShowAuthModal(false)}
         initialMode="login"
       />
+      <NewsletterPopup />
     </div>
   );
 };

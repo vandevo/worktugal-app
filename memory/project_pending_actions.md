@@ -4,7 +4,7 @@ description: Outstanding items from session handovers. Updated for AI Jobs board
 type: project
 ---
 
-Ordered by leverage (updated 2026-05-13):
+Ordered by leverage (updated 2026-05-17):
 
 **Infrastructure shift (2026-05-13):** AI Jobs pipeline migrated from n8n → Cloudflare Worker ($0, 22 companies, 927 jobs). n8n now only used for compliance monitors + Telegram notifications. Cloudflare OS doc created — all CF services documented for future use. Firecrawl integrated for scraping non-ATS companies.
 
@@ -37,6 +37,7 @@ Ordered by leverage (updated 2026-05-13):
 - ~~Cloudflare OS knowledge doc~~ — Full capability map in vault
 - ~~Knowledge INDEX.md~~ — 40 docs mapped by use case
 - ~~Firecrawl integration~~ — CLI installed, MCP server wired in opencode.json
+- ~~Newsletter signup system~~ — subscribe-newsletter edge function, NewsletterPopup (15s delay), HeroNewsletterInline component, Resend welcome email + Telegram alert
 
 **Completed (previous direction):**
 - ~~RadarLanding.tsx copy refresh~~ → Sales copy rewrite: hero Challenger framing, audience pain cards, cost of inaction section, urgency badge, stronger guarantee.
