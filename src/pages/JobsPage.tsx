@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, X, Euro } from 'lucide-react';
+import { ArrowRight, X, Euro, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Seo } from '../components/Seo';
 import { supabase } from '../lib/supabase';
@@ -41,6 +41,7 @@ export const JobsPage: React.FC = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [companyFilter, setCompanyFilter] = useState('');
   const [deptFilter, setDeptFilter] = useState('');
   const [salaryOnly, setSalaryOnly] = useState(false);
@@ -72,20 +73,33 @@ export const JobsPage: React.FC = () => {
   );
 
   const filtered = useMemo(() => {
+    const q = searchQuery.toLowerCase().trim();
     return allJobs.filter((job) => {
       if (companyFilter && job.company_slug !== companyFilter) return false;
       if (deptFilter && job.department !== deptFilter) return false;
       if (salaryOnly && !job.salary_min) return false;
+      if (q) {
+        const haystack = [
+          job.title,
+          getCompanyName(job.company_slug),
+          job.department,
+          job.location,
+          ...(job.locations || []),
+          ...(job.skills || []),
+        ].filter(Boolean).join(' ').toLowerCase();
+        if (!haystack.includes(q)) return false;
+      }
       return true;
     });
   }, [allJobs, companyFilter, deptFilter, salaryOnly]);
 
-  const hasActiveFilters = companyFilter || deptFilter || salaryOnly;
+  const hasActiveFilters = searchQuery || companyFilter || deptFilter || salaryOnly;
   const visible = filtered.slice(0, visibleCount);
   const totalFiltered = hasActiveFilters ? filtered.length : totalCount;
   const hasMore = hasActiveFilters ? visibleCount < filtered.length : visibleCount < totalCount;
 
   const clearFilters = () => {
+    setSearchQuery('');
     setCompanyFilter('');
     setDeptFilter('');
     setSalaryOnly(false);
@@ -117,6 +131,18 @@ export const JobsPage: React.FC = () => {
             Curated AI roles open to candidates in Europe. Updated daily.
           </p>
         </motion.div>
+
+        {/* ── Search ───────────────────────────────────────── */}
+        <div className="relative mb-3">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 dark:text-slate-500 pointer-events-none" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => { setSearchQuery(e.target.value); setVisibleCount(PER_PAGE); }}
+            placeholder="Search jobs, companies, skills…"
+            className="w-full pl-8 pr-3 py-2 text-sm bg-white dark:bg-[#161618] border border-slate-200 dark:border-white/10 rounded-lg focus:outline-none focus:border-[#0F3D2E] dark:focus:border-[#10B981] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 transition-colors"
+          />
+        </div>
 
         {/* ── Filters ──────────────────────────────────────── */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-6">
